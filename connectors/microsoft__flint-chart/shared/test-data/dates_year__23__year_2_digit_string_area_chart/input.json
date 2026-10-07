@@ -1,0 +1,73 @@
+{
+  "title": "Year (2-digit string) → Area Chart",
+  "description": "Two-digit years: \"98\", \"99\", \"00\", \"01\", … (10 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Year": "98",
+          "Value": 282
+        },
+        {
+          "Year": "99",
+          "Value": 416
+        },
+        {
+          "Year": "00",
+          "Value": 299
+        },
+        {
+          "Year": "01",
+          "Value": 464
+        },
+        {
+          "Year": "02",
+          "Value": 101
+        },
+        {
+          "Year": "03",
+          "Value": 85
+        },
+        {
+          "Year": "04",
+          "Value": 204
+        },
+        {
+          "Year": "05",
+          "Value": 229
+        },
+        {
+          "Year": "06",
+          "Value": 426
+        },
+        {
+          "Year": "07",
+          "Value": 483
+        }
+      ]
+    },
+    "semantic_types": {
+      "Year": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Year"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

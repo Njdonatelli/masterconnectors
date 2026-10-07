@@ -1,0 +1,262 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Week",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 25
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Week": "Wk 01",
+        "Value": 332
+      },
+      {
+        "Week": "Wk 02",
+        "Value": 183
+      },
+      {
+        "Week": "Wk 03",
+        "Value": 439
+      },
+      {
+        "Week": "Wk 04",
+        "Value": 348
+      },
+      {
+        "Week": "Wk 05",
+        "Value": 217
+      },
+      {
+        "Week": "Wk 06",
+        "Value": 128
+      },
+      {
+        "Week": "Wk 07",
+        "Value": 51
+      },
+      {
+        "Week": "Wk 08",
+        "Value": 186
+      },
+      {
+        "Week": "Wk 09",
+        "Value": 236
+      },
+      {
+        "Week": "Wk 10",
+        "Value": 265
+      },
+      {
+        "Week": "Wk 11",
+        "Value": 187
+      },
+      {
+        "Week": "Wk 12",
+        "Value": 386
+      },
+      {
+        "Week": "Wk 13",
+        "Value": 151
+      },
+      {
+        "Week": "Wk 14",
+        "Value": 504
+      },
+      {
+        "Week": "Wk 15",
+        "Value": 123
+      },
+      {
+        "Week": "Wk 16",
+        "Value": 525
+      },
+      {
+        "Week": "Wk 17",
+        "Value": 113
+      },
+      {
+        "Week": "Wk 18",
+        "Value": 193
+      },
+      {
+        "Week": "Wk 19",
+        "Value": 64
+      },
+      {
+        "Week": "Wk 20",
+        "Value": 511
+      },
+      {
+        "Week": "Wk 21",
+        "Value": 146
+      },
+      {
+        "Week": "Wk 22",
+        "Value": 461
+      },
+      {
+        "Week": "Wk 23",
+        "Value": 222
+      },
+      {
+        "Week": "Wk 24",
+        "Value": 240
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

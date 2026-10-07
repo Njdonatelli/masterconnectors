@@ -1,0 +1,148 @@
+{
+  "mark": "arc",
+  "encoding": {
+    "theta": {
+      "field": "Sales",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "legend": {
+        "symbolSize": 12,
+        "labelFontSize": 8
+      },
+      "sort": null,
+      "scale": {
+        "scheme": "tableau20"
+      }
+    }
+  },
+  "width": 522,
+  "height": 522,
+  "config": {
+    "view": {
+      "continuousWidth": 522,
+      "continuousHeight": 522
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Region": "Electronics",
+        "Sales": 4347
+      },
+      {
+        "Region": "Clothing",
+        "Sales": 4301
+      },
+      {
+        "Region": "Food",
+        "Sales": 5098
+      },
+      {
+        "Region": "Books",
+        "Sales": 1293
+      },
+      {
+        "Region": "Sports",
+        "Sales": 4163
+      },
+      {
+        "Region": "Home",
+        "Sales": 2869
+      },
+      {
+        "Region": "Garden",
+        "Sales": 5444
+      },
+      {
+        "Region": "Auto",
+        "Sales": 2591
+      },
+      {
+        "Region": "Health",
+        "Sales": 1407
+      },
+      {
+        "Region": "Beauty",
+        "Sales": 2246
+      },
+      {
+        "Region": "Toys",
+        "Sales": 5168
+      },
+      {
+        "Region": "Music",
+        "Sales": 3215
+      },
+      {
+        "Region": "Movies",
+        "Sales": 3360
+      },
+      {
+        "Region": "Software",
+        "Sales": 1176
+      },
+      {
+        "Region": "Games",
+        "Sales": 4497
+      },
+      {
+        "Region": "Office",
+        "Sales": 5262
+      },
+      {
+        "Region": "Pet",
+        "Sales": 1783
+      },
+      {
+        "Region": "Baby",
+        "Sales": 4292
+      },
+      {
+        "Region": "Tools",
+        "Sales": 5312
+      },
+      {
+        "Region": "Crafts",
+        "Sales": 5358
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Donut",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

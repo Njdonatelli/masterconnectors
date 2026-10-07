@@ -1,0 +1,706 @@
+import Foundation
+
+@main
+struct InstallerConfigurationTests {
+    static func main() async throws {
+        let local = InstallRequest(mode: .local, serverURL: "", tunnelToken: "")
+        let localURL = try local.validatedServerURL()
+        let localToken = try local.validatedTunnelToken()
+        precondition(localURL == nil)
+        precondition(localToken == nil)
+
+        let named = InstallRequest(
+            mode: .named,
+            serverURL: "https://mini.example.com/",
+            tunnelToken: "secret-token"
+        )
+        let namedURL = try named.validatedServerURL()
+        let namedToken = try named.validatedTunnelToken()
+        precondition(namedURL == "https://mini.example.com")
+        precondition(namedToken == "secret-token")
+
+        let reuseNamed = InstallRequest(
+            mode: .named,
+            serverURL: "https://mini.example.com",
+            tunnelToken: ""
+        )
+        let reusedToken = try reuseNamed.validatedTunnelToken()
+        precondition(reusedToken == nil)
+
+        let environmentText = """
+        # preserved comment
+        AGENTDOCK_PORT=8765
+        AGENTDOCK_AUTH_TOKEN='secret-token'
+        AGENTDOCK_NEXUS_ENDPOINT=https://nexus.example.com
+        AGENTDOCK_NEXUS_TOKEN=obsolete-secret
+        AGENTDOCK_PORT=9999
+        """
+        let environment = ManagedEnvironment(
+            originalText: environmentText,
+            values: ManagedEnvironment.parseValues(environmentText)
+        )
+        precondition(environment.values["AGENTDOCK_PORT"] == "9999")
+        let updatedData = try environment.dataByUpdating([
+            "AGENTDOCK_PORT": "8877",
+            "AGENTDOCK_LOG_LEVEL": "debug",
+            "AGENTDOCK_BROWSER_CDP_URL": "http://127.0.0.1:9222",
+            "AGENTDOCK_BROWSER_REUSE_EXISTING_CDP": "true",
+        ], removing: ServiceConfiguration.removableLegacyKeys)
+        let updatedText = String(decoding: updatedData, as: UTF8.self)
+        let updatedValues = ManagedEnvironment.parseValues(updatedText)
+        precondition(updatedValues["AGENTDOCK_PORT"] == "8877")
+        precondition(updatedValues["AGENTDOCK_AUTH_TOKEN"] == "secret-token")
+        precondition(updatedValues["AGENTDOCK_LOG_LEVEL"] == "debug")
+        precondition(updatedValues["AGENTDOCK_NEXUS_ENDPOINT"] == nil)
+        precondition(updatedValues["AGENTDOCK_NEXUS_TOKEN"] == nil)
+        precondition(updatedValues["AGENTDOCK_BROWSER_CDP_URL"] == "http://127.0.0.1:9222")
+        precondition(updatedValues["AGENTDOCK_BROWSER_REUSE_EXISTING_CDP"] == "true")
+        precondition(updatedText.components(separatedBy: "AGENTDOCK_PORT=").count == 2)
+
+        let serviceEnvironmentURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("agentdock-service-config-\(UUID().uuidString).env")
+        defer { try? FileManager.default.removeItem(at: serviceEnvironmentURL) }
+        try Data("AGENTDOCK_PORT=8765\n".utf8).write(to: serviceEnvironmentURL)
+        precondition(ServiceConfiguration.load(from: serviceEnvironmentURL)?.mcpAppsMode == .full)
+        try Data("AGENTDOCK_PORT=8765\nAGENTDOCK_MCP_APPS_ENABLED=false\n".utf8).write(to: serviceEnvironmentURL)
+        precondition(ServiceConfiguration.load(from: serviceEnvironmentURL)?.mcpAppsMode == .off)
+        try Data("AGENTDOCK_PORT=8765\nAGENTDOCK_MCP_APPS_ENABLED=false\nAGENTDOCK_MCP_APPS_MODE=compact\n".utf8).write(to: serviceEnvironmentURL)
+        precondition(ServiceConfiguration.load(from: serviceEnvironmentURL)?.mcpAppsMode == .compact)
+
+        let nexusIdentityURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("agentdock-nexus-\(UUID().uuidString).json")
+        defer { try? FileManager.default.removeItem(at: nexusIdentityURL) }
+        try Data(#"{"endpoint":"https://nexus.example.com","node_id":"node_test","device_id":"device_test","device_token":"secret"}"#.utf8)
+            .write(to: nexusIdentityURL)
+        let nexusStatus = NexusDeviceStatus.load(from: nexusIdentityURL)
+        precondition(nexusStatus.paired)
+        precondition(nexusStatus.endpoint == "https://nexus.example.com")
+        precondition(nexusStatus.nodeID == "node_test")
+        precondition(nexusStatus.deviceTokenStored)
+
+        let legacyACPEnvironmentURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("agentdock-legacy-acp-\(UUID().uuidString).env")
+        defer { try? FileManager.default.removeItem(at: legacyACPEnvironmentURL) }
+        try Data("""
+        AGENTDOCK_PORT=8765
+        AGENTDOCK_ACP_ENABLED=true
+        AGENTDOCK_ACP_AGENT=grok
+        AGENTDOCK_ACP_COMMAND=/Users/test/.local/bin/grok
+        AGENTDOCK_ACP_ARGS_JSON='["agent","stdio"]'
+        AGENTDOCK_ACP_ENV_FROM_ENV_JSON='{"ZCODE_API_KEY":"HOST_ZCODE_API_KEY"}'
+        """.utf8).write(to: legacyACPEnvironmentURL)
+        let migratedACP = ServiceConfiguration.load(from: legacyACPEnvironmentURL)
+        precondition(migratedACP?.acpDefaultProfile == "grok")
+        precondition(migratedACP?.acpProfiles == [ACPProfileConfiguration(
+            id: "grok",
+            kind: .grok,
+            command: "/Users/test/.local/bin/grok",
+            args: ["agent", "stdio"],
+            envFromEnv: ["ZCODE_API_KEY": "HOST_ZCODE_API_KEY"],
+            enabled: true
+        )])
+
+        let legacyEnvironment = try ManagedEnvironment.load(from: legacyACPEnvironmentURL)
+        let migratedProfilesJSON = try ACPDesktopConfiguration.encodeProfiles(migratedACP?.acpProfiles ?? [])
+        let upgradedACPData = try legacyEnvironment.dataByUpdating([
+            "AGENTDOCK_ACP_ENABLED": "true",
+            "AGENTDOCK_ACP_PROFILES_JSON": migratedProfilesJSON,
+            "AGENTDOCK_ACP_DEFAULT_PROFILE": "grok",
+        ], removing: ServiceConfiguration.removableLegacyKeys)
+        let acpValues = ManagedEnvironment.parseValues(String(decoding: upgradedACPData, as: UTF8.self))
+        precondition(acpValues["AGENTDOCK_ACP_PROFILES_JSON"] == migratedProfilesJSON)
+        precondition(acpValues["AGENTDOCK_ACP_AGENT"] == nil)
+        precondition(acpValues["AGENTDOCK_ACP_COMMAND"] == nil)
+        precondition(acpValues["AGENTDOCK_ACP_ARGS_JSON"] == nil)
+        precondition(acpValues["AGENTDOCK_ACP_ENV_FROM_ENV_JSON"] == nil)
+        precondition(acpValues["AGENTDOCK_ACP_ALLOWED_ROOTS"] == nil)
+        precondition(ACPAgentPreset.grok.arguments == ["agent", "stdio"])
+        precondition(ACPAgentPreset.parse("GROK") == .grok)
+        precondition(ACPAgentPreset.parse("custom") == .custom)
+        precondition(ACPAgentPreset.parse("unsupported") == nil)
+        let encodedGrokArguments = try ACPDesktopConfiguration.encodeArguments(ACPAgentPreset.grok.arguments)
+        precondition(encodedGrokArguments == "[\"agent\",\"stdio\"]")
+        let decodedCustomArguments = try ACPDesktopConfiguration.decodeArguments("[\"--flag\",\"value\"]")
+        precondition(decodedCustomArguments == ["--flag", "value"])
+        expectFailure(L10n.text("Coding Agent startup arguments must be a JSON string array, for example [\"--flag\",\"value\"].")) {
+            _ = try ACPDesktopConfiguration.decodeArguments("--flag value")
+        }
+        try testACPAdapterResolution()
+
+        expectFailure(L10n.format(
+            "Contains configuration keys that the GUI is not allowed to modify: %@",
+            "AGENTDOCK_OAUTH_TOKEN_SECRET"
+        )) {
+            _ = try environment.dataByUpdating(["AGENTDOCK_OAUTH_TOKEN_SECRET": "nope"])
+        }
+
+        expectFailure(L10n.text("The public address cannot contain a path. Do not include /mcp.")) {
+            _ = try InstallRequest(mode: .named, serverURL: "https://mini.example.com/mcp", tunnelToken: "x").validatedServerURL()
+        }
+        expectFailure(L10n.text("The public address must use https://.")) {
+            _ = try InstallRequest(mode: .named, serverURL: "http://mini.example.com", tunnelToken: "x").validatedServerURL()
+        }
+        expectFailure(L10n.text("The public address must use a domain, not localhost or an IP address.")) {
+            _ = try InstallRequest(mode: .named, serverURL: "https://127.0.0.1", tunnelToken: "x").validatedServerURL()
+        }
+        let blankTunnelToken = try InstallRequest(
+            mode: .named,
+            serverURL: "https://mini.example.com",
+            tunnelToken: " "
+        ).validatedTunnelToken()
+        precondition(blankTunnelToken == nil)
+        try ServicePortValidation.validate(1024)
+        try ServicePortValidation.validate(65535)
+        expectFailure(L10n.text("The service port for a standard user must be between 1024 and 65535.")) {
+            try ServicePortValidation.validate(8)
+        }
+
+        precondition(AppVersion.matchesCoreVersion(
+            "AgentDock v0.7.2\ncommit: test\n",
+            expectedDisplayVersion: "v0.7.2"
+        ))
+        precondition(!AppVersion.matchesCoreVersion(
+            "AgentDock v0.7.1\ncommit: test\n",
+            expectedDisplayVersion: "v0.7.2"
+        ))
+        precondition(AppVersion.matchesHealthVersion("0.7.2", expectedDisplayVersion: "v0.7.2"))
+        precondition(!AppVersion.matchesHealthVersion("0.7.1", expectedDisplayVersion: "v0.7.2"))
+
+        try testTunnelTokenStore()
+        try testDesktopUpdateResult()
+        try await testDesktopUpdateTransactionRecoveryState()
+        try testDesktopUpdateTerminalResult()
+        try testDesktopUpdateServiceState()
+        try testDesktopUpdateHandoff()
+        try await testPublicEndpointChecker()
+        print("installer configuration tests passed")
+    }
+
+    private static func testDesktopUpdateResult() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockUpdateResultTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let path = root.appendingPathComponent("update-result.json")
+        let json = """
+        {"schema_version":1,"ok":true,"current_version":"v0.6.9","target_version":"v0.7.0","message":"更新完成"}
+        """
+        try Data(json.utf8).write(to: path)
+        let loaded = DesktopUpdateResult.load(from: path)
+        precondition(loaded?.ok == true)
+        precondition(loaded?.validatedPreviousAppBundle(
+            currentApp: root.appendingPathComponent("AgentDock.app")
+        ) == nil)
+        precondition(FileManager.default.fileExists(atPath: path.path))
+        let result = DesktopUpdateResult.consume(from: path)
+        precondition(result?.ok == true)
+        precondition(result?.targetVersion == "v0.7.0")
+        precondition(!FileManager.default.fileExists(atPath: path.path))
+
+        let currentApp = root.appendingPathComponent("AgentDock.app")
+        let previousApp = root.appendingPathComponent(".AgentDock.app.backup.test")
+        let resultWithPrevious = """
+        {"schema_version":1,"ok":true,"current_version":"v0.6.9","target_version":"v0.7.0","previous_app_path":"\(previousApp.path)","message":"更新完成"}
+        """
+        try Data(resultWithPrevious.utf8).write(to: path)
+        let loadedWithPrevious = DesktopUpdateResult.load(from: path)
+        precondition(
+            loadedWithPrevious?.validatedPreviousAppBundle(currentApp: currentApp)?.path
+                == previousApp.path
+        )
+        precondition(DesktopUpdateResult.discard(from: path))
+
+        try Data("not-json".utf8).write(to: path)
+        precondition(DesktopUpdateResult.load(from: path) == nil)
+        precondition(DesktopUpdateResult.discard(from: path))
+        precondition(!FileManager.default.fileExists(atPath: path.path))
+
+        // consume/discard 必须先移出固定 trigger 路径。目录不可写时应明确失败并保留证据，
+        // 不能假装已经消费，否则下一次启动无法判断真实状态。
+        let lockedRoot = root.appendingPathComponent("locked", isDirectory: true)
+        try FileManager.default.createDirectory(at: lockedRoot, withIntermediateDirectories: true)
+        let lockedPath = lockedRoot.appendingPathComponent("update-result.json")
+        try Data(json.utf8).write(to: lockedPath)
+        try FileManager.default.setAttributes([.posixPermissions: 0o555], ofItemAtPath: lockedRoot.path)
+        precondition(DesktopUpdateResult.consume(from: lockedPath) == nil)
+        precondition(FileManager.default.fileExists(atPath: lockedPath.path))
+        precondition(!DesktopUpdateResult.discard(from: lockedPath))
+        precondition(FileManager.default.fileExists(atPath: lockedPath.path))
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: lockedRoot.path)
+        precondition(DesktopUpdateResult.discard(from: lockedPath))
+        precondition(!FileManager.default.fileExists(atPath: lockedPath.path))
+    }
+
+    private static func testDesktopUpdateTransactionRecoveryState() async throws {
+        let home = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockUpdateRecoveryTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: home) }
+
+        let appBundle = home.appendingPathComponent("Applications/AgentDock.app", isDirectory: true)
+        let paths = AppPaths(home: home, appBundle: appBundle)
+        try FileManager.default.createDirectory(
+            at: paths.updateTransaction.deletingLastPathComponent(),
+            withIntermediateDirectories: true
+        )
+
+        let active = """
+        {"schema_version":1,"transaction_id":"tx-active","platform":"darwin","state":"trial","macos":{"source_arbiter_path":"/tmp/missing-arbiter"}}
+        """
+        try Data(active.utf8).write(to: paths.updateTransaction)
+        precondition(DesktopUpdateTransactionRecovery.inspect(paths: paths).kind == .nonTerminal)
+
+        let safeTerminal = """
+        {"schema_version":1,"transaction_id":"tx-safe","platform":"darwin","state":"rolled_back"}
+        """
+        try Data(safeTerminal.utf8).write(to: paths.updateTransaction)
+        let safeTerminalOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(paths: paths)
+        precondition(safeTerminalOutcome == .terminal(transactionID: "tx-safe", state: .rolledBack))
+        precondition(!safeTerminalOutcome.requiresUpdateLock)
+
+        let failedTerminal = """
+        {"schema_version":1,"transaction_id":"tx-failed","platform":"darwin","state":"failed"}
+        """
+        try Data(failedTerminal.utf8).write(to: paths.updateTransaction)
+        let failedOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(paths: paths)
+        precondition(failedOutcome == .terminal(transactionID: "tx-failed", state: .failed))
+        precondition(!failedOutcome.requiresUpdateLock)
+        precondition(!failedOutcome.allowsCoordinationCleanup)
+
+        try Data("not-json".utf8).write(to: paths.updateTransaction)
+        precondition(DesktopUpdateTransactionRecovery.inspect(paths: paths).kind == .unreadable)
+        let malformedOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(paths: paths)
+        precondition(malformedOutcome == .blocked)
+
+        let arbiterRoot = paths.appSupport.appendingPathComponent("update/arbiters", isDirectory: true)
+        try FileManager.default.createDirectory(at: arbiterRoot, withIntermediateDirectories: true)
+
+        func writeTransaction(id: String, state: String, arbiter: URL) throws {
+            let payload: [String: Any] = [
+                "schema_version": 1,
+                "transaction_id": id,
+                "platform": "darwin",
+                "state": state,
+                "macos": ["source_arbiter_path": arbiter.path],
+            ]
+            let data = try JSONSerialization.data(withJSONObject: payload, options: [.sortedKeys])
+            try data.write(to: paths.updateTransaction, options: .atomic)
+        }
+
+        func writeExecutable(_ body: String, transactionID: String) throws -> URL {
+            let transactionRoot = arbiterRoot.appendingPathComponent(transactionID, isDirectory: true)
+            try FileManager.default.createDirectory(at: transactionRoot, withIntermediateDirectories: true)
+            let url = transactionRoot.appendingPathComponent("agentdock-arbiter")
+            try Data(body.utf8).write(to: url, options: .atomic)
+            try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: url.path)
+            return url
+        }
+
+        // staged 已经是 durable non-terminal state；崩溃发生在 journal 写入和 Arbiter 启动之间时，
+        // 下一次启动必须继续 probe，而不是把它误判成“没有 active transaction”。
+        let stagedArbiter = try writeExecutable("#!/bin/sh\nexit 0\n", transactionID: "tx-staged")
+        try writeTransaction(id: "tx-staged", state: "staged", arbiter: stagedArbiter)
+        let stagedOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(
+            paths: paths,
+            recoveryTimeout: 2
+        )
+        precondition(stagedOutcome == .liveArbiter(transactionID: "tx-staged"))
+        precondition(stagedOutcome.requiresUpdateLock)
+
+        // 兼容当前 source Arbiter 契约：原 Arbiter 正常持有 transaction.lock 时，
+        // --recover-if-unlocked 会 exit 0，同时 durable journal 仍保持 trial。
+        let liveOwnerArbiter = try writeExecutable("#!/bin/sh\nexit 0\n", transactionID: "tx-live")
+        try writeTransaction(id: "tx-live", state: "trial", arbiter: liveOwnerArbiter)
+        let liveOwnerOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(
+            paths: paths,
+            recoveryTimeout: 2
+        )
+        precondition(liveOwnerOutcome == .liveArbiter(transactionID: "tx-live"))
+        precondition(liveOwnerOutcome.requiresUpdateLock)
+
+        // 非零退出且 journal 仍 active 才表示 recovery 未能建立安全状态。
+        let failingArbiter = try writeExecutable("#!/bin/sh\nexit 1\n", transactionID: "tx-failing")
+        try writeTransaction(id: "tx-failing", state: "trial", arbiter: failingArbiter)
+        let failingOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(
+            paths: paths,
+            recoveryTimeout: 2
+        )
+        precondition(failingOutcome == .blocked)
+
+        // orphaned trial 被接管后，成功 rollback 仍会返回原 trial error（进程非零退出）。
+        // 此时必须以 durable journal 的 rolled_back 为准，而不是只看 exit status。
+        let rolledBackPayload = "{\"schema_version\":1,\"transaction_id\":\"tx-recovered\",\"platform\":\"darwin\",\"state\":\"rolled_back\"}"
+        let recoveredScript = """
+        #!/bin/sh
+        printf '%s' '\(rolledBackPayload)' > '\(paths.updateTransaction.path)'
+        exit 1
+        """
+        let recoveredArbiter = try writeExecutable(recoveredScript, transactionID: "tx-recovered")
+        try writeTransaction(id: "tx-recovered", state: "trial", arbiter: recoveredArbiter)
+        let recoveredOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(
+            paths: paths,
+            recoveryTimeout: 2
+        )
+        precondition(recoveredOutcome == .recovered(transactionID: "tx-recovered", state: .rolledBack))
+        precondition(!recoveredOutcome.requiresUpdateLock)
+
+        // recovery 期间 transaction 被替换时不能把新事务误认为旧事务已经收敛。
+        let changedPayload = "{\"schema_version\":1,\"transaction_id\":\"tx-new\",\"platform\":\"darwin\",\"state\":\"trial\"}"
+        let changedScript = """
+        #!/bin/sh
+        printf '%s' '\(changedPayload)' > '\(paths.updateTransaction.path)'
+        exit 0
+        """
+        let changedArbiter = try writeExecutable(changedScript, transactionID: "tx-old")
+        try writeTransaction(id: "tx-old", state: "trial", arbiter: changedArbiter)
+        let changedOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(
+            paths: paths,
+            recoveryTimeout: 2
+        )
+        precondition(changedOutcome == .blocked)
+
+        // trusted 目录里的 symlink 不能借真实路径逃逸后执行目录外程序。
+        let escapedRoot = arbiterRoot.appendingPathComponent("tx-escape", isDirectory: true)
+        try FileManager.default.createDirectory(at: escapedRoot, withIntermediateDirectories: true)
+        let escapedArbiter = escapedRoot.appendingPathComponent("agentdock-arbiter")
+        try? FileManager.default.removeItem(at: escapedArbiter)
+        try FileManager.default.createSymbolicLink(
+            at: escapedArbiter,
+            withDestinationURL: URL(fileURLWithPath: "/usr/bin/true")
+        )
+        try writeTransaction(id: "tx-escape", state: "trial", arbiter: escapedArbiter)
+        let escapedOutcome = await DesktopUpdateTransactionRecovery.recoverIfNeeded(
+            paths: paths,
+            recoveryTimeout: 0.2
+        )
+        precondition(escapedOutcome == .blocked)
+
+        // 平台字段属于 durable contract；Windows journal 不能被 macOS Desktop 当成本地事务消费。
+        let foreignPlatform = """
+        {"schema_version":1,"transaction_id":"tx-windows","platform":"windows","state":"failed"}
+        """
+        try Data(foreignPlatform.utf8).write(to: paths.updateTransaction)
+        precondition(DesktopUpdateTransactionRecovery.inspect(paths: paths).kind == .unreadable)
+    }
+
+    private static func testDesktopUpdateTerminalResult() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockUpdateTerminalResultTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
+        let path = root.appendingPathComponent("result.json")
+        let json = """
+        {"schema_version":1,"transaction_id":"tx-1","platform":"darwin","source_version":"v0.8.3","target_version":"v0.8.4","state":"committed","warnings":["warning"]}
+        """
+        try Data(json.utf8).write(to: path)
+
+        let result = DesktopUpdateTerminalResult.load(from: path, transactionID: "tx-1")
+        precondition(result?.state == "committed")
+        precondition(result?.warnings == ["warning"])
+        precondition(DesktopUpdateTerminalResult.load(from: path, transactionID: "tx-other") == nil)
+
+        let foreignPlatform = json.replacingOccurrences(of: "\"darwin\"", with: "\"windows\"")
+        try Data(foreignPlatform.utf8).write(to: path)
+        precondition(DesktopUpdateTerminalResult.load(from: path, transactionID: "tx-1") == nil)
+    }
+
+    private static func testDesktopUpdateServiceState() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockUpdateServiceStateTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let path = root.appendingPathComponent("update-services.json")
+        let expected = DesktopUpdateServiceState(coreEnabled: true, tunnelEnabled: false)
+        try expected.write(to: path)
+        let loaded = try DesktopUpdateServiceState.load(from: path)
+        precondition(loaded?.coreEnabled == true)
+        precondition(loaded?.tunnelEnabled == false)
+        let attributes = try FileManager.default.attributesOfItem(atPath: path.path)
+        let permissions = (attributes[.posixPermissions] as? NSNumber)?.intValue ?? 0o777
+        precondition(permissions & 0o077 == 0)
+        DesktopUpdateServiceState.remove(at: path)
+        precondition(!FileManager.default.fileExists(atPath: path.path))
+    }
+
+    private static func testDesktopUpdateHandoff() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockUpdateHandoffTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let path = root.appendingPathComponent("update-handoff.json")
+        try DesktopUpdateHandoff(targetVersion: "v0.7.1").write(to: path)
+
+        let data = try Data(contentsOf: path)
+        let payload = try JSONSerialization.jsonObject(with: data) as? [String: Any]
+        precondition(payload?["schema_version"] as? Int == DesktopUpdateHandoff.schemaVersion)
+        precondition(payload?["target_version"] as? String == "v0.7.1")
+        let attributes = try FileManager.default.attributesOfItem(atPath: path.path)
+        let permissions = (attributes[.posixPermissions] as? NSNumber)?.intValue ?? 0o777
+        precondition(permissions & 0o077 == 0)
+
+        DesktopUpdateHandoff.remove(at: path)
+        precondition(!FileManager.default.fileExists(atPath: path.path))
+    }
+
+    private static func testACPAdapterResolution() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockACPAdapterTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+        let bin = root.appendingPathComponent(".local/bin", isDirectory: true)
+        try FileManager.default.createDirectory(at: bin, withIntermediateDirectories: true)
+        let grokTarget = root.appendingPathComponent("downloads/grok-1.0.0")
+        try FileManager.default.createDirectory(at: grokTarget.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data("#!/bin/sh\nexit 0\n".utf8).write(to: grokTarget)
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: grokTarget.path)
+        let grok = bin.appendingPathComponent("grok")
+        try FileManager.default.createSymbolicLink(at: grok, withDestinationURL: grokTarget)
+
+        let direct = ACPAgentPreset.grok.resolveAdapter(home: root, environment: [:])
+        precondition(direct.available)
+        precondition(direct.command == grok.path)
+        precondition(direct.arguments == ["agent", "stdio"])
+
+        let legacyGrok = ACPAgentPreset.grok.resolveAdapter(
+            configuredCommand: grokTarget.path,
+            configuredArguments: ["agent", "stdio"],
+            home: root,
+            environment: [:]
+        )
+        precondition(legacyGrok.command == grok.path)
+
+        let customGrok = root.appendingPathComponent("custom/grok")
+        try FileManager.default.createDirectory(at: customGrok.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data("#!/bin/sh\nexit 0\n".utf8).write(to: customGrok)
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: customGrok.path)
+        let configuredGrok = ACPAgentPreset.grok.resolveAdapter(
+            configuredCommand: customGrok.path,
+            configuredArguments: ["agent", "stdio"],
+            home: root,
+            environment: [:]
+        )
+        precondition(configuredGrok.command == customGrok.path)
+
+        let custom = ACPAgentPreset.custom.resolveAdapter(
+            configuredCommand: customGrok.path,
+            configuredArguments: ["--custom"],
+            home: root,
+            environment: [:]
+        )
+        precondition(custom.available)
+        precondition(custom.command == customGrok.path)
+        precondition(custom.arguments == ["--custom"])
+        precondition(!ACPAgentPreset.custom.resolveAdapter(home: root, environment: [:]).available)
+        precondition(!ACPAgentPreset.custom.resolveAdapter(
+            configuredCommand: "custom/grok",
+            home: root,
+            environment: [:]
+        ).available)
+
+        let nodeTarget = root.appendingPathComponent("runtime/node-24.0.0")
+        try FileManager.default.createDirectory(at: nodeTarget.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data("#!/bin/sh\nexit 0\n".utf8).write(to: nodeTarget)
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: nodeTarget.path)
+        let node = bin.appendingPathComponent("node")
+        try FileManager.default.createSymbolicLink(at: node, withDestinationURL: nodeTarget)
+        let packageRoot = root
+            .appendingPathComponent(".local/lib/node_modules/@agentclientprotocol/codex-acp", isDirectory: true)
+        let entry = packageRoot.appendingPathComponent("dist/index.js")
+        try FileManager.default.createDirectory(at: entry.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data("console.log('codex acp')\n".utf8).write(to: entry)
+        try Data("{\"bin\":{\"codex-acp\":\"dist/index.js\"}}".utf8)
+            .write(to: packageRoot.appendingPathComponent("package.json"))
+
+        let npm = ACPAgentPreset.codex.resolveAdapter(home: root, environment: [:])
+        precondition(npm.available)
+        // 开发机可能已经在系统目录安装 codex-acp；此时预设会按真实优先级先命中系统入口。
+        // CI/干净环境仍会覆盖下面的 npm package fallback，避免宿主安装状态让整个 macOS 测试失效。
+        if npm.arguments == [entry.path] {
+            precondition(npm.command == node.path)
+        }
+
+        let legacyNode = ACPAgentPreset.codex.resolveAdapter(
+            configuredCommand: nodeTarget.path,
+            configuredArguments: [entry.path],
+            home: root,
+            environment: [:]
+        )
+        precondition(legacyNode.command == (npm.arguments == [entry.path] ? node.path : nodeTarget.path))
+        precondition(legacyNode.arguments == [entry.path])
+
+        let codexScriptTarget = root.appendingPathComponent("downloads/codex-acp-1.0.0.js")
+        try Data("#!/usr/bin/env node\nconsole.log('codex direct')\n".utf8).write(to: codexScriptTarget)
+        try FileManager.default.setAttributes([.posixPermissions: 0o755], ofItemAtPath: codexScriptTarget.path)
+        let codexScript = bin.appendingPathComponent("codex-acp")
+        try FileManager.default.createSymbolicLink(at: codexScript, withDestinationURL: codexScriptTarget)
+        let directNodeScript = ACPAgentPreset.codex.resolveAdapter(home: root, environment: [:])
+        precondition(directNodeScript.available)
+        precondition(directNodeScript.command == node.path)
+        precondition(directNodeScript.arguments == [codexScript.path])
+
+        let revalidatedNodeScript = ACPAgentPreset.codex.resolveAdapter(
+            configuredCommand: directNodeScript.command,
+            configuredArguments: directNodeScript.arguments,
+            home: root,
+            environment: [:]
+        )
+        precondition(revalidatedNodeScript.command == node.path)
+        precondition(revalidatedNodeScript.arguments == [codexScript.path])
+
+        let claudePackageRoot = root
+            .appendingPathComponent(".local/lib/node_modules/@agentclientprotocol/claude-agent-acp", isDirectory: true)
+        let claudeEntry = claudePackageRoot.appendingPathComponent("dist/cli.js")
+        try FileManager.default.createDirectory(at: claudeEntry.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try Data("console.log('claude acp')\n".utf8).write(to: claudeEntry)
+        try Data("{\"bin\":\"dist/cli.js\"}".utf8)
+            .write(to: claudePackageRoot.appendingPathComponent("package.json"))
+        let claude = ACPAgentPreset.claude.resolveAdapter(home: root, environment: [:])
+        precondition(claude.available)
+        precondition(claude.command == node.path)
+        precondition(claude.arguments == [claudeEntry.path])
+
+        let configured = ACPAgentPreset.codex.resolveAdapter(
+            configuredCommand: node.path,
+            configuredArguments: [entry.path],
+            home: root,
+            environment: [:]
+        )
+        precondition(configured.available)
+        precondition(configured.command == node.path)
+        precondition(configured.arguments == [entry.path])
+
+    }
+
+    private static func testTunnelTokenStore() throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockTunnelTokenStoreTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+
+        let paths = AppPaths(home: root)
+        try FileManager.default.createDirectory(at: paths.appSupport, withIntermediateDirectories: true)
+        let namedEnvironment = """
+        AGENTDOCK_TUNNEL_MODE='named'
+        AGENTDOCK_TUNNEL_TARGET='http://127.0.0.1:8765'
+        TUNNEL_TOKEN='saved-token'
+        """
+        try Data(namedEnvironment.utf8).write(to: paths.tunnelEnvironment)
+        try FileManager.default.setAttributes(
+            [.posixPermissions: NSNumber(value: Int16(0o600))],
+            ofItemAtPath: paths.tunnelEnvironment.path
+        )
+
+        let store = TunnelTokenStore(paths: paths)
+        try store.captureExistingTokenIfPresent()
+        let migratedToken = try store.storedToken()
+        precondition(migratedToken == "saved-token")
+
+        let quickEnvironment = """
+        AGENTDOCK_TUNNEL_MODE='quick'
+        AGENTDOCK_TUNNEL_TARGET='http://127.0.0.1:8765'
+        TUNNEL_TOKEN=''
+        """
+        try Data(quickEnvironment.utf8).write(to: paths.tunnelEnvironment)
+        try store.captureExistingTokenIfPresent()
+        let tokenAfterQuickSwitch = try store.storedToken()
+        let reusedStoredToken = try store.tokenForNamedTunnel(providedToken: nil)
+        let replacementToken = try store.tokenForNamedTunnel(providedToken: " replacement-token ")
+        precondition(tokenAfterQuickSwitch == "saved-token")
+        precondition(reusedStoredToken == "saved-token")
+        precondition(replacementToken == "replacement-token")
+
+        let attributes = try FileManager.default.attributesOfItem(atPath: paths.tunnelTokenStore.path)
+        let permissions = (attributes[.posixPermissions] as? NSNumber)?.intValue ?? 0o777
+        precondition(permissions & 0o077 == 0)
+
+        try store.persist("new-token")
+        let updatedToken = try store.storedToken()
+        precondition(updatedToken == "new-token")
+        expectFailure(L10n.text("Cloudflare Tunnel Token must be a single line of text.")) {
+            try store.persist("line-one\nline-two")
+        }
+    }
+
+    private static func testPublicEndpointChecker() async throws {
+        let publicMCPURL = URL(string: "https://temporary.example.com/mcp")!
+        precondition(
+            PublicEndpointChecker.healthURL(from: publicMCPURL)?.absoluteString
+                == "https://temporary.example.com/healthz"
+        )
+        precondition(PublicEndpointChecker.healthURL(from: URL(string: "http://temporary.example.com/mcp")!) == nil)
+
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [MockURLProtocol.self]
+        let session = URLSession(configuration: configuration)
+        defer { session.invalidateAndCancel() }
+        let checker = PublicEndpointChecker(session: session)
+
+        MockURLProtocol.handler = { request in
+            precondition(request.url?.absoluteString == "https://temporary.example.com/healthz")
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 200,
+                httpVersion: "HTTP/1.1",
+                headerFields: ["Content-Type": "application/json"]
+            )!
+            return (response, Data("{\"ok\":true,\"version\":\"0.6.0\"}".utf8))
+        }
+        let success = await checker.check(publicMCPURL: publicMCPURL)
+        precondition(success.isReachable)
+        precondition(success.message == L10n.text("Reachable"))
+        precondition(success.latencyMilliseconds != nil)
+
+        MockURLProtocol.handler = { request in
+            let response = HTTPURLResponse(
+                url: request.url!,
+                statusCode: 502,
+                httpVersion: "HTTP/1.1",
+                headerFields: nil
+            )!
+            return (response, Data())
+        }
+        let badGateway = await checker.check(publicMCPURL: publicMCPURL)
+        precondition(!badGateway.isReachable)
+        precondition(badGateway.message == L10n.format("Public address returned HTTP %d", 502))
+
+        MockURLProtocol.handler = { _ in
+            throw URLError(.timedOut)
+        }
+        let timeout = await checker.check(publicMCPURL: publicMCPURL)
+        precondition(!timeout.isReachable)
+        precondition(timeout.message == L10n.text("Public access timed out"))
+    }
+
+    private static func expectFailure(_ message: String, _ operation: () throws -> Void) {
+        do {
+            try operation()
+            fputs("expected failure: \(message)\n", stderr)
+            exit(1)
+        } catch {
+            guard error.localizedDescription.contains(message) else {
+                fputs("unexpected error: \(error.localizedDescription)\n", stderr)
+                exit(1)
+            }
+        }
+    }
+}
+
+private final class MockURLProtocol: URLProtocol {
+    static var handler: ((URLRequest) throws -> (HTTPURLResponse, Data))?
+
+    override class func canInit(with request: URLRequest) -> Bool { true }
+
+    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+
+    override func startLoading() {
+        guard let handler = Self.handler else {
+            client?.urlProtocol(self, didFailWithError: URLError(.unknown))
+            return
+        }
+        do {
+            let (response, data) = try handler(request)
+            client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+            client?.urlProtocol(self, didLoad: data)
+            client?.urlProtocolDidFinishLoading(self)
+        } catch {
+            client?.urlProtocol(self, didFailWithError: error)
+        }
+    }
+
+    override func stopLoading() {}
+}

@@ -1,0 +1,187 @@
+{
+  "title": "DateTime (ISO 8601) → Stacked Bar Chart",
+  "description": "Full datetime: \"2020-01-01T08:00:00\", … (10 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "DateTime": "2020-01-01T08:00:00",
+          "Value": 328,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T08:00:00",
+          "Value": 521,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T08:00:00",
+          "Value": 274,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T09:00:00",
+          "Value": 116,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T09:00:00",
+          "Value": 348,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T09:00:00",
+          "Value": 316,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T10:00:00",
+          "Value": 247,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T10:00:00",
+          "Value": 370,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T10:00:00",
+          "Value": 511,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-04T11:00:00",
+          "Value": 281,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-04T11:00:00",
+          "Value": 392,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-04T11:00:00",
+          "Value": 339,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-05T12:00:00",
+          "Value": 478,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-05T12:00:00",
+          "Value": 51,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-05T12:00:00",
+          "Value": 249,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-06T13:00:00",
+          "Value": 305,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-06T13:00:00",
+          "Value": 176,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-06T13:00:00",
+          "Value": 378,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-07T14:00:00",
+          "Value": 156,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-07T14:00:00",
+          "Value": 331,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-07T14:00:00",
+          "Value": 499,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-08T15:00:00",
+          "Value": 514,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-08T15:00:00",
+          "Value": 472,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-08T15:00:00",
+          "Value": 260,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-09T16:00:00",
+          "Value": 382,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-09T16:00:00",
+          "Value": 308,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-09T16:00:00",
+          "Value": 411,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-10T17:00:00",
+          "Value": 60,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-10T17:00:00",
+          "Value": 449,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-10T17:00:00",
+          "Value": 188,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "DateTime": "DateTime",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "DateTime"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

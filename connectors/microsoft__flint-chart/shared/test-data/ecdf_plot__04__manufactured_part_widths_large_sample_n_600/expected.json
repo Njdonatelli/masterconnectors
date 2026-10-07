@@ -1,0 +1,1936 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Part width (mm)",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Part width (mm)",
+          "order": "ascending"
+        }
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Part width (mm)",
+          "as": "__ecdf_total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Part width (mm)",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Part width (mm)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Part width (mm)": 48.93
+      },
+      {
+        "Part width (mm)": 44.67
+      },
+      {
+        "Part width (mm)": 47.7
+      },
+      {
+        "Part width (mm)": 50.84
+      },
+      {
+        "Part width (mm)": 48.8
+      },
+      {
+        "Part width (mm)": 56.19
+      },
+      {
+        "Part width (mm)": 52.13
+      },
+      {
+        "Part width (mm)": 47.58
+      },
+      {
+        "Part width (mm)": 48.24
+      },
+      {
+        "Part width (mm)": 51.32
+      },
+      {
+        "Part width (mm)": 50.52
+      },
+      {
+        "Part width (mm)": 48.89
+      },
+      {
+        "Part width (mm)": 50.03
+      },
+      {
+        "Part width (mm)": 50.54
+      },
+      {
+        "Part width (mm)": 52.21
+      },
+      {
+        "Part width (mm)": 48.15
+      },
+      {
+        "Part width (mm)": 48.14
+      },
+      {
+        "Part width (mm)": 48.22
+      },
+      {
+        "Part width (mm)": 48.12
+      },
+      {
+        "Part width (mm)": 51.66
+      },
+      {
+        "Part width (mm)": 49.09
+      },
+      {
+        "Part width (mm)": 46.53
+      },
+      {
+        "Part width (mm)": 48.55
+      },
+      {
+        "Part width (mm)": 52.44
+      },
+      {
+        "Part width (mm)": 48.24
+      },
+      {
+        "Part width (mm)": 50.54
+      },
+      {
+        "Part width (mm)": 48.26
+      },
+      {
+        "Part width (mm)": 47.46
+      },
+      {
+        "Part width (mm)": 54.1
+      },
+      {
+        "Part width (mm)": 50.87
+      },
+      {
+        "Part width (mm)": 49.81
+      },
+      {
+        "Part width (mm)": 50.31
+      },
+      {
+        "Part width (mm)": 52.44
+      },
+      {
+        "Part width (mm)": 52.53
+      },
+      {
+        "Part width (mm)": 52.51
+      },
+      {
+        "Part width (mm)": 51.3
+      },
+      {
+        "Part width (mm)": 49.54
+      },
+      {
+        "Part width (mm)": 46.68
+      },
+      {
+        "Part width (mm)": 49.25
+      },
+      {
+        "Part width (mm)": 50.84
+      },
+      {
+        "Part width (mm)": 52.06
+      },
+      {
+        "Part width (mm)": 49.15
+      },
+      {
+        "Part width (mm)": 46.39
+      },
+      {
+        "Part width (mm)": 48.23
+      },
+      {
+        "Part width (mm)": 49.32
+      },
+      {
+        "Part width (mm)": 48.29
+      },
+      {
+        "Part width (mm)": 49.64
+      },
+      {
+        "Part width (mm)": 49.85
+      },
+      {
+        "Part width (mm)": 48.67
+      },
+      {
+        "Part width (mm)": 48.27
+      },
+      {
+        "Part width (mm)": 50.67
+      },
+      {
+        "Part width (mm)": 50.7
+      },
+      {
+        "Part width (mm)": 48.85
+      },
+      {
+        "Part width (mm)": 51.03
+      },
+      {
+        "Part width (mm)": 47.14
+      },
+      {
+        "Part width (mm)": 47.07
+      },
+      {
+        "Part width (mm)": 49.3
+      },
+      {
+        "Part width (mm)": 47.58
+      },
+      {
+        "Part width (mm)": 47.21
+      },
+      {
+        "Part width (mm)": 47.83
+      },
+      {
+        "Part width (mm)": 50.84
+      },
+      {
+        "Part width (mm)": 51.08
+      },
+      {
+        "Part width (mm)": 49.77
+      },
+      {
+        "Part width (mm)": 50.28
+      },
+      {
+        "Part width (mm)": 49.9
+      },
+      {
+        "Part width (mm)": 53.09
+      },
+      {
+        "Part width (mm)": 48.05
+      },
+      {
+        "Part width (mm)": 50.03
+      },
+      {
+        "Part width (mm)": 49.08
+      },
+      {
+        "Part width (mm)": 48.34
+      },
+      {
+        "Part width (mm)": 50.78
+      },
+      {
+        "Part width (mm)": 48.96
+      },
+      {
+        "Part width (mm)": 50.87
+      },
+      {
+        "Part width (mm)": 52.18
+      },
+      {
+        "Part width (mm)": 50.63
+      },
+      {
+        "Part width (mm)": 46.83
+      },
+      {
+        "Part width (mm)": 50.45
+      },
+      {
+        "Part width (mm)": 50.99
+      },
+      {
+        "Part width (mm)": 47.6
+      },
+      {
+        "Part width (mm)": 52.89
+      },
+      {
+        "Part width (mm)": 49.14
+      },
+      {
+        "Part width (mm)": 53.57
+      },
+      {
+        "Part width (mm)": 46.02
+      },
+      {
+        "Part width (mm)": 51.1
+      },
+      {
+        "Part width (mm)": 52.15
+      },
+      {
+        "Part width (mm)": 50.87
+      },
+      {
+        "Part width (mm)": 50.74
+      },
+      {
+        "Part width (mm)": 46.65
+      },
+      {
+        "Part width (mm)": 48.53
+      },
+      {
+        "Part width (mm)": 48.37
+      },
+      {
+        "Part width (mm)": 54.15
+      },
+      {
+        "Part width (mm)": 53.48
+      },
+      {
+        "Part width (mm)": 47.94
+      },
+      {
+        "Part width (mm)": 49.96
+      },
+      {
+        "Part width (mm)": 45.76
+      },
+      {
+        "Part width (mm)": 48.98
+      },
+      {
+        "Part width (mm)": 53.5
+      },
+      {
+        "Part width (mm)": 48.18
+      },
+      {
+        "Part width (mm)": 48.45
+      },
+      {
+        "Part width (mm)": 51.08
+      },
+      {
+        "Part width (mm)": 52.2
+      },
+      {
+        "Part width (mm)": 51.16
+      },
+      {
+        "Part width (mm)": 50.75
+      },
+      {
+        "Part width (mm)": 49.54
+      },
+      {
+        "Part width (mm)": 52.05
+      },
+      {
+        "Part width (mm)": 49.76
+      },
+      {
+        "Part width (mm)": 49.71
+      },
+      {
+        "Part width (mm)": 52.35
+      },
+      {
+        "Part width (mm)": 50.27
+      },
+      {
+        "Part width (mm)": 47.53
+      },
+      {
+        "Part width (mm)": 52.1
+      },
+      {
+        "Part width (mm)": 47.74
+      },
+      {
+        "Part width (mm)": 50.2
+      },
+      {
+        "Part width (mm)": 49.24
+      },
+      {
+        "Part width (mm)": 50.27
+      },
+      {
+        "Part width (mm)": 51.14
+      },
+      {
+        "Part width (mm)": 46.62
+      },
+      {
+        "Part width (mm)": 48.54
+      },
+      {
+        "Part width (mm)": 52.1
+      },
+      {
+        "Part width (mm)": 50.91
+      },
+      {
+        "Part width (mm)": 48.87
+      },
+      {
+        "Part width (mm)": 51.52
+      },
+      {
+        "Part width (mm)": 53.05
+      },
+      {
+        "Part width (mm)": 52.19
+      },
+      {
+        "Part width (mm)": 54.16
+      },
+      {
+        "Part width (mm)": 50.46
+      },
+      {
+        "Part width (mm)": 49.91
+      },
+      {
+        "Part width (mm)": 52.59
+      },
+      {
+        "Part width (mm)": 46.25
+      },
+      {
+        "Part width (mm)": 53.1
+      },
+      {
+        "Part width (mm)": 54.58
+      },
+      {
+        "Part width (mm)": 45.5
+      },
+      {
+        "Part width (mm)": 52.29
+      },
+      {
+        "Part width (mm)": 48.74
+      },
+      {
+        "Part width (mm)": 51.73
+      },
+      {
+        "Part width (mm)": 49.88
+      },
+      {
+        "Part width (mm)": 51.18
+      },
+      {
+        "Part width (mm)": 49.78
+      },
+      {
+        "Part width (mm)": 55.55
+      },
+      {
+        "Part width (mm)": 48.71
+      },
+      {
+        "Part width (mm)": 54.1
+      },
+      {
+        "Part width (mm)": 51.19
+      },
+      {
+        "Part width (mm)": 49.57
+      },
+      {
+        "Part width (mm)": 45.7
+      },
+      {
+        "Part width (mm)": 52.47
+      },
+      {
+        "Part width (mm)": 53.56
+      },
+      {
+        "Part width (mm)": 50.19
+      },
+      {
+        "Part width (mm)": 49.25
+      },
+      {
+        "Part width (mm)": 47.95
+      },
+      {
+        "Part width (mm)": 49.55
+      },
+      {
+        "Part width (mm)": 49.67
+      },
+      {
+        "Part width (mm)": 48.14
+      },
+      {
+        "Part width (mm)": 50.2
+      },
+      {
+        "Part width (mm)": 53.81
+      },
+      {
+        "Part width (mm)": 50.82
+      },
+      {
+        "Part width (mm)": 48.84
+      },
+      {
+        "Part width (mm)": 54.48
+      },
+      {
+        "Part width (mm)": 51.97
+      },
+      {
+        "Part width (mm)": 50.69
+      },
+      {
+        "Part width (mm)": 50.72
+      },
+      {
+        "Part width (mm)": 50.03
+      },
+      {
+        "Part width (mm)": 54.21
+      },
+      {
+        "Part width (mm)": 44.21
+      },
+      {
+        "Part width (mm)": 52.39
+      },
+      {
+        "Part width (mm)": 46.83
+      },
+      {
+        "Part width (mm)": 49.63
+      },
+      {
+        "Part width (mm)": 52.73
+      },
+      {
+        "Part width (mm)": 50.57
+      },
+      {
+        "Part width (mm)": 48.35
+      },
+      {
+        "Part width (mm)": 50.71
+      },
+      {
+        "Part width (mm)": 50.27
+      },
+      {
+        "Part width (mm)": 49.44
+      },
+      {
+        "Part width (mm)": 51.32
+      },
+      {
+        "Part width (mm)": 55.63
+      },
+      {
+        "Part width (mm)": 49.75
+      },
+      {
+        "Part width (mm)": 49.63
+      },
+      {
+        "Part width (mm)": 50.87
+      },
+      {
+        "Part width (mm)": 46.89
+      },
+      {
+        "Part width (mm)": 49.49
+      },
+      {
+        "Part width (mm)": 45.55
+      },
+      {
+        "Part width (mm)": 46.97
+      },
+      {
+        "Part width (mm)": 53.48
+      },
+      {
+        "Part width (mm)": 51.27
+      },
+      {
+        "Part width (mm)": 48.57
+      },
+      {
+        "Part width (mm)": 50.95
+      },
+      {
+        "Part width (mm)": 50.57
+      },
+      {
+        "Part width (mm)": 51.79
+      },
+      {
+        "Part width (mm)": 51.67
+      },
+      {
+        "Part width (mm)": 51.04
+      },
+      {
+        "Part width (mm)": 48.88
+      },
+      {
+        "Part width (mm)": 50.67
+      },
+      {
+        "Part width (mm)": 49.1
+      },
+      {
+        "Part width (mm)": 47.85
+      },
+      {
+        "Part width (mm)": 46.72
+      },
+      {
+        "Part width (mm)": 51.93
+      },
+      {
+        "Part width (mm)": 44.48
+      },
+      {
+        "Part width (mm)": 51.83
+      },
+      {
+        "Part width (mm)": 50.18
+      },
+      {
+        "Part width (mm)": 50.98
+      },
+      {
+        "Part width (mm)": 55.62
+      },
+      {
+        "Part width (mm)": 48
+      },
+      {
+        "Part width (mm)": 52.96
+      },
+      {
+        "Part width (mm)": 50.21
+      },
+      {
+        "Part width (mm)": 47.05
+      },
+      {
+        "Part width (mm)": 52.27
+      },
+      {
+        "Part width (mm)": 47.49
+      },
+      {
+        "Part width (mm)": 48.15
+      },
+      {
+        "Part width (mm)": 50.06
+      },
+      {
+        "Part width (mm)": 46.35
+      },
+      {
+        "Part width (mm)": 48.19
+      },
+      {
+        "Part width (mm)": 48.16
+      },
+      {
+        "Part width (mm)": 51.17
+      },
+      {
+        "Part width (mm)": 49.24
+      },
+      {
+        "Part width (mm)": 50.03
+      },
+      {
+        "Part width (mm)": 49.14
+      },
+      {
+        "Part width (mm)": 52.72
+      },
+      {
+        "Part width (mm)": 52.05
+      },
+      {
+        "Part width (mm)": 49.13
+      },
+      {
+        "Part width (mm)": 50.51
+      },
+      {
+        "Part width (mm)": 52.33
+      },
+      {
+        "Part width (mm)": 52.92
+      },
+      {
+        "Part width (mm)": 49.37
+      },
+      {
+        "Part width (mm)": 49.59
+      },
+      {
+        "Part width (mm)": 48.79
+      },
+      {
+        "Part width (mm)": 48.11
+      },
+      {
+        "Part width (mm)": 53.31
+      },
+      {
+        "Part width (mm)": 52.49
+      },
+      {
+        "Part width (mm)": 46.69
+      },
+      {
+        "Part width (mm)": 47.81
+      },
+      {
+        "Part width (mm)": 48.63
+      },
+      {
+        "Part width (mm)": 52.21
+      },
+      {
+        "Part width (mm)": 49.65
+      },
+      {
+        "Part width (mm)": 48.17
+      },
+      {
+        "Part width (mm)": 51.85
+      },
+      {
+        "Part width (mm)": 47.28
+      },
+      {
+        "Part width (mm)": 46.37
+      },
+      {
+        "Part width (mm)": 48.49
+      },
+      {
+        "Part width (mm)": 51.99
+      },
+      {
+        "Part width (mm)": 53.14
+      },
+      {
+        "Part width (mm)": 46.62
+      },
+      {
+        "Part width (mm)": 52.42
+      },
+      {
+        "Part width (mm)": 51.05
+      },
+      {
+        "Part width (mm)": 48.84
+      },
+      {
+        "Part width (mm)": 51.21
+      },
+      {
+        "Part width (mm)": 54.28
+      },
+      {
+        "Part width (mm)": 47.77
+      },
+      {
+        "Part width (mm)": 48.38
+      },
+      {
+        "Part width (mm)": 50.23
+      },
+      {
+        "Part width (mm)": 53.07
+      },
+      {
+        "Part width (mm)": 50.89
+      },
+      {
+        "Part width (mm)": 48.89
+      },
+      {
+        "Part width (mm)": 48.89
+      },
+      {
+        "Part width (mm)": 49.58
+      },
+      {
+        "Part width (mm)": 51.94
+      },
+      {
+        "Part width (mm)": 49.38
+      },
+      {
+        "Part width (mm)": 52.11
+      },
+      {
+        "Part width (mm)": 53.86
+      },
+      {
+        "Part width (mm)": 49.36
+      },
+      {
+        "Part width (mm)": 54.11
+      },
+      {
+        "Part width (mm)": 52.1
+      },
+      {
+        "Part width (mm)": 50.42
+      },
+      {
+        "Part width (mm)": 47.21
+      },
+      {
+        "Part width (mm)": 48.42
+      },
+      {
+        "Part width (mm)": 46.85
+      },
+      {
+        "Part width (mm)": 51.52
+      },
+      {
+        "Part width (mm)": 43.76
+      },
+      {
+        "Part width (mm)": 52.02
+      },
+      {
+        "Part width (mm)": 52.53
+      },
+      {
+        "Part width (mm)": 50.25
+      },
+      {
+        "Part width (mm)": 49.22
+      },
+      {
+        "Part width (mm)": 55.65
+      },
+      {
+        "Part width (mm)": 47.74
+      },
+      {
+        "Part width (mm)": 51.18
+      },
+      {
+        "Part width (mm)": 52.39
+      },
+      {
+        "Part width (mm)": 45.89
+      },
+      {
+        "Part width (mm)": 48.26
+      },
+      {
+        "Part width (mm)": 48.83
+      },
+      {
+        "Part width (mm)": 50.26
+      },
+      {
+        "Part width (mm)": 55.58
+      },
+      {
+        "Part width (mm)": 54.15
+      },
+      {
+        "Part width (mm)": 55.85
+      },
+      {
+        "Part width (mm)": 48.55
+      },
+      {
+        "Part width (mm)": 47.57
+      },
+      {
+        "Part width (mm)": 53.78
+      },
+      {
+        "Part width (mm)": 47.81
+      },
+      {
+        "Part width (mm)": 46.41
+      },
+      {
+        "Part width (mm)": 50.7
+      },
+      {
+        "Part width (mm)": 45.8
+      },
+      {
+        "Part width (mm)": 53.56
+      },
+      {
+        "Part width (mm)": 49.88
+      },
+      {
+        "Part width (mm)": 48.5
+      },
+      {
+        "Part width (mm)": 48.21
+      },
+      {
+        "Part width (mm)": 51.17
+      },
+      {
+        "Part width (mm)": 49.39
+      },
+      {
+        "Part width (mm)": 51.03
+      },
+      {
+        "Part width (mm)": 51.16
+      },
+      {
+        "Part width (mm)": 55.94
+      },
+      {
+        "Part width (mm)": 51.55
+      },
+      {
+        "Part width (mm)": 51.12
+      },
+      {
+        "Part width (mm)": 47.89
+      },
+      {
+        "Part width (mm)": 49.9
+      },
+      {
+        "Part width (mm)": 49.42
+      },
+      {
+        "Part width (mm)": 47.22
+      },
+      {
+        "Part width (mm)": 52.41
+      },
+      {
+        "Part width (mm)": 47.51
+      },
+      {
+        "Part width (mm)": 49.2
+      },
+      {
+        "Part width (mm)": 54.01
+      },
+      {
+        "Part width (mm)": 47.72
+      },
+      {
+        "Part width (mm)": 49.45
+      },
+      {
+        "Part width (mm)": 55.05
+      },
+      {
+        "Part width (mm)": 51.7
+      },
+      {
+        "Part width (mm)": 49.4
+      },
+      {
+        "Part width (mm)": 49.81
+      },
+      {
+        "Part width (mm)": 49.28
+      },
+      {
+        "Part width (mm)": 51.47
+      },
+      {
+        "Part width (mm)": 46.25
+      },
+      {
+        "Part width (mm)": 54.94
+      },
+      {
+        "Part width (mm)": 52.47
+      },
+      {
+        "Part width (mm)": 45.81
+      },
+      {
+        "Part width (mm)": 47.91
+      },
+      {
+        "Part width (mm)": 51.73
+      },
+      {
+        "Part width (mm)": 45.26
+      },
+      {
+        "Part width (mm)": 48.26
+      },
+      {
+        "Part width (mm)": 48.98
+      },
+      {
+        "Part width (mm)": 48.27
+      },
+      {
+        "Part width (mm)": 50.03
+      },
+      {
+        "Part width (mm)": 46.55
+      },
+      {
+        "Part width (mm)": 51.98
+      },
+      {
+        "Part width (mm)": 52.91
+      },
+      {
+        "Part width (mm)": 45.43
+      },
+      {
+        "Part width (mm)": 50.21
+      },
+      {
+        "Part width (mm)": 48.14
+      },
+      {
+        "Part width (mm)": 48.95
+      },
+      {
+        "Part width (mm)": 49.16
+      },
+      {
+        "Part width (mm)": 52.76
+      },
+      {
+        "Part width (mm)": 51.89
+      },
+      {
+        "Part width (mm)": 46.58
+      },
+      {
+        "Part width (mm)": 50.02
+      },
+      {
+        "Part width (mm)": 51.36
+      },
+      {
+        "Part width (mm)": 56.77
+      },
+      {
+        "Part width (mm)": 46.73
+      },
+      {
+        "Part width (mm)": 48.47
+      },
+      {
+        "Part width (mm)": 53.62
+      },
+      {
+        "Part width (mm)": 50.08
+      },
+      {
+        "Part width (mm)": 50.6
+      },
+      {
+        "Part width (mm)": 49.44
+      },
+      {
+        "Part width (mm)": 54.99
+      },
+      {
+        "Part width (mm)": 49.98
+      },
+      {
+        "Part width (mm)": 45.44
+      },
+      {
+        "Part width (mm)": 48.55
+      },
+      {
+        "Part width (mm)": 49.3
+      },
+      {
+        "Part width (mm)": 46.76
+      },
+      {
+        "Part width (mm)": 45.16
+      },
+      {
+        "Part width (mm)": 47.04
+      },
+      {
+        "Part width (mm)": 47.75
+      },
+      {
+        "Part width (mm)": 53.12
+      },
+      {
+        "Part width (mm)": 53.38
+      },
+      {
+        "Part width (mm)": 48.91
+      },
+      {
+        "Part width (mm)": 54.6
+      },
+      {
+        "Part width (mm)": 50.01
+      },
+      {
+        "Part width (mm)": 50.26
+      },
+      {
+        "Part width (mm)": 54.45
+      },
+      {
+        "Part width (mm)": 48.93
+      },
+      {
+        "Part width (mm)": 51.72
+      },
+      {
+        "Part width (mm)": 47.94
+      },
+      {
+        "Part width (mm)": 47.17
+      },
+      {
+        "Part width (mm)": 53.93
+      },
+      {
+        "Part width (mm)": 48.67
+      },
+      {
+        "Part width (mm)": 51.13
+      },
+      {
+        "Part width (mm)": 46.15
+      },
+      {
+        "Part width (mm)": 49.32
+      },
+      {
+        "Part width (mm)": 45.22
+      },
+      {
+        "Part width (mm)": 53.95
+      },
+      {
+        "Part width (mm)": 52.26
+      },
+      {
+        "Part width (mm)": 51.01
+      },
+      {
+        "Part width (mm)": 54.91
+      },
+      {
+        "Part width (mm)": 50.38
+      },
+      {
+        "Part width (mm)": 44.02
+      },
+      {
+        "Part width (mm)": 53.35
+      },
+      {
+        "Part width (mm)": 51.46
+      },
+      {
+        "Part width (mm)": 49.52
+      },
+      {
+        "Part width (mm)": 48.86
+      },
+      {
+        "Part width (mm)": 46.32
+      },
+      {
+        "Part width (mm)": 50.15
+      },
+      {
+        "Part width (mm)": 47.07
+      },
+      {
+        "Part width (mm)": 52.15
+      },
+      {
+        "Part width (mm)": 53.31
+      },
+      {
+        "Part width (mm)": 53.16
+      },
+      {
+        "Part width (mm)": 45.18
+      },
+      {
+        "Part width (mm)": 50.17
+      },
+      {
+        "Part width (mm)": 49.73
+      },
+      {
+        "Part width (mm)": 51.08
+      },
+      {
+        "Part width (mm)": 51.86
+      },
+      {
+        "Part width (mm)": 54.77
+      },
+      {
+        "Part width (mm)": 48.11
+      },
+      {
+        "Part width (mm)": 46.21
+      },
+      {
+        "Part width (mm)": 51.44
+      },
+      {
+        "Part width (mm)": 51.94
+      },
+      {
+        "Part width (mm)": 50.71
+      },
+      {
+        "Part width (mm)": 48.98
+      },
+      {
+        "Part width (mm)": 47.74
+      },
+      {
+        "Part width (mm)": 49.46
+      },
+      {
+        "Part width (mm)": 44.53
+      },
+      {
+        "Part width (mm)": 52.31
+      },
+      {
+        "Part width (mm)": 52.62
+      },
+      {
+        "Part width (mm)": 47.99
+      },
+      {
+        "Part width (mm)": 49.79
+      },
+      {
+        "Part width (mm)": 46.96
+      },
+      {
+        "Part width (mm)": 48.35
+      },
+      {
+        "Part width (mm)": 52.38
+      },
+      {
+        "Part width (mm)": 51.03
+      },
+      {
+        "Part width (mm)": 43.98
+      },
+      {
+        "Part width (mm)": 49.54
+      },
+      {
+        "Part width (mm)": 52.03
+      },
+      {
+        "Part width (mm)": 54.38
+      },
+      {
+        "Part width (mm)": 46.39
+      },
+      {
+        "Part width (mm)": 47.27
+      },
+      {
+        "Part width (mm)": 50.6
+      },
+      {
+        "Part width (mm)": 49.45
+      },
+      {
+        "Part width (mm)": 52.09
+      },
+      {
+        "Part width (mm)": 50.59
+      },
+      {
+        "Part width (mm)": 51.84
+      },
+      {
+        "Part width (mm)": 50.27
+      },
+      {
+        "Part width (mm)": 49.21
+      },
+      {
+        "Part width (mm)": 50.19
+      },
+      {
+        "Part width (mm)": 51.04
+      },
+      {
+        "Part width (mm)": 55.41
+      },
+      {
+        "Part width (mm)": 51.15
+      },
+      {
+        "Part width (mm)": 49.35
+      },
+      {
+        "Part width (mm)": 53.05
+      },
+      {
+        "Part width (mm)": 51.42
+      },
+      {
+        "Part width (mm)": 47.43
+      },
+      {
+        "Part width (mm)": 46.37
+      },
+      {
+        "Part width (mm)": 49.18
+      },
+      {
+        "Part width (mm)": 47.07
+      },
+      {
+        "Part width (mm)": 50.05
+      },
+      {
+        "Part width (mm)": 48.81
+      },
+      {
+        "Part width (mm)": 48.15
+      },
+      {
+        "Part width (mm)": 49.88
+      },
+      {
+        "Part width (mm)": 49.32
+      },
+      {
+        "Part width (mm)": 52.45
+      },
+      {
+        "Part width (mm)": 47.66
+      },
+      {
+        "Part width (mm)": 45.62
+      },
+      {
+        "Part width (mm)": 49.15
+      },
+      {
+        "Part width (mm)": 51.67
+      },
+      {
+        "Part width (mm)": 50.82
+      },
+      {
+        "Part width (mm)": 50.44
+      },
+      {
+        "Part width (mm)": 50.18
+      },
+      {
+        "Part width (mm)": 49.85
+      },
+      {
+        "Part width (mm)": 49.51
+      },
+      {
+        "Part width (mm)": 51.99
+      },
+      {
+        "Part width (mm)": 47.32
+      },
+      {
+        "Part width (mm)": 46.97
+      },
+      {
+        "Part width (mm)": 51.52
+      },
+      {
+        "Part width (mm)": 54.51
+      },
+      {
+        "Part width (mm)": 51.72
+      },
+      {
+        "Part width (mm)": 48.08
+      },
+      {
+        "Part width (mm)": 43.78
+      },
+      {
+        "Part width (mm)": 48.5
+      },
+      {
+        "Part width (mm)": 50.69
+      },
+      {
+        "Part width (mm)": 51.25
+      },
+      {
+        "Part width (mm)": 51.11
+      },
+      {
+        "Part width (mm)": 52
+      },
+      {
+        "Part width (mm)": 48.1
+      },
+      {
+        "Part width (mm)": 50.87
+      },
+      {
+        "Part width (mm)": 46.63
+      },
+      {
+        "Part width (mm)": 44.17
+      },
+      {
+        "Part width (mm)": 53.25
+      },
+      {
+        "Part width (mm)": 49.6
+      },
+      {
+        "Part width (mm)": 50
+      },
+      {
+        "Part width (mm)": 53.53
+      },
+      {
+        "Part width (mm)": 47.66
+      },
+      {
+        "Part width (mm)": 48.96
+      },
+      {
+        "Part width (mm)": 46.94
+      },
+      {
+        "Part width (mm)": 49.25
+      },
+      {
+        "Part width (mm)": 51.24
+      },
+      {
+        "Part width (mm)": 50.32
+      },
+      {
+        "Part width (mm)": 57.61
+      },
+      {
+        "Part width (mm)": 51.65
+      },
+      {
+        "Part width (mm)": 51.05
+      },
+      {
+        "Part width (mm)": 51.79
+      },
+      {
+        "Part width (mm)": 53.31
+      },
+      {
+        "Part width (mm)": 50.51
+      },
+      {
+        "Part width (mm)": 51.55
+      },
+      {
+        "Part width (mm)": 49.32
+      },
+      {
+        "Part width (mm)": 46.47
+      },
+      {
+        "Part width (mm)": 47.68
+      },
+      {
+        "Part width (mm)": 50.62
+      },
+      {
+        "Part width (mm)": 47.48
+      },
+      {
+        "Part width (mm)": 49.76
+      },
+      {
+        "Part width (mm)": 50.01
+      },
+      {
+        "Part width (mm)": 49.97
+      },
+      {
+        "Part width (mm)": 53.32
+      },
+      {
+        "Part width (mm)": 50.17
+      },
+      {
+        "Part width (mm)": 49.35
+      },
+      {
+        "Part width (mm)": 48.32
+      },
+      {
+        "Part width (mm)": 48.79
+      },
+      {
+        "Part width (mm)": 48.18
+      },
+      {
+        "Part width (mm)": 51.19
+      },
+      {
+        "Part width (mm)": 55.44
+      },
+      {
+        "Part width (mm)": 46.15
+      },
+      {
+        "Part width (mm)": 50.81
+      },
+      {
+        "Part width (mm)": 48.06
+      },
+      {
+        "Part width (mm)": 50.28
+      },
+      {
+        "Part width (mm)": 46.92
+      },
+      {
+        "Part width (mm)": 49.4
+      },
+      {
+        "Part width (mm)": 51.36
+      },
+      {
+        "Part width (mm)": 52.11
+      },
+      {
+        "Part width (mm)": 51.31
+      },
+      {
+        "Part width (mm)": 50.05
+      },
+      {
+        "Part width (mm)": 54.23
+      },
+      {
+        "Part width (mm)": 52.92
+      },
+      {
+        "Part width (mm)": 51.99
+      },
+      {
+        "Part width (mm)": 51.12
+      },
+      {
+        "Part width (mm)": 55.1
+      },
+      {
+        "Part width (mm)": 51.6
+      },
+      {
+        "Part width (mm)": 47.58
+      },
+      {
+        "Part width (mm)": 48.52
+      },
+      {
+        "Part width (mm)": 51.85
+      },
+      {
+        "Part width (mm)": 47
+      },
+      {
+        "Part width (mm)": 54.25
+      },
+      {
+        "Part width (mm)": 48.44
+      },
+      {
+        "Part width (mm)": 49.52
+      },
+      {
+        "Part width (mm)": 48.33
+      },
+      {
+        "Part width (mm)": 48.18
+      },
+      {
+        "Part width (mm)": 52.51
+      },
+      {
+        "Part width (mm)": 52.29
+      },
+      {
+        "Part width (mm)": 51.07
+      },
+      {
+        "Part width (mm)": 53.53
+      },
+      {
+        "Part width (mm)": 52.16
+      },
+      {
+        "Part width (mm)": 49.64
+      },
+      {
+        "Part width (mm)": 51.18
+      },
+      {
+        "Part width (mm)": 50.91
+      },
+      {
+        "Part width (mm)": 51.85
+      },
+      {
+        "Part width (mm)": 51.22
+      },
+      {
+        "Part width (mm)": 48.87
+      },
+      {
+        "Part width (mm)": 46.95
+      },
+      {
+        "Part width (mm)": 45.21
+      },
+      {
+        "Part width (mm)": 55.08
+      },
+      {
+        "Part width (mm)": 53.9
+      },
+      {
+        "Part width (mm)": 45.62
+      },
+      {
+        "Part width (mm)": 51.2
+      },
+      {
+        "Part width (mm)": 46.56
+      },
+      {
+        "Part width (mm)": 50.86
+      },
+      {
+        "Part width (mm)": 52.13
+      },
+      {
+        "Part width (mm)": 49.73
+      },
+      {
+        "Part width (mm)": 48.06
+      },
+      {
+        "Part width (mm)": 47.87
+      },
+      {
+        "Part width (mm)": 48.15
+      },
+      {
+        "Part width (mm)": 51.25
+      },
+      {
+        "Part width (mm)": 50.03
+      },
+      {
+        "Part width (mm)": 49.18
+      },
+      {
+        "Part width (mm)": 46.88
+      },
+      {
+        "Part width (mm)": 50.57
+      },
+      {
+        "Part width (mm)": 49.03
+      },
+      {
+        "Part width (mm)": 46.66
+      },
+      {
+        "Part width (mm)": 47.57
+      },
+      {
+        "Part width (mm)": 47.22
+      },
+      {
+        "Part width (mm)": 46.31
+      },
+      {
+        "Part width (mm)": 54.25
+      },
+      {
+        "Part width (mm)": 47.64
+      },
+      {
+        "Part width (mm)": 46.61
+      },
+      {
+        "Part width (mm)": 48.76
+      },
+      {
+        "Part width (mm)": 51.25
+      },
+      {
+        "Part width (mm)": 53.63
+      },
+      {
+        "Part width (mm)": 51.55
+      },
+      {
+        "Part width (mm)": 45.2
+      },
+      {
+        "Part width (mm)": 46.93
+      },
+      {
+        "Part width (mm)": 49.23
+      },
+      {
+        "Part width (mm)": 48.25
+      },
+      {
+        "Part width (mm)": 52.33
+      },
+      {
+        "Part width (mm)": 47.71
+      },
+      {
+        "Part width (mm)": 51.42
+      },
+      {
+        "Part width (mm)": 52.93
+      },
+      {
+        "Part width (mm)": 53.07
+      },
+      {
+        "Part width (mm)": 50.28
+      },
+      {
+        "Part width (mm)": 46.19
+      },
+      {
+        "Part width (mm)": 46.9
+      },
+      {
+        "Part width (mm)": 50.51
+      },
+      {
+        "Part width (mm)": 53.31
+      },
+      {
+        "Part width (mm)": 46.48
+      },
+      {
+        "Part width (mm)": 49.57
+      },
+      {
+        "Part width (mm)": 49
+      },
+      {
+        "Part width (mm)": 45.92
+      },
+      {
+        "Part width (mm)": 51.06
+      },
+      {
+        "Part width (mm)": 48.86
+      },
+      {
+        "Part width (mm)": 51.1
+      },
+      {
+        "Part width (mm)": 51.97
+      },
+      {
+        "Part width (mm)": 48.71
+      },
+      {
+        "Part width (mm)": 49.35
+      },
+      {
+        "Part width (mm)": 53.92
+      },
+      {
+        "Part width (mm)": 50.36
+      },
+      {
+        "Part width (mm)": 50.95
+      },
+      {
+        "Part width (mm)": 47.36
+      },
+      {
+        "Part width (mm)": 47.11
+      },
+      {
+        "Part width (mm)": 52.63
+      },
+      {
+        "Part width (mm)": 47.93
+      },
+      {
+        "Part width (mm)": 45.79
+      },
+      {
+        "Part width (mm)": 46.83
+      },
+      {
+        "Part width (mm)": 51.07
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

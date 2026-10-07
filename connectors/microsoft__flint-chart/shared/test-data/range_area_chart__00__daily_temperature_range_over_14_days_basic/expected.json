@@ -1,0 +1,176 @@
+{
+  "mark": {
+    "type": "area",
+    "opacity": 0.5,
+    "line": {
+      "strokeWidth": 1
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Min °C",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y2": {
+      "field": "Max °C"
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 574,
+      "continuousHeight": 351
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 35
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2024-01-01",
+        "Min °C": 7.4,
+        "Max °C": 17.9
+      },
+      {
+        "Date": "2024-01-02",
+        "Min °C": 12.8,
+        "Max °C": 22.6
+      },
+      {
+        "Date": "2024-01-03",
+        "Min °C": 12.7,
+        "Max °C": 25.4
+      },
+      {
+        "Date": "2024-01-04",
+        "Min °C": 14.2,
+        "Max °C": 28.4
+      },
+      {
+        "Date": "2024-01-05",
+        "Min °C": 14,
+        "Max °C": 27.1
+      },
+      {
+        "Date": "2024-01-06",
+        "Min °C": 13.2,
+        "Max °C": 22.5
+      },
+      {
+        "Date": "2024-01-07",
+        "Min °C": 8.6,
+        "Max °C": 23.6
+      },
+      {
+        "Date": "2024-01-08",
+        "Min °C": 6.3,
+        "Max °C": 19.1
+      },
+      {
+        "Date": "2024-01-09",
+        "Min °C": 2.1,
+        "Max °C": 17.9
+      },
+      {
+        "Date": "2024-01-10",
+        "Min °C": 4.3,
+        "Max °C": 14.8
+      },
+      {
+        "Date": "2024-01-11",
+        "Min °C": 2.6,
+        "Max °C": 12.5
+      },
+      {
+        "Date": "2024-01-12",
+        "Min °C": 5.9,
+        "Max °C": 15.9
+      },
+      {
+        "Date": "2024-01-13",
+        "Min °C": 5.1,
+        "Max °C": 19.5
+      },
+      {
+        "Date": "2024-01-14",
+        "Min °C": 9.4,
+        "Max °C": 22.5
+      }
+    ]
+  },
+  "_width": 574,
+  "_height": 351,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.5,
+      "applicable": true,
+      "value": 0.5
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "EndDate",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2023-01-07T20:00:00.000Z",
+          "2023-12-31T04:00:00.000Z"
+        ]
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 297,
+      "continuousHeight": 374
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 1,
+        "EndDate": "2023-08-24"
+      },
+      {
+        "X": 2,
+        "EndDate": "2023-12-11"
+      },
+      {
+        "X": 3,
+        "EndDate": "2023-03-18"
+      },
+      {
+        "X": 4,
+        "EndDate": "2023-03-06"
+      },
+      {
+        "X": 5,
+        "EndDate": "2023-07-14"
+      },
+      {
+        "X": 6,
+        "EndDate": "2023-02-21"
+      },
+      {
+        "X": 7,
+        "EndDate": "2023-05-02"
+      },
+      {
+        "X": 8,
+        "EndDate": "2023-09-15"
+      },
+      {
+        "X": 9,
+        "EndDate": "2023-03-05"
+      },
+      {
+        "X": 10,
+        "EndDate": "2023-12-06"
+      },
+      {
+        "X": 11,
+        "EndDate": "2023-11-30"
+      },
+      {
+        "X": 12,
+        "EndDate": "2023-01-19"
+      },
+      {
+        "X": 13,
+        "EndDate": "2023-06-16"
+      },
+      {
+        "X": 14,
+        "EndDate": "2023-11-25"
+      },
+      {
+        "X": 15,
+        "EndDate": "2023-12-20"
+      },
+      {
+        "X": 16,
+        "EndDate": "2023-08-24"
+      },
+      {
+        "X": 17,
+        "EndDate": "2023-06-19"
+      },
+      {
+        "X": 18,
+        "EndDate": "2023-03-06"
+      }
+    ]
+  },
+  "_width": 297,
+  "_height": 374,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    }
+  ]
+}

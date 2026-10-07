@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+# build-generated wrapper JS (written by the wheel build hook; not committed)
+src/iai_mcp/_wrapper/
+# esbuild bundle staged into the wheel (built on the host, not committed)
+mcp-wrapper/dist-bundle/
+# The plugin's MCP declaration is part of the shipped plugin — a global
+# ignore of .mcp.json must not silently drop it from the repository.
+!plugin/.mcp.json
+# Rust extension compiled in-tree by maturin develop or pip wheel
+src/iai_mcp_native*.so
+# stub_gen generator output staging dir — flattened by hand into tracked .pyi copies
+rust/iai_mcp_native/stubs/
+build/
+dist/
+downloads/
+eggs/
+.eggs/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Test / type / lint / coverage caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+htmlcov/
+coverage/
+
+# Node
+node_modules/
+package-lock.json.bak
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+
+# Local data stores
+*.sqlite
+*.sqlite3
+*.db
+*.lancedb
+lancedb/
+runtime_*.json
+
+# Rust build output
+target/
+
+# Internal planning artifacts — never ship
+.planning/
+
+# personal-data deny-list (local only, never committed)
+**/personal*

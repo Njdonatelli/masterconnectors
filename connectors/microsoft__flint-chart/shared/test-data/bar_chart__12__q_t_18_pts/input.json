@@ -1,0 +1,105 @@
+{
+  "title": "Q×T (18 pts)",
+  "description": "Horizontal temporal — 18 dates on y",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "X": 1,
+          "EndDate": "2023-08-24"
+        },
+        {
+          "X": 2,
+          "EndDate": "2023-12-11"
+        },
+        {
+          "X": 3,
+          "EndDate": "2023-03-18"
+        },
+        {
+          "X": 4,
+          "EndDate": "2023-03-06"
+        },
+        {
+          "X": 5,
+          "EndDate": "2023-07-14"
+        },
+        {
+          "X": 6,
+          "EndDate": "2023-02-21"
+        },
+        {
+          "X": 7,
+          "EndDate": "2023-05-02"
+        },
+        {
+          "X": 8,
+          "EndDate": "2023-09-15"
+        },
+        {
+          "X": 9,
+          "EndDate": "2023-03-05"
+        },
+        {
+          "X": 10,
+          "EndDate": "2023-12-06"
+        },
+        {
+          "X": 11,
+          "EndDate": "2023-11-30"
+        },
+        {
+          "X": 12,
+          "EndDate": "2023-01-19"
+        },
+        {
+          "X": 13,
+          "EndDate": "2023-06-16"
+        },
+        {
+          "X": 14,
+          "EndDate": "2023-11-25"
+        },
+        {
+          "X": 15,
+          "EndDate": "2023-12-20"
+        },
+        {
+          "X": 16,
+          "EndDate": "2023-08-24"
+        },
+        {
+          "X": 17,
+          "EndDate": "2023-06-19"
+        },
+        {
+          "X": 18,
+          "EndDate": "2023-03-06"
+        }
+      ]
+    },
+    "semantic_types": {
+      "X": "Quantity",
+      "EndDate": "Date"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "X"
+        },
+        "y": {
+          "field": "EndDate"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

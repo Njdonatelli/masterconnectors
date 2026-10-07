@@ -1,0 +1,274 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "1999-07-02T08:43:38.181Z",
+          "2011-07-02T15:16:21.818Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 351,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2000-01-01",
+        "Value": 120,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2000-01-01",
+        "Value": 159,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2000-01-01",
+        "Value": 471,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2001-01-01",
+        "Value": 66,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2001-01-01",
+        "Value": 530,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2001-01-01",
+        "Value": 257,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2002-01-01",
+        "Value": 402,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2002-01-01",
+        "Value": 436,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2002-01-01",
+        "Value": 465,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2003-01-01",
+        "Value": 144,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2003-01-01",
+        "Value": 172,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2003-01-01",
+        "Value": 407,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2004-01-01",
+        "Value": 191,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2004-01-01",
+        "Value": 197,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2004-01-01",
+        "Value": 367,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2005-01-01",
+        "Value": 77,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2005-01-01",
+        "Value": 195,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2005-01-01",
+        "Value": 78,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2006-01-01",
+        "Value": 304,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2006-01-01",
+        "Value": 240,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2006-01-01",
+        "Value": 498,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2007-01-01",
+        "Value": 276,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2007-01-01",
+        "Value": 430,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2007-01-01",
+        "Value": 309,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 109,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 62,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 424,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2009-01-01",
+        "Value": 213,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2009-01-01",
+        "Value": 428,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2009-01-01",
+        "Value": 339,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2010-01-01",
+        "Value": 163,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2010-01-01",
+        "Value": 487,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2010-01-01",
+        "Value": 514,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2011-01-01",
+        "Value": 300,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2011-01-01",
+        "Value": 168,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2011-01-01",
+        "Value": 418,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 351,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

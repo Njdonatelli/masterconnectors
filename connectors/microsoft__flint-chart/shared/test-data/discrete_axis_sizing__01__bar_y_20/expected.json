@@ -1,0 +1,180 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "Item",
+      "type": "nominal",
+      "sort": null
+    },
+    "x": {
+      "field": "Revenue",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 283,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 28
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 20
+  },
+  "data": {
+    "values": [
+      {
+        "Item": "Item01",
+        "Revenue": 377
+      },
+      {
+        "Item": "Item02",
+        "Revenue": 342
+      },
+      {
+        "Item": "Item03",
+        "Revenue": 450
+      },
+      {
+        "Item": "Item04",
+        "Revenue": 31
+      },
+      {
+        "Item": "Item05",
+        "Revenue": 312
+      },
+      {
+        "Item": "Item06",
+        "Revenue": 350
+      },
+      {
+        "Item": "Item07",
+        "Revenue": 106
+      },
+      {
+        "Item": "Item08",
+        "Revenue": 202
+      },
+      {
+        "Item": "Item09",
+        "Revenue": 304
+      },
+      {
+        "Item": "Item10",
+        "Revenue": 68
+      },
+      {
+        "Item": "Item11",
+        "Revenue": 26
+      },
+      {
+        "Item": "Item12",
+        "Revenue": 118
+      },
+      {
+        "Item": "Item13",
+        "Revenue": 130
+      },
+      {
+        "Item": "Item14",
+        "Revenue": 376
+      },
+      {
+        "Item": "Item15",
+        "Revenue": 308
+      },
+      {
+        "Item": "Item16",
+        "Revenue": 413
+      },
+      {
+        "Item": "Item17",
+        "Revenue": 139
+      },
+      {
+        "Item": "Item18",
+        "Revenue": 324
+      },
+      {
+        "Item": "Item19",
+        "Revenue": 61
+      },
+      {
+        "Item": "Item20",
+        "Revenue": 272
+      }
+    ]
+  },
+  "_width": 283,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

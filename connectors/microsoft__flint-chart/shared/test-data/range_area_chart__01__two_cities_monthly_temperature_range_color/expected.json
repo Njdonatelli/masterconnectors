@@ -1,0 +1,276 @@
+{
+  "mark": {
+    "type": "area",
+    "opacity": 0.5,
+    "line": {
+      "strokeWidth": 1
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "nominal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+    },
+    "y": {
+      "field": "Low °C",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true
+      },
+      "stack": null,
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y2": {
+      "field": "High °C"
+    },
+    "color": {
+      "field": "City",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "set2"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "width": {
+    "step": 37
+  },
+  "data": {
+    "values": [
+      {
+        "Month": "Jan",
+        "City": "Seattle",
+        "Low °C": -1.1,
+        "High °C": 9.7
+      },
+      {
+        "Month": "Feb",
+        "City": "Seattle",
+        "Low °C": -1.4,
+        "High °C": 12
+      },
+      {
+        "Month": "Mar",
+        "City": "Seattle",
+        "Low °C": 0.5,
+        "High °C": 14.2
+      },
+      {
+        "Month": "Apr",
+        "City": "Seattle",
+        "Low °C": 4.9,
+        "High °C": 18.6
+      },
+      {
+        "Month": "May",
+        "City": "Seattle",
+        "Low °C": 10.3,
+        "High °C": 22.4
+      },
+      {
+        "Month": "Jun",
+        "City": "Seattle",
+        "Low °C": 13.2,
+        "High °C": 26.7
+      },
+      {
+        "Month": "Jul",
+        "City": "Seattle",
+        "Low °C": 13.4,
+        "High °C": 25
+      },
+      {
+        "Month": "Aug",
+        "City": "Seattle",
+        "Low °C": 12.5,
+        "High °C": 25.4
+      },
+      {
+        "Month": "Sep",
+        "City": "Seattle",
+        "Low °C": 10.9,
+        "High °C": 21.1
+      },
+      {
+        "Month": "Oct",
+        "City": "Seattle",
+        "Low °C": 5.6,
+        "High °C": 18.4
+      },
+      {
+        "Month": "Nov",
+        "City": "Seattle",
+        "Low °C": 2,
+        "High °C": 13.7
+      },
+      {
+        "Month": "Dec",
+        "City": "Seattle",
+        "Low °C": -0.8,
+        "High °C": 11.1
+      },
+      {
+        "Month": "Jan",
+        "City": "Phoenix",
+        "Low °C": 6.7,
+        "High °C": 21.1
+      },
+      {
+        "Month": "Feb",
+        "City": "Phoenix",
+        "Low °C": 7.4,
+        "High °C": 21.6
+      },
+      {
+        "Month": "Mar",
+        "City": "Phoenix",
+        "Low °C": 10.6,
+        "High °C": 25.3
+      },
+      {
+        "Month": "Apr",
+        "City": "Phoenix",
+        "Low °C": 16.3,
+        "High °C": 32.3
+      },
+      {
+        "Month": "May",
+        "City": "Phoenix",
+        "Low °C": 20.2,
+        "High °C": 37.4
+      },
+      {
+        "Month": "Jun",
+        "City": "Phoenix",
+        "Low °C": 26.8,
+        "High °C": 41.6
+      },
+      {
+        "Month": "Jul",
+        "City": "Phoenix",
+        "Low °C": 27.2,
+        "High °C": 43.2
+      },
+      {
+        "Month": "Aug",
+        "City": "Phoenix",
+        "Low °C": 24.8,
+        "High °C": 42.4
+      },
+      {
+        "Month": "Sep",
+        "City": "Phoenix",
+        "Low °C": 22.2,
+        "High °C": 38.8
+      },
+      {
+        "Month": "Oct",
+        "City": "Phoenix",
+        "Low °C": 16.8,
+        "High °C": 31.4
+      },
+      {
+        "Month": "Nov",
+        "City": "Phoenix",
+        "Low °C": 10.6,
+        "High °C": 26.9
+      },
+      {
+        "Month": "Dec",
+        "City": "Phoenix",
+        "Low °C": 7.1,
+        "High °C": 23.5
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.5,
+      "applicable": true,
+      "value": 0.5
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

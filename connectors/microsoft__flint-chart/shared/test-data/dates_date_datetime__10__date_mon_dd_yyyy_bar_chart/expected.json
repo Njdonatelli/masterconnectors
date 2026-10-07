@@ -1,0 +1,155 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2019-12-30T18:32:43.636Z",
+          "2020-12-30T05:27:16.363Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 351,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "Jan 15 2020",
+        "Value": 138
+      },
+      {
+        "Date": "Feb 15 2020",
+        "Value": 104
+      },
+      {
+        "Date": "Mar 15 2020",
+        "Value": 339
+      },
+      {
+        "Date": "Apr 15 2020",
+        "Value": 443
+      },
+      {
+        "Date": "May 15 2020",
+        "Value": 80
+      },
+      {
+        "Date": "Jun 15 2020",
+        "Value": 183
+      },
+      {
+        "Date": "Jul 15 2020",
+        "Value": 155
+      },
+      {
+        "Date": "Aug 15 2020",
+        "Value": 248
+      },
+      {
+        "Date": "Sep 15 2020",
+        "Value": 230
+      },
+      {
+        "Date": "Oct 15 2020",
+        "Value": 324
+      },
+      {
+        "Date": "Nov 15 2020",
+        "Value": 270
+      },
+      {
+        "Date": "Dec 15 2020",
+        "Value": 118
+      }
+    ]
+  },
+  "_width": 351,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "row": {
+      "field": "Facet",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Facet: Value"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 55
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerRow": {
+      "labelFontSize": 9,
+      "labelLimit": 55
+    },
+    "facet": {
+      "spacing": 6
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Electronics",
+        "Value": 272,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 223,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Food",
+        "Value": 482,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Books",
+        "Value": 227,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Sports",
+        "Value": 176,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Home",
+        "Value": 467,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Garden",
+        "Value": 381,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Auto",
+        "Value": 70,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 162,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 480,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Food",
+        "Value": 81,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Books",
+        "Value": 161,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Sports",
+        "Value": 417,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Home",
+        "Value": 496,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Garden",
+        "Value": 485,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Auto",
+        "Value": 235,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 265,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 394,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Food",
+        "Value": 152,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Books",
+        "Value": 446,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Sports",
+        "Value": 179,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Home",
+        "Value": 151,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Garden",
+        "Value": 398,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Auto",
+        "Value": 191,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 116,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 172,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Food",
+        "Value": 549,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Books",
+        "Value": 362,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Sports",
+        "Value": 106,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Home",
+        "Value": 227,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Garden",
+        "Value": 530,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Auto",
+        "Value": 385,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 113,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 493,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Food",
+        "Value": 156,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Books",
+        "Value": 339,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Sports",
+        "Value": 118,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Home",
+        "Value": 204,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Garden",
+        "Value": 88,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Auto",
+        "Value": 161,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 531,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 130,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Food",
+        "Value": 250,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Books",
+        "Value": 479,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Sports",
+        "Value": 97,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Home",
+        "Value": 445,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Garden",
+        "Value": 320,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Auto",
+        "Value": 254,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 142,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 81,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Food",
+        "Value": 540,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Books",
+        "Value": 287,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Sports",
+        "Value": 531,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Home",
+        "Value": 162,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Garden",
+        "Value": 221,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Auto",
+        "Value": 167,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 113,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 228,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Food",
+        "Value": 177,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Books",
+        "Value": 124,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Sports",
+        "Value": 312,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Home",
+        "Value": 301,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Garden",
+        "Value": 170,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Auto",
+        "Value": 102,
+        "Facet": "Auto"
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "4 of 12 values in 'Facet' were omitted (showing top 8).",
+      "channel": "row",
+      "field": "Facet"
+    }
+  ],
+  "_width": 400,
+  "_height": 55,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

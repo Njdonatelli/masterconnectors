@@ -1,0 +1,126 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "sector",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "ytd_return",
+      "type": "quantitative",
+      "scale": {
+        "zero": true,
+        "domainMin": -1,
+        "nice": true
+      },
+      "axis": {
+        "format": ".0~%"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "sector": "Tech",
+        "ytd_return": -0.96
+      },
+      {
+        "sector": "Energy",
+        "ytd_return": -0.42
+      },
+      {
+        "sector": "Finance",
+        "ytd_return": -0.71
+      },
+      {
+        "sector": "Healthcare",
+        "ytd_return": 0.25
+      },
+      {
+        "sector": "Retail",
+        "ytd_return": -0.55
+      },
+      {
+        "sector": "Telecom",
+        "ytd_return": -0.83
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

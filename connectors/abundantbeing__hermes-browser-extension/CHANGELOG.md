@@ -1,0 +1,498 @@
+# Changelog
+
+## [Unreleased]
+
+### Added
+
+- A Tab screenshot action in the attachment menu captures the current tab only when you ask, and Bot Mode group turns on a local Hermes connection can include approved, redacted page context. Chat-only and remote group turns never capture page context.
+- `scripts/enable-bot-companion-tools.mjs` previews, and with `--apply` enables, the optional companion tools for a profile you choose.
+- Code blocks in messages are now syntax highlighted for common languages (Python, JavaScript, TypeScript, JSON, YAML, SQL, Bash, C#, CSS, HTML and Markdown) in the side panel and the full tab, in light and dark themes. Languages Hermes does not recognize stay plain. Thanks to @kidclone3 (#91).
+
+### Changed
+
+- Nous Light uses a white shell with Nous Blue (#0000F2) text, borders and buttons. The background art stays as a faint watermark, and the start screen is white with a blue logo.
+- Light-theme user messages are a soft tint of the theme colour with a clear outline, so "What Hermes saw" and code stay readable in every light theme. System notices sit on a solid surface.
+- The README is shorter: version-by-version notes point to the changelog and releases, and remote setup plus extended troubleshooting moved to guides/connection-guide.md and guides/troubleshooting.md. The visual tour has fresh Mono Dark screenshots, including Bot Mode group chats and profile editing.
+- The composer's DOM preview and Attached-tab controls share one row, and a slim handle on the composer border hides or shows them. The choice is remembered, the DOM preview always reopens closed, and hovering DOM explains what it is.
+- The chat intro banner now matches the Settings banner's spacing and keeps white text on blue in Nous Light.
+
+### Fixed
+
+- Open on computer now reveals the original file in its folder on a local connection instead of downloading a second copy, and refuses on remote connections. Save remains a separate download.
+- A file mentioned more than once in the same reply shows a single file card; later replies can still show it.
+- Media files report their full size when the server answers with a ranged response.
+- Hermes signature chat headlines now use the signature display face, the same condensed face shown on the font menu, instead of a serif stand-in. Code and monospace use Aeonik Fono when that face is installed, and fall back to the bundled mono face otherwise.
+- Leaving Bot Mode while a group chat is still replying no longer waits for every member to finish. Regular Sessions opens immediately, and that group chat keeps running in the background.
+- Subagents started from a browser chat now show up in the live dock while they work. You can steer or stop them from that session, including on a local API connection.
+
+- Approving local-document access on a tab that is still loading no longer leaks an uncaught error. Hermes Control shows a "Control not attached" notice instead. Thanks to @LeahyCC (#97).
+
+- Choosing Pin current tab or Follow active tab on a remote connection that has not approved page context sharing now explains why and offers an Open Settings button that goes straight to the approval switch, instead of silently staying on Chat only. Approval is never granted automatically. Thanks to @jdot-dev (#92, #93).
+
+## [0.3.4] - 2026-10-03
+
+### Added
+
+- Message action rails appear on hover, focus or click. Completed messages offer Copy with success/failure feedback; supported side-panel user turns also offer inline Edit and Restore checkpoint.
+- Editing a supported user turn reruns from that point with refreshed browser context. Restore checkpoint confirms before removing later turns from the branch. Rooms and transports without safe rewind addressing do not offer these actions.
+- User-message times in 1:1 chat use age-aware formatting and full-date tooltips; unknown timestamps stay unknown. Ordinary 1:1 assistant replies do not gain timestamps. Room messages have their own times.
+- Day dividers, consecutive-message grouping, dark-mode glass bubbles, opaque light-mode bubbles and restrained new-message motion improve transcript readability. The Settings timestamp toggle leaves actions and dividers intact.
+- Room replies carry a bot avatar, coloured name, accent bar and subtle tint. Consecutive replies from the same member collapse repeated identity headers; room avatars can be chosen from the bundled gallery.
+- Room presence shows queued, working, typing, tool-use, done, pass and failure states, with a readable summary of the active member and waiting members.
+- A streaming room bubble settles into the final reply in place. Mentions target selected members; Reply prepares a mention for the author of a bot message.
+- Per-room model controls show confirmed model/provider, change one member's model without changing its profile default, and reset that override to the default.
+- Required model-change/reset confirmations offer Confirm and Cancel, and retry the operation only after confirmation. An unverified pinned model blocks its member turn rather than silently using an unchecked model.
+- Model-change, reset, pass and failure notices persist across room reopening as display-only history.
+- Browser Control opens from a state-marked composer launcher. This tab, Selected tabs and Task set can be chosen directly in its dialog.
+- Scope choices have localized hover/focus explanations and accessible descriptions. A task set groups explicitly chosen tabs under a shared task identity, not every open tab.
+- Original-file attachments retain bytes locally, display bounded previews, and offer Open/Download cards in supported live and restored conversations. Browser-local retention does not promise cross-device storage or parsing of every Office/media format.
+- Supported session-upload gateways must acknowledge file storage before submission references the file. Missing capabilities, rejected uploads and unconfirmed responses preserve the draft and block the turn.
+- Large pastes are handled separately from the inline message limit with explicit retention and excerpt warnings; sending a pasted-text excerpt is not the same as uploading the original file.
+- Signature typography falls back to bundled Hermes display and UI faces before unrelated system fonts on installs without the licensed faces. Font assets are included in build verification.
+- Signature settings show an honest bundled-fallback note based on registered font loading. Switching away from Signature invalidates an in-flight probe so an old result cannot restore the note.
+- The model picker's provider strip scrolls sideways with the mouse wheel: wheel down moves right, wheel up moves left, and the page scrolls normally once the strip reaches either end.
+
+### Changed
+
+- Control actions explain their effects on hover/focus. Apply fills its row, the selected-tabs list uses the branded arrow-free scrollbar, and selected/hovered/focused scope options stay readable in light and dark.
+- Context receipts distinguish delivered tabs from the full selection when the turn budget applies, such as 12 of 20, while keeping the complete open-window count separate.
+- Newly added scope, message and room strings are maintained across all 21 locale catalogs.
+- MV3 startup regression coverage checks listener registration before pending hydration deterministically instead of using a short wall-clock timeout.
+
+### Fixed
+
+- Newly created rooms synchronize members at creation and read the result back. Failed synchronization no longer leaves a room that looks ready but never starts a member turn.
+- Room badges report Synced, Not synced or Sync failed from verified state, with retry behaviour. Projection persistence no longer gates member replies.
+- Open group rooms stay visible during an in-place roster synchronization.
+- Gateway failures explain the actual error and preserve drafts when turn delivery is uncertain (#115).
+- A gateway still running pre-update code after a Hermes update is now named plainly ("Hermes was updated, restart it") instead of a generic rejection, and the draft is kept. The message offers a confirmed **Restart Hermes** action with a two-step confirmation, live stopping and starting progress, and a finished state that replaces the prompt once the new process is running.
+- The restart prompt follows a restart done elsewhere, such as a terminal, and resolves itself when Hermes is back. It waits long enough for a multi-profile gateway to reconnect, offers **Check again** rather than a second restart if it is slow, and never reports success until a new process is actually running.
+- Steering messages show the user's words with a steer label rather than the runtime wrapper, including after history reload.
+- Profile-roster readiness reflects the authenticated roster actually loaded instead of stale or optimistic readiness (#113).
+- Windows setup respects HERMES_HOME when resolving the Hermes data directory, with clearer configuration-location documentation (#111, thanks @chrisworksai).
+- The model picker includes the Space Bunny Alpha context window.
+- GPT 6.1 Sol context windows resolve from Hermes Agent rules. Live catalog/session limits take precedence; display labels no longer silently opt a base model into a larger window.
+- Context fallback rules synchronize automatically from Hermes Agent at build/model refresh time, with bounded public metadata fetching and offline caching, rather than requiring individual Browser patches for each new model.
+- Local distribution signing keys are ignored by source control (#109, thanks @xxkingstuggle).
+- Hermes cores with a strict `prompt.submit` contract no longer reject chat messages with an "invalid params ... display_text" error. The turn is retried once without the optional display text and the extension stops sending it for that session.
+
+## [0.3.3] - 2026-09-24
+
+### Added
+
+- A controller that still needs its one-time credential now says so on its own surface. The control strip reads **Browser control needs one authorization from Hermes before it can operate tabs.** and offers a single **Authorize control** action that opens the local approval page, attaches the current tab once approved, and disappears afterwards. A reader who is already connected never sees the first-run setup card again, and the panel no longer borrows **Connect to Hermes** for a control-only repair or asks for a second approval after control is live.
+- The update card now closes the reload loop for load-unpacked installs. The side panel remembers the build it booted from, re-reads its own `build-info.json` off disk with `cache: 'no-store'` (at boot, again shortly after boot, on focus/visibility, every 60 seconds, and the moment a turn started from the update prompt finishes) and, when that identity changes, shows a persistent **A newer build is on disk (built <time>). Reload to run it.** line with a **Reload now** button that calls `runtime.reload()`; a rebuilt `dist/` is never run behind your back — only your click reloads the extension.
+- The in-place update is honest about what it needs. The update dialog's install note states that the guarded agent turn requires a local checkout of the repository on this machine and offers **Download the latest release**, the prepared update prompt stops and hands over that same releases link (instead of cloning a checkout) when no local checkout exists, and the reload handoff asks you to press the panel's **Reload now** control instead of depending on computer-use. The dirty-checkout stop, the `npm run build` step, and the verify-before-claiming-success rule are unchanged.
+- The update card also runs a silent check of its own, at most once every 24 hours: when the cached result in extension storage is older than a day, the panel runs the same version-and-commit check the Check button runs (no dialog, no toast, silent on failure), writes the status line, caches the result and timestamp, and marks the **Update** button as the primary action when this build is behind main.
+- Returned files are now one-click cards instead of a bare path. When a turn produces a file, the transcript shows a card with the file name, a type badge, and the actions that actually work: **Open** for kinds a browser can render (PDF, HTML, image, text, CSV, JSON, Markdown, video, audio) fetches the bytes over the extension's authenticated dashboard download route and shows them in a new tab, **Open on computer** runs `downloads.download` then `downloads.open` so the OS default app (Excel, Word, Acrobat) launches it, and **Save** keeps a copy through the browser's save dialog. Kinds a browser cannot preview — xlsx, docx, pptx, zip — offer Open on computer and Save only, and every kind is offered for a path written as ordinary text or as a `MEDIA:` tag. A file the dashboard refuses to read keeps its buttons disabled, draws a dashed boundary, and states the exact reason (HTTP status, unreachable dashboard, empty file), and the existing honest filename chip for unreadable media paths is unchanged.
+- The model menu shows each model's Hermes Agent context window. Named models keep the window Hermes Agent already uses, including the 872k large Codex window and the 500k Grok 4.5, 4.6, and 4.7 windows. A model Hermes Agent has not named yet still gets Hermes Agent's 256k default. The menu no longer prints "requestable".
+- Settings section titles are readable at 18px. Hermes Control uses the selected display face for its title and the readable UI face for Operate leased tabs, the field labels, and the Stay, Follow, and Enable buttons. The Off and On mark is a status chip with a dot, not a tiny boxed stamp.
+- Bot Mode buttons follow the selected font. Agents, Group Chats, Edit Profile, New Agent, Open Bot Chat, and the other Bot Mode and group-chat buttons use the readable UI face instead of a hardcoded typewriter face.
+- The local sidecar card on the start screen rotates its background illustration: every time the side panel opens it picks a different image from the extension's bundled art set (fourteen images, and never the same one twice in a row), and the same artwork follows through to the matching card in appearance settings. The card's responsive scaling is untouched and the small corner badge keeps its own fixed image.
+- `/btw` side questions now ride the gateway's native side-question flow over the dashboard socket (REST completions stays as the fallback for API-key connections) and land in a full-width result card at the end of the transcript: the card appears while Hermes is thinking, then fills in with the answer, a Copy action, a snapshot timing line, and a dismiss control instead of vanishing with the 5.2-second operation toast. The card stays out of the saved conversation and clears when you switch sessions.
+- The "Capture visible Gmail thread" button can be dismissed with a small ✕ that is remembered across reloads, and it can be turned back on any time under Settings → Right-click actions.
+- Live subagent roster in the composer dock: queued/running children appear in a SUBAGENTS stack next to TASKS, with model, current tool, elapsed time, and a selected-row steer/stop control. Snapshot hydrate uses `subagent.list`; missing RPCs fail closed.
+- Fenced code blocks in chat get a hover copy-to-clipboard control, without overflowing the message card.
+- Telegram and Desktop session images hydrate from Hermes cache paths (`image_url:` / `@image:` / `MEDIA:`) through the dashboard `/api/media` route. Local videos render as a player when `/api/files/stream` can serve them, otherwise as an honest file card. Pixels that were never stored in Hermes (only in Telegram itself) cannot be invented.
+- Composer text and attachments restore after you close and reopen the side panel in the same browser session. Images are saved to disk when attached so the draft stores a path instead of a huge image blob.
+- Classic shapes take a colour as well as a face. The classic tiles offer twelve profile swatches, six per row, plus a **Match the name** row that derives the colour from whatever you type. The tile, the avatar preview, the roster avatar, and the saved profile all read the same value, so the colour you pick is the colour you keep.
+- A model switch that would drop the prompt cache now asks first. Switching the session model while the transcript holds context opens the same kind of confirmation the Bot Mode exits use, with a kicker, a title naming the model, the context size it would re-read, and **Switch anyway** and **Cancel**. Cancel leaves the model untouched, and switching model for Hermes Assist still bypasses the prompt.
+
+### Fixed
+
+- Composer skill suggestions no longer go empty when `GET /v1/skills` fails. Local connections recover the catalog from the dashboard profile snapshot (`profiles.describe`), including after a named-profile switch. Named profiles never inherit the default REST catalog.
+- Switching profiles in Settings or Bot Mode reloads that profile's model catalog and pins the live default model from `/api/model/options?profile=` instead of keeping the previous agent's selection.
+- Browser and tab control connect again, and stay connectable without reloading the extension. Four defects kept the controller from ever registering: the settings rebind dropped credential updates silently (a missing revision was read as revision 0, so the background storage rebind was discarded once the panel had sent its first explicit refresh), a completed pairing never told the controller to rebind, the draft-session materialization reused a fixed title the gateway refuses as a duplicate (`invalid_title`), and the auth classifier matched words like "credential", "api key", or "token" anywhere in a failure, so it wiped a perfectly good pairing token on failures that were not auth failures at all — and the strip then blamed the gateway for a token that was never saved.
+- Tab control works when chat is already connected over the local Desktop dashboard transport. That socket authenticates chat but cannot register a controller, so in that state enabling or attaching control now acquires its credential itself (the approval page stays the consent gate) instead of failing the lease and flipping control back off. The Attach toggle hides while authorization is missing, the panel adopts credential writes from the controller so a wiped token immediately shows the repair action, and a gateway that has no browser-control API key says exactly that instead of suggesting the reader's token was rejected.
+- Every string the panel ships is i18n-owned again, so `npm run check:manifest` passes: the subagent roster title, its two accessible labels, and the update dialog's no-local-checkout line now carry their own messages, translated across all 21 locale packs.
+- The Hermes Assist launcher no longer sits on top of what you are typing in a full-width composer. Every inline site now prefers a placement outside the focused field and keeps the inside-the-field position as a last resort, and a placement that would still cover the field is rejected, so facebook.com and messenger.com no longer hide the end of the draft (#96).
+- Buttons no longer disappear on hover in light themes. Hovers that repainted a control with a hardcoded white or a pale accent now invert to the theme's action surface and redraw the outline in the label colour, so every control keeps a visible boundary on every palette. Hovered label contrast measures 7.9:1 at worst across the nine themes (14.2:1 in Nous Light). The enabled Save, Test, and close controls in the settings header no longer read as disabled (9.57:1 text, 6.86:1 border in Nous Light), and full-tab settings rules that referenced primary-colour tokens which no CSS file ever defined now carry real fallbacks.
+- Generated images now actually appear in the side panel: the image-generation animation dissolves into the real picture, every picture a tool call produced gets its own card (primary plus alternates, not just the first), and each one opens in the zoomable lightbox with a Download action. Local Hermes cache paths are resolved through the dashboard media route instead of being silently dropped, which is what let the old animation run forever and then vanish. Paths outside the Hermes media roots still fall back to the honest filename chip.
+- Pasted screenshots now reach the agent on the local Desktop dashboard transport: Browser uploads each image to the live session over the gateway's `image.attach_bytes` RPC (the same contract Hermes Desktop uses) before the prompt submits, so vision opens the real file instead of hunting for a path that never arrived. The turn envelope now carries the gateway's saved image path for every attached image.
+- Explicit Gmail thread capture now reads the entire open thread instead of only the expanded messages: every message node is captured in document order with its sender and date, collapsed-but-rendered bodies are included, repeated messages are no longer de-duplicated away, the subject leads the capture, and output truncates at a message boundary when a thread exceeds the context budget. Compose drafts, textareas, inputs, and contenteditable reply fields are still never captured.
+- Steering now surfaces in the transcript itself: a dashed STEER QUEUED row ("arrives after the next tool call") with the steered text pins under the live turn the moment a steer is queued, and clears when the steered message lands in history or the turn settles. A steer the runtime rejects keeps the draft in the composer instead of clearing silently.
+- After a background subagent batch finishes, the transcript keeps the live thinking indicator until the gateway's parent completion reply lands, so the child-to-parent handoff never shows a dead moment.
+- The Chat only context chip hides in chat-only mode; the scope button already names the mode, so the chip row no longer wastes composer space.
+- The side-panel model picker can no longer open partly above the viewport: bottom-anchored popovers reserve the live composer dock height instead of a fixed guess, and the model list and runtime options shrink and scroll so the search box and provider selector stay reachable (ported from #101, thanks @qinxianhahaha).
+- Subagent completions now surface the parent completion reply even after the dashboard runtime reaps the stale live session id: Browser resumes the durable session before fetching history and keeps polling until the reply is actually in the transcript. Completed children leave the live roster and their timers stop.
+- Background completion replies now stream into the transcript with the same progressive reveal live turns use instead of popping in fully formed.
+- Local Desktop dashboard transport now advertises and routes Steer (`session.steer`) so Comet is not stuck with a hidden/dead steer control while Hermes is working.
+- Side-panel voice dictation records until you stop, with a Dictating timer and live audio meter. Hermes speech-to-text runs after stop (same as Desktop). A microphone that delivers no audio still escalates to the Voice Dictation tab.
+- Side-panel mic that starts but never captures speech now errors and opens the Hermes Voice Dictation tab instead of staying fake-ON.
+- If the Browser socket goes quiet or drops while Hermes Desktop is still running the turn, Browser reconnects and keeps listening instead of showing "Could not reach the Hermes dashboard."
+- Mapped Codex ChatGPT 6 context windows: 272k for the base model and 872k for the large window, matching Hermes Agent. A stale 900k advertisement is repaired to 872k.
+- Bot Mode reads the full roster: authenticated `profiles.list` supplies display names, avatars, last-activity stamps, group-chat projections, and canonical Bot Chat identity. Public status/health names are discovery only and no longer replace a rich roster.
+- Opening a bot resumes the confirmed existing Bot Chat and fails closed on lookup errors instead of creating a duplicate chat.
+- Dashboard discovery uses explicit URLs, cached URLs, open loopback tabs, sidecar candidate ports, and documented default ports. It no longer scans arbitrary ephemeral port ranges or treats gateway health names as a complete roster.
+- Disabled the broad loopback CORS header rewrite. Loopback GET discovery can still proxy through the service worker without rewriting every localhost response.
+- Fixed Local gateway Bot Mode profile discovery when Dashboard authentication replaces the token-bearing root page with sign-in HTML; public status now identifies the dashboard, while the existing explicitly trusted signed-in tab and one-use WebSocket ticket flow authenticates the usable profile roster (#99).
+- The profile switcher pins its two modes. **Browser chat** and **Bot chat** are a fixed header and only the agent rows scroll, so the way you switch modes can no longer scroll out of reach, and the popup shell itself never scrolls.
+- The pet avatar picker works end to end again. Thumbnails paint the first screenful immediately and fill in as you scroll instead of waiting on a lazy observer that never fired inside a closed picker, the gateway thumbnail call is capped at 12 seconds and a failed thumbnail is never cached, and a pet can be chosen for a brand-new agent before it has a name, exactly like a classic face. A thumbnail that cannot load resets the tile and says so instead of leaving a tile that looks picked while the avatar never changes.
+- Leaving a Bot Mode group chat no longer leaves the composer avatar in a wide empty box. The group cluster's leftover sizing is cleared when the panel returns to a regular session, so the avatar sits as one button again.
+- Settings headlines keep their weight with the Hermes signature face. Rules Gothic Compressed has a much smaller optical size than the other families, so the signature profile scales its display headlines up (both **Bots & Bot Mode** and **Browser updates**) to read as headlines at the same size the other fonts read at.
+- The model switch guard prints its title in one font instead of mixing the display face with a monospace segment.
+- Every runtime string the panel prints is i18n-owned in all 21 locale packs, including the pet picker's loading and empty states and the model switch guard, so no raw key and no hardcoded English can reach the panel.
+
+### Changed
+
+- The old full-page workspace is retired. The side panel is the supported browser surface, and the old full-view button no longer opens that workspace.
+- The Bot Mode roster no longer stacks an active-now chip strip above the agent rows. Each row's own presence dot is the only activity signal, so a working agent is marked once instead of twice.
+
+Contributors: [@kidclone3](https://github.com/kidclone3) for authenticated profile discovery ([#100](https://github.com/abundantbeing/hermes-browser-extension/pull/100)), [@qinxianhahaha](https://github.com/qinxianhahaha) for the model-picker viewport fix ([#101](https://github.com/abundantbeing/hermes-browser-extension/pull/101)), and [@khoalx18](https://github.com/khoalx18) for reporting the Assist composer overlap ([#96](https://github.com/abundantbeing/hermes-browser-extension/issues/96)).
+
+## [0.3.2] - 2026-09-05
+
+### Added
+
+- Added Hermes Bot Mode: dedicated multi-agent roster with seamless profile switching across default and named user profiles, lazy model loading, and instant agent opening.
+- Added live Group Chat & Threads support: multi-agent room projections, collaborative thread tracking, and synchronized conversation histories without blank chat states.
+- Added AI Tab Triage command (`/sort-tabs`, `/organize-tabs`, `/clean-tabs`, `/categorize-tabs`, `/triage-tabs`): automatically analyzes all open tabs in the window, clusters them into logical categories (Projects, Research, Social, Productivity, Stale/Duplicates), identifies redundant URLs, and generates an actionable removal checklist.
+- Added a full-width **Page only** action button and side-by-side **Include all tabs** and **AI Triage Tabs** controls with hover tooltip descriptions.
+- Added multi-keyword tab search supporting whitespace-separated query tokens matching across tab titles and URLs with an active match count badge and keyboard navigation (`Enter` to toggle, `Escape` to clear).
+
+### Fixed
+
+- Fixed 40-second connection delay by implementing dynamic loopback Desktop dashboard discovery across ephemeral ports (1297, 22784, etc.) with bounded racing and strict endpoint abort timeouts.
+- Fixed `dashboard-sessions-422` session loading failure: updated session pagination to respect the dashboard's max query limit (`limit <= 100`) across sequential pages, restoring full access to Hermes Browser Extension, Desktop, and API sessions without gateway errors.
+- Fixed startup loading freeze: restored sequential readiness step reporting with strict timeouts preventing loopback gateway endpoint hangs.
+- Fixed false "Invalid gateway API key API_SERVER_KEY" error banners on named profiles by enabling loopback browser pairing token authorization and direct dashboard WebSocket transport fallback.
+- Fixed tab context scope regression: "Page only" mode now truthfully displays `1/N` tabs in prompt, marks the active page `IN`, marks all other tabs `OUT`, and strictly isolates prompt payload tabs so the AI model never receives unselected browser tabs.
+
+## [0.3.1] - 2026-08-27
+
+### Fixed
+
+- Fixed repeated `Uncaught SyntaxError: Identifier 'browserApi' has already been declared` in Vivaldi/Chromium by scoping the entire content-script bridge inside an idempotent IIFE; cross-run coordination stays on the existing globalThis sentinels with listener cleanup before rebinding (#86).
+- Hardened the scripting install fallback to probe the content-script re-entry sentinel and inject only missing scripts instead of blindly re-executing all manifest scripts into an initialized frame (#86).
+- Fixed automatic pairing never reaching its approval window on gateways that keep `/v1/capabilities` behind authentication: a fresh install now makes one bootstrap pair/start attempt when the capability advertisement is unreadable (HTTP 401) on a loopback local gateway, falling back to manual setup only when that genuinely fails. Verified live end-to-end on Firefox 154 / Windows 11 against an auth-hardened gateway: pair start, Approve Connection page, token grant, and full readiness chain (#85 investigation).
+
+### Added
+
+- Added startup latency instrumentation (observer-only performance marks exposed via `window.__HBE_BOOT_MARKS`) covering body start, i18n, settings restore, per-stage readiness settles, message paint, and composer interactive.
+- Added `scripts/bench-startup.mjs` (`npm run bench:startup`): cold/warm/restart startup benchmark with an embedded fixture gateway, hard sample-count assertions, p50/p90 reporting, and a gateway-down scenario.
+
+### Changed
+
+- Internal-only: added the Python tooling namespace under `scripts/pytools/` (gateway log forensics, capability/route diffing, release consistency auditing, Bot Mode contract diffing, controller trace timelines) with stdlib unittest suites wired as `npm run test:pytools`.
+
+## [0.3.0] - 2026-08-22
+
+### Added
+
+- Added opt-in live browser control through an authenticated MV3 service-worker controller with exact per-tab leases, document-generation checks, lifecycle recovery, and no fallback for Browser-bound requests.
+- Added Chromium control actions for snapshots, refs, clicks, typing, form fill/select, navigation, scrolling, screenshots, tab operations, console/network inspection, PDF generation, uploads, dialogs, evaluate, and policy-bounded raw CDP.
+- Added explicit approval gates for consequential and privileged actions, with developer-mode enforcement for evaluate and raw CDP.
+- Added approved local HTML, browser-rendered PDF, and localhost context/control support on Windows and macOS, including click refs for interactive images and custom controls.
+- Added scoped one-shot artifact upload/download with MIME limits, TTL, SHA-256 checksums, provenance receipts, and atomic consume-on-download behavior.
+- Added reviewed workflow-to-skill draft generation from completed redacted receipts, with fixture-only dry runs and explicit approval before save.
+- Added a bounded metadata-only companion journal and adversarial privacy matrix.
+- Added Mozilla signing support and a stable Firefox add-on ID for Mozilla-hosted updates.
+
+### Changed
+
+- Added sticky settings controls and theme-aware operation notifications for control enable, attach, pause, approval, and detach states.
+- Expanded the compatibility, privacy, permissions, data-flow, and README documentation for live control and local documents.
+- Hardened controller reconnect, stale owner, approval, terminal latch, and exact-target authority behavior.
+- Wired capability-derived Developer Mode and authenticated one-shot artifact routes into the live extension runtime instead of leaving them as isolated executor modules.
+- Prevented rapid content-script reinjection from leaving duplicate inline Assist hosts, and aligned launcher geometry with the rendered 36px control.
+- Aligned Codex OAuth context-window fallback and accounting behavior with explicit provider identity while preserving authoritative runtime telemetry.
+
+### Security
+
+- Browser-bound requests never fall back to another browser backend.
+- Controller durability and companion diagnostics persist metadata and redacted receipts only, never raw DOM, page text, command arguments, typed values, credentials, screenshots, or response bodies.
+- Sensitive fields, restricted schemes, credential-bearing URLs, stale refs, stale documents, borrowed tabs, cross-domain mutation races, oversized artifacts, and replayed approvals fail closed.
+
+### Fixed
+
+- Fixed the side panel `/commands` menu covering long prompts ([issue #73](https://github.com/abundantbeing/hermes-browser-extension/issues/73)): the commands picker now opens upward into the free space above the `ASK HERMES` composer with a 6px gap, so multiline drafts stay fully visible, the textarea is never compressed, and command filtering, keyboard navigation, selection, and close behavior are unchanged.
+- Added a **Save** action to the Settings header next to **Test connection** with a hover tooltip, replacing the former bottom-left **Save settings** footer button so settings can be saved without scrolling; it shares the same accent-outline style, mono type, and hover behavior as the other header controls.
+- Replaced the Settings header **CLOSE** label with a compact close icon button, tightening the header row while keeping the same click target, keyboard focus, and accessible **Close settings** label.
+- Fixed **Clear stored token** button text alignment so the label sits centered inside the button, and made **Clear stored token** and **Copy Diagnostics** span the full width of their cards with centered labels.
+- Fixed the **Scan agents** button sizing and text placement so it renders with proper card metrics (matching the ↻ Profiles button) while staying left-aligned in its card, with the ↻ glyph and label vertically centered.
+- Kept the Settings sticky-header divider full-width and aligned the header content to the panel edges so the title and close button land on the divider's end points.
+- Removed the redundant **HERMES BROWSER** eyebrow above the Settings title so the dialog header reads as one clean row.
+- Added an in-chat **Detach** action: the Browser control strip button now toggles between **Attach** (when the current tab is not leased) and **Detach** (when it is), so you can detach straight from the chat interface instead of opening Settings.
+- Changed the composer **/commands** button from a pill to a rectangle (using the shared radius token) and re-centered the `/` and **commands** label inside it.
+- Removed the "Enter sends. Shift+Enter adds a new line..." helper line under the composer.
+- Shortened the startup screen's error line so a disconnected gateway no longer stacks the full diagnostic under the logo and pushes the readiness cards and buttons down; the full detail stays in the status card below where it belongs.
+- Centered the text in the Browser control **Attach / Pause / Stop** action buttons.
+- Added a dismiss ✕ to the Browser control strip that detaches control completely (removes the box) from the chat interface, and a white ✕ in the top-right of the **Local sidecar / Chrome panel** intro card so users can close it on sight.
+- Removed the **Hermes Assist** and **Right-click actions** sections from the Hermes Web settings dialog; both remain configurable in the side panel Settings, and Hermes Web keeps the stored preferences unchanged.
+- Converted the control strip **Pause** and **Stop** buttons to compact icon glyphs (pause/play and stop square) with hover tooltips, and the Stop button now only appears while an action is running or queued instead of sitting disabled. The pause button swaps to a play glyph while paused (fixed an SVG `hidden`-reflection bug in Chromium so the swap actually renders).
+
+### Contributors
+
+- Reproduced and scoped [issue #73](https://github.com/abundantbeing/hermes-browser-extension/issues/73) from the report by [@kidclone3](https://github.com/kidclone3).
+
+### Verification
+
+- Canonical JavaScript, manifest, locale, Chromium, Firefox, controller, companion, artifact, workflow, adversarial, and privacy suites are required to pass before publication.
+- Chrome-for-Testing reconnect/control journeys and the manual Comet control gate are required for release approval.
+
+## [0.2.0] - 2026-07-21
+
+### Added
+
+- Added **Hermes Assist**, a review-first inline drafting surface for 31 supported writing environments including X, GitHub, Gmail, ChatGPT, Claude, Reddit, Slack, Discord, Outlook, Google Chat, and Atlassian surfaces.
+- Added site- and composer-aware primary actions such as **Draft a reply**, **Draft a post**, and **Draft a message**, while retaining useful site-specific secondary actions.
+- Added explicit current-session, new-session, and background-session routing for Hermes Assist and context-menu actions.
+- Added per-site context controls with private-surface defaults, visible context warnings, bounded extraction, and copy-only fallbacks for framework-owned structured editors.
+- Added capability-gated model routing for Hermes Assist: gateways that advertise per-session model locking receive the exact selected provider/model and must acknowledge it; released gateways without that contract use the active Hermes Agent model without sending unsupported override fields.
+- Added deterministic local text utilities for formatting cleanup, bullets, text statistics, and diffs without a model call.
+- Added Browser Context Protocol v2 turn envelopes and owner/session/turn-scoped companion context storage with bounded retention and consume-on-read isolation.
+
+### Changed
+
+- Unified Local, Hermes Cloud Preview, and Remote readiness behind one staged connection controller that does not report ready until its required session-binding gate passes.
+- Kept automatic API pairing loopback-only. Remote API connections now require an explicitly configured endpoint and token; dashboard connections continue to use Trusted Dashboard Attach.
+- Made non-loopback agent discovery permanently credential-free, even when a probed service self-identifies as Hermes.
+- Made rich structured editors preview/copy-first by default; safe direct apply remains limited to reviewed, supported composer integrations.
+- Added exact target-specific Chromium and Firefox release packaging with versioned archives, SHA-256 checksums, and a machine-readable release manifest.
+
+### Security
+
+- Bound browser context to typed turns with owner, conversation, session, and turn identity; enforced TTL, size, redirect, URL-scheme, and redaction limits at trust boundaries.
+- Kept Cloud/dashboard tickets short-lived, single-use, memory-only, HTTPS-only, and bound to the exact active signed-in tab and origin.
+- Prevented stored bearer credentials from being released during non-loopback discovery and prevented automatic pairing with non-loopback API endpoints.
+- Preserved Chat-only enforcement for Cloud and ticketed dashboard transports.
+
+### Fixed
+
+- Fixed X reply context capture so Hermes receives the source post instead of an empty inner reply form.
+- Fixed X draft insertion to use one framework-owned paste transaction, preventing duplicate or undeletable ghost text.
+- De-duplicated inline result application by request id so retries cannot apply the same draft twice.
+- Contained keyboard events inside Hermes Assist so host-page shortcuts cannot steal focus, navigate, or react while a user types a custom instruction.
+- Preserved remote dashboard conversations across WebSocket replacement by persisting the gateway's durable session identity, resuming it on reconnect, and routing follow-up RPCs through the fresh live session identity.
+- Made Chrome 141+ require a real `sidePanel.onOpened` event so Arc's hidden `SIDE_PANEL` contexts cannot suppress the reusable extension-tab fallback, while retaining context confirmation for Chrome 116-140.
+- Corrected GPT-5.6 context metadata by provider: OpenAI Codex OAuth models now show the canonical 272k window, direct OpenAI models retain 1.05M, explicit runtime/catalog telemetry remains authoritative, and rows without provider identity no longer inherit the generic 400k GPT-5 guess.
+
+### Contributors
+
+- Folded and hardened the session-identity foundation from [PR #35](https://github.com/abundantbeing/hermes-browser-extension/pull/35) by [@mr-magaia](https://github.com/mr-magaia); the proposed profile selector remains deferred until official Hermes advertises and enforces that gateway capability.
+- Credited [@chinnsenn](https://github.com/chinnsenn) for the Arc compatibility report in [issue #37](https://github.com/abundantbeing/hermes-browser-extension/issues/37).
+
+## [0.1.11] - 2026-07-13
+
+### Added
+
+- Added **Hermes Web Alpha**, a full-page browser workspace backed by canonical Hermes sessions, with a session rail, user-right/Hermes-left messages, safe rich Markdown, model/runtime controls, tools, skills, attachments, voice, active-run steering, generated media, and context/activity inspection.
+- Added three explicit connection modes: **Local gateway**, **Hermes Cloud Preview**, and **Remote gateway**, with deterministic dispatch, migration, validation, and mode-specific settings copy.
+- Added trusted signed-in Hermes Cloud agent-tab attachment through a one-use ticket transport with Chat-only browser context.
+- Added nine Light/Dark themes across the side panel and Hermes Web: Nous, Midnight, Ember, Mono, Cyberpunk, Slate, Senter Space, Aphrodite, and Solstice.
+- Added generated-image diffusion reveal plus a lightbox with zoom, reset, open, and explicit download controls.
+- Added accurate context-window and compaction telemetry, compact context chips, payload breakdowns, capability fallbacks, and session-gated runtime accounting.
+- Added Firefox preview packaging through `npm run build:firefox` and Opera sidebar support.
+- Added a scoped element picker for explicit page-element context.
+- Added refreshed README visual-tour assets for the current side panel, all nine themes, and three Hermes Web states.
+
+### Changed
+
+- Bound model, provider, reasoning effort, skills, and other runtime options to the active browser session rather than mutating Hermes global defaults.
+- Preserved the canonical model catalog across partial gateway updates and hardened backend-acknowledged model locking.
+- Improved canonical session continuity, source metadata, context persistence, and duplicate-turn retry prevention across side-panel and Hermes Web surfaces.
+- Refined the side-panel header, logo, icon placement, composer controls, connection diagnostics, and runtime/context footer.
+- Expanded generated-media rendering, artifact discovery, voice-dictation fallback behavior, and final-image completion handling.
+- Updated Local, Cloud Preview, Remote, privacy, permission, security, data-flow, compatibility, and troubleshooting documentation.
+
+### Security
+
+- Added one shared decoded credential-URL policy for active, selected, open-tab, pinned-scope, prompt, receipt, and payload-hash surfaces.
+- Omitted common API keys, tokens, client secrets, private keys, credentials, signatures, and signed-URL fields even when parameter names are nested or encoded.
+- Hardened trusted Cloud dashboard attachment, remote session authentication diagnostics, secret redaction, sealed-token URL handling, and restricted browser-context summaries.
+- Kept browser interaction read-only: no click, type, form-submit, checkout, debugger, native-messaging, cookie, history, bookmark, or browser-control permissions.
+
+### Fixed
+
+- Fixed companion-plugin browser-context detection when Hermes user-message content is represented as OpenAI-style content arrays.
+- Fixed generated-image completion, session model/context alignment, runtime-option persistence, and duplicate browser-turn retries.
+- Fixed element-picker icon consistency and star-history chart URLs with encoded repository paths and sealed tokens.
+
+## [0.1.10] - 2026-07-07
+
+### Release theme
+- Supportability and integration bridge release: read-only foundation, Browser Context Protocol receipts, sanitized context cache, session control, and Browser-scoped model selection.
+
+### Companion Plugin MVP
+- Activated `companion-plugin/` from skeleton into an optional functional Hermes plugin with four read-only tools: `browser_context_status`, `browser_get_context`, `browser_clear_context`, and `browser_event_log`.
+- Registered `pre_llm_call` and `post_tool_call` hooks plus the bundled `hermes-browser` skill.
+- Keeps the plugin fail-soft and supplemental: no browser control, no API-server routes, no network calls, no `nativeMessaging`, and no dependency required for normal extension use.
+
+### Browser Context Protocol + sanitized cache
+- Preserved the prompt-embedded Browser Context Protocol fallback while adding a companion cache that stores only sanitized metadata: protocol id, payload hash, scope, active-tab origin, section counts/availability, redaction count, truncation state, and bounded event diagnostics.
+- Hardened parsing so raw page text, selected text, full tab URLs, token-looking values, and private URL paths do not leak into the plugin cache or event log.
+- Kept Browser Context Protocol receipts and hashes visible for trust/debugging without introducing browser-control behavior.
+
+### Truthful `/meta` command + UI polish
+- Added `/meta` with `/metadata` and `/head` aliases for captured-page metadata analysis.
+- The command is intentionally truthful: it reports only data present in the Browser context and lists metadata classes that were not captured instead of pretending to read raw `<head>` HTML.
+- Added loading skeletons, context-meter glow states, tool-activity fade-in, and command-menu stagger polish behind reduced-motion guards.
+
+### Session control + model scope lock
+- Added compact session controls for Browser workflows: create/switch sessions, copy session IDs, rename sessions through `PATCH /api/sessions/{id}`, and smart first-message titles.
+- Added Browser-scoped model preference and per-session model bindings so Browser model switches do not mutate Hermes global defaults.
+- New Browser sessions inherit the last Browser-selected model; existing sessions keep their own model/provider binding.
+
+### Diagnostics, docs, and supportability
+- Updated Copy Diagnostics/support surfaces for extension origin redaction, selected model/provider, capability flags, and runtime warning states while excluding tokens, cookies, page text, selected text, full tab URLs, and webpage content.
+- Updated README, permissions, privacy, security, and data-flow docs for v0.1.10.
+- Bumped package/manifests/plugin metadata to v0.1.10 and prepared release packaging.
+
+### PRs and contributors
+- Credited PR #31 — `feat(companion-plugin): activate context cache from skeleton to functional plugin` by @iruzen-dono: https://github.com/abundantbeing/hermes-browser-extension/pull/31
+- Credited PR #32 — `feat(commands): /meta command + CSS polish (skeletons, animations)` by @iruzen-dono: https://github.com/abundantbeing/hermes-browser-extension/pull/32
+- Release integration, Browser-scoped session/model controls, supportability fixes, docs, packaging, and ad asset by @abundantbeing.
+- Reviewed but not shipped in v0.1.10: PR #29 (`feat: add scoped element picker context`) by @bradlishman, PR #30 (`feat: add native sidebar support for Opera browser`) by @barteqpl, and PR #33 (`Security: fix parameter evasion, CWD binary hijacking, and clipboard handling`) by @Doom-pixel-alt.
+
+## v0.1.9 — 2026-07-05
+
+### Browser Context Protocol
+- Extracted Browser Context Protocol v1 into `extension/lib/browser-context-protocol.mjs` with a stable `hermes.browser.context.v1` id, deterministic payload hash, chat-only prompt mode, and literal untrusted-data receipt rendering.
+- Kept legacy `buildHermesPrompt`, `browserContextPayloadHash`, and `buildContextReceipt` wrappers compatibility-preserving for existing chat/session flows.
+
+### Public support + compatibility
+- Bumped source/package/manifests to v0.1.9.
+- Added Copy Diagnostics in Settings so users can copy a redacted support report with browser family, extension/build version, gateway origin, connection state, capability flags, selected model/provider, context scope, extractor mode, and last visible error.
+- Added a README compatibility matrix for Chrome/Edge/Chromium, Chromium forks, Firefox/Safari preview status, local/remote Gateway modes, Browser Context Protocol, companion plugin prototype status, and explicitly deferred browser-control/Runs/debugger/nativeMessaging surfaces.
+- Extended compatibility rows with Browser Context Protocol, browser context upload fallback, and optional Browser Companion Plugin status.
+- Added browser family/origin diagnostics for future Firefox/Safari and cross-browser support triage.
+
+### Runtime/tool event naming
+- Added stable Browser runtime/tool event names in `extension/lib/runtime-events.mjs` and normalized current Hermes tool-progress aliases into the Tool Activity Strip while keeping browser-control events out of the v0.1.9 surface.
+
+### Private companion prototype
+- Added `companion-plugin/` as a fail-soft private skeleton with context store, protocol helpers, tools, hooks, policy, install notes, and skill docs.
+- The skeleton does not register API-server routes, does not assume side-channel availability, and does not include browser-control/page-action channels.
+
+### Tests
+- Added focused tests for Browser Context Protocol, runtime event naming, support diagnostics redaction, v0.1.9 capability rows, and the private companion skeleton.
+
+## v0.1.8 — 2026-07-04
+
+### Active-run chat steering
+- Added active-run chat steering from the composer: while Hermes is running, Enter on a text draft steers the active turn, with explicit Queue/Steer/Stop controls in the busy composer.
+- Wired the Browser side panel to `/v1/runs/{run_id}/steer` for local API mode and `session.steer` over the dashboard WebSocket for remote-dashboard mode.
+- Added a pure `busyComposerSubmitAction()` helper with regressions: text-only active draft + steer available → steer; attachments or no steer → queue; empty → ignore.
+- Added a pure `shouldAutoFlushQueuedTurn()` helper so backend-queued steer fallbacks never auto-send as a normal next prompt.
+- Surfaced backend `steer.queued` events: the draft returns to the composer with an explicit "Steer not injected" status instead of pretending the steer was applied or queueing it for after the turn.
+- Updated steer success copy to "Steer sent to active run" so the Browser stops overpromising when Hermes has no tool injection point in the current turn.
+
+### Live Tool Activity Strip
+- Replaced raw `[tool]` markdown appended to assistant answers with a compact runtime Tool Activity Strip while Hermes streams.
+- Added shared tool-activity helpers that categorize file/edit/terminal/browser/web/media/meta tool names, sanitize previews (secrets, long lines), and respect reduced-motion preferences.
+- New `toolKind` CSS variants for file/edit/terminal/browser/web/media/meta, plus scan/stitch/cursor/reticle/orbit/pixel/stack keyframes for the strip animation.
+
+### Lean chat mode (token budget)
+- Made Fast mode strict opt-in: stored string values such as `"false"`/`"off"` no longer produce `model_options.fast: true` or priority service-tier requests.
+- Hardened `buildHermesModelOptions` so `service_tier` and `fast` are only set when the user actually opts in.
+- `normalizeFastMode` returns a real boolean, never a truthy string.
+
+### Real runtime meter
+- Promoted the runtime payload to a first-class UI meter (Model, Provider, Context, Live 1.24s) in the side panel.
+- Added `applyTurnRuntimePayload()` plumbing on the chat path so the runtime meter reflects the actual server reply instead of local estimates.
+- Session-list refresh no longer overwrites a just-confirmed runtime model/provider with stale session-history data.
+
+### Model catalog + warnings
+- Switched model discovery to prefer the connected Hermes API server's `/api/model/options` catalog before dashboard scraping, with session-history and dashboard fallbacks for older runtimes.
+- Added a static context-length fallback for GPT-5.5 across known providers (openai-codex 272K, openrouter 1.05M) so picker context windows no longer say "unknown".
+- Hardened `/api/model/options` to never call the slow `get_model_context_length` resolver in the per-model loop; provider-aware fallback only.
+
+### Sharper diagnostics
+- Hardened gateway diagnostics so upstream Hermes runtime/tool tracebacks show as connected-with-warning instead of mislabeling the whole Browser connection as unreachable.
+- Added explicit classification for the known Python `NoneType`/`int()` traceback class, with guidance to inspect Hermes logs and run `hermes computer-use doctor` when computer-use/cua-driver appears in the stack.
+- Wired `gpt-image-2-medium` (Codex auth) for the side panel image generator and refined `pairingFailureMessage` for unsupported runtimes.
+
+### Browser behavior settings
+- Folded browser-behavior switches (auto-name sessions, open tabs, page text, selection, panel residency) into intentional settings cards instead of loose checkbox rows.
+- Side-panel CSS hardened: long tab labels, active-tab titles/URLs, pinned scope labels, and bottom model/context controls ellipsize inside narrow panels.
+- Pinned tab/session titles are clipped before session creation so the API title limit is respected.
+
+### Context scope / Chat only
+- Chat only no longer creates a new session or message bucket. It preserves the active conversation scope while disabling page/tab/selection capture for the turn.
+- Added a separate `previousConversationScope` so the session binding and the transcript key both follow the original tab, not the capture mode.
+- Tab-attached panels still allow Include all tabs / Page only / per-tab IN-OUT prompt selection; Follow active tab and Unlock pinned tab are hidden when not relevant.
+- Prompt-tab IN/OUT toggles preserve the internal tab-list `scrollTop` across rerenders.
+- Pinning a tab fresh-fetches it via `chrome.tabs.get(id)` so stale tab snapshots can't cause weird pinning behavior.
+
+### Composer / voice / attachments
+- Voice dictation is capability-gated: Hermes STT when advertised, Browser speech fallback when supported, visible Hermes Voice Dictation extension tab when the side panel mic prompt is suppressed.
+- Microphone permission help links directly to `chrome://settings/content/siteDetails?site=chrome-extension%3A%2F%2F<id>%2F`.
+- Drag/drop attachments and clipboard image paste keep working with the new composer controls.
+- Inline send button moved to the composer right edge next to the voice button; mic is hidden while a run is active.
+
+### Build / packaging / version sync
+- Bumped source, package, root manifest, built `dist/` manifest, and `build-info.json` for v0.1.8.
+- The `scripts/check-manifest.mjs` verifier now fails if root manifest, `extension/manifest.json`, `dist/manifest.json`, or `package.json` are out of sync, preventing the v0.1.5 stale-version bug.
+- Build metadata is stamped into every supported unpacked load root (root, `extension/`, `dist/`) so update checks see the same loaded commit.
+
+### Tests / docs
+- 139/139 tests passing in `npm run verify`.
+- README refreshed for v0.1.8; remote API setup clarified; troubleshooting covers `/health` reachable + runtime warning, native computer-use, and Connect flow.
+- Public release hygiene: docs are public-marketing only; private plans, internal notes, and release-prep docs are gitignored.
+
+### Notes for v0.1.9
+- Plan slot: public support and compatibility hardening. Old-Hermes-version guards, GitHub-label/Discord triage, compatibility matrix, copy-diagnostics UX, and a stable public support playbook.
+
+## v0.1.7 — 2026-06-30
+
+- Added tab-attached side panel opening by default, with a settings toggle to keep the panel global across tabs when preferred.
+- Preserved tab-attached side panel paths for both supported load-unpacked roots: repo root and `dist/`/`extension/`.
+- Added Chat only context scope so Hermes can run without reading the active tab, open tabs, selected text, page metadata, transcript, or page text.
+- Made Chat only short-circuit before browser tab queries and isolated its local message cache from page-context conversations.
+- Fixed selected-tab context accounting so the context meter and “What Hermes saw” receipt report tabs actually sent to Hermes, not just tabs open in the window.
+- Fixed Remote API connection validation so trusted `http://host:8642` API servers work with a token while remote dashboard WebSocket mode stays HTTPS-only.
+- Added `/rewrite` and `/action-items` to match the public docs, while keeping `/actions` reserved for listing interactive page elements.
+- Preserved attachment context for slash-command turns, so commands like `/summarize` do not drop attached text/files.
+- Updated public privacy, permissions, and data-flow docs for v0.1.7’s Chat only and tab-attached behavior.
+
+## v0.1.6 — 2026-06-28
+
+- Added built-in quick commands such as `/summarize`, `/explain`, `/rewrite`, `/tabs`, and `/action-items`, with slash dispatch and command suggestions in the side panel.
+- Added a composer-header tab-context control so Hermes can follow the active tab or pin to a specific tab without adding extra lower composer chrome.
+- Isolated pinned-tab conversations with per-tab local message caches and per-tab Hermes session bindings.
+- Added selected-tab filtering for the open-tabs context list inside the same upward context card, including all/none controls.
+- Added Desktop-style busy composer controls: typing during an active run now reveals separate Queue and Steer buttons, and queued messages expose Steer Now/Delete actions.
+- Reworked unpacked-build update checks to compare the loaded build commit against GitHub main instead of mislabeling post-release commits as unpulled.
+- Stamped build metadata into every supported unpacked load root so repo-root, `extension/`, and `dist/` installs can all verify commit alignment.
+- Added privacy redaction for sensitive tab titles/URLs before prompt assembly, including restricted active tabs and open-tab summaries.
+- Preserved contributor work from @iruzen-dono's quick-command and multi-tab context PRs, with follow-up hardening and tests.
+- Deferred the broad optional-host-permissions migration to a later release so v0.1.6 does not change the permission surface while shipping context-control improvements.
+
+## v0.1.5 — 2026-06-27
+
+- Added a Hermes compatibility panel backed by `/v1/capabilities`, with legacy fallback when older gateways do not advertise feature support.
+- Made first-run Connect avoid missing pairing routes: unsupported runtimes now go straight to Manual setup with Gateway URL/token guidance.
+- Added capability-gated voice dictation: Hermes STT is used when advertised, otherwise the side panel and visible voice page use Browser speech fallback when available.
+- Added token hygiene UI with masked token state, connection mode, last-tested timestamp, and one-click token clearing.
+- Added a collapsible “What Hermes saw” receipt after each sent turn so users can inspect tab/context/attachment/redaction payloads.
+- Gated image upload and profile APIs behind capabilities so missing routes become clear fallback warnings instead of broken UX.
+- Added public permissions, data-flow, and privacy docs for shipped behavior.
+- Clarified remote API setup so same-LAN `http://host:8642` works in Remote gateway mode when an API key is present, while dashboard WebSocket mode remains HTTPS-only.
+- Documented how to reload/remove/reload unpacked when Chrome still shows an older extension version after update.
+
+## v0.1.4 — 2026-06-26
+
+- Added editable Hermes session titles, including first-message auto-naming for new Browser sessions.
+- Reworked connection state so the side panel uses live gateway reachability instead of treating a saved API key as connected.
+- Added commit-aware update checks for unpacked builds, including same-version "unpulled commits" guidance.
+- Expanded agent discovery to trusted remote hosts while keeping bearer tokens off non-Hermes probe targets.
+- Refined the default Nous palette toward the ink-blue/soft-white Desktop look.
+
+## v0.1.1 — 2026-06-24
+
+- Added drag/drop attachments directly into the composer, including PDFs and files.
+- Added Stop and Queue Message controls while Hermes is responding.
+- Added `/` and `@` skill command autocomplete backed by Hermes skills.
+- Added Agent Profile settings section with graceful fallback for gateways without profile APIs.
+- Replaced the large Refresh button with a compact refresh icon.
+- Improved streaming completion handling so final answers replace partial deltas.
+
+## v0.1.0-alpha — 2026-06-24
+
+- First public alpha preparation for Hermes Browser Extension.
+- Chrome/Edge MV3 side panel.
+- Local Hermes Gateway/API connection.
+- Active page context capture.
+- Streaming response support with fallback.
+- Read-only browser context model.
+- Load-unpacked install path; not yet on the Chrome Web Store.

@@ -1,0 +1,103 @@
+{
+  "title": "Snap: Stacked Pct sum≈100% → snap max 100",
+  "description": "Stacked bar with 3 series per group. Individual values range 27–40% (far from 100, no individual snap), but stacked totals per group are 97–99%. Since 99 is within 25 (threshold) of 100, the stacked-total re-snap fires → domainMax=100. This keeps the axis at a natural percentage ceiling.",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "category": "Alpha",
+          "series": "Part A",
+          "share": 35
+        },
+        {
+          "category": "Alpha",
+          "series": "Part B",
+          "share": 30
+        },
+        {
+          "category": "Alpha",
+          "series": "Part C",
+          "share": 33
+        },
+        {
+          "category": "Beta",
+          "series": "Part A",
+          "share": 40
+        },
+        {
+          "category": "Beta",
+          "series": "Part B",
+          "share": 28
+        },
+        {
+          "category": "Beta",
+          "series": "Part C",
+          "share": 30
+        },
+        {
+          "category": "Gamma",
+          "series": "Part A",
+          "share": 32
+        },
+        {
+          "category": "Gamma",
+          "series": "Part B",
+          "share": 35
+        },
+        {
+          "category": "Gamma",
+          "series": "Part C",
+          "share": 30
+        },
+        {
+          "category": "Delta",
+          "series": "Part A",
+          "share": 38
+        },
+        {
+          "category": "Delta",
+          "series": "Part B",
+          "share": 27
+        },
+        {
+          "category": "Delta",
+          "series": "Part C",
+          "share": 34
+        }
+      ]
+    },
+    "semantic_types": {
+      "category": "Category",
+      "series": "Category",
+      "share": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "category"
+        },
+        "y": {
+          "field": "share"
+        },
+        "color": {
+          "field": "series"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

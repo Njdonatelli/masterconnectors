@@ -1,0 +1,35 @@
+[workspace]
+resolver = "2"
+members = [
+    "rust/iai_mcp_embed_core",
+    "rust/iai_mcp_graph_core",
+    "rust/iai_mcp_vec_core",
+    "rust/iai_mcp_native",
+    "crates/lilli-hd",
+    "crates/lillibrain",
+    "crates/lilliengine",
+    "crates/lilli-parity",
+]
+
+[workspace.package]
+edition    = "2021"
+authors    = ["Areg Noya"]
+license    = "MIT OR Apache-2.0"
+repository = "https://github.com/CodeAbra/iai-personal-memory-engine"
+
+[workspace.dependencies]
+candle-core    = "0.10.2"
+candle-nn      = "0.10.2"
+safetensors    = "0.7.0"
+tokenizers     = "0.23.1"
+# default-features off: only the sync ureq API is used (rustls under ureq's
+# defaults) — keeps native-tls/openssl-sys/reqwest/tokio out of the tree, so
+# manylinux wheel builds need no OpenSSL headers.
+hf-hub         = { version = "0.4.1", default-features = false, features = ["ureq"] }
+pyo3           = "0.29"
+numpy          = "0.29.0"
+accelerate-src = "0.3.2"
+pyo3-stub-gen  = "0.23"
+serde          = { version = "1", features = ["derive", "rc"] }
+serde_json     = "1"
+thiserror      = "2"

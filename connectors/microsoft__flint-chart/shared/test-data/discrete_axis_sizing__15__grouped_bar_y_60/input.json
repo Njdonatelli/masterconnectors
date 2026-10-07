@@ -1,0 +1,937 @@
+{
+  "title": "Grouped Bar ▸ Y ×60",
+  "description": "Horizontal grouped bar with 60 y-categories × 3 groups",
+  "chartType": "Grouped Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Region": "Region01",
+          "Group": "Grp1",
+          "Sales": 438
+        },
+        {
+          "Region": "Region01",
+          "Group": "Grp2",
+          "Sales": 442
+        },
+        {
+          "Region": "Region01",
+          "Group": "Grp3",
+          "Sales": 430
+        },
+        {
+          "Region": "Region02",
+          "Group": "Grp1",
+          "Sales": 24
+        },
+        {
+          "Region": "Region02",
+          "Group": "Grp2",
+          "Sales": 467
+        },
+        {
+          "Region": "Region02",
+          "Group": "Grp3",
+          "Sales": 238
+        },
+        {
+          "Region": "Region03",
+          "Group": "Grp1",
+          "Sales": 60
+        },
+        {
+          "Region": "Region03",
+          "Group": "Grp2",
+          "Sales": 320
+        },
+        {
+          "Region": "Region03",
+          "Group": "Grp3",
+          "Sales": 476
+        },
+        {
+          "Region": "Region04",
+          "Group": "Grp1",
+          "Sales": 123
+        },
+        {
+          "Region": "Region04",
+          "Group": "Grp2",
+          "Sales": 388
+        },
+        {
+          "Region": "Region04",
+          "Group": "Grp3",
+          "Sales": 420
+        },
+        {
+          "Region": "Region05",
+          "Group": "Grp1",
+          "Sales": 95
+        },
+        {
+          "Region": "Region05",
+          "Group": "Grp2",
+          "Sales": 204
+        },
+        {
+          "Region": "Region05",
+          "Group": "Grp3",
+          "Sales": 451
+        },
+        {
+          "Region": "Region06",
+          "Group": "Grp1",
+          "Sales": 449
+        },
+        {
+          "Region": "Region06",
+          "Group": "Grp2",
+          "Sales": 458
+        },
+        {
+          "Region": "Region06",
+          "Group": "Grp3",
+          "Sales": 258
+        },
+        {
+          "Region": "Region07",
+          "Group": "Grp1",
+          "Sales": 303
+        },
+        {
+          "Region": "Region07",
+          "Group": "Grp2",
+          "Sales": 43
+        },
+        {
+          "Region": "Region07",
+          "Group": "Grp3",
+          "Sales": 490
+        },
+        {
+          "Region": "Region08",
+          "Group": "Grp1",
+          "Sales": 35
+        },
+        {
+          "Region": "Region08",
+          "Group": "Grp2",
+          "Sales": 353
+        },
+        {
+          "Region": "Region08",
+          "Group": "Grp3",
+          "Sales": 403
+        },
+        {
+          "Region": "Region09",
+          "Group": "Grp1",
+          "Sales": 304
+        },
+        {
+          "Region": "Region09",
+          "Group": "Grp2",
+          "Sales": 287
+        },
+        {
+          "Region": "Region09",
+          "Group": "Grp3",
+          "Sales": 119
+        },
+        {
+          "Region": "Region10",
+          "Group": "Grp1",
+          "Sales": 224
+        },
+        {
+          "Region": "Region10",
+          "Group": "Grp2",
+          "Sales": 218
+        },
+        {
+          "Region": "Region10",
+          "Group": "Grp3",
+          "Sales": 135
+        },
+        {
+          "Region": "Region11",
+          "Group": "Grp1",
+          "Sales": 330
+        },
+        {
+          "Region": "Region11",
+          "Group": "Grp2",
+          "Sales": 43
+        },
+        {
+          "Region": "Region11",
+          "Group": "Grp3",
+          "Sales": 454
+        },
+        {
+          "Region": "Region12",
+          "Group": "Grp1",
+          "Sales": 39
+        },
+        {
+          "Region": "Region12",
+          "Group": "Grp2",
+          "Sales": 387
+        },
+        {
+          "Region": "Region12",
+          "Group": "Grp3",
+          "Sales": 181
+        },
+        {
+          "Region": "Region13",
+          "Group": "Grp1",
+          "Sales": 396
+        },
+        {
+          "Region": "Region13",
+          "Group": "Grp2",
+          "Sales": 245
+        },
+        {
+          "Region": "Region13",
+          "Group": "Grp3",
+          "Sales": 462
+        },
+        {
+          "Region": "Region14",
+          "Group": "Grp1",
+          "Sales": 97
+        },
+        {
+          "Region": "Region14",
+          "Group": "Grp2",
+          "Sales": 272
+        },
+        {
+          "Region": "Region14",
+          "Group": "Grp3",
+          "Sales": 437
+        },
+        {
+          "Region": "Region15",
+          "Group": "Grp1",
+          "Sales": 99
+        },
+        {
+          "Region": "Region15",
+          "Group": "Grp2",
+          "Sales": 295
+        },
+        {
+          "Region": "Region15",
+          "Group": "Grp3",
+          "Sales": 123
+        },
+        {
+          "Region": "Region16",
+          "Group": "Grp1",
+          "Sales": 219
+        },
+        {
+          "Region": "Region16",
+          "Group": "Grp2",
+          "Sales": 113
+        },
+        {
+          "Region": "Region16",
+          "Group": "Grp3",
+          "Sales": 34
+        },
+        {
+          "Region": "Region17",
+          "Group": "Grp1",
+          "Sales": 239
+        },
+        {
+          "Region": "Region17",
+          "Group": "Grp2",
+          "Sales": 74
+        },
+        {
+          "Region": "Region17",
+          "Group": "Grp3",
+          "Sales": 80
+        },
+        {
+          "Region": "Region18",
+          "Group": "Grp1",
+          "Sales": 209
+        },
+        {
+          "Region": "Region18",
+          "Group": "Grp2",
+          "Sales": 279
+        },
+        {
+          "Region": "Region18",
+          "Group": "Grp3",
+          "Sales": 349
+        },
+        {
+          "Region": "Region19",
+          "Group": "Grp1",
+          "Sales": 476
+        },
+        {
+          "Region": "Region19",
+          "Group": "Grp2",
+          "Sales": 68
+        },
+        {
+          "Region": "Region19",
+          "Group": "Grp3",
+          "Sales": 24
+        },
+        {
+          "Region": "Region20",
+          "Group": "Grp1",
+          "Sales": 81
+        },
+        {
+          "Region": "Region20",
+          "Group": "Grp2",
+          "Sales": 261
+        },
+        {
+          "Region": "Region20",
+          "Group": "Grp3",
+          "Sales": 423
+        },
+        {
+          "Region": "Region21",
+          "Group": "Grp1",
+          "Sales": 388
+        },
+        {
+          "Region": "Region21",
+          "Group": "Grp2",
+          "Sales": 248
+        },
+        {
+          "Region": "Region21",
+          "Group": "Grp3",
+          "Sales": 139
+        },
+        {
+          "Region": "Region22",
+          "Group": "Grp1",
+          "Sales": 448
+        },
+        {
+          "Region": "Region22",
+          "Group": "Grp2",
+          "Sales": 422
+        },
+        {
+          "Region": "Region22",
+          "Group": "Grp3",
+          "Sales": 184
+        },
+        {
+          "Region": "Region23",
+          "Group": "Grp1",
+          "Sales": 492
+        },
+        {
+          "Region": "Region23",
+          "Group": "Grp2",
+          "Sales": 23
+        },
+        {
+          "Region": "Region23",
+          "Group": "Grp3",
+          "Sales": 20
+        },
+        {
+          "Region": "Region24",
+          "Group": "Grp1",
+          "Sales": 104
+        },
+        {
+          "Region": "Region24",
+          "Group": "Grp2",
+          "Sales": 111
+        },
+        {
+          "Region": "Region24",
+          "Group": "Grp3",
+          "Sales": 365
+        },
+        {
+          "Region": "Region25",
+          "Group": "Grp1",
+          "Sales": 74
+        },
+        {
+          "Region": "Region25",
+          "Group": "Grp2",
+          "Sales": 316
+        },
+        {
+          "Region": "Region25",
+          "Group": "Grp3",
+          "Sales": 120
+        },
+        {
+          "Region": "Region26",
+          "Group": "Grp1",
+          "Sales": 52
+        },
+        {
+          "Region": "Region26",
+          "Group": "Grp2",
+          "Sales": 180
+        },
+        {
+          "Region": "Region26",
+          "Group": "Grp3",
+          "Sales": 496
+        },
+        {
+          "Region": "Region27",
+          "Group": "Grp1",
+          "Sales": 366
+        },
+        {
+          "Region": "Region27",
+          "Group": "Grp2",
+          "Sales": 261
+        },
+        {
+          "Region": "Region27",
+          "Group": "Grp3",
+          "Sales": 235
+        },
+        {
+          "Region": "Region28",
+          "Group": "Grp1",
+          "Sales": 355
+        },
+        {
+          "Region": "Region28",
+          "Group": "Grp2",
+          "Sales": 428
+        },
+        {
+          "Region": "Region28",
+          "Group": "Grp3",
+          "Sales": 88
+        },
+        {
+          "Region": "Region29",
+          "Group": "Grp1",
+          "Sales": 183
+        },
+        {
+          "Region": "Region29",
+          "Group": "Grp2",
+          "Sales": 145
+        },
+        {
+          "Region": "Region29",
+          "Group": "Grp3",
+          "Sales": 357
+        },
+        {
+          "Region": "Region30",
+          "Group": "Grp1",
+          "Sales": 488
+        },
+        {
+          "Region": "Region30",
+          "Group": "Grp2",
+          "Sales": 463
+        },
+        {
+          "Region": "Region30",
+          "Group": "Grp3",
+          "Sales": 495
+        },
+        {
+          "Region": "Region31",
+          "Group": "Grp1",
+          "Sales": 450
+        },
+        {
+          "Region": "Region31",
+          "Group": "Grp2",
+          "Sales": 12
+        },
+        {
+          "Region": "Region31",
+          "Group": "Grp3",
+          "Sales": 465
+        },
+        {
+          "Region": "Region32",
+          "Group": "Grp1",
+          "Sales": 452
+        },
+        {
+          "Region": "Region32",
+          "Group": "Grp2",
+          "Sales": 224
+        },
+        {
+          "Region": "Region32",
+          "Group": "Grp3",
+          "Sales": 276
+        },
+        {
+          "Region": "Region33",
+          "Group": "Grp1",
+          "Sales": 37
+        },
+        {
+          "Region": "Region33",
+          "Group": "Grp2",
+          "Sales": 111
+        },
+        {
+          "Region": "Region33",
+          "Group": "Grp3",
+          "Sales": 461
+        },
+        {
+          "Region": "Region34",
+          "Group": "Grp1",
+          "Sales": 376
+        },
+        {
+          "Region": "Region34",
+          "Group": "Grp2",
+          "Sales": 368
+        },
+        {
+          "Region": "Region34",
+          "Group": "Grp3",
+          "Sales": 39
+        },
+        {
+          "Region": "Region35",
+          "Group": "Grp1",
+          "Sales": 361
+        },
+        {
+          "Region": "Region35",
+          "Group": "Grp2",
+          "Sales": 400
+        },
+        {
+          "Region": "Region35",
+          "Group": "Grp3",
+          "Sales": 303
+        },
+        {
+          "Region": "Region36",
+          "Group": "Grp1",
+          "Sales": 52
+        },
+        {
+          "Region": "Region36",
+          "Group": "Grp2",
+          "Sales": 392
+        },
+        {
+          "Region": "Region36",
+          "Group": "Grp3",
+          "Sales": 291
+        },
+        {
+          "Region": "Region37",
+          "Group": "Grp1",
+          "Sales": 417
+        },
+        {
+          "Region": "Region37",
+          "Group": "Grp2",
+          "Sales": 35
+        },
+        {
+          "Region": "Region37",
+          "Group": "Grp3",
+          "Sales": 404
+        },
+        {
+          "Region": "Region38",
+          "Group": "Grp1",
+          "Sales": 78
+        },
+        {
+          "Region": "Region38",
+          "Group": "Grp2",
+          "Sales": 151
+        },
+        {
+          "Region": "Region38",
+          "Group": "Grp3",
+          "Sales": 384
+        },
+        {
+          "Region": "Region39",
+          "Group": "Grp1",
+          "Sales": 111
+        },
+        {
+          "Region": "Region39",
+          "Group": "Grp2",
+          "Sales": 296
+        },
+        {
+          "Region": "Region39",
+          "Group": "Grp3",
+          "Sales": 103
+        },
+        {
+          "Region": "Region40",
+          "Group": "Grp1",
+          "Sales": 50
+        },
+        {
+          "Region": "Region40",
+          "Group": "Grp2",
+          "Sales": 73
+        },
+        {
+          "Region": "Region40",
+          "Group": "Grp3",
+          "Sales": 62
+        },
+        {
+          "Region": "Region41",
+          "Group": "Grp1",
+          "Sales": 99
+        },
+        {
+          "Region": "Region41",
+          "Group": "Grp2",
+          "Sales": 177
+        },
+        {
+          "Region": "Region41",
+          "Group": "Grp3",
+          "Sales": 83
+        },
+        {
+          "Region": "Region42",
+          "Group": "Grp1",
+          "Sales": 498
+        },
+        {
+          "Region": "Region42",
+          "Group": "Grp2",
+          "Sales": 474
+        },
+        {
+          "Region": "Region42",
+          "Group": "Grp3",
+          "Sales": 56
+        },
+        {
+          "Region": "Region43",
+          "Group": "Grp1",
+          "Sales": 394
+        },
+        {
+          "Region": "Region43",
+          "Group": "Grp2",
+          "Sales": 61
+        },
+        {
+          "Region": "Region43",
+          "Group": "Grp3",
+          "Sales": 349
+        },
+        {
+          "Region": "Region44",
+          "Group": "Grp1",
+          "Sales": 173
+        },
+        {
+          "Region": "Region44",
+          "Group": "Grp2",
+          "Sales": 181
+        },
+        {
+          "Region": "Region44",
+          "Group": "Grp3",
+          "Sales": 183
+        },
+        {
+          "Region": "Region45",
+          "Group": "Grp1",
+          "Sales": 129
+        },
+        {
+          "Region": "Region45",
+          "Group": "Grp2",
+          "Sales": 42
+        },
+        {
+          "Region": "Region45",
+          "Group": "Grp3",
+          "Sales": 362
+        },
+        {
+          "Region": "Region46",
+          "Group": "Grp1",
+          "Sales": 254
+        },
+        {
+          "Region": "Region46",
+          "Group": "Grp2",
+          "Sales": 430
+        },
+        {
+          "Region": "Region46",
+          "Group": "Grp3",
+          "Sales": 405
+        },
+        {
+          "Region": "Region47",
+          "Group": "Grp1",
+          "Sales": 140
+        },
+        {
+          "Region": "Region47",
+          "Group": "Grp2",
+          "Sales": 449
+        },
+        {
+          "Region": "Region47",
+          "Group": "Grp3",
+          "Sales": 427
+        },
+        {
+          "Region": "Region48",
+          "Group": "Grp1",
+          "Sales": 347
+        },
+        {
+          "Region": "Region48",
+          "Group": "Grp2",
+          "Sales": 402
+        },
+        {
+          "Region": "Region48",
+          "Group": "Grp3",
+          "Sales": 441
+        },
+        {
+          "Region": "Region49",
+          "Group": "Grp1",
+          "Sales": 341
+        },
+        {
+          "Region": "Region49",
+          "Group": "Grp2",
+          "Sales": 379
+        },
+        {
+          "Region": "Region49",
+          "Group": "Grp3",
+          "Sales": 13
+        },
+        {
+          "Region": "Region50",
+          "Group": "Grp1",
+          "Sales": 247
+        },
+        {
+          "Region": "Region50",
+          "Group": "Grp2",
+          "Sales": 204
+        },
+        {
+          "Region": "Region50",
+          "Group": "Grp3",
+          "Sales": 126
+        },
+        {
+          "Region": "Region51",
+          "Group": "Grp1",
+          "Sales": 149
+        },
+        {
+          "Region": "Region51",
+          "Group": "Grp2",
+          "Sales": 392
+        },
+        {
+          "Region": "Region51",
+          "Group": "Grp3",
+          "Sales": 431
+        },
+        {
+          "Region": "Region52",
+          "Group": "Grp1",
+          "Sales": 112
+        },
+        {
+          "Region": "Region52",
+          "Group": "Grp2",
+          "Sales": 48
+        },
+        {
+          "Region": "Region52",
+          "Group": "Grp3",
+          "Sales": 221
+        },
+        {
+          "Region": "Region53",
+          "Group": "Grp1",
+          "Sales": 145
+        },
+        {
+          "Region": "Region53",
+          "Group": "Grp2",
+          "Sales": 355
+        },
+        {
+          "Region": "Region53",
+          "Group": "Grp3",
+          "Sales": 235
+        },
+        {
+          "Region": "Region54",
+          "Group": "Grp1",
+          "Sales": 157
+        },
+        {
+          "Region": "Region54",
+          "Group": "Grp2",
+          "Sales": 458
+        },
+        {
+          "Region": "Region54",
+          "Group": "Grp3",
+          "Sales": 193
+        },
+        {
+          "Region": "Region55",
+          "Group": "Grp1",
+          "Sales": 194
+        },
+        {
+          "Region": "Region55",
+          "Group": "Grp2",
+          "Sales": 101
+        },
+        {
+          "Region": "Region55",
+          "Group": "Grp3",
+          "Sales": 234
+        },
+        {
+          "Region": "Region56",
+          "Group": "Grp1",
+          "Sales": 282
+        },
+        {
+          "Region": "Region56",
+          "Group": "Grp2",
+          "Sales": 52
+        },
+        {
+          "Region": "Region56",
+          "Group": "Grp3",
+          "Sales": 329
+        },
+        {
+          "Region": "Region57",
+          "Group": "Grp1",
+          "Sales": 486
+        },
+        {
+          "Region": "Region57",
+          "Group": "Grp2",
+          "Sales": 436
+        },
+        {
+          "Region": "Region57",
+          "Group": "Grp3",
+          "Sales": 60
+        },
+        {
+          "Region": "Region58",
+          "Group": "Grp1",
+          "Sales": 55
+        },
+        {
+          "Region": "Region58",
+          "Group": "Grp2",
+          "Sales": 414
+        },
+        {
+          "Region": "Region58",
+          "Group": "Grp3",
+          "Sales": 398
+        },
+        {
+          "Region": "Region59",
+          "Group": "Grp1",
+          "Sales": 406
+        },
+        {
+          "Region": "Region59",
+          "Group": "Grp2",
+          "Sales": 291
+        },
+        {
+          "Region": "Region59",
+          "Group": "Grp3",
+          "Sales": 378
+        },
+        {
+          "Region": "Region60",
+          "Group": "Grp1",
+          "Sales": 120
+        },
+        {
+          "Region": "Region60",
+          "Group": "Grp2",
+          "Sales": 301
+        },
+        {
+          "Region": "Region60",
+          "Group": "Grp3",
+          "Sales": 432
+        }
+      ]
+    },
+    "semantic_types": {
+      "Region": "Category",
+      "Group": "Category",
+      "Sales": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Grouped Bar Chart",
+      "encodings": {
+        "y": {
+          "field": "Region"
+        },
+        "x": {
+          "field": "Sales"
+        },
+        "group": {
+          "field": "Group"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

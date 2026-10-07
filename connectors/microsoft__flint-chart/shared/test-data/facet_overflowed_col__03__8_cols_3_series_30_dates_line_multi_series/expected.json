@@ -1,0 +1,4510 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "facet": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null,
+      "columns": 6
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 115,
+      "continuousHeight": 95
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 135
+    },
+    "facet": {
+      "spacing": 10
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2018-01-01",
+        "Value": 55,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 247,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 327,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 361,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 148,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 202,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 200,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 330,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 112,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 502,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 402,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 450,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 424,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 74,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 380,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 150,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 304,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 65,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 345,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 98,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 542,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 482,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 268,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 229,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 328,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 344,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 465,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 78,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 74,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 376,
+        "Col": "Electronics",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 124,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 122,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 538,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 473,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 107,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 395,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 214,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 351,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 211,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 68,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 496,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 182,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 363,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 361,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 514,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 405,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 60,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 437,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 221,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 372,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 421,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 292,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 460,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 152,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 111,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 529,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 516,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 373,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 399,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 508,
+        "Col": "Electronics",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 431,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 247,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 414,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 400,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 347,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 376,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 443,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 162,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 518,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 98,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 261,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 319,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 69,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 402,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 180,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 136,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 98,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 180,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 177,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 338,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 373,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 226,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 388,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 79,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 213,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 198,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 200,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 156,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 197,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 455,
+        "Col": "Electronics",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 476,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 119,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 236,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 448,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 160,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 207,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 521,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 294,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 510,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 180,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 104,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 398,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 169,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 230,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 199,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 483,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 317,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 85,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 244,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 310,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 468,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 63,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 361,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 365,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 139,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 139,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 139,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 158,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 184,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 523,
+        "Col": "Clothing",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 330,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 444,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 504,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 462,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 60,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 497,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 90,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 352,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 404,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 427,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 424,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 366,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 493,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 447,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 408,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 153,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 131,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 168,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 102,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 443,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 506,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 499,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 379,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 71,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 173,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 362,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 446,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 81,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 310,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 317,
+        "Col": "Clothing",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 366,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 203,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 159,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 192,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 541,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 519,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 103,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 342,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 545,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 252,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 519,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 445,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 188,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 468,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 536,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 490,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 413,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 77,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 338,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 369,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 519,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 550,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 101,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 222,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 348,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 68,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 417,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 74,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 274,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 183,
+        "Col": "Clothing",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 265,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 224,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 77,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 536,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 97,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 284,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 304,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 213,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 507,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 400,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 77,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 180,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 207,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 191,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 482,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 203,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 366,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 279,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 274,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 340,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 421,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 538,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 175,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 351,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 152,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 540,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 183,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 204,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 437,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 290,
+        "Col": "Food",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 281,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 133,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 235,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 481,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 375,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 291,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 219,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 358,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 278,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 489,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 299,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 79,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 405,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 524,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 345,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 96,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 543,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 405,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 60,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 237,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 173,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 397,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 432,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 236,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 451,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 120,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 469,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 134,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 250,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 351,
+        "Col": "Food",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 350,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 531,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 147,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 82,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 450,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 355,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 475,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 123,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 313,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 102,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 438,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 123,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 389,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 409,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 494,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 197,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 195,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 436,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 278,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 478,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 412,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 453,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 149,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 302,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 299,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 216,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 375,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 176,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 361,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 368,
+        "Col": "Food",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 382,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 376,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 540,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 443,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 498,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 99,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 178,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 238,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 283,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 375,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 420,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 423,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 523,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 128,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 51,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 102,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 450,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 441,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 108,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 288,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 223,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 312,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 191,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 95,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 240,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 267,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 496,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 68,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 499,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 343,
+        "Col": "Books",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 152,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 91,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 243,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 230,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 321,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 288,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 446,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 234,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 492,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 60,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 365,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 319,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 423,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 125,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 328,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 548,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 244,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 390,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 239,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 487,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 393,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 329,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 506,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 429,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 219,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 399,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 496,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 210,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 81,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 247,
+        "Col": "Books",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 186,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 252,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 101,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 183,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 96,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 222,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 509,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 538,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 437,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 480,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 217,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 118,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 380,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 238,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 130,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 56,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 194,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 66,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 546,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 523,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 470,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 423,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 344,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 124,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 256,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 532,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 119,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 547,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 474,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 159,
+        "Col": "Books",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 299,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 290,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 198,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 451,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 358,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 528,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 249,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 61,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 297,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 400,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 206,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 472,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 392,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 438,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 278,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 128,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 199,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 520,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 497,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 289,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 534,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 285,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 152,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 192,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 73,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 321,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 493,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 116,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 297,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 51,
+        "Col": "Sports",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 169,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 511,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 381,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 182,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 539,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 339,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 103,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 481,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 460,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 161,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 379,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 450,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 423,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 172,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 488,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 158,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 130,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 349,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 545,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 125,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 140,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 174,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 455,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 536,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 326,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 64,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 69,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 468,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 82,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 60,
+        "Col": "Sports",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 518,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 340,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 391,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 322,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 438,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 478,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 341,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 194,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 258,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 471,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 329,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 310,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 495,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 504,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 419,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 130,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 359,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 175,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 524,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 58,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 427,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 482,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 135,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 428,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 235,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 363,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 191,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 212,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 434,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 153,
+        "Col": "Sports",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 409,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 95,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 240,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 100,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 87,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 73,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 275,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 298,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 420,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 505,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 251,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 541,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 398,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 92,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 249,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 431,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 299,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 126,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 496,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 80,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 110,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 404,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 511,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 197,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 533,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 438,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 303,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 401,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 65,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 339,
+        "Col": "Home",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 100,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 185,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 357,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 400,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 50,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 338,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 71,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 526,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 367,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 128,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 271,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 187,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 295,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 155,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 86,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 244,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 268,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 466,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 85,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 233,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 272,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 60,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 508,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 300,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 487,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 152,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 334,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 132,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 87,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 339,
+        "Col": "Home",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 452,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 426,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 494,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 161,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 537,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 241,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 245,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 349,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 73,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 532,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 274,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 292,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 472,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 130,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 528,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 183,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 283,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 430,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 73,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 293,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 330,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 204,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 247,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 281,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 151,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 155,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 373,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 237,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 459,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 344,
+        "Col": "Home",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 336,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 78,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 337,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 168,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 215,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 239,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 426,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 319,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 83,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 547,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 93,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 464,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 523,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 360,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 100,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 447,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 537,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 530,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 252,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 197,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 180,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 208,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 306,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 333,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 437,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 526,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 65,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 177,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 286,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 213,
+        "Col": "Garden",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 353,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 134,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 326,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 458,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 325,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 85,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 263,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 222,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 160,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 154,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 427,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 95,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 62,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 266,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 254,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 377,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 550,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 398,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 58,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 360,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 118,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 441,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 93,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 92,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 82,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 122,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 328,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 176,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 108,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 144,
+        "Col": "Garden",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 89,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 535,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 435,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 293,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 268,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 376,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 391,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 216,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 323,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 529,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 399,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 310,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 302,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 99,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 139,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 56,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 270,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 94,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 167,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 428,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 114,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 221,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 154,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 359,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 287,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 163,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 243,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 470,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 164,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 271,
+        "Col": "Garden",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 249,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 98,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 98,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 483,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 292,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 492,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 171,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 236,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 61,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 226,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 485,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 199,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 501,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 192,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 88,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 288,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 360,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 233,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 279,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 381,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 149,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 302,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 310,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 414,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 228,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 445,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 531,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 147,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 357,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 305,
+        "Col": "Auto",
+        "Series": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 316,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 503,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 319,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 97,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 404,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 127,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 201,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 385,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 238,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 223,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 158,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 459,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 195,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 339,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 54,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 210,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 319,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 217,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 523,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 427,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 311,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 515,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 248,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 486,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 189,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 113,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 432,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 517,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 129,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 398,
+        "Col": "Auto",
+        "Series": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 317,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-02-06",
+        "Value": 215,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-03-15",
+        "Value": 489,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 246,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-05-27",
+        "Value": 73,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-07-02",
+        "Value": 275,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 161,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-09-13",
+        "Value": 133,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-10-20",
+        "Value": 527,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 52,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-01-01",
+        "Value": 446,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-02-06",
+        "Value": 229,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 124,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-04-20",
+        "Value": 436,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-05-27",
+        "Value": 211,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 66,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-08-08",
+        "Value": 68,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-09-13",
+        "Value": 282,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 534,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2019-11-25",
+        "Value": 174,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 178,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 174,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 448,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 391,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 260,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 378,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 54,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 67,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 105,
+        "Col": "Auto",
+        "Series": "Food"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 189,
+        "Col": "Auto",
+        "Series": "Food"
+      }
+    ]
+  },
+  "_width": 115,
+  "_height": 95,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

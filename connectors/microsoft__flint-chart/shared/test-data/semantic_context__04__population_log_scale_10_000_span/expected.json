@@ -1,0 +1,160 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "area_km2",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "population",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 372,
+      "continuousHeight": 323
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "place": "Hamlet A",
+        "population": 500,
+        "area_km2": 1
+      },
+      {
+        "place": "Hamlet B",
+        "population": 1200,
+        "area_km2": 3
+      },
+      {
+        "place": "Village A",
+        "population": 3500,
+        "area_km2": 10
+      },
+      {
+        "place": "Village B",
+        "population": 8000,
+        "area_km2": 18
+      },
+      {
+        "place": "Small Town",
+        "population": 22000,
+        "area_km2": 40
+      },
+      {
+        "place": "Town",
+        "population": 65000,
+        "area_km2": 80
+      },
+      {
+        "place": "Small City",
+        "population": 180000,
+        "area_km2": 150
+      },
+      {
+        "place": "City",
+        "population": 520000,
+        "area_km2": 300
+      },
+      {
+        "place": "Large City",
+        "population": 1400000,
+        "area_km2": 550
+      },
+      {
+        "place": "Metro A",
+        "population": 3200000,
+        "area_km2": 900
+      },
+      {
+        "place": "Metro B",
+        "population": 5800000,
+        "area_km2": 1400
+      },
+      {
+        "place": "Megacity",
+        "population": 10000000,
+        "area_km2": 2500
+      }
+    ]
+  },
+  "_width": 372,
+  "_height": 323,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

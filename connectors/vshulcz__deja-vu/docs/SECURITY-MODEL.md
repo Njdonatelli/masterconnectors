@@ -1,0 +1,301 @@
+# Security model
+
+deja indexes existing coding-agent histories on the same machine. This document
+describes the data it handles, the boundaries around that data, and the release
+artifacts available for verification.
+
+## Data flows
+
+### Local reads
+
+deja discovers and parses the session stores documented in the
+[source parser table](ARCHITECTURE.md#source-parsers) — JSON, JSONL, Markdown
+and SQLite written by the coding agents listed there. SQLite stores are read by
+running the local `sqlite3` executable rather than opening a network
+connection.
+
+Indexing reads session messages and metadata needed for search, including
+session IDs, project paths, titles, roles, and timestamps. It does not modify
+the source session stores.
+
+It also reads what the agent did, from the tool calls the same transcripts
+record: the file paths a turn named, the shell commands it ran, the text its
+tools printed, and the exact spans its edits replaced. Replaced spans are
+verbatim source from the user's own files, kept so a lost change can be handed
+back. All of it goes through the same redaction pass as conversation text, which
+matters more here than elsewhere: command output carries credentials far more
+often than prose does. `DEJA_INDEX_PATHS=0`, `DEJA_INDEX_COMMANDS=0`,
+`DEJA_INDEX_EDITS=0`, `DEJA_INDEX_WRITES=0` and `DEJA_INDEX_TOOL_OUTPUT=0` each
+disable one of these at ingest.
+
+The written side of an edit — what the agent typed into the file, which is what
+`deja blame` attributes a line by — is stored as one 64-bit hash per line of 24
+characters or more, never as text. Attribution needs equality, not the bytes, so
+this is the one class of content the index holds without being able to hand it
+back: a hash cannot be read, quoted or searched for.
+
+### Local writes
+
+The default index is `~/.cache/deja/index.db`; `DEJA_INDEX_DIR` changes that
+location. The directory contains:
+
+- `records.bin`, with redacted message records;
+- `buckets/*.bin`, with token postings into those records;
+- `manifest.gob` and `sessions.gob`, with source file state, session metadata,
+  redaction counts by rule, sync watermarks, imported-record deduplication keys,
+  the few files each session touched most, and hashes — not text — of the
+  questions it asked.
+
+At a supported pre-compaction hook, `manifest.gob` also retains redacted,
+transcript-derived continuation packets for at most 32 session/workspace pairs,
+with a 24 KiB limit per packet. These contain objectives, conclusions, the
+commands a session ran with whether each passed or failed, explicit
+gaps/conflicts, provenance, repository fingerprints, and a short list of
+transcript lines left open (questions to the user, open issue numbers, verdicts,
+deferred checks) carried from one compaction to the next. They remain local, are omitted from sync export, and follow ignored/excluded project
+and forgotten-session controls. `deja forget` removes matching packets even
+before their source sessions have been indexed. See [compaction recovery](compaction.md).
+
+Privacy control files are primary data, not cache data: the XDG-aware
+`~/.config/deja/tombstones` list prevents forgotten source sessions from being
+re-ingested, and `~/.config/deja/exclude` contains project patterns skipped at
+ingest. `DEJA_EXCLUDE_PROJECTS` adds comma-separated patterns. A line in the same file prefixed `harness:` names a store instead of a project — `harness:opencode` — and deja then neither walks it nor asks for the tool that would read it; `deja doctor` and `deja sources` both report it as `excluded` rather than naming a package to install. `DEJA_EXCLUDE_HARNESSES` is the comma-separated form. Store names are exact, not globs: they are the thirty-nine `deja sources` prints. Patterns also
+apply at `sync export`, so a project excluded after the index was built does not
+leave the machine; what is already indexed stays searchable locally until
+`deja index --rebuild`, and `deja index` says so when the list has changed. A full `forget`
+rebuild replaces the index atomically before the tombstone list is used by the
+next index pass.
+
+Usage events are appended to the sibling file `<index-dir>.usage.jsonl`. This
+sidecar records the kind and time of local search, recall, context, and hook
+use. It rotates at 1 MiB and retains 14 days; it does not contain session text
+or queries.
+
+Compaction capture and first-edit measurement events use this same bounded log.
+They carry hashed session/workspace identifiers, a capture revision, action
+counts, and short failure reasons. They do not contain the recovery packet.
+
+`deja secrets --scrub` is the one command that writes outside the index: it
+rewrites the harness transcripts that still hold a credential, in place. It
+replaces only the rule kinds the report names in the file the report named,
+writes the original to `<file>.deja-backup-<stamp>` first and leaves it there,
+refuses a session an agent is inside and a file written in the last two minutes,
+and re-checks size and mtime between the read and the rename. A store with no
+per-session file is not rewritten at all, and the count of what it could not
+reach is printed rather than dropped. Without `--scrub` the command only reports.
+
+The index and sidecar never leave the machine through indexing, search, MCP,
+stats, or hook operation. The MCP server uses JSON-RPC over standard input and
+output and does not listen on a network socket.
+
+### Explicit exports and network paths
+
+deja has no background network traffic. Network access happens only after one
+of these commands is run:
+
+- `deja update` connects to GitHub over HTTPS to read release metadata and
+  download the selected archive and `checksums.txt`. It verifies the archive's
+  SHA-256 checksum before replacing the binary. It does not check the cosign
+  signature over `checksums.txt`, so the check catches a corrupt download but
+  not a tampered release; verify the signature yourself (below) if you need
+  that guarantee.
+- `deja sync ssh <host>` runs the system `ssh` and `scp` clients against the
+  host supplied by the user. The remote peer receives redacted JSONL sync
+  batches and imports them into its own index. `--pull` reverses that flow.
+- `deja doctor` makes one HTTPS GET to the GitHub releases API to compare the
+  installed version with the latest; `--offline` (or `DEJA_OFFLINE=1`) skips
+  it. No session data is sent.
+- `deja embed` and hybrid search talk to the embedding endpoint you configured
+  (an Ollama or LM Studio address, normally on localhost). Without that
+  configuration the semantic path is off and nothing is sent anywhere. It is
+  the only command that puts session text in front of a third party, so the
+  trust policy gates it on every activation at once rather than on `search`:
+  content withheld from any read path is not embedded, and the command says how
+  many records stayed behind.
+
+`deja sync export <dir>` and `deja share <id>` write data to a path or output
+chosen by the user. They do not transmit it themselves. Exported batches and
+shared digests can leave the machine if the destination directory, shell
+pipeline, or later user action sends them elsewhere.
+
+## Redaction boundary
+
+Redaction runs before session messages and titles are stored in the index and
+runs again for share and sync export output. It replaces matched values while
+leaving surrounding text searchable. The current patterns cover:
+
+- AWS access key IDs and secret-key assignments;
+- generic credential assignments such as `api_key=`, `token=`, `secret=`,
+  `password=`, and `authorization=`;
+- a secret named and quoted rather than assigned — `password "…"`, `token is
+  "…"`, `api-key: "…"` — in every spelling of the name, with or without the
+  hyphen, underscore or space, and with a colon or an equals sign as well as
+  plain prose. The quotes are what makes this safe to be loose about the
+  separator: a name with no quoted value behind it is left alone;
+- a password stated in prose, with no delimiter at all — "the admin password is
+  …", "passphrase was …", and the same shapes in Russian. Every other rule here
+  needs a colon, an equals sign, a quote or a flag, and a person telling an
+  agent a password writes none of them. The value has to carry a digit or a
+  symbol and it ends at the first space, so "the password is wrong" and "the
+  password is the same as staging" are left alone;
+- bearer tokens and JWTs;
+- PEM private-key blocks;
+- known GitHub, GitLab, OpenAI/Anthropic-style, Groq, xAI, Hugging Face, npm,
+  Slack, and Google token prefixes;
+- URLs containing `scheme://user:password@host` credentials;
+- a credential handed to a program on its command line: `sshpass -p`,
+  `mysql -pSecret`, `curl -u user:pass`, and the long flags that name what they
+  carry — `--password`, `--passphrase`, `--secret`, `--token`, `--api-key`.
+  With a space rather than an `=`, a value that reads as an ordinary word is
+  left alone, so a sentence about the flag keeps its next word;
+- bare high-entropy values in secret-shaped positions: the value side of an
+  assignment (`ANYTHING=<random-looking string>`, including the Telegram
+  `digits:token` shape) and a token standing alone on its own line. Entropy
+  alone is not enough — hex digests, UUIDs, paths and identifiers are
+  excluded, and the assignment key must be a real word, so ordinary code and
+  logs pass through unchanged (measured ~0.4% of messages affected on a real
+  23 MB corpus).
+
+Pattern matching is not secret detection. A new provider's token shape, an
+unlabelled credential, encoded or transformed data, and a secret split across
+lines can pass through unchanged. Redaction also cannot remove sensitive prose
+that does not look like a credential. Review every share or export before
+sending it to another person or system.
+
+A credential that appears in a transcript was already sent to the model
+provider by the agent that wrote it. Redaction protects the artifacts derived
+from that transcript — the local index, shares, sync batches — from spreading
+it further; it does not undo the original exposure. Rotate the credential.
+
+Setting `DEJA_NO_REDACT=1` disables this boundary. Plaintext credentials may
+then be written to the local index and may appear in search, share, and sync
+output. Do not use it with histories that contain secrets.
+
+## Non-goals and trust assumptions
+
+- deja is not an access-control system. Anyone who can read the index files can
+  inspect the data stored in them.
+- The index and usage sidecar inherit the permissions and protections of their
+  directory and filesystem. deja does not encrypt them at rest.
+- Sync trusts the SSH host, account, and keys selected by the user. deja does
+  not authenticate peers beyond the system SSH client's checks and does not
+  revoke data after a peer imports it.
+- Redaction reduces accidental credential disclosure; it does not prove that
+  output is free of secrets or other private information.
+
+## Release integrity
+
+Each GitHub release includes `checksums.txt` and `checksums.txt.sigstore.json`.
+The release workflow creates a keyless cosign signature over `checksums.txt`,
+stored as a sigstore bundle, and publishes a GitHub build-provenance
+attestation for the same checksum set. Releases also include an SPDX JSON SBOM for each archive.
+
+After downloading both files, verify the signature with:
+
+```sh
+cosign verify-blob \
+  --bundle checksums.txt.sigstore.json \
+  --certificate-identity-regexp '^https://github.com/vshulcz/deja-vu/.github/workflows/release.yml@refs/tags/v[0-9].*$' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  checksums.txt
+```
+
+Releases up to v0.21.4 carry `checksums.txt.sig` and `checksums.txt.pem`
+instead of the bundle; pass those as `--signature` and `--certificate` in
+place of `--bundle`.
+
+Then verify the downloaded archive against the signed checksum list:
+
+```sh
+sha256sum --ignore-missing --check checksums.txt
+```
+
+On macOS, use `shasum -a 256 -c checksums.txt` instead.
+
+## Rebuilding a release
+
+Release binaries are built with Go 1.25.x, `CGO_ENABLED=0`, and `-trimpath`.
+To compare one target, check out its tag, use the exact Go patch version shown
+in the release workflow logs, and set the version embedded by GoReleaser:
+
+```sh
+git checkout vX.Y.Z
+export CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GOFLAGS=-trimpath
+go build -ldflags='-s -w -X main.version=X.Y.Z' -o deja ./cmd/deja
+sha256sum deja
+```
+
+Run the equivalent target for the archive being checked and compare the binary
+inside that archive. Go patch version, target OS and architecture, environment,
+and build flags must match.
+
+For a local archive build, use the same GoReleaser and Syft versions as the
+release job and derive the archive timestamp from the tag commit:
+
+```sh
+export GOFLAGS=-trimpath
+export SOURCE_DATE_EPOCH="$(git show -s --format=%ct HEAD)"
+goreleaser release --snapshot --clean --skip=publish
+```
+
+The Go binaries are intended to be reproducible when those inputs match.
+Release archives are not claimed to be byte-reproducible today: the workflow
+does not pin the GoReleaser version, snapshot builds carry a different version,
+and archive/SBOM metadata can vary with tool versions. `SOURCE_DATE_EPOCH`
+stabilizes timestamps but does not remove those differences.
+
+
+## Recall trust policy
+
+`~/.config/deja/policy.json` (XDG-aware; `DEJA_POLICY_FILE` moves it) decides
+which history may be handed to an agent on each read path. `activations` maps
+`search`, `mcp` and `auto` (the hooks) to rules keyed by origin: `local`,
+`imported` for anything that arrived by sync, `imported:<group>` for one group
+of synced projects, and `*`. The most specific rule wins, and an activation with
+no rules allows every origin. `DEJA_AUTORECALL_LOCAL_ONLY=1` denies imported
+memory on the `auto` path. Content leaves the machine for an embedding endpoint
+only when all three activations allow it.
+
+`ignore` lists shell globs matched against a session's path and project; a
+match stays out of recall. With no `ignore` key the default is
+`*/.claude/jobs/*`, a background agent's own scratch tree; writing the key
+replaces that default. A file that is missing or does not parse means the
+default policy, so recall never breaks on a bad file; `deja doctor` reports what
+is in force.
+
+The policy filters what recall serves. It does not keep anything out of the
+index; the exclude list and `deja forget` above do that.
+
+## Recall output framing
+
+Agent-facing recall (the MCP tool's `recall` and `context` modes and the
+SessionStart hook digest) is wrapped in `<deja-recall>` markers with a
+preamble stating the content is untrusted historical data and instructions
+inside it must not be followed. Transcripts can carry text an attacker
+influenced (a directive copied from a web page persists in the index and
+replays into later sessions); framing keeps models from treating replayed
+text as commands. The framing bytes count against the existing injection
+budgets, empty results stay unwrapped, and human-facing CLI output is
+unchanged.
+
+## Config backups
+
+`deja install` snapshots an agent config once as `<path>.bak` before first
+modification. Backups and newly created configs are written owner-only
+(0600) because these files can carry MCP server credentials; the mode of an
+existing live config is preserved on update.
+
+On non-Windows hosts install also writes `~/.config/deja/bin/deja-hook`, a
+shell script the hook entries name so an upgrade that moves the binary does not
+have to rewrite every config. It is 0755 in a directory the user owns, and it
+runs the first executable it finds among `DEJA_BIN`, the path the install ran
+from, the `PATH`, and the usual install locations — so anything that can write
+those can already run code as that user. It is removed when the last target is
+uninstalled.
+
+The script also records the `XDG_*` base directories that differ from the
+defaults and the `DEJA_*` index, store-location and indexing settings that were
+set at install, and exports each one only when the hook's own environment
+leaves it unset. That is for hosts such as Muse Code that start hooks with only
+`HOME` and `PATH`. Keys, connection strings (`DEJA_EMBED_KEY`,
+`DEJA_HERMES_PG_DSN`) and debug switches are never written to it.

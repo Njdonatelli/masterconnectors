@@ -1,0 +1,1237 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Score",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Score",
+          "order": "ascending"
+        }
+      ],
+      "groupby": [
+        "Subject"
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Score",
+          "as": "__ecdf_total"
+        }
+      ],
+      "groupby": [
+        "Subject"
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Score",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Subject",
+      "type": "nominal",
+      "sort": null,
+      "columns": 3
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 233,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 253
+    },
+    "facet": {
+      "spacing": 23
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Score": 75,
+        "Subject": "Math"
+      },
+      {
+        "Score": 49,
+        "Subject": "Math"
+      },
+      {
+        "Score": 50,
+        "Subject": "Math"
+      },
+      {
+        "Score": 86,
+        "Subject": "Math"
+      },
+      {
+        "Score": 88,
+        "Subject": "Math"
+      },
+      {
+        "Score": 74,
+        "Subject": "Math"
+      },
+      {
+        "Score": 89,
+        "Subject": "Math"
+      },
+      {
+        "Score": 56,
+        "Subject": "Math"
+      },
+      {
+        "Score": 81,
+        "Subject": "Math"
+      },
+      {
+        "Score": 64,
+        "Subject": "Math"
+      },
+      {
+        "Score": 75,
+        "Subject": "Math"
+      },
+      {
+        "Score": 62,
+        "Subject": "Math"
+      },
+      {
+        "Score": 69,
+        "Subject": "Math"
+      },
+      {
+        "Score": 62,
+        "Subject": "Math"
+      },
+      {
+        "Score": 94,
+        "Subject": "Math"
+      },
+      {
+        "Score": 59,
+        "Subject": "Math"
+      },
+      {
+        "Score": 60,
+        "Subject": "Math"
+      },
+      {
+        "Score": 86,
+        "Subject": "Math"
+      },
+      {
+        "Score": 65,
+        "Subject": "Math"
+      },
+      {
+        "Score": 66,
+        "Subject": "Math"
+      },
+      {
+        "Score": 79,
+        "Subject": "Math"
+      },
+      {
+        "Score": 56,
+        "Subject": "Math"
+      },
+      {
+        "Score": 79,
+        "Subject": "Math"
+      },
+      {
+        "Score": 47,
+        "Subject": "Math"
+      },
+      {
+        "Score": 76,
+        "Subject": "Math"
+      },
+      {
+        "Score": 49,
+        "Subject": "Math"
+      },
+      {
+        "Score": 78,
+        "Subject": "Math"
+      },
+      {
+        "Score": 69,
+        "Subject": "Math"
+      },
+      {
+        "Score": 73,
+        "Subject": "Math"
+      },
+      {
+        "Score": 72,
+        "Subject": "Math"
+      },
+      {
+        "Score": 89,
+        "Subject": "Math"
+      },
+      {
+        "Score": 78,
+        "Subject": "Math"
+      },
+      {
+        "Score": 76,
+        "Subject": "Math"
+      },
+      {
+        "Score": 59,
+        "Subject": "Math"
+      },
+      {
+        "Score": 69,
+        "Subject": "Math"
+      },
+      {
+        "Score": 88,
+        "Subject": "Math"
+      },
+      {
+        "Score": 62,
+        "Subject": "Math"
+      },
+      {
+        "Score": 66,
+        "Subject": "Math"
+      },
+      {
+        "Score": 49,
+        "Subject": "Math"
+      },
+      {
+        "Score": 59,
+        "Subject": "Math"
+      },
+      {
+        "Score": 78,
+        "Subject": "Math"
+      },
+      {
+        "Score": 72,
+        "Subject": "Math"
+      },
+      {
+        "Score": 59,
+        "Subject": "Math"
+      },
+      {
+        "Score": 46,
+        "Subject": "Math"
+      },
+      {
+        "Score": 42,
+        "Subject": "Math"
+      },
+      {
+        "Score": 95,
+        "Subject": "Math"
+      },
+      {
+        "Score": 60,
+        "Subject": "Math"
+      },
+      {
+        "Score": 78,
+        "Subject": "Math"
+      },
+      {
+        "Score": 61,
+        "Subject": "Math"
+      },
+      {
+        "Score": 81,
+        "Subject": "Math"
+      },
+      {
+        "Score": 73,
+        "Subject": "Math"
+      },
+      {
+        "Score": 72,
+        "Subject": "Math"
+      },
+      {
+        "Score": 55,
+        "Subject": "Math"
+      },
+      {
+        "Score": 87,
+        "Subject": "Math"
+      },
+      {
+        "Score": 60,
+        "Subject": "Math"
+      },
+      {
+        "Score": 70,
+        "Subject": "Math"
+      },
+      {
+        "Score": 79,
+        "Subject": "Math"
+      },
+      {
+        "Score": 72,
+        "Subject": "Math"
+      },
+      {
+        "Score": 75,
+        "Subject": "Math"
+      },
+      {
+        "Score": 60,
+        "Subject": "Math"
+      },
+      {
+        "Score": 45,
+        "Subject": "Math"
+      },
+      {
+        "Score": 60,
+        "Subject": "Math"
+      },
+      {
+        "Score": 81,
+        "Subject": "Math"
+      },
+      {
+        "Score": 70,
+        "Subject": "Math"
+      },
+      {
+        "Score": 70,
+        "Subject": "Math"
+      },
+      {
+        "Score": 42,
+        "Subject": "Math"
+      },
+      {
+        "Score": 55,
+        "Subject": "Math"
+      },
+      {
+        "Score": 72,
+        "Subject": "Math"
+      },
+      {
+        "Score": 75,
+        "Subject": "Math"
+      },
+      {
+        "Score": 53,
+        "Subject": "Math"
+      },
+      {
+        "Score": 67,
+        "Subject": "Math"
+      },
+      {
+        "Score": 59,
+        "Subject": "Math"
+      },
+      {
+        "Score": 71,
+        "Subject": "Math"
+      },
+      {
+        "Score": 66,
+        "Subject": "Math"
+      },
+      {
+        "Score": 84,
+        "Subject": "Math"
+      },
+      {
+        "Score": 57,
+        "Subject": "Math"
+      },
+      {
+        "Score": 81,
+        "Subject": "Math"
+      },
+      {
+        "Score": 83,
+        "Subject": "Math"
+      },
+      {
+        "Score": 83,
+        "Subject": "Math"
+      },
+      {
+        "Score": 72,
+        "Subject": "Math"
+      },
+      {
+        "Score": 99,
+        "Subject": "Math"
+      },
+      {
+        "Score": 62,
+        "Subject": "Math"
+      },
+      {
+        "Score": 70,
+        "Subject": "Math"
+      },
+      {
+        "Score": 54,
+        "Subject": "Math"
+      },
+      {
+        "Score": 33,
+        "Subject": "Math"
+      },
+      {
+        "Score": 54,
+        "Subject": "Math"
+      },
+      {
+        "Score": 75,
+        "Subject": "Math"
+      },
+      {
+        "Score": 94,
+        "Subject": "Math"
+      },
+      {
+        "Score": 64,
+        "Subject": "Math"
+      },
+      {
+        "Score": 39,
+        "Subject": "Math"
+      },
+      {
+        "Score": 54,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 55,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 69,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 69,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 86,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 90,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 71,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 94,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 72,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 63,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 66,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 71,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 74,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 91,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 83,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 67,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 64,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 75,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 90,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 83,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 73,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 85,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 86,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 100,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 94,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 76,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 89,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 64,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 60,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 64,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 76,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 78,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 62,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 88,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 91,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 86,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 84,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 84,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 79,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 92,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 84,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 79,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 49,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 91,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 67,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 83,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 76,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 78,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 80,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 87,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 66,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 70,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 66,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 81,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 84,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 85,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 80,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 63,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 84,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 80,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 53,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 69,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 74,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 63,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 40,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 79,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 94,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 66,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 68,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 86,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 68,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 71,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 75,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 77,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 76,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 71,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 83,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 71,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 72,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 76,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 98,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 76,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 76,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 89,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 56,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 87,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 74,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 72,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 79,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 68,
+        "Subject": "Reading"
+      },
+      {
+        "Score": 69,
+        "Subject": "Science"
+      },
+      {
+        "Score": 76,
+        "Subject": "Science"
+      },
+      {
+        "Score": 59,
+        "Subject": "Science"
+      },
+      {
+        "Score": 57,
+        "Subject": "Science"
+      },
+      {
+        "Score": 85,
+        "Subject": "Science"
+      },
+      {
+        "Score": 62,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 70,
+        "Subject": "Science"
+      },
+      {
+        "Score": 73,
+        "Subject": "Science"
+      },
+      {
+        "Score": 54,
+        "Subject": "Science"
+      },
+      {
+        "Score": 85,
+        "Subject": "Science"
+      },
+      {
+        "Score": 66,
+        "Subject": "Science"
+      },
+      {
+        "Score": 67,
+        "Subject": "Science"
+      },
+      {
+        "Score": 72,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 93,
+        "Subject": "Science"
+      },
+      {
+        "Score": 90,
+        "Subject": "Science"
+      },
+      {
+        "Score": 65,
+        "Subject": "Science"
+      },
+      {
+        "Score": 70,
+        "Subject": "Science"
+      },
+      {
+        "Score": 69,
+        "Subject": "Science"
+      },
+      {
+        "Score": 77,
+        "Subject": "Science"
+      },
+      {
+        "Score": 86,
+        "Subject": "Science"
+      },
+      {
+        "Score": 72,
+        "Subject": "Science"
+      },
+      {
+        "Score": 83,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 80,
+        "Subject": "Science"
+      },
+      {
+        "Score": 75,
+        "Subject": "Science"
+      },
+      {
+        "Score": 90,
+        "Subject": "Science"
+      },
+      {
+        "Score": 59,
+        "Subject": "Science"
+      },
+      {
+        "Score": 62,
+        "Subject": "Science"
+      },
+      {
+        "Score": 73,
+        "Subject": "Science"
+      },
+      {
+        "Score": 84,
+        "Subject": "Science"
+      },
+      {
+        "Score": 61,
+        "Subject": "Science"
+      },
+      {
+        "Score": 74,
+        "Subject": "Science"
+      },
+      {
+        "Score": 83,
+        "Subject": "Science"
+      },
+      {
+        "Score": 93,
+        "Subject": "Science"
+      },
+      {
+        "Score": 50,
+        "Subject": "Science"
+      },
+      {
+        "Score": 77,
+        "Subject": "Science"
+      },
+      {
+        "Score": 57,
+        "Subject": "Science"
+      },
+      {
+        "Score": 58,
+        "Subject": "Science"
+      },
+      {
+        "Score": 45,
+        "Subject": "Science"
+      },
+      {
+        "Score": 66,
+        "Subject": "Science"
+      },
+      {
+        "Score": 71,
+        "Subject": "Science"
+      },
+      {
+        "Score": 58,
+        "Subject": "Science"
+      },
+      {
+        "Score": 85,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 79,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 86,
+        "Subject": "Science"
+      },
+      {
+        "Score": 53,
+        "Subject": "Science"
+      },
+      {
+        "Score": 82,
+        "Subject": "Science"
+      },
+      {
+        "Score": 69,
+        "Subject": "Science"
+      },
+      {
+        "Score": 95,
+        "Subject": "Science"
+      },
+      {
+        "Score": 72,
+        "Subject": "Science"
+      },
+      {
+        "Score": 59,
+        "Subject": "Science"
+      },
+      {
+        "Score": 77,
+        "Subject": "Science"
+      },
+      {
+        "Score": 71,
+        "Subject": "Science"
+      },
+      {
+        "Score": 52,
+        "Subject": "Science"
+      },
+      {
+        "Score": 67,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 59,
+        "Subject": "Science"
+      },
+      {
+        "Score": 63,
+        "Subject": "Science"
+      },
+      {
+        "Score": 83,
+        "Subject": "Science"
+      },
+      {
+        "Score": 63,
+        "Subject": "Science"
+      },
+      {
+        "Score": 82,
+        "Subject": "Science"
+      },
+      {
+        "Score": 83,
+        "Subject": "Science"
+      },
+      {
+        "Score": 68,
+        "Subject": "Science"
+      },
+      {
+        "Score": 53,
+        "Subject": "Science"
+      },
+      {
+        "Score": 54,
+        "Subject": "Science"
+      },
+      {
+        "Score": 69,
+        "Subject": "Science"
+      },
+      {
+        "Score": 65,
+        "Subject": "Science"
+      },
+      {
+        "Score": 71,
+        "Subject": "Science"
+      },
+      {
+        "Score": 70,
+        "Subject": "Science"
+      },
+      {
+        "Score": 51,
+        "Subject": "Science"
+      },
+      {
+        "Score": 72,
+        "Subject": "Science"
+      },
+      {
+        "Score": 62,
+        "Subject": "Science"
+      },
+      {
+        "Score": 65,
+        "Subject": "Science"
+      },
+      {
+        "Score": 48,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 60,
+        "Subject": "Science"
+      },
+      {
+        "Score": 77,
+        "Subject": "Science"
+      },
+      {
+        "Score": 67,
+        "Subject": "Science"
+      },
+      {
+        "Score": 64,
+        "Subject": "Science"
+      },
+      {
+        "Score": 78,
+        "Subject": "Science"
+      },
+      {
+        "Score": 85,
+        "Subject": "Science"
+      },
+      {
+        "Score": 67,
+        "Subject": "Science"
+      },
+      {
+        "Score": 51,
+        "Subject": "Science"
+      },
+      {
+        "Score": 48,
+        "Subject": "Science"
+      },
+      {
+        "Score": 48,
+        "Subject": "Science"
+      },
+      {
+        "Score": 71,
+        "Subject": "Science"
+      }
+    ]
+  },
+  "_width": 233,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

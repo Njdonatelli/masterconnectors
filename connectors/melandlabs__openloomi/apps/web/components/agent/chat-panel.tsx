@@ -1,0 +1,749 @@
+"use client";
+
+import { useTranslation } from "react-i18next";
+import { cn } from "@/lib/utils";
+import "../../i18n";
+import type { UseChatHelpers } from "@ai-sdk/react";
+import { useMemo, useState, useCallback, useEffect, useRef } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { generateUUID } from "@/lib/utils";
+import type { ChatMessage } from "@melandlabs/shared";
+import { VirtualizedMessages } from "@/components/messages-virtualized";
+import { TaskComposer } from "@/components/task-composer/task-composer";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
+import type { Attachment } from "@melandlabs/shared";
+import { useChatContext } from "../chat-context";
+import { ArrowUpIcon, ArrowDownIcon } from "@/components/icons";
+import { Button } from "@openloomi/ui";
+import { WorkspaceFloatPanel } from "./workspace-float-panel";
+import { ErrorBoundary } from "@/components/error-boundary";
+import { useConversationApiConfiguration } from "@/components/conversation-api-onboarding-guard";
+import { ConversationApiSetup } from "@/components/conversation-api-setup";
+import { getTextFromMessage } from "@/lib/utils";
+import { resolveAgentChatRuntimePresentation } from "@/lib/ai/chat/runtime-presentation";
+import { resolveGoalComposerSubmission } from "@/lib/ai/runtime-instructions/goal-ui-model";
+import { toast } from "@/components/toast";
+
+interface AgentChatPanelProps {
+  chatId?: string | null; // External chatId; if null, creates a new chat
+  /** Initial input value (e.g., pre-filled when navigating from skill page /skill-creator) */
+  initialInput?: string;
+  /** Refresh token for replacing the current draft with the latest initial input. */
+  prefillToken?: string;
+  /** A message to send immediately after mount (e.g., from onboarding "Chat with openloomi" card), sent only once */
+  initialMessageToSend?: string;
+  /** A server-owned recovery Query is running without a browser abort handle. */
+  serverRecoveryActive?: boolean;
+  /** Pins a provisional cold-start chat before late recovery data can replace it. */
+  onUserIntent?: () => void;
+  /** Starts a Goal without sending the `/goal` command as a chat message. */
+  onStartGoal?: (objective: string) => Promise<unknown>;
+  /** Opens and focuses the Goal panel for a bare `/goal` command. */
+  onOpenGoal?: () => void;
+  /** A Goal activation request is planning for this chat. */
+  goalStartPending?: boolean;
+}
+
+/**
+ * Agent page chat panel component
+ * Implements full AI chat functionality with message list and input field
+ * Note: the header is managed by ChatHeaderPanel component, unified in layout.tsx
+ */
+export function AgentChatPanel({
+  chatId: externalChatId,
+  initialInput,
+  prefillToken,
+  initialMessageToSend,
+  serverRecoveryActive = false,
+  onUserIntent,
+  onStartGoal,
+  onOpenGoal,
+  goalStartPending = false,
+}: AgentChatPanelProps = {}) {
+  const { t } = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [input, setInput] = useState<string>(initialInput ?? "");
+  const [attachments, setAttachments] = useState<Array<Attachment>>([]);
+  const apiConfigurationState = useConversationApiConfiguration();
+  const requiresApiSetup = apiConfigurationState === "missing";
+
+  // Note: previousChatIdRef is not needed because the component gets the latest messages from context
+  // When chatId changes, useChat in parent AgentPageClient handles the message switch automatically
+  // Scroll state management
+  const [isScrolled, setIsScrolled] = useState(false);
+  // Whether near the bottom (used to determine scroll-to-top or scroll-to-bottom button)
+  const [isNearBottom, setIsNearBottom] = useState(true);
+  // Whether to show scroll button (with auto-hide)
+  const [showScrollButton, setShowScrollButton] = useState(false);
+  const scrollButtonTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
+  const lastSpokenAssistantMessageIdRef = useRef<string | null>(null);
+  const wasAgentRunningRef = useRef(false);
+  const lastTtsChatIdRef = useRef<string | null>(null);
+
+  // Get chat context (must be called before using status)
+  const {
+    messages,
+    sendMessage,
+    setMessages,
+    stopChat,
+    activeChatId: contextActiveChatId,
+    isVaultOpen,
+    setVaultOpen,
+    getIsAgentRunningByChatId,
+  } = useChatContext();
+
+  const handleCloseVault = useCallback(
+    () => setVaultOpen(false),
+    [setVaultOpen],
+  );
+
+  // Use externally provided chatId, or generate a new one if not provided
+  const chatId = useMemo(() => {
+    return externalChatId || contextActiveChatId || generateUUID();
+  }, [contextActiveChatId, externalChatId]);
+
+  // Get isAgentRunning for THIS chat panel's chatId (not the activeChatId)
+  // This ensures the side panel shows correct status even when activeChatId changes
+  const isAgentRunningForChat = getIsAgentRunningByChatId(chatId);
+  const runtimePresentation = resolveAgentChatRuntimePresentation({
+    browserRunActive: isAgentRunningForChat,
+    serverRecoveryActive,
+  });
+  const composerCommands = useMemo(
+    () => [
+      {
+        id: "goal",
+        trigger: "/goal" as const,
+        label: t("chat.goalCommandMenuLabel", "Create a Goal"),
+        description: t(
+          "chat.goalCommandMenuDescription",
+          "Plan and run a long-running task",
+        ),
+        modeLabel: t("chat.goalCommandMode", "Goal mode"),
+      },
+    ],
+    [t],
+  );
+
+  useEffect(() => {
+    if (lastTtsChatIdRef.current !== chatId) {
+      lastTtsChatIdRef.current = chatId;
+      wasAgentRunningRef.current = isAgentRunningForChat;
+      lastSpokenAssistantMessageIdRef.current = null;
+      return;
+    }
+
+    const wasRunning = wasAgentRunningRef.current;
+    wasAgentRunningRef.current = isAgentRunningForChat;
+
+    if (!wasRunning || isAgentRunningForChat) {
+      return;
+    }
+
+    const latestAssistantMessage = [...messages]
+      .reverse()
+      .find((message) => message.role === "assistant" && message.id);
+    if (!latestAssistantMessage?.id) return;
+    if (lastSpokenAssistantMessageIdRef.current === latestAssistantMessage.id) {
+      return;
+    }
+
+    const text = getTextFromMessage(latestAssistantMessage).trim();
+    if (!text) return;
+
+    lastSpokenAssistantMessageIdRef.current = latestAssistantMessage.id;
+  }, [isAgentRunningForChat, messages]);
+
+  // Per-chat input persistence: track previous chat for saving input on switch
+  const prevChatIdForInputRef = useRef<string | null>(null);
+  const chatInputKey = `openloomi:chat-input-${chatId}`;
+  const chatInputKeyRef = useRef<string>(chatInputKey);
+  chatInputKeyRef.current = chatInputKey;
+  const inputRef = useRef(input);
+
+  // Apply initialInput (e.g., from skill page /?input=/skill-creator navigation) and clear URL params (runs only once)
+  const initialInputAppliedRef = useRef(false);
+  useEffect(() => {
+    if (
+      initialInput == null ||
+      initialInput === "" ||
+      prefillToken != null ||
+      initialInputAppliedRef.current
+    )
+      return;
+    initialInputAppliedRef.current = true;
+    setInput(initialInput);
+    const next = new URLSearchParams(searchParams.toString());
+    next.delete("input");
+    next.delete("preset");
+    next.delete("prefillToken");
+    const qs = next.toString();
+    const url = qs ? `${pathname}?${qs}` : (pathname ?? "/");
+    router.replace(url, { scroll: false });
+  }, [initialInput, pathname, prefillToken, router, searchParams]);
+
+  const lastAppliedPrefillTokenRef = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (!prefillToken || !initialInput?.trim()) return;
+    if (lastAppliedPrefillTokenRef.current === prefillToken) return;
+
+    lastAppliedPrefillTokenRef.current = prefillToken;
+    setInput(initialInput);
+
+    if (typeof window !== "undefined") {
+      localStorage.setItem(chatInputKey, initialInput);
+    }
+    const next = new URLSearchParams(searchParams.toString());
+    next.delete("input");
+    next.delete("preset");
+    next.delete("prefillToken");
+    const qs = next.toString();
+    const url = qs ? `${pathname}?${qs}` : (pathname ?? "/");
+    router.replace(url, { scroll: false });
+  }, [
+    chatInputKey,
+    initialInput,
+    pathname,
+    prefillToken,
+    router,
+    searchParams,
+  ]);
+
+  // Keep inputRef in sync with input state
+  useEffect(() => {
+    inputRef.current = input;
+  }, [input]);
+
+  // Load input from localStorage for a specific chat
+  const loadChatInput = useCallback(
+    (targetChatId: string, initial?: string) => {
+      if (typeof window === "undefined") return initial ?? "";
+      const key = `openloomi:chat-input-${targetChatId}`;
+      const saved = localStorage.getItem(key);
+      return saved ?? initial ?? "";
+    },
+    [],
+  );
+
+  // Handle chat switch: save previous chat's input, load new chat's input
+  useEffect(() => {
+    if (!chatId || typeof window === "undefined") return;
+
+    const prevChatId = prevChatIdForInputRef.current;
+
+    // If this is a chat switch (not initial load)
+    if (prevChatId && prevChatId !== chatId) {
+      // Save previous chat's input using ref to avoid dependency issues
+      const prevKey = `openloomi:chat-input-${prevChatId}`;
+      const currentInput = inputRef.current;
+      if (currentInput) {
+        localStorage.setItem(prevKey, currentInput);
+      }
+
+      // Load new chat's input
+      const newInput = loadChatInput(chatId);
+      setInput(newInput);
+    } else if (!prevChatId) {
+      // Initial load: try to load saved input or use initialInput
+      const initialInputValue = initialInput?.trim()
+        ? initialInput
+        : loadChatInput(chatId, "");
+      setInput(initialInputValue);
+    }
+
+    prevChatIdForInputRef.current = chatId;
+  }, [chatId, initialInput, loadChatInput]);
+
+  // Persist input to localStorage on change (debounced)
+  const saveInputTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const handleSetInput = useCallback(
+    (value: string | ((prev: string) => string)) => {
+      onUserIntent?.();
+      setInput((prev) => {
+        const newValue = typeof value === "function" ? value(prev) : value;
+
+        // Clear any pending save timeout
+        if (saveInputTimeoutRef.current) {
+          clearTimeout(saveInputTimeoutRef.current);
+        }
+
+        // Handle input change
+        if (typeof window !== "undefined" && chatInputKeyRef.current) {
+          if (!newValue) {
+            // When input is cleared (e.g., message sent), clear localStorage
+            localStorage.removeItem(chatInputKeyRef.current);
+          } else {
+            // Debounce save to localStorage for non-empty values
+            saveInputTimeoutRef.current = setTimeout(() => {
+              localStorage.setItem(chatInputKeyRef.current, newValue);
+            }, 500);
+          }
+        }
+
+        return newValue;
+      });
+    },
+    [onUserIntent],
+  );
+  const handleSetAttachments = useCallback<typeof setAttachments>(
+    (value) => {
+      onUserIntent?.();
+      setAttachments(value);
+    },
+    [onUserIntent],
+  );
+
+  /**
+   * Listen to scroll events and detect scroll state
+   */
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    const handleScroll = () => {
+      const scrollTop = scrollContainer.scrollTop;
+      const scrollHeight = scrollContainer.scrollHeight;
+      const clientHeight = scrollContainer.clientHeight;
+
+      // Detect if scrolled up more than 20px
+      setIsScrolled(scrollTop > 20);
+
+      // Detect if near the bottom (distance to bottom less than 100px)
+      const distanceToBottom = scrollHeight - scrollTop - clientHeight;
+      setIsNearBottom(distanceToBottom < 100);
+
+      // Show button and set auto-hide timer
+      setShowScrollButton(true);
+      if (scrollButtonTimerRef.current) {
+        clearTimeout(scrollButtonTimerRef.current);
+      }
+      scrollButtonTimerRef.current = setTimeout(() => {
+        setShowScrollButton(false);
+      }, 3000);
+    };
+
+    scrollContainer.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+    // Initial check
+    handleScroll();
+    // On init, show button based on scroll state (show immediately if already scrolled)
+    if (scrollContainer.scrollTop > 20) {
+      setShowScrollButton(true);
+    }
+
+    return () => {
+      scrollContainer.removeEventListener("scroll", handleScroll);
+      if (scrollButtonTimerRef.current) {
+        clearTimeout(scrollButtonTimerRef.current);
+      }
+    };
+  }, []);
+
+  /**
+   * Scroll to top
+   */
+  const scrollToTop = useCallback(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
+  /**
+   * Scroll to bottom
+   */
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
+    const scrollContainer = scrollContainerRef.current;
+    const endElement = endRef.current;
+    if (scrollContainer && endElement) {
+      // Use offsetTop for more reliable positioning instead of scrollHeight
+      scrollContainer.scrollTo({
+        top: endElement.offsetTop,
+        behavior,
+      });
+    }
+  }, []);
+
+  // Track previous activeChatId to detect chat switches
+  const prevActiveChatIdRef = useRef<string | null>(null);
+  // Track previous message count to detect when messages finish loading
+  const prevMessagesCountRef = useRef(0);
+
+  /**
+   * Scroll to bottom
+   * Auto-scrolls when messages change (loading complete, chat switch, new message)
+   */
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    // Detect if chat switched
+    const didSwitchChat =
+      prevActiveChatIdRef.current !== null &&
+      prevActiveChatIdRef.current !== contextActiveChatId;
+    prevActiveChatIdRef.current = contextActiveChatId;
+
+    // Detect if messages just finished loading (from 0 to > 0)
+    const didLoadMessages =
+      prevMessagesCountRef.current === 0 && messages.length > 0;
+    prevMessagesCountRef.current = messages.length;
+
+    // On chat switch or message load complete, use auto for immediate scroll
+    // On new message send, use smooth animation
+    const isNewMessage = messages.length > prevMessagesCountRef.current;
+    const behavior =
+      didSwitchChat || didLoadMessages
+        ? "auto"
+        : isNewMessage
+          ? "smooth"
+          : "instant";
+
+    // Use double rAF to ensure DOM and virtual list rendering complete before scrolling
+    // This is more reliable than fixed timeout (50ms) which may fire before DOM updates
+    const rafId = requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollToBottom(behavior);
+      });
+    });
+
+    return () => cancelAnimationFrame(rafId);
+  }, [messages, contextActiveChatId, scrollToBottom]);
+
+  /**
+   * Send message
+   */
+  const sendMessagePresent = useCallback<
+    UseChatHelpers<ChatMessage>["sendMessage"]
+  >(
+    (message, requestOptions) => {
+      // Check if sendMessage is available
+      if (!sendMessage) {
+        console.error("[sendMessage] sendMessage is not available");
+        return Promise.reject(new Error("Chat is not properly initialized"));
+      }
+
+      if (apiConfigurationState !== "available") {
+        return Promise.reject(
+          new Error("Conversation API configuration is not available"),
+        );
+      }
+
+      // Check if AI is already responding to prevent duplicate submissions
+      if (!runtimePresentation.canStartRun) {
+        console.warn("[sendMessage] Agent is already running");
+        return Promise.reject(new Error("Agent is already running"));
+      }
+
+      onUserIntent?.();
+      return sendMessage(message, { ...requestOptions, chatId });
+    },
+    [
+      apiConfigurationState,
+      chatId,
+      onUserIntent,
+      runtimePresentation.canStartRun,
+      sendMessage,
+    ],
+  );
+
+  /** Auto-send initialMessageToSend after mount (e.g., from onboarding "Chat with openloomi" click), only once; if from URL send param, clears after sending. */
+  const initialMessageSentRef = useRef(false);
+  useEffect(() => {
+    if (
+      !initialMessageToSend?.trim() ||
+      initialMessageSentRef.current ||
+      serverRecoveryActive ||
+      apiConfigurationState !== "available" ||
+      !sendMessagePresent
+    )
+      return;
+    initialMessageSentRef.current = true;
+    const sendParam = searchParams.get("send");
+    void sendMessagePresent({
+      role: "user",
+      parts: [{ type: "text", text: initialMessageToSend.trim() }],
+    })
+      .then(() => {
+        if (sendParam != null) {
+          const next = new URLSearchParams(searchParams.toString());
+          next.delete("send");
+          const qs = next.toString();
+          const url = qs ? `${pathname}?${qs}` : (pathname ?? "/");
+          router.replace(url, { scroll: false });
+        }
+      })
+      .catch(() => {
+        initialMessageSentRef.current = false;
+      });
+  }, [
+    initialMessageToSend,
+    apiConfigurationState,
+    pathname,
+    router,
+    searchParams,
+    sendMessagePresent,
+    serverRecoveryActive,
+  ]);
+
+  // Fetch vote data
+  const { data: votes } = useSWR<Array<any>>(
+    chatId ? `/api/vote?chatId=${chatId}` : null,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+      refreshWhenHidden: false,
+      refreshWhenOffline: false,
+      dedupingInterval: 5000,
+    },
+  );
+
+  const openWorkspacePanel = useCallback(
+    (targetChatId?: string) => {
+      const id = targetChatId ?? chatId;
+      if (id) {
+        router.push(`/workspace?chatId=${encodeURIComponent(id)}`);
+      } else {
+        router.push("/workspace");
+      }
+    },
+    [chatId, router],
+  );
+
+  return (
+    <ErrorBoundary
+      fallback={
+        <div className="flex h-full flex-col items-center justify-center p-8 text-center">
+          <p className="text-6xl mb-4">💬</p>
+          <p className="text-lg font-medium mb-2">
+            {t("common.errorBoundary.chatFailed") || "Chat component failed"}
+          </p>
+          <p className="text-sm text-muted-foreground mb-4">
+            {t("common.errorBoundary.chatFailedHint") ||
+              "Please refresh the page"}
+          </p>
+          <Button variant="outline" onClick={() => window.location.reload()}>
+            {t("common.refresh") || "Refresh"}
+          </Button>
+        </div>
+      }
+    >
+      <div className={cn("relative flex h-full flex-col")}>
+        {/* Chat Vault floating panel: controlled by header library button, positioned at top-right of content area */}
+        <div className="absolute top-2 right-3 z-[100] flex flex-col items-end">
+          <WorkspaceFloatPanel
+            chatId={contextActiveChatId}
+            messages={messages}
+            open={isVaultOpen}
+            onClose={handleCloseVault}
+            onOpenWorkspace={
+              chatId ? () => openWorkspacePanel(chatId) : undefined
+            }
+            className="absolute top-full right-0 mt-2"
+          />
+        </div>
+
+        {/* Message content area - scrollable; overflow-y: overlay keeps scrollbar from taking width */}
+        <div className="relative flex flex-col flex-1 min-h-0 w-full">
+          <div
+            ref={scrollContainerRef}
+            className={cn(
+              "flex flex-col items-center flex-1 min-h-0 w-full overflow-y-scroll overflow-x-hidden pt-0",
+            )}
+          >
+            <div className="flex flex-1 px-4 pb-4 w-full min-w-0">
+              <div className="mx-auto flex w-full max-w-[730px] min-w-0">
+                {requiresApiSetup && messages.length === 0 ? (
+                  <ConversationApiSetup />
+                ) : (
+                  <div className="w-full">
+                    <VirtualizedMessages
+                      chatId={chatId}
+                      votes={votes}
+                      messages={messages}
+                      sendMessage={sendMessagePresent}
+                      setMessages={setMessages}
+                      isAgentRunning={runtimePresentation.effectiveRunning}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* Scroll anchor - used by scrollToBottom to determine bottom position */}
+            <div ref={endRef} className="shrink-0 min-w-[24px] min-h-[24px]" />
+          </div>
+        </div>
+
+        {/* Input area - fixed at bottom */}
+        <div
+          className="sticky bottom-0 z-20 pb-4 px-4 safe-area-inset-bottom"
+          style={{ paddingBottom: "16px" }}
+        >
+          {/* Scroll button - toggles between scroll-to-top and scroll-to-bottom */}
+          {showScrollButton && (isScrolled || !isNearBottom) && (
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-30">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() =>
+                  isNearBottom ? scrollToTop() : scrollToBottom()
+                }
+                className="h-9 w-9 rounded-full shadow-md bg-background/95 backdrop-blur-sm border-border/60 hover:bg-background hover:shadow-lg transition-all"
+                aria-label={
+                  isNearBottom
+                    ? t("common.scrollToTop", "Back to top")
+                    : t("common.scrollToBottom", "Scroll to bottom")
+                }
+              >
+                {isNearBottom ? (
+                  <ArrowUpIcon size={16} />
+                ) : (
+                  <ArrowDownIcon size={16} />
+                )}
+              </Button>
+            </div>
+          )}
+
+          {requiresApiSetup ? (
+            messages.length > 0 ? (
+              <ConversationApiSetup compact />
+            ) : null
+          ) : (
+            <form className="mx-auto flex w-full max-w-[730px] flex-col gap-6">
+              <TaskComposer
+                value={input}
+                setValue={handleSetInput}
+                onStop={
+                  runtimePresentation.canStopFromBrowser
+                    ? () => stopChat(chatId)
+                    : undefined
+                }
+                isAgentRunning={runtimePresentation.effectiveRunning}
+                isSubmitting={goalStartPending}
+                isLocked={runtimePresentation.composerLocked}
+                attachments={attachments}
+                setAttachments={handleSetAttachments}
+                commands={
+                  onStartGoal && onOpenGoal ? composerCommands : undefined
+                }
+                onSubmit={async ({ text, attachments: submitAttachments }) => {
+                  const goalSubmission = resolveGoalComposerSubmission(
+                    text,
+                    submitAttachments.length,
+                  );
+                  if (goalSubmission.kind === "reject_attachments") {
+                    toast({
+                      type: "error",
+                      description: t(
+                        "chat.goalCommandAttachmentsUnsupported",
+                        "Create the Goal without attachments, then add files in the chat.",
+                      ),
+                    });
+                    return;
+                  }
+                  if (goalSubmission.kind === "open") {
+                    if (!onOpenGoal) {
+                      toast({
+                        type: "error",
+                        description: t(
+                          "chat.goalCommandUnavailable",
+                          "Goal creation is unavailable in this chat.",
+                        ),
+                      });
+                      return;
+                    }
+                    handleSetInput("");
+                    onOpenGoal();
+                    return;
+                  }
+                  if (goalSubmission.kind === "start") {
+                    if (!onStartGoal) {
+                      toast({
+                        type: "error",
+                        description: t(
+                          "chat.goalCommandUnavailable",
+                          "Goal creation is unavailable in this chat.",
+                        ),
+                      });
+                      return;
+                    }
+                    const submittedCommand = text;
+                    handleSetInput("");
+                    try {
+                      await onStartGoal(goalSubmission.objective);
+                      setAttachments([]);
+                    } catch (error) {
+                      handleSetInput((current) =>
+                        current.length === 0 ? submittedCommand : current,
+                      );
+                      console.error(
+                        "[AgentChatPanel] Failed to start Goal",
+                        error,
+                      );
+                      toast({
+                        type: "error",
+                        description:
+                          error instanceof Error && error.message
+                            ? error.message
+                            : t(
+                                "chat.goalCommandFailed",
+                                "Goal could not be created. Please try again.",
+                              ),
+                      });
+                    }
+                    return;
+                  }
+
+                  type UploadingAttachment = Attachment & {
+                    isUploading?: boolean;
+                    file?: File;
+                  };
+                  const supportedAttachments = submitAttachments.filter(
+                    (att: UploadingAttachment) =>
+                      !att.isUploading &&
+                      Boolean(
+                        att.file || att.url || att.downloadUrl || att.blobPath,
+                      ),
+                  );
+
+                  const messageObj = {
+                    role: "user" as const,
+                    parts: [
+                      ...supportedAttachments.map((attachment) => ({
+                        type: "file" as const,
+                        url: attachment.url,
+                        name: attachment.name,
+                        mediaType: attachment.contentType,
+                        sizeBytes: attachment.sizeBytes,
+                        blobPath: attachment.blobPath,
+                        downloadUrl: attachment.downloadUrl,
+                        file: (attachment as Attachment & { file?: File }).file,
+                      })),
+                      {
+                        type: "text" as const,
+                        text: text,
+                      },
+                    ],
+                  };
+
+                  await sendMessagePresent(messageObj as any);
+                  handleSetInput("");
+                  setAttachments([]);
+                }}
+              />
+            </form>
+          )}
+        </div>
+      </div>
+    </ErrorBoundary>
+  );
+}

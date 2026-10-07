@@ -1,0 +1,1546 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Pressure (psi)",
+      "groupby": [
+        "Machine"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        8.620116692548159,
+        97.07988330745184
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Pressure (psi)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Machine",
+      "type": "nominal",
+      "legend": null
+    },
+    "facet": {
+      "field": "Machine",
+      "type": "nominal",
+      "sort": null,
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      },
+      "columns": 3
+    }
+  },
+  "width": 167,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 167,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 56.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 55.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 62.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 46.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 41.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 47.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 42.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 47.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 45.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 53.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 45.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 55.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 46.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 59.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 53.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 53.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 47.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 53.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 56.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 46.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 41.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 40.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 54.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 59.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 59.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 47.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 58.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 39
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 42.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 41.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 56.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 53.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 56.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 47.5
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 54.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 55.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 54.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 58.9
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 54.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 47.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 54.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.3
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 53.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 46.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 49
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 55.1
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 51.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 59
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 54.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 54.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 53
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 52.2
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 44.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 45.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 48.7
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 42.8
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 50.4
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 43.6
+      },
+      {
+        "Machine": "Machine 1",
+        "Pressure (psi)": 46.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 23.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 36.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 33.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 67.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 39.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 28.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 26.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 33.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 70.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 69.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 71.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 69.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 69
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 80.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 68.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 25.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 72.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 27.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 30.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 34.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 32.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 36.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 78.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 22.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 65.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 74.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 63.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 67.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 70.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 23.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 24.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 73.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 32.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 26.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 34.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 31.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 24.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 70.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 70.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 71.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 75.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 38.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 77.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 30.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 29.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 28.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 72.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 29.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 66.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 30.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 21.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 28
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 41.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 70
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 63.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 33.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 79.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 64.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 38.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 23.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 37.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 27.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 69.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 68.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 72.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 72.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 66.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 29.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 31.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 32.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 76.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 28.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 32.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 82
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 82.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 32.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 27.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 64.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 76.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 32.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 84.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 21.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 70.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 75.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 72.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 26.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 24.4
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 27.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 24.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 30.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 30.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 29.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 72.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 28.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 71.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 35
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 65.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 29.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 33.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 36.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 28
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 29.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 69.7
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 32.2
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 26.6
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 28.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 33.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 76.9
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 71.8
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 75.3
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 44.1
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 81.5
+      },
+      {
+        "Machine": "Machine 2",
+        "Pressure (psi)": 69.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 34.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 56.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 60
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 36.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 64
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 58.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 39.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 67.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 42.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 48.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 46
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 45.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 35.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 47.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 44
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 44
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 45.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 36
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 65.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 40.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 43.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 58.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 32.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 56.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 37.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 65.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 63.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 47.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 39.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 46.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 55.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 54
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 54.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 44.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 58
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 51.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 50.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 65.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 39.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 57.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 39.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 36.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 44.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 56.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 41.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 67.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 43.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 33.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 38.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 42.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 69.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 60.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 35.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 53.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 64.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 57.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 41.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 35.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 57.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 45.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 38.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 30.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 63.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 41.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 47.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 56
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 56.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 54.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 43.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 51.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 66.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 51.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 60.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 62.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 58.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 60.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 64.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 38.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 66.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 57.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 62.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 58.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 63.2
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 55.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 57.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 38.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 35.3
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 57.4
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 56.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 63.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 63.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 62.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 63.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 64.8
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 40.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 46.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 61.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 41.1
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 36.9
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 57.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 64
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 60.7
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 58.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 64.6
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.5
+      },
+      {
+        "Machine": "Machine 3",
+        "Pressure (psi)": 59.1
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

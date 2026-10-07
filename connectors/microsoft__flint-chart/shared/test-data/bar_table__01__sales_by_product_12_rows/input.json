@@ -1,0 +1,81 @@
+{
+  "title": "Sales by Product (12 rows)",
+  "description": "Medium N — verify row density / band sizing",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Product": "Laptop",
+          "Sales": 643
+        },
+        {
+          "Product": "Phone",
+          "Sales": 2592
+        },
+        {
+          "Product": "Tablet",
+          "Sales": 3607
+        },
+        {
+          "Product": "Desktop",
+          "Sales": 3271
+        },
+        {
+          "Product": "Monitor",
+          "Sales": 3388
+        },
+        {
+          "Product": "Keyboard",
+          "Sales": 2061
+        },
+        {
+          "Product": "Mouse",
+          "Sales": 2465
+        },
+        {
+          "Product": "Headphones",
+          "Sales": 700
+        },
+        {
+          "Product": "Speaker",
+          "Sales": 8563
+        },
+        {
+          "Product": "Camera",
+          "Sales": 7866
+        },
+        {
+          "Product": "TV",
+          "Sales": 2374
+        },
+        {
+          "Product": "Router",
+          "Sales": 3189
+        }
+      ]
+    },
+    "semantic_types": {
+      "Product": "Category",
+      "Sales": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Product"
+        },
+        "x": {
+          "field": "Sales"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "title": "Power-law distribution (top dominates)",
+  "description": "Top row ~1.8M vs tail rows <1K → bar lengths span 3+ orders of magnitude",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Vendor": "Electronics",
+          "Spend": 1000000
+        },
+        {
+          "Vendor": "Clothing",
+          "Spend": 550078
+        },
+        {
+          "Vendor": "Food",
+          "Spend": 302924
+        },
+        {
+          "Vendor": "Books",
+          "Spend": 166593
+        },
+        {
+          "Vendor": "Sports",
+          "Spend": 92022
+        },
+        {
+          "Vendor": "Home",
+          "Spend": 51116
+        },
+        {
+          "Vendor": "Garden",
+          "Spend": 28139
+        },
+        {
+          "Vendor": "Auto",
+          "Spend": 15269
+        },
+        {
+          "Vendor": "Health",
+          "Spend": 8432
+        },
+        {
+          "Vendor": "Beauty",
+          "Spend": 5581
+        },
+        {
+          "Vendor": "Toys",
+          "Spend": 3422
+        },
+        {
+          "Vendor": "Music",
+          "Spend": 1495
+        },
+        {
+          "Vendor": "Movies",
+          "Spend": 1526
+        },
+        {
+          "Vendor": "Software",
+          "Spend": 493
+        },
+        {
+          "Vendor": "Games",
+          "Spend": 889
+        }
+      ]
+    },
+    "semantic_types": {
+      "Vendor": "Category",
+      "Spend": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Vendor"
+        },
+        "x": {
+          "field": "Spend"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

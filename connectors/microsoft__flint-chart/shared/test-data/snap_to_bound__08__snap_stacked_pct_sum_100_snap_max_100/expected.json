@@ -1,0 +1,155 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "share",
+      "type": "quantitative",
+      "scale": {
+        "zero": true,
+        "domain": [
+          0,
+          100
+        ]
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 37
+  },
+  "data": {
+    "values": [
+      {
+        "category": "Alpha",
+        "series": "Part A",
+        "share": 35
+      },
+      {
+        "category": "Alpha",
+        "series": "Part B",
+        "share": 30
+      },
+      {
+        "category": "Alpha",
+        "series": "Part C",
+        "share": 33
+      },
+      {
+        "category": "Beta",
+        "series": "Part A",
+        "share": 40
+      },
+      {
+        "category": "Beta",
+        "series": "Part B",
+        "share": 28
+      },
+      {
+        "category": "Beta",
+        "series": "Part C",
+        "share": 30
+      },
+      {
+        "category": "Gamma",
+        "series": "Part A",
+        "share": 32
+      },
+      {
+        "category": "Gamma",
+        "series": "Part B",
+        "share": 35
+      },
+      {
+        "category": "Gamma",
+        "series": "Part C",
+        "share": 30
+      },
+      {
+        "category": "Delta",
+        "series": "Part A",
+        "share": 38
+      },
+      {
+        "category": "Delta",
+        "series": "Part B",
+        "share": 27
+      },
+      {
+        "category": "Delta",
+        "series": "Part C",
+        "share": 34
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,912 @@
+import { telemetry } from './telemetry.ts';
+/**
+ * On-demand installation coordinator for application-scoped Agent runtimes.
+ *
+ * The coordinator is intentionally dependency-injected so the New Chat
+ * bootstrap state machine can be tested without downloading a 300 MB binary,
+ * touching provider credentials, or rewriting a real MCP config.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { spawn, spawnSync } from 'node:child_process';
+import {
+  consumeAgentSetupFailure,
+  agentInstallerTempRoot,
+  type NativeAgentId,
+} from './agent-runtime-paths.ts';
+import { probeAgentCommand } from './agent-probe.ts';
+import { ensureAgentMcp } from './agent-mcp.ts';
+import {
+  agentCliEnv,
+  agentCliNeedsShell,
+  commandDir,
+  resolveAgentCli,
+  resolveAgentCliWithLoginShell,
+} from './agent-cli.ts';
+import { terminateExtractorTree as terminateInstallerTree } from './extractor-process.ts';
+import type {
+  AgentBootstrapFailureCode,
+  AgentBootstrapFailureStage,
+  AgentBootstrapManualRecovery,
+  AgentBootstrapStatus,
+} from '../shared/agent-runtime.ts';
+
+export type {
+  AgentBootstrapFailure,
+  AgentBootstrapFailureCode,
+  AgentBootstrapFailureStage,
+  AgentBootstrapManualRecovery,
+  AgentBootstrapPhase,
+  AgentBootstrapStatus,
+} from '../shared/agent-runtime.ts';
+
+type ProgressUpdate = Pick<AgentBootstrapStatus, 'progress' | 'message'>;
+
+export interface AgentBootstrapDependencies {
+  resolveExecutable(id: NativeAgentId, options?: { probeLoginShell?: boolean; signal?: AbortSignal }): string | null | Promise<string | null>;
+  installRuntime(id: NativeAgentId, update: (next: ProgressUpdate) => void, signal: AbortSignal): Promise<void>;
+  /** Runs the installed runtime's own updater on the resolved executable. */
+  updateRuntime(
+    id: NativeAgentId, executable: string, update: (next: ProgressUpdate) => void, signal: AbortSignal,
+  ): Promise<void>;
+  isAuthenticated(id: NativeAgentId, executable: string, signal?: AbortSignal): boolean | Promise<boolean>;
+  login(id: NativeAgentId, executable: string, signal: AbortSignal): Promise<void>;
+  configureMcp(id: NativeAgentId): void;
+  consumeFailure(stage: 'installation' | 'authentication' | 'mcp'): boolean;
+}
+
+const IDLE_STATUS: AgentBootstrapStatus = { phase: 'idle' };
+
+export class AgentBootstrapCoordinator {
+  private readonly statuses = new Map<NativeAgentId, AgentBootstrapStatus>();
+  private readonly controllers = new Map<NativeAgentId, AbortController>();
+  private readonly runs = new Map<NativeAgentId, Promise<void>>();
+
+  constructor(private readonly dependencies: AgentBootstrapDependencies) {}
+
+  status(id: NativeAgentId): AgentBootstrapStatus {
+    return this.statuses.get(id) ?? IDLE_STATUS;
+  }
+
+  begin(id: NativeAgentId): AgentBootstrapStatus {
+    return this.start(id, 'prepare', { probeLoginShell: true });
+  }
+
+  login(id: NativeAgentId): AgentBootstrapStatus {
+    return this.start(id, 'login', { probeLoginShell: true });
+  }
+
+  /** Startup and explicit recheck can repair installed runtimes, never download. */
+  connectIfInstalled(id: NativeAgentId, options?: { probeLoginShell?: boolean }): AgentBootstrapStatus {
+    return this.start(id, 'connect', options);
+  }
+
+  /** Runs an installed runtime's own updater in place, then the same
+   * authentication and MCP steps a fresh preparation runs, so a chat that
+   * reconnects afterwards spawns the newer executable at the same path. */
+  update(id: NativeAgentId): AgentBootstrapStatus {
+    return this.start(id, 'update', { probeLoginShell: true });
+  }
+
+  private start(
+    id: NativeAgentId,
+    action: 'prepare' | 'connect' | 'login' | 'update',
+    options?: { probeLoginShell?: boolean },
+  ): AgentBootstrapStatus {
+    if (this.runs.has(id)) return this.status(id);
+    const controller = new AbortController();
+    const { signal } = controller;
+    this.controllers.set(id, controller);
+    this.statuses.set(id, {
+      phase: action === 'login' ? 'authenticating' : action === 'update' ? 'installing' : 'configuring',
+      message: `Checking ${agentLabel(id)}…`,
+    });
+    // Register ownership before calling any injected dependency. Discovery,
+    // authentication, installation and login share cancellation and deduplication.
+    const run = Promise.resolve().then(async () => {
+      let stage: AgentBootstrapFailureStage = 'discovery';
+      try {
+        signal.throwIfAborted();
+        let executable = await this.dependencies.resolveExecutable(id, { ...options, signal });
+        signal.throwIfAborted();
+        if (!executable) {
+          if (action === 'connect') {
+            this.statuses.set(id, IDLE_STATUS);
+            return;
+          }
+          if (action === 'login' || action === 'update') {
+            this.fail(id, 'discovery', 'runtime-unavailable', new Error(`${agentLabel(id)} is not installed.`));
+            return;
+          }
+          stage = 'installation';
+          if (this.dependencies.consumeFailure('installation')) {
+            this.fail(id, stage, 'simulated', new Error('Simulated Agent installation failure.'));
+            return;
+          }
+          this.statuses.set(id, { phase: 'installing', progress: 0, message: `Preparing ${agentLabel(id)}…` });
+          await this.dependencies.installRuntime(id, (next) => {
+            if (!signal.aborted) this.statuses.set(id, { phase: 'installing', ...next });
+          }, signal);
+          signal.throwIfAborted();
+          executable = await this.dependencies.resolveExecutable(id, { signal });
+          signal.throwIfAborted();
+          if (!executable) {
+            this.fail(id, stage, 'runtime-unavailable',
+              new Error(`${agentLabel(id)} installation finished without a usable executable.`), 'install-command');
+            return;
+          }
+        }
+        if (action === 'update') {
+          stage = 'installation';
+          this.statuses.set(id, { phase: 'installing', progress: 0, message: `Updating ${agentLabel(id)}…` });
+          await this.dependencies.updateRuntime(id, executable, (next) => {
+            if (!signal.aborted) this.statuses.set(id, { phase: 'installing', ...next });
+          }, signal);
+          signal.throwIfAborted();
+          executable = await this.dependencies.resolveExecutable(id, { signal });
+          signal.throwIfAborted();
+          if (!executable) {
+            this.fail(id, stage, 'runtime-unavailable',
+              new Error(`${agentLabel(id)} update finished without a usable executable.`), 'install-command');
+            return;
+          }
+        }
+        stage = 'authentication';
+        if (action === 'login') {
+          if (id !== 'codex') throw new Error('In-app login is not supported for this Agent.');
+          this.statuses.set(id, { phase: 'authenticating', message: 'Finish signing in to Codex in your browser…' });
+          await this.dependencies.login(id, executable, signal);
+          signal.throwIfAborted();
+        }
+        if (!await this.checkAuthentication(id, executable, action === 'prepare', signal)) return;
+        signal.throwIfAborted();
+        this.statuses.set(id, { phase: 'configuring', progress: 1, message: 'Connecting StashBase MCP…' });
+        this.configure(id, action !== 'connect');
+      } catch (error) {
+        this.fail(id, stage, 'operation-failed', error, stage === 'installation' ? 'install-command' : undefined);
+      }
+    }).finally(() => {
+      if (action !== 'connect') telemetry.capture({ event: 'agent_setup_result', runtime: id,
+        stage: action === 'login' ? 'login' : action === 'update' ? 'update' : 'prepare',
+        outcome: signal.aborted ? 'cancelled' : this.status(id).phase === 'ready' ? 'success' : 'failed' });
+      this.controllers.delete(id);
+      this.runs.delete(id);
+    });
+    this.runs.set(id, run);
+    return this.status(id);
+  }
+
+  private async checkAuthentication(
+    id: NativeAgentId, executable: string, allowSimulation: boolean, signal: AbortSignal,
+  ): Promise<boolean> {
+    if (allowSimulation && id === 'codex' && this.dependencies.consumeFailure('authentication')) {
+      this.fail(id, 'authentication', 'authentication-required', new Error('Simulated signed-out Codex runtime.'));
+      return false;
+    }
+    try {
+      const authenticated = await this.dependencies.isAuthenticated(id, executable, signal);
+      signal.throwIfAborted();
+      if (authenticated) return true;
+      this.fail(id, 'authentication', 'authentication-required',
+        new Error(`${agentLabel(id)} is installed, but it is not signed in.`));
+    } catch (error) {
+      this.fail(id, 'authentication', 'authentication-check-failed', error);
+    }
+    return false;
+  }
+
+  private configure(id: NativeAgentId, allowSimulation = true): void {
+    if (allowSimulation && this.dependencies.consumeFailure('mcp')) {
+      this.fail(id, 'mcp', 'simulated', new Error('Simulated MCP configuration failure.'));
+      return;
+    }
+    try {
+      this.dependencies.configureMcp(id);
+      this.statuses.set(id, { phase: 'ready', progress: 1, message: `${agentLabel(id)} is ready.` });
+    } catch (error) {
+      this.fail(id, 'mcp', 'operation-failed', error, 'mcp-settings');
+    }
+  }
+
+  async wait(id: NativeAgentId): Promise<AgentBootstrapStatus> {
+    await this.runs.get(id);
+    return this.status(id);
+  }
+
+  async cancelAll(): Promise<NativeAgentId[]> {
+    const ids = [...this.runs.keys()];
+    for (const id of ids) this.controllers.get(id)?.abort();
+    await Promise.allSettled(ids.map((id) => this.runs.get(id)));
+    return ids;
+  }
+
+  private fail(
+    id: NativeAgentId,
+    stage: AgentBootstrapFailureStage,
+    code: AgentBootstrapFailureCode,
+    error: unknown,
+    manualRecovery?: AgentBootstrapManualRecovery,
+  ): void {
+    const message = error instanceof Error ? error.message : String(error);
+    this.statuses.set(id, {
+      phase: 'failed',
+      failure: {
+        stage,
+        code,
+        message: message.slice(0, 1000),
+        retryable: true,
+        manualRecovery,
+      },
+    });
+  }
+}
+
+function agentLabel(id: NativeAgentId): string {
+  return id === 'codex' ? 'Codex' : 'Claude';
+}
+
+function agentCliSpec(id: NativeAgentId) {
+  return id === 'codex'
+    ? { name: 'codex', envNames: ['STASHBASE_CODEX_BIN', 'CODEX_CLI_BIN', 'CODEX_CLI_PATH'], logLabel: 'Codex' }
+    : { name: 'claude', envNames: ['STASHBASE_CLAUDE_BIN', 'CLAUDE_CODE_BIN'], logLabel: 'Claude' };
+}
+
+function resolveInstalledExecutable(id: NativeAgentId): string | null {
+  return resolveAgentCli(agentCliSpec(id));
+}
+
+/** Claude reports authentication through its native SDK connection. Codex
+ * exposes a cheap, side-effect-free status command, so preparation can stop
+ * before opening an app-server that cannot serve a turn. */
+export async function agentIsAuthenticated(
+  id: NativeAgentId, executable: string, signal?: AbortSignal,
+): Promise<boolean> {
+  if (id !== 'codex') return true;
+  const result = await probeAgentCommand(executable, ['login', 'status'], {
+    timeoutMs: 10_000,
+    signal,
+    shell: agentCliNeedsShell(executable),
+    env: agentCliEnv({}, [commandDir(executable)]),
+  });
+  const output = `${result.stdout}\n${result.stderr}`.replace(/\s+/g, ' ').trim().slice(-800);
+  if (result.status === 0) return true;
+  if (result.status === 1 && /not logged in/i.test(output)) return false;
+  throw new Error(`Could not check Codex sign-in (exit ${result.status ?? 'unknown'}${output ? `: ${output}` : ''}).`);
+}
+
+const CODEX_LOGIN_TIMEOUT_MS = 10 * 60_000;
+
+/** Run Codex's own browser-based login. The selected CLI opens the provider
+ * page and writes credentials to its normal home; no token passes through
+ * StashBase. */
+export async function loginToAgent(
+  id: NativeAgentId,
+  executable: string,
+  signal: AbortSignal,
+): Promise<void> {
+  if (id !== 'codex') throw new Error('In-app login is available only for Codex.');
+  await new Promise<void>((resolve, reject) => {
+    const child = spawn(executable, ['login'], {
+      env: agentCliEnv({}, [commandDir(executable)]),
+      detached: true,
+      stdio: ['ignore', 'pipe', 'pipe'],
+      windowsHide: true,
+      shell: agentCliNeedsShell(executable),
+    });
+    let output = '';
+    let settled = false;
+    let timedOut = false;
+    const append = (chunk: Buffer | string) => {
+      output = (output + chunk.toString()).slice(-4000);
+    };
+    const cleanup = () => {
+      clearTimeout(timeout);
+      signal.removeEventListener('abort', abort);
+    };
+    const finish = (error?: Error) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      if (error) reject(error);
+      else resolve();
+    };
+    const abort = () => terminateInstallerTree(child);
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      terminateInstallerTree(child);
+    }, CODEX_LOGIN_TIMEOUT_MS);
+    timeout.unref?.();
+    signal.addEventListener('abort', abort, { once: true });
+    child.stdout.on('data', append);
+    child.stderr.on('data', append);
+    child.once('error', (error) => finish(error));
+    child.once('close', (code) => {
+      const detail = output.replace(/\s+/g, ' ').trim().slice(-800);
+      if (signal.aborted) finish(new Error('Codex sign-in was cancelled.'));
+      else if (code === 0) finish();
+      else if (timedOut) finish(new Error('Codex sign-in timed out after 10 minutes.'));
+      else finish(new Error(detail || `Codex sign-in exited with code ${code ?? 'unknown'}.`));
+    });
+  });
+}
+
+export const agentBootstrapCoordinator = new AgentBootstrapCoordinator({
+  resolveExecutable: (id, options) => options?.probeLoginShell
+    ? resolveAgentCliWithLoginShell(agentCliSpec(id), undefined, options.signal)
+    : resolveInstalledExecutable(id),
+  installRuntime: installNativeRuntime,
+  updateRuntime: updateNativeRuntime,
+  isAuthenticated: agentIsAuthenticated,
+  login: loginToAgent,
+  configureMcp: (id) => { ensureAgentMcp(id); },
+  consumeFailure: consumeAgentSetupFailure,
+});
+
+export function agentBootstrapStatus(id: NativeAgentId): AgentBootstrapStatus {
+  return agentBootstrapCoordinator.status(id);
+}
+
+export function beginAgentBootstrap(id: NativeAgentId): AgentBootstrapStatus {
+  return agentBootstrapCoordinator.begin(id);
+}
+
+export function loginAgentBootstrap(id: NativeAgentId): AgentBootstrapStatus {
+  return agentBootstrapCoordinator.login(id);
+}
+
+/** Which runtimes ship an updater StashBase can run for the user: both do,
+ * each through its own `update` subcommand. */
+export function agentSupportsInAppUpdate(id: NativeAgentId): boolean {
+  return id === 'claude' || id === 'codex';
+}
+
+/** Explicit user recovery when the installed runtime is too old for what a
+ * chat asked of it: the runtime updates itself in place. */
+export function updateAgentBootstrap(id: NativeAgentId): AgentBootstrapStatus {
+  return agentBootstrapCoordinator.update(id);
+}
+
+/** Explicit user recovery after fixing an installation outside StashBase.
+ * Re-run discovery (including the login-shell probe) and MCP preparation for
+ * an executable that now exists, but never authorize another download. */
+export function recheckAgentBootstrap(id: NativeAgentId): AgentBootstrapStatus {
+  return agentBootstrapCoordinator.connectIfInstalled(id, { probeLoginShell: true });
+}
+
+/** One asynchronous startup pass includes login-shell discovery. */
+export async function connectInstalledAgentMcpOnStartup(): Promise<Array<{ id: NativeAgentId; status: AgentBootstrapStatus }>> {
+  return Promise.all((['codex', 'claude'] as const).map(async (id) => {
+    agentBootstrapCoordinator.connectIfInstalled(id, { probeLoginShell: true });
+    return { id, status: await agentBootstrapCoordinator.wait(id) };
+  }));
+}
+
+export function cancelAgentRuntimeInstalls(): Promise<NativeAgentId[]> {
+  return agentBootstrapCoordinator.cancelAll();
+}
+
+async function installNativeRuntime(
+  id: NativeAgentId,
+  update: (next: ProgressUpdate) => void,
+  signal: AbortSignal,
+): Promise<void> {
+  if (id === 'claude') return installClaude(update, signal);
+  return installCodex(update, signal);
+}
+
+async function updateNativeRuntime(
+  id: NativeAgentId,
+  executable: string,
+  update: (next: ProgressUpdate) => void,
+  signal: AbortSignal,
+): Promise<void> {
+  if (!agentSupportsInAppUpdate(id)) throw new Error(`In-app update is not available for ${agentLabel(id)}.`);
+  return updateAgentInPlace(id, executable, update, signal);
+}
+
+export interface AgentUpdateDependencies {
+  runCommand: typeof runAgentUpdateCommand;
+  verifyExecutable: typeof verifyAgentExecutable;
+}
+
+/** The runtime's own updater, run on the executable StashBase resolved. Each
+ * CLI knows whether it was installed natively or through npm and updates that
+ * installation, so the next session spawns the same path, newer. Running an
+ * official installer instead would leave a second copy in another directory
+ * that discovery might never prefer. Verified on npm installations of both:
+ * `claude update` moved 2.1.220 to the current release in place, and
+ * `codex update` moved 0.153.4 to 0.155.0 the same way. A session already
+ * open keeps its old process until it reconnects; a new one spawns the
+ * updated executable. */
+export async function updateAgentInPlace(
+  id: NativeAgentId,
+  executable: string,
+  update: (next: ProgressUpdate) => void,
+  signal: AbortSignal,
+  dependencies: Partial<AgentUpdateDependencies> = {},
+): Promise<void> {
+  const runCommand = dependencies.runCommand ?? runAgentUpdateCommand;
+  const verifyExecutable = dependencies.verifyExecutable ?? verifyAgentExecutable;
+  const label = agentLabel(id);
+  update({ message: `Checking for a newer ${label}…` });
+  await runCommand(executable, ['update'], agentCliEnv({}, [commandDir(executable)]), signal, (line) => {
+    const message = line.trim();
+    if (message) update({ message });
+  });
+  verifyExecutable(executable, label, agentCliEnv());
+  update({ progress: 1, message: `${label} is up to date.` });
+}
+
+/** Runs a provider CLI's own command, narrating its stdout line by line.
+ * Updaters explain themselves on stdout, so the tail of both streams is the
+ * failure message when the command exits with an error. */
+export async function runAgentUpdateCommand(
+  command: string,
+  args: string[],
+  env: NodeJS.ProcessEnv,
+  signal: AbortSignal,
+  onLine: (line: string) => void,
+): Promise<void> {
+  await new Promise<void>((resolve, reject) => {
+    const child = spawn(command, args, {
+      env,
+      detached: process.platform !== 'win32',
+      stdio: ['ignore', 'pipe', 'pipe'],
+      windowsHide: true,
+      shell: agentCliNeedsShell(command),
+    });
+    let tail = '';
+    let buffered = '';
+    const abort = () => terminateInstallerTree(child);
+    signal.addEventListener('abort', abort, { once: true });
+    child.stdout.setEncoding('utf8');
+    child.stderr.setEncoding('utf8');
+    child.stdout.on('data', (chunk: string) => {
+      tail = (tail + chunk).slice(-4000);
+      buffered += chunk;
+      const lines = buffered.split(/\r?\n/);
+      buffered = lines.pop() ?? '';
+      for (const line of lines) onLine(line);
+    });
+    child.stderr.on('data', (chunk: string) => { tail = (tail + chunk).slice(-4000); });
+    child.on('error', (error) => {
+      signal.removeEventListener('abort', abort);
+      reject(error);
+    });
+    child.on('close', (code) => {
+      signal.removeEventListener('abort', abort);
+      if (buffered.trim()) onLine(buffered);
+      const detail = tail.replace(/\s+/g, ' ').trim().slice(-800);
+      if (signal.aborted) reject(new Error('Agent update was cancelled.'));
+      else if (code === 0) resolve();
+      else reject(new Error(detail || `${path.basename(command)} ${args.join(' ')} exited with code ${code ?? 'unknown'}.`));
+    });
+  });
+}
+
+const CLAUDE_INSTALLER = process.platform === 'win32'
+  ? 'https://claude.ai/install.ps1'
+  : 'https://claude.ai/install.sh';
+
+/** Claude's official installer script is written for bash (it relies on
+ * `[[ ]]` and regex matching); Windows shares the Codex PowerShell
+ * selection. */
+export function resolveClaudeInstallerShell(
+  platform: NodeJS.Platform = process.platform,
+  env: NodeJS.ProcessEnv = process.env,
+  isFile: (candidate: string) => boolean = regularFile,
+): CodexInstallerShell {
+  const shell = resolveCodexInstallerShell(platform, env, isFile);
+  return shell.kind === 'posix' ? { ...shell, command: '/bin/bash' } : shell;
+}
+
+export async function installClaude(
+  update: (next: ProgressUpdate) => void,
+  signal: AbortSignal,
+  dependencies: Partial<AgentInstallDependencies> = {},
+): Promise<void> {
+  const verifyExecutable = dependencies.verifyExecutable ?? verifyAgentExecutable;
+  const resolveInstallerShell = dependencies.resolveInstallerShell ?? resolveClaudeInstallerShell;
+  const runScript = dependencies.runInstallerScript ?? claudeInstallerScriptRunner;
+  const resolveInstalled = dependencies.resolveInstalledExecutable
+    ?? (() => resolveInstalledExecutable('claude'));
+  update({ message: 'Downloading the official Claude installer…' });
+  const script = await fetchBoundedText(CLAUDE_INSTALLER, signal, 2_000_000);
+  const env: NodeJS.ProcessEnv = {
+    ...process.env,
+    ELECTRON_RUN_AS_NODE: undefined,
+  };
+  const shell = resolveInstallerShell();
+  await runScript(shell, script, env, signal, (line) => {
+    const message = line.trim();
+    if (message) update({ message });
+  });
+  const executable = resolveInstalled();
+  if (!executable) {
+    throw new Error(
+      "The official Claude installer exited successfully but no 'claude' executable "
+      + 'was found in its standard install locations (such as ~/.local/bin). '
+      + 'Check whether security software quarantined Claude, then retry the installation.',
+    );
+  }
+  verifyExecutable(executable, 'Claude', agentCliEnv());
+  // Unlike Codex's Windows installer, `claude.exe install` leaves its bin
+  // dir off the user Path, so the CLI would be invisible to the user's own
+  // terminal (StashBase discovery scans the directory and is unaffected).
+  if (process.platform === 'win32') ensureWindowsClaudeOnUserPath(update);
+  update({ progress: 1, message: 'Claude installed.' });
+}
+
+const WINDOWS_LOCAL_BIN_RAW = '%USERPROFILE%\\.local\\bin';
+
+/** Additively repair the per-user Path so a fresh Claude install is usable
+ * from the user's own terminal. Reads the raw (unexpanded) registry value,
+ * appends the raw `%USERPROFILE%` entry only when no existing entry expands
+ * to the same directory, writes back as REG_EXPAND_SZ so other entries keep
+ * their variable forms, and broadcasts the environment change so newly
+ * opened shells see it. Never uses `setx` (it truncates at 1024 chars) and
+ * never removes or reorders entries. */
+export function windowsUserPathRepairScript(rawEntry = WINDOWS_LOCAL_BIN_RAW): string {
+  return [
+    '$ErrorActionPreference = "Stop"',
+    `$entry = '${rawEntry}'`,
+    'if (-not (Test-Path HKCU:\\Environment)) { $null = New-Item -Path HKCU:\\Environment }',
+    '$key = Get-Item HKCU:\\Environment',
+    "$raw = [string]$key.GetValue('Path', '', 'DoNotExpandEnvironmentNames')",
+    "$expandedEntry = [Environment]::ExpandEnvironmentVariables($entry).TrimEnd('\\')",
+    '$has = $false',
+    "foreach ($part in ($raw -split ';')) {",
+    "  if ($part -and ([Environment]::ExpandEnvironmentVariables($part).TrimEnd('\\') -ieq $expandedEntry)) { $has = $true }",
+    '}',
+    'if (-not $has) {',
+    "  $next = if ($raw) { $raw.TrimEnd(';') + ';' + $entry } else { $entry }",
+    "  Set-ItemProperty -Path HKCU:\\Environment -Name Path -Value $next -Type ExpandString",
+    '}',
+    '$signature = \'[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)] public static extern IntPtr SendMessageTimeout(IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam, uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);\'',
+    '$native = Add-Type -MemberDefinition $signature -Name PathBroadcast -Namespace StashBase -PassThru',
+    '$result = [UIntPtr]::Zero',
+    '$null = $native::SendMessageTimeout([IntPtr]0xffff, 0x1A, [UIntPtr]::Zero, "Environment", 2, 5000, [ref]$result)',
+  ].join('\r\n');
+}
+
+function ensureWindowsClaudeOnUserPath(update: (next: ProgressUpdate) => void): void {
+  const shell = resolveCodexInstallerShell();
+  const result = spawnSync(
+    shell.command,
+    ['-NoProfile', '-NonInteractive', '-Command', windowsUserPathRepairScript()],
+    { encoding: 'utf8', timeout: 15_000, windowsHide: true },
+  );
+  if (result.status === 0) {
+    update({ message: 'Added %USERPROFILE%\\.local\\bin to your PATH — open a new terminal to use claude.' });
+  } else {
+    // The install itself succeeded and StashBase can use it either way;
+    // terminal visibility falls back to the manual step.
+    update({ message: 'Claude installed. To use it from a terminal, add %USERPROFILE%\\.local\\bin to your PATH.' });
+  }
+}
+
+function claudeInstallerScriptRunner(
+  shell: CodexInstallerShell,
+  script: string,
+  env: NodeJS.ProcessEnv,
+  signal: AbortSignal,
+  onLine: (line: string) => void,
+): Promise<void> {
+  return runInstallerScript(shell, script, env, signal, onLine, {
+    tempRoot: agentInstallerTempRoot('claude'),
+    bootstrap: CLAUDE_PS1_BOOTSTRAP,
+  });
+}
+
+const CODEX_INSTALLER = process.platform === 'win32'
+  ? 'https://chatgpt.com/codex/install.ps1'
+  : 'https://chatgpt.com/codex/install.sh';
+
+export interface CodexInstallerShell {
+  command: string;
+  args: string[];
+  kind: 'posix' | 'powershell-7' | 'windows-powershell';
+}
+
+type AgentExecutableVerifier = (
+  executable: string,
+  label: string,
+  env: NodeJS.ProcessEnv,
+) => void;
+
+type InstallerScriptRunner = (
+  shell: CodexInstallerShell,
+  script: string,
+  env: NodeJS.ProcessEnv,
+  signal: AbortSignal,
+  onLine: (line: string) => void,
+) => Promise<void>;
+
+export interface AgentInstallDependencies {
+  verifyExecutable: AgentExecutableVerifier;
+  resolveInstallerShell: () => CodexInstallerShell;
+  runInstallerScript: InstallerScriptRunner;
+  /** Post-install discovery of the freshly installed executable. Defaults to
+   * the same system CLI discovery the coordinator uses, which
+   * covers the official user-level locations (`~/.local/bin`, the official
+   * Windows standalone bin). Injected by tests so a developer machine's own
+   * CLIs can never satisfy an install check. */
+  resolveInstalledExecutable: () => string | null;
+}
+
+function environmentValue(env: NodeJS.ProcessEnv, name: string): string {
+  const key = Object.keys(env).find((candidate) => candidate.toLowerCase() === name.toLowerCase());
+  const value = key ? env[key] : undefined;
+  return typeof value === 'string' ? value : '';
+}
+
+function regularFile(candidate: string): boolean {
+  try {
+    return fs.statSync(candidate).isFile();
+  } catch {
+    return false;
+  }
+}
+
+export function resolveCodexInstallerShell(
+  platform: NodeJS.Platform = process.platform,
+  env: NodeJS.ProcessEnv = process.env,
+  isFile: (candidate: string) => boolean = regularFile,
+): CodexInstallerShell {
+  if (platform !== 'win32') return { command: '/bin/sh', args: [], kind: 'posix' };
+
+  const args = ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File'];
+  const candidates: string[] = [];
+  const pathValue = environmentValue(env, 'PATH');
+  for (const entry of pathValue.split(path.win32.delimiter)) {
+    const dir = entry.trim().replace(/^"(.*)"$/, '$1');
+    if (dir) candidates.push(path.win32.join(dir, 'pwsh.exe'));
+  }
+  for (const name of ['ProgramW6432', 'ProgramFiles']) {
+    const programFiles = environmentValue(env, name);
+    if (programFiles) candidates.push(path.win32.join(programFiles, 'PowerShell', '7', 'pwsh.exe'));
+  }
+
+  const seen = new Set<string>();
+  for (const candidate of candidates) {
+    const key = candidate.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    if (isFile(candidate)) return { command: candidate, args, kind: 'powershell-7' };
+  }
+
+  const systemRoot = environmentValue(env, 'SystemRoot');
+  const windowsPowerShell = systemRoot
+    ? path.win32.join(systemRoot, 'System32', 'WindowsPowerShell', 'v1.0', 'powershell.exe')
+    : 'powershell.exe';
+  return {
+    command: isFile(windowsPowerShell) ? windowsPowerShell : 'powershell.exe',
+    args,
+    kind: 'windows-powershell',
+  };
+}
+
+function codexInstallerFailure(error: unknown, shell: CodexInstallerShell): Error {
+  const failure = error instanceof Error ? error : new Error(String(error));
+  if (
+    shell.kind === 'windows-powershell'
+    && /property\s+['"]OSArchitecture['"]\s+cannot be found/i.test(failure.message)
+  ) {
+    return new Error(
+      'The official Codex installer is incompatible with Windows PowerShell 5.1 on this PC. '
+      + 'Install PowerShell 7 (pwsh.exe), then retry.',
+    );
+  }
+  return failure;
+}
+
+export async function installCodex(
+  update: (next: ProgressUpdate) => void,
+  signal: AbortSignal,
+  dependencies: Partial<AgentInstallDependencies> = {},
+): Promise<void> {
+  const verifyExecutable = dependencies.verifyExecutable ?? verifyAgentExecutable;
+  const resolveInstallerShell = dependencies.resolveInstallerShell ?? resolveCodexInstallerShell;
+  const runScript = dependencies.runInstallerScript ?? codexInstallerScriptRunner;
+  const resolveInstalled = dependencies.resolveInstalledExecutable
+    ?? (() => resolveInstalledExecutable('codex'));
+  update({ message: 'Downloading the official Codex installer…' });
+  const script = await fetchBoundedText(CODEX_INSTALLER, signal, 2_000_000);
+  // The official installer owns its layout and the user's PATH profile:
+  // strip any inherited pinning so a stale desktop environment can never
+  // redirect it into a private, terminal-invisible location.
+  const env: NodeJS.ProcessEnv = {
+    ...process.env,
+    CODEX_INSTALL_DIR: undefined,
+    CODEX_HOME: undefined,
+    CODEX_NON_INTERACTIVE: 'true',
+    ELECTRON_RUN_AS_NODE: undefined,
+  };
+  const shell = resolveInstallerShell();
+  try {
+    await runScript(shell, script, env, signal, (line) => {
+      const message = line.replace(/^==>\s*/, '').trim();
+      if (!message) return;
+      update({
+        message: /^Downloading Codex CLI$/i.test(message)
+          ? 'Downloading Codex CLI… this may take several minutes.'
+          : message,
+      });
+    });
+  } catch (error) {
+    throw codexInstallerFailure(error, shell);
+  }
+  const executable = resolveInstalled();
+  if (!executable) {
+    throw new Error(
+      "The official Codex installer exited successfully but no 'codex' executable "
+      + 'was found in its standard install locations (such as ~/.local/bin). '
+      + 'Check whether security software quarantined Codex, then retry the installation.',
+    );
+  }
+  verifyExecutable(executable, 'Codex', agentCliEnv());
+  update({ progress: 1, message: 'Codex installed.' });
+}
+
+function codexInstallerScriptRunner(
+  shell: CodexInstallerShell,
+  script: string,
+  env: NodeJS.ProcessEnv,
+  signal: AbortSignal,
+  onLine: (line: string) => void,
+): Promise<void> {
+  return runInstallerScript(shell, script, env, signal, onLine, {
+    tempRoot: agentInstallerTempRoot('codex'),
+    bootstrap: CODEX_PS1_BOOTSTRAP,
+  });
+}
+
+async function fetchBoundedText(url: string, signal: AbortSignal, maxBytes: number): Promise<string> {
+  const response = await fetch(url, { signal, redirect: 'follow' });
+  if (!response.ok || !response.body) throw new Error(`Download failed (${response.status}) from ${new URL(url).host}.`);
+  const reader = response.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    total += value.byteLength;
+    if (total > maxBytes) throw new Error(`Download from ${new URL(url).host} exceeded its size limit.`);
+    chunks.push(value);
+  }
+  return Buffer.concat(chunks.map((chunk) => Buffer.from(chunk))).toString('utf8');
+}
+
+export function verifyAgentExecutable(
+  executable: string,
+  label: string,
+  env: NodeJS.ProcessEnv = process.env,
+  timeoutMs = 20_000,
+): void {
+  const result = spawnSync(executable, ['--version'], {
+    encoding: 'utf8',
+    timeout: timeoutMs,
+    windowsHide: true,
+    env: { ...env, ELECTRON_RUN_AS_NODE: undefined },
+  });
+  if (result.status !== 0) {
+    const nativeError = result.error as NodeJS.ErrnoException | undefined;
+    const stderr = typeof result.stderr === 'string'
+      ? result.stderr.replace(/\s+/g, ' ').trim().slice(-800)
+      : '';
+    let detail: string;
+    if (nativeError?.code === 'ETIMEDOUT') detail = `timed out after ${timeoutMs}ms`;
+    else if (nativeError) detail = `could not start: ${nativeError.message}`;
+    else if (result.status !== null) detail = `exited with code ${result.status}`;
+    else if (result.signal) detail = `terminated by ${result.signal}`;
+    else detail = 'returned no exit status';
+    throw new Error(
+      `${label} was downloaded but did not pass its executable check (${detail}${stderr ? `: ${stderr}` : ''}).`,
+    );
+  }
+}
+
+async function runInstallerScript(
+  shell: CodexInstallerShell,
+  script: string,
+  env: NodeJS.ProcessEnv,
+  signal: AbortSignal,
+  onLine: (line: string) => void,
+  options: { tempRoot: string; bootstrap: readonly string[] },
+): Promise<void> {
+  let scriptDir: string | null = null;
+  let scriptFile: string | null = null;
+  if (shell.kind !== 'posix') {
+    fs.mkdirSync(options.tempRoot, { recursive: true, mode: 0o700 });
+    scriptDir = fs.mkdtempSync(path.join(options.tempRoot, '.installer-script.'));
+    scriptFile = path.join(scriptDir, 'install.ps1');
+    fs.writeFileSync(scriptFile, agentPowerShellInstallerScript(script, options.bootstrap), { mode: 0o600 });
+  }
+  try {
+    await new Promise<void>((resolve, reject) => {
+      const child = spawn(shell.command, scriptFile ? [...shell.args, scriptFile] : shell.args, {
+        env,
+        // POSIX cancellation addresses the installer process group by negative
+        // PID. Windows uses taskkill /T instead, so keeping pwsh attached makes
+        // its close event represent the script host that actually ran -File.
+        detached: shell.kind === 'posix',
+        stdio: ['pipe', 'pipe', 'pipe'],
+        windowsHide: true,
+      });
+      let stderr = '';
+      let buffered = '';
+      const abort = () => terminateInstallerTree(child);
+      signal.addEventListener('abort', abort, { once: true });
+      child.stdout.setEncoding('utf8');
+      child.stderr.setEncoding('utf8');
+      child.stdout.on('data', (chunk: string) => {
+        buffered += chunk;
+        const lines = buffered.split(/\r?\n/);
+        buffered = lines.pop() ?? '';
+        for (const line of lines) onLine(line);
+      });
+      child.stderr.on('data', (chunk: string) => { stderr = (stderr + chunk).slice(-4000); });
+      child.on('error', (error) => {
+        signal.removeEventListener('abort', abort);
+        reject(error);
+      });
+      child.on('close', (code) => {
+        signal.removeEventListener('abort', abort);
+        if (buffered.trim()) onLine(buffered);
+        if (signal.aborted) reject(new Error('Agent installation was cancelled.'));
+        else if (code === 0) resolve();
+        else reject(new Error(stderr.trim() || `Official Agent installer exited with code ${code ?? 'unknown'}.`));
+      });
+      if (scriptFile) child.stdin.end();
+      else child.stdin.end(script);
+    });
+  } finally {
+    if (scriptDir) {
+      try {
+        fs.rmSync(scriptDir, { recursive: true, force: true, maxRetries: 3, retryDelay: 50 });
+      } catch {
+        // The downloaded public installer contains no credentials. A transient
+        // Windows lock must not replace the installation result that matters.
+      }
+    }
+  }
+}
+
+/** The official installers own their standard install layout and the user's
+ * PATH. The Windows bootstrap only enforces failure propagation, strips
+ * environment that could redirect or derail the install (stale managed
+ * pinning from older StashBase versions, the Electron node marker), and pins
+ * non-interactive mode. Windows environment keys are case-insensitive and
+ * packaged desktop processes can inherit stale or duplicate variants.
+ * Executing one file also avoids a nested script invocation that can return
+ * success without running its target on some packaged Windows
+ * environments. */
+export const CODEX_PS1_BOOTSTRAP = [
+  '$ErrorActionPreference = "Stop"',
+  'Remove-Item Env:\\CODEX_INSTALL_DIR -ErrorAction SilentlyContinue',
+  'Remove-Item Env:\\CODEX_HOME -ErrorAction SilentlyContinue',
+  '$env:CODEX_NON_INTERACTIVE = "true"',
+  'Remove-Item Env:\\ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue',
+] as const;
+
+export const CLAUDE_PS1_BOOTSTRAP = [
+  '$ErrorActionPreference = "Stop"',
+  'Remove-Item Env:\\ELECTRON_RUN_AS_NODE -ErrorAction SilentlyContinue',
+] as const;
+
+export function agentPowerShellInstallerScript(
+  installerScript: string,
+  bootstrapLines: readonly string[],
+): string {
+  const bootstrap = [...bootstrapLines, ''].join('\r\n');
+  // PowerShell requires `param(...)` to be the script's first statement, so
+  // the bootstrap must insert AFTER the parameter declaration. Codex declares
+  // `[CmdletBinding()]` before its block; Claude opens with a bare multi-line
+  // `param(` whose closing parenthesis starts its own line. Prepending the
+  // bootstrap ahead of a param block turns `param` into an unknown command.
+  const parameterBlock = installerScript.match(
+    /^(?:\uFEFF)?\s*(?:\[CmdletBinding\(\)\]\s*\r?\n)?param\([\s\S]*?\r?\n\)\s*\r?\n/,
+  )?.[0];
+  if (!parameterBlock) return bootstrap + installerScript;
+  return parameterBlock + bootstrap + installerScript.slice(parameterBlock.length);
+}

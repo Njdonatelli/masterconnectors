@@ -1,0 +1,3174 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 550,
+      "continuousHeight": 354
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 35
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2015-01-01",
+        "Series": "Revenue",
+        "Value": 71
+      },
+      {
+        "Date": "2015-01-06",
+        "Series": "Revenue",
+        "Value": 71
+      },
+      {
+        "Date": "2015-01-11",
+        "Series": "Revenue",
+        "Value": 69
+      },
+      {
+        "Date": "2015-01-17",
+        "Series": "Revenue",
+        "Value": 62
+      },
+      {
+        "Date": "2015-01-22",
+        "Series": "Revenue",
+        "Value": 55
+      },
+      {
+        "Date": "2015-01-28",
+        "Series": "Revenue",
+        "Value": 56
+      },
+      {
+        "Date": "2015-02-02",
+        "Series": "Revenue",
+        "Value": 64
+      },
+      {
+        "Date": "2015-02-08",
+        "Series": "Revenue",
+        "Value": 62
+      },
+      {
+        "Date": "2015-02-13",
+        "Series": "Revenue",
+        "Value": 65
+      },
+      {
+        "Date": "2015-02-19",
+        "Series": "Revenue",
+        "Value": 64
+      },
+      {
+        "Date": "2015-02-24",
+        "Series": "Revenue",
+        "Value": 68
+      },
+      {
+        "Date": "2015-03-02",
+        "Series": "Revenue",
+        "Value": 76
+      },
+      {
+        "Date": "2015-03-07",
+        "Series": "Revenue",
+        "Value": 81
+      },
+      {
+        "Date": "2015-03-13",
+        "Series": "Revenue",
+        "Value": 80
+      },
+      {
+        "Date": "2015-03-18",
+        "Series": "Revenue",
+        "Value": 79
+      },
+      {
+        "Date": "2015-03-24",
+        "Series": "Revenue",
+        "Value": 76
+      },
+      {
+        "Date": "2015-03-29",
+        "Series": "Revenue",
+        "Value": 68
+      },
+      {
+        "Date": "2015-04-04",
+        "Series": "Revenue",
+        "Value": 67
+      },
+      {
+        "Date": "2015-04-09",
+        "Series": "Revenue",
+        "Value": 60
+      },
+      {
+        "Date": "2015-04-15",
+        "Series": "Revenue",
+        "Value": 51
+      },
+      {
+        "Date": "2015-04-20",
+        "Series": "Revenue",
+        "Value": 51
+      },
+      {
+        "Date": "2015-04-25",
+        "Series": "Revenue",
+        "Value": 52
+      },
+      {
+        "Date": "2015-05-01",
+        "Series": "Revenue",
+        "Value": 60
+      },
+      {
+        "Date": "2015-05-06",
+        "Series": "Revenue",
+        "Value": 70
+      },
+      {
+        "Date": "2015-05-12",
+        "Series": "Revenue",
+        "Value": 73
+      },
+      {
+        "Date": "2015-05-17",
+        "Series": "Revenue",
+        "Value": 82
+      },
+      {
+        "Date": "2015-05-23",
+        "Series": "Revenue",
+        "Value": 85
+      },
+      {
+        "Date": "2015-05-28",
+        "Series": "Revenue",
+        "Value": 87
+      },
+      {
+        "Date": "2015-06-03",
+        "Series": "Revenue",
+        "Value": 93
+      },
+      {
+        "Date": "2015-06-08",
+        "Series": "Revenue",
+        "Value": 96
+      },
+      {
+        "Date": "2015-06-14",
+        "Series": "Revenue",
+        "Value": 103
+      },
+      {
+        "Date": "2015-06-19",
+        "Series": "Revenue",
+        "Value": 105
+      },
+      {
+        "Date": "2015-06-25",
+        "Series": "Revenue",
+        "Value": 108
+      },
+      {
+        "Date": "2015-06-30",
+        "Series": "Revenue",
+        "Value": 113
+      },
+      {
+        "Date": "2015-07-06",
+        "Series": "Revenue",
+        "Value": 116
+      },
+      {
+        "Date": "2015-07-11",
+        "Series": "Revenue",
+        "Value": 118
+      },
+      {
+        "Date": "2015-07-17",
+        "Series": "Revenue",
+        "Value": 115
+      },
+      {
+        "Date": "2015-07-22",
+        "Series": "Revenue",
+        "Value": 112
+      },
+      {
+        "Date": "2015-07-28",
+        "Series": "Revenue",
+        "Value": 104
+      },
+      {
+        "Date": "2015-08-02",
+        "Series": "Revenue",
+        "Value": 106
+      },
+      {
+        "Date": "2015-08-08",
+        "Series": "Revenue",
+        "Value": 114
+      },
+      {
+        "Date": "2015-08-13",
+        "Series": "Revenue",
+        "Value": 118
+      },
+      {
+        "Date": "2015-08-18",
+        "Series": "Revenue",
+        "Value": 120
+      },
+      {
+        "Date": "2015-08-24",
+        "Series": "Revenue",
+        "Value": 121
+      },
+      {
+        "Date": "2015-08-29",
+        "Series": "Revenue",
+        "Value": 120
+      },
+      {
+        "Date": "2015-09-04",
+        "Series": "Revenue",
+        "Value": 121
+      },
+      {
+        "Date": "2015-09-09",
+        "Series": "Revenue",
+        "Value": 120
+      },
+      {
+        "Date": "2015-09-15",
+        "Series": "Revenue",
+        "Value": 118
+      },
+      {
+        "Date": "2015-09-20",
+        "Series": "Revenue",
+        "Value": 122
+      },
+      {
+        "Date": "2015-09-26",
+        "Series": "Revenue",
+        "Value": 123
+      },
+      {
+        "Date": "2015-10-01",
+        "Series": "Revenue",
+        "Value": 119
+      },
+      {
+        "Date": "2015-10-07",
+        "Series": "Revenue",
+        "Value": 109
+      },
+      {
+        "Date": "2015-10-12",
+        "Series": "Revenue",
+        "Value": 101
+      },
+      {
+        "Date": "2015-10-18",
+        "Series": "Revenue",
+        "Value": 91
+      },
+      {
+        "Date": "2015-10-23",
+        "Series": "Revenue",
+        "Value": 85
+      },
+      {
+        "Date": "2015-10-29",
+        "Series": "Revenue",
+        "Value": 78
+      },
+      {
+        "Date": "2015-11-03",
+        "Series": "Revenue",
+        "Value": 71
+      },
+      {
+        "Date": "2015-11-09",
+        "Series": "Revenue",
+        "Value": 65
+      },
+      {
+        "Date": "2015-11-14",
+        "Series": "Revenue",
+        "Value": 54
+      },
+      {
+        "Date": "2015-11-20",
+        "Series": "Revenue",
+        "Value": 54
+      },
+      {
+        "Date": "2015-11-25",
+        "Series": "Revenue",
+        "Value": 61
+      },
+      {
+        "Date": "2015-11-30",
+        "Series": "Revenue",
+        "Value": 70
+      },
+      {
+        "Date": "2015-12-06",
+        "Series": "Revenue",
+        "Value": 74
+      },
+      {
+        "Date": "2015-12-11",
+        "Series": "Revenue",
+        "Value": 76
+      },
+      {
+        "Date": "2015-12-17",
+        "Series": "Revenue",
+        "Value": 77
+      },
+      {
+        "Date": "2015-12-22",
+        "Series": "Revenue",
+        "Value": 85
+      },
+      {
+        "Date": "2015-12-28",
+        "Series": "Revenue",
+        "Value": 84
+      },
+      {
+        "Date": "2016-01-02",
+        "Series": "Revenue",
+        "Value": 82
+      },
+      {
+        "Date": "2016-01-08",
+        "Series": "Revenue",
+        "Value": 78
+      },
+      {
+        "Date": "2016-01-13",
+        "Series": "Revenue",
+        "Value": 83
+      },
+      {
+        "Date": "2016-01-19",
+        "Series": "Revenue",
+        "Value": 82
+      },
+      {
+        "Date": "2016-01-24",
+        "Series": "Revenue",
+        "Value": 81
+      },
+      {
+        "Date": "2016-01-30",
+        "Series": "Revenue",
+        "Value": 77
+      },
+      {
+        "Date": "2016-02-04",
+        "Series": "Revenue",
+        "Value": 76
+      },
+      {
+        "Date": "2016-02-10",
+        "Series": "Revenue",
+        "Value": 80
+      },
+      {
+        "Date": "2016-02-15",
+        "Series": "Revenue",
+        "Value": 77
+      },
+      {
+        "Date": "2016-02-21",
+        "Series": "Revenue",
+        "Value": 77
+      },
+      {
+        "Date": "2016-02-26",
+        "Series": "Revenue",
+        "Value": 80
+      },
+      {
+        "Date": "2016-03-03",
+        "Series": "Revenue",
+        "Value": 80
+      },
+      {
+        "Date": "2016-03-08",
+        "Series": "Revenue",
+        "Value": 84
+      },
+      {
+        "Date": "2016-03-14",
+        "Series": "Revenue",
+        "Value": 91
+      },
+      {
+        "Date": "2016-03-19",
+        "Series": "Revenue",
+        "Value": 91
+      },
+      {
+        "Date": "2016-03-24",
+        "Series": "Revenue",
+        "Value": 93
+      },
+      {
+        "Date": "2016-03-30",
+        "Series": "Revenue",
+        "Value": 93
+      },
+      {
+        "Date": "2016-04-04",
+        "Series": "Revenue",
+        "Value": 94
+      },
+      {
+        "Date": "2016-04-10",
+        "Series": "Revenue",
+        "Value": 102
+      },
+      {
+        "Date": "2016-04-15",
+        "Series": "Revenue",
+        "Value": 111
+      },
+      {
+        "Date": "2016-04-21",
+        "Series": "Revenue",
+        "Value": 119
+      },
+      {
+        "Date": "2016-04-26",
+        "Series": "Revenue",
+        "Value": 120
+      },
+      {
+        "Date": "2016-05-02",
+        "Series": "Revenue",
+        "Value": 120
+      },
+      {
+        "Date": "2016-05-07",
+        "Series": "Revenue",
+        "Value": 114
+      },
+      {
+        "Date": "2016-05-13",
+        "Series": "Revenue",
+        "Value": 112
+      },
+      {
+        "Date": "2016-05-18",
+        "Series": "Revenue",
+        "Value": 117
+      },
+      {
+        "Date": "2016-05-24",
+        "Series": "Revenue",
+        "Value": 125
+      },
+      {
+        "Date": "2016-05-29",
+        "Series": "Revenue",
+        "Value": 135
+      },
+      {
+        "Date": "2016-06-04",
+        "Series": "Revenue",
+        "Value": 143
+      },
+      {
+        "Date": "2016-06-09",
+        "Series": "Revenue",
+        "Value": 146
+      },
+      {
+        "Date": "2016-06-15",
+        "Series": "Revenue",
+        "Value": 145
+      },
+      {
+        "Date": "2016-06-20",
+        "Series": "Revenue",
+        "Value": 151
+      },
+      {
+        "Date": "2016-06-26",
+        "Series": "Revenue",
+        "Value": 155
+      },
+      {
+        "Date": "2016-07-01",
+        "Series": "Revenue",
+        "Value": 154
+      },
+      {
+        "Date": "2016-07-06",
+        "Series": "Revenue",
+        "Value": 156
+      },
+      {
+        "Date": "2016-07-12",
+        "Series": "Revenue",
+        "Value": 157
+      },
+      {
+        "Date": "2016-07-17",
+        "Series": "Revenue",
+        "Value": 154
+      },
+      {
+        "Date": "2016-07-23",
+        "Series": "Revenue",
+        "Value": 156
+      },
+      {
+        "Date": "2016-07-28",
+        "Series": "Revenue",
+        "Value": 158
+      },
+      {
+        "Date": "2016-08-03",
+        "Series": "Revenue",
+        "Value": 154
+      },
+      {
+        "Date": "2016-08-08",
+        "Series": "Revenue",
+        "Value": 157
+      },
+      {
+        "Date": "2016-08-14",
+        "Series": "Revenue",
+        "Value": 154
+      },
+      {
+        "Date": "2016-08-19",
+        "Series": "Revenue",
+        "Value": 154
+      },
+      {
+        "Date": "2016-08-25",
+        "Series": "Revenue",
+        "Value": 149
+      },
+      {
+        "Date": "2016-08-30",
+        "Series": "Revenue",
+        "Value": 153
+      },
+      {
+        "Date": "2016-09-05",
+        "Series": "Revenue",
+        "Value": 153
+      },
+      {
+        "Date": "2016-09-10",
+        "Series": "Revenue",
+        "Value": 153
+      },
+      {
+        "Date": "2016-09-16",
+        "Series": "Revenue",
+        "Value": 156
+      },
+      {
+        "Date": "2016-09-21",
+        "Series": "Revenue",
+        "Value": 164
+      },
+      {
+        "Date": "2016-09-27",
+        "Series": "Revenue",
+        "Value": 176
+      },
+      {
+        "Date": "2016-10-02",
+        "Series": "Revenue",
+        "Value": 180
+      },
+      {
+        "Date": "2016-10-08",
+        "Series": "Revenue",
+        "Value": 182
+      },
+      {
+        "Date": "2016-10-13",
+        "Series": "Revenue",
+        "Value": 187
+      },
+      {
+        "Date": "2016-10-19",
+        "Series": "Revenue",
+        "Value": 193
+      },
+      {
+        "Date": "2016-10-24",
+        "Series": "Revenue",
+        "Value": 195
+      },
+      {
+        "Date": "2016-10-29",
+        "Series": "Revenue",
+        "Value": 195
+      },
+      {
+        "Date": "2016-11-04",
+        "Series": "Revenue",
+        "Value": 199
+      },
+      {
+        "Date": "2016-11-09",
+        "Series": "Revenue",
+        "Value": 202
+      },
+      {
+        "Date": "2016-11-15",
+        "Series": "Revenue",
+        "Value": 203
+      },
+      {
+        "Date": "2016-11-20",
+        "Series": "Revenue",
+        "Value": 203
+      },
+      {
+        "Date": "2016-11-26",
+        "Series": "Revenue",
+        "Value": 199
+      },
+      {
+        "Date": "2016-12-01",
+        "Series": "Revenue",
+        "Value": 202
+      },
+      {
+        "Date": "2016-12-07",
+        "Series": "Revenue",
+        "Value": 202
+      },
+      {
+        "Date": "2016-12-12",
+        "Series": "Revenue",
+        "Value": 202
+      },
+      {
+        "Date": "2016-12-18",
+        "Series": "Revenue",
+        "Value": 196
+      },
+      {
+        "Date": "2016-12-23",
+        "Series": "Revenue",
+        "Value": 199
+      },
+      {
+        "Date": "2016-12-29",
+        "Series": "Revenue",
+        "Value": 206
+      },
+      {
+        "Date": "2017-01-03",
+        "Series": "Revenue",
+        "Value": 206
+      },
+      {
+        "Date": "2017-01-09",
+        "Series": "Revenue",
+        "Value": 213
+      },
+      {
+        "Date": "2017-01-14",
+        "Series": "Revenue",
+        "Value": 221
+      },
+      {
+        "Date": "2017-01-20",
+        "Series": "Revenue",
+        "Value": 223
+      },
+      {
+        "Date": "2017-01-25",
+        "Series": "Revenue",
+        "Value": 220
+      },
+      {
+        "Date": "2017-01-31",
+        "Series": "Revenue",
+        "Value": 212
+      },
+      {
+        "Date": "2017-02-05",
+        "Series": "Revenue",
+        "Value": 214
+      },
+      {
+        "Date": "2017-02-10",
+        "Series": "Revenue",
+        "Value": 216
+      },
+      {
+        "Date": "2017-02-16",
+        "Series": "Revenue",
+        "Value": 211
+      },
+      {
+        "Date": "2017-02-21",
+        "Series": "Revenue",
+        "Value": 212
+      },
+      {
+        "Date": "2017-02-27",
+        "Series": "Revenue",
+        "Value": 206
+      },
+      {
+        "Date": "2017-03-04",
+        "Series": "Revenue",
+        "Value": 197
+      },
+      {
+        "Date": "2017-03-10",
+        "Series": "Revenue",
+        "Value": 184
+      },
+      {
+        "Date": "2017-03-15",
+        "Series": "Revenue",
+        "Value": 170
+      },
+      {
+        "Date": "2017-03-21",
+        "Series": "Revenue",
+        "Value": 164
+      },
+      {
+        "Date": "2017-03-26",
+        "Series": "Revenue",
+        "Value": 166
+      },
+      {
+        "Date": "2017-04-01",
+        "Series": "Revenue",
+        "Value": 167
+      },
+      {
+        "Date": "2017-04-06",
+        "Series": "Revenue",
+        "Value": 170
+      },
+      {
+        "Date": "2017-04-12",
+        "Series": "Revenue",
+        "Value": 165
+      },
+      {
+        "Date": "2017-04-17",
+        "Series": "Revenue",
+        "Value": 167
+      },
+      {
+        "Date": "2017-04-23",
+        "Series": "Revenue",
+        "Value": 167
+      },
+      {
+        "Date": "2017-04-28",
+        "Series": "Revenue",
+        "Value": 168
+      },
+      {
+        "Date": "2017-05-04",
+        "Series": "Revenue",
+        "Value": 162
+      },
+      {
+        "Date": "2017-05-09",
+        "Series": "Revenue",
+        "Value": 151
+      },
+      {
+        "Date": "2017-05-15",
+        "Series": "Revenue",
+        "Value": 142
+      },
+      {
+        "Date": "2017-05-20",
+        "Series": "Revenue",
+        "Value": 129
+      },
+      {
+        "Date": "2017-05-26",
+        "Series": "Revenue",
+        "Value": 113
+      },
+      {
+        "Date": "2017-05-31",
+        "Series": "Revenue",
+        "Value": 104
+      },
+      {
+        "Date": "2017-06-05",
+        "Series": "Revenue",
+        "Value": 105
+      },
+      {
+        "Date": "2017-06-11",
+        "Series": "Revenue",
+        "Value": 107
+      },
+      {
+        "Date": "2017-06-16",
+        "Series": "Revenue",
+        "Value": 112
+      },
+      {
+        "Date": "2017-06-22",
+        "Series": "Revenue",
+        "Value": 118
+      },
+      {
+        "Date": "2017-06-27",
+        "Series": "Revenue",
+        "Value": 117
+      },
+      {
+        "Date": "2017-07-03",
+        "Series": "Revenue",
+        "Value": 121
+      },
+      {
+        "Date": "2017-07-08",
+        "Series": "Revenue",
+        "Value": 129
+      },
+      {
+        "Date": "2017-07-14",
+        "Series": "Revenue",
+        "Value": 138
+      },
+      {
+        "Date": "2017-07-19",
+        "Series": "Revenue",
+        "Value": 143
+      },
+      {
+        "Date": "2017-07-25",
+        "Series": "Revenue",
+        "Value": 150
+      },
+      {
+        "Date": "2017-07-30",
+        "Series": "Revenue",
+        "Value": 149
+      },
+      {
+        "Date": "2017-08-05",
+        "Series": "Revenue",
+        "Value": 146
+      },
+      {
+        "Date": "2017-08-10",
+        "Series": "Revenue",
+        "Value": 142
+      },
+      {
+        "Date": "2017-08-16",
+        "Series": "Revenue",
+        "Value": 147
+      },
+      {
+        "Date": "2017-08-21",
+        "Series": "Revenue",
+        "Value": 156
+      },
+      {
+        "Date": "2017-08-27",
+        "Series": "Revenue",
+        "Value": 169
+      },
+      {
+        "Date": "2017-09-01",
+        "Series": "Revenue",
+        "Value": 181
+      },
+      {
+        "Date": "2017-09-07",
+        "Series": "Revenue",
+        "Value": 192
+      },
+      {
+        "Date": "2017-09-12",
+        "Series": "Revenue",
+        "Value": 204
+      },
+      {
+        "Date": "2017-09-17",
+        "Series": "Revenue",
+        "Value": 208
+      },
+      {
+        "Date": "2017-09-23",
+        "Series": "Revenue",
+        "Value": 214
+      },
+      {
+        "Date": "2017-09-28",
+        "Series": "Revenue",
+        "Value": 221
+      },
+      {
+        "Date": "2017-10-04",
+        "Series": "Revenue",
+        "Value": 225
+      },
+      {
+        "Date": "2017-10-09",
+        "Series": "Revenue",
+        "Value": 223
+      },
+      {
+        "Date": "2017-10-15",
+        "Series": "Revenue",
+        "Value": 221
+      },
+      {
+        "Date": "2017-10-20",
+        "Series": "Revenue",
+        "Value": 220
+      },
+      {
+        "Date": "2017-10-26",
+        "Series": "Revenue",
+        "Value": 213
+      },
+      {
+        "Date": "2017-10-31",
+        "Series": "Revenue",
+        "Value": 210
+      },
+      {
+        "Date": "2017-11-06",
+        "Series": "Revenue",
+        "Value": 202
+      },
+      {
+        "Date": "2017-11-11",
+        "Series": "Revenue",
+        "Value": 195
+      },
+      {
+        "Date": "2017-11-17",
+        "Series": "Revenue",
+        "Value": 190
+      },
+      {
+        "Date": "2017-11-22",
+        "Series": "Revenue",
+        "Value": 187
+      },
+      {
+        "Date": "2017-11-28",
+        "Series": "Revenue",
+        "Value": 184
+      },
+      {
+        "Date": "2017-12-03",
+        "Series": "Revenue",
+        "Value": 186
+      },
+      {
+        "Date": "2017-12-09",
+        "Series": "Revenue",
+        "Value": 180
+      },
+      {
+        "Date": "2017-12-14",
+        "Series": "Revenue",
+        "Value": 170
+      },
+      {
+        "Date": "2017-12-20",
+        "Series": "Revenue",
+        "Value": 158
+      },
+      {
+        "Date": "2017-12-25",
+        "Series": "Revenue",
+        "Value": 148
+      },
+      {
+        "Date": "2015-01-01",
+        "Series": "Costs",
+        "Value": 60
+      },
+      {
+        "Date": "2015-01-06",
+        "Series": "Costs",
+        "Value": 59
+      },
+      {
+        "Date": "2015-01-11",
+        "Series": "Costs",
+        "Value": 64
+      },
+      {
+        "Date": "2015-01-17",
+        "Series": "Costs",
+        "Value": 72
+      },
+      {
+        "Date": "2015-01-22",
+        "Series": "Costs",
+        "Value": 73
+      },
+      {
+        "Date": "2015-01-28",
+        "Series": "Costs",
+        "Value": 81
+      },
+      {
+        "Date": "2015-02-02",
+        "Series": "Costs",
+        "Value": 84
+      },
+      {
+        "Date": "2015-02-08",
+        "Series": "Costs",
+        "Value": 79
+      },
+      {
+        "Date": "2015-02-13",
+        "Series": "Costs",
+        "Value": 71
+      },
+      {
+        "Date": "2015-02-19",
+        "Series": "Costs",
+        "Value": 65
+      },
+      {
+        "Date": "2015-02-24",
+        "Series": "Costs",
+        "Value": 55
+      },
+      {
+        "Date": "2015-03-02",
+        "Series": "Costs",
+        "Value": 53
+      },
+      {
+        "Date": "2015-03-07",
+        "Series": "Costs",
+        "Value": 49
+      },
+      {
+        "Date": "2015-03-13",
+        "Series": "Costs",
+        "Value": 51
+      },
+      {
+        "Date": "2015-03-18",
+        "Series": "Costs",
+        "Value": 52
+      },
+      {
+        "Date": "2015-03-24",
+        "Series": "Costs",
+        "Value": 55
+      },
+      {
+        "Date": "2015-03-29",
+        "Series": "Costs",
+        "Value": 55
+      },
+      {
+        "Date": "2015-04-04",
+        "Series": "Costs",
+        "Value": 55
+      },
+      {
+        "Date": "2015-04-09",
+        "Series": "Costs",
+        "Value": 49
+      },
+      {
+        "Date": "2015-04-15",
+        "Series": "Costs",
+        "Value": 38
+      },
+      {
+        "Date": "2015-04-20",
+        "Series": "Costs",
+        "Value": 24
+      },
+      {
+        "Date": "2015-04-25",
+        "Series": "Costs",
+        "Value": 21
+      },
+      {
+        "Date": "2015-05-01",
+        "Series": "Costs",
+        "Value": 15
+      },
+      {
+        "Date": "2015-05-06",
+        "Series": "Costs",
+        "Value": 14
+      },
+      {
+        "Date": "2015-05-12",
+        "Series": "Costs",
+        "Value": 8
+      },
+      {
+        "Date": "2015-05-17",
+        "Series": "Costs",
+        "Value": 7
+      },
+      {
+        "Date": "2015-05-23",
+        "Series": "Costs",
+        "Value": 7
+      },
+      {
+        "Date": "2015-05-28",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-06-03",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-06-08",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-06-14",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-06-19",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-06-25",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-06-30",
+        "Series": "Costs",
+        "Value": 6
+      },
+      {
+        "Date": "2015-07-06",
+        "Series": "Costs",
+        "Value": 3
+      },
+      {
+        "Date": "2015-07-11",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-07-17",
+        "Series": "Costs",
+        "Value": 1
+      },
+      {
+        "Date": "2015-07-22",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-07-28",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-08-02",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-08-08",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-08-13",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-08-18",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-08-24",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-08-29",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-09-04",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-09-09",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-09-15",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-09-20",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2015-09-26",
+        "Series": "Costs",
+        "Value": 3
+      },
+      {
+        "Date": "2015-10-01",
+        "Series": "Costs",
+        "Value": 1
+      },
+      {
+        "Date": "2015-10-07",
+        "Series": "Costs",
+        "Value": 3
+      },
+      {
+        "Date": "2015-10-12",
+        "Series": "Costs",
+        "Value": 4
+      },
+      {
+        "Date": "2015-10-18",
+        "Series": "Costs",
+        "Value": 6
+      },
+      {
+        "Date": "2015-10-23",
+        "Series": "Costs",
+        "Value": 11
+      },
+      {
+        "Date": "2015-10-29",
+        "Series": "Costs",
+        "Value": 21
+      },
+      {
+        "Date": "2015-11-03",
+        "Series": "Costs",
+        "Value": 34
+      },
+      {
+        "Date": "2015-11-09",
+        "Series": "Costs",
+        "Value": 49
+      },
+      {
+        "Date": "2015-11-14",
+        "Series": "Costs",
+        "Value": 56
+      },
+      {
+        "Date": "2015-11-20",
+        "Series": "Costs",
+        "Value": 61
+      },
+      {
+        "Date": "2015-11-25",
+        "Series": "Costs",
+        "Value": 64
+      },
+      {
+        "Date": "2015-11-30",
+        "Series": "Costs",
+        "Value": 68
+      },
+      {
+        "Date": "2015-12-06",
+        "Series": "Costs",
+        "Value": 63
+      },
+      {
+        "Date": "2015-12-11",
+        "Series": "Costs",
+        "Value": 57
+      },
+      {
+        "Date": "2015-12-17",
+        "Series": "Costs",
+        "Value": 49
+      },
+      {
+        "Date": "2015-12-22",
+        "Series": "Costs",
+        "Value": 40
+      },
+      {
+        "Date": "2015-12-28",
+        "Series": "Costs",
+        "Value": 40
+      },
+      {
+        "Date": "2016-01-02",
+        "Series": "Costs",
+        "Value": 36
+      },
+      {
+        "Date": "2016-01-08",
+        "Series": "Costs",
+        "Value": 31
+      },
+      {
+        "Date": "2016-01-13",
+        "Series": "Costs",
+        "Value": 30
+      },
+      {
+        "Date": "2016-01-19",
+        "Series": "Costs",
+        "Value": 22
+      },
+      {
+        "Date": "2016-01-24",
+        "Series": "Costs",
+        "Value": 15
+      },
+      {
+        "Date": "2016-01-30",
+        "Series": "Costs",
+        "Value": 14
+      },
+      {
+        "Date": "2016-02-04",
+        "Series": "Costs",
+        "Value": 7
+      },
+      {
+        "Date": "2016-02-10",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2016-02-15",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2016-02-21",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2016-02-26",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2016-03-03",
+        "Series": "Costs",
+        "Value": 0
+      },
+      {
+        "Date": "2016-03-08",
+        "Series": "Costs",
+        "Value": 4
+      },
+      {
+        "Date": "2016-03-14",
+        "Series": "Costs",
+        "Value": 13
+      },
+      {
+        "Date": "2016-03-19",
+        "Series": "Costs",
+        "Value": 20
+      },
+      {
+        "Date": "2016-03-24",
+        "Series": "Costs",
+        "Value": 18
+      },
+      {
+        "Date": "2016-03-30",
+        "Series": "Costs",
+        "Value": 16
+      },
+      {
+        "Date": "2016-04-04",
+        "Series": "Costs",
+        "Value": 17
+      },
+      {
+        "Date": "2016-04-10",
+        "Series": "Costs",
+        "Value": 19
+      },
+      {
+        "Date": "2016-04-15",
+        "Series": "Costs",
+        "Value": 25
+      },
+      {
+        "Date": "2016-04-21",
+        "Series": "Costs",
+        "Value": 31
+      },
+      {
+        "Date": "2016-04-26",
+        "Series": "Costs",
+        "Value": 41
+      },
+      {
+        "Date": "2016-05-02",
+        "Series": "Costs",
+        "Value": 48
+      },
+      {
+        "Date": "2016-05-07",
+        "Series": "Costs",
+        "Value": 53
+      },
+      {
+        "Date": "2016-05-13",
+        "Series": "Costs",
+        "Value": 49
+      },
+      {
+        "Date": "2016-05-18",
+        "Series": "Costs",
+        "Value": 52
+      },
+      {
+        "Date": "2016-05-24",
+        "Series": "Costs",
+        "Value": 48
+      },
+      {
+        "Date": "2016-05-29",
+        "Series": "Costs",
+        "Value": 48
+      },
+      {
+        "Date": "2016-06-04",
+        "Series": "Costs",
+        "Value": 46
+      },
+      {
+        "Date": "2016-06-09",
+        "Series": "Costs",
+        "Value": 50
+      },
+      {
+        "Date": "2016-06-15",
+        "Series": "Costs",
+        "Value": 53
+      },
+      {
+        "Date": "2016-06-20",
+        "Series": "Costs",
+        "Value": 60
+      },
+      {
+        "Date": "2016-06-26",
+        "Series": "Costs",
+        "Value": 72
+      },
+      {
+        "Date": "2016-07-01",
+        "Series": "Costs",
+        "Value": 86
+      },
+      {
+        "Date": "2016-07-06",
+        "Series": "Costs",
+        "Value": 101
+      },
+      {
+        "Date": "2016-07-12",
+        "Series": "Costs",
+        "Value": 115
+      },
+      {
+        "Date": "2016-07-17",
+        "Series": "Costs",
+        "Value": 119
+      },
+      {
+        "Date": "2016-07-23",
+        "Series": "Costs",
+        "Value": 124
+      },
+      {
+        "Date": "2016-07-28",
+        "Series": "Costs",
+        "Value": 125
+      },
+      {
+        "Date": "2016-08-03",
+        "Series": "Costs",
+        "Value": 128
+      },
+      {
+        "Date": "2016-08-08",
+        "Series": "Costs",
+        "Value": 126
+      },
+      {
+        "Date": "2016-08-14",
+        "Series": "Costs",
+        "Value": 125
+      },
+      {
+        "Date": "2016-08-19",
+        "Series": "Costs",
+        "Value": 124
+      },
+      {
+        "Date": "2016-08-25",
+        "Series": "Costs",
+        "Value": 125
+      },
+      {
+        "Date": "2016-08-30",
+        "Series": "Costs",
+        "Value": 131
+      },
+      {
+        "Date": "2016-09-05",
+        "Series": "Costs",
+        "Value": 134
+      },
+      {
+        "Date": "2016-09-10",
+        "Series": "Costs",
+        "Value": 133
+      },
+      {
+        "Date": "2016-09-16",
+        "Series": "Costs",
+        "Value": 126
+      },
+      {
+        "Date": "2016-09-21",
+        "Series": "Costs",
+        "Value": 118
+      },
+      {
+        "Date": "2016-09-27",
+        "Series": "Costs",
+        "Value": 118
+      },
+      {
+        "Date": "2016-10-02",
+        "Series": "Costs",
+        "Value": 123
+      },
+      {
+        "Date": "2016-10-08",
+        "Series": "Costs",
+        "Value": 132
+      },
+      {
+        "Date": "2016-10-13",
+        "Series": "Costs",
+        "Value": 145
+      },
+      {
+        "Date": "2016-10-19",
+        "Series": "Costs",
+        "Value": 157
+      },
+      {
+        "Date": "2016-10-24",
+        "Series": "Costs",
+        "Value": 160
+      },
+      {
+        "Date": "2016-10-29",
+        "Series": "Costs",
+        "Value": 157
+      },
+      {
+        "Date": "2016-11-04",
+        "Series": "Costs",
+        "Value": 160
+      },
+      {
+        "Date": "2016-11-09",
+        "Series": "Costs",
+        "Value": 169
+      },
+      {
+        "Date": "2016-11-15",
+        "Series": "Costs",
+        "Value": 170
+      },
+      {
+        "Date": "2016-11-20",
+        "Series": "Costs",
+        "Value": 171
+      },
+      {
+        "Date": "2016-11-26",
+        "Series": "Costs",
+        "Value": 171
+      },
+      {
+        "Date": "2016-12-01",
+        "Series": "Costs",
+        "Value": 165
+      },
+      {
+        "Date": "2016-12-07",
+        "Series": "Costs",
+        "Value": 161
+      },
+      {
+        "Date": "2016-12-12",
+        "Series": "Costs",
+        "Value": 163
+      },
+      {
+        "Date": "2016-12-18",
+        "Series": "Costs",
+        "Value": 172
+      },
+      {
+        "Date": "2016-12-23",
+        "Series": "Costs",
+        "Value": 178
+      },
+      {
+        "Date": "2016-12-29",
+        "Series": "Costs",
+        "Value": 181
+      },
+      {
+        "Date": "2017-01-03",
+        "Series": "Costs",
+        "Value": 189
+      },
+      {
+        "Date": "2017-01-09",
+        "Series": "Costs",
+        "Value": 200
+      },
+      {
+        "Date": "2017-01-14",
+        "Series": "Costs",
+        "Value": 212
+      },
+      {
+        "Date": "2017-01-20",
+        "Series": "Costs",
+        "Value": 223
+      },
+      {
+        "Date": "2017-01-25",
+        "Series": "Costs",
+        "Value": 233
+      },
+      {
+        "Date": "2017-01-31",
+        "Series": "Costs",
+        "Value": 240
+      },
+      {
+        "Date": "2017-02-05",
+        "Series": "Costs",
+        "Value": 248
+      },
+      {
+        "Date": "2017-02-10",
+        "Series": "Costs",
+        "Value": 259
+      },
+      {
+        "Date": "2017-02-16",
+        "Series": "Costs",
+        "Value": 268
+      },
+      {
+        "Date": "2017-02-21",
+        "Series": "Costs",
+        "Value": 278
+      },
+      {
+        "Date": "2017-02-27",
+        "Series": "Costs",
+        "Value": 288
+      },
+      {
+        "Date": "2017-03-04",
+        "Series": "Costs",
+        "Value": 299
+      },
+      {
+        "Date": "2017-03-10",
+        "Series": "Costs",
+        "Value": 301
+      },
+      {
+        "Date": "2017-03-15",
+        "Series": "Costs",
+        "Value": 301
+      },
+      {
+        "Date": "2017-03-21",
+        "Series": "Costs",
+        "Value": 305
+      },
+      {
+        "Date": "2017-03-26",
+        "Series": "Costs",
+        "Value": 312
+      },
+      {
+        "Date": "2017-04-01",
+        "Series": "Costs",
+        "Value": 322
+      },
+      {
+        "Date": "2017-04-06",
+        "Series": "Costs",
+        "Value": 335
+      },
+      {
+        "Date": "2017-04-12",
+        "Series": "Costs",
+        "Value": 338
+      },
+      {
+        "Date": "2017-04-17",
+        "Series": "Costs",
+        "Value": 342
+      },
+      {
+        "Date": "2017-04-23",
+        "Series": "Costs",
+        "Value": 340
+      },
+      {
+        "Date": "2017-04-28",
+        "Series": "Costs",
+        "Value": 338
+      },
+      {
+        "Date": "2017-05-04",
+        "Series": "Costs",
+        "Value": 342
+      },
+      {
+        "Date": "2017-05-09",
+        "Series": "Costs",
+        "Value": 346
+      },
+      {
+        "Date": "2017-05-15",
+        "Series": "Costs",
+        "Value": 342
+      },
+      {
+        "Date": "2017-05-20",
+        "Series": "Costs",
+        "Value": 343
+      },
+      {
+        "Date": "2017-05-26",
+        "Series": "Costs",
+        "Value": 340
+      },
+      {
+        "Date": "2017-05-31",
+        "Series": "Costs",
+        "Value": 339
+      },
+      {
+        "Date": "2017-06-05",
+        "Series": "Costs",
+        "Value": 332
+      },
+      {
+        "Date": "2017-06-11",
+        "Series": "Costs",
+        "Value": 323
+      },
+      {
+        "Date": "2017-06-16",
+        "Series": "Costs",
+        "Value": 310
+      },
+      {
+        "Date": "2017-06-22",
+        "Series": "Costs",
+        "Value": 295
+      },
+      {
+        "Date": "2017-06-27",
+        "Series": "Costs",
+        "Value": 281
+      },
+      {
+        "Date": "2017-07-03",
+        "Series": "Costs",
+        "Value": 276
+      },
+      {
+        "Date": "2017-07-08",
+        "Series": "Costs",
+        "Value": 269
+      },
+      {
+        "Date": "2017-07-14",
+        "Series": "Costs",
+        "Value": 272
+      },
+      {
+        "Date": "2017-07-19",
+        "Series": "Costs",
+        "Value": 272
+      },
+      {
+        "Date": "2017-07-25",
+        "Series": "Costs",
+        "Value": 274
+      },
+      {
+        "Date": "2017-07-30",
+        "Series": "Costs",
+        "Value": 275
+      },
+      {
+        "Date": "2017-08-05",
+        "Series": "Costs",
+        "Value": 273
+      },
+      {
+        "Date": "2017-08-10",
+        "Series": "Costs",
+        "Value": 273
+      },
+      {
+        "Date": "2017-08-16",
+        "Series": "Costs",
+        "Value": 268
+      },
+      {
+        "Date": "2017-08-21",
+        "Series": "Costs",
+        "Value": 270
+      },
+      {
+        "Date": "2017-08-27",
+        "Series": "Costs",
+        "Value": 270
+      },
+      {
+        "Date": "2017-09-01",
+        "Series": "Costs",
+        "Value": 267
+      },
+      {
+        "Date": "2017-09-07",
+        "Series": "Costs",
+        "Value": 258
+      },
+      {
+        "Date": "2017-09-12",
+        "Series": "Costs",
+        "Value": 252
+      },
+      {
+        "Date": "2017-09-17",
+        "Series": "Costs",
+        "Value": 255
+      },
+      {
+        "Date": "2017-09-23",
+        "Series": "Costs",
+        "Value": 260
+      },
+      {
+        "Date": "2017-09-28",
+        "Series": "Costs",
+        "Value": 271
+      },
+      {
+        "Date": "2017-10-04",
+        "Series": "Costs",
+        "Value": 276
+      },
+      {
+        "Date": "2017-10-09",
+        "Series": "Costs",
+        "Value": 278
+      },
+      {
+        "Date": "2017-10-15",
+        "Series": "Costs",
+        "Value": 273
+      },
+      {
+        "Date": "2017-10-20",
+        "Series": "Costs",
+        "Value": 266
+      },
+      {
+        "Date": "2017-10-26",
+        "Series": "Costs",
+        "Value": 256
+      },
+      {
+        "Date": "2017-10-31",
+        "Series": "Costs",
+        "Value": 243
+      },
+      {
+        "Date": "2017-11-06",
+        "Series": "Costs",
+        "Value": 232
+      },
+      {
+        "Date": "2017-11-11",
+        "Series": "Costs",
+        "Value": 229
+      },
+      {
+        "Date": "2017-11-17",
+        "Series": "Costs",
+        "Value": 228
+      },
+      {
+        "Date": "2017-11-22",
+        "Series": "Costs",
+        "Value": 232
+      },
+      {
+        "Date": "2017-11-28",
+        "Series": "Costs",
+        "Value": 229
+      },
+      {
+        "Date": "2017-12-03",
+        "Series": "Costs",
+        "Value": 229
+      },
+      {
+        "Date": "2017-12-09",
+        "Series": "Costs",
+        "Value": 225
+      },
+      {
+        "Date": "2017-12-14",
+        "Series": "Costs",
+        "Value": 221
+      },
+      {
+        "Date": "2017-12-20",
+        "Series": "Costs",
+        "Value": 221
+      },
+      {
+        "Date": "2017-12-25",
+        "Series": "Costs",
+        "Value": 217
+      },
+      {
+        "Date": "2015-01-01",
+        "Series": "Profit",
+        "Value": 281
+      },
+      {
+        "Date": "2015-01-06",
+        "Series": "Profit",
+        "Value": 279
+      },
+      {
+        "Date": "2015-01-11",
+        "Series": "Profit",
+        "Value": 280
+      },
+      {
+        "Date": "2015-01-17",
+        "Series": "Profit",
+        "Value": 274
+      },
+      {
+        "Date": "2015-01-22",
+        "Series": "Profit",
+        "Value": 266
+      },
+      {
+        "Date": "2015-01-28",
+        "Series": "Profit",
+        "Value": 261
+      },
+      {
+        "Date": "2015-02-02",
+        "Series": "Profit",
+        "Value": 253
+      },
+      {
+        "Date": "2015-02-08",
+        "Series": "Profit",
+        "Value": 253
+      },
+      {
+        "Date": "2015-02-13",
+        "Series": "Profit",
+        "Value": 256
+      },
+      {
+        "Date": "2015-02-19",
+        "Series": "Profit",
+        "Value": 258
+      },
+      {
+        "Date": "2015-02-24",
+        "Series": "Profit",
+        "Value": 255
+      },
+      {
+        "Date": "2015-03-02",
+        "Series": "Profit",
+        "Value": 252
+      },
+      {
+        "Date": "2015-03-07",
+        "Series": "Profit",
+        "Value": 249
+      },
+      {
+        "Date": "2015-03-13",
+        "Series": "Profit",
+        "Value": 251
+      },
+      {
+        "Date": "2015-03-18",
+        "Series": "Profit",
+        "Value": 245
+      },
+      {
+        "Date": "2015-03-24",
+        "Series": "Profit",
+        "Value": 241
+      },
+      {
+        "Date": "2015-03-29",
+        "Series": "Profit",
+        "Value": 239
+      },
+      {
+        "Date": "2015-04-04",
+        "Series": "Profit",
+        "Value": 237
+      },
+      {
+        "Date": "2015-04-09",
+        "Series": "Profit",
+        "Value": 230
+      },
+      {
+        "Date": "2015-04-15",
+        "Series": "Profit",
+        "Value": 230
+      },
+      {
+        "Date": "2015-04-20",
+        "Series": "Profit",
+        "Value": 227
+      },
+      {
+        "Date": "2015-04-25",
+        "Series": "Profit",
+        "Value": 228
+      },
+      {
+        "Date": "2015-05-01",
+        "Series": "Profit",
+        "Value": 221
+      },
+      {
+        "Date": "2015-05-06",
+        "Series": "Profit",
+        "Value": 223
+      },
+      {
+        "Date": "2015-05-12",
+        "Series": "Profit",
+        "Value": 218
+      },
+      {
+        "Date": "2015-05-17",
+        "Series": "Profit",
+        "Value": 218
+      },
+      {
+        "Date": "2015-05-23",
+        "Series": "Profit",
+        "Value": 215
+      },
+      {
+        "Date": "2015-05-28",
+        "Series": "Profit",
+        "Value": 212
+      },
+      {
+        "Date": "2015-06-03",
+        "Series": "Profit",
+        "Value": 212
+      },
+      {
+        "Date": "2015-06-08",
+        "Series": "Profit",
+        "Value": 211
+      },
+      {
+        "Date": "2015-06-14",
+        "Series": "Profit",
+        "Value": 206
+      },
+      {
+        "Date": "2015-06-19",
+        "Series": "Profit",
+        "Value": 201
+      },
+      {
+        "Date": "2015-06-25",
+        "Series": "Profit",
+        "Value": 202
+      },
+      {
+        "Date": "2015-06-30",
+        "Series": "Profit",
+        "Value": 204
+      },
+      {
+        "Date": "2015-07-06",
+        "Series": "Profit",
+        "Value": 198
+      },
+      {
+        "Date": "2015-07-11",
+        "Series": "Profit",
+        "Value": 196
+      },
+      {
+        "Date": "2015-07-17",
+        "Series": "Profit",
+        "Value": 194
+      },
+      {
+        "Date": "2015-07-22",
+        "Series": "Profit",
+        "Value": 190
+      },
+      {
+        "Date": "2015-07-28",
+        "Series": "Profit",
+        "Value": 187
+      },
+      {
+        "Date": "2015-08-02",
+        "Series": "Profit",
+        "Value": 191
+      },
+      {
+        "Date": "2015-08-08",
+        "Series": "Profit",
+        "Value": 191
+      },
+      {
+        "Date": "2015-08-13",
+        "Series": "Profit",
+        "Value": 196
+      },
+      {
+        "Date": "2015-08-18",
+        "Series": "Profit",
+        "Value": 194
+      },
+      {
+        "Date": "2015-08-24",
+        "Series": "Profit",
+        "Value": 187
+      },
+      {
+        "Date": "2015-08-29",
+        "Series": "Profit",
+        "Value": 178
+      },
+      {
+        "Date": "2015-09-04",
+        "Series": "Profit",
+        "Value": 165
+      },
+      {
+        "Date": "2015-09-09",
+        "Series": "Profit",
+        "Value": 157
+      },
+      {
+        "Date": "2015-09-15",
+        "Series": "Profit",
+        "Value": 157
+      },
+      {
+        "Date": "2015-09-20",
+        "Series": "Profit",
+        "Value": 158
+      },
+      {
+        "Date": "2015-09-26",
+        "Series": "Profit",
+        "Value": 156
+      },
+      {
+        "Date": "2015-10-01",
+        "Series": "Profit",
+        "Value": 162
+      },
+      {
+        "Date": "2015-10-07",
+        "Series": "Profit",
+        "Value": 161
+      },
+      {
+        "Date": "2015-10-12",
+        "Series": "Profit",
+        "Value": 156
+      },
+      {
+        "Date": "2015-10-18",
+        "Series": "Profit",
+        "Value": 152
+      },
+      {
+        "Date": "2015-10-23",
+        "Series": "Profit",
+        "Value": 156
+      },
+      {
+        "Date": "2015-10-29",
+        "Series": "Profit",
+        "Value": 156
+      },
+      {
+        "Date": "2015-11-03",
+        "Series": "Profit",
+        "Value": 154
+      },
+      {
+        "Date": "2015-11-09",
+        "Series": "Profit",
+        "Value": 150
+      },
+      {
+        "Date": "2015-11-14",
+        "Series": "Profit",
+        "Value": 147
+      },
+      {
+        "Date": "2015-11-20",
+        "Series": "Profit",
+        "Value": 140
+      },
+      {
+        "Date": "2015-11-25",
+        "Series": "Profit",
+        "Value": 140
+      },
+      {
+        "Date": "2015-11-30",
+        "Series": "Profit",
+        "Value": 142
+      },
+      {
+        "Date": "2015-12-06",
+        "Series": "Profit",
+        "Value": 141
+      },
+      {
+        "Date": "2015-12-11",
+        "Series": "Profit",
+        "Value": 140
+      },
+      {
+        "Date": "2015-12-17",
+        "Series": "Profit",
+        "Value": 143
+      },
+      {
+        "Date": "2015-12-22",
+        "Series": "Profit",
+        "Value": 142
+      },
+      {
+        "Date": "2015-12-28",
+        "Series": "Profit",
+        "Value": 146
+      },
+      {
+        "Date": "2016-01-02",
+        "Series": "Profit",
+        "Value": 148
+      },
+      {
+        "Date": "2016-01-08",
+        "Series": "Profit",
+        "Value": 154
+      },
+      {
+        "Date": "2016-01-13",
+        "Series": "Profit",
+        "Value": 153
+      },
+      {
+        "Date": "2016-01-19",
+        "Series": "Profit",
+        "Value": 150
+      },
+      {
+        "Date": "2016-01-24",
+        "Series": "Profit",
+        "Value": 146
+      },
+      {
+        "Date": "2016-01-30",
+        "Series": "Profit",
+        "Value": 143
+      },
+      {
+        "Date": "2016-02-04",
+        "Series": "Profit",
+        "Value": 142
+      },
+      {
+        "Date": "2016-02-10",
+        "Series": "Profit",
+        "Value": 140
+      },
+      {
+        "Date": "2016-02-15",
+        "Series": "Profit",
+        "Value": 143
+      },
+      {
+        "Date": "2016-02-21",
+        "Series": "Profit",
+        "Value": 138
+      },
+      {
+        "Date": "2016-02-26",
+        "Series": "Profit",
+        "Value": 131
+      },
+      {
+        "Date": "2016-03-03",
+        "Series": "Profit",
+        "Value": 130
+      },
+      {
+        "Date": "2016-03-08",
+        "Series": "Profit",
+        "Value": 131
+      },
+      {
+        "Date": "2016-03-14",
+        "Series": "Profit",
+        "Value": 124
+      },
+      {
+        "Date": "2016-03-19",
+        "Series": "Profit",
+        "Value": 119
+      },
+      {
+        "Date": "2016-03-24",
+        "Series": "Profit",
+        "Value": 120
+      },
+      {
+        "Date": "2016-03-30",
+        "Series": "Profit",
+        "Value": 115
+      },
+      {
+        "Date": "2016-04-04",
+        "Series": "Profit",
+        "Value": 109
+      },
+      {
+        "Date": "2016-04-10",
+        "Series": "Profit",
+        "Value": 99
+      },
+      {
+        "Date": "2016-04-15",
+        "Series": "Profit",
+        "Value": 92
+      },
+      {
+        "Date": "2016-04-21",
+        "Series": "Profit",
+        "Value": 85
+      },
+      {
+        "Date": "2016-04-26",
+        "Series": "Profit",
+        "Value": 88
+      },
+      {
+        "Date": "2016-05-02",
+        "Series": "Profit",
+        "Value": 85
+      },
+      {
+        "Date": "2016-05-07",
+        "Series": "Profit",
+        "Value": 85
+      },
+      {
+        "Date": "2016-05-13",
+        "Series": "Profit",
+        "Value": 84
+      },
+      {
+        "Date": "2016-05-18",
+        "Series": "Profit",
+        "Value": 87
+      },
+      {
+        "Date": "2016-05-24",
+        "Series": "Profit",
+        "Value": 91
+      },
+      {
+        "Date": "2016-05-29",
+        "Series": "Profit",
+        "Value": 95
+      },
+      {
+        "Date": "2016-06-04",
+        "Series": "Profit",
+        "Value": 91
+      },
+      {
+        "Date": "2016-06-09",
+        "Series": "Profit",
+        "Value": 81
+      },
+      {
+        "Date": "2016-06-15",
+        "Series": "Profit",
+        "Value": 77
+      },
+      {
+        "Date": "2016-06-20",
+        "Series": "Profit",
+        "Value": 80
+      },
+      {
+        "Date": "2016-06-26",
+        "Series": "Profit",
+        "Value": 76
+      },
+      {
+        "Date": "2016-07-01",
+        "Series": "Profit",
+        "Value": 68
+      },
+      {
+        "Date": "2016-07-06",
+        "Series": "Profit",
+        "Value": 69
+      },
+      {
+        "Date": "2016-07-12",
+        "Series": "Profit",
+        "Value": 66
+      },
+      {
+        "Date": "2016-07-17",
+        "Series": "Profit",
+        "Value": 64
+      },
+      {
+        "Date": "2016-07-23",
+        "Series": "Profit",
+        "Value": 63
+      },
+      {
+        "Date": "2016-07-28",
+        "Series": "Profit",
+        "Value": 57
+      },
+      {
+        "Date": "2016-08-03",
+        "Series": "Profit",
+        "Value": 47
+      },
+      {
+        "Date": "2016-08-08",
+        "Series": "Profit",
+        "Value": 46
+      },
+      {
+        "Date": "2016-08-14",
+        "Series": "Profit",
+        "Value": 41
+      },
+      {
+        "Date": "2016-08-19",
+        "Series": "Profit",
+        "Value": 39
+      },
+      {
+        "Date": "2016-08-25",
+        "Series": "Profit",
+        "Value": 38
+      },
+      {
+        "Date": "2016-08-30",
+        "Series": "Profit",
+        "Value": 38
+      },
+      {
+        "Date": "2016-09-05",
+        "Series": "Profit",
+        "Value": 43
+      },
+      {
+        "Date": "2016-09-10",
+        "Series": "Profit",
+        "Value": 41
+      },
+      {
+        "Date": "2016-09-16",
+        "Series": "Profit",
+        "Value": 39
+      },
+      {
+        "Date": "2016-09-21",
+        "Series": "Profit",
+        "Value": 44
+      },
+      {
+        "Date": "2016-09-27",
+        "Series": "Profit",
+        "Value": 43
+      },
+      {
+        "Date": "2016-10-02",
+        "Series": "Profit",
+        "Value": 42
+      },
+      {
+        "Date": "2016-10-08",
+        "Series": "Profit",
+        "Value": 47
+      },
+      {
+        "Date": "2016-10-13",
+        "Series": "Profit",
+        "Value": 51
+      },
+      {
+        "Date": "2016-10-19",
+        "Series": "Profit",
+        "Value": 51
+      },
+      {
+        "Date": "2016-10-24",
+        "Series": "Profit",
+        "Value": 55
+      },
+      {
+        "Date": "2016-10-29",
+        "Series": "Profit",
+        "Value": 52
+      },
+      {
+        "Date": "2016-11-04",
+        "Series": "Profit",
+        "Value": 44
+      },
+      {
+        "Date": "2016-11-09",
+        "Series": "Profit",
+        "Value": 40
+      },
+      {
+        "Date": "2016-11-15",
+        "Series": "Profit",
+        "Value": 33
+      },
+      {
+        "Date": "2016-11-20",
+        "Series": "Profit",
+        "Value": 23
+      },
+      {
+        "Date": "2016-11-26",
+        "Series": "Profit",
+        "Value": 19
+      },
+      {
+        "Date": "2016-12-01",
+        "Series": "Profit",
+        "Value": 12
+      },
+      {
+        "Date": "2016-12-07",
+        "Series": "Profit",
+        "Value": 12
+      },
+      {
+        "Date": "2016-12-12",
+        "Series": "Profit",
+        "Value": 5
+      },
+      {
+        "Date": "2016-12-18",
+        "Series": "Profit",
+        "Value": 0
+      },
+      {
+        "Date": "2016-12-23",
+        "Series": "Profit",
+        "Value": 0
+      },
+      {
+        "Date": "2016-12-29",
+        "Series": "Profit",
+        "Value": 0
+      },
+      {
+        "Date": "2017-01-03",
+        "Series": "Profit",
+        "Value": 0
+      },
+      {
+        "Date": "2017-01-09",
+        "Series": "Profit",
+        "Value": 1
+      },
+      {
+        "Date": "2017-01-14",
+        "Series": "Profit",
+        "Value": 8
+      },
+      {
+        "Date": "2017-01-20",
+        "Series": "Profit",
+        "Value": 18
+      },
+      {
+        "Date": "2017-01-25",
+        "Series": "Profit",
+        "Value": 29
+      },
+      {
+        "Date": "2017-01-31",
+        "Series": "Profit",
+        "Value": 40
+      },
+      {
+        "Date": "2017-02-05",
+        "Series": "Profit",
+        "Value": 52
+      },
+      {
+        "Date": "2017-02-10",
+        "Series": "Profit",
+        "Value": 62
+      },
+      {
+        "Date": "2017-02-16",
+        "Series": "Profit",
+        "Value": 74
+      },
+      {
+        "Date": "2017-02-21",
+        "Series": "Profit",
+        "Value": 79
+      },
+      {
+        "Date": "2017-02-27",
+        "Series": "Profit",
+        "Value": 78
+      },
+      {
+        "Date": "2017-03-04",
+        "Series": "Profit",
+        "Value": 79
+      },
+      {
+        "Date": "2017-03-10",
+        "Series": "Profit",
+        "Value": 75
+      },
+      {
+        "Date": "2017-03-15",
+        "Series": "Profit",
+        "Value": 75
+      },
+      {
+        "Date": "2017-03-21",
+        "Series": "Profit",
+        "Value": 76
+      },
+      {
+        "Date": "2017-03-26",
+        "Series": "Profit",
+        "Value": 78
+      },
+      {
+        "Date": "2017-04-01",
+        "Series": "Profit",
+        "Value": 72
+      },
+      {
+        "Date": "2017-04-06",
+        "Series": "Profit",
+        "Value": 63
+      },
+      {
+        "Date": "2017-04-12",
+        "Series": "Profit",
+        "Value": 61
+      },
+      {
+        "Date": "2017-04-17",
+        "Series": "Profit",
+        "Value": 54
+      },
+      {
+        "Date": "2017-04-23",
+        "Series": "Profit",
+        "Value": 46
+      },
+      {
+        "Date": "2017-04-28",
+        "Series": "Profit",
+        "Value": 39
+      },
+      {
+        "Date": "2017-05-04",
+        "Series": "Profit",
+        "Value": 36
+      },
+      {
+        "Date": "2017-05-09",
+        "Series": "Profit",
+        "Value": 36
+      },
+      {
+        "Date": "2017-05-15",
+        "Series": "Profit",
+        "Value": 42
+      },
+      {
+        "Date": "2017-05-20",
+        "Series": "Profit",
+        "Value": 52
+      },
+      {
+        "Date": "2017-05-26",
+        "Series": "Profit",
+        "Value": 53
+      },
+      {
+        "Date": "2017-05-31",
+        "Series": "Profit",
+        "Value": 60
+      },
+      {
+        "Date": "2017-06-05",
+        "Series": "Profit",
+        "Value": 71
+      },
+      {
+        "Date": "2017-06-11",
+        "Series": "Profit",
+        "Value": 85
+      },
+      {
+        "Date": "2017-06-16",
+        "Series": "Profit",
+        "Value": 97
+      },
+      {
+        "Date": "2017-06-22",
+        "Series": "Profit",
+        "Value": 101
+      },
+      {
+        "Date": "2017-06-27",
+        "Series": "Profit",
+        "Value": 107
+      },
+      {
+        "Date": "2017-07-03",
+        "Series": "Profit",
+        "Value": 111
+      },
+      {
+        "Date": "2017-07-08",
+        "Series": "Profit",
+        "Value": 115
+      },
+      {
+        "Date": "2017-07-14",
+        "Series": "Profit",
+        "Value": 111
+      },
+      {
+        "Date": "2017-07-19",
+        "Series": "Profit",
+        "Value": 101
+      },
+      {
+        "Date": "2017-07-25",
+        "Series": "Profit",
+        "Value": 98
+      },
+      {
+        "Date": "2017-07-30",
+        "Series": "Profit",
+        "Value": 92
+      },
+      {
+        "Date": "2017-08-05",
+        "Series": "Profit",
+        "Value": 93
+      },
+      {
+        "Date": "2017-08-10",
+        "Series": "Profit",
+        "Value": 99
+      },
+      {
+        "Date": "2017-08-16",
+        "Series": "Profit",
+        "Value": 109
+      },
+      {
+        "Date": "2017-08-21",
+        "Series": "Profit",
+        "Value": 112
+      },
+      {
+        "Date": "2017-08-27",
+        "Series": "Profit",
+        "Value": 108
+      },
+      {
+        "Date": "2017-09-01",
+        "Series": "Profit",
+        "Value": 110
+      },
+      {
+        "Date": "2017-09-07",
+        "Series": "Profit",
+        "Value": 110
+      },
+      {
+        "Date": "2017-09-12",
+        "Series": "Profit",
+        "Value": 115
+      },
+      {
+        "Date": "2017-09-17",
+        "Series": "Profit",
+        "Value": 115
+      },
+      {
+        "Date": "2017-09-23",
+        "Series": "Profit",
+        "Value": 118
+      },
+      {
+        "Date": "2017-09-28",
+        "Series": "Profit",
+        "Value": 113
+      },
+      {
+        "Date": "2017-10-04",
+        "Series": "Profit",
+        "Value": 111
+      },
+      {
+        "Date": "2017-10-09",
+        "Series": "Profit",
+        "Value": 110
+      },
+      {
+        "Date": "2017-10-15",
+        "Series": "Profit",
+        "Value": 110
+      },
+      {
+        "Date": "2017-10-20",
+        "Series": "Profit",
+        "Value": 105
+      },
+      {
+        "Date": "2017-10-26",
+        "Series": "Profit",
+        "Value": 97
+      },
+      {
+        "Date": "2017-10-31",
+        "Series": "Profit",
+        "Value": 96
+      },
+      {
+        "Date": "2017-11-06",
+        "Series": "Profit",
+        "Value": 95
+      },
+      {
+        "Date": "2017-11-11",
+        "Series": "Profit",
+        "Value": 101
+      },
+      {
+        "Date": "2017-11-17",
+        "Series": "Profit",
+        "Value": 108
+      },
+      {
+        "Date": "2017-11-22",
+        "Series": "Profit",
+        "Value": 120
+      },
+      {
+        "Date": "2017-11-28",
+        "Series": "Profit",
+        "Value": 126
+      },
+      {
+        "Date": "2017-12-03",
+        "Series": "Profit",
+        "Value": 125
+      },
+      {
+        "Date": "2017-12-09",
+        "Series": "Profit",
+        "Value": 127
+      },
+      {
+        "Date": "2017-12-14",
+        "Series": "Profit",
+        "Value": 121
+      },
+      {
+        "Date": "2017-12-20",
+        "Series": "Profit",
+        "Value": 115
+      },
+      {
+        "Date": "2017-12-25",
+        "Series": "Profit",
+        "Value": 111
+      }
+    ]
+  },
+  "_width": 550,
+  "_height": 354,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

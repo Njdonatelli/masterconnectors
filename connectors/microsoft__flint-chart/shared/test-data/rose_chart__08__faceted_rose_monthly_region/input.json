@@ -1,0 +1,217 @@
+{
+  "title": "Faceted Rose (monthly × region)",
+  "description": "Monthly rainfall rose faceted by region",
+  "chartType": "Rose Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": "Jan",
+          "Rainfall": 123,
+          "Region": "North"
+        },
+        {
+          "Month": "Feb",
+          "Rainfall": 118,
+          "Region": "North"
+        },
+        {
+          "Month": "Mar",
+          "Rainfall": 87,
+          "Region": "North"
+        },
+        {
+          "Month": "Apr",
+          "Rainfall": 124,
+          "Region": "North"
+        },
+        {
+          "Month": "May",
+          "Rainfall": 29,
+          "Region": "North"
+        },
+        {
+          "Month": "Jun",
+          "Rainfall": 142,
+          "Region": "North"
+        },
+        {
+          "Month": "Jul",
+          "Rainfall": 64,
+          "Region": "North"
+        },
+        {
+          "Month": "Aug",
+          "Rainfall": 87,
+          "Region": "North"
+        },
+        {
+          "Month": "Sep",
+          "Rainfall": 71,
+          "Region": "North"
+        },
+        {
+          "Month": "Oct",
+          "Rainfall": 54,
+          "Region": "North"
+        },
+        {
+          "Month": "Nov",
+          "Rainfall": 70,
+          "Region": "North"
+        },
+        {
+          "Month": "Dec",
+          "Rainfall": 76,
+          "Region": "North"
+        },
+        {
+          "Month": "Jan",
+          "Rainfall": 81,
+          "Region": "Central"
+        },
+        {
+          "Month": "Feb",
+          "Rainfall": 12,
+          "Region": "Central"
+        },
+        {
+          "Month": "Mar",
+          "Rainfall": 47,
+          "Region": "Central"
+        },
+        {
+          "Month": "Apr",
+          "Rainfall": 33,
+          "Region": "Central"
+        },
+        {
+          "Month": "May",
+          "Rainfall": 133,
+          "Region": "Central"
+        },
+        {
+          "Month": "Jun",
+          "Rainfall": 70,
+          "Region": "Central"
+        },
+        {
+          "Month": "Jul",
+          "Rainfall": 130,
+          "Region": "Central"
+        },
+        {
+          "Month": "Aug",
+          "Rainfall": 130,
+          "Region": "Central"
+        },
+        {
+          "Month": "Sep",
+          "Rainfall": 66,
+          "Region": "Central"
+        },
+        {
+          "Month": "Oct",
+          "Rainfall": 45,
+          "Region": "Central"
+        },
+        {
+          "Month": "Nov",
+          "Rainfall": 34,
+          "Region": "Central"
+        },
+        {
+          "Month": "Dec",
+          "Rainfall": 133,
+          "Region": "Central"
+        },
+        {
+          "Month": "Jan",
+          "Rainfall": 119,
+          "Region": "South"
+        },
+        {
+          "Month": "Feb",
+          "Rainfall": 70,
+          "Region": "South"
+        },
+        {
+          "Month": "Mar",
+          "Rainfall": 64,
+          "Region": "South"
+        },
+        {
+          "Month": "Apr",
+          "Rainfall": 41,
+          "Region": "South"
+        },
+        {
+          "Month": "May",
+          "Rainfall": 16,
+          "Region": "South"
+        },
+        {
+          "Month": "Jun",
+          "Rainfall": 111,
+          "Region": "South"
+        },
+        {
+          "Month": "Jul",
+          "Rainfall": 37,
+          "Region": "South"
+        },
+        {
+          "Month": "Aug",
+          "Rainfall": 39,
+          "Region": "South"
+        },
+        {
+          "Month": "Sep",
+          "Rainfall": 121,
+          "Region": "South"
+        },
+        {
+          "Month": "Oct",
+          "Rainfall": 36,
+          "Region": "South"
+        },
+        {
+          "Month": "Nov",
+          "Rainfall": 134,
+          "Region": "South"
+        },
+        {
+          "Month": "Dec",
+          "Rainfall": 10,
+          "Region": "South"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Rainfall": "Quantity",
+      "Region": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Rose Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Rainfall"
+        },
+        "column": {
+          "field": "Region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

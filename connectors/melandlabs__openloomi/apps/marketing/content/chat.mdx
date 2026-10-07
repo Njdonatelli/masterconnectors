@@ -1,0 +1,189 @@
+---
+title: "Chat"
+description: "Ask in plain language, get the answers hidden in your messages"
+icon: "FaComments"
+---
+
+# Chat
+
+Interact with OpenLoomi through natural conversation. Ask questions, give commands, or request complex tasks — all in plain language.
+
+## Goal
+
+By the end of this page you should be able to:
+
+1. Use the chat to ask questions that draw on [Memory](/docs/memory) — emails, messages, decisions, and project context.
+2. Trigger [Skills](/docs/skills) and create Artifacts (mind maps, flowcharts, charts, docs) without leaving the chat.
+3. Hand a draft off into [Loop](/docs/loop) or [Automation](/docs/automation) when you want it to run.
+
+## Before you begin
+
+- OpenLoomi Desktop is installed and an AI provider is configured — see [Getting Started](/docs/getting-started).
+- At least one [Connector](/docs/connectors) is enabled so Memory has signals to draw from.
+- The desktop window (or the messaging-app relay) is the surface you'll chat through.
+
+---
+
+## Natural Language Interaction
+
+In the OpenLoomi chat, type your questions or requests directly. Through conversation, OpenLoomi helps you:
+
+- Summarize key information
+- Get answers from your data
+- Explore topics in depth
+- Execute tasks
+
+---
+
+## What You Can Ask and Do
+
+### Information & Summaries
+
+- _"What did my boss mention today?"_
+- _"Summarize yesterday's to-dos"_
+- _"What's the latest on Project X?"_
+- _"Show me all interactions with this client"_
+
+### Research & Analysis
+
+- _"What's the latest on Product Hunt?"_
+- _"Research our competitors' recent updates"_
+- _"Compare our product to [competitor]"_
+
+### Task Execution
+
+- _"Write a weekly report for me"_
+- _"Draft a response to Sarah's email"_
+- _"Create a follow-up task for this"_
+- _"Schedule a meeting about the Q3 roadmap"_
+
+---
+
+## Chat Features
+
+### Skills
+
+OpenLoomi has access to Builtin skills to help you accomplish various tasks. When you ask for something that requires specific expertise, OpenLoomi will automatically select the appropriate skills. [Browse all Skills →](/docs/skills)
+
+<p align="center">
+  <img src="/img/openloomi/chat-skills.png" alt="OpenLoomi Skills" />
+</p>
+
+### Artifacts
+
+OpenLoomi can generate various visual artifacts to help you understand and present information:
+
+- Mind maps
+- Flowcharts
+- Charts
+- Roadmaps
+- Surveys
+- Documents
+
+<p align="center">
+  <img src="/img/openloomi/chat-artifacts.png" alt="OpenLoomi Artifacts" />
+</p>
+
+### File Analysis
+
+Upload files directly in the chat and ask OpenLoomi to analyze, summarize, or extract information from them.
+
+<p align="center">
+  <img src="/img/openloomi/chat-files.png" alt="OpenLoomi Files" />
+</p>
+
+### Source References
+
+When OpenLoomi provides information, you can see the sources:
+
+- Which messages/conversations it came from
+- When they occurred
+- Who was involved
+
+### Deep Dive
+
+For certain topics, you can continue exploring:
+
+- Ask follow-up questions
+- Request more details
+- Narrow down scope
+
+### Topic-Based Chats
+
+- Create new conversations around specific topics
+- Review past discussions on any subject
+- Build persistent context over time
+
+### Chat History
+
+- Access all past chats
+- Search through chat history
+- Resume previous topics
+
+---
+
+## Example Conversations
+
+### Basic Questions
+
+Ask "What is OpenLoomi"
+
+<p align="center">
+  <img src="/img/openloomi/chat-what-is-openloomi.png" />
+</p>
+
+### Project Status
+
+Ask "What's the latest update on Project X this week?"
+
+<p align="center">
+  <img src="/img/openloomi/chat-project.png" />
+</p>
+
+### Report Generation
+
+Ask OpenLoomi "Please write me a weekly report on the progress of all projects over the past week."
+
+<p align="center">
+  <img src="/img/openloomi/chat-report.png" />
+</p>
+
+### App/Website Generation
+
+Ask OpenLoomi to create a product page, landing page, or any web content for you. Just describe what you need, and OpenLoomi will generate the content along with images.
+
+Ask "Create a product page for my AI podcast app"
+
+<p align="center">
+  <img src="/img/openloomi/chat-gen-app.png" alt="OpenLoomi App Generation" />
+</p>
+
+<p align="center">
+  <img
+    src="/img/openloomi/chat-gen-app-preview.png"
+    alt="OpenLoomi App Generation"
+  />
+</p>
+
+---
+
+## Verify
+
+- A "What did I work on yesterday?" prompt returns an answer grounded in your Memory instead of a generic LLM response.
+- A generated Artifact (chart, mind map, doc) renders inline in the chat and is downloadable.
+- Source references appear beneath any factual answer — click through to confirm the originating message.
+
+## Troubleshooting
+
+- **Empty answers for a Memory-grounded question.** Confirm at least one connector is enabled and has been syncing; Memory needs signals before it can answer.
+- **Skill didn't fire.** Rephrase to make the task explicit ("draft an email to X about Y" rather than "send something to X").
+- **Chat hangs mid-response.** Check the local API port (`127.0.0.1:3414` / `:3515`); the desktop app must be running.
+
+## Related
+
+- [Skills](/docs/skills) — the reusable capabilities Chat can call
+- [Memory](/docs/memory) — what grounds the answers in your history
+- [Loop](/docs/loop) — when Edit Draft hands off from a Decision Card
+- [Messaging Apps](/docs/messaging-apps) — chat through Telegram, WhatsApp, iMessage, QQ, Lark/Feishu
+- [Connectors](/docs/connectors) — the signal sources that fill Memory
+- [Library](/docs/library) — upload files for Chat to reason over

@@ -1,0 +1,214 @@
+{
+  "encoding": {},
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "Item",
+          "type": "nominal",
+          "sort": null
+        },
+        "y": {
+          "field": "Value",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y2": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 80
+      },
+      "encoding": {
+        "x": {
+          "field": "Item",
+          "type": "nominal",
+          "sort": null
+        },
+        "y": {
+          "field": "Value",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 23
+  },
+  "data": {
+    "values": [
+      {
+        "Item": "Item01",
+        "Value": 13
+      },
+      {
+        "Item": "Item02",
+        "Value": 47
+      },
+      {
+        "Item": "Item03",
+        "Value": 463
+      },
+      {
+        "Item": "Item04",
+        "Value": 37
+      },
+      {
+        "Item": "Item05",
+        "Value": 469
+      },
+      {
+        "Item": "Item06",
+        "Value": 143
+      },
+      {
+        "Item": "Item07",
+        "Value": 466
+      },
+      {
+        "Item": "Item08",
+        "Value": 111
+      },
+      {
+        "Item": "Item09",
+        "Value": 259
+      },
+      {
+        "Item": "Item10",
+        "Value": 150
+      },
+      {
+        "Item": "Item11",
+        "Value": 231
+      },
+      {
+        "Item": "Item12",
+        "Value": 300
+      },
+      {
+        "Item": "Item13",
+        "Value": 341
+      },
+      {
+        "Item": "Item14",
+        "Value": 108
+      },
+      {
+        "Item": "Item15",
+        "Value": 217
+      },
+      {
+        "Item": "Item16",
+        "Value": 397
+      },
+      {
+        "Item": "Item17",
+        "Value": 404
+      },
+      {
+        "Item": "Item18",
+        "Value": 200
+      },
+      {
+        "Item": "Item19",
+        "Value": 202
+      },
+      {
+        "Item": "Item20",
+        "Value": 397
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "dotSize",
+      "label": "Dot Size",
+      "type": "continuous",
+      "min": 20,
+      "max": 300,
+      "step": 10,
+      "defaultValue": 80,
+      "applicable": true,
+      "value": 80
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

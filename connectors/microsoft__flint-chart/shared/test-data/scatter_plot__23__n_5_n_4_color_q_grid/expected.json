@@ -1,0 +1,156 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "ColorVal",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "greens"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Electronics",
+        "Group": "USA",
+        "ColorVal": 948
+      },
+      {
+        "Category": "Electronics",
+        "Group": "Japan",
+        "ColorVal": 109
+      },
+      {
+        "Category": "Clothing",
+        "Group": "China",
+        "ColorVal": 459
+      },
+      {
+        "Category": "Clothing",
+        "Group": "Japan",
+        "ColorVal": 385
+      },
+      {
+        "Category": "Clothing",
+        "Group": "Germany",
+        "ColorVal": 901
+      },
+      {
+        "Category": "Books",
+        "Group": "USA",
+        "ColorVal": 974
+      },
+      {
+        "Category": "Books",
+        "Group": "China",
+        "ColorVal": 678
+      },
+      {
+        "Category": "Books",
+        "Group": "Japan",
+        "ColorVal": 193
+      },
+      {
+        "Category": "Books",
+        "Group": "Germany",
+        "ColorVal": 992
+      },
+      {
+        "Category": "Sports",
+        "Group": "USA",
+        "ColorVal": 892
+      },
+      {
+        "Category": "Sports",
+        "Group": "Germany",
+        "ColorVal": 776
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

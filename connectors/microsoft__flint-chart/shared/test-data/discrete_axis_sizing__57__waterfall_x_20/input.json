@@ -1,0 +1,137 @@
+{
+  "title": "Waterfall ▸ X ×20",
+  "description": "Waterfall with 20 steps on X",
+  "chartType": "Waterfall Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Step": "Step01",
+          "Amount": 505,
+          "Type": "start"
+        },
+        {
+          "Step": "Step02",
+          "Amount": 50,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step03",
+          "Amount": -94,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step04",
+          "Amount": 32,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step05",
+          "Amount": 22,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step06",
+          "Amount": -87,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step07",
+          "Amount": -46,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step08",
+          "Amount": 80,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step09",
+          "Amount": 79,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step10",
+          "Amount": -72,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step11",
+          "Amount": 112,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step12",
+          "Amount": 104,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step13",
+          "Amount": 12,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step14",
+          "Amount": -88,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step15",
+          "Amount": -122,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step16",
+          "Amount": 68,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step17",
+          "Amount": 36,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step18",
+          "Amount": 137,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step19",
+          "Amount": 70,
+          "Type": "delta"
+        },
+        {
+          "Step": "Step20",
+          "Amount": 400,
+          "Type": "end"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Step": "Category",
+      "Amount": "Quantity",
+      "Type": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Waterfall Chart",
+      "encodings": {
+        "x": {
+          "field": "Step"
+        },
+        "y": {
+          "field": "Amount"
+        },
+        "color": {
+          "field": "Type"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

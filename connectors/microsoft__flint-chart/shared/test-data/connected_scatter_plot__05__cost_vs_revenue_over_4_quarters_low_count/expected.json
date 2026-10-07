@@ -1,0 +1,119 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Cost",
+      "type": "quantitative",
+      "scale": {
+        "nice": true,
+        "padding": 10,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Revenue",
+      "type": "quantitative",
+      "scale": {
+        "nice": true,
+        "padding": 10,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "order": {
+      "field": "Quarter",
+      "type": "quantitative"
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 502,
+      "continuousHeight": 401
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 40
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Quarter": 1,
+        "Cost": 12,
+        "Revenue": 18
+      },
+      {
+        "Quarter": 2,
+        "Cost": 20,
+        "Revenue": 26
+      },
+      {
+        "Quarter": 3,
+        "Cost": 17,
+        "Revenue": 35
+      },
+      {
+        "Quarter": 4,
+        "Cost": 24,
+        "Revenue": 30
+      }
+    ]
+  },
+  "_width": 502,
+  "_height": 401,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": true
+    }
+  ]
+}

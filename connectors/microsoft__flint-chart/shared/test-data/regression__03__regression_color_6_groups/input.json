@@ -1,0 +1,637 @@
+{
+  "title": "Regression + Color (6 groups)",
+  "description": "120 points — separate regression per subject",
+  "chartType": "Regression",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "StudyHours": 27.4,
+          "ExamScore": 37,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 29.8,
+          "ExamScore": 30,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 60.1,
+          "ExamScore": 62,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 80.1,
+          "ExamScore": 78,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 68.8,
+          "ExamScore": 62,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 51.1,
+          "ExamScore": 60,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 62.2,
+          "ExamScore": 68,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 21,
+          "ExamScore": 24,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 80.8,
+          "ExamScore": 85,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 74.6,
+          "ExamScore": 72,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 72.7,
+          "ExamScore": 69,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 21.5,
+          "ExamScore": 34,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 54.6,
+          "ExamScore": 54,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 68.1,
+          "ExamScore": 76,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 30.8,
+          "ExamScore": 45,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 47.1,
+          "ExamScore": 48,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 22.9,
+          "ExamScore": 29,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 76.5,
+          "ExamScore": 69,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 17.2,
+          "ExamScore": 31,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 71.2,
+          "ExamScore": 80,
+          "Subject": "Math"
+        },
+        {
+          "StudyHours": 65.2,
+          "ExamScore": 67,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 39.1,
+          "ExamScore": 48,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 86.6,
+          "ExamScore": 81,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 52.8,
+          "ExamScore": 54,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 35.8,
+          "ExamScore": 51,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 43.5,
+          "ExamScore": 59,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 42.6,
+          "ExamScore": 50,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 60.5,
+          "ExamScore": 54,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 56.7,
+          "ExamScore": 54,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 76.7,
+          "ExamScore": 68,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 67.4,
+          "ExamScore": 63,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 46.2,
+          "ExamScore": 59,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 27.4,
+          "ExamScore": 48,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 49.9,
+          "ExamScore": 57,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 42.9,
+          "ExamScore": 51,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 30.2,
+          "ExamScore": 36,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 36.7,
+          "ExamScore": 50,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 87.2,
+          "ExamScore": 82,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 53,
+          "ExamScore": 62,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 61.4,
+          "ExamScore": 71,
+          "Subject": "Science"
+        },
+        {
+          "StudyHours": 74,
+          "ExamScore": 58,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 60.4,
+          "ExamScore": 49,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 24.7,
+          "ExamScore": 29,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 39.7,
+          "ExamScore": 45,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 72.5,
+          "ExamScore": 53,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 49.8,
+          "ExamScore": 40,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 86.4,
+          "ExamScore": 63,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 59.8,
+          "ExamScore": 41,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 64.5,
+          "ExamScore": 47,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 85.4,
+          "ExamScore": 70,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 83.1,
+          "ExamScore": 60,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 39.1,
+          "ExamScore": 46,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 83.3,
+          "ExamScore": 55,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 84.1,
+          "ExamScore": 67,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 59.6,
+          "ExamScore": 48,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 79.8,
+          "ExamScore": 55,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 60.4,
+          "ExamScore": 44,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 31.7,
+          "ExamScore": 45,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 61.6,
+          "ExamScore": 54,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 35,
+          "ExamScore": 46,
+          "Subject": "English"
+        },
+        {
+          "StudyHours": 33.2,
+          "ExamScore": 34,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 46.6,
+          "ExamScore": 44,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 38.3,
+          "ExamScore": 41,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 68.1,
+          "ExamScore": 50,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 52.1,
+          "ExamScore": 53,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 33.5,
+          "ExamScore": 32,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 49.1,
+          "ExamScore": 48,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 15.3,
+          "ExamScore": 12,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 79.5,
+          "ExamScore": 71,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 85.9,
+          "ExamScore": 76,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 47.9,
+          "ExamScore": 49,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 32.9,
+          "ExamScore": 29,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 35.1,
+          "ExamScore": 44,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 29.6,
+          "ExamScore": 35,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 86.3,
+          "ExamScore": 74,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 11,
+          "ExamScore": 18,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 41.9,
+          "ExamScore": 38,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 34.7,
+          "ExamScore": 42,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 63.8,
+          "ExamScore": 46,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 17.4,
+          "ExamScore": 17,
+          "Subject": "History"
+        },
+        {
+          "StudyHours": 55.6,
+          "ExamScore": 41,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 88.5,
+          "ExamScore": 64,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 71.9,
+          "ExamScore": 59,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 18.9,
+          "ExamScore": 27,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 72.8,
+          "ExamScore": 52,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 42.5,
+          "ExamScore": 36,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 50.1,
+          "ExamScore": 37,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 46.4,
+          "ExamScore": 40,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 74.6,
+          "ExamScore": 57,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 11.9,
+          "ExamScore": 28,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 60.9,
+          "ExamScore": 49,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 40.8,
+          "ExamScore": 38,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 89.3,
+          "ExamScore": 54,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 71.8,
+          "ExamScore": 43,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 43.1,
+          "ExamScore": 40,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 50.7,
+          "ExamScore": 38,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 16.9,
+          "ExamScore": 27,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 43.7,
+          "ExamScore": 50,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 86.3,
+          "ExamScore": 49,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 19.2,
+          "ExamScore": 40,
+          "Subject": "Art"
+        },
+        {
+          "StudyHours": 49.5,
+          "ExamScore": 46,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 44.6,
+          "ExamScore": 40,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 41.6,
+          "ExamScore": 44,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 18.3,
+          "ExamScore": 15,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 30.1,
+          "ExamScore": 39,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 48.6,
+          "ExamScore": 55,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 26.4,
+          "ExamScore": 27,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 20.9,
+          "ExamScore": 29,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 12.8,
+          "ExamScore": 22,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 88.8,
+          "ExamScore": 91,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 39.2,
+          "ExamScore": 45,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 45.9,
+          "ExamScore": 53,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 74.6,
+          "ExamScore": 76,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 44,
+          "ExamScore": 45,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 30.7,
+          "ExamScore": 26,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 71.1,
+          "ExamScore": 69,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 64.7,
+          "ExamScore": 58,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 34.2,
+          "ExamScore": 30,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 72.3,
+          "ExamScore": 74,
+          "Subject": "Music"
+        },
+        {
+          "StudyHours": 21.1,
+          "ExamScore": 18,
+          "Subject": "Music"
+        }
+      ]
+    },
+    "semantic_types": {
+      "StudyHours": "Quantity",
+      "ExamScore": "Quantity",
+      "Subject": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Regression",
+      "encodings": {
+        "x": {
+          "field": "StudyHours"
+        },
+        "y": {
+          "field": "ExamScore"
+        },
+        "color": {
+          "field": "Subject"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

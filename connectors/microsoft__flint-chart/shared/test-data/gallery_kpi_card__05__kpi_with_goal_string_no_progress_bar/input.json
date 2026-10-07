@@ -1,0 +1,50 @@
+{
+  "title": "KPI: With goal (string, no progress bar)",
+  "description": "String value or string goal → progress bar suppressed; goal renders as a \"Goal: …\" line.",
+  "chartType": "KPI Card",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Metric": "Revenue",
+          "Value": "$1.18M",
+          "Goal": "$1.50M"
+        },
+        {
+          "Metric": "Headcount",
+          "Value": "142",
+          "Goal": "160"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Metric": "Category",
+      "Value": "Category",
+      "Goal": "Category"
+    },
+    "chart_spec": {
+      "chartType": "KPI Card",
+      "encodings": {
+        "metric": {
+          "field": "Metric"
+        },
+        "value": {
+          "field": "Value"
+        },
+        "goal": {
+          "field": "Goal"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "layout": "horizontal"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

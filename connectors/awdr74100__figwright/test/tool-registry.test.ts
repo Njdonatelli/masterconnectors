@@ -1,0 +1,151 @@
+import { describe, expect, it } from 'vitest';
+
+import { ALL_TOOL_SPECS, WRITE_TOOL_NAMES } from '../packages/mcp/src/tools/registry.js';
+import { WIRE_TOOL_SCHEMAS } from '../packages/mcp/src/tools/wire-schema.js';
+import { toToolDefinition } from '../packages/mcp/test/tool-schema.js';
+import { BATCHABLE_TOOLS, NON_BATCHABLE } from '../packages/plugin/src/handlers/batch.js';
+import { createSandboxHandlers } from '../packages/plugin/src/handlers/registry.js';
+
+// Cross-package guard: a tool is wired across ~6 places (server def + ListTools + WRITE set, plugin
+// handler + idempotent wrap + batch inverse). Forgetting one fails silently at runtime. These tests
+// lock the server's advertised tools and the plugin's handler map to each other, and assert every
+// input schema property is typed — declares a `type`, or is a union (anyOf/oneOf) whose members are
+// each typed. The bug this guards: set_variable_value's `value` once shipped untyped and got coerced
+// to a string in transit; it is now a real Zod union, which is typed under this rule.
+
+// Tools the server handles on its own and never dispatches to the plugin, so they have no sandbox
+// handler. save_screenshots is composed server-side from get_screenshot + filesystem writes;
+// analyze_project / scan_components / component_map / token_map / icon_map read the local project
+// filesystem (component_map / icon_map reuse get_design_context, token_map reuses get_variable_defs) and
+// never touch the sandbox. use_file claims one of the connected plugin sessions for this server
+// process — the claim is server state, and the file list it answers with reuses list_files.
+const SERVER_ONLY_TOOLS = new Set([
+  'save_screenshots',
+  'use_file',
+  'analyze_project',
+  'scan_components',
+  'component_map',
+  'token_map',
+  'icon_map',
+  'design_diff',
+]);
+
+const serverNames = ALL_TOOL_SPECS.map(s => s.name);
+const dispatchedNames = serverNames.filter(n => !SERVER_ONLY_TOOLS.has(n));
+// Factories only close over figmaCtx; building the map never touches Figma, so a stub is fine here.
+const handlerKeys = Object.keys(createSandboxHandlers({} as never));
+
+/** A schema node is typed if it declares `type` or is a union (anyOf/oneOf) of typed members. */
+const isTyped = (schema: unknown): boolean => {
+  const s = schema as { type?: unknown; anyOf?: unknown[]; oneOf?: unknown[] };
+  if (s.type !== undefined) return true;
+  const union = s.anyOf ?? s.oneOf;
+  return Array.isArray(union) && union.length > 0 && union.every(isTyped);
+};
+
+/** Recursively assert every property object (any depth) is typed, descending through unions too. */
+const missingType = (schema: unknown, path: string, out: string[]): void => {
+  const s = schema as {
+    properties?: Record<string, unknown>;
+    items?: unknown;
+    anyOf?: unknown[];
+    oneOf?: unknown[];
+  };
+  if (s.properties) {
+    for (const [key, prop] of Object.entries(s.properties)) {
+      if (!isTyped(prop)) out.push(`${path}.${key}`);
+      missingType(prop, `${path}.${key}`, out);
+    }
+  }
+  if (s.items) missingType(s.items, `${path}[]`, out);
+  for (const member of s.anyOf ?? s.oneOf ?? []) missingType(member, `${path}|`, out);
+};
+
+describe('tool registry', () => {
+  it('server-dispatched tools and plugin handlers are exactly in sync', () => {
+    const onlyServer = dispatchedNames.filter(n => !handlerKeys.includes(n));
+    const onlyPlugin = handlerKeys.filter(n => !serverNames.includes(n));
+    expect({ onlyServer, onlyPlugin }).toEqual({ onlyServer: [], onlyPlugin: [] });
+  });
+
+  it('every server-only tool is still advertised (and stays a known exception)', () => {
+    for (const name of SERVER_ONLY_TOOLS) expect(serverNames).toContain(name);
+  });
+
+  it('has no duplicate tool names', () => {
+    expect(new Set(serverNames).size).toBe(serverNames.length);
+    expect(new Set(handlerKeys).size).toBe(handlerKeys.length);
+  });
+
+  it('every write tool is advertised and has a handler', () => {
+    const writes = [...WRITE_TOOL_NAMES];
+    expect(writes.filter(n => !serverNames.includes(n))).toEqual([]);
+    expect(writes.filter(n => !handlerKeys.includes(n))).toEqual([]);
+  });
+
+  it('every delete_* tool declares destructive, and destructive only appears on writes', () => {
+    // destructiveHint is derived from the spec's own flag (index.ts annotationsFor) — an unflagged
+    // delete would actively advertise destructiveHint:false, so lock the naming convention to the
+    // flag. Non-delete destructive tools (ungroup_nodes, remove_reactions, detach_instance) are
+    // judgment calls made at the spec; only the mechanical rule is asserted here.
+    const unflaggedDeletes = ALL_TOOL_SPECS.filter(
+      s => s.name.startsWith('delete_') && s.destructive !== true,
+    ).map(s => s.name);
+    const nonWriteDestructive = ALL_TOOL_SPECS.filter(
+      s => s.destructive === true && s.kind !== 'write',
+    ).map(s => s.name);
+    expect({ unflaggedDeletes, nonWriteDestructive }).toEqual({
+      unflaggedDeletes: [],
+      nonWriteDestructive: [],
+    });
+  });
+
+  it('every input schema property declares a type (no untyped polymorphic params)', () => {
+    const offenders: string[] = [];
+    for (const spec of ALL_TOOL_SPECS) {
+      missingType(toToolDefinition(spec).inputSchema, spec.name, offenders);
+    }
+    expect(offenders).toEqual([]);
+  });
+});
+
+describe('batchable ops', () => {
+  it('every tool a batch may name has a wire schema on the server', () => {
+    // The server checks each op's params against the schema of the tool it names, and refuses an op
+    // naming a tool it has no schema for. Making a tool batchable without it being one the server
+    // dispatches to the plugin would therefore have the server refuse an op this handler could
+    // actually have applied — a rejection invented by the gap between the two lists, not by the
+    // caller. The plugin owns *which* tools are batchable; this only pins that each one is a tool
+    // the server can describe.
+    const undescribed = BATCHABLE_TOOLS.filter(name => !WIRE_TOOL_SCHEMAS.has(name));
+    expect(undescribed).toEqual([]);
+    expect(BATCHABLE_TOOLS.length).toBeGreaterThan(0);
+  });
+
+  it('every write tool is decided: batchable, or refused with a reason', () => {
+    // Before this, a write tool nobody thought about was silently non-batchable — set_position sat
+    // that way for months after it shipped, refused with a message that read like a design choice.
+    // Now adding a write tool fails here until someone decides: give it an inverse, or name it in
+    // NON_BATCHABLE with why no faithful inverse exists.
+    const writes = [...WRITE_TOOL_NAMES].filter(name => name !== 'batch');
+    const batchable = new Set(BATCHABLE_TOOLS);
+    const refused = new Set(Object.keys(NON_BATCHABLE));
+    expect({
+      undecided: writes.filter(name => !batchable.has(name) && !refused.has(name)),
+      both: writes.filter(name => batchable.has(name) && refused.has(name)),
+    }).toEqual({ undecided: [], both: [] });
+  });
+
+  it('names only real write tools on either side, and never batch itself', () => {
+    const writes = new Set(WRITE_TOOL_NAMES);
+    expect(BATCHABLE_TOOLS.filter(name => !writes.has(name))).toEqual([]);
+    expect(Object.keys(NON_BATCHABLE).filter(name => !writes.has(name))).toEqual([]);
+    expect(BATCHABLE_TOOLS).not.toContain('batch');
+  });
+
+  it('gives every refusal a reason a caller can act on', () => {
+    // The reason is the rejection message the caller reads, not a code comment.
+    const thin = Object.entries(NON_BATCHABLE).filter(([, why]) => why.trim().length < 30);
+    expect(thin).toEqual([]);
+  });
+});

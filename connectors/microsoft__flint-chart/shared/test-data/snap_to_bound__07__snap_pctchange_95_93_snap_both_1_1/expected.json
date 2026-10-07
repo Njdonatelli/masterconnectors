@@ -1,0 +1,129 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "strategy",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "performance",
+      "type": "quantitative",
+      "scale": {
+        "zero": true,
+        "domain": [
+          -1,
+          1
+        ],
+        "nice": false
+      },
+      "axis": {
+        "format": ".0~%"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "strategy": "Strategy A",
+        "performance": -0.95
+      },
+      {
+        "strategy": "Strategy B",
+        "performance": -0.3
+      },
+      {
+        "strategy": "Strategy C",
+        "performance": 0.15
+      },
+      {
+        "strategy": "Strategy D",
+        "performance": -0.6
+      },
+      {
+        "strategy": "Strategy E",
+        "performance": 0.48
+      },
+      {
+        "strategy": "Strategy F",
+        "performance": 0.93
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

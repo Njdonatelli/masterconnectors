@@ -1,0 +1,386 @@
+/* openosint documentation — OpenBSD/SQLite aesthetic */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Navigation                                                           */
+/* ------------------------------------------------------------------ */
+
+#nav {
+  background: #000000;
+  padding: 4px 8px;
+  font-family: monospace;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+
+#nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin-right: 18px;
+  letter-spacing: 0.03em;
+}
+
+#nav a:hover {
+  text-decoration: underline;
+}
+
+/* Sponsor CTA — visually separated button at the end of the nav */
+.nav-sep {
+  color: #444444;
+  margin-right: 18px;
+  user-select: none;
+}
+.nav-cta {
+  color: #3fb950 !important;
+  border: 1px solid #3fb950;
+  padding: 1px 8px;
+  border-radius: 2px;
+  text-decoration: none !important;
+}
+.nav-cta:hover {
+  background: #3fb950;
+  color: #000000 !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Main content                                                         */
+/* ------------------------------------------------------------------ */
+
+#content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 24px 40px 24px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Masthead / footer — man page chrome                                  */
+/* ------------------------------------------------------------------ */
+
+#masthead,
+#footer {
+  font-family: monospace;
+  font-size: 13px;
+  margin: 12px 0;
+}
+
+.mhead-l { text-align: left; }
+.mhead-c { text-align: center; }
+.mhead-r { text-align: right; }
+
+hr {
+  border: none;
+  border-top: 1px solid #000000;
+  margin: 8px 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Section headings                                                     */
+/* ------------------------------------------------------------------ */
+
+h2 {
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 24px 0 6px 0;
+  color: #000000;
+}
+
+/* ------------------------------------------------------------------ */
+/* Indented section content — standard 4-ch man page indent            */
+/* ------------------------------------------------------------------ */
+
+.indent {
+  margin-left: 28px;
+}
+
+p {
+  margin: 0 0 10px 0;
+  text-align: justify;
+}
+
+/* ------------------------------------------------------------------ */
+/* Tables                                                               */
+/* ------------------------------------------------------------------ */
+
+table {
+  border-collapse: collapse;
+  margin: 8px 0 14px 0;
+  width: 100%;
+  font-size: 14px;
+}
+
+th {
+  background: #000000;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: normal;
+  text-align: left;
+  padding: 3px 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+td {
+  border-bottom: 1px solid #cccccc;
+  padding: 4px 8px;
+  vertical-align: top;
+}
+
+tr:nth-child(even) td {
+  background: #f5f5f5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Preformatted / code                                                  */
+/* ------------------------------------------------------------------ */
+
+pre,
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+}
+
+pre {
+  background: #f0f0f0;
+  border-left: 3px solid #000000;
+  padding: 8px 12px;
+  margin: 6px 0 14px 0;
+  overflow-x: auto;
+  line-height: 1.45;
+}
+
+code {
+  background: #f0f0f0;
+  padding: 1px 3px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Lists                                                                */
+/* ------------------------------------------------------------------ */
+
+ul, ol {
+  margin: 0 0 10px 20px;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Links                                                                */
+/* ------------------------------------------------------------------ */
+
+a {
+  color: #00008b;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #551a8b;
+}
+
+/* ------------------------------------------------------------------ */
+/* CTA component — free/paid conversion blocks (blog, tools, product)  */
+/* ------------------------------------------------------------------ */
+
+.oo-cta {
+  border: 1px solid #1f2a44;
+  background: #0b1220;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 32px 0;
+}
+
+.oo-cta strong {
+  color: #e6edf3;
+  font-size: 1.05rem;
+}
+
+.oo-cta p {
+  color: #9fb0c3;
+  margin: 8px 0 14px;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.oo-cta-btn {
+  display: inline-block;
+  background: #3fb950;
+  color: #000000 !important;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-decoration: none !important;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.oo-cta-btn:hover { background: #2ea043; }
+
+.oo-cta-btn--ghost {
+  background: transparent;
+  border: 1px solid #3fb950;
+  color: #3fb950 !important;
+}
+
+.oo-cta-btn--ghost:hover { background: #3fb950; color: #000000 !important; }
+
+.oo-cta-sub {
+  margin: 12px 0 0 !important;
+  font-size: 0.82rem;
+  color: #556270;
+}
+
+.oo-cta-sub a { color: #9fb0c3; }
+
+.oo-cta-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.oo-cta-row .oo-cta { flex: 1; min-width: 240px; margin: 0; }
+
+.oo-cta-compare {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.oo-cta-compare > div {
+  flex: 1;
+  min-width: 190px;
+  border: 1px solid #1f2a44;
+  background: #0b1220;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.oo-cta-compare > div.featured { border-color: #3fb950; border-width: 2px; flex: 1.15; padding: 20px; }
+
+.oo-cta-compare h4 {
+  color: #e6edf3;
+  font-family: monospace;
+  font-size: 0.92rem;
+  margin-bottom: 4px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.oo-cta-compare .price {
+  color: #3fb950;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 6px 0;
+}
+
+.oo-cta-compare p {
+  color: #9fb0c3;
+  font-size: 0.8rem;
+  text-align: left;
+  margin: 8px 0 10px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Waitlist form — shared by the homepage and /cloud/waitlist/         */
+/* Submit logic lives in assets/waitlist.js, driven by data-wl-* hooks */
+/* ------------------------------------------------------------------ */
+
+.wl-form { max-width: 560px; }
+.wl-field { margin: 0 0 16px; }
+.wl-field label { display: block; font-family: monospace; font-size: 0.85rem; margin-bottom: 4px; color: inherit; }
+.wl-field input[type="email"],
+.wl-field input[type="text"],
+.wl-field select,
+.wl-field textarea {
+  width: 100%;
+  padding: 8px 10px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 15px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  background: #fff;
+  color: #000;
+}
+.wl-field textarea { resize: vertical; min-height: 70px; }
+.wl-field input:focus,
+.wl-field select:focus,
+.wl-field textarea:focus,
+.wl-consent input:focus {
+  outline: 2px solid #3fb950;
+  outline-offset: 1px;
+}
+.wl-radio-row { display: flex; gap: 18px; flex-wrap: wrap; font-family: monospace; font-size: 0.85rem; }
+.wl-radio-row label { display: flex; align-items: center; gap: 6px; }
+.wl-consent { display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem; margin: 4px 0 18px; }
+.wl-consent label { flex: 1; }
+.wl-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.wl-submit {
+  display: inline-block;
+  background: #3fb950;
+  color: #000;
+  font-family: monospace;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 24px;
+  border: 2px solid #3fb950;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.wl-submit:hover:not(:disabled) { background: #2ea043; border-color: #2ea043; }
+.wl-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.wl-status { min-height: 22px; margin-top: 10px; font-family: monospace; font-size: 0.85rem; }
+.wl-status[data-state="ok"] { color: #2ea043; }
+.wl-status[data-state="err"] { color: #d1242f; }
+
+/* ------------------------------------------------------------------ */
+/* Dark mode — terminal users                                           */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-color-scheme: dark) {
+  body          { background: #0d0d0d; color: #d8d8d8; }
+  #nav          { background: #1a1a1a; border-bottom: 1px solid #333; }
+  hr            { border-top-color: #444444; }
+  h2            { color: #d8d8d8; }
+  pre           { background: #1a1a1a; border-left-color: #00ff88; }
+  code          { background: #1a1a1a; color: #d8d8d8; }
+  th            { background: #1a1a1a; color: #00ff88; }
+  td            { border-bottom-color: #333333; }
+  tr:nth-child(even) td { background: #141414; }
+  a             { color: #6699ff; }
+  a:visited     { color: #cc99ff; }
+  #nav a        { color: #d8d8d8; }
+  .wl-field input[type="email"],
+  .wl-field input[type="text"],
+  .wl-field select,
+  .wl-field textarea { background: #141414; color: #d8d8d8; border-color: #444; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Print                                                                */
+/* ------------------------------------------------------------------ */
+
+@media print {
+  #nav  { display: none; }
+  body  { font-size: 12px; }
+  pre   { border: 1px solid #000; }
+}

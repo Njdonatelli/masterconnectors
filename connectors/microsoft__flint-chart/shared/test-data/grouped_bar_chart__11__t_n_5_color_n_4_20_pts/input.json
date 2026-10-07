@@ -1,0 +1,137 @@
+{
+  "title": "T×N(5) +color(N,4) (20 pts)",
+  "description": "Temporal × cat grouped",
+  "chartType": "Grouped Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2020-01-01",
+          "Group": "Laptop",
+          "Segment": "USA"
+        },
+        {
+          "Date": "2020-01-01",
+          "Group": "Tablet",
+          "Segment": "China"
+        },
+        {
+          "Date": "2020-01-01",
+          "Group": "Monitor",
+          "Segment": "Japan"
+        },
+        {
+          "Date": "2020-01-01",
+          "Group": "Laptop",
+          "Segment": "Germany"
+        },
+        {
+          "Date": "2020-08-07",
+          "Group": "Monitor",
+          "Segment": "USA"
+        },
+        {
+          "Date": "2020-08-07",
+          "Group": "Monitor",
+          "Segment": "China"
+        },
+        {
+          "Date": "2020-08-07",
+          "Group": "Tablet",
+          "Segment": "Japan"
+        },
+        {
+          "Date": "2020-08-07",
+          "Group": "Phone",
+          "Segment": "Germany"
+        },
+        {
+          "Date": "2021-03-14",
+          "Group": "Laptop",
+          "Segment": "USA"
+        },
+        {
+          "Date": "2021-03-14",
+          "Group": "Desktop",
+          "Segment": "China"
+        },
+        {
+          "Date": "2021-03-14",
+          "Group": "Desktop",
+          "Segment": "Japan"
+        },
+        {
+          "Date": "2021-03-14",
+          "Group": "Phone",
+          "Segment": "Germany"
+        },
+        {
+          "Date": "2021-10-19",
+          "Group": "Laptop",
+          "Segment": "USA"
+        },
+        {
+          "Date": "2021-10-19",
+          "Group": "Tablet",
+          "Segment": "China"
+        },
+        {
+          "Date": "2021-10-19",
+          "Group": "Laptop",
+          "Segment": "Japan"
+        },
+        {
+          "Date": "2021-10-19",
+          "Group": "Monitor",
+          "Segment": "Germany"
+        },
+        {
+          "Date": "2022-05-26",
+          "Group": "Monitor",
+          "Segment": "USA"
+        },
+        {
+          "Date": "2022-05-26",
+          "Group": "Desktop",
+          "Segment": "China"
+        },
+        {
+          "Date": "2022-05-26",
+          "Group": "Monitor",
+          "Segment": "Japan"
+        },
+        {
+          "Date": "2022-05-26",
+          "Group": "Monitor",
+          "Segment": "Germany"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Group": "Category",
+      "Segment": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Grouped Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Group"
+        },
+        "group": {
+          "field": "Segment"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

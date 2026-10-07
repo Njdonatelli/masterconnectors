@@ -1,0 +1,306 @@
+{
+  "encoding": {
+    "y": {
+      "field": "Metric",
+      "type": "nominal",
+      "sort": null
+    },
+    "x": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": "line",
+      "encoding": {
+        "detail": {
+          "field": "Metric",
+          "type": "nominal",
+          "sort": null
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "color": {
+          "field": "Phase",
+          "type": "nominal",
+          "sort": null,
+          "scale": {
+            "scheme": "tableau10"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 283,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 28
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 20
+  },
+  "data": {
+    "values": [
+      {
+        "Metric": "Metric01",
+        "Phase": "Before",
+        "Score": 21
+      },
+      {
+        "Metric": "Metric01",
+        "Phase": "After",
+        "Score": 31
+      },
+      {
+        "Metric": "Metric02",
+        "Phase": "Before",
+        "Score": 79
+      },
+      {
+        "Metric": "Metric02",
+        "Phase": "After",
+        "Score": 28
+      },
+      {
+        "Metric": "Metric03",
+        "Phase": "Before",
+        "Score": 81
+      },
+      {
+        "Metric": "Metric03",
+        "Phase": "After",
+        "Score": 58
+      },
+      {
+        "Metric": "Metric04",
+        "Phase": "Before",
+        "Score": 80
+      },
+      {
+        "Metric": "Metric04",
+        "Phase": "After",
+        "Score": 49
+      },
+      {
+        "Metric": "Metric05",
+        "Phase": "Before",
+        "Score": 21
+      },
+      {
+        "Metric": "Metric05",
+        "Phase": "After",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric06",
+        "Phase": "Before",
+        "Score": 83
+      },
+      {
+        "Metric": "Metric06",
+        "Phase": "After",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric07",
+        "Phase": "Before",
+        "Score": 45
+      },
+      {
+        "Metric": "Metric07",
+        "Phase": "After",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric08",
+        "Phase": "Before",
+        "Score": 79
+      },
+      {
+        "Metric": "Metric08",
+        "Phase": "After",
+        "Score": 61
+      },
+      {
+        "Metric": "Metric09",
+        "Phase": "Before",
+        "Score": 63
+      },
+      {
+        "Metric": "Metric09",
+        "Phase": "After",
+        "Score": 74
+      },
+      {
+        "Metric": "Metric10",
+        "Phase": "Before",
+        "Score": 75
+      },
+      {
+        "Metric": "Metric10",
+        "Phase": "After",
+        "Score": 61
+      },
+      {
+        "Metric": "Metric11",
+        "Phase": "Before",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric11",
+        "Phase": "After",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric12",
+        "Phase": "Before",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric12",
+        "Phase": "After",
+        "Score": 63
+      },
+      {
+        "Metric": "Metric13",
+        "Phase": "Before",
+        "Score": 64
+      },
+      {
+        "Metric": "Metric13",
+        "Phase": "After",
+        "Score": 69
+      },
+      {
+        "Metric": "Metric14",
+        "Phase": "Before",
+        "Score": 73
+      },
+      {
+        "Metric": "Metric14",
+        "Phase": "After",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric15",
+        "Phase": "Before",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric15",
+        "Phase": "After",
+        "Score": 67
+      },
+      {
+        "Metric": "Metric16",
+        "Phase": "Before",
+        "Score": 51
+      },
+      {
+        "Metric": "Metric16",
+        "Phase": "After",
+        "Score": 25
+      },
+      {
+        "Metric": "Metric17",
+        "Phase": "Before",
+        "Score": 50
+      },
+      {
+        "Metric": "Metric17",
+        "Phase": "After",
+        "Score": 52
+      },
+      {
+        "Metric": "Metric18",
+        "Phase": "Before",
+        "Score": 56
+      },
+      {
+        "Metric": "Metric18",
+        "Phase": "After",
+        "Score": 57
+      },
+      {
+        "Metric": "Metric19",
+        "Phase": "Before",
+        "Score": 69
+      },
+      {
+        "Metric": "Metric19",
+        "Phase": "After",
+        "Score": 88
+      },
+      {
+        "Metric": "Metric20",
+        "Phase": "Before",
+        "Score": 52
+      },
+      {
+        "Metric": "Metric20",
+        "Phase": "After",
+        "Score": 53
+      }
+    ]
+  },
+  "_width": 283,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

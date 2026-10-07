@@ -1,0 +1,515 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Y",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Facet",
+      "type": "nominal",
+      "sort": null,
+      "columns": 4
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 178,
+      "continuousHeight": 238
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 198
+    },
+    "facet": {
+      "spacing": 18
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 84,
+        "Y": 66,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 82,
+        "Y": 51,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 16,
+        "Y": 49,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 67,
+        "Y": 98,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 28,
+        "Y": 80,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 93,
+        "Y": 21,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 72,
+        "Y": 43,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 70,
+        "Y": 41,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 54,
+        "Y": 19,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 62,
+        "Y": 29,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 67,
+        "Y": 69,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 74,
+        "Y": 30,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 75,
+        "Y": 11,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 42,
+        "Y": 35,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 12,
+        "Y": 89,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 67,
+        "Y": 84,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 42,
+        "Y": 34,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 87,
+        "Y": 59,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 11,
+        "Y": 54,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 70,
+        "Y": 64,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 74,
+        "Y": 52,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 86,
+        "Y": 12,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 80,
+        "Y": 39,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 95,
+        "Y": 11,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 98,
+        "Y": 64,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 26,
+        "Y": 71,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 79,
+        "Y": 11,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 88,
+        "Y": 40,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 78,
+        "Y": 88,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 79,
+        "Y": 39,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 62,
+        "Y": 78,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 60,
+        "Y": 82,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 32,
+        "Y": 26,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 37,
+        "Y": 50,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 71,
+        "Y": 70,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 63,
+        "Y": 88,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 32,
+        "Y": 35,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 67,
+        "Y": 29,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 51,
+        "Y": 42,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 35,
+        "Y": 88,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 10,
+        "Y": 81,
+        "Facet": "Food"
+      },
+      {
+        "X": 93,
+        "Y": 80,
+        "Facet": "Food"
+      },
+      {
+        "X": 58,
+        "Y": 47,
+        "Facet": "Food"
+      },
+      {
+        "X": 17,
+        "Y": 80,
+        "Facet": "Food"
+      },
+      {
+        "X": 93,
+        "Y": 65,
+        "Facet": "Food"
+      },
+      {
+        "X": 18,
+        "Y": 12,
+        "Facet": "Food"
+      },
+      {
+        "X": 49,
+        "Y": 94,
+        "Facet": "Food"
+      },
+      {
+        "X": 31,
+        "Y": 17,
+        "Facet": "Food"
+      },
+      {
+        "X": 99,
+        "Y": 69,
+        "Facet": "Food"
+      },
+      {
+        "X": 92,
+        "Y": 66,
+        "Facet": "Food"
+      },
+      {
+        "X": 12,
+        "Y": 88,
+        "Facet": "Food"
+      },
+      {
+        "X": 30,
+        "Y": 16,
+        "Facet": "Food"
+      },
+      {
+        "X": 55,
+        "Y": 50,
+        "Facet": "Food"
+      },
+      {
+        "X": 26,
+        "Y": 88,
+        "Facet": "Food"
+      },
+      {
+        "X": 97,
+        "Y": 63,
+        "Facet": "Food"
+      },
+      {
+        "X": 82,
+        "Y": 84,
+        "Facet": "Food"
+      },
+      {
+        "X": 73,
+        "Y": 42,
+        "Facet": "Food"
+      },
+      {
+        "X": 10,
+        "Y": 45,
+        "Facet": "Food"
+      },
+      {
+        "X": 21,
+        "Y": 52,
+        "Facet": "Food"
+      },
+      {
+        "X": 78,
+        "Y": 74,
+        "Facet": "Food"
+      },
+      {
+        "X": 30,
+        "Y": 20,
+        "Facet": "Books"
+      },
+      {
+        "X": 55,
+        "Y": 45,
+        "Facet": "Books"
+      },
+      {
+        "X": 93,
+        "Y": 75,
+        "Facet": "Books"
+      },
+      {
+        "X": 36,
+        "Y": 16,
+        "Facet": "Books"
+      },
+      {
+        "X": 96,
+        "Y": 100,
+        "Facet": "Books"
+      },
+      {
+        "X": 85,
+        "Y": 55,
+        "Facet": "Books"
+      },
+      {
+        "X": 57,
+        "Y": 86,
+        "Facet": "Books"
+      },
+      {
+        "X": 70,
+        "Y": 20,
+        "Facet": "Books"
+      },
+      {
+        "X": 67,
+        "Y": 48,
+        "Facet": "Books"
+      },
+      {
+        "X": 55,
+        "Y": 10,
+        "Facet": "Books"
+      },
+      {
+        "X": 70,
+        "Y": 35,
+        "Facet": "Books"
+      },
+      {
+        "X": 43,
+        "Y": 15,
+        "Facet": "Books"
+      },
+      {
+        "X": 14,
+        "Y": 48,
+        "Facet": "Books"
+      },
+      {
+        "X": 48,
+        "Y": 20,
+        "Facet": "Books"
+      },
+      {
+        "X": 56,
+        "Y": 49,
+        "Facet": "Books"
+      },
+      {
+        "X": 95,
+        "Y": 92,
+        "Facet": "Books"
+      },
+      {
+        "X": 68,
+        "Y": 22,
+        "Facet": "Books"
+      },
+      {
+        "X": 88,
+        "Y": 97,
+        "Facet": "Books"
+      },
+      {
+        "X": 90,
+        "Y": 21,
+        "Facet": "Books"
+      },
+      {
+        "X": 97,
+        "Y": 37,
+        "Facet": "Books"
+      }
+    ]
+  },
+  "_width": 178,
+  "_height": 238,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

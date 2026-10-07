@@ -1,0 +1,161 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Month": 1,
+        "Value": 383
+      },
+      {
+        "Month": 2,
+        "Value": 138
+      },
+      {
+        "Month": 3,
+        "Value": 517
+      },
+      {
+        "Month": 4,
+        "Value": 390
+      },
+      {
+        "Month": 5,
+        "Value": 518
+      },
+      {
+        "Month": 6,
+        "Value": 233
+      },
+      {
+        "Month": 7,
+        "Value": 543
+      },
+      {
+        "Month": 8,
+        "Value": 543
+      },
+      {
+        "Month": 9,
+        "Value": 255
+      },
+      {
+        "Month": 10,
+        "Value": 461
+      },
+      {
+        "Month": 11,
+        "Value": 477
+      },
+      {
+        "Month": 12,
+        "Value": 430
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

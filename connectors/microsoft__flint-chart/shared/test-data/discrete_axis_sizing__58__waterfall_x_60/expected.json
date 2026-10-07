@@ -1,0 +1,425 @@
+{
+  "encoding": {
+    "x": {
+      "field": "Step",
+      "type": "ordinal",
+      "sort": null,
+      "axis": {
+        "labelAngle": -45
+      }
+    }
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "sum",
+          "field": "Amount",
+          "as": "__wf_sum_raw"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? datum.__wf_sum_raw - datum['Amount'] : datum.__wf_sum_raw",
+      "as": "__wf_sum"
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? 0 : datum.__wf_sum - datum['Amount']",
+      "as": "__wf_prev_sum"
+    },
+    {
+      "calculate": "datum['Type'] !== 'delta' ? 'total' : datum['Amount'] >= 0 ? 'increase' : 'decrease'",
+      "as": "__wf_color"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "y": {
+          "field": "__wf_prev_sum",
+          "type": "quantitative",
+          "title": "Amount",
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y2": {
+          "field": "__wf_sum"
+        },
+        "color": {
+          "field": "__wf_color",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "total",
+              "increase",
+              "decrease"
+            ],
+            "range": [
+              "#f7e0b6",
+              "#93c4aa",
+              "#f78a64"
+            ]
+          },
+          "legend": {
+            "title": "Type"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 190
+    },
+    "axisX": {
+      "labelLimit": 60,
+      "labelFontSize": 9,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 19
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 12
+  },
+  "data": {
+    "values": [
+      {
+        "Step": "Step01",
+        "Amount": 674,
+        "Type": "start"
+      },
+      {
+        "Step": "Step02",
+        "Amount": 31,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step03",
+        "Amount": -74,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step04",
+        "Amount": -146,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step05",
+        "Amount": -28,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step06",
+        "Amount": -83,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step07",
+        "Amount": -72,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step08",
+        "Amount": -25,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step09",
+        "Amount": -16,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step10",
+        "Amount": -76,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step11",
+        "Amount": 146,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step12",
+        "Amount": 17,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step13",
+        "Amount": 35,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step14",
+        "Amount": 99,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step15",
+        "Amount": -148,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step16",
+        "Amount": 23,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step17",
+        "Amount": 139,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step18",
+        "Amount": -39,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step19",
+        "Amount": 104,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step20",
+        "Amount": 48,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step21",
+        "Amount": -146,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step22",
+        "Amount": -33,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step23",
+        "Amount": 98,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step24",
+        "Amount": 111,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step25",
+        "Amount": -23,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step26",
+        "Amount": -51,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step27",
+        "Amount": -31,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step28",
+        "Amount": -55,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step29",
+        "Amount": -73,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step30",
+        "Amount": 109,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step31",
+        "Amount": 26,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step32",
+        "Amount": -79,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step33",
+        "Amount": -63,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step34",
+        "Amount": 127,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step35",
+        "Amount": -28,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step36",
+        "Amount": 120,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step37",
+        "Amount": -146,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step38",
+        "Amount": 144,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step39",
+        "Amount": 53,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step40",
+        "Amount": 108,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step41",
+        "Amount": 27,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step42",
+        "Amount": 50,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step43",
+        "Amount": 136,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step44",
+        "Amount": 141,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step45",
+        "Amount": 47,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step46",
+        "Amount": 33,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step47",
+        "Amount": 22,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step48",
+        "Amount": 71,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step49",
+        "Amount": 88,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step50",
+        "Amount": -103,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step51",
+        "Amount": 58,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step52",
+        "Amount": -30,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step53",
+        "Amount": -149,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step54",
+        "Amount": 52,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step55",
+        "Amount": -61,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step56",
+        "Amount": -117,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step57",
+        "Amount": -44,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step58",
+        "Amount": -128,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step59",
+        "Amount": 13,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step60",
+        "Amount": 230,
+        "Type": "end"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 190,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

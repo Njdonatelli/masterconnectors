@@ -1,0 +1,10 @@
+// Gridex.rc -- Win32 resource script
+//
+// Embeds the application icon into Gridex.exe so Windows Explorer, task
+// bar, Alt+Tab switcher, Desktop / Start menu shortcuts, and ARP (Apps &
+// Features) all display the Gridex phoenix mark instead of the default
+// blank executable icon.
+//
+// Resource ID 1 is the convention Windows uses to locate the app icon.
+
+1 ICON "Assets\\Gridex.ico"

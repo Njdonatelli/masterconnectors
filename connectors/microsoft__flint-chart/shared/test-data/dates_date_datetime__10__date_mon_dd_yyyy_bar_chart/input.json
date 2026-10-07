@@ -1,0 +1,81 @@
+{
+  "title": "Date (Mon DD YYYY) → Bar Chart",
+  "description": "Natural date: \"Jan 15 2020\", \"Feb 15 2020\", … (12 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 15 2020",
+          "Value": 138
+        },
+        {
+          "Date": "Feb 15 2020",
+          "Value": 104
+        },
+        {
+          "Date": "Mar 15 2020",
+          "Value": 339
+        },
+        {
+          "Date": "Apr 15 2020",
+          "Value": 443
+        },
+        {
+          "Date": "May 15 2020",
+          "Value": 80
+        },
+        {
+          "Date": "Jun 15 2020",
+          "Value": 183
+        },
+        {
+          "Date": "Jul 15 2020",
+          "Value": 155
+        },
+        {
+          "Date": "Aug 15 2020",
+          "Value": 248
+        },
+        {
+          "Date": "Sep 15 2020",
+          "Value": 230
+        },
+        {
+          "Date": "Oct 15 2020",
+          "Value": 324
+        },
+        {
+          "Date": "Nov 15 2020",
+          "Value": 270
+        },
+        {
+          "Date": "Dec 15 2020",
+          "Value": 118
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,1882 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Country",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Count",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Age",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "goldgreen"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Country": "Country1",
+        "Age": 15,
+        "Count": 124
+      },
+      {
+        "Country": "Country1",
+        "Age": 16,
+        "Count": 139
+      },
+      {
+        "Country": "Country1",
+        "Age": 17,
+        "Count": 57
+      },
+      {
+        "Country": "Country1",
+        "Age": 18,
+        "Count": 89
+      },
+      {
+        "Country": "Country1",
+        "Age": 19,
+        "Count": 92
+      },
+      {
+        "Country": "Country1",
+        "Age": 20,
+        "Count": 235
+      },
+      {
+        "Country": "Country1",
+        "Age": 21,
+        "Count": 145
+      },
+      {
+        "Country": "Country1",
+        "Age": 22,
+        "Count": 106
+      },
+      {
+        "Country": "Country1",
+        "Age": 23,
+        "Count": 112
+      },
+      {
+        "Country": "Country1",
+        "Age": 24,
+        "Count": 183
+      },
+      {
+        "Country": "Country1",
+        "Age": 25,
+        "Count": 239
+      },
+      {
+        "Country": "Country1",
+        "Age": 26,
+        "Count": 111
+      },
+      {
+        "Country": "Country1",
+        "Age": 27,
+        "Count": 78
+      },
+      {
+        "Country": "Country1",
+        "Age": 28,
+        "Count": 114
+      },
+      {
+        "Country": "Country1",
+        "Age": 29,
+        "Count": 94
+      },
+      {
+        "Country": "Country1",
+        "Age": 30,
+        "Count": 166
+      },
+      {
+        "Country": "Country1",
+        "Age": 31,
+        "Count": 153
+      },
+      {
+        "Country": "Country1",
+        "Age": 32,
+        "Count": 96
+      },
+      {
+        "Country": "Country1",
+        "Age": 33,
+        "Count": 74
+      },
+      {
+        "Country": "Country1",
+        "Age": 34,
+        "Count": 157
+      },
+      {
+        "Country": "Country1",
+        "Age": 35,
+        "Count": 55
+      },
+      {
+        "Country": "Country1",
+        "Age": 36,
+        "Count": 142
+      },
+      {
+        "Country": "Country1",
+        "Age": 37,
+        "Count": 130
+      },
+      {
+        "Country": "Country1",
+        "Age": 38,
+        "Count": 199
+      },
+      {
+        "Country": "Country1",
+        "Age": 39,
+        "Count": 176
+      },
+      {
+        "Country": "Country1",
+        "Age": 40,
+        "Count": 99
+      },
+      {
+        "Country": "Country1",
+        "Age": 41,
+        "Count": 83
+      },
+      {
+        "Country": "Country1",
+        "Age": 42,
+        "Count": 76
+      },
+      {
+        "Country": "Country1",
+        "Age": 43,
+        "Count": 72
+      },
+      {
+        "Country": "Country1",
+        "Age": 44,
+        "Count": 210
+      },
+      {
+        "Country": "Country1",
+        "Age": 45,
+        "Count": 237
+      },
+      {
+        "Country": "Country1",
+        "Age": 46,
+        "Count": 99
+      },
+      {
+        "Country": "Country1",
+        "Age": 47,
+        "Count": 95
+      },
+      {
+        "Country": "Country1",
+        "Age": 48,
+        "Count": 234
+      },
+      {
+        "Country": "Country1",
+        "Age": 49,
+        "Count": 112
+      },
+      {
+        "Country": "Country1",
+        "Age": 50,
+        "Count": 204
+      },
+      {
+        "Country": "Country1",
+        "Age": 51,
+        "Count": 103
+      },
+      {
+        "Country": "Country1",
+        "Age": 52,
+        "Count": 247
+      },
+      {
+        "Country": "Country1",
+        "Age": 53,
+        "Count": 123
+      },
+      {
+        "Country": "Country1",
+        "Age": 54,
+        "Count": 61
+      },
+      {
+        "Country": "Country1",
+        "Age": 55,
+        "Count": 163
+      },
+      {
+        "Country": "Country1",
+        "Age": 56,
+        "Count": 210
+      },
+      {
+        "Country": "Country1",
+        "Age": 57,
+        "Count": 166
+      },
+      {
+        "Country": "Country1",
+        "Age": 58,
+        "Count": 127
+      },
+      {
+        "Country": "Country1",
+        "Age": 59,
+        "Count": 81
+      },
+      {
+        "Country": "Country1",
+        "Age": 60,
+        "Count": 116
+      },
+      {
+        "Country": "Country1",
+        "Age": 61,
+        "Count": 64
+      },
+      {
+        "Country": "Country1",
+        "Age": 62,
+        "Count": 153
+      },
+      {
+        "Country": "Country1",
+        "Age": 63,
+        "Count": 103
+      },
+      {
+        "Country": "Country1",
+        "Age": 64,
+        "Count": 155
+      },
+      {
+        "Country": "Country1",
+        "Age": 65,
+        "Count": 184
+      },
+      {
+        "Country": "Country1",
+        "Age": 66,
+        "Count": 50
+      },
+      {
+        "Country": "Country1",
+        "Age": 67,
+        "Count": 119
+      },
+      {
+        "Country": "Country1",
+        "Age": 68,
+        "Count": 95
+      },
+      {
+        "Country": "Country1",
+        "Age": 69,
+        "Count": 86
+      },
+      {
+        "Country": "Country1",
+        "Age": 70,
+        "Count": 100
+      },
+      {
+        "Country": "Country1",
+        "Age": 71,
+        "Count": 76
+      },
+      {
+        "Country": "Country1",
+        "Age": 72,
+        "Count": 226
+      },
+      {
+        "Country": "Country1",
+        "Age": 73,
+        "Count": 78
+      },
+      {
+        "Country": "Country1",
+        "Age": 74,
+        "Count": 156
+      },
+      {
+        "Country": "Country1",
+        "Age": 75,
+        "Count": 78
+      },
+      {
+        "Country": "Country1",
+        "Age": 76,
+        "Count": 107
+      },
+      {
+        "Country": "Country1",
+        "Age": 77,
+        "Count": 180
+      },
+      {
+        "Country": "Country1",
+        "Age": 78,
+        "Count": 209
+      },
+      {
+        "Country": "Country1",
+        "Age": 79,
+        "Count": 243
+      },
+      {
+        "Country": "Country1",
+        "Age": 80,
+        "Count": 216
+      },
+      {
+        "Country": "Country1",
+        "Age": 81,
+        "Count": 96
+      },
+      {
+        "Country": "Country1",
+        "Age": 82,
+        "Count": 64
+      },
+      {
+        "Country": "Country1",
+        "Age": 83,
+        "Count": 112
+      },
+      {
+        "Country": "Country1",
+        "Age": 84,
+        "Count": 161
+      },
+      {
+        "Country": "Country1",
+        "Age": 85,
+        "Count": 132
+      },
+      {
+        "Country": "Country2",
+        "Age": 15,
+        "Count": 224
+      },
+      {
+        "Country": "Country2",
+        "Age": 16,
+        "Count": 244
+      },
+      {
+        "Country": "Country2",
+        "Age": 17,
+        "Count": 132
+      },
+      {
+        "Country": "Country2",
+        "Age": 18,
+        "Count": 129
+      },
+      {
+        "Country": "Country2",
+        "Age": 19,
+        "Count": 75
+      },
+      {
+        "Country": "Country2",
+        "Age": 20,
+        "Count": 160
+      },
+      {
+        "Country": "Country2",
+        "Age": 21,
+        "Count": 206
+      },
+      {
+        "Country": "Country2",
+        "Age": 22,
+        "Count": 109
+      },
+      {
+        "Country": "Country2",
+        "Age": 23,
+        "Count": 236
+      },
+      {
+        "Country": "Country2",
+        "Age": 24,
+        "Count": 238
+      },
+      {
+        "Country": "Country2",
+        "Age": 25,
+        "Count": 78
+      },
+      {
+        "Country": "Country2",
+        "Age": 26,
+        "Count": 250
+      },
+      {
+        "Country": "Country2",
+        "Age": 27,
+        "Count": 153
+      },
+      {
+        "Country": "Country2",
+        "Age": 28,
+        "Count": 153
+      },
+      {
+        "Country": "Country2",
+        "Age": 29,
+        "Count": 83
+      },
+      {
+        "Country": "Country2",
+        "Age": 30,
+        "Count": 224
+      },
+      {
+        "Country": "Country2",
+        "Age": 31,
+        "Count": 238
+      },
+      {
+        "Country": "Country2",
+        "Age": 32,
+        "Count": 100
+      },
+      {
+        "Country": "Country2",
+        "Age": 33,
+        "Count": 141
+      },
+      {
+        "Country": "Country2",
+        "Age": 34,
+        "Count": 72
+      },
+      {
+        "Country": "Country2",
+        "Age": 35,
+        "Count": 58
+      },
+      {
+        "Country": "Country2",
+        "Age": 36,
+        "Count": 243
+      },
+      {
+        "Country": "Country2",
+        "Age": 37,
+        "Count": 202
+      },
+      {
+        "Country": "Country2",
+        "Age": 38,
+        "Count": 88
+      },
+      {
+        "Country": "Country2",
+        "Age": 39,
+        "Count": 207
+      },
+      {
+        "Country": "Country2",
+        "Age": 40,
+        "Count": 64
+      },
+      {
+        "Country": "Country2",
+        "Age": 41,
+        "Count": 64
+      },
+      {
+        "Country": "Country2",
+        "Age": 42,
+        "Count": 120
+      },
+      {
+        "Country": "Country2",
+        "Age": 43,
+        "Count": 150
+      },
+      {
+        "Country": "Country2",
+        "Age": 44,
+        "Count": 111
+      },
+      {
+        "Country": "Country2",
+        "Age": 45,
+        "Count": 217
+      },
+      {
+        "Country": "Country2",
+        "Age": 46,
+        "Count": 249
+      },
+      {
+        "Country": "Country2",
+        "Age": 47,
+        "Count": 166
+      },
+      {
+        "Country": "Country2",
+        "Age": 48,
+        "Count": 70
+      },
+      {
+        "Country": "Country2",
+        "Age": 49,
+        "Count": 82
+      },
+      {
+        "Country": "Country2",
+        "Age": 50,
+        "Count": 202
+      },
+      {
+        "Country": "Country2",
+        "Age": 51,
+        "Count": 93
+      },
+      {
+        "Country": "Country2",
+        "Age": 52,
+        "Count": 153
+      },
+      {
+        "Country": "Country2",
+        "Age": 53,
+        "Count": 220
+      },
+      {
+        "Country": "Country2",
+        "Age": 54,
+        "Count": 86
+      },
+      {
+        "Country": "Country2",
+        "Age": 55,
+        "Count": 181
+      },
+      {
+        "Country": "Country2",
+        "Age": 56,
+        "Count": 113
+      },
+      {
+        "Country": "Country2",
+        "Age": 57,
+        "Count": 133
+      },
+      {
+        "Country": "Country2",
+        "Age": 58,
+        "Count": 233
+      },
+      {
+        "Country": "Country2",
+        "Age": 59,
+        "Count": 164
+      },
+      {
+        "Country": "Country2",
+        "Age": 60,
+        "Count": 127
+      },
+      {
+        "Country": "Country2",
+        "Age": 61,
+        "Count": 112
+      },
+      {
+        "Country": "Country2",
+        "Age": 62,
+        "Count": 51
+      },
+      {
+        "Country": "Country2",
+        "Age": 63,
+        "Count": 216
+      },
+      {
+        "Country": "Country2",
+        "Age": 64,
+        "Count": 82
+      },
+      {
+        "Country": "Country2",
+        "Age": 65,
+        "Count": 133
+      },
+      {
+        "Country": "Country2",
+        "Age": 66,
+        "Count": 179
+      },
+      {
+        "Country": "Country2",
+        "Age": 67,
+        "Count": 190
+      },
+      {
+        "Country": "Country2",
+        "Age": 68,
+        "Count": 60
+      },
+      {
+        "Country": "Country2",
+        "Age": 69,
+        "Count": 222
+      },
+      {
+        "Country": "Country2",
+        "Age": 70,
+        "Count": 142
+      },
+      {
+        "Country": "Country2",
+        "Age": 71,
+        "Count": 63
+      },
+      {
+        "Country": "Country2",
+        "Age": 72,
+        "Count": 169
+      },
+      {
+        "Country": "Country2",
+        "Age": 73,
+        "Count": 172
+      },
+      {
+        "Country": "Country2",
+        "Age": 74,
+        "Count": 188
+      },
+      {
+        "Country": "Country2",
+        "Age": 75,
+        "Count": 172
+      },
+      {
+        "Country": "Country2",
+        "Age": 76,
+        "Count": 218
+      },
+      {
+        "Country": "Country2",
+        "Age": 77,
+        "Count": 142
+      },
+      {
+        "Country": "Country2",
+        "Age": 78,
+        "Count": 74
+      },
+      {
+        "Country": "Country2",
+        "Age": 79,
+        "Count": 146
+      },
+      {
+        "Country": "Country2",
+        "Age": 80,
+        "Count": 146
+      },
+      {
+        "Country": "Country2",
+        "Age": 81,
+        "Count": 59
+      },
+      {
+        "Country": "Country2",
+        "Age": 82,
+        "Count": 130
+      },
+      {
+        "Country": "Country2",
+        "Age": 83,
+        "Count": 107
+      },
+      {
+        "Country": "Country2",
+        "Age": 84,
+        "Count": 134
+      },
+      {
+        "Country": "Country2",
+        "Age": 85,
+        "Count": 133
+      },
+      {
+        "Country": "Country3",
+        "Age": 15,
+        "Count": 208
+      },
+      {
+        "Country": "Country3",
+        "Age": 16,
+        "Count": 224
+      },
+      {
+        "Country": "Country3",
+        "Age": 17,
+        "Count": 83
+      },
+      {
+        "Country": "Country3",
+        "Age": 18,
+        "Count": 118
+      },
+      {
+        "Country": "Country3",
+        "Age": 19,
+        "Count": 55
+      },
+      {
+        "Country": "Country3",
+        "Age": 20,
+        "Count": 166
+      },
+      {
+        "Country": "Country3",
+        "Age": 21,
+        "Count": 111
+      },
+      {
+        "Country": "Country3",
+        "Age": 22,
+        "Count": 222
+      },
+      {
+        "Country": "Country3",
+        "Age": 23,
+        "Count": 210
+      },
+      {
+        "Country": "Country3",
+        "Age": 24,
+        "Count": 168
+      },
+      {
+        "Country": "Country3",
+        "Age": 25,
+        "Count": 219
+      },
+      {
+        "Country": "Country3",
+        "Age": 26,
+        "Count": 209
+      },
+      {
+        "Country": "Country3",
+        "Age": 27,
+        "Count": 202
+      },
+      {
+        "Country": "Country3",
+        "Age": 28,
+        "Count": 190
+      },
+      {
+        "Country": "Country3",
+        "Age": 29,
+        "Count": 232
+      },
+      {
+        "Country": "Country3",
+        "Age": 30,
+        "Count": 88
+      },
+      {
+        "Country": "Country3",
+        "Age": 31,
+        "Count": 154
+      },
+      {
+        "Country": "Country3",
+        "Age": 32,
+        "Count": 220
+      },
+      {
+        "Country": "Country3",
+        "Age": 33,
+        "Count": 93
+      },
+      {
+        "Country": "Country3",
+        "Age": 34,
+        "Count": 51
+      },
+      {
+        "Country": "Country3",
+        "Age": 35,
+        "Count": 113
+      },
+      {
+        "Country": "Country3",
+        "Age": 36,
+        "Count": 91
+      },
+      {
+        "Country": "Country3",
+        "Age": 37,
+        "Count": 167
+      },
+      {
+        "Country": "Country3",
+        "Age": 38,
+        "Count": 148
+      },
+      {
+        "Country": "Country3",
+        "Age": 39,
+        "Count": 108
+      },
+      {
+        "Country": "Country3",
+        "Age": 40,
+        "Count": 63
+      },
+      {
+        "Country": "Country3",
+        "Age": 41,
+        "Count": 176
+      },
+      {
+        "Country": "Country3",
+        "Age": 42,
+        "Count": 151
+      },
+      {
+        "Country": "Country3",
+        "Age": 43,
+        "Count": 92
+      },
+      {
+        "Country": "Country3",
+        "Age": 44,
+        "Count": 114
+      },
+      {
+        "Country": "Country3",
+        "Age": 45,
+        "Count": 74
+      },
+      {
+        "Country": "Country3",
+        "Age": 46,
+        "Count": 232
+      },
+      {
+        "Country": "Country3",
+        "Age": 47,
+        "Count": 232
+      },
+      {
+        "Country": "Country3",
+        "Age": 48,
+        "Count": 211
+      },
+      {
+        "Country": "Country3",
+        "Age": 49,
+        "Count": 131
+      },
+      {
+        "Country": "Country3",
+        "Age": 50,
+        "Count": 61
+      },
+      {
+        "Country": "Country3",
+        "Age": 51,
+        "Count": 231
+      },
+      {
+        "Country": "Country3",
+        "Age": 52,
+        "Count": 246
+      },
+      {
+        "Country": "Country3",
+        "Age": 53,
+        "Count": 127
+      },
+      {
+        "Country": "Country3",
+        "Age": 54,
+        "Count": 164
+      },
+      {
+        "Country": "Country3",
+        "Age": 55,
+        "Count": 230
+      },
+      {
+        "Country": "Country3",
+        "Age": 56,
+        "Count": 249
+      },
+      {
+        "Country": "Country3",
+        "Age": 57,
+        "Count": 187
+      },
+      {
+        "Country": "Country3",
+        "Age": 58,
+        "Count": 170
+      },
+      {
+        "Country": "Country3",
+        "Age": 59,
+        "Count": 151
+      },
+      {
+        "Country": "Country3",
+        "Age": 60,
+        "Count": 51
+      },
+      {
+        "Country": "Country3",
+        "Age": 61,
+        "Count": 189
+      },
+      {
+        "Country": "Country3",
+        "Age": 62,
+        "Count": 229
+      },
+      {
+        "Country": "Country3",
+        "Age": 63,
+        "Count": 115
+      },
+      {
+        "Country": "Country3",
+        "Age": 64,
+        "Count": 61
+      },
+      {
+        "Country": "Country3",
+        "Age": 65,
+        "Count": 178
+      },
+      {
+        "Country": "Country3",
+        "Age": 66,
+        "Count": 220
+      },
+      {
+        "Country": "Country3",
+        "Age": 67,
+        "Count": 178
+      },
+      {
+        "Country": "Country3",
+        "Age": 68,
+        "Count": 153
+      },
+      {
+        "Country": "Country3",
+        "Age": 69,
+        "Count": 145
+      },
+      {
+        "Country": "Country3",
+        "Age": 70,
+        "Count": 194
+      },
+      {
+        "Country": "Country3",
+        "Age": 71,
+        "Count": 65
+      },
+      {
+        "Country": "Country3",
+        "Age": 72,
+        "Count": 221
+      },
+      {
+        "Country": "Country3",
+        "Age": 73,
+        "Count": 192
+      },
+      {
+        "Country": "Country3",
+        "Age": 74,
+        "Count": 129
+      },
+      {
+        "Country": "Country3",
+        "Age": 75,
+        "Count": 74
+      },
+      {
+        "Country": "Country3",
+        "Age": 76,
+        "Count": 68
+      },
+      {
+        "Country": "Country3",
+        "Age": 77,
+        "Count": 56
+      },
+      {
+        "Country": "Country3",
+        "Age": 78,
+        "Count": 143
+      },
+      {
+        "Country": "Country3",
+        "Age": 79,
+        "Count": 60
+      },
+      {
+        "Country": "Country3",
+        "Age": 80,
+        "Count": 154
+      },
+      {
+        "Country": "Country3",
+        "Age": 81,
+        "Count": 180
+      },
+      {
+        "Country": "Country3",
+        "Age": 82,
+        "Count": 52
+      },
+      {
+        "Country": "Country3",
+        "Age": 83,
+        "Count": 113
+      },
+      {
+        "Country": "Country3",
+        "Age": 84,
+        "Count": 155
+      },
+      {
+        "Country": "Country3",
+        "Age": 85,
+        "Count": 92
+      },
+      {
+        "Country": "Country4",
+        "Age": 15,
+        "Count": 105
+      },
+      {
+        "Country": "Country4",
+        "Age": 16,
+        "Count": 78
+      },
+      {
+        "Country": "Country4",
+        "Age": 17,
+        "Count": 196
+      },
+      {
+        "Country": "Country4",
+        "Age": 18,
+        "Count": 181
+      },
+      {
+        "Country": "Country4",
+        "Age": 19,
+        "Count": 220
+      },
+      {
+        "Country": "Country4",
+        "Age": 20,
+        "Count": 130
+      },
+      {
+        "Country": "Country4",
+        "Age": 21,
+        "Count": 71
+      },
+      {
+        "Country": "Country4",
+        "Age": 22,
+        "Count": 129
+      },
+      {
+        "Country": "Country4",
+        "Age": 23,
+        "Count": 189
+      },
+      {
+        "Country": "Country4",
+        "Age": 24,
+        "Count": 165
+      },
+      {
+        "Country": "Country4",
+        "Age": 25,
+        "Count": 179
+      },
+      {
+        "Country": "Country4",
+        "Age": 26,
+        "Count": 92
+      },
+      {
+        "Country": "Country4",
+        "Age": 27,
+        "Count": 248
+      },
+      {
+        "Country": "Country4",
+        "Age": 28,
+        "Count": 185
+      },
+      {
+        "Country": "Country4",
+        "Age": 29,
+        "Count": 152
+      },
+      {
+        "Country": "Country4",
+        "Age": 30,
+        "Count": 102
+      },
+      {
+        "Country": "Country4",
+        "Age": 31,
+        "Count": 87
+      },
+      {
+        "Country": "Country4",
+        "Age": 32,
+        "Count": 101
+      },
+      {
+        "Country": "Country4",
+        "Age": 33,
+        "Count": 176
+      },
+      {
+        "Country": "Country4",
+        "Age": 34,
+        "Count": 92
+      },
+      {
+        "Country": "Country4",
+        "Age": 35,
+        "Count": 208
+      },
+      {
+        "Country": "Country4",
+        "Age": 36,
+        "Count": 182
+      },
+      {
+        "Country": "Country4",
+        "Age": 37,
+        "Count": 130
+      },
+      {
+        "Country": "Country4",
+        "Age": 38,
+        "Count": 165
+      },
+      {
+        "Country": "Country4",
+        "Age": 39,
+        "Count": 229
+      },
+      {
+        "Country": "Country4",
+        "Age": 40,
+        "Count": 119
+      },
+      {
+        "Country": "Country4",
+        "Age": 41,
+        "Count": 221
+      },
+      {
+        "Country": "Country4",
+        "Age": 42,
+        "Count": 52
+      },
+      {
+        "Country": "Country4",
+        "Age": 43,
+        "Count": 222
+      },
+      {
+        "Country": "Country4",
+        "Age": 44,
+        "Count": 90
+      },
+      {
+        "Country": "Country4",
+        "Age": 45,
+        "Count": 159
+      },
+      {
+        "Country": "Country4",
+        "Age": 46,
+        "Count": 180
+      },
+      {
+        "Country": "Country4",
+        "Age": 47,
+        "Count": 166
+      },
+      {
+        "Country": "Country4",
+        "Age": 48,
+        "Count": 60
+      },
+      {
+        "Country": "Country4",
+        "Age": 49,
+        "Count": 242
+      },
+      {
+        "Country": "Country4",
+        "Age": 50,
+        "Count": 232
+      },
+      {
+        "Country": "Country4",
+        "Age": 51,
+        "Count": 171
+      },
+      {
+        "Country": "Country4",
+        "Age": 52,
+        "Count": 68
+      },
+      {
+        "Country": "Country4",
+        "Age": 53,
+        "Count": 230
+      },
+      {
+        "Country": "Country4",
+        "Age": 54,
+        "Count": 98
+      },
+      {
+        "Country": "Country4",
+        "Age": 55,
+        "Count": 85
+      },
+      {
+        "Country": "Country4",
+        "Age": 56,
+        "Count": 203
+      },
+      {
+        "Country": "Country4",
+        "Age": 57,
+        "Count": 64
+      },
+      {
+        "Country": "Country4",
+        "Age": 58,
+        "Count": 143
+      },
+      {
+        "Country": "Country4",
+        "Age": 59,
+        "Count": 176
+      },
+      {
+        "Country": "Country4",
+        "Age": 60,
+        "Count": 209
+      },
+      {
+        "Country": "Country4",
+        "Age": 61,
+        "Count": 233
+      },
+      {
+        "Country": "Country4",
+        "Age": 62,
+        "Count": 91
+      },
+      {
+        "Country": "Country4",
+        "Age": 63,
+        "Count": 213
+      },
+      {
+        "Country": "Country4",
+        "Age": 64,
+        "Count": 245
+      },
+      {
+        "Country": "Country4",
+        "Age": 65,
+        "Count": 67
+      },
+      {
+        "Country": "Country4",
+        "Age": 66,
+        "Count": 126
+      },
+      {
+        "Country": "Country4",
+        "Age": 67,
+        "Count": 98
+      },
+      {
+        "Country": "Country4",
+        "Age": 68,
+        "Count": 98
+      },
+      {
+        "Country": "Country4",
+        "Age": 69,
+        "Count": 175
+      },
+      {
+        "Country": "Country4",
+        "Age": 70,
+        "Count": 197
+      },
+      {
+        "Country": "Country4",
+        "Age": 71,
+        "Count": 64
+      },
+      {
+        "Country": "Country4",
+        "Age": 72,
+        "Count": 245
+      },
+      {
+        "Country": "Country4",
+        "Age": 73,
+        "Count": 164
+      },
+      {
+        "Country": "Country4",
+        "Age": 74,
+        "Count": 163
+      },
+      {
+        "Country": "Country4",
+        "Age": 75,
+        "Count": 180
+      },
+      {
+        "Country": "Country4",
+        "Age": 76,
+        "Count": 160
+      },
+      {
+        "Country": "Country4",
+        "Age": 77,
+        "Count": 59
+      },
+      {
+        "Country": "Country4",
+        "Age": 78,
+        "Count": 87
+      },
+      {
+        "Country": "Country4",
+        "Age": 79,
+        "Count": 237
+      },
+      {
+        "Country": "Country4",
+        "Age": 80,
+        "Count": 90
+      },
+      {
+        "Country": "Country4",
+        "Age": 81,
+        "Count": 192
+      },
+      {
+        "Country": "Country4",
+        "Age": 82,
+        "Count": 222
+      },
+      {
+        "Country": "Country4",
+        "Age": 83,
+        "Count": 187
+      },
+      {
+        "Country": "Country4",
+        "Age": 84,
+        "Count": 71
+      },
+      {
+        "Country": "Country4",
+        "Age": 85,
+        "Count": 124
+      },
+      {
+        "Country": "Country5",
+        "Age": 15,
+        "Count": 130
+      },
+      {
+        "Country": "Country5",
+        "Age": 16,
+        "Count": 174
+      },
+      {
+        "Country": "Country5",
+        "Age": 17,
+        "Count": 179
+      },
+      {
+        "Country": "Country5",
+        "Age": 18,
+        "Count": 95
+      },
+      {
+        "Country": "Country5",
+        "Age": 19,
+        "Count": 202
+      },
+      {
+        "Country": "Country5",
+        "Age": 20,
+        "Count": 74
+      },
+      {
+        "Country": "Country5",
+        "Age": 21,
+        "Count": 228
+      },
+      {
+        "Country": "Country5",
+        "Age": 22,
+        "Count": 59
+      },
+      {
+        "Country": "Country5",
+        "Age": 23,
+        "Count": 194
+      },
+      {
+        "Country": "Country5",
+        "Age": 24,
+        "Count": 155
+      },
+      {
+        "Country": "Country5",
+        "Age": 25,
+        "Count": 74
+      },
+      {
+        "Country": "Country5",
+        "Age": 26,
+        "Count": 158
+      },
+      {
+        "Country": "Country5",
+        "Age": 27,
+        "Count": 111
+      },
+      {
+        "Country": "Country5",
+        "Age": 28,
+        "Count": 109
+      },
+      {
+        "Country": "Country5",
+        "Age": 29,
+        "Count": 127
+      },
+      {
+        "Country": "Country5",
+        "Age": 30,
+        "Count": 99
+      },
+      {
+        "Country": "Country5",
+        "Age": 31,
+        "Count": 242
+      },
+      {
+        "Country": "Country5",
+        "Age": 32,
+        "Count": 112
+      },
+      {
+        "Country": "Country5",
+        "Age": 33,
+        "Count": 157
+      },
+      {
+        "Country": "Country5",
+        "Age": 34,
+        "Count": 225
+      },
+      {
+        "Country": "Country5",
+        "Age": 35,
+        "Count": 245
+      },
+      {
+        "Country": "Country5",
+        "Age": 36,
+        "Count": 74
+      },
+      {
+        "Country": "Country5",
+        "Age": 37,
+        "Count": 203
+      },
+      {
+        "Country": "Country5",
+        "Age": 38,
+        "Count": 94
+      },
+      {
+        "Country": "Country5",
+        "Age": 39,
+        "Count": 63
+      },
+      {
+        "Country": "Country5",
+        "Age": 40,
+        "Count": 249
+      },
+      {
+        "Country": "Country5",
+        "Age": 41,
+        "Count": 173
+      },
+      {
+        "Country": "Country5",
+        "Age": 42,
+        "Count": 217
+      },
+      {
+        "Country": "Country5",
+        "Age": 43,
+        "Count": 204
+      },
+      {
+        "Country": "Country5",
+        "Age": 44,
+        "Count": 73
+      },
+      {
+        "Country": "Country5",
+        "Age": 45,
+        "Count": 199
+      },
+      {
+        "Country": "Country5",
+        "Age": 46,
+        "Count": 201
+      },
+      {
+        "Country": "Country5",
+        "Age": 47,
+        "Count": 207
+      },
+      {
+        "Country": "Country5",
+        "Age": 48,
+        "Count": 172
+      },
+      {
+        "Country": "Country5",
+        "Age": 49,
+        "Count": 125
+      },
+      {
+        "Country": "Country5",
+        "Age": 50,
+        "Count": 194
+      },
+      {
+        "Country": "Country5",
+        "Age": 51,
+        "Count": 77
+      },
+      {
+        "Country": "Country5",
+        "Age": 52,
+        "Count": 94
+      },
+      {
+        "Country": "Country5",
+        "Age": 53,
+        "Count": 65
+      },
+      {
+        "Country": "Country5",
+        "Age": 54,
+        "Count": 137
+      },
+      {
+        "Country": "Country5",
+        "Age": 55,
+        "Count": 80
+      },
+      {
+        "Country": "Country5",
+        "Age": 56,
+        "Count": 105
+      },
+      {
+        "Country": "Country5",
+        "Age": 57,
+        "Count": 103
+      },
+      {
+        "Country": "Country5",
+        "Age": 58,
+        "Count": 234
+      },
+      {
+        "Country": "Country5",
+        "Age": 59,
+        "Count": 163
+      },
+      {
+        "Country": "Country5",
+        "Age": 60,
+        "Count": 136
+      },
+      {
+        "Country": "Country5",
+        "Age": 61,
+        "Count": 141
+      },
+      {
+        "Country": "Country5",
+        "Age": 62,
+        "Count": 57
+      },
+      {
+        "Country": "Country5",
+        "Age": 63,
+        "Count": 157
+      },
+      {
+        "Country": "Country5",
+        "Age": 64,
+        "Count": 235
+      },
+      {
+        "Country": "Country5",
+        "Age": 65,
+        "Count": 60
+      },
+      {
+        "Country": "Country5",
+        "Age": 66,
+        "Count": 225
+      },
+      {
+        "Country": "Country5",
+        "Age": 67,
+        "Count": 216
+      },
+      {
+        "Country": "Country5",
+        "Age": 68,
+        "Count": 207
+      },
+      {
+        "Country": "Country5",
+        "Age": 69,
+        "Count": 205
+      },
+      {
+        "Country": "Country5",
+        "Age": 70,
+        "Count": 72
+      },
+      {
+        "Country": "Country5",
+        "Age": 71,
+        "Count": 124
+      },
+      {
+        "Country": "Country5",
+        "Age": 72,
+        "Count": 169
+      },
+      {
+        "Country": "Country5",
+        "Age": 73,
+        "Count": 91
+      },
+      {
+        "Country": "Country5",
+        "Age": 74,
+        "Count": 243
+      },
+      {
+        "Country": "Country5",
+        "Age": 75,
+        "Count": 247
+      },
+      {
+        "Country": "Country5",
+        "Age": 76,
+        "Count": 173
+      },
+      {
+        "Country": "Country5",
+        "Age": 77,
+        "Count": 93
+      },
+      {
+        "Country": "Country5",
+        "Age": 78,
+        "Count": 151
+      },
+      {
+        "Country": "Country5",
+        "Age": 79,
+        "Count": 175
+      },
+      {
+        "Country": "Country5",
+        "Age": 80,
+        "Count": 76
+      },
+      {
+        "Country": "Country5",
+        "Age": 81,
+        "Count": 211
+      },
+      {
+        "Country": "Country5",
+        "Age": 82,
+        "Count": 105
+      },
+      {
+        "Country": "Country5",
+        "Age": 83,
+        "Count": 71
+      },
+      {
+        "Country": "Country5",
+        "Age": 84,
+        "Count": 185
+      },
+      {
+        "Country": "Country5",
+        "Age": 85,
+        "Count": 134
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

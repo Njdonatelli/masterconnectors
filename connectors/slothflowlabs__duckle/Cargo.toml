@@ -1,0 +1,124 @@
+[workspace]
+resolver = "2"
+members = [
+    "apps/desktop",
+    "crates/runtime",
+    "crates/connectors",
+    "crates/workflow-engine",
+    "crates/transform-engine",
+    "crates/stream-engine",
+    "crates/duckdb-engine",
+    "crates/duckle-runner",
+    "crates/duckle-mcp",
+    "crates/duckle-lance",
+    "crates/duckle-gpu",
+    "crates/slothdb-engine",
+    "crates/execution-core",
+    "crates/plugin-sdk",
+    "crates/metadata",
+    "crates/scheduler",
+    "crates/duckle-secrets",
+]
+
+[workspace.package]
+version = "0.0.1"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["Sourav Roy"]
+repository = "https://github.com/slothflowlabs/duckle"
+homepage = "https://github.com/slothflowlabs/duckle"
+rust-version = "1.80"
+
+[workspace.dependencies]
+# Internal crates
+duckle-runtime = { path = "crates/runtime", version = "0.0.1" }
+duckle-connectors = { path = "crates/connectors", version = "0.0.1" }
+duckle-workflow-engine = { path = "crates/workflow-engine", version = "0.0.1" }
+duckle-transform-engine = { path = "crates/transform-engine", version = "0.0.1" }
+duckle-stream-engine = { path = "crates/stream-engine", version = "0.0.1" }
+duckle-duckdb-engine = { path = "crates/duckdb-engine", version = "0.0.1" }
+duckle-slothdb-engine = { path = "crates/slothdb-engine", version = "0.0.1" }
+duckle-execution-core = { path = "crates/execution-core", version = "0.0.1" }
+duckle-plugin-sdk = { path = "crates/plugin-sdk", version = "0.0.1" }
+duckle-metadata = { path = "crates/metadata", version = "0.0.1" }
+duckle-scheduler = { path = "crates/scheduler", version = "0.0.1" }
+duckle-secrets = { path = "crates/duckle-secrets", version = "0.0.1" }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0", features = ["preserve_order"] }
+
+# Errors
+thiserror = "2.0"
+anyhow = "1.0"
+
+# Async
+tokio = { version = "1.42", features = ["rt-multi-thread", "macros", "sync", "time", "fs", "io-util"] }
+async-trait = "0.1"
+futures = "0.3"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+
+# Common
+uuid = { version = "1.11", features = ["v4", "v5", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+# Arrow / columnar
+arrow = "59"
+arrow-array = "59"
+arrow-schema = "59"
+parquet = "59"
+
+# Storage
+rusqlite = { version = "0.40", features = ["bundled"] }
+duckdb = "1.1"
+encoding_rs = "0.8"
+
+# Scheduling
+cron = "0.17"
+
+# Tauri (used by apps/desktop)
+tauri = { version = "2", features = [] }
+tauri-build = { version = "2", features = [] }
+
+[profile.release]
+codegen-units = 1
+lto = "fat"
+opt-level = 3
+strip = "symbols"
+# Unwind (not abort) so a panic in a driver (e.g. the tiberius SQL Server
+# reader hitting a column type it cannot decode) can be caught and turned
+# into a clean error instead of aborting the whole app. This also makes the
+# existing catch_unwind boundaries (autodetect probe, duckle-runner serve)
+# actually work in shipped builds (#141).
+
+# Faster release builds for dev iteration on the desktop app.
+[profile.release-fast]
+inherits = "release"
+codegen-units = 16
+lto = "thin"
+strip = "none"
+
+# Size-optimized profile for the duckle-runner stub. The runner is embedded
+# into the desktop binary via include_bytes! and copied into every built
+# artifact, so its size matters directly. Measured: opt-level "z" =
+# 16,958,976 bytes vs "s" = 19,958,784 bytes vs the default release build's
+# 27,922,944 bytes; "z" is smaller, so keep "z".
+[profile.release-runner]
+inherits = "release"
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+
+[profile.dev]
+opt-level = 0
+# Line tables rather than full DWARF. A panic still reports its file and line,
+# which is what a backtrace is read for, but the debug build stops carrying
+# every dependency's full type information: measured on this workspace,
+# target/debug goes from 57G to a fraction of that, and a full disk has broken
+# a build here more than once. Set CARGO_PROFILE_DEV_DEBUG=true for a session
+# that needs a stepping debugger.
+debug = "line-tables-only"

@@ -1,0 +1,994 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 11
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2017-12-16T18:54:54.915Z",
+          "2022-12-16T05:05:05.084Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 732,
+      "continuousHeight": 190
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 19
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "Jan 2018",
+        "Value": 221,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jan 2018",
+        "Value": 471,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jan 2018",
+        "Value": 225,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Feb 2018",
+        "Value": 323,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Feb 2018",
+        "Value": 402,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Feb 2018",
+        "Value": 67,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Mar 2018",
+        "Value": 417,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Mar 2018",
+        "Value": 404,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Mar 2018",
+        "Value": 327,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Apr 2018",
+        "Value": 387,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Apr 2018",
+        "Value": 349,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Apr 2018",
+        "Value": 171,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "May 2018",
+        "Value": 124,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "May 2018",
+        "Value": 398,
+        "Category": "Beta"
+      },
+      {
+        "Date": "May 2018",
+        "Value": 477,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jun 2018",
+        "Value": 484,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jun 2018",
+        "Value": 543,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jun 2018",
+        "Value": 507,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jul 2018",
+        "Value": 380,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jul 2018",
+        "Value": 393,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jul 2018",
+        "Value": 96,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Aug 2018",
+        "Value": 152,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Aug 2018",
+        "Value": 115,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Aug 2018",
+        "Value": 158,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Sep 2018",
+        "Value": 75,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Sep 2018",
+        "Value": 323,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Sep 2018",
+        "Value": 68,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Oct 2018",
+        "Value": 158,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Oct 2018",
+        "Value": 516,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Oct 2018",
+        "Value": 410,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Nov 2018",
+        "Value": 381,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Nov 2018",
+        "Value": 538,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Nov 2018",
+        "Value": 423,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Dec 2018",
+        "Value": 97,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Dec 2018",
+        "Value": 265,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Dec 2018",
+        "Value": 127,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jan 2019",
+        "Value": 254,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jan 2019",
+        "Value": 67,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jan 2019",
+        "Value": 399,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Feb 2019",
+        "Value": 313,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Feb 2019",
+        "Value": 212,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Feb 2019",
+        "Value": 100,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Mar 2019",
+        "Value": 344,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Mar 2019",
+        "Value": 371,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Mar 2019",
+        "Value": 541,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Apr 2019",
+        "Value": 490,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Apr 2019",
+        "Value": 131,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Apr 2019",
+        "Value": 312,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "May 2019",
+        "Value": 148,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "May 2019",
+        "Value": 386,
+        "Category": "Beta"
+      },
+      {
+        "Date": "May 2019",
+        "Value": 241,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jun 2019",
+        "Value": 412,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jun 2019",
+        "Value": 357,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jun 2019",
+        "Value": 364,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jul 2019",
+        "Value": 544,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jul 2019",
+        "Value": 305,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jul 2019",
+        "Value": 186,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Aug 2019",
+        "Value": 427,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Aug 2019",
+        "Value": 487,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Aug 2019",
+        "Value": 353,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Sep 2019",
+        "Value": 59,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Sep 2019",
+        "Value": 141,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Sep 2019",
+        "Value": 173,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Oct 2019",
+        "Value": 177,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Oct 2019",
+        "Value": 87,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Oct 2019",
+        "Value": 377,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Nov 2019",
+        "Value": 327,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Nov 2019",
+        "Value": 418,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Nov 2019",
+        "Value": 314,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Dec 2019",
+        "Value": 96,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Dec 2019",
+        "Value": 325,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Dec 2019",
+        "Value": 212,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jan 2020",
+        "Value": 326,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jan 2020",
+        "Value": 427,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jan 2020",
+        "Value": 431,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Feb 2020",
+        "Value": 500,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Feb 2020",
+        "Value": 275,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Feb 2020",
+        "Value": 175,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Mar 2020",
+        "Value": 545,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Mar 2020",
+        "Value": 342,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Mar 2020",
+        "Value": 435,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Apr 2020",
+        "Value": 541,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Apr 2020",
+        "Value": 133,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Apr 2020",
+        "Value": 462,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "May 2020",
+        "Value": 458,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "May 2020",
+        "Value": 82,
+        "Category": "Beta"
+      },
+      {
+        "Date": "May 2020",
+        "Value": 476,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jun 2020",
+        "Value": 292,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jun 2020",
+        "Value": 184,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jun 2020",
+        "Value": 191,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jul 2020",
+        "Value": 246,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jul 2020",
+        "Value": 72,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jul 2020",
+        "Value": 516,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Aug 2020",
+        "Value": 408,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Aug 2020",
+        "Value": 254,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Aug 2020",
+        "Value": 175,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Sep 2020",
+        "Value": 318,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Sep 2020",
+        "Value": 213,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Sep 2020",
+        "Value": 167,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Oct 2020",
+        "Value": 478,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Oct 2020",
+        "Value": 266,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Oct 2020",
+        "Value": 262,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Nov 2020",
+        "Value": 368,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Nov 2020",
+        "Value": 108,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Nov 2020",
+        "Value": 279,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Dec 2020",
+        "Value": 203,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Dec 2020",
+        "Value": 78,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Dec 2020",
+        "Value": 219,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jan 2021",
+        "Value": 500,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jan 2021",
+        "Value": 383,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jan 2021",
+        "Value": 301,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Feb 2021",
+        "Value": 415,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Feb 2021",
+        "Value": 537,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Feb 2021",
+        "Value": 274,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Mar 2021",
+        "Value": 410,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Mar 2021",
+        "Value": 142,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Mar 2021",
+        "Value": 129,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Apr 2021",
+        "Value": 387,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Apr 2021",
+        "Value": 138,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Apr 2021",
+        "Value": 372,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "May 2021",
+        "Value": 490,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "May 2021",
+        "Value": 440,
+        "Category": "Beta"
+      },
+      {
+        "Date": "May 2021",
+        "Value": 117,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jun 2021",
+        "Value": 480,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jun 2021",
+        "Value": 398,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jun 2021",
+        "Value": 297,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jul 2021",
+        "Value": 176,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jul 2021",
+        "Value": 374,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jul 2021",
+        "Value": 59,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Aug 2021",
+        "Value": 223,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Aug 2021",
+        "Value": 153,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Aug 2021",
+        "Value": 267,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Sep 2021",
+        "Value": 204,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Sep 2021",
+        "Value": 87,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Sep 2021",
+        "Value": 194,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Oct 2021",
+        "Value": 261,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Oct 2021",
+        "Value": 409,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Oct 2021",
+        "Value": 310,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Nov 2021",
+        "Value": 153,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Nov 2021",
+        "Value": 274,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Nov 2021",
+        "Value": 133,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Dec 2021",
+        "Value": 78,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Dec 2021",
+        "Value": 478,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Dec 2021",
+        "Value": 138,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jan 2022",
+        "Value": 128,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jan 2022",
+        "Value": 123,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jan 2022",
+        "Value": 490,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Feb 2022",
+        "Value": 108,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Feb 2022",
+        "Value": 288,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Feb 2022",
+        "Value": 394,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Mar 2022",
+        "Value": 348,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Mar 2022",
+        "Value": 315,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Mar 2022",
+        "Value": 412,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Apr 2022",
+        "Value": 321,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Apr 2022",
+        "Value": 130,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Apr 2022",
+        "Value": 348,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "May 2022",
+        "Value": 419,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "May 2022",
+        "Value": 374,
+        "Category": "Beta"
+      },
+      {
+        "Date": "May 2022",
+        "Value": 181,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jun 2022",
+        "Value": 283,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jun 2022",
+        "Value": 115,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jun 2022",
+        "Value": 232,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Jul 2022",
+        "Value": 359,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Jul 2022",
+        "Value": 538,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Jul 2022",
+        "Value": 320,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Aug 2022",
+        "Value": 79,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Aug 2022",
+        "Value": 480,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Aug 2022",
+        "Value": 211,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Sep 2022",
+        "Value": 385,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Sep 2022",
+        "Value": 176,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Sep 2022",
+        "Value": 411,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Oct 2022",
+        "Value": 388,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Oct 2022",
+        "Value": 406,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Oct 2022",
+        "Value": 100,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Nov 2022",
+        "Value": 385,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Nov 2022",
+        "Value": 251,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Nov 2022",
+        "Value": 230,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "Dec 2022",
+        "Value": 548,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "Dec 2022",
+        "Value": 150,
+        "Category": "Beta"
+      },
+      {
+        "Date": "Dec 2022",
+        "Value": 424,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 732,
+  "_height": 190,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,555 @@
+/** Public GitHub acquisition with isolated Git execution and staged publication. */
+import { spawn } from 'node:child_process';
+import { randomUUID } from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
+import { createInterface } from 'node:readline';
+import { getFolderHome, registerProjectFolderAsync } from './folder.ts';
+import { terminateExtractorTree } from './extractor-process.ts';
+import { logger } from './log.ts';
+import { validateFolderName } from '../shared/folder-name.ts';
+import {
+  parseGitHubRepositoryUrl,
+  type ParsedGitHubRepositoryUrl,
+} from '../shared/github-import.ts';
+
+const log = logger('github-import');
+const GIT_OUTPUT_LIMIT_BYTES = 64 * 1024;
+const GIT_PROBE_TIMEOUT_MS = 5000;
+
+export type GitHubImportErrorCode =
+  | 'INVALID_GITHUB_URL'
+  | 'INVALID_FOLDER_NAME'
+  | 'DESTINATION_EXISTS'
+  | 'IMPORT_INCOMPLETE'
+  | 'GIT_NOT_AVAILABLE'
+  | 'PRIVATE_OR_NOT_FOUND'
+  | 'UNSUPPORTED_LFS'
+  | 'UNSUPPORTED_SUBMODULES'
+  | 'CLONE_FAILED'
+  | 'LOCAL_IMPORT_FAILED'
+  | 'IMPORT_CANCELLED';
+
+export class GitHubImportError extends Error {
+  readonly status: number;
+  readonly code: GitHubImportErrorCode;
+  retainedPath?: string;
+
+  constructor(message: string, code: GitHubImportErrorCode, status = 400) {
+    super(message);
+    this.name = 'GitHubImportError';
+    this.code = code;
+    this.status = status;
+  }
+}
+
+export type ValidatedGitHubUrl = ParsedGitHubRepositoryUrl;
+
+export function parseAndValidateGitHubUrl(
+  rawUrl: unknown,
+): { ok: true; parsed: ValidatedGitHubUrl } | { ok: false; error: GitHubImportError } {
+  const result = parseGitHubRepositoryUrl(rawUrl);
+  return result.ok
+    ? result
+    : {
+        ok: false,
+        error: new GitHubImportError(result.message, 'INVALID_GITHUB_URL', 400),
+      };
+}
+
+export function detectGitLfs(gitattributesContent: string): boolean {
+  for (const line of gitattributesContent.split(/\r?\n/)) {
+    const clean = line.trim();
+    if (!clean || clean.startsWith('#')) continue;
+    if (
+      /\bfilter=lfs\b/i.test(clean)
+      || /\bmerge=lfs\b/i.test(clean)
+      || /\bdiff=lfs\b/i.test(clean)
+    ) {
+      return true;
+    }
+  }
+  return false;
+}
+
+interface GitRunResult {
+  exitCode: number;
+  stderr: string;
+}
+
+interface GitRunOptions {
+  env?: NodeJS.ProcessEnv;
+  signal?: AbortSignal;
+}
+
+export interface GitHubImportDeps {
+  folderHome(): string;
+  isGitAvailable(signal: AbortSignal): Promise<boolean>;
+  runGit(args: string[], options: GitRunOptions): Promise<GitRunResult>;
+  register(target: string, signal: AbortSignal): Promise<void>;
+  publish(stagedRepository: string, target: string, signal: AbortSignal, commit: () => Promise<void>): Promise<void>;
+}
+
+async function defaultIsGitAvailable(signal: AbortSignal): Promise<boolean> {
+  try {
+    const result = await defaultRunGit(['--version'], {
+      signal: AbortSignal.any([signal, AbortSignal.timeout(GIT_PROBE_TIMEOUT_MS)]),
+    });
+    return result.exitCode === 0;
+  } catch {
+    return false;
+  }
+}
+
+function appendBounded(current: string, chunk: Buffer | string): string {
+  if (Buffer.byteLength(current) >= GIT_OUTPUT_LIMIT_BYTES) return current;
+  const remaining = GIT_OUTPUT_LIMIT_BYTES - Buffer.byteLength(current);
+  return current + Buffer.from(chunk).subarray(0, remaining).toString();
+}
+
+async function defaultRunGit(args: string[], options: GitRunOptions): Promise<GitRunResult> {
+  return new Promise((resolve, reject) => {
+    if (options.signal?.aborted) {
+      reject(abortError());
+      return;
+    }
+
+    let proc: ReturnType<typeof spawn>;
+    try {
+      const env = { ...process.env };
+      for (const key of Object.keys(env)) {
+        if (key.startsWith('GIT_')) delete env[key];
+      }
+      proc = spawn('git', args, {
+        env: {
+          ...env,
+          ...options.env,
+          GIT_TERMINAL_PROMPT: '0',
+          GIT_ASKPASS: '',
+        },
+        detached: process.platform !== 'win32',
+        stdio: ['ignore', 'ignore', 'pipe'],
+        shell: false,
+        windowsHide: true,
+      });
+    } catch (err: unknown) {
+      reject(err);
+      return;
+    }
+
+    let stderr = '';
+    proc.stderr?.on('data', (chunk: Buffer | string) => {
+      stderr = appendBounded(stderr, chunk);
+    });
+
+    const onAbort = () => terminateExtractorTree(proc);
+    options.signal?.addEventListener('abort', onAbort, { once: true });
+
+    const retireAbortListener = () => {
+      options.signal?.removeEventListener('abort', onAbort);
+    };
+    proc.once('error', (err) => {
+      retireAbortListener();
+      reject(err);
+    });
+    proc.once('close', (code) => {
+      retireAbortListener();
+      if (options.signal?.aborted) reject(abortError());
+      else resolve({ exitCode: code ?? 1, stderr });
+    });
+  });
+}
+
+interface PublishedEntry {
+  path: string;
+  stat: fs.BigIntStats;
+  children: PublishedEntry[];
+}
+
+function sameIdentity(a: fs.BigIntStats, b: fs.BigIntStats): boolean {
+  return a.ino !== 0n && a.dev === b.dev && a.ino === b.ino
+    && a.birthtimeNs === b.birthtimeNs;
+}
+
+/** Publish without replacing entries, then roll back only unchanged owned items. */
+export async function publishStagedRepository(
+  stagedRepository: string,
+  target: string,
+  signal: AbortSignal,
+  commit?: () => Promise<void>,
+): Promise<void> {
+  let root: PublishedEntry | undefined;
+  const ancestors: PublishedEntry[] = [];
+
+  async function publish(source: string, destination: string, parent?: PublishedEntry): Promise<void> {
+    throwIfCancelled(signal);
+    // Never continue into a directory that was replaced while we awaited I/O.
+    for (const ancestor of ancestors) {
+      const current = await fs.promises.lstat(ancestor.path, { bigint: true });
+      if (!current.isDirectory() || !sameIdentity(ancestor.stat, current)) {
+        throw destinationExists(path.basename(target));
+      }
+    }
+    const sourceStat = await fs.promises.lstat(source, { bigint: true });
+    let publishedStat: fs.BigIntStats;
+    if (sourceStat.isDirectory()) {
+      await fs.promises.mkdir(destination);
+      publishedStat = await fs.promises.lstat(destination, { bigint: true });
+    } else if (sourceStat.isSymbolicLink()) {
+      const link = await fs.promises.readlink(source);
+      const isDirectory = await fs.promises.stat(source).then((stat) => stat.isDirectory(), () => false);
+      await fs.promises.symlink(link, destination, isDirectory ? 'dir' : 'file');
+      publishedStat = await fs.promises.lstat(destination, { bigint: true });
+    } else {
+      try {
+        // Staging and destination share a volume. A hard link atomically exposes
+        // complete bytes and fails on collision; unlinking staging keeps Git's
+        // ordinary files and executable modes intact.
+        await fs.promises.link(source, destination);
+        publishedStat = sourceStat;
+      } catch (err) {
+        const code = (err as NodeJS.ErrnoException).code;
+        if (!['EXDEV', 'EPERM', 'EACCES', 'ENOSYS', 'ENOTSUP', 'EOPNOTSUPP'].includes(code ?? '')) throw err;
+        // FAT/exFAT and some network volumes cannot hard-link. Exclusive copy
+        // retains the same no-replace contract on those filesystems.
+        await fs.promises.copyFile(source, destination, fs.constants.COPYFILE_EXCL);
+        publishedStat = await fs.promises.lstat(destination, { bigint: true });
+      }
+    }
+    const entry: PublishedEntry = { path: destination, stat: publishedStat, children: [] };
+    if (parent) parent.children.push(entry);
+    else root = entry;
+    throwIfCancelled(signal);
+    if (sourceStat.isDirectory()) {
+      ancestors.push(entry);
+      try {
+        for (const name of await fs.promises.readdir(source)) {
+          await publish(path.join(source, name), path.join(destination, name), entry);
+        }
+      } finally {
+        ancestors.pop();
+      }
+    }
+  }
+
+  try {
+    await publish(stagedRepository, target);
+    // Persist membership only after publication and cancellation checks. A
+    // failed commit still owns this ledger and can safely roll publication back.
+    throwIfCancelled(signal);
+    await commit?.();
+  } catch (err) {
+    if (root) {
+      await rollbackPublication(root);
+      if (await pathExists(target)) {
+        const retained = new GitHubImportError('Some files were retained after the import failed.', 'IMPORT_INCOMPLETE', 500);
+        retained.retainedPath = target;
+        throw retained;
+      }
+    }
+    throw err;
+  }
+}
+
+async function rollbackPublication(entry: PublishedEntry): Promise<void> {
+  try {
+    const current = await fs.promises.lstat(entry.path, { bigint: true });
+    if (!sameIdentity(entry.stat, current)) return;
+    if (entry.stat.isDirectory()) {
+      for (let i = entry.children.length - 1; i >= 0; i--) {
+        await rollbackPublication(entry.children[i]);
+      }
+      // Non-recursive removal preserves any new or modified user content.
+      await fs.promises.rmdir(entry.path);
+    } else if (current.size === entry.stat.size && current.mtimeNs === entry.stat.mtimeNs
+      && current.mode === entry.stat.mode) {
+      await fs.promises.unlink(entry.path);
+    }
+  } catch { /* Keep ambiguous or changed paths; the import failure is authoritative. */ }
+}
+
+export const productionGitHubImportDeps: GitHubImportDeps = {
+  folderHome: getFolderHome,
+  isGitAvailable: defaultIsGitAvailable,
+  runGit: defaultRunGit,
+  register: (target, signal) => registerProjectFolderAsync(target, { signal }),
+  publish: publishStagedRepository,
+};
+
+export interface ImportPublicGitHubRepositoryInput {
+  url: unknown;
+  folderName?: unknown;
+  signal?: AbortSignal;
+}
+
+export interface ImportPublicGitHubRepositoryResult {
+  path: string;
+}
+
+interface ActiveImport {
+  controller: AbortController;
+  completion: Promise<void>;
+  complete(): void;
+}
+
+const activeImports = new Set<ActiveImport>();
+
+function createActiveImport(externalSignal?: AbortSignal): {
+  active: ActiveImport;
+  removeExternalListener(): void;
+} {
+  const controller = new AbortController();
+  let complete!: () => void;
+  const completion = new Promise<void>((resolve) => { complete = resolve; });
+  const active = { controller, completion, complete };
+  const relayAbort = () => controller.abort(externalSignal?.reason ?? abortError());
+  if (externalSignal?.aborted) relayAbort();
+  else externalSignal?.addEventListener('abort', relayAbort, { once: true });
+  return {
+    active,
+    removeExternalListener: () => externalSignal?.removeEventListener('abort', relayAbort),
+  };
+}
+
+/** Abort active Git work and wait for its staging cleanup during app shutdown. */
+export async function cancelAllGitHubImports(): Promise<number> {
+  const active = [...activeImports];
+  for (const operation of active) operation.controller.abort(abortError());
+  await Promise.allSettled(active.map((operation) => operation.completion));
+  return active.length;
+}
+
+export async function importPublicGitHubRepository(
+  input: ImportPublicGitHubRepositoryInput,
+  deps: GitHubImportDeps = productionGitHubImportDeps,
+): Promise<ImportPublicGitHubRepositoryResult> {
+  const urlValidation = parseAndValidateGitHubUrl(input.url);
+  if (!urlValidation.ok) throw urlValidation.error;
+
+  const { active, removeExternalListener } = createActiveImport(input.signal);
+  activeImports.add(active);
+  try {
+    return await runImport(input, urlValidation.parsed, active.controller.signal, deps);
+  } finally {
+    removeExternalListener();
+    activeImports.delete(active);
+    active.complete();
+  }
+}
+
+async function runImport(
+  input: ImportPublicGitHubRepositoryInput,
+  validatedUrl: ValidatedGitHubUrl,
+  signal: AbortSignal,
+  deps: GitHubImportDeps,
+): Promise<ImportPublicGitHubRepositoryResult> {
+  const rawFolderName = input.folderName === undefined
+    ? validatedUrl.defaultFolderName
+    : typeof input.folderName === 'string'
+      ? input.folderName.trim()
+      : '';
+  const invalidFolderName = validateFolderName(rawFolderName);
+  if (invalidFolderName) {
+    throw new GitHubImportError(invalidFolderName, 'INVALID_FOLDER_NAME', 400);
+  }
+
+  throwIfCancelled(signal);
+  const folderHome = deps.folderHome();
+  await fs.promises.mkdir(folderHome, { recursive: true });
+  throwIfCancelled(signal);
+  const target = path.join(folderHome, rawFolderName);
+  if (await pathExists(target)) throw destinationExists(rawFolderName);
+
+  const gitAvailable = await deps.isGitAvailable(signal);
+  throwIfCancelled(signal);
+  if (!gitAvailable) {
+    throw new GitHubImportError(
+      'Git is not available. Install Git or clone externally and use Open Folder….',
+      'GIT_NOT_AVAILABLE',
+      503,
+    );
+  }
+  throwIfCancelled(signal);
+
+  const operationRoot = path.join(folderHome, `.import-staging-${randomUUID()}`);
+  const stagedRepository = path.join(operationRoot, 'repository');
+  const emptyGitConfig = path.join(operationRoot, 'gitconfig');
+  const emptyTemplate = path.join(operationRoot, 'template');
+  const emptyHooks = path.join(operationRoot, 'hooks');
+
+  try {
+    await fs.promises.mkdir(operationRoot, { recursive: false });
+    await Promise.all([
+      fs.promises.writeFile(emptyGitConfig, '', { encoding: 'utf8', flag: 'wx' }),
+      fs.promises.mkdir(emptyTemplate),
+      fs.promises.mkdir(emptyHooks),
+    ]);
+
+    let cloneResult: GitRunResult;
+    try {
+      cloneResult = await deps.runGit([
+        '-c',
+        `core.hooksPath=${emptyHooks}`,
+        'clone',
+        '--depth',
+        '1',
+        '--single-branch',
+        '--no-tags',
+        '--no-recurse-submodules',
+        `--template=${emptyTemplate}`,
+        validatedUrl.canonicalUrl,
+        stagedRepository,
+      ], {
+        signal,
+        env: {
+          GIT_CONFIG_GLOBAL: emptyGitConfig,
+          GIT_CONFIG_NOSYSTEM: '1',
+          GIT_LFS_SKIP_SMUDGE: '1',
+          GCM_INTERACTIVE: 'Never',
+        },
+      });
+    } catch (err: unknown) {
+      if (signal.aborted || isAbortError(err)) throw cancelled();
+      throw new GitHubImportError('Failed to clone repository.', 'CLONE_FAILED', 500);
+    }
+
+    if (cloneResult.exitCode !== 0) {
+      if (signal.aborted) throw cancelled();
+      if (looksPrivateOrMissing(cloneResult.stderr)) {
+        throw new GitHubImportError(
+          'Repository not found or private. Make sure the repository exists and is public.',
+          'PRIVATE_OR_NOT_FOUND',
+          404,
+        );
+      }
+      log.warn(`git clone failed with exit code ${cloneResult.exitCode}`);
+      throw new GitHubImportError('Failed to clone repository.', 'CLONE_FAILED', 500);
+    }
+
+    throwIfCancelled(signal);
+    if (await pathExists(path.join(stagedRepository, '.gitmodules'))) {
+      throw new GitHubImportError(
+        'Repositories with submodules are not supported.',
+        'UNSUPPORTED_SUBMODULES',
+        400,
+      );
+    }
+    if (await repositoryDeclaresGitLfs(stagedRepository, signal)) {
+      throw new GitHubImportError(
+        'Repositories with Git LFS are not supported.',
+        'UNSUPPORTED_LFS',
+        400,
+      );
+    }
+
+    throwIfCancelled(signal);
+    if (await pathExists(target)) throw destinationExists(rawFolderName);
+    try {
+      await deps.publish(stagedRepository, target, signal, () => deps.register(target, signal));
+    } catch (err: unknown) {
+      if (err instanceof GitHubImportError && err.retainedPath) throw err;
+      if (signal.aborted || isAbortError(err)) throw cancelled();
+      if (isDestinationCollision(err)) throw destinationExists(rawFolderName);
+      throw err;
+    }
+
+    return { path: target };
+  } catch (err: unknown) {
+    if (err instanceof GitHubImportError) throw err;
+    if (signal.aborted || isAbortError(err)) throw cancelled();
+    const code = (err as NodeJS.ErrnoException)?.code;
+    log.warn(`GitHub import failed during local staging${code ? ` (${code})` : ''}`);
+    throw new GitHubImportError('Failed to save or register the local copy.', 'LOCAL_IMPORT_FAILED', 500);
+  } finally {
+    try {
+      await fs.promises.rm(operationRoot, { recursive: true, force: true });
+    } catch {
+      log.warn('GitHub import staging cleanup failed');
+    }
+  }
+}
+
+async function repositoryDeclaresGitLfs(root: string, signal: AbortSignal): Promise<boolean> {
+  const pending = [root];
+  while (pending.length > 0) {
+    throwIfCancelled(signal);
+    const current = pending.pop()!;
+    const entries = await fs.promises.readdir(current, { withFileTypes: true });
+    for (const entry of entries) {
+      if (entry.name === '.git') continue;
+      const absolute = path.join(current, entry.name);
+      if (entry.isDirectory()) pending.push(absolute);
+      else if (entry.isFile() && entry.name === '.gitattributes') {
+        if (await fileDeclaresGitLfs(absolute, signal)) return true;
+      }
+    }
+  }
+  return false;
+}
+
+async function fileDeclaresGitLfs(file: string, signal: AbortSignal): Promise<boolean> {
+  const stream = fs.createReadStream(file, { encoding: 'utf8' });
+  const lines = createInterface({ input: stream, crlfDelay: Infinity });
+  try {
+    for await (const line of lines) {
+      throwIfCancelled(signal);
+      if (detectGitLfs(String(line))) return true;
+    }
+    return false;
+  } finally {
+    lines.close();
+    stream.destroy();
+  }
+}
+
+async function pathExists(candidate: string): Promise<boolean> {
+  try {
+    await fs.promises.lstat(candidate);
+    return true;
+  } catch (err: unknown) {
+    if ((err as NodeJS.ErrnoException)?.code === 'ENOENT') return false;
+    throw err;
+  }
+}
+
+function looksPrivateOrMissing(stderr: string): boolean {
+  const normalized = stderr.toLowerCase();
+  return normalized.includes('repository not found')
+    || normalized.includes('authentication failed')
+    || normalized.includes('could not read username')
+    || normalized.includes('terminal prompts disabled')
+    || normalized.includes('remote: repository not found')
+    || normalized.includes('404')
+    || normalized.includes('403');
+}
+
+function isDestinationCollision(err: unknown): boolean {
+  const code = (err as NodeJS.ErrnoException)?.code;
+  return code === 'EEXIST' || code === 'ENOTEMPTY';
+}
+
+function destinationExists(folderName: string): GitHubImportError {
+  return new GitHubImportError(
+    `A folder named "${folderName}" already exists in your folder home.`,
+    'DESTINATION_EXISTS',
+    409,
+  );
+}
+
+function abortError(): Error {
+  const err = new Error('GitHub import cancelled');
+  err.name = 'AbortError';
+  return err;
+}
+
+function isAbortError(err: unknown): boolean {
+  return err instanceof Error && err.name === 'AbortError';
+}
+
+function cancelled(): GitHubImportError {
+  return new GitHubImportError('Import was cancelled.', 'IMPORT_CANCELLED', 499);
+}
+
+function throwIfCancelled(signal: AbortSignal): void {
+  if (signal.aborted) throw cancelled();
+}

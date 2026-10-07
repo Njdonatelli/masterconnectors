@@ -1,0 +1,322 @@
+package app
+
+import (
+	"context"
+	"errors"
+	"fmt"
+	"os"
+	"path/filepath"
+	"sync"
+	"time"
+
+	acpruntime "github.com/uvwt/agentdock/internal/acp"
+	"github.com/uvwt/agentdock/internal/config"
+	"github.com/uvwt/agentdock/internal/envstore"
+	"github.com/uvwt/agentdock/internal/evolution"
+	mcpclient "github.com/uvwt/agentdock/internal/mcp/client"
+	"github.com/uvwt/agentdock/internal/observability"
+	pluginruntime "github.com/uvwt/agentdock/internal/plugin"
+	"github.com/uvwt/agentdock/internal/taskstate"
+	toolacp "github.com/uvwt/agentdock/internal/tool/acp"
+	toolbrowser "github.com/uvwt/agentdock/internal/tool/browser"
+	toolcommand "github.com/uvwt/agentdock/internal/tool/command"
+	toolcontract "github.com/uvwt/agentdock/internal/tool/contract"
+	toolcore "github.com/uvwt/agentdock/internal/tool/core"
+	toolfile "github.com/uvwt/agentdock/internal/tool/file"
+	toolmcp "github.com/uvwt/agentdock/internal/tool/mcp"
+	toolmedia "github.com/uvwt/agentdock/internal/tool/media"
+	toolplugin "github.com/uvwt/agentdock/internal/tool/plugin"
+	toolrecall "github.com/uvwt/agentdock/internal/tool/recall"
+	toolskill "github.com/uvwt/agentdock/internal/tool/skill"
+	tooltask "github.com/uvwt/agentdock/internal/tool/task"
+	"github.com/uvwt/agentdock/internal/workspace"
+)
+
+type Result = toolcore.Result
+
+type Runtime struct {
+	cfg            config.Config
+	toolNames      []string
+	toolValidators map[string]*toolcontract.InputValidator
+	ws             *workspace.Workspace
+	skills         *toolskill.Service
+	command        *toolcommand.Service
+	files          *toolfile.Service
+	dynamicMCP     *toolmcp.Service
+	plugins        *toolplugin.Service
+	media          *toolmedia.Service
+	browser        *toolbrowser.Service
+	recall         *toolrecall.Service
+	evolution      *evolution.Service
+	taskTools      *tooltask.Service
+	acp            *toolacp.Service
+	observer       *observability.Recorder
+	tracing        *observability.Tracing
+	lifecycleMu    sync.RWMutex
+	commandCtx     context.Context
+	commandCancel  context.CancelFunc
+	closing        bool
+	closeOnce      sync.Once
+	closeErr       error
+}
+
+func NewRuntime(cfg config.Config) (*Runtime, error) {
+	toolNames, toolValidators, err := compileAvailableToolContracts(cfg)
+	if err != nil {
+		return nil, fmt.Errorf("initialize tool contracts: %w", err)
+	}
+	ws, err := workspace.New(cfg.AgentDockDefaultDir)
+	if err != nil {
+		return nil, err
+	}
+	envs, err := envstore.New(cfg.AgentDockHome)
+	if err != nil {
+		return nil, err
+	}
+	pluginManager, err := pluginruntime.NewManager(cfg.AgentDockHome)
+	if err != nil {
+		return nil, err
+	}
+	skills, err := toolskill.New(cfg, ws, envs, pluginManager)
+	if err != nil {
+		return nil, err
+	}
+	mcpClients, err := mcpclient.NewManager(cfg.AgentDockHome, envs)
+	if err != nil {
+		return nil, err
+	}
+	tasks, err := taskstate.New(filepath.Join(cfg.AgentDockHome, "tasks"))
+	if err != nil {
+		_ = mcpClients.Close()
+		return nil, err
+	}
+	commandCtx, commandCancel := context.WithCancel(context.Background())
+	runtime := &Runtime{
+		cfg: cfg, ws: ws, skills: skills,
+		toolNames: toolNames, toolValidators: toolValidators,
+		observer:   observability.NewRecorder(observability.DefaultRecentCapacity),
+		commandCtx: commandCtx, commandCancel: commandCancel,
+	}
+	runtime.command = toolcommand.New(func() config.Config { return runtime.cfg }, ws, envs, func(ctx context.Context, skillRef string) (toolcommand.SkillLease, error) {
+		resolved, release, err := skills.Acquire(ctx, skillRef)
+		if err != nil {
+			return toolcommand.SkillLease{}, err
+		}
+		var envScope *envstore.Scope
+		skillDataDir := ""
+		runtimeEnv := map[string]string(nil)
+		switch resolved.SourceType {
+		case "managed":
+			scope := envstore.Scope{Kind: envstore.ScopeSkill, Name: resolved.Name}
+			envScope = &scope
+			skillDataDir, err = config.SkillDataDir(cfg, resolved.Name)
+			if err != nil {
+				release()
+				return toolcommand.SkillLease{}, fmt.Errorf("resolve managed Skill data directory: %w", err)
+			}
+		case "plugin":
+			scope := envstore.Scope{Kind: envstore.ScopePluginSkill, Plugin: resolved.PluginName, Name: resolved.Name}
+			envScope = &scope
+			skillDataDir, err = config.PluginSkillDataDir(cfg, resolved.PluginName, resolved.Name)
+			if err != nil {
+				release()
+				return toolcommand.SkillLease{}, fmt.Errorf("resolve Plugin Skill data directory: %w", err)
+			}
+			pluginDataDir, dataErr := pluginManager.EnsureDataDir(resolved.PluginName)
+			if dataErr != nil {
+				release()
+				return toolcommand.SkillLease{}, fmt.Errorf("prepare Plugin data directory: %w", dataErr)
+			}
+			runtimeEnv = map[string]string{config.PluginDataDirEnvKey: pluginDataDir}
+		}
+		return toolcommand.SkillLease{
+			Name: resolved.Name, Root: resolved.Root, EnvScope: envScope,
+			SkillDataDir: skillDataDir, RuntimeEnv: runtimeEnv, Release: release,
+		}, nil
+	}, runtime.commandExecutionContext)
+	runtime.files = toolfile.New(ws, skills.ResolveResource, runtime.command.CommandEnv)
+	runtime.dynamicMCP = toolmcp.New(mcpClients, envs)
+	if err := runtime.configureMCPOAuthCallbacks(); err != nil {
+		_ = runtime.dynamicMCP.Close()
+		commandCancel()
+		return nil, err
+	}
+	runtime.plugins = toolplugin.New(cfg, pluginManager, mcpClients, envs, ws)
+	if err := runtime.plugins.ReconcileMCP(); err != nil {
+		_ = runtime.dynamicMCP.Close()
+		commandCancel()
+		return nil, fmt.Errorf("initialize Plugin MCP runtime: %w", err)
+	}
+	runtime.media = toolmedia.New(cfg, ws, runtime.command.InternalCommandEnv)
+	runtime.browser = toolbrowser.New(
+		toolbrowser.Config{AgentDockHome: cfg.AgentDockHome, ExecutablePath: cfg.BrowserExecutablePath, CDPURL: cfg.BrowserCDPURL, ReuseExistingCDP: cfg.BrowserReuseExistingCDP},
+		runtime.media.PublishBrowserScreenshot,
+	)
+	runtime.recall = toolrecall.New(func() config.Config { return runtime.cfg })
+	runtime.evolution = evolution.New(func() config.Config { return runtime.cfg }, tasks)
+	runtime.taskTools = tooltask.New(func() config.Config { return runtime.cfg }, tasks, runtime.evolution)
+	runtime.tracing = observability.NewTracing(nil)
+
+	if cfg.ACPEnabled {
+		managers := make(map[string]*acpruntime.Manager)
+		for _, profile := range cfg.EffectiveACPProfiles() {
+			acpEnvironment := make(map[string]string, len(profile.EnvFromEnv))
+			for childName, hostName := range profile.EnvFromEnv {
+				value, exists := os.LookupEnv(hostName)
+				if !exists {
+					_ = toolacp.NewMulti(cfg.EffectiveACPDefaultProfile(), managers).Close()
+					_ = runtime.Close()
+					return nil, fmt.Errorf("required ACP environment variable %s for profile %s is missing", hostName, profile.ID)
+				}
+				acpEnvironment[childName] = value
+			}
+			manager, err := acpruntime.NewManager(acpruntime.Options{
+				Home:       cfg.AgentDockHome,
+				DefaultCWD: cfg.AgentDockDefaultDir,
+				Agent: acpruntime.AgentSpec{
+					Name: profile.ID, Command: profile.Command, Args: append([]string(nil), profile.Args...), Environment: acpEnvironment,
+				},
+				MaxConcurrentRuns:  cfg.ACPMaxPrompts,
+				InteractionTimeout: time.Duration(cfg.ACPInteractionMS) * time.Millisecond,
+			})
+			if err != nil {
+				_ = toolacp.NewMulti(cfg.EffectiveACPDefaultProfile(), managers).Close()
+				_ = runtime.Close()
+				return nil, fmt.Errorf("initialize ACP profile %s: %w", profile.ID, err)
+			}
+			managers[profile.ID] = manager
+		}
+		runtime.acp = toolacp.NewMulti(cfg.EffectiveACPDefaultProfile(), managers)
+	}
+	return runtime, nil
+}
+
+func (r *Runtime) Config() config.Config           { return r.cfg }
+func (r *Runtime) Workspace() *workspace.Workspace { return r.ws }
+
+func (r *Runtime) Close() error {
+	if r == nil {
+		return nil
+	}
+	r.closeOnce.Do(func() {
+		var closeErrors []error
+		r.lifecycleMu.Lock()
+		r.closing = true
+		commandCancel := r.commandCancel
+		r.lifecycleMu.Unlock()
+
+		// 先禁止新的 command reservation，并等已经拿到 reservation 的启动流程离开
+		// cmd.Start/平台进程控制器建立窗口。此处不能持有 lifecycleMu 等待，否则启动路径
+		// 一旦需要读取 Runtime 生命周期状态就会形成锁顺序死锁。
+		if r.command != nil {
+			r.command.BeginClose()
+			if err := r.command.WaitForStarts(); err != nil {
+				closeErrors = append(closeErrors, err)
+			}
+		}
+		if commandCancel != nil {
+			commandCancel()
+		}
+		if r.acp != nil {
+			if err := r.acp.Close(); err != nil {
+				closeErrors = append(closeErrors, fmt.Errorf("close ACP runtime: %w", err))
+			}
+		}
+		if r.browser != nil {
+			if err := r.browser.Close(); err != nil {
+				closeErrors = append(closeErrors, fmt.Errorf("close browser runtime: %w", err))
+			}
+		}
+		if r.command != nil {
+			if err := r.command.Close(); err != nil {
+				closeErrors = append(closeErrors, err)
+			}
+		}
+		if r.dynamicMCP != nil {
+			if err := r.dynamicMCP.Close(); err != nil {
+				closeErrors = append(closeErrors, fmt.Errorf("close dynamic MCP clients: %w", err))
+			}
+		}
+		if r.plugins != nil {
+			r.plugins.ReleaseMCPLeases()
+		}
+		r.closeErr = errors.Join(closeErrors...)
+	})
+	return r.closeErr
+}
+
+func (r *Runtime) commandExecutionContext() (context.Context, error) {
+	r.lifecycleMu.RLock()
+	defer r.lifecycleMu.RUnlock()
+	if r.closing || r.commandCtx == nil {
+		return nil, toolError("RUNTIME_CLOSING", "AgentDock runtime is shutting down", "runtime")
+	}
+	return r.commandCtx, nil
+}
+
+func (r *Runtime) ToolNames() []string {
+	return append([]string(nil), r.toolNames...)
+}
+
+func (r *Runtime) ToolDefinitions() []ToolDefinition {
+	definitions := make([]ToolDefinition, 0, len(r.toolNames))
+	for _, name := range r.toolNames {
+		definition, _ := toolDefinitionForConfig(name, r.cfg)
+		definitions = append(definitions, definition)
+	}
+	return definitions
+}
+
+func (r *Runtime) ToolDefinition(name string) (ToolDefinition, bool) {
+	if _, available := r.toolValidators[name]; !available {
+		return ToolDefinition{}, false
+	}
+	return toolDefinitionForConfig(name, r.cfg)
+}
+
+func (r *Runtime) Call(ctx context.Context, name string, args map[string]any) (result Result, err error) {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	startedAt := time.Now()
+	r.observer.BeginTool()
+	source := observability.SourceFromContext(ctx)
+	parentCtx := ctx
+	ctx, span := r.tracing.StartTool(ctx, source)
+	defer span.End()
+	ctx = observability.WithExecution(ctx, startedAt)
+	defer r.observeToolCall(parentCtx, ctx, name, startedAt, &err)
+
+	if args == nil {
+		args = map[string]any{}
+	}
+	if err = r.validateToolArguments(name, args); err != nil {
+		return nil, err
+	}
+	spec, ok := toolSpecByName(name)
+	if !ok || spec.Handler == nil {
+		err = toolErrorDetails("UNKNOWN_TOOL", "tool has no handler", "validation", map[string]any{"tool": name})
+		return nil, err
+	}
+	result, err = spec.Handler(ctx, r, args)
+	return result, err
+}
+
+func (r *Runtime) validateToolArguments(name string, args map[string]any) error {
+	validator, available := r.toolValidators[name]
+	if !available {
+		return toolErrorDetails("UNKNOWN_TOOL", "tool is not available", "validation", map[string]any{"tool": name})
+	}
+	if args == nil {
+		args = map[string]any{}
+	}
+	if err := validator.Validate(args); err != nil {
+		return toolErrorDetails(
+			"INVALID_ARGUMENT",
+			"tool arguments do not match the declared input schema",
+			"validation",
+			map[string]any{"tool": name, "reason": toolcontract.CompactValidationError(err)},
+		)
+	}
+	return nil
+}

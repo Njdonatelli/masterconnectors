@@ -1,0 +1,129 @@
+{
+  "title": "Quarter (Q# YYYY) → Line Chart",
+  "description": "Quarter strings: \"Q1 2020\", \"Q2 2020\", … (24 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Quarter": "Q1 2018",
+          "Value": 296
+        },
+        {
+          "Quarter": "Q2 2018",
+          "Value": 87
+        },
+        {
+          "Quarter": "Q3 2018",
+          "Value": 404
+        },
+        {
+          "Quarter": "Q4 2018",
+          "Value": 143
+        },
+        {
+          "Quarter": "Q1 2019",
+          "Value": 413
+        },
+        {
+          "Quarter": "Q2 2019",
+          "Value": 400
+        },
+        {
+          "Quarter": "Q3 2019",
+          "Value": 86
+        },
+        {
+          "Quarter": "Q4 2019",
+          "Value": 399
+        },
+        {
+          "Quarter": "Q1 2020",
+          "Value": 463
+        },
+        {
+          "Quarter": "Q2 2020",
+          "Value": 97
+        },
+        {
+          "Quarter": "Q3 2020",
+          "Value": 183
+        },
+        {
+          "Quarter": "Q4 2020",
+          "Value": 402
+        },
+        {
+          "Quarter": "Q1 2021",
+          "Value": 390
+        },
+        {
+          "Quarter": "Q2 2021",
+          "Value": 397
+        },
+        {
+          "Quarter": "Q3 2021",
+          "Value": 359
+        },
+        {
+          "Quarter": "Q4 2021",
+          "Value": 194
+        },
+        {
+          "Quarter": "Q1 2022",
+          "Value": 318
+        },
+        {
+          "Quarter": "Q2 2022",
+          "Value": 534
+        },
+        {
+          "Quarter": "Q3 2022",
+          "Value": 374
+        },
+        {
+          "Quarter": "Q4 2022",
+          "Value": 438
+        },
+        {
+          "Quarter": "Q1 2023",
+          "Value": 421
+        },
+        {
+          "Quarter": "Q2 2023",
+          "Value": 306
+        },
+        {
+          "Quarter": "Q3 2023",
+          "Value": 89
+        },
+        {
+          "Quarter": "Q4 2023",
+          "Value": 210
+        }
+      ]
+    },
+    "semantic_types": {
+      "Quarter": "Quarter",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Quarter"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

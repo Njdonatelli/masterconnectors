@@ -1,0 +1,235 @@
+{
+  "facet": {
+    "field": "Region",
+    "type": "nominal",
+    "sort": [
+      "North",
+      "South"
+    ]
+  },
+  "columns": 2,
+  "spec": {
+    "layer": [
+      {
+        "mark": {
+          "type": "rule",
+          "strokeWidth": 0.75
+        },
+        "encoding": {
+          "x": {
+            "field": "Item",
+            "type": "nominal",
+            "sort": null
+          },
+          "y": {
+            "field": "Revenue",
+            "type": "quantitative",
+            "scale": {
+              "zero": false
+            },
+            "axis": {
+              "format": ",.12~g"
+            }
+          },
+          "y2": {
+            "datum": 0
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "circle",
+          "size": 80
+        },
+        "encoding": {
+          "x": {
+            "field": "Item",
+            "type": "nominal",
+            "sort": null
+          },
+          "y": {
+            "field": "Revenue",
+            "type": "quantitative",
+            "scale": {
+              "zero": false
+            },
+            "axis": {
+              "format": ",.12~g"
+            }
+          },
+          "color": {
+            "field": "Tier",
+            "type": "nominal",
+            "sort": null,
+            "scale": {
+              "scheme": "tableau10"
+            }
+          }
+        }
+      }
+    ],
+    "encoding": {}
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 211,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 231
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Item": "Electronics",
+        "Revenue": 645,
+        "Region": "North",
+        "Tier": "Standard"
+      },
+      {
+        "Item": "Clothing",
+        "Revenue": 483,
+        "Region": "North",
+        "Tier": "Standard"
+      },
+      {
+        "Item": "Food",
+        "Revenue": 732,
+        "Region": "North",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Books",
+        "Revenue": 797,
+        "Region": "North",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Sports",
+        "Revenue": 259,
+        "Region": "North",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Home",
+        "Revenue": 930,
+        "Region": "North",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Electronics",
+        "Revenue": 536,
+        "Region": "South",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Clothing",
+        "Revenue": 696,
+        "Region": "South",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Food",
+        "Revenue": 872,
+        "Region": "South",
+        "Tier": "Standard"
+      },
+      {
+        "Item": "Books",
+        "Revenue": 304,
+        "Region": "South",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Sports",
+        "Revenue": 293,
+        "Region": "South",
+        "Tier": "Premium"
+      },
+      {
+        "Item": "Home",
+        "Revenue": 569,
+        "Region": "South",
+        "Tier": "Premium"
+      }
+    ]
+  },
+  "_width": 211,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "dotSize",
+      "label": "Dot Size",
+      "type": "continuous",
+      "min": 20,
+      "max": 300,
+      "step": 10,
+      "defaultValue": 80,
+      "applicable": true,
+      "value": 80
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

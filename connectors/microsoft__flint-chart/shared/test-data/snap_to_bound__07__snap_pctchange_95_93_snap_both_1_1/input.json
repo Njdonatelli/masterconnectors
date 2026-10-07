@@ -1,0 +1,63 @@
+{
+  "title": "Snap: PctChange ±95–93% → snap both [-1,1]",
+  "description": "Strategy performance ranges -95% to +93%. Both -0.95 (within 0.25 of -1) and +0.93 (within 0.25 of +1) trigger snap (threshold = 25% of each side's distance from zero = 0.25), producing the full [-1, 1] domain.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "strategy": "Strategy A",
+          "performance": -0.95
+        },
+        {
+          "strategy": "Strategy B",
+          "performance": -0.3
+        },
+        {
+          "strategy": "Strategy C",
+          "performance": 0.15
+        },
+        {
+          "strategy": "Strategy D",
+          "performance": -0.6
+        },
+        {
+          "strategy": "Strategy E",
+          "performance": 0.48
+        },
+        {
+          "strategy": "Strategy F",
+          "performance": 0.93
+        }
+      ]
+    },
+    "semantic_types": {
+      "strategy": "Category",
+      "performance": {
+        "semanticType": "PercentageChange",
+        "intrinsicDomain": [
+          -1,
+          1
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "strategy"
+        },
+        "y": {
+          "field": "performance"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

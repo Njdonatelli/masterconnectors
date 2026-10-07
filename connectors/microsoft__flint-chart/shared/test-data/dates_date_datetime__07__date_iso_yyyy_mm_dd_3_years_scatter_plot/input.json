@@ -1,0 +1,177 @@
+{
+  "title": "Date (ISO YYYY-MM-DD, 3 years) → Scatter Plot",
+  "description": "ISO date strings spanning 3 years: \"2020-01-15\", …, \"2022-12-15\" (36 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2020-01-15",
+          "Value": 400
+        },
+        {
+          "Date": "2020-02-15",
+          "Value": 195
+        },
+        {
+          "Date": "2020-03-15",
+          "Value": 294
+        },
+        {
+          "Date": "2020-04-15",
+          "Value": 79
+        },
+        {
+          "Date": "2020-05-15",
+          "Value": 173
+        },
+        {
+          "Date": "2020-06-15",
+          "Value": 541
+        },
+        {
+          "Date": "2020-07-15",
+          "Value": 506
+        },
+        {
+          "Date": "2020-08-15",
+          "Value": 360
+        },
+        {
+          "Date": "2020-09-15",
+          "Value": 472
+        },
+        {
+          "Date": "2020-10-15",
+          "Value": 168
+        },
+        {
+          "Date": "2020-11-15",
+          "Value": 205
+        },
+        {
+          "Date": "2020-12-15",
+          "Value": 298
+        },
+        {
+          "Date": "2021-01-15",
+          "Value": 361
+        },
+        {
+          "Date": "2021-02-15",
+          "Value": 453
+        },
+        {
+          "Date": "2021-03-15",
+          "Value": 108
+        },
+        {
+          "Date": "2021-04-15",
+          "Value": 117
+        },
+        {
+          "Date": "2021-05-15",
+          "Value": 344
+        },
+        {
+          "Date": "2021-06-15",
+          "Value": 129
+        },
+        {
+          "Date": "2021-07-15",
+          "Value": 407
+        },
+        {
+          "Date": "2021-08-15",
+          "Value": 455
+        },
+        {
+          "Date": "2021-09-15",
+          "Value": 135
+        },
+        {
+          "Date": "2021-10-15",
+          "Value": 369
+        },
+        {
+          "Date": "2021-11-15",
+          "Value": 382
+        },
+        {
+          "Date": "2021-12-15",
+          "Value": 540
+        },
+        {
+          "Date": "2022-01-15",
+          "Value": 330
+        },
+        {
+          "Date": "2022-02-15",
+          "Value": 301
+        },
+        {
+          "Date": "2022-03-15",
+          "Value": 429
+        },
+        {
+          "Date": "2022-04-15",
+          "Value": 247
+        },
+        {
+          "Date": "2022-05-15",
+          "Value": 422
+        },
+        {
+          "Date": "2022-06-15",
+          "Value": 181
+        },
+        {
+          "Date": "2022-07-15",
+          "Value": 455
+        },
+        {
+          "Date": "2022-08-15",
+          "Value": 79
+        },
+        {
+          "Date": "2022-09-15",
+          "Value": 228
+        },
+        {
+          "Date": "2022-10-15",
+          "Value": 485
+        },
+        {
+          "Date": "2022-11-15",
+          "Value": 282
+        },
+        {
+          "Date": "2022-12-15",
+          "Value": 521
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "title": "Sales vs quota",
+  "description": "One row per sales rep: a value bar for quarterly sales ($K) with a tick marking the rep’s quota. The value bar reads as length from zero, and the target tick sits a little taller so it stands out as a reference marker.",
+  "chartType": "Bullet Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "rep": "Anna",
+          "sales": 284,
+          "quota": 300
+        },
+        {
+          "rep": "Ben",
+          "sales": 172,
+          "quota": 150
+        },
+        {
+          "rep": "Carla",
+          "sales": 248,
+          "quota": 220
+        },
+        {
+          "rep": "Diego",
+          "sales": 305,
+          "quota": 280
+        },
+        {
+          "rep": "Eve",
+          "sales": 198,
+          "quota": 250
+        },
+        {
+          "rep": "Frank",
+          "sales": 226,
+          "quota": 210
+        }
+      ]
+    },
+    "semantic_types": {
+      "rep": "Category",
+      "sales": "Quantity",
+      "quota": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bullet Chart",
+      "encodings": {
+        "y": {
+          "field": "rep"
+        },
+        "x": {
+          "field": "sales"
+        },
+        "goal": {
+          "field": "quota"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

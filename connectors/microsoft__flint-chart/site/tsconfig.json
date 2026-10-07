@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "paths": {
+      "flint-chart": ["../packages/flint-js/src/index.ts"],
+      "flint-chart/test-data": ["../packages/flint-js/src/test-data/index.ts"],
+      "flint-chart/*": ["../packages/flint-js/src/*"]
+    }
+  },
+  "include": ["src"]
+}

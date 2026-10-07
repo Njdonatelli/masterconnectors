@@ -1,0 +1,137 @@
+{
+  "title": "Cont × Disc-S — facet M (2 cols × 2 rows)",
+  "description": "Bar chart: 4 categories × 2 cols × 2 rows",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Electronics",
+          "Value": 125,
+          "Col": "Electronics",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 196,
+          "Col": "Electronics",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Food",
+          "Value": 419,
+          "Col": "Electronics",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Books",
+          "Value": 533,
+          "Col": "Electronics",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 432,
+          "Col": "Electronics",
+          "Row": "Clothing"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 454,
+          "Col": "Electronics",
+          "Row": "Clothing"
+        },
+        {
+          "Category": "Food",
+          "Value": 248,
+          "Col": "Electronics",
+          "Row": "Clothing"
+        },
+        {
+          "Category": "Books",
+          "Value": 285,
+          "Col": "Electronics",
+          "Row": "Clothing"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 167,
+          "Col": "Clothing",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 397,
+          "Col": "Clothing",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Food",
+          "Value": 268,
+          "Col": "Clothing",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Books",
+          "Value": 79,
+          "Col": "Clothing",
+          "Row": "Electronics"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 248,
+          "Col": "Clothing",
+          "Row": "Clothing"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 365,
+          "Col": "Clothing",
+          "Row": "Clothing"
+        },
+        {
+          "Category": "Food",
+          "Value": 102,
+          "Col": "Clothing",
+          "Row": "Clothing"
+        },
+        {
+          "Category": "Books",
+          "Value": 547,
+          "Col": "Clothing",
+          "Row": "Clothing"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Amount",
+      "Col": "Category",
+      "Row": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "column": {
+          "field": "Col"
+        },
+        "row": {
+          "field": "Row"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

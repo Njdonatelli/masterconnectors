@@ -1,0 +1,174 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Quarter",
+      "type": "nominal",
+      "sort": [
+        "Q1",
+        "Q4"
+      ],
+      "scale": {
+        "padding": 0.4
+      }
+    },
+    "y": {
+      "field": "Net Profit",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true,
+        "padding": 12
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": [
+        "North",
+        "East",
+        "South",
+        "West",
+        "Central",
+        "Coast"
+      ],
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "width": {
+    "step": 224
+  },
+  "data": {
+    "values": [
+      {
+        "Quarter": "Q1",
+        "Region": "North",
+        "Net Profit": 40
+      },
+      {
+        "Quarter": "Q4",
+        "Region": "North",
+        "Net Profit": 15
+      },
+      {
+        "Quarter": "Q1",
+        "Region": "South",
+        "Net Profit": 10
+      },
+      {
+        "Quarter": "Q4",
+        "Region": "South",
+        "Net Profit": -20
+      },
+      {
+        "Quarter": "Q1",
+        "Region": "East",
+        "Net Profit": -15
+      },
+      {
+        "Quarter": "Q4",
+        "Region": "East",
+        "Net Profit": 35
+      },
+      {
+        "Quarter": "Q1",
+        "Region": "West",
+        "Net Profit": 25
+      },
+      {
+        "Quarter": "Q4",
+        "Region": "West",
+        "Net Profit": -10
+      },
+      {
+        "Quarter": "Q1",
+        "Region": "Central",
+        "Net Profit": -5
+      },
+      {
+        "Quarter": "Q4",
+        "Region": "Central",
+        "Net Profit": 28
+      },
+      {
+        "Quarter": "Q1",
+        "Region": "Coast",
+        "Net Profit": 30
+      },
+      {
+        "Quarter": "Q4",
+        "Region": "Coast",
+        "Net Profit": 22
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

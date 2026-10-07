@@ -1,0 +1,138 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "quarter",
+      "type": "nominal",
+      "sort": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4"
+      ]
+    },
+    "y": {
+      "field": "coverage",
+      "type": "quantitative",
+      "scale": {
+        "zero": true,
+        "domainMin": 0,
+        "nice": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "channel",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "quarter": "Q1",
+        "channel": "Channel A",
+        "coverage": 30
+      },
+      {
+        "quarter": "Q1",
+        "channel": "Channel B",
+        "coverage": 28
+      },
+      {
+        "quarter": "Q2",
+        "channel": "Channel A",
+        "coverage": 35
+      },
+      {
+        "quarter": "Q2",
+        "channel": "Channel B",
+        "coverage": 30
+      },
+      {
+        "quarter": "Q3",
+        "channel": "Channel A",
+        "coverage": 28
+      },
+      {
+        "quarter": "Q3",
+        "channel": "Channel B",
+        "coverage": 32
+      },
+      {
+        "quarter": "Q4",
+        "channel": "Channel A",
+        "coverage": 38
+      },
+      {
+        "quarter": "Q4",
+        "channel": "Channel B",
+        "coverage": 32
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

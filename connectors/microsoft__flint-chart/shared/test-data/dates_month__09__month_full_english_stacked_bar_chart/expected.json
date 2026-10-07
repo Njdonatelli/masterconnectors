@@ -1,0 +1,281 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Month": "January",
+        "Value": 175,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "January",
+        "Value": 155,
+        "Category": "Beta"
+      },
+      {
+        "Month": "January",
+        "Value": 521,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "February",
+        "Value": 429,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "February",
+        "Value": 410,
+        "Category": "Beta"
+      },
+      {
+        "Month": "February",
+        "Value": 343,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "March",
+        "Value": 258,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "March",
+        "Value": 428,
+        "Category": "Beta"
+      },
+      {
+        "Month": "March",
+        "Value": 118,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "April",
+        "Value": 304,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "April",
+        "Value": 149,
+        "Category": "Beta"
+      },
+      {
+        "Month": "April",
+        "Value": 65,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "May",
+        "Value": 76,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "May",
+        "Value": 532,
+        "Category": "Beta"
+      },
+      {
+        "Month": "May",
+        "Value": 199,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "June",
+        "Value": 169,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "June",
+        "Value": 158,
+        "Category": "Beta"
+      },
+      {
+        "Month": "June",
+        "Value": 503,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "July",
+        "Value": 248,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "July",
+        "Value": 330,
+        "Category": "Beta"
+      },
+      {
+        "Month": "July",
+        "Value": 212,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "August",
+        "Value": 181,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "August",
+        "Value": 68,
+        "Category": "Beta"
+      },
+      {
+        "Month": "August",
+        "Value": 464,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "September",
+        "Value": 210,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "September",
+        "Value": 218,
+        "Category": "Beta"
+      },
+      {
+        "Month": "September",
+        "Value": 361,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "October",
+        "Value": 374,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "October",
+        "Value": 302,
+        "Category": "Beta"
+      },
+      {
+        "Month": "October",
+        "Value": 326,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "November",
+        "Value": 422,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "November",
+        "Value": 55,
+        "Category": "Beta"
+      },
+      {
+        "Month": "November",
+        "Value": 429,
+        "Category": "Gamma"
+      },
+      {
+        "Month": "December",
+        "Value": 315,
+        "Category": "Alpha"
+      },
+      {
+        "Month": "December",
+        "Value": 65,
+        "Category": "Beta"
+      },
+      {
+        "Month": "December",
+        "Value": 85,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

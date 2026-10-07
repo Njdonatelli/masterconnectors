@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scheduling, MCP and deployment - Duckle</title>
+<link rel="icon" href="../assets/img/duckle-mark.v4.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../assets/css/site.v16.css" />
+<script>(function(){try{var t=localStorage.getItem("duckle-theme")||"dark";document.documentElement.setAttribute("data-theme",t);}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();</script>
+<link rel="canonical" href="https://duckle.org/docs/automation.html" />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Duckle" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Duckle" />
+<meta property="og:url" content="https://duckle.org/docs/automation.html" />
+<meta property="og:title" content="Scheduling, MCP and deployment - Duckle" />
+<meta property="og:description" content="Schedule Duckle pipelines on cron or interval, run them headless with duckle-runner, and drive them from any LLM over the MCP server." />
+<meta property="og:image" content="https://duckle.org/assets/img/og-card.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="https://duckle.org/docs/automation.html" />
+<meta name="twitter:title" content="Scheduling, MCP and deployment - Duckle" />
+<meta name="twitter:description" content="Schedule Duckle pipelines on cron or interval, run them headless with duckle-runner, and drive them from any LLM over the MCP server." />
+<meta name="twitter:image" content="https://duckle.org/assets/img/og-card.png" />
+<meta name="description" content="Schedule Duckle pipelines on cron or interval, run them headless with duckle-runner, and drive them from any LLM over the MCP server." />
+<meta name="keywords" content="visual ETL tool, DuckDB ETL, open source ETL, ELT tool, code-first ETL, Python ETL, ETL for AI agents, MCP ETL, data pipeline builder, dbt GUI, dbt on DuckDB, DuckLake, Quack DuckDB, no-code data pipeline, Fivetran alternative, Airbyte alternative, Talend alternative, dlt alternative, self-hosted ETL, local-first ETL" />
+<meta name="theme-color" content="#07090f" />
+<link rel="apple-touch-icon" href="../assets/img/duckle-mark.v4.svg" />
+<link rel="manifest" href="../site.webmanifest" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://duckle.org/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Docs",
+      "item": "https://duckle.org/docs/index.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Automation",
+      "item": "https://duckle.org/docs/automation.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Automate Duckle: schedules, headless runner, and MCP",
+  "description": "Schedule Duckle pipelines on cron or interval, run them headless with duckle-runner, and drive them from any LLM over the MCP server.",
+  "author": {
+    "@type": "Organization",
+    "name": "SlothFlow Labs"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "SlothFlow Labs",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://duckle.org/assets/img/duckle-mark.v4.svg"
+    }
+  },
+  "datePublished": "2026-06-15",
+  "dateModified": "2026-07-13",
+  "mainEntityOfPage": "https://duckle.org/docs/automation.html",
+  "image": "https://duckle.org/assets/img/og-card.png"
+}
+</script>
+</head>
+<body>
+
+<div class="announce" id="announce" data-v="v0.7.0">
+  Duckle v0.7.0 is out - set a server up in a browser, run an ordered plan of pipelines, and read a catalog of the whole workspace.
+  <a href="https://github.com/slothflowlabs/duckle/releases/latest" target="_blank" rel="noopener">Read the release notes <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <button class="announce-x" id="announceX" type="button" aria-label="Dismiss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="../index.html"><img class="logo-dark" src="../assets/img/duckle-mark.v4.svg" alt="" /><img class="logo-light" src="../assets/img/duckle-mark.v4.svg" alt="" /><span class="bw"><span class="bn">Duckle</span><span class="by">by SlothFlowLabs</span></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="../index.html#product">Product</a>
+      <a href="../use-cases.html">Use cases</a>
+      <a href="../index.html#integrations">Integrations</a>
+      <a href="../deploy.html">Deploy</a>
+      <a href="index.html">Docs</a>
+      <a href="../learn.html">Learn</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg class="moon" width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a class="btn btn-outline hide-sm" href="../index.html#download">Download</a>
+      <a class="btn btn-primary btn-pill hide-sm js-contact" href="#contact">Contact Us</a>
+      <button class="icon-btn nav-toggle" id="navToggle" aria-label="Open menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="wrap section">
+  <div class="docs-shell">
+    <aside class="docs-side">
+      <h4>Getting started</h4>
+      <a href="index.html">Overview</a>
+      <a href="getting-started.html">Install &amp; quickstart</a>
+      <h4>Reference</h4>
+      <a href="components.html">Component reference</a>
+      <a href="integrations.html">Integrations directory</a>
+      <h4>Guides</h4>
+      <a href="ai-duckie.html">Duckie AI &amp; AI transforms</a>
+      <a href="automation.html">Scheduling, MCP &amp; deploy</a>
+      <a href="learn.html">Learn hub</a>
+      <a href="../use-cases.html">Use cases</a>
+      <h4>Project</h4>
+      <a href="https://github.com/slothflowlabs/duckle" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/slothflowlabs/duckle/releases" target="_blank" rel="noopener">Releases</a>
+    </aside>
+    <main class="docs-main">
+<span class="eyebrow">Guides</span>
+<h1>Scheduling, MCP and deployment</h1>
+<p class="lead">Run pipelines unattended, connect any LLM over MCP, and ship a self-contained server bundle.</p>
+
+<h2>Schedules and triggers</h2>
+<p>Pipelines can run on a cron expression, a fixed interval, or a file-change watch. Schedules live on the pipeline right-click menu and in the Runs/History tab, so you can review past runs and set up future ones from the same place.</p>
+<p>Watermark incremental loads (<code>xf.incremental</code>) and DuckLake CDC persist state to the workspace and advance only on a fully successful run. A partial "Run from here" never advances the watermark, so you can safely re-run a slice of a pipeline without skipping data on the next scheduled load.</p>
+<div class="grid cols-3">
+  <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><h3>Cron</h3><p>Schedule with a standard cron expression for precise recurring runs.</p></div>
+  <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 1.5"/><path d="M9 2h6"/></svg></span><h3>Interval</h3><p>Run on a fixed interval for simple, regular polling.</p></div>
+  <div class="card"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><h3>File watch</h3><p>Trigger a run when a watched file changes.</p></div>
+</div>
+
+<h2>Connections and contexts</h2>
+<p>Connections are reusable, type-filtered credential sets stored under <code>connections/</code> and AES-256-GCM encrypted at rest with a per-workspace key. Each database, warehouse, or storage node has a "Saved connection" picker that auto-fills host, port, database, and credentials, so the same credentials are shared across every node that needs them.</p>
+<p>Context variables let you parameterize any field with <code>${VAR}</code> or <code>${ContextName.VAR}</code> (for example, a database password), resolved at run time on the canvas and on scheduled runs alike. Never hardcode secrets; use <code>${ENV:KEY}</code> placeholders for env-supplied values.</p>
+<p>Built-in placeholders need no context: <code>${workspace}</code> (alias <code>${projectroot}</code>) resolves to the project root, and <code>${date}</code>, <code>${time}</code>, <code>${datetime}</code>, <code>${timestamp}</code>, and <code>${now}</code> stamp the run time (UTC) into a path. They resolve fresh on every run, and a sink's parent folder is created automatically, so <code>${workspace}/exports/${date}/orders.parquet</code> lands in a new dated folder each day.</p>
+<div class="note"><b>Tip</b> Use a context per environment (dev, staging, prod) and select it at run time so one pipeline targets different systems without edits.</div>
+
+<h2>MCP server (connect Claude or any LLM)</h2>
+<p>Duckle embeds an MCP (Model Context Protocol) stdio server. Connect it in one click from the in-app MCP popup, or run it headless. Over MCP an LLM can drive the studio end to end:</p>
+<table>
+<thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td>List components</td><td>Enumerate the available sources, transforms, sinks, quality, control, and code nodes.</td></tr>
+<tr><td>Get a component schema</td><td>Fetch the option schema for a single component.</td></tr>
+<tr><td>Create a pipeline</td><td>Generate a pipeline, validated before writing.</td></tr>
+<tr><td>Validate a pipeline</td><td>Check a pipeline for errors without running it.</td></tr>
+<tr><td>Run a pipeline</td><td>Execute a pipeline headlessly.</td></tr>
+<tr><td>Read run logs</td><td>Read the logs from a run.</td></tr>
+<tr><td>Build a standalone executable</td><td>Export the pipeline as a self-contained binary.</td></tr>
+<tr><td>Manage connections</td><td>List and create reusable connections.</td></tr>
+</tbody>
+</table>
+<div class="note"><b>Note</b> Never hardcode secrets - use <code>${ENV:KEY}</code> placeholders. The run pipeline and build pipeline tools need a DuckDB binary (<code>DUCKLE_DUCKDB_BIN</code>); build pipeline also needs the <code>duckle-runner</code> binary.</div>
+
+<h2>Headless runner and server deployment (Build Pipeline)</h2>
+<p>The <code>duckle-runner</code> CLI executes a pipeline file headlessly. "Build Pipeline" exports a self-contained server bundle (engine plus runner) with env/passphrase secret handling, so a pipeline can run on a server or in CI without the desktop app.</p>
+<p><b>Target OS.</b> The Build dialog has a Target OS selector: build natively for <b>Windows</b>, cross-build a <b>Linux</b> server file from any host (the Linux engine and DuckDB are bundled into the file for you), or build for <b>macOS</b> on a Mac. The output stays one self-contained file per target.</p>
+<p>There is also a File Transfer sink (<code>snk.ftp</code>, FTP/FTPS/SFTP) for delivering outputs to a remote host as part of the run.</p>
+
+<h2>Engines</h2>
+<p>Duckle runs each pipeline on a selectable engine. DuckDB is the default; the others are opt-in or planned.</p>
+<table>
+<thead><tr><th>Engine</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td>DuckDB</td><td>Default execution engine, tracking v1.5.5.</td></tr>
+<tr><td>Duckie AI</td><td>Local llama.cpp plus Qwen, opt-in.</td></tr>
+<tr><td>SlothDB</td><td>Alternate embedded analytical engine, selectable per pipeline.</td></tr>
+<tr><td>Native</td><td>In-process Rust streaming engine, planned.</td></tr>
+</tbody>
+</table>
+
+<div class="note"><b>Git-friendly by design</b> Workspaces are plain files, so schedules, connections (encrypted) and pipelines are all git-friendly. See <a href="getting-started.html">Install &amp; quickstart</a> to set up a workspace, and the <a href="components.html">component reference</a> for the nodes you can schedule.</div>
+    </main>
+  </div>
+</div>
+<footer class="footer">
+  <div class="wrap">
+    <div class="legal">
+      <span>&copy; 2026 Duckle by SlothFlowLabs. MIT OR Apache-2.0.</span>
+      <span><a href="../index.html">Home</a> &middot; <a href="https://github.com/slothflowlabs/duckle" target="_blank" rel="noopener">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

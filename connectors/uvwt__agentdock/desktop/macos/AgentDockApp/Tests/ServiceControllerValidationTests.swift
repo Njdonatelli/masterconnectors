@@ -1,0 +1,370 @@
+import Foundation
+import ServiceManagement
+
+private actor LifecycleConcurrencyProbe {
+    private var active = 0
+    private var maximum = 0
+
+    func enter() {
+        active += 1
+        maximum = max(maximum, active)
+    }
+
+    func leave() {
+        active -= 1
+    }
+
+    func maximumConcurrentOperations() -> Int {
+        maximum
+    }
+}
+
+@main
+struct ServiceControllerValidationTests {
+    static func main() async throws {
+        let root = FileManager.default.temporaryDirectory
+            .appendingPathComponent("AgentDockServiceValidationTests-\(UUID().uuidString)", isDirectory: true)
+        defer { try? FileManager.default.removeItem(at: root) }
+
+        let launchAgents = root.appendingPathComponent("Library/LaunchAgents", isDirectory: true)
+        try FileManager.default.createDirectory(at: launchAgents, withIntermediateDirectories: true)
+        try Data("legacy".utf8).write(
+            to: launchAgents.appendingPathComponent("com.uvwt.agentdock.plist")
+        )
+
+        let appBundle = root.appendingPathComponent("Applications/AgentDock.app", isDirectory: true)
+        let launchAgentBundle = appBundle
+            .appendingPathComponent("Contents/Library/LaunchAgents", isDirectory: true)
+        try FileManager.default.createDirectory(at: launchAgentBundle, withIntermediateDirectories: true)
+        let corePlist = launchAgentBundle.appendingPathComponent(ServiceController.corePlistName)
+        try Data("plist".utf8).write(to: corePlist)
+
+        let persistentPaths = AppPaths(
+            home: root,
+            appBundle: appBundle
+        )
+        let service = ServiceController(paths: persistentPaths)
+
+        // 迁移入口必须允许旧结构存在，否则在 begin() 之前就会被自己拦住。
+        try service.validatePersistentAppLocation()
+        expectFailure(L10n.text(
+            "A legacy AgentDock background layout was detected. Apply the current settings in the main panel to complete migration first."
+        )) {
+            try service.validateServiceManagementReadiness()
+        }
+        try service.validateBundledServiceDefinition(
+            plistName: ServiceController.corePlistName,
+            displayName: "AgentDock Core"
+        )
+        try FileManager.default.removeItem(at: corePlist)
+        expectFailure(L10n.format(
+            "AgentDock.app is missing the background service definition for %@. Reinstall the application.",
+            "AgentDock Core"
+        )) {
+            try service.validateBundledServiceDefinition(
+                plistName: ServiceController.corePlistName,
+                displayName: "AgentDock Core"
+            )
+        }
+
+        let mountedPaths = AppPaths(
+            home: root,
+            appBundle: URL(fileURLWithPath: "/Volumes/AgentDock/AgentDock.app", isDirectory: true)
+        )
+        expectFailure(L10n.text("Move AgentDock to the Applications folder before enabling the background service.")) {
+            try ServiceController(paths: mountedPaths).validatePersistentAppLocation()
+        }
+
+        try testConfiguredTunnelMode(root: root, appBundle: appBundle)
+        try testLegacyRuntimeMigrationTransactions(root: root, appBundle: appBundle)
+        testQuickTunnelBootstrap()
+        testServiceRegistrationStatusClassification()
+        testBackgroundServiceLifecyclePolicy()
+        try await testBackgroundServiceLifecycleCoordinatorSerializesMutations()
+        try testNexusConnectionStateResolution(root: root)
+        try testDesktopUpdateCheckDecoding()
+        testUpdateActivityPolicy()
+        try testUpdateProgressEventDecoding()
+        try testStreamingUpdateProcess(root: root)
+
+        print("service controller validation tests passed")
+    }
+
+    private static func testConfiguredTunnelMode(root: URL, appBundle: URL) throws {
+        let home = root.appendingPathComponent("tunnel-mode-home", isDirectory: true)
+        let paths = AppPaths(home: home, appBundle: appBundle)
+        let service = ServiceController(paths: paths)
+
+        let missingMode = try service.configuredTunnelMode()
+        precondition(missingMode == .local)
+        try FileManager.default.createDirectory(at: paths.appSupport, withIntermediateDirectories: true)
+
+        for (rawMode, expected) in [
+            ("none", TunnelMode.local),
+            ("quick", TunnelMode.quick),
+            ("named", TunnelMode.named),
+            ("unexpected", TunnelMode.local),
+        ] {
+            try Data("AGENTDOCK_TUNNEL_MODE='\(rawMode)'\n".utf8).write(to: paths.tunnelEnvironment)
+            let configuredMode = try service.configuredTunnelMode()
+            precondition(configuredMode == expected, rawMode)
+        }
+    }
+
+    private static func testLegacyRuntimeMigrationTransactions(root: URL, appBundle: URL) throws {
+        try verifyLegacyRuntimeMigration(root: root, appBundle: appBundle, shouldCommit: true)
+        try verifyLegacyRuntimeMigration(root: root, appBundle: appBundle, shouldCommit: false)
+    }
+
+    private static func verifyLegacyRuntimeMigration(
+        root: URL,
+        appBundle: URL,
+        shouldCommit: Bool
+    ) throws {
+        let name = shouldCommit ? "commit" : "rollback"
+        let home = root.appendingPathComponent("legacy-migration-\(name)", isDirectory: true)
+        let paths = AppPaths(home: home, appBundle: appBundle)
+        let launchAgents = home.appendingPathComponent("Library/LaunchAgents", isDirectory: true)
+        let localBin = home.appendingPathComponent(".local/bin", isDirectory: true)
+        try FileManager.default.createDirectory(at: launchAgents, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: localBin, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: paths.stateDirectory, withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(at: paths.workDirectory, withIntermediateDirectories: true)
+
+        let legacyBinary = localBin.appendingPathComponent("agentdock")
+        let legacyPlist = launchAgents.appendingPathComponent("com.uvwt.agentdock.plist")
+        let stateMarker = paths.stateDirectory.appendingPathComponent("preserve.txt")
+        let workspaceMarker = paths.workDirectory.appendingPathComponent("preserve.txt")
+        try Data("legacy-binary".utf8).write(to: legacyBinary)
+        try Data("legacy-plist".utf8).write(to: legacyPlist)
+        try Data("state".utf8).write(to: stateMarker)
+        try Data("workspace".utf8).write(to: workspaceMarker)
+
+        let migration = LegacyDesktopRuntimeMigration(paths: paths)
+        guard let transaction = try migration.begin() else {
+            preconditionFailure("legacy migration was not detected")
+        }
+        precondition(!FileManager.default.fileExists(atPath: legacyBinary.path))
+        precondition(!FileManager.default.fileExists(atPath: legacyPlist.path))
+
+        if shouldCommit {
+            try transaction.commit()
+            precondition(!FileManager.default.fileExists(atPath: legacyBinary.path))
+            precondition(!FileManager.default.fileExists(atPath: legacyPlist.path))
+        } else {
+            try transaction.rollback()
+            let restoredBinary = try Data(contentsOf: legacyBinary)
+            let restoredPlist = try Data(contentsOf: legacyPlist)
+            precondition(restoredBinary == Data("legacy-binary".utf8))
+            precondition(restoredPlist == Data("legacy-plist".utf8))
+        }
+
+        let preservedState = try Data(contentsOf: stateMarker)
+        let preservedWorkspace = try Data(contentsOf: workspaceMarker)
+        precondition(preservedState == Data("state".utf8))
+        precondition(preservedWorkspace == Data("workspace".utf8))
+        if FileManager.default.fileExists(atPath: paths.appSupport.path) {
+            let leftovers = try FileManager.default.contentsOfDirectory(
+                at: paths.appSupport,
+                includingPropertiesForKeys: nil
+            ).filter { $0.lastPathComponent.hasPrefix(".legacy-runtime-migration-") }
+            precondition(leftovers.isEmpty, "legacy migration backup was not cleaned")
+        }
+    }
+
+    private static func testQuickTunnelBootstrap() {
+        var values = [
+            "AGENTDOCK_AUTH_TOKEN": "token",
+            "AGENTDOCK_OAUTH_PASSWORD": "password",
+            "AGENTDOCK_OAUTH_TOKEN_SECRET": "secret",
+            "AGENTDOCK_SERVER_URL": "https://stale.trycloudflare.com",
+            "AGENTDOCK_OAUTH_ENABLED": "true",
+        ]
+
+        QuickTunnelBootstrap.prepareInitialCoreEnvironment(&values)
+
+        precondition(values["AGENTDOCK_SERVER_URL"] == nil)
+        precondition(values["AGENTDOCK_OAUTH_ENABLED"] == "false")
+        precondition(values["AGENTDOCK_AUTH_TOKEN"] == "token")
+        precondition(values["AGENTDOCK_OAUTH_PASSWORD"] == "password")
+        precondition(values["AGENTDOCK_OAUTH_TOKEN_SECRET"] == "secret")
+    }
+
+    private static func testServiceRegistrationStatusClassification() {
+        precondition(ServiceController.isUnregistered(.notRegistered))
+        precondition(ServiceController.isUnregistered(.notFound))
+        precondition(!ServiceController.isUnregistered(.enabled))
+        precondition(!ServiceController.isUnregistered(.requiresApproval))
+    }
+
+    private static func testBackgroundServiceLifecyclePolicy() {
+        precondition(BackgroundServiceLifecyclePolicy.shouldKickstart(
+            registrationEnabled: true,
+            processID: nil
+        ))
+        precondition(!BackgroundServiceLifecyclePolicy.shouldKickstart(
+            registrationEnabled: true,
+            processID: 1234
+        ))
+        precondition(!BackgroundServiceLifecyclePolicy.shouldKickstart(
+            registrationEnabled: false,
+            processID: nil
+        ))
+
+        precondition(BackgroundServiceLifecyclePolicy.shouldRunTunnel(
+            mode: .quick,
+            coreReady: true,
+            componentReady: true
+        ))
+        precondition(BackgroundServiceLifecyclePolicy.shouldRunTunnel(
+            mode: .named,
+            coreReady: true,
+            componentReady: true
+        ))
+        precondition(!BackgroundServiceLifecyclePolicy.shouldRunTunnel(
+            mode: .local,
+            coreReady: true,
+            componentReady: true
+        ))
+        precondition(!BackgroundServiceLifecyclePolicy.shouldRunTunnel(
+            mode: .quick,
+            coreReady: false,
+            componentReady: true
+        ))
+        precondition(!BackgroundServiceLifecyclePolicy.shouldRunTunnel(
+            mode: .quick,
+            coreReady: true,
+            componentReady: false
+        ))
+    }
+
+    private static func testBackgroundServiceLifecycleCoordinatorSerializesMutations() async throws {
+        let coordinator = BackgroundServiceLifecycleCoordinator()
+        let probe = LifecycleConcurrencyProbe()
+
+        async let first = coordinator.run {
+            await probe.enter()
+            try await Task.sleep(nanoseconds: 40_000_000)
+            await probe.leave()
+            return 1
+        }
+        async let second = coordinator.run {
+            await probe.enter()
+            try await Task.sleep(nanoseconds: 40_000_000)
+            await probe.leave()
+            return 2
+        }
+
+        _ = try await (first, second)
+        let maximumConcurrentOperations = await probe.maximumConcurrentOperations()
+        precondition(
+            maximumConcurrentOperations == 1,
+            "background service lifecycle mutations must be serialized"
+        )
+    }
+
+    private static func testNexusConnectionStateResolution(root: URL) throws {
+        let identityURL = root.appendingPathComponent("nexus-device.json")
+        try Data(#"{"endpoint":"https://nexus.example.com","node_id":"node_test","device_id":"device_test","device_token":"secret"}"#.utf8)
+            .write(to: identityURL)
+        let paired = NexusDeviceStatus.load(from: identityURL)
+
+        let connectedStatus = try JSONDecoder().decode(
+            DesktopServiceStatusPayload.self,
+            from: Data(#"{"nexus_connected":true}"#.utf8)
+        )
+        precondition(connectedStatus.nexusConnected)
+        precondition(NexusConnectionState.resolve(device: paired, connected: connectedStatus.nexusConnected) == .connected)
+        precondition(NexusConnectionState.resolve(device: paired, connected: false) == .disconnected)
+
+        let missing = NexusDeviceStatus.load(from: root.appendingPathComponent("missing-device.json"))
+        precondition(NexusConnectionState.resolve(device: missing, connected: true) == .unconfigured)
+
+        let invalidIdentityURL = root.appendingPathComponent("invalid-device.json")
+        try Data("not-json".utf8).write(to: invalidIdentityURL)
+        let invalid = NexusDeviceStatus.load(from: invalidIdentityURL)
+        precondition(invalid.error != nil)
+        precondition(NexusConnectionState.resolve(device: invalid, connected: true) == .configurationError)
+    }
+
+    private static func testDesktopUpdateCheckDecoding() throws {
+        let current = try DesktopUpdateCheck.decode(
+            #"{"current_version":"v0.7.2","latest_version":"v0.7.2","update_available":false,"message":"当前已是最新版本：v0.7.2"}"#
+        )
+        precondition(!current.updateAvailable)
+        precondition(current.message.contains("最新版本"))
+        precondition(current.currentVersion == "v0.7.2")
+        precondition(current.latestVersion == "v0.7.2")
+
+        let available = try DesktopUpdateCheck.decode(
+            #"{"current_version":"v0.8.2","latest_version":"v0.8.3","update_available":true,"message":"发现 AgentDock App 更新"}"#
+        )
+        precondition(available.updateAvailable)
+        precondition(available.currentVersion == "v0.8.2")
+        precondition(available.latestVersion == "v0.8.3")
+
+        expectFailure(L10n.text("Unable to parse the AgentDock update check result.")) {
+            _ = try DesktopUpdateCheck.decode("not-json")
+        }
+    }
+
+    private static func testUpdateActivityPolicy() {
+        let idle = DesktopUpdateActivity.idle
+        precondition(!idle.locksApplication)
+        precondition(idle.canCheckForUpdates)
+        precondition(idle.statusItemVisible)
+
+        let checking = DesktopUpdateActivity.checking
+        precondition(!checking.locksApplication)
+        precondition(!checking.canCheckForUpdates)
+        precondition(checking.statusItemVisible)
+
+        let applying = DesktopUpdateActivity.applying
+        precondition(applying.locksApplication)
+        precondition(!applying.canCheckForUpdates)
+        precondition(!applying.statusItemVisible)
+    }
+
+    private static func testUpdateProgressEventDecoding() throws {
+        let progress = try JSONDecoder().decode(
+            UpdateProgressEvent.self,
+            from: Data(#"{"schema_version":1,"type":"progress","stage":"downloading","current_version":"v0.8.3","target_version":"v0.9.0","bytes":1024,"total_bytes":4096}"#.utf8)
+        )
+        precondition(progress.schemaVersion == 1)
+        precondition(progress.type == .progress)
+        precondition(progress.stage == .downloading)
+        precondition(progress.currentVersion == "v0.8.3")
+        precondition(progress.targetVersion == "v0.9.0")
+        precondition(progress.bytes == 1024)
+        precondition(progress.totalBytes == 4096)
+    }
+
+    private static func testStreamingUpdateProcess(root: URL) throws {
+        let logURL = root.appendingPathComponent("streaming-update.log")
+        var events: [UpdateProgressEvent] = []
+        let result = try runUpdateProcess(
+            executable: "/bin/sh",
+            arguments: [
+                "-c",
+                #"printf '%s\n' '{"schema_version":1,"type":"stage","stage":"verifying","current_version":"v0.8.3","target_version":"v0.9.0"}'; printf '%s\n' 'human update log' >&2"#,
+            ],
+            environment: [:],
+            outputURL: logURL,
+            onProgress: { events.append($0) }
+        )
+        precondition(result.status == 0)
+        precondition(events.count == 1)
+        precondition(events[0].stage == .verifying)
+        precondition(result.output.contains("human update log"))
+        precondition(!result.output.contains("schema_version"))
+    }
+
+    private static func expectFailure(_ expected: String, operation: () throws -> Void) {
+        do {
+            try operation()
+            preconditionFailure("expected validation failure containing: \(expected)")
+        } catch {
+            precondition(error.localizedDescription.contains(expected), error.localizedDescription)
+        }
+    }
+}

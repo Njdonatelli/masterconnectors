@@ -1,0 +1,166 @@
+{
+  "mark": {
+    "type": "area",
+    "opacity": 0.5,
+    "line": {
+      "strokeWidth": 1
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Anomaly Low",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y2": {
+      "field": "Anomaly High"
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 501,
+      "continuousHeight": 402
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 40
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Year": "2012",
+        "Anomaly Low": -1.29,
+        "Anomaly High": 0.1
+      },
+      {
+        "Year": "2013",
+        "Anomaly Low": -0.92,
+        "Anomaly High": 0.1
+      },
+      {
+        "Year": "2014",
+        "Anomaly Low": -0.94,
+        "Anomaly High": 0.2
+      },
+      {
+        "Year": "2015",
+        "Anomaly Low": -0.85,
+        "Anomaly High": 0.31
+      },
+      {
+        "Year": "2016",
+        "Anomaly Low": -0.84,
+        "Anomaly High": 0.5
+      },
+      {
+        "Year": "2017",
+        "Anomaly Low": -0.57,
+        "Anomaly High": 0.53
+      },
+      {
+        "Year": "2018",
+        "Anomaly Low": -0.52,
+        "Anomaly High": 0.65
+      },
+      {
+        "Year": "2019",
+        "Anomaly Low": -0.43,
+        "Anomaly High": 0.83
+      },
+      {
+        "Year": "2020",
+        "Anomaly Low": -0.21,
+        "Anomaly High": 0.96
+      },
+      {
+        "Year": "2021",
+        "Anomaly Low": -0.12,
+        "Anomaly High": 0.97
+      },
+      {
+        "Year": "2022",
+        "Anomaly Low": 0.06,
+        "Anomaly High": 1.19
+      },
+      {
+        "Year": "2023",
+        "Anomaly Low": 0.07,
+        "Anomaly High": 1.27
+      }
+    ]
+  },
+  "_width": 501,
+  "_height": 402,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.5,
+      "applicable": true,
+      "value": 0.5
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

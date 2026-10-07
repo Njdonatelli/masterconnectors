@@ -1,0 +1,52 @@
+import { describe, expect, it } from "vitest";
+import { z } from "zod";
+
+import { projectInputIssues } from "./inputIssueProjection.js";
+
+describe("input issue projection", () => {
+  it("preserves schema-authored custom correction guidance", () => {
+    const schema = z
+      .object({ left: z.string().optional(), right: z.string().optional() })
+      .superRefine((value, context) => {
+        if (value.left === undefined && value.right === undefined)
+          context.addIssue({
+            code: "custom",
+            path: [],
+            message: "Supply either left or right",
+          });
+      });
+    const parsed = schema.safeParse({});
+    if (parsed.success) throw new Error("expected invalid input");
+
+    expect(projectInputIssues(parsed.error.issues, {})).toEqual([
+      {
+        path: [],
+        reason: "invalid_value",
+        message: "Supply either left or right",
+      },
+    ]);
+  });
+
+  it("reports union branch issues at the union's path once", () => {
+    const schema = z.object({
+      seed: z.union([
+        z.object({ value: z.string().min(1) }),
+        z.object({ value: z.literal(""), match: z.literal("exact") }),
+      ]),
+    });
+    const missing = schema.safeParse({});
+    if (missing.success) throw new Error("expected invalid input");
+    expect(projectInputIssues(missing.error.issues, {})).toEqual([
+      { path: ["seed"], reason: "missing_argument", expected: "object" },
+    ]);
+
+    const input = { seed: { value: 1 } };
+    const nested = schema.safeParse(input);
+    if (nested.success) throw new Error("expected invalid input");
+    expect(projectInputIssues(nested.error.issues, input)).toEqual(
+      expect.arrayContaining([
+        { path: ["seed", "value"], reason: "invalid_type", expected: "string" },
+      ]),
+    );
+  });
+});

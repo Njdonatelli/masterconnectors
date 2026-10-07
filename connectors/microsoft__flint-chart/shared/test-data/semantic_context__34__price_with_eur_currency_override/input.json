@@ -1,0 +1,77 @@
+{
+  "title": "Price with EUR Currency Override",
+  "description": "Annotation unit \"EUR\" provides an explicit currency symbol, showing \"€3.50\" on axis. Price is intensive (average makes sense, sum doesn't) with 2 decimal places for cents. WITHOUT this: bare numbers with no currency symbol.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "drink": "Espresso",
+          "price_eur": 2.65,
+          "daily_sales": 112
+        },
+        {
+          "drink": "Latte",
+          "price_eur": 4.56,
+          "daily_sales": 152
+        },
+        {
+          "drink": "Cappuccino",
+          "price_eur": 3.7,
+          "daily_sales": 124
+        },
+        {
+          "drink": "Mocha",
+          "price_eur": 6.37,
+          "daily_sales": 147
+        },
+        {
+          "drink": "Americano",
+          "price_eur": 3.69,
+          "daily_sales": 85
+        },
+        {
+          "drink": "Macchiato",
+          "price_eur": 6.02,
+          "daily_sales": 106
+        },
+        {
+          "drink": "Flat White",
+          "price_eur": 3.65,
+          "daily_sales": 27
+        },
+        {
+          "drink": "Cortado",
+          "price_eur": 3.43,
+          "daily_sales": 106
+        }
+      ]
+    },
+    "semantic_types": {
+      "drink": "Category",
+      "price_eur": {
+        "semanticType": "Price",
+        "unit": "EUR"
+      },
+      "daily_sales": "Count"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "drink"
+        },
+        "y": {
+          "field": "price_eur"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

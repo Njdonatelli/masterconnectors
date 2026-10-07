@@ -1,0 +1,92 @@
+name: Release Linux
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: Release tag to attach the Linux assets to, for example v0.9.0
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to attach the Debian package to, for example v0.9.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release-ci-gate:
+    permissions:
+      actions: read
+      contents: read
+    uses: ./.github/workflows/release-ci-gate.yml
+    with:
+      tag: ${{ startsWith(inputs.tag, 'v') && inputs.tag || format('v{0}', inputs.tag) }}
+
+  linux-packages:
+    needs: release-ci-gate
+    # This runner defines the oldest supported native ABI. The sidecar build
+    # also rejects symbols newer than toolchain.json's declared baseline.
+    runs-on: ubuntu-22.04
+    env:
+      RELEASE_TAG: ${{ startsWith(inputs.tag, 'v') && inputs.tag || format('v{0}', inputs.tag) }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.5.1
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - uses: voidzero-dev/setup-vp@1b32467adbe183473499fd9d5d372c3ed9641754 # v1.18.0
+        with:
+          version: '0.3.0'
+          node-manager: false
+          run-install: false
+          cache: false
+
+      - name: Validate release tag
+        run: |
+          expected="v$(node -p "require('./package.json').version")"
+          if [ "$RELEASE_TAG" != "$expected" ]; then
+            echo "::error::release tag $RELEASE_TAG does not match package.json version $expected"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - uses: ./.github/actions/prepare-native-components
+
+      - name: Build PDF/OCR download component
+        run: pnpm build:extractor-component
+
+      - name: Build Linux packages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STASHBASE_SKIP_SIDECAR_BUILD: '1'
+        run: pnpm dist:linux
+
+      - name: Smoke packaged Linux server
+        run: node scripts/smoke-packaged-server.mjs
+
+      - name: Upload Linux packages to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          test -s release.nosync/latest-linux.yml || { echo "::error::Missing latest-linux.yml update metadata"; exit 1; }
+          grep -q 'blockMapSize:' release.nosync/latest-linux.yml || { echo "::error::latest-linux.yml is missing embedded AppImage blockmap metadata"; exit 1; }
+          find release.nosync -maxdepth 1 -type f -name '*.deb' -size +0c -print -quit | grep -q . || { echo "::error::Missing Debian package"; exit 1; }
+          find release.nosync -maxdepth 1 -type f -name '*.AppImage' -size +0c -print -quit | grep -q . || { echo "::error::Missing AppImage"; exit 1; }
+          mapfile -t artifacts < <(find release.nosync -maxdepth 1 -type f \( -name '*.deb' -o -name '*.AppImage' -o -name '*.blockmap' -o -name '*.zsync' -o -name 'stashbase-extract-*.tar.gz' -o -name 'stashbase-extract-*.json' -o -name 'latest*.yml' \) -size +0c)
+          test "${#artifacts[@]}" -gt 0 || { echo "::error::No Linux release assets found"; exit 1; }
+          node scripts/upload-release-assets.mjs "${artifacts[@]}"

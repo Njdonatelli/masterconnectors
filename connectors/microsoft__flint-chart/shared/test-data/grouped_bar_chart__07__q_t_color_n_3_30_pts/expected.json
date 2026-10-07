@@ -1,0 +1,206 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "EndDate",
+      "type": "ordinal",
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...11 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "2023-02-08",
+          "2023-09-10",
+          "2023-05-02",
+          "2023-12-12",
+          "2023-02-04",
+          "2023-10-13",
+          "2023-05-05",
+          "2023-02-24",
+          "2023-12-30",
+          "2023-02-17",
+          "2023-03-07",
+          "2023-08-02",
+          "2023-03-11",
+          "2023-01-30",
+          "2023-04-16",
+          "2023-10-06",
+          "2023-03-17",
+          "2023-01-19",
+          "...11 items omitted"
+        ]
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "yOffset": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 346,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 30,
+    "for": "position"
+  },
+  "data": {
+    "values": [
+      {
+        "X": 4,
+        "EndDate": "2023-01-19",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 5,
+        "EndDate": "2023-04-16",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 5,
+        "EndDate": "2023-10-06",
+        "Segment": "Phone"
+      },
+      {
+        "X": 5,
+        "EndDate": "2023-03-17",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 6,
+        "EndDate": "2023-08-02",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 6,
+        "EndDate": "2023-03-11",
+        "Segment": "Phone"
+      },
+      {
+        "X": 6,
+        "EndDate": "2023-01-30",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 7,
+        "EndDate": "2023-02-17",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 7,
+        "EndDate": "2023-02-08",
+        "Segment": "Phone"
+      },
+      {
+        "X": 7,
+        "EndDate": "2023-03-07",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 8,
+        "EndDate": "2023-05-05",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 8,
+        "EndDate": "2023-02-24",
+        "Segment": "Phone"
+      },
+      {
+        "X": 8,
+        "EndDate": "2023-12-30",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 9,
+        "EndDate": "2023-12-12",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 9,
+        "EndDate": "2023-02-04",
+        "Segment": "Phone"
+      },
+      {
+        "X": 9,
+        "EndDate": "2023-10-13",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 10,
+        "EndDate": "2023-02-08",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 10,
+        "EndDate": "2023-09-10",
+        "Segment": "Phone"
+      },
+      {
+        "X": 10,
+        "EndDate": "2023-05-02",
+        "Segment": "Tablet"
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "11 of 29 values in 'EndDate' were omitted (showing top 18).",
+      "channel": "y",
+      "field": "EndDate"
+    }
+  ],
+  "_width": 346,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

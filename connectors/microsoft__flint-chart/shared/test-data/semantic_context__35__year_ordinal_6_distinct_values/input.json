@@ -1,0 +1,77 @@
+{
+  "title": "Year Ordinal (≤6 Distinct Values)",
+  "description": "Year with only 4 distinct values → ordinal encoding (not temporal). resolveDefaultVisType picks ordinal when distinct ≤ 6. Contrast with test #20 which uses 7 years → temporal. WITHOUT disambiguation: always temporal, wasting axis resolution on 4 points.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "year": 2021,
+          "region": "North",
+          "revenue": 542274
+        },
+        {
+          "year": 2021,
+          "region": "South",
+          "revenue": 1501363
+        },
+        {
+          "year": 2022,
+          "region": "North",
+          "revenue": 1902148
+        },
+        {
+          "year": 2022,
+          "region": "South",
+          "revenue": 1398688
+        },
+        {
+          "year": 2023,
+          "region": "North",
+          "revenue": 1242233
+        },
+        {
+          "year": 2023,
+          "region": "South",
+          "revenue": 1208045
+        },
+        {
+          "year": 2024,
+          "region": "North",
+          "revenue": 1111494
+        },
+        {
+          "year": 2024,
+          "region": "South",
+          "revenue": 1387768
+        }
+      ]
+    },
+    "semantic_types": {
+      "year": "Year",
+      "region": "Category",
+      "revenue": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "year"
+        },
+        "y": {
+          "field": "revenue"
+        },
+        "color": {
+          "field": "region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

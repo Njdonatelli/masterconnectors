@@ -1,0 +1,1070 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Body Mass (g)",
+      "groupby": [
+        "Species"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        1992.0236168833505,
+        6584.976383116649
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Body Mass (g)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Species",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      },
+      "legend": null
+    },
+    "facet": {
+      "field": "Species",
+      "type": "nominal",
+      "sort": null,
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      },
+      "columns": 3
+    }
+  },
+  "width": 167,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 167,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4364
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3444
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3343
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2991
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4102
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4190
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4111
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4516
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4063
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3946
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3962
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3606
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3455
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3989
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3587
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3306
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3752
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4393
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3545
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3773
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3545
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4224
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3730
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3306
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3386
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3749
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3670
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3295
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2751
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3453
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3992
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2804
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3447
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4069
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3915
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2933
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3976
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4010
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3711
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3339
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4171
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3299
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2557
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3176
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4106
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4707
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3037
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3356
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3370
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4281
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4501
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3710
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3264
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3886
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4222
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3225
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3210
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4014
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3717
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3951
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3151
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2923
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4244
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3419
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4218
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3780
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4053
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3316
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2315
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 2918
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3740
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3987
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3307
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3874
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4336
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3654
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3821
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3874
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 4517
+      },
+      {
+        "Species": "Adelie",
+        "Body Mass (g)": 3639
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3090
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3470
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3144
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 2955
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3259
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4267
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3505
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3724
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4164
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3201
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3329
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3353
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3718
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3765
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3772
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3897
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4563
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3361
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4596
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3337
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3769
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3598
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4310
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3492
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4217
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3528
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3654
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3959
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3470
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3752
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 2907
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3234
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3154
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4115
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3708
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3868
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4243
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3321
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3696
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4075
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3194
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3688
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3380
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3666
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3009
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4079
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3013
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3855
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3470
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3634
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3798
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3504
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3988
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3888
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4437
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3423
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4430
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3529
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3420
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3896
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3159
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4058
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3576
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3096
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3768
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4036
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3594
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4114
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4000
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3771
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3863
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3532
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3230
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4133
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3702
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3964
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 4194
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3908
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3855
+      },
+      {
+        "Species": "Chinstrap",
+        "Body Mass (g)": 3789
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4269
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5105
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5434
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4536
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4946
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4645
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4213
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5571
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4950
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4975
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4225
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4365
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5549
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 6262
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5617
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4687
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4990
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5385
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4381
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5048
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4913
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 3958
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4413
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5054
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5374
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4439
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4715
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4917
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5578
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5686
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 6128
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5006
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4347
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4955
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5183
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4889
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4710
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4219
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5858
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5139
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4939
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4855
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4696
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4629
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5336
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5075
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5214
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4763
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4603
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4739
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5688
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5227
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5074
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4592
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4916
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5831
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5009
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5068
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5415
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4945
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4982
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5363
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4985
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5451
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5258
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5263
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4046
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 6051
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4399
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5137
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5054
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 3849
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4999
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5625
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4802
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5385
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 5489
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4995
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4819
+      },
+      {
+        "Species": "Gentoo",
+        "Body Mass (g)": 4805
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

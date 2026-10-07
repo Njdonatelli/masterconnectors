@@ -1,0 +1,63 @@
+{
+  "title": "Percentage Formatting (%)",
+  "description": "Semantic type \"Percentage\" formats axis as \"72%\" instead of 0.72, and sets nice=false so axis doesn't extend past 100%. WITHOUT this: axis shows decimal fractions and may overshoot to 1.2.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "department": "Marketing",
+          "completion_rate": 0.4
+        },
+        {
+          "department": "Sales",
+          "completion_rate": 0.41
+        },
+        {
+          "department": "Engineering",
+          "completion_rate": 0.87
+        },
+        {
+          "department": "Support",
+          "completion_rate": 0.64
+        },
+        {
+          "department": "Design",
+          "completion_rate": 0.83
+        },
+        {
+          "department": "HR",
+          "completion_rate": 0.79
+        }
+      ]
+    },
+    "semantic_types": {
+      "department": "Category",
+      "completion_rate": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          1
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "department"
+        },
+        "y": {
+          "field": "completion_rate"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

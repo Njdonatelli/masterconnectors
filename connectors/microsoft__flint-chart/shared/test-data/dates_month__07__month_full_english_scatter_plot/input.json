@@ -1,0 +1,81 @@
+{
+  "title": "Month (full English) → Scatter Plot",
+  "description": "Full month names: \"January\", \"February\", … (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": "January",
+          "Value": 164
+        },
+        {
+          "Month": "February",
+          "Value": 361
+        },
+        {
+          "Month": "March",
+          "Value": 93
+        },
+        {
+          "Month": "April",
+          "Value": 286
+        },
+        {
+          "Month": "May",
+          "Value": 274
+        },
+        {
+          "Month": "June",
+          "Value": 186
+        },
+        {
+          "Month": "July",
+          "Value": 512
+        },
+        {
+          "Month": "August",
+          "Value": 366
+        },
+        {
+          "Month": "September",
+          "Value": 187
+        },
+        {
+          "Month": "October",
+          "Value": 369
+        },
+        {
+          "Month": "November",
+          "Value": 489
+        },
+        {
+          "Month": "December",
+          "Value": 60
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

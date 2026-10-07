@@ -1,0 +1,220 @@
+name: Build & Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win
+            arch: x64
+          - os: macos-15-intel
+            platform: mac
+            arch: x64
+          - os: macos-15
+            platform: mac
+            arch: arm64
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install
+        env:
+          ELECTRON_MIRROR: ""
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Package for Windows
+        if: matrix.platform == 'win'
+        run: npx electron-builder --win --publish never
+
+      - name: Configure macOS signing
+        if: matrix.platform == 'mac'
+        env:
+          SIGNING_CSC_LINK: ${{ secrets.CSC_LINK }}
+          SIGNING_CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
+          SIGNING_APPLE_ID: ${{ secrets.APPLE_ID }}
+          SIGNING_APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          SIGNING_APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          echo "CSC_IDENTITY_AUTO_DISCOVERY=false" >> "$GITHUB_ENV"
+          if [ -n "$SIGNING_CSC_LINK" ]; then
+            echo "CSC_LINK=$SIGNING_CSC_LINK" >> "$GITHUB_ENV"
+            echo "CSC_KEY_PASSWORD=$SIGNING_CSC_KEY_PASSWORD" >> "$GITHUB_ENV"
+            echo "APPLE_ID=$SIGNING_APPLE_ID" >> "$GITHUB_ENV"
+            echo "APPLE_APP_SPECIFIC_PASSWORD=$SIGNING_APPLE_APP_SPECIFIC_PASSWORD" >> "$GITHUB_ENV"
+            echo "APPLE_TEAM_ID=$SIGNING_APPLE_TEAM_ID" >> "$GITHUB_ENV"
+            echo "MAC_SIGNING_ENABLED=true" >> "$GITHUB_ENV"
+          else
+            echo "MAC_SIGNING_ENABLED=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Package for macOS
+        if: matrix.platform == 'mac'
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx electron-builder --mac --${{ matrix.arch }} --publish never
+
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            app_dir="dist/mac-arm64/Anything Analyzer.app"
+          else
+            app_dir="dist/mac/Anything Analyzer.app"
+          fi
+
+          native_module="$app_dir/Contents/Resources/app.asar.unpacked/node_modules/better-sqlite3/build/Release/better_sqlite3.node"
+          test -f "$native_module"
+          file "$native_module" | tee "dist/better-sqlite3-${{ matrix.arch }}.txt"
+
+          if [ "${{ matrix.arch }}" = "x64" ]; then
+            grep -Eq "x86_64|x86_64h" "dist/better-sqlite3-${{ matrix.arch }}.txt"
+          else
+            grep -q "arm64" "dist/better-sqlite3-${{ matrix.arch }}.txt"
+          fi
+
+          grep -q "${{ matrix.arch }}\.zip" "dist/latest-mac.yml"
+          mv "dist/latest-mac.yml" "dist/latest-mac-${{ matrix.arch }}.yml"
+
+      - name: Verify macOS signing configuration
+        if: matrix.platform == 'mac'
+        run: |
+          if [ "$MAC_SIGNING_ENABLED" != "true" ]; then
+            echo "macOS signing secrets are not configured; skipping codesign verification."
+            exit 0
+          fi
+          test -n "$CSC_LINK"
+          test -n "$CSC_KEY_PASSWORD"
+          test -n "$APPLE_ID"
+          test -n "$APPLE_APP_SPECIFIC_PASSWORD"
+          test -n "$APPLE_TEAM_ID"
+          codesign --verify --deep --strict --verbose=2 "dist/mac*/Anything Analyzer.app"
+
+      - name: Package for Linux
+        if: matrix.platform == 'linux'
+        run: npx electron-builder --linux --publish never
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: build-${{ matrix.platform }}-${{ matrix.arch }}
+          path: |
+            dist/*.exe
+            dist/*.dmg
+            dist/*.zip
+            dist/*.AppImage
+            dist/*.yml
+            dist/*.blockmap
+          if-no-files-found: error
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout for release notes
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: RELEASE_NOTES.md
+          sparse-checkout-cone-mode: false
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v6
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: List artifacts
+        run: find artifacts -type f | head -30
+
+      - name: Merge macOS update metadata
+        run: |
+          node <<'NODE'
+          const crypto = require("crypto");
+          const fs = require("fs");
+          const path = require("path");
+
+          const artifactsDir = "artifacts";
+          const version = (process.env.GITHUB_REF_NAME || "").replace(/^v/, "");
+
+          if (!version) {
+            throw new Error("GITHUB_REF_NAME must contain the release tag");
+          }
+
+          const artifactNames = fs.readdirSync(artifactsDir);
+          const macFiles = ["x64", "arm64"].map((arch) => {
+            const zipName = artifactNames.find((name) => name.endsWith(`-${arch}.zip`));
+
+            if (!zipName) {
+              throw new Error(`Missing macOS ${arch} zip artifact`);
+            }
+
+            const zipPath = path.join(artifactsDir, zipName);
+            const zipBuffer = fs.readFileSync(zipPath);
+
+            return {
+              sha512: crypto.createHash("sha512").update(zipBuffer).digest("base64"),
+              size: fs.statSync(zipPath).size,
+              zipName,
+            };
+          });
+
+          const latestMac = [
+            `version: ${version}`,
+            "files:",
+            ...macFiles.flatMap((file) => [
+              `  - url: ${file.zipName}`,
+              `    sha512: ${file.sha512}`,
+              `    size: ${file.size}`,
+            ]),
+            `path: ${macFiles[0].zipName}`,
+            `sha512: ${macFiles[0].sha512}`,
+            `releaseDate: '${new Date().toISOString()}'`,
+            "",
+          ].join("\n");
+
+          fs.writeFileSync(path.join(artifactsDir, "latest-mac.yml"), latestMac);
+          fs.rmSync(path.join(artifactsDir, "latest-mac-x64.yml"), { force: true });
+          fs.rmSync(path.join(artifactsDir, "latest-mac-arm64.yml"), { force: true });
+          NODE
+          test -f "artifacts/latest-mac.yml"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          draft: false
+          body_path: RELEASE_NOTES.md
+          files: |
+            artifacts/*.exe
+            artifacts/*.dmg
+            artifacts/*.zip
+            artifacts/*.AppImage
+            artifacts/*.yml
+            artifacts/*.blockmap

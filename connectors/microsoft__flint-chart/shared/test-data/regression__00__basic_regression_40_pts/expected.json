@@ -1,0 +1,335 @@
+{
+  "layer": [
+    {
+      "mark": "circle",
+      "encoding": {
+        "x": {
+          "field": "Hours",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y": {
+          "field": "Score",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "color": {},
+        "size": {}
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "red"
+      },
+      "transform": [
+        {
+          "regression": "Score",
+          "on": "Hours"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "Hours",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y": {
+          "field": "Score",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        }
+      }
+    }
+  ],
+  "encoding": {},
+  "config": {
+    "view": {
+      "continuousWidth": 374,
+      "continuousHeight": 321
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Hours": 10,
+        "Score": 20
+      },
+      {
+        "Hours": 54.7,
+        "Score": 56
+      },
+      {
+        "Hours": 34.2,
+        "Score": 34
+      },
+      {
+        "Hours": 57,
+        "Score": 61
+      },
+      {
+        "Hours": 38.9,
+        "Score": 48
+      },
+      {
+        "Hours": 17.4,
+        "Score": 36
+      },
+      {
+        "Hours": 66.2,
+        "Score": 85
+      },
+      {
+        "Hours": 85.2,
+        "Score": 77
+      },
+      {
+        "Hours": 83.1,
+        "Score": 84
+      },
+      {
+        "Hours": 17,
+        "Score": 39
+      },
+      {
+        "Hours": 86.9,
+        "Score": 98
+      },
+      {
+        "Hours": 41.5,
+        "Score": 43
+      },
+      {
+        "Hours": 53.1,
+        "Score": 77
+      },
+      {
+        "Hours": 14.6,
+        "Score": 46
+      },
+      {
+        "Hours": 80.4,
+        "Score": 86
+      },
+      {
+        "Hours": 15.4,
+        "Score": 45
+      },
+      {
+        "Hours": 44.8,
+        "Score": 59
+      },
+      {
+        "Hours": 48.8,
+        "Score": 46
+      },
+      {
+        "Hours": 73.6,
+        "Score": 82
+      },
+      {
+        "Hours": 50.6,
+        "Score": 48
+      },
+      {
+        "Hours": 57,
+        "Score": 52
+      },
+      {
+        "Hours": 69.7,
+        "Score": 74
+      },
+      {
+        "Hours": 76.7,
+        "Score": 96
+      },
+      {
+        "Hours": 69.2,
+        "Score": 80
+      },
+      {
+        "Hours": 89.9,
+        "Score": 77
+      },
+      {
+        "Hours": 22.6,
+        "Score": 31
+      },
+      {
+        "Hours": 16.2,
+        "Score": 22
+      },
+      {
+        "Hours": 70.8,
+        "Score": 66
+      },
+      {
+        "Hours": 70.7,
+        "Score": 73
+      },
+      {
+        "Hours": 10.5,
+        "Score": 23
+      },
+      {
+        "Hours": 70.5,
+        "Score": 84
+      },
+      {
+        "Hours": 41.7,
+        "Score": 55
+      },
+      {
+        "Hours": 31.2,
+        "Score": 35
+      },
+      {
+        "Hours": 61,
+        "Score": 84
+      },
+      {
+        "Hours": 20.2,
+        "Score": 23
+      },
+      {
+        "Hours": 53.1,
+        "Score": 51
+      },
+      {
+        "Hours": 29.2,
+        "Score": 36
+      },
+      {
+        "Hours": 20.9,
+        "Score": 38
+      },
+      {
+        "Hours": 70.3,
+        "Score": 84
+      },
+      {
+        "Hours": 80.7,
+        "Score": 80
+      }
+    ]
+  },
+  "_width": 374,
+  "_height": 321,
+  "_options": [
+    {
+      "key": "regressionMethod",
+      "label": "Method",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "log",
+          "label": "Logarithmic"
+        },
+        {
+          "value": "exp",
+          "label": "Exponential"
+        },
+        {
+          "value": "pow",
+          "label": "Power"
+        },
+        {
+          "value": "quad",
+          "label": "Quadratic"
+        },
+        {
+          "value": "poly",
+          "label": "Polynomial"
+        }
+      ],
+      "defaultValue": "linear",
+      "applicable": true,
+      "value": "linear"
+    },
+    {
+      "key": "polyOrder",
+      "label": "Poly Order",
+      "type": "continuous",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "defaultValue": 3,
+      "applicable": true,
+      "value": 3
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

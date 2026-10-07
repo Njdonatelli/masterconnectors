@@ -1,0 +1,140 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "drink",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "price_eur",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "labelExpr": "'€' + format(datum.value, ',.2f')"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "drink": "Espresso",
+        "price_eur": 2.65,
+        "daily_sales": 112
+      },
+      {
+        "drink": "Latte",
+        "price_eur": 4.56,
+        "daily_sales": 152
+      },
+      {
+        "drink": "Cappuccino",
+        "price_eur": 3.7,
+        "daily_sales": 124
+      },
+      {
+        "drink": "Mocha",
+        "price_eur": 6.37,
+        "daily_sales": 147
+      },
+      {
+        "drink": "Americano",
+        "price_eur": 3.69,
+        "daily_sales": 85
+      },
+      {
+        "drink": "Macchiato",
+        "price_eur": 6.02,
+        "daily_sales": 106
+      },
+      {
+        "drink": "Flat White",
+        "price_eur": 3.65,
+        "daily_sales": 27
+      },
+      {
+        "drink": "Cortado",
+        "price_eur": 3.43,
+        "daily_sales": 106
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

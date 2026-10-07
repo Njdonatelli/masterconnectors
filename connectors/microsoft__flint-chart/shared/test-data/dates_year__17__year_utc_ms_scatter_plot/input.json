@@ -1,0 +1,81 @@
+{
+  "title": "Year (UTC ms) → Scatter Plot",
+  "description": "Years as UTC timestamps in ms: 946684800000, … (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Timestamp": 946713600000,
+          "Value": 148
+        },
+        {
+          "Timestamp": 978336000000,
+          "Value": 449
+        },
+        {
+          "Timestamp": 1009872000000,
+          "Value": 84
+        },
+        {
+          "Timestamp": 1041408000000,
+          "Value": 177
+        },
+        {
+          "Timestamp": 1072944000000,
+          "Value": 104
+        },
+        {
+          "Timestamp": 1104566400000,
+          "Value": 347
+        },
+        {
+          "Timestamp": 1136102400000,
+          "Value": 171
+        },
+        {
+          "Timestamp": 1167638400000,
+          "Value": 279
+        },
+        {
+          "Timestamp": 1199174400000,
+          "Value": 511
+        },
+        {
+          "Timestamp": 1230796800000,
+          "Value": 255
+        },
+        {
+          "Timestamp": 1262332800000,
+          "Value": 520
+        },
+        {
+          "Timestamp": 1293868800000,
+          "Value": 81
+        }
+      ]
+    },
+    "semantic_types": {
+      "Timestamp": "Timestamp",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Timestamp"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

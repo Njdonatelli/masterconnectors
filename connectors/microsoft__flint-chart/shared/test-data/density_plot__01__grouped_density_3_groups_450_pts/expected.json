@@ -1,0 +1,1881 @@
+{
+  "mark": "area",
+  "transform": [
+    {
+      "density": "Value",
+      "groupby": [
+        "Group"
+      ]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Value",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "density",
+      "type": "quantitative",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Value": 53,
+        "Group": "Control"
+      },
+      {
+        "Value": 24,
+        "Group": "Control"
+      },
+      {
+        "Value": 39,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 58,
+        "Group": "Control"
+      },
+      {
+        "Value": 58,
+        "Group": "Control"
+      },
+      {
+        "Value": 56,
+        "Group": "Control"
+      },
+      {
+        "Value": 53,
+        "Group": "Control"
+      },
+      {
+        "Value": 61,
+        "Group": "Control"
+      },
+      {
+        "Value": 48,
+        "Group": "Control"
+      },
+      {
+        "Value": 45,
+        "Group": "Control"
+      },
+      {
+        "Value": 47,
+        "Group": "Control"
+      },
+      {
+        "Value": 57,
+        "Group": "Control"
+      },
+      {
+        "Value": 48,
+        "Group": "Control"
+      },
+      {
+        "Value": 66,
+        "Group": "Control"
+      },
+      {
+        "Value": 39,
+        "Group": "Control"
+      },
+      {
+        "Value": 45,
+        "Group": "Control"
+      },
+      {
+        "Value": 54,
+        "Group": "Control"
+      },
+      {
+        "Value": 56,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 58,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 43,
+        "Group": "Control"
+      },
+      {
+        "Value": 50,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 60,
+        "Group": "Control"
+      },
+      {
+        "Value": 60,
+        "Group": "Control"
+      },
+      {
+        "Value": 70,
+        "Group": "Control"
+      },
+      {
+        "Value": 41,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 53,
+        "Group": "Control"
+      },
+      {
+        "Value": 66,
+        "Group": "Control"
+      },
+      {
+        "Value": 45,
+        "Group": "Control"
+      },
+      {
+        "Value": 56,
+        "Group": "Control"
+      },
+      {
+        "Value": 45,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 55,
+        "Group": "Control"
+      },
+      {
+        "Value": 62,
+        "Group": "Control"
+      },
+      {
+        "Value": 63,
+        "Group": "Control"
+      },
+      {
+        "Value": 50,
+        "Group": "Control"
+      },
+      {
+        "Value": 44,
+        "Group": "Control"
+      },
+      {
+        "Value": 36,
+        "Group": "Control"
+      },
+      {
+        "Value": 54,
+        "Group": "Control"
+      },
+      {
+        "Value": 40,
+        "Group": "Control"
+      },
+      {
+        "Value": 33,
+        "Group": "Control"
+      },
+      {
+        "Value": 58,
+        "Group": "Control"
+      },
+      {
+        "Value": 47,
+        "Group": "Control"
+      },
+      {
+        "Value": 51,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 63,
+        "Group": "Control"
+      },
+      {
+        "Value": 34,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 38,
+        "Group": "Control"
+      },
+      {
+        "Value": 57,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 48,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 65,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 35,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 58,
+        "Group": "Control"
+      },
+      {
+        "Value": 52,
+        "Group": "Control"
+      },
+      {
+        "Value": 53,
+        "Group": "Control"
+      },
+      {
+        "Value": 51,
+        "Group": "Control"
+      },
+      {
+        "Value": 34,
+        "Group": "Control"
+      },
+      {
+        "Value": 67,
+        "Group": "Control"
+      },
+      {
+        "Value": 56,
+        "Group": "Control"
+      },
+      {
+        "Value": 36,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 58,
+        "Group": "Control"
+      },
+      {
+        "Value": 55,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 53,
+        "Group": "Control"
+      },
+      {
+        "Value": 53,
+        "Group": "Control"
+      },
+      {
+        "Value": 52,
+        "Group": "Control"
+      },
+      {
+        "Value": 40,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 56,
+        "Group": "Control"
+      },
+      {
+        "Value": 47,
+        "Group": "Control"
+      },
+      {
+        "Value": 56,
+        "Group": "Control"
+      },
+      {
+        "Value": 38,
+        "Group": "Control"
+      },
+      {
+        "Value": 43,
+        "Group": "Control"
+      },
+      {
+        "Value": 48,
+        "Group": "Control"
+      },
+      {
+        "Value": 53,
+        "Group": "Control"
+      },
+      {
+        "Value": 54,
+        "Group": "Control"
+      },
+      {
+        "Value": 48,
+        "Group": "Control"
+      },
+      {
+        "Value": 41,
+        "Group": "Control"
+      },
+      {
+        "Value": 43,
+        "Group": "Control"
+      },
+      {
+        "Value": 47,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 66,
+        "Group": "Control"
+      },
+      {
+        "Value": 32,
+        "Group": "Control"
+      },
+      {
+        "Value": 71,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 56,
+        "Group": "Control"
+      },
+      {
+        "Value": 52,
+        "Group": "Control"
+      },
+      {
+        "Value": 41,
+        "Group": "Control"
+      },
+      {
+        "Value": 47,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 48,
+        "Group": "Control"
+      },
+      {
+        "Value": 39,
+        "Group": "Control"
+      },
+      {
+        "Value": 47,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 65,
+        "Group": "Control"
+      },
+      {
+        "Value": 46,
+        "Group": "Control"
+      },
+      {
+        "Value": 47,
+        "Group": "Control"
+      },
+      {
+        "Value": 36,
+        "Group": "Control"
+      },
+      {
+        "Value": 54,
+        "Group": "Control"
+      },
+      {
+        "Value": 50,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 39,
+        "Group": "Control"
+      },
+      {
+        "Value": 40,
+        "Group": "Control"
+      },
+      {
+        "Value": 37,
+        "Group": "Control"
+      },
+      {
+        "Value": 40,
+        "Group": "Control"
+      },
+      {
+        "Value": 44,
+        "Group": "Control"
+      },
+      {
+        "Value": 41,
+        "Group": "Control"
+      },
+      {
+        "Value": 38,
+        "Group": "Control"
+      },
+      {
+        "Value": 37,
+        "Group": "Control"
+      },
+      {
+        "Value": 37,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 67,
+        "Group": "Control"
+      },
+      {
+        "Value": 34,
+        "Group": "Control"
+      },
+      {
+        "Value": 55,
+        "Group": "Control"
+      },
+      {
+        "Value": 52,
+        "Group": "Control"
+      },
+      {
+        "Value": 42,
+        "Group": "Control"
+      },
+      {
+        "Value": 55,
+        "Group": "Control"
+      },
+      {
+        "Value": 38,
+        "Group": "Control"
+      },
+      {
+        "Value": 40,
+        "Group": "Control"
+      },
+      {
+        "Value": 67,
+        "Group": "Control"
+      },
+      {
+        "Value": 25,
+        "Group": "Control"
+      },
+      {
+        "Value": 70,
+        "Group": "Control"
+      },
+      {
+        "Value": 43,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 49,
+        "Group": "Control"
+      },
+      {
+        "Value": 28,
+        "Group": "Control"
+      },
+      {
+        "Value": 40,
+        "Group": "Control"
+      },
+      {
+        "Value": 36,
+        "Group": "Control"
+      },
+      {
+        "Value": 51,
+        "Group": "Control"
+      },
+      {
+        "Value": 62,
+        "Group": "Control"
+      },
+      {
+        "Value": 60,
+        "Group": "Control"
+      },
+      {
+        "Value": 52,
+        "Group": "Control"
+      },
+      {
+        "Value": 52,
+        "Group": "Control"
+      },
+      {
+        "Value": 40,
+        "Group": "Control"
+      },
+      {
+        "Value": 63,
+        "Group": "Control"
+      },
+      {
+        "Value": 54,
+        "Group": "Control"
+      },
+      {
+        "Value": 44,
+        "Group": "Control"
+      },
+      {
+        "Value": 41,
+        "Group": "Control"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 45,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 51,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 52,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 53,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 55,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 42,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 46,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 55,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 48,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 47,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 57,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 43,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 43,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 52,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 57,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 54,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 48,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 45,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 51,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 42,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 70,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 70,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 48,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 55,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 77,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 70,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 57,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 63,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 36,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 49,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 53,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 43,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 54,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 56,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 52,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 53,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 72,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 51,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 51,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 57,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 57,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 54,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 56,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 63,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 37,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 42,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 58,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 37,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 49,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 44,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 50,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 35,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 58,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 51,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 48,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 57,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 58,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 46,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 53,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 48,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 55,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 43,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 53,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 49,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 48,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 50,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 42,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 55,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 44,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 56,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 51,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 44,
+        "Group": "Treatment A"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 77,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 72,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 63,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 63,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 54,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 77,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 49,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 91,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 77,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 72,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 76,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 80,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 52,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 70,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 80,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 50,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 78,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 56,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 89,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 84,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 60,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 56,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 83,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 80,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 77,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 85,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 52,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 77,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 76,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 70,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 51,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 70,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 86,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 72,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 76,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 67,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 55,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 77,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 72,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 54,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 58,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 69,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 76,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 72,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 80,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 81,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 72,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 66,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 65,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 53,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 55,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 78,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 73,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 83,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 75,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 62,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 64,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 68,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 83,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 61,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 74,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 79,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 78,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 71,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 56,
+        "Group": "Treatment B"
+      },
+      {
+        "Value": 59,
+        "Group": "Treatment B"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

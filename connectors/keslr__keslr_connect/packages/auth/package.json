@@ -1,0 +1,41 @@
+{
+  "name": "@keslr/auth",
+  "version": "0.1.0",
+  "description": "OpenID Connect relying party for Keslr — sign in with Keslr and read verification claims.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "keywords": [
+    "keslr",
+    "oidc",
+    "openid-connect",
+    "oauth2",
+    "authentication",
+    "pkce"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keslr/keslr_connect.git",
+    "directory": "packages/auth"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "test": "vitest run --dir ."
+  },
+  "sideEffects": false
+}

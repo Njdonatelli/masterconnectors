@@ -1,0 +1,81 @@
+{
+  "title": "Month (number) → Area Chart",
+  "description": "Months as integers: 1, 2, …, 12 (12 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": 1,
+          "Value": 488
+        },
+        {
+          "Month": 2,
+          "Value": 331
+        },
+        {
+          "Month": 3,
+          "Value": 261
+        },
+        {
+          "Month": 4,
+          "Value": 77
+        },
+        {
+          "Month": 5,
+          "Value": 263
+        },
+        {
+          "Month": 6,
+          "Value": 189
+        },
+        {
+          "Month": 7,
+          "Value": 180
+        },
+        {
+          "Month": 8,
+          "Value": 316
+        },
+        {
+          "Month": 9,
+          "Value": 160
+        },
+        {
+          "Month": 10,
+          "Value": 170
+        },
+        {
+          "Month": 11,
+          "Value": 180
+        },
+        {
+          "Month": 12,
+          "Value": 92
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

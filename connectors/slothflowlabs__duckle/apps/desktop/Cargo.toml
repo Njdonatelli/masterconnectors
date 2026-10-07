@@ -1,0 +1,98 @@
+[package]
+name = "duckle-desktop"
+description = "Duckle Tauri 2 desktop shell."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[lib]
+name = "duckle_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "duckle"
+path = "src/main.rs"
+
+[build-dependencies]
+tauri-build = { workspace = true }
+# Compress the embedded sidecar binaries (runner / mcp / lance / linux-runner)
+# at build time so they ship ~60% smaller inside the desktop binary; the app
+# inflates them on first use (see inflate_embedded in lib.rs).
+zstd = "0.14"
+
+[dependencies]
+tauri = { workspace = true }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+# Clipboard (Copy SQL / copy node id) and external-URL opening (CI
+# build links, GitHub/GitLab token pages). The browser navigator.clipboard
+# and window.open / <a target=_blank> no-op inside the Tauri webview, so
+# these plugins are the only reliable cross-platform path.
+tauri-plugin-clipboard-manager = "2"
+tauri-plugin-opener = "2"
+serde = { workspace = true }
+serde_json = { workspace = true }
+# Encryption at rest for saved connection secrets + the cached git PAT
+# (secrets.rs). The AES-256-GCM scheme lives in the shared duckle-secrets
+# crate so the headless runner decrypts saved connections the same way (#166).
+duckle-secrets = { workspace = true }
+# Parse the GitHub release asset's RFC3339 upload time + format the embedded
+# build time for the update-available check (update_check.rs).
+chrono = { workspace = true }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+duckle-runtime = { workspace = true }
+duckle-metadata = { workspace = true }
+duckle-plugin-sdk = { workspace = true }
+duckle-connectors = { workspace = true }
+duckle-duckdb-engine = { workspace = true }
+duckle-scheduler = { workspace = true }
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
+sha2 = "0.11"
+zip = "8"
+# tar + gzip for the llama.cpp archives on Linux/macOS - they ship
+# as .tar.gz where Windows ships as .zip.
+tar = "0.4"
+flate2 = "1"
+# Used by the AI chat assistant to talk to the local llama-server
+# subprocess over HTTP. Same blocking client we use in the engine
+# crate; reading the SSE stream via BufReader<impl Read>.
+ureq = { version = "2.10", default-features = false, features = ["tls", "json", "gzip"] }
+# Staging the embedded duckle-runner stub to a temp file at build time
+# (build_pipeline_bundle), so this is a runtime dep, not just a dev one.
+tempfile = "3.10"
+# Embeds the bundled starter-workspace (sample pipelines + data generator)
+# into the binary so a brand-new workspace can be seeded offline at first run.
+include_dir = "0.7"
+# Inflate the zstd-compressed embedded sidecars (runner / mcp / lance) when
+# staging them to disk on first use. Compressed at build time by build.rs.
+zstd = "0.14"
+
+[features]
+# Required for release builds. Without this feature, tauri-codegen
+# generates an asset resolver that points at devUrl
+# (http://localhost:5173), so the WebView shows ERR_CONNECTION_REFUSED.
+# `tauri build` sets this automatically; raw `cargo build --release`
+# does not, so the release workflow must pass `--features custom-protocol`.
+custom-protocol = ["tauri/custom-protocol"]
+# Test-only: compiles in a hidden `--self-update-selftest` CLI mode that drives
+# the real download/verify/swap against a local fake-release (DUCKLE_SELFTEST_*
+# env). NEVER enabled for releases - keeps the update source un-overridable in
+# shipped binaries.
+update-selftest = []
+
+# Teradata and DB2 (ODBC via odbc-api) are enabled everywhere except macOS, whose
+# cross-arch ODBC driver manager is awkward to link in the release build. On
+# macOS the engine falls back to a clear "compiled without teradata" error.
+[target.'cfg(not(target_os = "macos"))'.dependencies]
+duckle-duckdb-engine = { workspace = true, features = ["teradata", "db2"] }
+
+# On Linux, additionally link unixODBC statically so the shipped binary carries
+# the ODBC driver manager and launches without a system libodbc.so.2 (issue
+# #131). Windows keeps the always-present odbc32; macOS has no ODBC at all.
+[target.'cfg(target_os = "linux")'.dependencies]
+duckle-duckdb-engine = { workspace = true, features = ["teradata-static"] }

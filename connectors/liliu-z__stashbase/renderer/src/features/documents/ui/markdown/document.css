@@ -1,0 +1,778 @@
+/* Milkdown is the migration's sole component-specific CSS exception. Every
+   value below maps third-party anatomy onto the app's semantic design system. */
+.markdown-surface {
+  --reading-bar-height: 40px;
+
+  position: relative;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.markdown-surface > * {
+  grid-area: 1 / 1;
+}
+
+/* The reading bar: a paper-coloured band across the top that holds the
+   surface's controls, like an e-reader's toolbar. The editor scrolls below it
+   rather than under it, so no line ever runs beneath a control, and prose
+   fades out along its lower edge instead of being cut at it. */
+.markdown-surface::before,
+.markdown-surface::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.markdown-surface::before {
+  top: 0;
+  height: var(--reading-bar-height);
+  background: var(--surface-2);
+}
+
+.markdown-surface::after {
+  top: var(--reading-bar-height);
+  height: 16px;
+  background: linear-gradient(var(--surface-2), transparent);
+}
+
+.markdown-mode-control {
+  position: absolute;
+  z-index: 2;
+  /* 6px puts the 28px control's centre 20px below the pane top, the same
+     line the Chat pane's header control sits on across the seam.
+
+     5px is what puts the Reading glyph in the panel toggle's column. That
+     toggle is a 28px square inside the titlebar's 8px inset, so its glyph
+     centre is 22px from the pane's right edge, and the control here has to
+     reach the same 22px: 5px plus the track's 2px padding plus half of a
+     glyph segment's 30px width. The segment is wider than it is tall on a
+     track — that is what makes the selected pill read as a pill rather than
+     a square — so the track's own edge lands 3px outside the toggle's box.
+     The glyph column is what the eye reads down; the ghost toggle's box is
+     invisible until it is hovered. */
+  top: 6px;
+  right: 5px;
+}
+
+/* The review bar's corner of the reading bar: an open review replaces this
+   control, and it sits on the mode control's line across the pane. */
+.markdown-reading-control {
+  position: absolute;
+  z-index: 2;
+  top: 6px;
+  left: 8px;
+}
+
+.markdown-surface:not([data-markdown-state='ready']) .markdown-reading-control {
+  display: none;
+}
+
+.markdown-review-bar {
+  position: absolute;
+  z-index: 3;
+  top: 6px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 4px 4px 10px;
+  background: color-mix(in oklab, var(--surface-3) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--shape-input-radius, 8px);
+  box-shadow: var(--shadow-4);
+}
+
+.markdown-review-count {
+  color: var(--muted-foreground);
+  font-size: var(--fs-caption, 12px);
+  white-space: nowrap;
+}
+
+.markdown-link-failure {
+  position: absolute;
+  z-index: 3;
+  bottom: 16px;
+  left: 50%;
+  max-width: calc(100% - 32px);
+  padding: 6px 10px;
+  color: var(--destructive);
+  font-size: var(--fs-caption, 12px);
+  background: color-mix(in oklab, var(--surface-3) 94%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--shape-input-radius, 8px);
+  box-shadow: var(--shadow-4);
+  transform: translateX(-50%);
+}
+
+::highlight(stashbase-document-find) {
+  color: inherit;
+  background: color-mix(in oklab, var(--accent) 72%, transparent);
+}
+
+::highlight(stashbase-document-find-current) {
+  color: inherit;
+  background: color-mix(in oklab, var(--focus-ring) 46%, transparent);
+}
+
+.markdown-surface:not([data-markdown-state='ready']) .markdown-crepe {
+  visibility: hidden;
+}
+
+/* Word count: a quiet caption in the corner, where the link failure is not. */
+.markdown-word-count {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  bottom: 12px;
+  padding: 2px 8px;
+  color: var(--muted-foreground);
+  font-size: var(--fs-caption, 12px);
+  font-variant-numeric: tabular-nums;
+  background: color-mix(in oklab, var(--surface-2) 88%, transparent);
+  border-radius: var(--shape-input-radius, 8px);
+  pointer-events: none;
+}
+
+/* Focus mode dims every top-level block but the one being written. The editor
+   marks that block whether or not the mode is on, so turning it on needs no
+   editor round trip. */
+html[data-focus-mode='on'] .markdown-crepe .ProseMirror > * {
+  transition: opacity var(--motion-base) ease;
+}
+
+html[data-focus-mode='on'] .markdown-crepe:focus-within .ProseMirror > :not(.is-current-block) {
+  opacity: 0.32;
+}
+
+.markdown-status {
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  text-align: center;
+  color: var(--muted-foreground);
+  background: transparent;
+}
+
+.markdown-crepe {
+  min-width: 0;
+  min-height: 0;
+  margin-top: var(--reading-bar-height);
+  container-type: inline-size;
+}
+
+/* Crepe's frame theme declares these variables directly on `.milkdown`.
+   The scoped bridge must therefore outrank that package selector. */
+.markdown-crepe .milkdown {
+  --crepe-color-background: var(--surface-2);
+  --crepe-color-on-background: var(--foreground);
+  --crepe-color-surface: var(--surface-2);
+  --crepe-color-surface-low: var(--surface-3);
+  --crepe-color-on-surface: var(--foreground);
+  --crepe-color-on-surface-variant: var(--muted-foreground);
+  --crepe-color-outline: var(--border);
+  --crepe-color-primary: var(--prose-accent);
+  --crepe-color-secondary: var(--accent);
+  --crepe-color-on-secondary: var(--accent-foreground);
+  --crepe-color-inverse: var(--foreground);
+  --crepe-color-on-inverse: var(--background);
+  --crepe-color-inline-code: var(--foreground);
+  --crepe-color-error: var(--destructive);
+  --crepe-color-hover: var(--hover);
+  --crepe-color-selected: var(--selected);
+  --crepe-color-inline-area: var(--border);
+  --crepe-font-title: var(--font-sans);
+  --crepe-font-default: var(--font-sans);
+  --crepe-font-code: var(--code-font, var(--font-mono));
+  --crepe-shadow-1: var(--shadow-4);
+  --crepe-shadow-2: var(--shadow-6);
+
+  height: 100%;
+  min-width: 0;
+  min-height: 100%;
+  overflow: auto;
+  color: var(--foreground);
+  background: transparent;
+}
+
+/* Three classes intentionally outrank Crepe's later-loaded frame padding. */
+.markdown-crepe .milkdown .ProseMirror {
+  box-sizing: border-box;
+  width: 100%;
+  /* The measure is in em so a line holds the same text at every size. */
+  max-width: calc(var(--reading-measure, 44em) + 2 * clamp(28px, 6cqi, 52px));
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 32px clamp(28px, 6cqi, 52px) 96px;
+  color: var(--foreground);
+  font-family: var(--writing-font, var(--font-reading));
+  font-size: var(--reading-font-size, 16px);
+  line-height: var(--reading-line-height, 1.65);
+  outline: none;
+}
+
+/* Crepe fixes paragraphs at 16px/24px; prose follows the reading size instead. */
+.markdown-crepe .milkdown .ProseMirror p {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* One family for headings and prose, so hierarchy comes from size alone; the
+   serif's optical-size axis also gives large headings a tighter display cut. */
+.markdown-crepe .milkdown .ProseMirror :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: 0;
+  color: var(--foreground);
+  font-family: var(--writing-font, var(--font-reading));
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.markdown-crepe .milkdown .ProseMirror h1 {
+  margin-top: 1em;
+  font-size: 2em;
+  letter-spacing: -0.02em;
+}
+
+.markdown-crepe .milkdown .ProseMirror h2 {
+  margin-top: 1.4em;
+  font-size: 1.45em;
+  letter-spacing: -0.01em;
+}
+
+.markdown-crepe .milkdown .ProseMirror h3 {
+  margin-top: 1.3em;
+  font-size: 1.2em;
+}
+
+.markdown-crepe .milkdown .ProseMirror :is(h4, h5, h6) {
+  margin-top: 1.2em;
+  font-size: 1em;
+}
+
+/* Monospace follows the reading size, scaled so it sits beside the serif's
+   smaller x-height without looking a size larger than the prose. */
+.markdown-crepe .milkdown .ProseMirror code {
+  font-size: calc(var(--reading-code-scale, 0.875) * 1em);
+}
+
+.markdown-crepe .milkdown .milkdown-code-block .cm-editor {
+  font-size: calc(var(--reading-code-scale, 0.875) * var(--reading-font-size, 16px));
+}
+
+/* Tabular data keeps the interface sans, whose figures align. */
+.markdown-crepe .ProseMirror table {
+  font-family: var(--font-sans);
+  font-size: 0.9em;
+}
+
+/* Keep list markers centred on the first line: the prose line box plus the
+   4px block padding Crepe puts above and below each paragraph. */
+.markdown-crepe .milkdown .milkdown-list-item-block li :is(.label-wrapper, .label-wrapper .label) {
+  height: calc(var(--reading-line-height, 1.65) * 1em + 8px);
+}
+
+.markdown-crepe .ProseMirror a {
+  color: var(--prose-accent);
+  text-decoration-color: color-mix(in oklab, var(--prose-accent) 38%, transparent);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.markdown-crepe .ProseMirror :is(pre, table) {
+  border-color: var(--border);
+  border-width: var(--hairline);
+}
+
+/* Crepe writes literal 1px cell borders; thin them to the app hairline. */
+.markdown-crepe .milkdown .milkdown-table-block :is(th, td) {
+  border-width: var(--hairline);
+}
+
+.markdown-crepe .ProseMirror table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.markdown-crepe .ProseMirror pre {
+  border-radius: var(--shape-input-radius, 8px);
+}
+
+.markdown-crepe .ProseMirror hr {
+  height: var(--hairline);
+  margin: 2em 0;
+  border: 0;
+  background: var(--border);
+}
+
+.markdown-crepe .milkdown-code-block,
+.markdown-crepe .milkdown-code-block .cm-editor,
+.markdown-crepe .milkdown-code-block .cm-gutters {
+  color: var(--foreground);
+  background: var(--surface-2);
+}
+
+.markdown-crepe .milkdown-code-block .cm-gutters {
+  color: var(--muted-foreground);
+  border-right: 1px solid var(--border);
+}
+
+/* The current line is painted only while the block's editor has focus, so a
+ * block the caret has left does not keep a line marked beside the prose the
+ * reader is typing in. */
+.markdown-crepe .milkdown-code-block :is(.cm-activeLine, .cm-activeLineGutter) {
+  background: transparent !important;
+}
+
+.markdown-crepe
+  .milkdown-code-block
+  .cm-editor.cm-focused
+  :is(.cm-activeLine, .cm-activeLineGutter) {
+  background: var(--hover) !important;
+}
+
+.markdown-crepe .milkdown-code-block :is(.cm-selectionBackground, .cm-content ::selection) {
+  background: var(--selected) !important;
+}
+
+.markdown-crepe .milkdown-code-block .cm-cursor {
+  border-left-color: var(--focus-ring);
+}
+
+.markdown-crepe .milkdown-toolbar,
+.markdown-crepe .milkdown-slash-menu,
+.markdown-crepe .milkdown-link-edit > .link-edit,
+.markdown-crepe .milkdown-link-preview > .link-preview {
+  color: var(--foreground);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--shape-input-radius, 8px);
+  box-shadow: var(--shadow-5);
+}
+
+.markdown-crepe .milkdown :is(.toolbar-item, .milkdown-slash-menu li):hover {
+  background: var(--hover);
+}
+
+.markdown-crepe .milkdown :is(.toolbar-item.active, .milkdown-slash-menu li.active) {
+  background: var(--active);
+}
+
+/* Crepe also uses its outline token for menu glyphs. Borders should remain
+   subtle, but controls need the app's normal foreground state ladder. */
+.markdown-crepe .milkdown :is(.milkdown-toolbar .toolbar-item, .milkdown-slash-menu li) svg {
+  color: color-mix(in oklab, var(--foreground) 76%, var(--background));
+  fill: currentColor;
+}
+
+.markdown-crepe
+  .milkdown
+  :is(.milkdown-toolbar .toolbar-item:hover, .milkdown-slash-menu li:hover)
+  svg,
+.markdown-crepe
+  .milkdown
+  :is(.milkdown-toolbar .toolbar-item.active, .milkdown-slash-menu li.active)
+  svg {
+  color: var(--foreground);
+}
+
+/* Crepe spaces its toolbar for a wide page: 6px around each item and 10px
+   around each divider made it 516px, wider than a document pane can get
+   beside the chat (320px at least). Tighter spacing keeps it on one line in a
+   usual split, and past the pane's width it wraps rather than being clipped. */
+.markdown-crepe .milkdown .milkdown-toolbar {
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: calc(100cqi - 16px);
+  padding: 4px;
+}
+
+.markdown-crepe .milkdown .milkdown-toolbar .toolbar-item {
+  margin: 0;
+}
+
+.markdown-crepe .milkdown .milkdown-toolbar .divider {
+  height: 20px;
+  margin: 0 4px;
+  background: var(--border);
+}
+
+/* Too narrow for one line (it needs 401px), the spacing tightens once more and Ask Agent takes a row of its own:
+   the divider before it becomes the hairline between the rows, so the
+   formatting groups stay whole instead of wrapping mid-group. */
+@container (max-width: 416px) {
+  .markdown-crepe .milkdown .milkdown-toolbar .divider {
+    margin: 0 3px;
+  }
+
+  .markdown-crepe .milkdown .milkdown-toolbar .toolbar-item:has([data-heading-menu]) {
+    padding-inline: 6px;
+  }
+
+  .markdown-crepe .milkdown .milkdown-toolbar .divider:nth-last-child(2) {
+    flex-basis: 100%;
+    height: 1px;
+    margin: 4px 0;
+  }
+}
+
+/* The words among the glyphs (Heading, Ask Agent): the item widens to the word,
+   and the word takes the glyphs' foreground ladder so it reads as one of them. */
+.markdown-crepe .milkdown-toolbar .toolbar-item:has(.markdown-toolbar-label) {
+  display: inline-flex;
+  align-items: center;
+  width: auto;
+  padding-inline: 10px;
+}
+
+.markdown-toolbar-label {
+  color: color-mix(in oklab, var(--foreground) 76%, var(--background));
+  /* 13px holds its own beside Crepe's 24px glyphs; the caption size read faint. */
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.markdown-crepe .milkdown-toolbar .toolbar-item:hover .markdown-toolbar-label {
+  color: var(--foreground);
+}
+
+/* The Heading item is a menu trigger: its word, then a small stroked chevron
+   rather than one of Crepe's filled glyphs. */
+.markdown-crepe .milkdown-toolbar .toolbar-item .milkdown-icon:has([data-heading-menu]) {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.markdown-crepe .milkdown .milkdown-toolbar .toolbar-item svg.markdown-toolbar-chevron {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The Heading menu sits under its trigger, on the toolbar's own surface. */
+.markdown-crepe .markdown-heading-menu {
+  position: absolute;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  min-width: 148px;
+  padding: 4px;
+  color: var(--foreground);
+  background: var(--surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--shape-input-radius, 8px);
+  box-shadow: var(--shadow-5);
+}
+
+.markdown-crepe .markdown-heading-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 32px;
+  padding-inline: 10px;
+  color: color-mix(in oklab, var(--foreground) 76%, var(--background));
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.markdown-crepe .markdown-heading-menu-item:hover {
+  color: var(--foreground);
+  background: var(--hover);
+}
+
+.markdown-crepe
+  .markdown-heading-menu-item:is(:hover, [aria-checked='true'])
+  .markdown-toolbar-label {
+  color: var(--foreground);
+}
+
+.markdown-crepe .markdown-heading-menu-check {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.markdown-crepe .milkdown-link-edit > .link-edit,
+.markdown-crepe .milkdown-link-preview > .link-preview {
+  box-sizing: border-box;
+  width: min(400px, calc(100vw - 64px));
+}
+
+.markdown-crepe-readonly
+  .milkdown
+  :is(
+    .crepe-slash-menu,
+    .crepe-toolbar,
+    .crepe-link-tooltip,
+    .milkdown-block-handle,
+    .milkdown-slash-menu,
+    .milkdown-toolbar
+  ) {
+  display: none !important;
+}
+
+@container (max-width: 520px) {
+  .markdown-crepe .milkdown .ProseMirror {
+    padding: 32px 20px 72px;
+    font-size: calc(var(--reading-font-size, 16px) - 1px);
+  }
+}
+
+/* The review's red and green are the app's own diff tokens, the same pair the
+   Agent's file diff reads, so one change never renders as two greens. Crepe
+   derives every diff background, text and control colour from these two
+   properties by color-mix, so remapping them is the whole theme. The
+   two-class selector outranks Crepe's own `.milkdown` rule whatever order the
+   stylesheets land in. */
+.markdown-crepe .milkdown {
+  --crepe-color-diff-added: var(--diff-add);
+  --crepe-color-diff-removed: var(--diff-remove);
+  /* Crepe fills a changed run at 12% and then mixes its text 40% back toward
+     the page, which reads as a slab of colour carrying grey words. A reviewer
+     is reading prose, so the words take the colour and the fill drops to a
+     wash behind them. */
+  --crepe-color-diff-added-bg: color-mix(in oklab, var(--diff-add) 9%, transparent);
+  --crepe-color-diff-added-text: var(--diff-add);
+  --crepe-color-diff-removed-bg: color-mix(in oklab, var(--diff-remove) 8%, transparent);
+  --crepe-color-diff-removed-text: color-mix(in oklab, var(--diff-remove) 78%, var(--foreground));
+}
+
+/* A changed block is marked the way this app marks a changed region anywhere
+   else: a rule down its edge and a wash behind it. Crepe outlines it in 2px
+   dashes at 45% opacity, which reads as a failed embed rather than prose
+   somebody proposed removing, and a reviewer has to be able to read the words
+   they are about to delete. The dashed outline carries `!important`
+   upstream, so ending it needs one back. */
+.markdown-crepe .milkdown .milkdown-diff-removed-block {
+  outline: none !important;
+  border-left: 2px solid color-mix(in oklab, var(--diff-remove) 70%, transparent);
+  border-radius: 0 6px 6px 0;
+  padding: 2px 10px;
+  opacity: 0.8;
+}
+
+.markdown-crepe .milkdown .milkdown-diff-added-block {
+  border-left: 2px solid color-mix(in oklab, var(--diff-add) 70%, transparent);
+  border-radius: 0 6px 6px 0;
+  padding: 2px 10px;
+}
+
+/* The block the card lands on opens a gutter for it, so the card covers none
+   of the prose being reviewed and none of the paragraph after it. Only that
+   block does. A list with one item deleted holds its card inside itself
+   rather than after it, which is the second relative selector. */
+.markdown-crepe
+  .milkdown
+  :is(.milkdown-diff-removed-block, .milkdown-diff-added-block):has(
+    + .milkdown-diff-controls-block,
+    > .milkdown-diff-controls-block
+  ) {
+  padding-bottom: 32px;
+}
+
+/* The per-change Accept and Reject.
+
+   The diff plugin builds these two buttons itself, as plain DOM inside a
+   ProseMirror decoration, and its config carries only their labels, so the
+   React `Button` cannot be mounted here. What they can share is the kit.
+   Every value below is a token that primitive reads, and the glyphs are the
+   same Lucide check and x the app draws everywhere else, carried as a mask
+   because a widget built from text has nowhere to put an icon.
+
+   The card floats rather than sitting in the sentence. Inline controls in the
+   flow push the words they belong to sideways, and with a change every few
+   lines the page fills with chrome and stops reading as prose. So the card
+   leaves the flow, overlaps what follows, and appears for the change under the
+   pointer. Its shadow says it is above the page rather than part of it. */
+.markdown-crepe .milkdown .ProseMirror {
+  /* The card is positioned out of the flow, so it needs a containing block
+     inside the scroller. Without one it would anchor to the page and stay put
+     while the document scrolls under it. */
+  position: relative;
+}
+
+.markdown-crepe .milkdown .milkdown-diff-controls {
+  position: absolute;
+  z-index: 2;
+  gap: 2px;
+  margin: 0 0 0 3px;
+  padding: 3px;
+  border-radius: var(--shape-input-radius, 8px);
+  background: var(--surface-3);
+  box-shadow: var(--shadow-4);
+  opacity: 0;
+  visibility: hidden;
+  /* The card is a target a short travel away from the change that summons it,
+     so leaving the change must not take it away at once. It holds for 400ms,
+     which is long enough to cross the gap at a reading pace and short enough
+     that a card you have moved away from is gone before you reach the next
+     line. Visibility rather than pointer-events, because visibility can carry
+     the same delay, and a card lingering under the pointer has to stay
+     clickable for the dwell to be worth anything. */
+  transition:
+    opacity var(--motion-fast) ease 400ms,
+    visibility 0s linear calc(400ms + var(--motion-fast));
+  user-select: none;
+}
+
+/* `revision-hover.ts` marks the card whose change the pointer is on. A sibling
+   rule cannot: the card follows the last paragraph of a multi-paragraph
+   change, so hovering any earlier one reached nothing. */
+.markdown-crepe .milkdown .milkdown-diff-controls[data-revision-hover],
+.markdown-crepe .milkdown .milkdown-diff-controls:hover,
+.markdown-crepe .milkdown .milkdown-diff-controls:focus-within {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity var(--motion-fast) ease,
+    visibility 0s linear;
+}
+
+/* A block change puts its card in the gutter the block opened, at the bottom
+   right. It hides like the inline one: a proposal that rewrites five
+   paragraphs in a row is five cards down the page, which is the pile this
+   design exists to avoid. The header bar is what tells a reader changes are
+   waiting; hovering one is what offers the two decisions about it. */
+.markdown-crepe .milkdown .milkdown-diff-controls-block {
+  /* Relative, not static, and this is the whole reason deletions behaved
+     differently from insertions. Crepe positions a deleted block
+     (`position: relative`, for the node-level overlay it draws on custom node
+     views) and leaves an inserted one in normal flow. Positioned elements
+     paint after in-flow blocks, so a static card painted underneath the
+     deleted block it belongs to and was covered by the block's own tint,
+     while the same card over an inserted block painted on top and showed.
+     Positioning the card puts it in that later phase too, after its block in
+     tree order. */
+  position: relative;
+  z-index: 1;
+  /* Crepe makes this one a block-level flex row, so without a width it takes
+     the column and the card becomes a bar across the page. It shrinks to the
+     two buttons, sits in the gutter the block opened above, and costs no row
+     of its own. */
+  width: fit-content;
+  margin: -30px 10px 0 auto;
+  gap: 2px;
+}
+
+.markdown-crepe .milkdown .milkdown-diff-controls button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 8px;
+  border: none;
+  /* Concentric with the card: the inner corner is the outer one less the 3px
+     of padding between them, so the two curves stay parallel. */
+  border-radius: calc(var(--shape-input-radius, 8px) - 3px);
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  font-size: calc(var(--fs-caption, 12px) - 1px);
+  font-weight: 500;
+  line-height: 1;
+  transition: background-color var(--motion-fast) ease;
+}
+
+.markdown-crepe .milkdown .milkdown-diff-controls button::before {
+  content: '';
+  flex: none;
+  width: 12px;
+  height: 12px;
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
+.markdown-crepe .milkdown .milkdown-diff-controls button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--focus-ring);
+}
+
+.markdown-crepe .milkdown .milkdown-diff-accept::before {
+  background-color: var(--diff-add);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+
+.markdown-crepe .milkdown .milkdown-diff-reject::before {
+  background-color: var(--diff-remove);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 6 6 18M6 6l12 12'/%3E%3C/svg%3E");
+}
+
+.markdown-crepe .milkdown .milkdown-diff-accept:hover {
+  background: var(--diff-add-line);
+}
+
+.markdown-crepe .milkdown .milkdown-diff-reject:hover {
+  background: var(--diff-remove-line);
+}
+
+/* A turn review runs the plugin in reverse: the editor holds what the turn
+   wrote and the offered text is what came before. So the plugin's deletion is
+   the turn's addition and its inserted widget is the turn's removal, and the
+   two colours and the strikethrough swap back here, so an addition reads as
+   one. The per-change controls become Undo and Keep with matching glyphs. */
+.markdown-crepe[data-review-reversed] .milkdown {
+  --crepe-color-diff-added: var(--diff-remove);
+  --crepe-color-diff-removed: var(--diff-add);
+  --crepe-color-diff-added-bg: color-mix(in oklab, var(--diff-remove) 8%, transparent);
+  --crepe-color-diff-added-text: color-mix(in oklab, var(--diff-remove) 78%, var(--foreground));
+  --crepe-color-diff-removed-bg: color-mix(in oklab, var(--diff-add) 9%, transparent);
+  --crepe-color-diff-removed-text: var(--diff-add);
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-removed {
+  text-decoration: none;
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-added {
+  text-decoration: line-through;
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-removed-block {
+  border-left-color: color-mix(in oklab, var(--diff-add) 70%, transparent);
+  opacity: 1;
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-added-block {
+  border-left-color: color-mix(in oklab, var(--diff-remove) 70%, transparent);
+  opacity: 0.8;
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-accept::before {
+  background-color: var(--diff-remove);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 14 4 9l5-5'/%3E%3Cpath d='M4 9h10.5a5.5 5.5 0 0 1 0 11H11'/%3E%3C/svg%3E");
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-reject::before {
+  background-color: var(--diff-add);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-accept:hover {
+  background: var(--diff-remove-line);
+}
+
+.markdown-crepe[data-review-reversed] .milkdown .milkdown-diff-reject:hover {
+  background: var(--diff-add-line);
+}

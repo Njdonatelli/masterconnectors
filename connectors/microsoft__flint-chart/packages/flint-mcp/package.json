@@ -1,0 +1,99 @@
+{
+  "name": "flint-chart-mcp",
+  "version": "0.5.1",
+  "description": "Model Context Protocol server for Flint — compile, validate, and render semantic chart specs across supported backends.",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "flint",
+    "flint-chart",
+    "visualization",
+    "charts",
+    "vega-lite",
+    "echarts",
+    "chart.js",
+    "agent",
+    "llm"
+  ],
+  "license": "MIT",
+  "author": "Microsoft Corporation",
+  "homepage": "https://microsoft.github.io/flint-chart/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microsoft/flint-chart.git",
+    "directory": "packages/flint-mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/microsoft/flint-chart/issues"
+  },
+  "type": "module",
+  "bin": {
+    "flint-chart-mcp": "dist/cli.js",
+    "flint-chart": "dist/flint-chart.js"
+  },
+  "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./render": {
+      "types": "./dist/render/index.d.ts",
+      "import": "./dist/render/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:ui && tsup",
+    "build:ui": "vite build -c ui/vite.config.ts",
+    "dev": "tsup --watch",
+    "dev:ui": "vite build -c ui/vite.config.ts --watch",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p ui/tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "start": "node dist/cli.js",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean && npm run typecheck && npm run test && npm run build",
+    "release": "npm publish --access public"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/ext-apps": "^1.7.4",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@napi-rs/canvas": "^1.0.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "chart.js": "^4.4.0",
+    "echarts": "^6.0.0",
+    "flint-chart": "^0.5.1",
+    "vega": "^6.0.0",
+    "vega-interpreter": "^2.2.1",
+    "vega-lite": "^6.0.0",
+    "zod": "^3.25.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vite": "^8.1.0",
+    "vite-plugin-singlefile": "^2.3.3",
+    "vitest": "^4.1.8"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
+}

@@ -1,0 +1,519 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { KeyValueField } from '../fields/KeyValueField';
+import { createPortal } from 'react-dom';
+import { Plug, Save, X } from 'lucide-react';
+import type { ConnectionKind, ConnectionPayload, RepoItem } from '../../repo-types';
+import { testConnection, type ConnectionTestResult } from '../../tauri-bridge';
+
+type Props = {
+    item: RepoItem | null;
+    onSave: (name: string, payload: ConnectionPayload) => void;
+    onCancel: () => void;
+};
+
+type ConnectionType = {
+    kind: ConnectionKind;
+    label: string;
+    fields: Array<keyof ConnectionPayload>;
+    defaultPort?: number;
+    /** Labels that differ for this kind, where the shared wording would mislead. */
+    labels?: Partial<Record<keyof ConnectionPayload, string>>;
+};
+
+export const CONNECTION_TYPES: ConnectionType[] = [
+    {
+        kind: 'postgres',
+        label: 'PostgreSQL',
+        fields: [
+            'host', 'port', 'database', 'username', 'password',
+            // Advanced / TLS (issue #161).
+            'sslmode', 'sslrootcert', 'sslcert', 'sslkey', 'connectTimeout', 'options', 'connParams',
+        ],
+        defaultPort: 5432,
+    },
+    {
+        kind: 'mysql',
+        label: 'MySQL',
+        fields: ['host', 'port', 'database', 'username', 'password'],
+        defaultPort: 3306,
+    },
+    {
+        kind: 'mariadb',
+        label: 'MariaDB',
+        fields: ['host', 'port', 'database', 'username', 'password'],
+        defaultPort: 3306,
+    },
+    {
+        kind: 'sqlserver',
+        label: 'SQL Server',
+        fields: ['host', 'port', 'database', 'username', 'password', 'encrypt', 'trustCert'],
+        defaultPort: 1433,
+    },
+    {
+        kind: 'oracle',
+        label: 'Oracle',
+        fields: ['host', 'port', 'database', 'username', 'password'],
+        defaultPort: 1521,
+    },
+    { kind: 'sqlite', label: 'SQLite', fields: ['database'] },
+    { kind: 'duckdb', label: 'DuckDB', fields: ['database'] },
+    {
+        kind: 'snowflake',
+        label: 'Snowflake',
+        fields: ['host', 'database', 'username', 'password'],
+    },
+    {
+        kind: 'bigquery',
+        label: 'BigQuery',
+        fields: ['accountName', 'database'],
+    },
+    {
+        kind: 'redshift',
+        label: 'Redshift',
+        fields: [
+            'host', 'port', 'database', 'username', 'password',
+            'sslmode', 'sslrootcert', 'sslcert', 'sslkey', 'connectTimeout', 'options', 'connParams',
+        ],
+        defaultPort: 5439,
+    },
+    {
+        kind: 'clickhouse',
+        label: 'ClickHouse',
+        fields: ['host', 'port', 'database', 'username', 'password'],
+        defaultPort: 8123,
+    },
+    {
+        kind: 'mongodb',
+        label: 'MongoDB',
+        fields: ['host', 'port', 'database', 'username', 'password'],
+        defaultPort: 27017,
+    },
+    {
+        kind: 'redis',
+        label: 'Redis',
+        fields: ['host', 'port', 'password'],
+        defaultPort: 6379,
+    },
+    {
+        kind: 'elastic',
+        label: 'Elasticsearch',
+        fields: ['host', 'port', 'username', 'password'],
+        defaultPort: 9200,
+    },
+    {
+        kind: 's3',
+        label: 'Amazon S3 / MinIO',
+        fields: ['bucket', 'region', 'accessKey', 'secretKey', 'sessionToken', 'endpoint', 'urlStyle', 'useSsl'],
+    },
+    {
+        // What the engine's GCS secret is built from: HMAC interoperability keys,
+        // plus the region, endpoint and TLS settings a regional or private bucket
+        // needs. This offered a bucket and an "Account / Project" field that
+        // nothing reads, so a node using the connection read the bucket as nobody.
+        kind: 'gcs',
+        label: 'Google Cloud Storage',
+        fields: ['bucket', 'region', 'accessKey', 'secretKey', 'sessionToken', 'endpoint', 'urlStyle', 'useSsl'],
+        labels: {
+            accessKey: 'HMAC access key',
+            secretKey: 'HMAC secret',
+            endpoint: 'Endpoint (blank for storage.googleapis.com)',
+        },
+    },
+    {
+        kind: 'azure-blob',
+        label: 'Azure Blob Storage',
+        fields: ['accountName', 'accountKey', 'bucket'],
+    },
+    { kind: 'kafka', label: 'Kafka', fields: ['brokers', 'username', 'password'] },
+    {
+        // Auth lives here so a rotated key is one edit, not one per node.
+        kind: 'rest',
+        label: 'REST API',
+        fields: ['url', 'headers', 'authType', 'authToken', 'authHeader'],
+    },
+    {
+        // #166 stage 2: field names match what the engine's Salesforce
+        // connectors read, so run-time resolution injects them verbatim.
+        kind: 'salesforce',
+        label: 'Salesforce',
+        fields: ['authMode', 'loginUrl', 'instanceUrl', 'clientId', 'clientSecret', 'accessToken'],
+    },
+];
+
+const FIELD_LABELS: Partial<Record<keyof ConnectionPayload, string>> = {
+    host: 'Host',
+    port: 'Port',
+    database: 'Database',
+    username: 'Username',
+    password: 'Password',
+    bucket: 'Bucket',
+    region: 'Region',
+    accessKey: 'Access key',
+    secretKey: 'Secret key',
+    accountName: 'Account / Project',
+    accountKey: 'Account key',
+    brokers: 'Bootstrap servers',
+    url: 'Base URL',
+    endpoint: 'Endpoint (MinIO / R2 / B2, blank for AWS)',
+    urlStyle: 'URL style',
+    sslmode: 'SSL mode',
+    sslrootcert: 'SSL root cert',
+    sslcert: 'SSL client cert',
+    sslkey: 'SSL client key',
+    connectTimeout: 'Connect timeout (s)',
+    options: 'Session options',
+    connParams: 'Extra parameters',
+    authMode: 'Auth mode',
+    loginUrl: 'Login URL (Client Credentials)',
+    instanceUrl: 'Instance URL (Bearer mode)',
+    clientId: 'Client ID (Client Credentials)',
+    clientSecret: 'Client secret (Client Credentials)',
+    accessToken: 'Access token (Bearer mode)',
+    headers: 'Headers (sent with every request)',
+    authType: 'Auth type (bearer / basic / none)',
+    authToken: 'Auth token',
+    authHeader: 'Auth header name (default Authorization)',
+    encrypt: 'Encrypt connection',
+    trustCert: 'Trust server certificate',
+};
+
+// The kinds the engine can test (connection_test.rs `probe`): the ones nodes
+// reference whose connection a test reaches the way a run does.
+const TESTABLE_KINDS = new Set<ConnectionKind>(['postgres', 'redshift', 'mysql', 'mariadb', 'sqlserver', 's3', 'rest']);
+
+// Yes / No / the node's default, for a boolean the engine reads with as_bool.
+const BOOLEAN_FIELDS = new Set<keyof ConnectionPayload>(['encrypt', 'trustCert']);
+
+const SECRET_FIELDS = new Set<keyof ConnectionPayload>([
+    'password',
+    'secretKey',
+    'accountKey',
+    'clientSecret',
+    'accessToken',
+    'authToken',
+]);
+
+export default function ConnectionEditorModal({ item, onSave, onCancel }: Props) {
+    const initial = (item?.payload as ConnectionPayload | undefined) ?? null;
+    const [name, setName] = useState(item?.name ?? '');
+    const [kind, setKind] = useState<ConnectionKind>(initial?.kind ?? 'postgres');
+    const [values, setValues] = useState<ConnectionPayload>(initial ?? { kind: 'postgres' });
+    const nameRef = useRef<HTMLInputElement>(null);
+
+    const meta = useMemo(() => CONNECTION_TYPES.find(c => c.kind === kind), [kind]);
+
+    useEffect(() => {
+        setTimeout(() => nameRef.current?.focus(), 30);
+        const onKey = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onCancel();
+        };
+        document.addEventListener('keydown', onKey);
+        return () => document.removeEventListener('keydown', onKey);
+    }, [onCancel]);
+
+    // `headers` is a list of pairs rather than a scalar, so the value type is
+    // wider than the text/number inputs that made up this form until now.
+    const setField = (
+        key: keyof ConnectionPayload,
+        value: string | number | boolean | undefined | { key: string; value: string }[],
+    ) => {
+        setValues(v => ({ ...v, [key]: value }));
+    };
+
+    const [test, setTest] = useState<ConnectionTestResult | null>(null);
+    const [testing, setTesting] = useState(false);
+    const canTest = TESTABLE_KINDS.has(kind);
+
+    const handleTest = async () => {
+        setTesting(true);
+        setTest(null);
+        try {
+            setTest(await testConnection({ ...values, kind }));
+        } finally {
+            setTesting(false);
+        }
+    };
+
+    const handleKindChange = (newKind: ConnectionKind) => {
+        setKind(newKind);
+        setTest(null);
+        const m = CONNECTION_TYPES.find(c => c.kind === newKind);
+        setValues(v => ({
+            ...v,
+            kind: newKind,
+            port: m?.defaultPort ?? v.port,
+        }));
+    };
+
+    const canSave = name.trim().length > 0;
+
+    const handleSave = () => {
+        if (!canSave) return;
+        onSave(name.trim(), { ...values, kind });
+    };
+
+    return createPortal(
+        <div
+            className="modal-backdrop"
+            onClick={e => {
+                if (e.target === e.currentTarget) onCancel();
+            }}
+        >
+            <div className="modal modal-editor">
+                <div className="modal-header">
+                    <div className="modal-title-row">
+                        <Plug size={16} className="modal-title-icon" />
+                        <div>
+                            <div className="modal-title">
+                                {item ? 'Edit connection' : 'New connection'}
+                            </div>
+                            <div className="modal-subtitle">
+                                {meta?.label ?? kind} · saved in <code>Connections</code>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        type="button"
+                        className="modal-close"
+                        onClick={onCancel}
+                        aria-label="Close"
+                    >
+                        <X size={16} />
+                    </button>
+                </div>
+
+                <div className="modal-body">
+                    <div className="modal-field">
+                        <label className="modal-field-label">Connection name</label>
+                        <input
+                            ref={nameRef}
+                            type="text"
+                            className="modal-input"
+                            value={name}
+                            placeholder="e.g. analytics_warehouse_prod"
+                            onChange={e => setName(e.target.value)}
+                            spellCheck={false}
+                        />
+                    </div>
+
+                    <div className="modal-field">
+                        <label className="modal-field-label">Type</label>
+                        <select
+                            className="modal-input modal-select"
+                            value={kind}
+                            onChange={e => handleKindChange(e.target.value as ConnectionKind)}
+                        >
+                            {CONNECTION_TYPES.map(c => (
+                                <option key={c.kind} value={c.kind}>
+                                    {c.label}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="connection-field-grid">
+                        {meta?.fields.map(field => {
+                            const isSecret = SECRET_FIELDS.has(field);
+                            const isNumber = field === 'port' || field === 'connectTimeout';
+                            if (field === 'sslmode') {
+                                // Values MUST match libpq sslmode names so the
+                                // engine forwards them verbatim into the DSN (#161).
+                                return (
+                                    <div className="modal-field" key={field}>
+                                        <label className="modal-field-label">
+                                            {meta?.labels?.[field] ?? FIELD_LABELS[field] ?? field}
+                                        </label>
+                                        <select
+                                            className="modal-input"
+                                            value={(values.sslmode as string | undefined) ?? ''}
+                                            onChange={e => setField('sslmode', e.target.value)}
+                                        >
+                                            <option value="">Default</option>
+                                            <option value="disable">disable</option>
+                                            <option value="allow">allow</option>
+                                            <option value="prefer">prefer</option>
+                                            <option value="require">require</option>
+                                            <option value="verify-ca">verify-ca</option>
+                                            <option value="verify-full">verify-full</option>
+                                        </select>
+                                    </div>
+                                );
+                            }
+                            if (BOOLEAN_FIELDS.has(field)) {
+                                const v = values[field] as boolean | undefined;
+                                return (
+                                    <div className="modal-field" key={field}>
+                                        <label className="modal-field-label">
+                                            {meta?.labels?.[field] ?? FIELD_LABELS[field] ?? field}
+                                        </label>
+                                        <select
+                                            className="modal-input"
+                                            value={v === undefined ? '' : v ? 'true' : 'false'}
+                                            onChange={e =>
+                                                setField(field, e.target.value === '' ? undefined : e.target.value === 'true')
+                                            }
+                                        >
+                                            <option value="">Default</option>
+                                            <option value="true">Yes</option>
+                                            <option value="false">No</option>
+                                        </select>
+                                    </div>
+                                );
+                            }
+                            if (field === 'headers') {
+                                // Reuses the canvas key/value editor rather
+                                // than a second implementation, so a header set
+                                // here looks and behaves like one set on a node.
+                                return (
+                                    <div className="modal-field" key={field}>
+                                        <label className="modal-field-label">
+                                            {meta?.labels?.[field] ?? FIELD_LABELS[field] ?? field}
+                                        </label>
+                                        <KeyValueField
+                                            value={values.headers}
+                                            onChange={pairs => setField('headers', pairs)}
+                                        />
+                                    </div>
+                                );
+                            }
+                            if (field === 'authType') {
+                                return (
+                                    <div className="modal-field" key={field}>
+                                        <label className="modal-field-label">
+                                            {meta?.labels?.[field] ?? FIELD_LABELS[field] ?? field}
+                                        </label>
+                                        <select
+                                            className="modal-input"
+                                            value={(values.authType as string | undefined) ?? ''}
+                                            onChange={e => setField('authType', e.target.value)}
+                                        >
+                                            <option value="">None</option>
+                                            <option value="bearer">Bearer</option>
+                                            <option value="basic">Basic</option>
+                                        </select>
+                                    </div>
+                                );
+                            }
+                            if (field === 'authMode') {
+                                // The values MUST match what the run-time
+                                // resolver maps onto the node's authMode /
+                                // authType props (#166 stage 2).
+                                return (
+                                    <div className="modal-field" key={field}>
+                                        <label className="modal-field-label">
+                                            {meta?.labels?.[field] ?? FIELD_LABELS[field] ?? field}
+                                        </label>
+                                        <select
+                                            className="modal-input"
+                                            value={(values.authMode as string | undefined) ?? 'bearer'}
+                                            onChange={e => setField('authMode', e.target.value)}
+                                        >
+                                            <option value="bearer">Bearer token (paste / refresh manually)</option>
+                                            <option value="clientCredentials">OAuth 2.0 Client Credentials (mint per run)</option>
+                                        </select>
+                                    </div>
+                                );
+                            }
+                            if (field === 'urlStyle') {
+                                // The values MUST match the S3 node's URL-style
+                                // option values ('' / 'path' / 'vhost') so picking
+                                // this saved connection on a node lands on a real
+                                // option instead of falling back to Default (#116).
+                                return (
+                                    <div className="modal-field" key={field}>
+                                        <label className="modal-field-label">
+                                            {meta?.labels?.[field] ?? FIELD_LABELS[field] ?? field}
+                                        </label>
+                                        <select
+                                            className="modal-input"
+                                            value={(values.urlStyle as string | undefined) ?? ''}
+                                            onChange={e => setField('urlStyle', e.target.value)}
+                                        >
+                                            <option value="">Default</option>
+                                            <option value="path">Path (MinIO / B2)</option>
+                                            <option value="vhost">Virtual host (R2 / AWS)</option>
+                                        </select>
+                                    </div>
+                                );
+                            }
+                            return (
+                                <div className="modal-field" key={field}>
+                                    <label className="modal-field-label">
+                                        {meta?.labels?.[field] ?? FIELD_LABELS[field] ?? field}
+                                    </label>
+                                    <input
+                                        type={isSecret ? 'password' : isNumber ? 'number' : 'text'}
+                                        className="modal-input"
+                                        value={(values[field] as string | number | undefined) ?? ''}
+                                        placeholder={isSecret ? '••••••••' : ''}
+                                        onChange={e =>
+                                            setField(
+                                                field,
+                                                isNumber ? Number(e.target.value) : e.target.value,
+                                            )
+                                        }
+                                        spellCheck={false}
+                                    />
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="modal-field">
+                        <label className="modal-field-label">Notes (optional)</label>
+                        <textarea
+                            className="modal-input"
+                            rows={2}
+                            value={values.notes ?? ''}
+                            onChange={e => setValues(v => ({ ...v, notes: e.target.value }))}
+                            spellCheck={false}
+                        />
+                    </div>
+                </div>
+
+                {test && (
+                    <div className={`conn-test ${test.ok ? 'conn-test-ok' : 'conn-test-fail'}`} role="status">
+                        <div className="conn-test-message">{test.message}</div>
+                        {test.objects.length > 0 && (
+                            <ul className="conn-test-objects">
+                                {test.objects.map(o => (
+                                    <li key={o}>{o}</li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                )}
+
+                <div className="modal-footer">
+                    <button
+                        type="button"
+                        className="btn btn-secondary conn-test-button"
+                        onClick={handleTest}
+                        disabled={!canTest || testing}
+                        title={
+                            canTest
+                                ? 'Connect with these settings and list what they can see'
+                                : 'Testing this kind of connection is not supported yet'
+                        }
+                    >
+                        <Plug size={13} />
+                        {testing ? 'Testing...' : 'Test connection'}
+                    </button>
+                    <button type="button" className="btn btn-secondary" onClick={onCancel}>
+                        Cancel
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={handleSave}
+                        disabled={!canSave}
+                    >
+                        <Save size={13} />
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>,
+        document.body,
+    );
+}

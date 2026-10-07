@@ -1,0 +1,61 @@
+{
+  "title": "Day-of-Week Canonical Order",
+  "description": "Semantic type \"Day\" preserves weekday order (Mon→Sun) regardless of data encounter order. WITHOUT this: days sort alphabetically (Fri, Mon, Sat...).",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "day": "Thu",
+          "visitors": 203
+        },
+        {
+          "day": "Mon",
+          "visitors": 203
+        },
+        {
+          "day": "Sat",
+          "visitors": 489
+        },
+        {
+          "day": "Wed",
+          "visitors": 641
+        },
+        {
+          "day": "Fri",
+          "visitors": 749
+        },
+        {
+          "day": "Tue",
+          "visitors": 618
+        },
+        {
+          "day": "Sun",
+          "visitors": 288
+        }
+      ]
+    },
+    "semantic_types": {
+      "day": "Day",
+      "visitors": "Count"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "day"
+        },
+        "y": {
+          "field": "visitors"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

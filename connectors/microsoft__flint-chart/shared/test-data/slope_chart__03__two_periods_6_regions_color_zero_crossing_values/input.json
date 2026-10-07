@@ -1,0 +1,94 @@
+{
+  "title": "Two periods × 6 regions + Color (zero-crossing values)",
+  "description": "6 regions whose net profit crosses zero between Q1 and Q4 — diverging values",
+  "chartType": "Slope Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Quarter": "Q1",
+          "Region": "North",
+          "Net Profit": 40
+        },
+        {
+          "Quarter": "Q4",
+          "Region": "North",
+          "Net Profit": 15
+        },
+        {
+          "Quarter": "Q1",
+          "Region": "South",
+          "Net Profit": 10
+        },
+        {
+          "Quarter": "Q4",
+          "Region": "South",
+          "Net Profit": -20
+        },
+        {
+          "Quarter": "Q1",
+          "Region": "East",
+          "Net Profit": -15
+        },
+        {
+          "Quarter": "Q4",
+          "Region": "East",
+          "Net Profit": 35
+        },
+        {
+          "Quarter": "Q1",
+          "Region": "West",
+          "Net Profit": 25
+        },
+        {
+          "Quarter": "Q4",
+          "Region": "West",
+          "Net Profit": -10
+        },
+        {
+          "Quarter": "Q1",
+          "Region": "Central",
+          "Net Profit": -5
+        },
+        {
+          "Quarter": "Q4",
+          "Region": "Central",
+          "Net Profit": 28
+        },
+        {
+          "Quarter": "Q1",
+          "Region": "Coast",
+          "Net Profit": 30
+        },
+        {
+          "Quarter": "Q4",
+          "Region": "Coast",
+          "Net Profit": 22
+        }
+      ]
+    },
+    "semantic_types": {
+      "Quarter": "Category",
+      "Net Profit": "Quantity",
+      "Region": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Slope Chart",
+      "encodings": {
+        "x": {
+          "field": "Quarter"
+        },
+        "y": {
+          "field": "Net Profit"
+        },
+        "color": {
+          "field": "Region"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

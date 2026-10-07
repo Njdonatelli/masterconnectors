@@ -1,0 +1,1130 @@
+{
+  "encoding": {
+    "y": {
+      "field": "Metric",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...29 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Metric001",
+          "Metric002",
+          "Metric003",
+          "Metric004",
+          "Metric005",
+          "Metric006",
+          "Metric007",
+          "Metric008",
+          "Metric009",
+          "Metric010",
+          "Metric011",
+          "Metric012",
+          "Metric013",
+          "Metric014",
+          "Metric015",
+          "Metric016",
+          "Metric017",
+          "Metric018",
+          "Metric019",
+          "Metric020",
+          "Metric021",
+          "Metric022",
+          "Metric023",
+          "Metric024",
+          "Metric025",
+          "Metric026",
+          "Metric027",
+          "Metric028",
+          "Metric029",
+          "Metric030",
+          "Metric031",
+          "Metric032",
+          "Metric033",
+          "Metric034",
+          "Metric035",
+          "Metric036",
+          "Metric037",
+          "Metric038",
+          "Metric039",
+          "Metric040",
+          "Metric041",
+          "Metric042",
+          "Metric043",
+          "Metric044",
+          "Metric045",
+          "Metric046",
+          "Metric047",
+          "Metric048",
+          "Metric049",
+          "Metric050",
+          "Metric051",
+          "Metric052",
+          "Metric053",
+          "Metric054",
+          "Metric055",
+          "Metric056",
+          "Metric057",
+          "Metric058",
+          "Metric059",
+          "Metric060",
+          "Metric061",
+          "Metric062",
+          "Metric063",
+          "Metric064",
+          "Metric065",
+          "Metric066",
+          "Metric067",
+          "Metric068",
+          "Metric069",
+          "Metric070",
+          "Metric071",
+          "Metric072",
+          "Metric073",
+          "Metric074",
+          "Metric075",
+          "Metric076",
+          "Metric077",
+          "Metric078",
+          "Metric079",
+          "Metric080",
+          "Metric081",
+          "Metric082",
+          "Metric083",
+          "Metric084",
+          "Metric085",
+          "Metric086",
+          "Metric087",
+          "Metric088",
+          "Metric089",
+          "Metric090",
+          "Metric091",
+          "...29 items omitted"
+        ]
+      }
+    },
+    "x": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": "line",
+      "encoding": {
+        "detail": {
+          "field": "Metric",
+          "type": "nominal",
+          "sort": null
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true
+      },
+      "encoding": {
+        "color": {
+          "field": "Phase",
+          "type": "nominal",
+          "sort": null,
+          "scale": {
+            "scheme": "tableau10"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 155,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 6
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "Metric": "Metric001",
+        "Phase": "Before",
+        "Score": 88
+      },
+      {
+        "Metric": "Metric001",
+        "Phase": "After",
+        "Score": 20
+      },
+      {
+        "Metric": "Metric002",
+        "Phase": "Before",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric002",
+        "Phase": "After",
+        "Score": 59
+      },
+      {
+        "Metric": "Metric003",
+        "Phase": "Before",
+        "Score": 71
+      },
+      {
+        "Metric": "Metric003",
+        "Phase": "After",
+        "Score": 44
+      },
+      {
+        "Metric": "Metric004",
+        "Phase": "Before",
+        "Score": 27
+      },
+      {
+        "Metric": "Metric004",
+        "Phase": "After",
+        "Score": 78
+      },
+      {
+        "Metric": "Metric005",
+        "Phase": "Before",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric005",
+        "Phase": "After",
+        "Score": 51
+      },
+      {
+        "Metric": "Metric006",
+        "Phase": "Before",
+        "Score": 66
+      },
+      {
+        "Metric": "Metric006",
+        "Phase": "After",
+        "Score": 84
+      },
+      {
+        "Metric": "Metric007",
+        "Phase": "Before",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric007",
+        "Phase": "After",
+        "Score": 25
+      },
+      {
+        "Metric": "Metric008",
+        "Phase": "Before",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric008",
+        "Phase": "After",
+        "Score": 53
+      },
+      {
+        "Metric": "Metric009",
+        "Phase": "Before",
+        "Score": 40
+      },
+      {
+        "Metric": "Metric009",
+        "Phase": "After",
+        "Score": 31
+      },
+      {
+        "Metric": "Metric010",
+        "Phase": "Before",
+        "Score": 49
+      },
+      {
+        "Metric": "Metric010",
+        "Phase": "After",
+        "Score": 50
+      },
+      {
+        "Metric": "Metric011",
+        "Phase": "Before",
+        "Score": 43
+      },
+      {
+        "Metric": "Metric011",
+        "Phase": "After",
+        "Score": 35
+      },
+      {
+        "Metric": "Metric012",
+        "Phase": "Before",
+        "Score": 57
+      },
+      {
+        "Metric": "Metric012",
+        "Phase": "After",
+        "Score": 44
+      },
+      {
+        "Metric": "Metric013",
+        "Phase": "Before",
+        "Score": 41
+      },
+      {
+        "Metric": "Metric013",
+        "Phase": "After",
+        "Score": 44
+      },
+      {
+        "Metric": "Metric014",
+        "Phase": "Before",
+        "Score": 50
+      },
+      {
+        "Metric": "Metric014",
+        "Phase": "After",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric015",
+        "Phase": "Before",
+        "Score": 32
+      },
+      {
+        "Metric": "Metric015",
+        "Phase": "After",
+        "Score": 34
+      },
+      {
+        "Metric": "Metric016",
+        "Phase": "Before",
+        "Score": 74
+      },
+      {
+        "Metric": "Metric016",
+        "Phase": "After",
+        "Score": 44
+      },
+      {
+        "Metric": "Metric017",
+        "Phase": "Before",
+        "Score": 59
+      },
+      {
+        "Metric": "Metric017",
+        "Phase": "After",
+        "Score": 61
+      },
+      {
+        "Metric": "Metric018",
+        "Phase": "Before",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric018",
+        "Phase": "After",
+        "Score": 30
+      },
+      {
+        "Metric": "Metric019",
+        "Phase": "Before",
+        "Score": 84
+      },
+      {
+        "Metric": "Metric019",
+        "Phase": "After",
+        "Score": 78
+      },
+      {
+        "Metric": "Metric020",
+        "Phase": "Before",
+        "Score": 24
+      },
+      {
+        "Metric": "Metric020",
+        "Phase": "After",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric021",
+        "Phase": "Before",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric021",
+        "Phase": "After",
+        "Score": 26
+      },
+      {
+        "Metric": "Metric022",
+        "Phase": "Before",
+        "Score": 20
+      },
+      {
+        "Metric": "Metric022",
+        "Phase": "After",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric023",
+        "Phase": "Before",
+        "Score": 74
+      },
+      {
+        "Metric": "Metric023",
+        "Phase": "After",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric024",
+        "Phase": "Before",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric024",
+        "Phase": "After",
+        "Score": 35
+      },
+      {
+        "Metric": "Metric025",
+        "Phase": "Before",
+        "Score": 77
+      },
+      {
+        "Metric": "Metric025",
+        "Phase": "After",
+        "Score": 65
+      },
+      {
+        "Metric": "Metric026",
+        "Phase": "Before",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric026",
+        "Phase": "After",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric027",
+        "Phase": "Before",
+        "Score": 24
+      },
+      {
+        "Metric": "Metric027",
+        "Phase": "After",
+        "Score": 65
+      },
+      {
+        "Metric": "Metric028",
+        "Phase": "Before",
+        "Score": 88
+      },
+      {
+        "Metric": "Metric028",
+        "Phase": "After",
+        "Score": 83
+      },
+      {
+        "Metric": "Metric029",
+        "Phase": "Before",
+        "Score": 21
+      },
+      {
+        "Metric": "Metric029",
+        "Phase": "After",
+        "Score": 30
+      },
+      {
+        "Metric": "Metric030",
+        "Phase": "Before",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric030",
+        "Phase": "After",
+        "Score": 71
+      },
+      {
+        "Metric": "Metric031",
+        "Phase": "Before",
+        "Score": 51
+      },
+      {
+        "Metric": "Metric031",
+        "Phase": "After",
+        "Score": 89
+      },
+      {
+        "Metric": "Metric032",
+        "Phase": "Before",
+        "Score": 66
+      },
+      {
+        "Metric": "Metric032",
+        "Phase": "After",
+        "Score": 39
+      },
+      {
+        "Metric": "Metric033",
+        "Phase": "Before",
+        "Score": 75
+      },
+      {
+        "Metric": "Metric033",
+        "Phase": "After",
+        "Score": 56
+      },
+      {
+        "Metric": "Metric034",
+        "Phase": "Before",
+        "Score": 73
+      },
+      {
+        "Metric": "Metric034",
+        "Phase": "After",
+        "Score": 81
+      },
+      {
+        "Metric": "Metric035",
+        "Phase": "Before",
+        "Score": 46
+      },
+      {
+        "Metric": "Metric035",
+        "Phase": "After",
+        "Score": 40
+      },
+      {
+        "Metric": "Metric036",
+        "Phase": "Before",
+        "Score": 37
+      },
+      {
+        "Metric": "Metric036",
+        "Phase": "After",
+        "Score": 22
+      },
+      {
+        "Metric": "Metric037",
+        "Phase": "Before",
+        "Score": 57
+      },
+      {
+        "Metric": "Metric037",
+        "Phase": "After",
+        "Score": 81
+      },
+      {
+        "Metric": "Metric038",
+        "Phase": "Before",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric038",
+        "Phase": "After",
+        "Score": 28
+      },
+      {
+        "Metric": "Metric039",
+        "Phase": "Before",
+        "Score": 72
+      },
+      {
+        "Metric": "Metric039",
+        "Phase": "After",
+        "Score": 50
+      },
+      {
+        "Metric": "Metric040",
+        "Phase": "Before",
+        "Score": 22
+      },
+      {
+        "Metric": "Metric040",
+        "Phase": "After",
+        "Score": 57
+      },
+      {
+        "Metric": "Metric041",
+        "Phase": "Before",
+        "Score": 27
+      },
+      {
+        "Metric": "Metric041",
+        "Phase": "After",
+        "Score": 63
+      },
+      {
+        "Metric": "Metric042",
+        "Phase": "Before",
+        "Score": 58
+      },
+      {
+        "Metric": "Metric042",
+        "Phase": "After",
+        "Score": 42
+      },
+      {
+        "Metric": "Metric043",
+        "Phase": "Before",
+        "Score": 35
+      },
+      {
+        "Metric": "Metric043",
+        "Phase": "After",
+        "Score": 29
+      },
+      {
+        "Metric": "Metric044",
+        "Phase": "Before",
+        "Score": 73
+      },
+      {
+        "Metric": "Metric044",
+        "Phase": "After",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric045",
+        "Phase": "Before",
+        "Score": 68
+      },
+      {
+        "Metric": "Metric045",
+        "Phase": "After",
+        "Score": 82
+      },
+      {
+        "Metric": "Metric046",
+        "Phase": "Before",
+        "Score": 78
+      },
+      {
+        "Metric": "Metric046",
+        "Phase": "After",
+        "Score": 36
+      },
+      {
+        "Metric": "Metric047",
+        "Phase": "Before",
+        "Score": 68
+      },
+      {
+        "Metric": "Metric047",
+        "Phase": "After",
+        "Score": 39
+      },
+      {
+        "Metric": "Metric048",
+        "Phase": "Before",
+        "Score": 79
+      },
+      {
+        "Metric": "Metric048",
+        "Phase": "After",
+        "Score": 77
+      },
+      {
+        "Metric": "Metric049",
+        "Phase": "Before",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric049",
+        "Phase": "After",
+        "Score": 75
+      },
+      {
+        "Metric": "Metric050",
+        "Phase": "Before",
+        "Score": 46
+      },
+      {
+        "Metric": "Metric050",
+        "Phase": "After",
+        "Score": 89
+      },
+      {
+        "Metric": "Metric051",
+        "Phase": "Before",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric051",
+        "Phase": "After",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric052",
+        "Phase": "Before",
+        "Score": 46
+      },
+      {
+        "Metric": "Metric052",
+        "Phase": "After",
+        "Score": 50
+      },
+      {
+        "Metric": "Metric053",
+        "Phase": "Before",
+        "Score": 62
+      },
+      {
+        "Metric": "Metric053",
+        "Phase": "After",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric054",
+        "Phase": "Before",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric054",
+        "Phase": "After",
+        "Score": 88
+      },
+      {
+        "Metric": "Metric055",
+        "Phase": "Before",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric055",
+        "Phase": "After",
+        "Score": 45
+      },
+      {
+        "Metric": "Metric056",
+        "Phase": "Before",
+        "Score": 22
+      },
+      {
+        "Metric": "Metric056",
+        "Phase": "After",
+        "Score": 59
+      },
+      {
+        "Metric": "Metric057",
+        "Phase": "Before",
+        "Score": 76
+      },
+      {
+        "Metric": "Metric057",
+        "Phase": "After",
+        "Score": 83
+      },
+      {
+        "Metric": "Metric058",
+        "Phase": "Before",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric058",
+        "Phase": "After",
+        "Score": 65
+      },
+      {
+        "Metric": "Metric059",
+        "Phase": "Before",
+        "Score": 63
+      },
+      {
+        "Metric": "Metric059",
+        "Phase": "After",
+        "Score": 49
+      },
+      {
+        "Metric": "Metric060",
+        "Phase": "Before",
+        "Score": 51
+      },
+      {
+        "Metric": "Metric060",
+        "Phase": "After",
+        "Score": 21
+      },
+      {
+        "Metric": "Metric061",
+        "Phase": "Before",
+        "Score": 59
+      },
+      {
+        "Metric": "Metric061",
+        "Phase": "After",
+        "Score": 79
+      },
+      {
+        "Metric": "Metric062",
+        "Phase": "Before",
+        "Score": 59
+      },
+      {
+        "Metric": "Metric062",
+        "Phase": "After",
+        "Score": 57
+      },
+      {
+        "Metric": "Metric063",
+        "Phase": "Before",
+        "Score": 67
+      },
+      {
+        "Metric": "Metric063",
+        "Phase": "After",
+        "Score": 63
+      },
+      {
+        "Metric": "Metric064",
+        "Phase": "Before",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric064",
+        "Phase": "After",
+        "Score": 48
+      },
+      {
+        "Metric": "Metric065",
+        "Phase": "Before",
+        "Score": 49
+      },
+      {
+        "Metric": "Metric065",
+        "Phase": "After",
+        "Score": 64
+      },
+      {
+        "Metric": "Metric066",
+        "Phase": "Before",
+        "Score": 69
+      },
+      {
+        "Metric": "Metric066",
+        "Phase": "After",
+        "Score": 78
+      },
+      {
+        "Metric": "Metric067",
+        "Phase": "Before",
+        "Score": 28
+      },
+      {
+        "Metric": "Metric067",
+        "Phase": "After",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric068",
+        "Phase": "Before",
+        "Score": 23
+      },
+      {
+        "Metric": "Metric068",
+        "Phase": "After",
+        "Score": 40
+      },
+      {
+        "Metric": "Metric069",
+        "Phase": "Before",
+        "Score": 32
+      },
+      {
+        "Metric": "Metric069",
+        "Phase": "After",
+        "Score": 62
+      },
+      {
+        "Metric": "Metric070",
+        "Phase": "Before",
+        "Score": 49
+      },
+      {
+        "Metric": "Metric070",
+        "Phase": "After",
+        "Score": 67
+      },
+      {
+        "Metric": "Metric071",
+        "Phase": "Before",
+        "Score": 72
+      },
+      {
+        "Metric": "Metric071",
+        "Phase": "After",
+        "Score": 28
+      },
+      {
+        "Metric": "Metric072",
+        "Phase": "Before",
+        "Score": 43
+      },
+      {
+        "Metric": "Metric072",
+        "Phase": "After",
+        "Score": 76
+      },
+      {
+        "Metric": "Metric073",
+        "Phase": "Before",
+        "Score": 21
+      },
+      {
+        "Metric": "Metric073",
+        "Phase": "After",
+        "Score": 55
+      },
+      {
+        "Metric": "Metric074",
+        "Phase": "Before",
+        "Score": 77
+      },
+      {
+        "Metric": "Metric074",
+        "Phase": "After",
+        "Score": 40
+      },
+      {
+        "Metric": "Metric075",
+        "Phase": "Before",
+        "Score": 74
+      },
+      {
+        "Metric": "Metric075",
+        "Phase": "After",
+        "Score": 49
+      },
+      {
+        "Metric": "Metric076",
+        "Phase": "Before",
+        "Score": 62
+      },
+      {
+        "Metric": "Metric076",
+        "Phase": "After",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric077",
+        "Phase": "Before",
+        "Score": 53
+      },
+      {
+        "Metric": "Metric077",
+        "Phase": "After",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric078",
+        "Phase": "Before",
+        "Score": 57
+      },
+      {
+        "Metric": "Metric078",
+        "Phase": "After",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric079",
+        "Phase": "Before",
+        "Score": 38
+      },
+      {
+        "Metric": "Metric079",
+        "Phase": "After",
+        "Score": 45
+      },
+      {
+        "Metric": "Metric080",
+        "Phase": "Before",
+        "Score": 52
+      },
+      {
+        "Metric": "Metric080",
+        "Phase": "After",
+        "Score": 42
+      },
+      {
+        "Metric": "Metric081",
+        "Phase": "Before",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric081",
+        "Phase": "After",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric082",
+        "Phase": "Before",
+        "Score": 62
+      },
+      {
+        "Metric": "Metric082",
+        "Phase": "After",
+        "Score": 49
+      },
+      {
+        "Metric": "Metric083",
+        "Phase": "Before",
+        "Score": 53
+      },
+      {
+        "Metric": "Metric083",
+        "Phase": "After",
+        "Score": 88
+      },
+      {
+        "Metric": "Metric084",
+        "Phase": "Before",
+        "Score": 22
+      },
+      {
+        "Metric": "Metric084",
+        "Phase": "After",
+        "Score": 46
+      },
+      {
+        "Metric": "Metric085",
+        "Phase": "Before",
+        "Score": 42
+      },
+      {
+        "Metric": "Metric085",
+        "Phase": "After",
+        "Score": 33
+      },
+      {
+        "Metric": "Metric086",
+        "Phase": "Before",
+        "Score": 47
+      },
+      {
+        "Metric": "Metric086",
+        "Phase": "After",
+        "Score": 42
+      },
+      {
+        "Metric": "Metric087",
+        "Phase": "Before",
+        "Score": 36
+      },
+      {
+        "Metric": "Metric087",
+        "Phase": "After",
+        "Score": 63
+      },
+      {
+        "Metric": "Metric088",
+        "Phase": "Before",
+        "Score": 38
+      },
+      {
+        "Metric": "Metric088",
+        "Phase": "After",
+        "Score": 87
+      },
+      {
+        "Metric": "Metric089",
+        "Phase": "Before",
+        "Score": 21
+      },
+      {
+        "Metric": "Metric089",
+        "Phase": "After",
+        "Score": 60
+      },
+      {
+        "Metric": "Metric090",
+        "Phase": "Before",
+        "Score": 65
+      },
+      {
+        "Metric": "Metric090",
+        "Phase": "After",
+        "Score": 54
+      },
+      {
+        "Metric": "Metric091",
+        "Phase": "Before",
+        "Score": 55
+      },
+      {
+        "Metric": "Metric091",
+        "Phase": "After",
+        "Score": 71
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "29 of 120 values in 'Metric' were omitted (showing top 91).",
+      "channel": "y",
+      "field": "Metric"
+    }
+  ],
+  "_width": 155,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

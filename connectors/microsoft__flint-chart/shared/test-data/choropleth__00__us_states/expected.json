@@ -1,0 +1,351 @@
+{
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "color": {
+      "field": "value",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "blues"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal"
+      },
+      {
+        "field": "value",
+        "type": "quantitative"
+      }
+    ]
+  },
+  "width": 500,
+  "height": 300,
+  "data": {
+    "url": "https://vega.github.io/vega-lite/data/us-10m.json",
+    "format": {
+      "type": "topojson",
+      "feature": "states"
+    }
+  },
+  "projection": {
+    "type": "albersUsa"
+  },
+  "transform": [
+    {
+      "lookup": "id",
+      "from": {
+        "data": {
+          "values": [
+            {
+              "state": "Alabama",
+              "value": 5.02,
+              "__geo_id": 1
+            },
+            {
+              "state": "Alaska",
+              "value": 0.73,
+              "__geo_id": 2
+            },
+            {
+              "state": "Arizona",
+              "value": 7.15,
+              "__geo_id": 4
+            },
+            {
+              "state": "Arkansas",
+              "value": 3.01,
+              "__geo_id": 5
+            },
+            {
+              "state": "California",
+              "value": 39.54,
+              "__geo_id": 6
+            },
+            {
+              "state": "Colorado",
+              "value": 5.77,
+              "__geo_id": 8
+            },
+            {
+              "state": "Connecticut",
+              "value": 3.61,
+              "__geo_id": 9
+            },
+            {
+              "state": "Delaware",
+              "value": 0.99,
+              "__geo_id": 10
+            },
+            {
+              "state": "District of Columbia",
+              "value": 0.69,
+              "__geo_id": 11
+            },
+            {
+              "state": "Florida",
+              "value": 21.54,
+              "__geo_id": 12
+            },
+            {
+              "state": "Georgia",
+              "value": 10.71,
+              "__geo_id": 13
+            },
+            {
+              "state": "Hawaii",
+              "value": 1.46,
+              "__geo_id": 15
+            },
+            {
+              "state": "Idaho",
+              "value": 1.84,
+              "__geo_id": 16
+            },
+            {
+              "state": "Illinois",
+              "value": 12.81,
+              "__geo_id": 17
+            },
+            {
+              "state": "Indiana",
+              "value": 6.79,
+              "__geo_id": 18
+            },
+            {
+              "state": "Iowa",
+              "value": 3.19,
+              "__geo_id": 19
+            },
+            {
+              "state": "Kansas",
+              "value": 2.94,
+              "__geo_id": 20
+            },
+            {
+              "state": "Kentucky",
+              "value": 4.51,
+              "__geo_id": 21
+            },
+            {
+              "state": "Louisiana",
+              "value": 4.66,
+              "__geo_id": 22
+            },
+            {
+              "state": "Maine",
+              "value": 1.36,
+              "__geo_id": 23
+            },
+            {
+              "state": "Maryland",
+              "value": 6.18,
+              "__geo_id": 24
+            },
+            {
+              "state": "Massachusetts",
+              "value": 7.03,
+              "__geo_id": 25
+            },
+            {
+              "state": "Michigan",
+              "value": 10.08,
+              "__geo_id": 26
+            },
+            {
+              "state": "Minnesota",
+              "value": 5.71,
+              "__geo_id": 27
+            },
+            {
+              "state": "Mississippi",
+              "value": 2.96,
+              "__geo_id": 28
+            },
+            {
+              "state": "Missouri",
+              "value": 6.15,
+              "__geo_id": 29
+            },
+            {
+              "state": "Montana",
+              "value": 1.08,
+              "__geo_id": 30
+            },
+            {
+              "state": "Nebraska",
+              "value": 1.96,
+              "__geo_id": 31
+            },
+            {
+              "state": "Nevada",
+              "value": 3.1,
+              "__geo_id": 32
+            },
+            {
+              "state": "New Hampshire",
+              "value": 1.38,
+              "__geo_id": 33
+            },
+            {
+              "state": "New Jersey",
+              "value": 9.29,
+              "__geo_id": 34
+            },
+            {
+              "state": "New Mexico",
+              "value": 2.12,
+              "__geo_id": 35
+            },
+            {
+              "state": "New York",
+              "value": 20.2,
+              "__geo_id": 36
+            },
+            {
+              "state": "North Carolina",
+              "value": 10.44,
+              "__geo_id": 37
+            },
+            {
+              "state": "North Dakota",
+              "value": 0.78,
+              "__geo_id": 38
+            },
+            {
+              "state": "Ohio",
+              "value": 11.8,
+              "__geo_id": 39
+            },
+            {
+              "state": "Oklahoma",
+              "value": 3.96,
+              "__geo_id": 40
+            },
+            {
+              "state": "Oregon",
+              "value": 4.24,
+              "__geo_id": 41
+            },
+            {
+              "state": "Pennsylvania",
+              "value": 13,
+              "__geo_id": 42
+            },
+            {
+              "state": "Rhode Island",
+              "value": 1.1,
+              "__geo_id": 44
+            },
+            {
+              "state": "South Carolina",
+              "value": 5.12,
+              "__geo_id": 45
+            },
+            {
+              "state": "South Dakota",
+              "value": 0.89,
+              "__geo_id": 46
+            },
+            {
+              "state": "Tennessee",
+              "value": 6.91,
+              "__geo_id": 47
+            },
+            {
+              "state": "Texas",
+              "value": 29.15,
+              "__geo_id": 48
+            },
+            {
+              "state": "Utah",
+              "value": 3.27,
+              "__geo_id": 49
+            },
+            {
+              "state": "Vermont",
+              "value": 0.64,
+              "__geo_id": 50
+            },
+            {
+              "state": "Virginia",
+              "value": 8.63,
+              "__geo_id": 51
+            },
+            {
+              "state": "Washington",
+              "value": 7.71,
+              "__geo_id": 53
+            },
+            {
+              "state": "West Virginia",
+              "value": 1.79,
+              "__geo_id": 54
+            },
+            {
+              "state": "Wisconsin",
+              "value": 5.89,
+              "__geo_id": 55
+            },
+            {
+              "state": "Wyoming",
+              "value": 0.58,
+              "__geo_id": 56
+            }
+          ]
+        },
+        "key": "__geo_id",
+        "fields": [
+          "value",
+          "state"
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 500,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "region",
+      "label": "Region",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto-detect"
+        },
+        {
+          "value": "us",
+          "label": "United States"
+        },
+        {
+          "value": "world",
+          "label": "World"
+        }
+      ],
+      "defaultValue": "auto",
+      "applicable": true,
+      "value": "us"
+    }
+  ]
+}

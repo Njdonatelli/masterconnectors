@@ -1,0 +1,98 @@
+{
+  "title": "CI pipeline run",
+  "description": "A build pipeline on a numeric time axis (elapsed seconds) rather than dates. Ten stages, several running in parallel, are coloured by stage group and ordered by start time. Because start/end are quantities the axis still floats off zero to frame the run.",
+  "chartType": "Gantt Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "stage": "Checkout",
+          "start": 0,
+          "end": 8,
+          "group": "Setup"
+        },
+        {
+          "stage": "Install deps",
+          "start": 8,
+          "end": 72,
+          "group": "Setup"
+        },
+        {
+          "stage": "Lint",
+          "start": 72,
+          "end": 110,
+          "group": "Check"
+        },
+        {
+          "stage": "Type check",
+          "start": 72,
+          "end": 128,
+          "group": "Check"
+        },
+        {
+          "stage": "Unit tests",
+          "start": 128,
+          "end": 205,
+          "group": "Test"
+        },
+        {
+          "stage": "Integration tests",
+          "start": 205,
+          "end": 320,
+          "group": "Test"
+        },
+        {
+          "stage": "Build",
+          "start": 320,
+          "end": 372,
+          "group": "Build"
+        },
+        {
+          "stage": "Bundle",
+          "start": 372,
+          "end": 410,
+          "group": "Build"
+        },
+        {
+          "stage": "Docker image",
+          "start": 410,
+          "end": 465,
+          "group": "Package"
+        },
+        {
+          "stage": "Deploy staging",
+          "start": 465,
+          "end": 500,
+          "group": "Deploy"
+        }
+      ]
+    },
+    "semantic_types": {
+      "stage": "Category",
+      "start": "Quantity",
+      "end": "Quantity",
+      "group": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Gantt Chart",
+      "encodings": {
+        "y": {
+          "field": "stage"
+        },
+        "x": {
+          "field": "start"
+        },
+        "x2": {
+          "field": "end"
+        },
+        "color": {
+          "field": "group"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

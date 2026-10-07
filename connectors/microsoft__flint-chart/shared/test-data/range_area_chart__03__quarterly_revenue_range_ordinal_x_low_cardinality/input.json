@@ -1,0 +1,54 @@
+{
+  "title": "Quarterly revenue range (ordinal x, low cardinality)",
+  "description": "Low vs high revenue estimate across four quarters — lowest-cardinality range area",
+  "chartType": "Range Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Quarter": "Q1",
+          "Low Estimate": 82,
+          "High Estimate": 104
+        },
+        {
+          "Quarter": "Q2",
+          "Low Estimate": 95,
+          "High Estimate": 121
+        },
+        {
+          "Quarter": "Q3",
+          "Low Estimate": 88,
+          "High Estimate": 119
+        },
+        {
+          "Quarter": "Q4",
+          "Low Estimate": 110,
+          "High Estimate": 145
+        }
+      ]
+    },
+    "semantic_types": {
+      "Quarter": "Category",
+      "Low Estimate": "Price",
+      "High Estimate": "Price"
+    },
+    "chart_spec": {
+      "chartType": "Range Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Quarter"
+        },
+        "y": {
+          "field": "Low Estimate"
+        },
+        "y2": {
+          "field": "High Estimate"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

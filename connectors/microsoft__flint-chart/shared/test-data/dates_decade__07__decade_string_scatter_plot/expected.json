@@ -1,0 +1,125 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Decade",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 368,
+      "continuousHeight": 327
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 33
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Decade": "1950",
+        "Value": 264
+      },
+      {
+        "Decade": "1960",
+        "Value": 174
+      },
+      {
+        "Decade": "1970",
+        "Value": 498
+      },
+      {
+        "Decade": "1980",
+        "Value": 541
+      },
+      {
+        "Decade": "1990",
+        "Value": 244
+      },
+      {
+        "Decade": "2000",
+        "Value": 520
+      },
+      {
+        "Decade": "2010",
+        "Value": 236
+      },
+      {
+        "Decade": "2020",
+        "Value": 490
+      }
+    ]
+  },
+  "_width": 368,
+  "_height": 327,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

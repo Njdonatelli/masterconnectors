@@ -1,0 +1,61 @@
+{
+  "title": "Very long category labels (truncation)",
+  "description": "Long y-axis labels → exercises labelLimit/labelPadding clamp at 220px",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Initiative": "Strategic Cloud Infrastructure & Platform Modernization Initiative",
+          "Budget": 52573
+        },
+        {
+          "Initiative": "Customer-Facing Conversational AI Assistant Rollout (Phase II)",
+          "Budget": 99625
+        },
+        {
+          "Initiative": "Cross-Functional Data Governance and Quality Improvement Program",
+          "Budget": 493030
+        },
+        {
+          "Initiative": "Next-Generation Identity & Access Management Migration",
+          "Budget": 454163
+        },
+        {
+          "Initiative": "Enterprise-Wide Endpoint Detection and Response Deployment",
+          "Budget": 823868
+        },
+        {
+          "Initiative": "Global Privacy Compliance & Regional Data-Residency Project",
+          "Budget": 843780
+        },
+        {
+          "Initiative": "Supply Chain Visibility and Real-Time Telemetry Initiative",
+          "Budget": 318270
+        }
+      ]
+    },
+    "semantic_types": {
+      "Initiative": "Category",
+      "Budget": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Initiative"
+        },
+        "x": {
+          "field": "Budget"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

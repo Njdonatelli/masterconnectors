@@ -1,0 +1,139 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "FiscalYear",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2017-07-02T08:34:17.142Z",
+          "2025-07-02T15:25:42.857Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 243,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 24
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "FiscalYear": "FY 2018",
+        "Value": 59
+      },
+      {
+        "FiscalYear": "FY 2019",
+        "Value": 139
+      },
+      {
+        "FiscalYear": "FY 2020",
+        "Value": 240
+      },
+      {
+        "FiscalYear": "FY 2021",
+        "Value": 448
+      },
+      {
+        "FiscalYear": "FY 2022",
+        "Value": 184
+      },
+      {
+        "FiscalYear": "FY 2023",
+        "Value": 310
+      },
+      {
+        "FiscalYear": "FY 2024",
+        "Value": 535
+      },
+      {
+        "FiscalYear": "FY 2025",
+        "Value": 311
+      }
+    ]
+  },
+  "_width": 243,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

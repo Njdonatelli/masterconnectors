@@ -1,0 +1,217 @@
+{
+  "title": "Year (string) → Stacked Bar Chart",
+  "description": "Years as 4-digit strings: \"2000\", \"2001\", … (12 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Year": "2000",
+          "Value": 110,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2000",
+          "Value": 478,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2000",
+          "Value": 510,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2001",
+          "Value": 309,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2001",
+          "Value": 376,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2001",
+          "Value": 278,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2002",
+          "Value": 496,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2002",
+          "Value": 265,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2002",
+          "Value": 470,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2003",
+          "Value": 186,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2003",
+          "Value": 520,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2003",
+          "Value": 63,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2004",
+          "Value": 476,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2004",
+          "Value": 203,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2004",
+          "Value": 493,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2005",
+          "Value": 454,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2005",
+          "Value": 269,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2005",
+          "Value": 294,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2006",
+          "Value": 219,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2006",
+          "Value": 320,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2006",
+          "Value": 187,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2007",
+          "Value": 83,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2007",
+          "Value": 412,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2007",
+          "Value": 468,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2008",
+          "Value": 348,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2008",
+          "Value": 304,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2008",
+          "Value": 203,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2009",
+          "Value": 344,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2009",
+          "Value": 332,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2009",
+          "Value": 445,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2010",
+          "Value": 94,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2010",
+          "Value": 335,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2010",
+          "Value": 360,
+          "Category": "Gamma"
+        },
+        {
+          "Year": "2011",
+          "Value": 220,
+          "Category": "Alpha"
+        },
+        {
+          "Year": "2011",
+          "Value": 376,
+          "Category": "Beta"
+        },
+        {
+          "Year": "2011",
+          "Value": 98,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Year": "Year",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Year"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

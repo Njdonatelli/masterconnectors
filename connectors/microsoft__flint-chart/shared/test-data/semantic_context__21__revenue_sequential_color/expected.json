@@ -1,0 +1,213 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "region",
+      "type": "nominal",
+      "sort": [
+        "North",
+        "East",
+        "South",
+        "West",
+        "Central"
+      ]
+    },
+    "y": {
+      "field": "revenue",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "revenue",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "goldgreen"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "region": "North",
+        "quarter": "Q1",
+        "revenue": 106255
+      },
+      {
+        "region": "North",
+        "quarter": "Q2",
+        "revenue": 825000
+      },
+      {
+        "region": "North",
+        "quarter": "Q3",
+        "revenue": 979773
+      },
+      {
+        "region": "North",
+        "quarter": "Q4",
+        "revenue": 353185
+      },
+      {
+        "region": "South",
+        "quarter": "Q1",
+        "revenue": 187576
+      },
+      {
+        "region": "South",
+        "quarter": "Q2",
+        "revenue": 492182
+      },
+      {
+        "region": "South",
+        "quarter": "Q3",
+        "revenue": 798057
+      },
+      {
+        "region": "South",
+        "quarter": "Q4",
+        "revenue": 848682
+      },
+      {
+        "region": "East",
+        "quarter": "Q1",
+        "revenue": 293688
+      },
+      {
+        "region": "East",
+        "quarter": "Q2",
+        "revenue": 106562
+      },
+      {
+        "region": "East",
+        "quarter": "Q3",
+        "revenue": 594860
+      },
+      {
+        "region": "East",
+        "quarter": "Q4",
+        "revenue": 317565
+      },
+      {
+        "region": "West",
+        "quarter": "Q1",
+        "revenue": 907505
+      },
+      {
+        "region": "West",
+        "quarter": "Q2",
+        "revenue": 730031
+      },
+      {
+        "region": "West",
+        "quarter": "Q3",
+        "revenue": 526539
+      },
+      {
+        "region": "West",
+        "quarter": "Q4",
+        "revenue": 436395
+      },
+      {
+        "region": "Central",
+        "quarter": "Q1",
+        "revenue": 982588
+      },
+      {
+        "region": "Central",
+        "quarter": "Q2",
+        "revenue": 852390
+      },
+      {
+        "region": "Central",
+        "quarter": "Q3",
+        "revenue": 525788
+      },
+      {
+        "region": "Central",
+        "quarter": "Q4",
+        "revenue": 420316
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

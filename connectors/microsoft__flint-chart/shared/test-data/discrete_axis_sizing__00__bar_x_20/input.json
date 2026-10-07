@@ -1,0 +1,113 @@
+{
+  "title": "Bar ▸ X ×20",
+  "description": "Bar chart with 20 categories on X axis",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Cat01",
+          "Value": 10
+        },
+        {
+          "Category": "Cat02",
+          "Value": 85
+        },
+        {
+          "Category": "Cat03",
+          "Value": 285
+        },
+        {
+          "Category": "Cat04",
+          "Value": 434
+        },
+        {
+          "Category": "Cat05",
+          "Value": 146
+        },
+        {
+          "Category": "Cat06",
+          "Value": 449
+        },
+        {
+          "Category": "Cat07",
+          "Value": 355
+        },
+        {
+          "Category": "Cat08",
+          "Value": 444
+        },
+        {
+          "Category": "Cat09",
+          "Value": 466
+        },
+        {
+          "Category": "Cat10",
+          "Value": 240
+        },
+        {
+          "Category": "Cat11",
+          "Value": 182
+        },
+        {
+          "Category": "Cat12",
+          "Value": 471
+        },
+        {
+          "Category": "Cat13",
+          "Value": 57
+        },
+        {
+          "Category": "Cat14",
+          "Value": 234
+        },
+        {
+          "Category": "Cat15",
+          "Value": 180
+        },
+        {
+          "Category": "Cat16",
+          "Value": 485
+        },
+        {
+          "Category": "Cat17",
+          "Value": 66
+        },
+        {
+          "Category": "Cat18",
+          "Value": 387
+        },
+        {
+          "Category": "Cat19",
+          "Value": 177
+        },
+        {
+          "Category": "Cat20",
+          "Value": 345
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,321 @@
+{
+  "encoding": {
+    "theta": {
+      "field": "Direction",
+      "type": "nominal",
+      "sort": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW"
+      ],
+      "stack": true,
+      "scale": {
+        "range": [
+          -0.39269908169872414,
+          5.890486225480862
+        ]
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "stroke": "white",
+        "padAngle": 0.02
+      },
+      "encoding": {
+        "radius": {
+          "field": "Speed",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt"
+          },
+          "stack": true
+        },
+        "color": {
+          "field": "Season",
+          "type": "nominal",
+          "sort": null,
+          "scale": {
+            "scheme": "tableau10"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radiusOffset": 15,
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "Direction",
+          "type": "nominal"
+        },
+        "radius": {
+          "field": "Speed",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt"
+          }
+        }
+      },
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "Speed",
+              "as": "Speed"
+            }
+          ],
+          "groupby": [
+            "Direction"
+          ]
+        }
+      ]
+    }
+  ],
+  "width": 285,
+  "height": 285,
+  "config": {
+    "view": {
+      "continuousWidth": 285,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Direction": "N",
+        "Speed": 8,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "N",
+        "Speed": 6,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "N",
+        "Speed": 20,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "N",
+        "Speed": 10,
+        "Season": "Winter"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 4,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 4,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 19,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 16,
+        "Season": "Winter"
+      },
+      {
+        "Direction": "E",
+        "Speed": 8,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "E",
+        "Speed": 12,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "E",
+        "Speed": 18,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "E",
+        "Speed": 14,
+        "Season": "Winter"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 8,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 12,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 20,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 13,
+        "Season": "Winter"
+      },
+      {
+        "Direction": "S",
+        "Speed": 19,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "S",
+        "Speed": 15,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "S",
+        "Speed": 6,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "S",
+        "Speed": 9,
+        "Season": "Winter"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 15,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 9,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 10,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 11,
+        "Season": "Winter"
+      },
+      {
+        "Direction": "W",
+        "Speed": 17,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "W",
+        "Speed": 7,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "W",
+        "Speed": 17,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "W",
+        "Speed": 4,
+        "Season": "Winter"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 21,
+        "Season": "Spring"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 4,
+        "Season": "Summer"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 6,
+        "Season": "Autumn"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 20,
+        "Season": "Winter"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Inner Radius",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "padAngle",
+      "label": "Gap",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.1,
+      "step": 0.005,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "alignment",
+      "label": "Alignment",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (default)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "applicable": true,
+      "value": "center"
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

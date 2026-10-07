@@ -1,0 +1,148 @@
+# Duckle Web Editor (#75 phase 2) - the full Duckle studio as a self-hosted web
+# app. Local-first: your data + pipelines stay in the mounted workspace; the
+# engine runs in the container, nothing is sent to any Duckle-hosted service.
+#
+# The entrypoint binds 0.0.0.0. With no credential the console starts UNCLAIMED
+# for 15 minutes, and claiming it then needs the SETUP CODE the server prints on
+# start - visible with `docker logs`, new every restart, never stored. Reading
+# that output is what proves you own the container rather than merely reaching
+# the port. Setting DUCKLE_CONSOLE_TOKEN skips the window entirely and is still
+# the right thing for anything long-lived. Serve plain HTTP behind a reverse
+# proxy for TLS.
+#
+#   docker build -f Dockerfile.web -t duckle-web .
+#   docker run -p 8080:8080 -v /path/to/workspace:/workspace \
+#     -e DUCKLE_CONSOLE_TOKEN=<secret> duckle-web
+#   open http://localhost:8080
+#
+# This is the EDITOR, and the editor does not schedule anything: the scheduler
+# lives in `duckle-runner serve`. For a deployment that runs pipelines on a cron,
+# override the entrypoint:
+#
+#   docker run -p 8080:8080 -v /path/to/workspace:/workspace \
+#     -e DUCKLE_CONSOLE_TOKEN=<secret> --entrypoint duckle-runner duckle-web \
+#     serve --host 0.0.0.0 --port 8080 --workspace /workspace
+#
+# See website/deploy.html for AWS, Azure and Google Cloud recipes.
+
+# 1) Build the browser edition of the frontend (DUCKLE_WEB aliases invoke() to
+#    the HTTP command bridge and outputs to dist-web).
+FROM node:22-bookworm AS frontend
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json* ./
+RUN npm ci || npm install
+COPY frontend/ ./
+RUN DUCKLE_WEB=1 npm run build
+
+# 2) Build the headless runner that serves the editor + runs the engine.
+#    The engine shells out to the DuckDB CLI, so no libduckdb is needed here.
+FROM rust:1-bookworm AS runner
+# Be resilient to flaky/slow crates.io downloads: sparse protocol + retries, and
+# disable curl's "too slow" abort (LOW_SPEED_LIMIT=0) so a slow-but-progressing
+# download completes instead of failing the whole build.
+ENV CARGO_NET_RETRY=10 \
+    CARGO_NET_GIT_FETCH_WITH_CLI=true \
+    CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse \
+    CARGO_HTTP_MULTIPLEXING=false \
+    CARGO_HTTP_LOW_SPEED_LIMIT=0 \
+    CARGO_HTTP_TIMEOUT=600
+WORKDIR /app
+# Build deps for the LanceDB / Vortex sidecar (duckle-lance):
+#  - protoc: lance's proto codegen (pinned to match local builds).
+#  - clang + libclang: bindgen, pulled transitively (custom-labels) when the
+#    sidecar's crates join the build set.
+#  - unixodbc-dev: the runner links the engine with the teradata (ODBC) feature
+#    on Linux, so the linker needs libodbc (-lodbc) to resolve.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl ca-certificates unzip clang libclang-dev unixodbc-dev \
+    && curl -fsSL -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protoc-28.3-linux-x86_64.zip \
+    && unzip -o /tmp/protoc.zip -d /usr/local \
+    && rm /tmp/protoc.zip && rm -rf /var/lib/apt/lists/*
+ENV PROTOC=/usr/local/bin/protoc
+COPY . .
+# Cache the crate registry + target dir across builds so a stalled download
+# resumes on retry rather than restarting. Both binaries are copied out of the
+# (ephemeral) target cache mount so the runtime stage can COPY them. duckle-lance
+# is the sidecar that powers src/snk.lancedb + src/snk.vortex (feature parity
+# with the desktop app).
+#
+# The two binaries are built in SEPARATE cargo invocations, which is not a
+# stylistic choice: the release profile is fat LTO with one codegen unit, and
+# one build of both let the two link steps overlap. duckle-lance links lance +
+# vortex + arrow, the largest graph in the workspace, and the runner's 16 GB was
+# not enough for both at once - the sidecar's rustc was SIGKILLed with "cannot
+# allocate memory" while, in cargo's own words, it was "waiting for other jobs
+# to finish". Sequential invocations share the same profile, so the cached
+# dependency builds are reused and only the peak comes down.
+RUN --mount=type=cache,target=/usr/local/cargo/registry \
+    --mount=type=cache,target=/app/target \
+    cargo build --release -p duckle-lance \
+    && cargo build --release -p duckle-runner \
+    && cp /app/target/release/duckle-runner /usr/local/bin/duckle-runner \
+    && cp /app/target/release/duckle-lance /usr/local/bin/duckle-lance
+
+# 3) Runtime: runner + the built frontend + the DuckDB CLI.
+FROM debian:bookworm-slim
+ARG DUCKDB_VERSION=1.5.5
+# python3 powers the code.python UDF (per-row Python transform); curl stays for
+# the container healthcheck; libodbc2 is the unixODBC runtime the teradata
+# (ODBC) engine feature dynamically links against.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl unzip python3 libodbc2 \
+    && curl -fsSL -o /tmp/duckdb.zip "https://github.com/duckdb/duckdb/releases/download/v${DUCKDB_VERSION}/duckdb_cli-linux-amd64.zip" \
+    && unzip /tmp/duckdb.zip -d /usr/local/bin \
+    && rm /tmp/duckdb.zip \
+    && apt-get purge -y unzip && apt-get autoremove -y && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+# The extensions Duckle LOADs, installed at build time so the image runs a
+# pipeline without reaching for the network - and so it runs one at all.
+#
+# `LOAD x` autoinstalls for SOME extensions and not others, so relying on it is
+# relying on a split nobody documented. Measured on the pinned 1.5.5 into an
+# empty extension_directory: LOAD postgres, mysql, iceberg and delta download
+# and succeed, while LOAD excel, vss, fts, avro and httpfs fail with
+# 'Extension "x" not found. Install it first'. All of them report install_mode
+# REPOSITORY, so that is not the difference. (Measured on the Windows build;
+# the image is linux_amd64 and the split was not re-measured there, which is
+# another reason not to depend on it.) Autoload does not cover COPY formats at
+# all: with no excel extension, COPY ... (FORMAT xlsx) answers 'Copy Function
+# with name xlsx does not exist!'.
+#
+# Duckle emits a bare LOAD for excel, iceberg, delta, vss, fts and avro
+# (plan/builders.rs), and policy.rs drops EVERY prelude to a bare LOAD when a
+# workspace policy denies DuckDB external IO - which also turns autoinstall off
+# and refuses raw INSTALL, so in that mode the error's own advice cannot be
+# followed. Pre-installing here is what makes that mode usable.
+#
+# Cached under /root/.duckdb, keyed by the DuckDB version above, so the two stay
+# in step. spatial is left out on purpose: it is GDAL-backed and ~50 MB, and the
+# desktop omits it from its own pre-fetch for the same reason.
+RUN duckdb :memory: -c "INSTALL httpfs; INSTALL azure; INSTALL sqlite; INSTALL postgres; INSTALL mysql; INSTALL excel; INSTALL iceberg; INSTALL delta; INSTALL ducklake; INSTALL vss; INSTALL fts; INSTALL inet;"
+COPY --from=runner /usr/local/bin/duckle-runner /usr/local/bin/duckle-runner
+COPY --from=runner /usr/local/bin/duckle-lance /usr/local/bin/duckle-lance
+COPY --from=frontend /app/frontend/dist-web /app/dist-web
+# Feature parity with the desktop app: DuckDB engine and its extensions, the
+# LanceDB/Vortex sidecar, and a Python interpreter for code.python.
+# DUCKLE_PYTHON_BIN is deliberately NOT set. It takes precedence over the
+# workspace's own .venv (connectors.rs resolve_python_bin reads the variable
+# first and only then looks for .venv/bin/python3), and the README promises the
+# opposite: a .venv in the workspace "uses that interpreter on every machine,
+# laptop, CI and headless runner alike". Hardcoding it here made this image the
+# one machine where that is false - silently, because the same variable sets
+# `overridden` in pyenv::guard and so skips the #246 refusal that exists to
+# catch an unprepared target. A prepared .venv was ignored and the run went
+# green on /usr/bin/python3.
+#
+# Without it: no .venv means python3 on PATH, which apt installed above, so the
+# bare image is unchanged; a .venv is used as documented; and a workspace that
+# declares uv.lock with nothing installed now refuses loudly instead of running
+# quietly on the wrong interpreter.
+ENV DUCKLE_DUCKDB_BIN=/usr/local/bin/duckdb \
+    DUCKLE_LANCE_BIN=/usr/local/bin/duckle-lance
+VOLUME ["/workspace"]
+EXPOSE 8080
+# /healthz needs no credential and says only "ok", so orchestrators can check
+# liveness without holding a token and without learning anything.
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 CMD curl -fsS http://127.0.0.1:8080/healthz || exit 1
+ENTRYPOINT ["duckle-runner", "web", "--host", "0.0.0.0", "--port", "8080", \
+            "--dist", "/app/dist-web", "--workspace", "/workspace"]

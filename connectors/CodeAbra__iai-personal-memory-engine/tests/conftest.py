@@ -1,0 +1,800 @@
+from __future__ import annotations
+
+import gc
+import logging
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
+import uuid
+from datetime import datetime, timezone
+from pathlib import Path
+
+import pytest
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
+# No unit test of the stop verb may ever signal a real daemon on the
+# development host — the sweep honors this before touching psutil. Tests
+# that exercise the sweep against their own decoy children delete it.
+os.environ.setdefault("IAI_MCP_DISABLE_ORPHAN_SWEEP", "1")
+
+_TESTS_DIR = Path(__file__).resolve().parent
+if str(_TESTS_DIR) not in sys.path:
+    sys.path.insert(0, str(_TESTS_DIR))
+
+from _recall_helpers import (  # noqa: E402,F401
+    _deterministic_vec,
+    _make_gold_record,
+    _populate_store,
+    _prime_structural_cache,
+    _random_vec,
+    UUID_HUB,
+    UUID_INTER,
+    UUID_SEED,
+    UUID_TWO_HOP,
+    UUID_TWO_HOP_SURFACE,
+)
+
+# module-object access (never a `from` import): the recall-stub guard below
+# reads/writes _recall_stub_armed as an attribute. A bare `import _helpers`
+# elsewhere in tests/ resolves to a DISTINCT module object with its own
+# in-process arm list; arming also sets a process-global env var
+# (RECALL_STUB_ACTIVE_ENV) precisely so that split cannot hide an armed stub
+# from this guard.
+import tests._helpers as _stub_helpers  # noqa: E402
+
+
+_TEST_PASSPHRASE = "iai-mcp-test-passphrase"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _lilli_fast_fsync():
+    """Set LILLI_FSYNC_MODE=fast for the duration of the test session when the
+    resolved storage driver is the native engine and the caller has not
+    already chosen a mode.
+
+    Test runs verify logical correctness, not power-loss durability, so plain
+    os.fsync is correct here; production keeps the safe fsync default because
+    this fixture never runs outside pytest.
+
+    The prior value is saved and restored around the yield so in-process tools
+    that inspect LILLI_FSYNC_MODE after the session do not see the test value.
+    """
+    from iai_mcp.hippo._db import DEFAULT_STORAGE_DRIVER
+
+    prior = os.environ.get("LILLI_FSYNC_MODE")
+    if (
+        os.environ.get("LILLI_STORAGE_DRIVER", DEFAULT_STORAGE_DRIVER).lower() == "lilli"
+        and prior is None
+    ):
+        os.environ["LILLI_FSYNC_MODE"] = "fast"
+    yield
+    if prior is None:
+        os.environ.pop("LILLI_FSYNC_MODE", None)
+    else:
+        os.environ["LILLI_FSYNC_MODE"] = prior
+
+
+def _sandbox_home_env(monkeypatch: pytest.MonkeyPatch, base: Path) -> None:
+    drive, tail = os.path.splitdrive(str(base))
+    monkeypatch.setenv("HOME", str(base))
+    monkeypatch.setenv("USERPROFILE", str(base))
+    monkeypatch.setenv("HOMEDRIVE", drive)
+    monkeypatch.setenv("HOMEPATH", tail)
+
+
+@pytest.fixture(autouse=True)
+def _hermetic_default_paths(tmp_path_factory, monkeypatch: pytest.MonkeyPatch):
+    base = tmp_path_factory.mktemp("iai-hermetic")
+    fake_root = base / ".iai-mcp"
+    fake_root.mkdir(parents=True, exist_ok=True)
+
+    from iai_mcp.hippo import _operator_home
+    _real_cache = _operator_home() / ".cache" / "huggingface"
+    monkeypatch.setenv("HF_HOME", str(_real_cache))
+    monkeypatch.setenv("HF_HUB_CACHE", str(_real_cache / "hub"))
+    monkeypatch.setenv("HUGGINGFACE_HUB_CACHE", str(_real_cache / "hub"))
+
+    _sandbox_home_env(monkeypatch, base)
+    # The operator's real IAI_MCP_STORE (e.g. after `iai lang add`) must never
+    # leak model selection into hermetic tests.
+    monkeypatch.delenv("IAI_MCP_STORE", raising=False)
+    monkeypatch.setenv("IAI_DAEMON_SOCKET_PATH", str(fake_root / ".daemon.sock"))
+    # Hermetic tests never probe PyPI: the notify-only version check honors
+    # this kill switch everywhere (daemon tick, doctor, self-update).
+    monkeypatch.setenv("IAI_MCP_VERSION_CHECK", "0")
+    import iai_mcp.hippo as _hippo
+    import iai_mcp.store as _store
+    import iai_mcp.concurrency as _conc
+    import iai_mcp.daemon_state as _ds
+    import iai_mcp.lifecycle_state as _lifecycle_state
+    import iai_mcp.cli as _cli
+    import iai_mcp.lifecycle_event_log as _lel
+    import iai_mcp.capture_queue as _cq
+    import iai_mcp.lifecycle as _lifecycle
+    import iai_mcp.daemon as _daemon
+    import iai_mcp.crypto as _crypto
+    import iai_mcp.backup as _backup
+    import iai_mcp.directive_cache as _directive_cache
+    monkeypatch.setattr(_hippo, "_DEFAULT_IAI_ROOT", fake_root, raising=False)
+    monkeypatch.setattr(_store, "DEFAULT_STORAGE_PATH", fake_root, raising=False)
+    monkeypatch.setattr(_conc, "SOCKET_PATH", fake_root / ".daemon.sock", raising=False)
+    monkeypatch.setattr(_ds, "STATE_PATH", fake_root / ".daemon-state.json", raising=False)
+    monkeypatch.setattr(
+        _lifecycle_state, "LIFECYCLE_STATE_PATH",
+        fake_root / "lifecycle_state.json", raising=False,
+    )
+    monkeypatch.setattr(_cli, "LOCK_PATH", fake_root / ".lock", raising=False)
+    monkeypatch.setattr(
+        _cli, "STATE_PATH", fake_root / ".daemon-state.json", raising=False,
+    )
+    monkeypatch.setattr(_lel, "DEFAULT_LOG_DIR", fake_root / "logs", raising=False)
+    monkeypatch.setattr(_cq, "DEFAULT_QUEUE_DIR", fake_root / "pending", raising=False)
+    monkeypatch.setattr(
+        _lifecycle, "DEFAULT_LOCK_PATH", fake_root / ".lifecycle.lock", raising=False,
+    )
+    monkeypatch.setattr(
+        _daemon, "SESSION_START_CACHE_PATH",
+        fake_root / ".session-start-payload.cached.md", raising=False,
+    )
+    monkeypatch.setattr(_crypto, "_DEFAULT_STORE_ROOT", fake_root, raising=False)
+    monkeypatch.setattr(_backup, "DEFAULT_STORE_PATH", str(fake_root), raising=False)
+    monkeypatch.setattr(
+        _directive_cache, "DIRECTIVES_CACHE_PATH",
+        fake_root / ".directives.cached.md", raising=False,
+    )
+    yield fake_root
+
+
+@pytest.fixture(autouse=True)
+def _clear_autoflush_opt_out(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("IAI_MCP_TEST_NO_AUTOFLUSH", raising=False)
+
+
+@pytest.fixture(autouse=True)
+def _crypto_passphrase_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    if "IAI_MCP_CRYPTO_PASSPHRASE" not in os.environ:
+        monkeypatch.setenv("IAI_MCP_CRYPTO_PASSPHRASE", _TEST_PASSPHRASE)
+
+
+_BLOCKED_SCHEDULER_BINARIES = ("launchctl", "systemctl", "schtasks", "loginctl")
+
+
+@pytest.fixture(autouse=True)
+def _block_real_scheduler_registration(
+    request: pytest.FixtureRequest, monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Hard rail: no test may register or unregister a REAL OS scheduler job
+    (launchd, systemd, Windows Task Scheduler) on the development host.
+
+    A test exercising install/uninstall code must monkeypatch the specific
+    indirection that would call out to the scheduler; this fixture turns a
+    missed mock into a loud, immediate failure instead of a real
+    `launchctl`/`systemctl`/`schtasks`/`loginctl` invocation against the
+    developer's own session.
+
+    `@pytest.mark.live` tests are the sanctioned real-scheduler lane (opt-in
+    via --live, out of the default correctness gate) -- this guard exists to
+    catch an ACCIDENTAL real call from an otherwise-mocked default-gate test,
+    not to block the one lane that legitimately proves real scheduler
+    behavior. The exemption is scoped to the `live` marker only; every other
+    test still goes through the guard unchanged.
+    """
+    if request.node.get_closest_marker("live") is not None:
+        return
+    real_run = subprocess.run
+
+    def _guarded_run(cmd, *args, **kwargs):
+        prog = None
+        if isinstance(cmd, (list, tuple)) and cmd:
+            prog = str(cmd[0])
+        elif isinstance(cmd, str) and cmd.split():
+            prog = cmd.split()[0]
+        if prog and Path(prog).name in _BLOCKED_SCHEDULER_BINARIES:
+            raise RuntimeError(
+                f"test attempted a REAL scheduler call: {cmd!r} -- mock the "
+                "calling indirection instead of touching launchctl/systemctl/"
+                "schtasks/loginctl on the development host"
+            )
+        return real_run(cmd, *args, **kwargs)
+
+    monkeypatch.setattr(subprocess, "run", _guarded_run)
+
+
+_GUARDED_ENV = (
+    "IAI_MCP_STORE",
+    "LILLI_STORAGE_DRIVER",
+    "IAI_MCP_CRYPTO_PASSPHRASE",
+    "LILLI_FSYNC_MODE",
+    "IAI_MCP_EMBED_MODEL",
+)
+
+
+@pytest.fixture(autouse=True)
+def _isolate_process_globals(_lilli_fast_fsync, _crypto_passphrase_env):
+    """Snapshot the load-bearing process-global env vars at setup and restore
+    the exact prior state at teardown.
+
+    A test that mutates one of these vars with a raw ``os.environ`` write would
+    otherwise leak it into every later test in the same process; the leaked
+    value redirects ``MemoryStore(path=None)`` to a wrong or deleted store root
+    (wrong-key reads, empty-store, unable-to-open).  This restores the pristine
+    baseline after each test, so collection order can never poison the suite.
+
+    The snapshot is taken after the baseline env fixtures (fast fsync, the test
+    passphrase) have run, so it captures the intended baseline rather than a
+    pre-baseline empty.  Only the guarded keys are touched -- never a blanket
+    ``os.environ.clear()``, which would wipe HOME/HF_HOME and break the
+    hermetic fixtures.  Restore is symmetric (pop-if-was-absent, set-otherwise),
+    so it composes safely with monkeypatch's own teardown.
+
+    After the env restore, stale (closed) entries are swept from the lilli
+    connection registry so it cannot grow unbounded across the whole suite, and
+    a final ``gc.collect()`` reclaims any already-released background loop or
+    thread objects.  The sweep drops ONLY connections that report themselves
+    closed (identity-checked, mirroring the registry's own self-heal); it never
+    clears the whole registry and never touches a live or borrowed handle.  The
+    gc runs LAST and only reclaims already-released objects -- it is not the
+    mechanism that closes a store (the explicit drains make closure observable).
+    """
+    snapshot = {k: os.environ.get(k) for k in _GUARDED_ENV}
+    yield
+    for key, value in snapshot.items():
+        if value is None:
+            os.environ.pop(key, None)
+        else:
+            os.environ[key] = value
+
+    try:
+        from iai_mcp.lillibrain import connection as _lilli_conn
+
+        registry = _lilli_conn._LILLI_CONN_REGISTRY
+        for path, conn in list(registry.items()):
+            if getattr(conn, "is_closed", False):
+                # Identity check: only drop the slot if it still maps to this
+                # closed connection, so a concurrent re-register is not clobbered.
+                if registry.get(path) is conn:
+                    registry.pop(path, None)
+    except Exception:  # noqa: BLE001 -- not yet installed in some minimal envs
+        pass
+
+    gc.collect()
+
+
+@pytest.fixture(autouse=True)
+def _isolate_profile_state():
+    """Snapshot the shared knob dict at setup and restore it at teardown.
+
+    Tests that write knobs straight into ``core._profile_state`` (rather than
+    through monkeypatch.setitem) would otherwise leak the value into every
+    later test in the process; a leaked knob shifts near-tie rankings, so the
+    same file can pass or fail on collection order alone.
+    """
+    try:
+        from iai_mcp import core as _core
+    except Exception:  # noqa: BLE001 -- env without iai_mcp installed yet
+        yield
+        return
+
+    snapshot = dict(_core._profile_state)
+    yield
+    _core._profile_state.clear()
+    _core._profile_state.update(snapshot)
+
+
+@pytest.fixture(scope="session")
+def _pristine_embedder_funnel():
+    """Session-scoped baseline of ``embed.embedder_for_store``.
+
+    Session scope is load-bearing: a per-test snapshot taken after a leaked
+    swap would adopt the swapped function as its baseline and pin the leak
+    for the rest of the run.
+    """
+    try:
+        from iai_mcp import embed as _embed_mod
+    except ImportError:
+        import warnings
+
+        warnings.warn(
+            "embedder-funnel isolation disabled: iai_mcp.embed unimportable",
+            stacklevel=1,
+        )
+        return None
+    return _embed_mod.embedder_for_store
+
+
+@pytest.fixture(autouse=True)
+def _isolate_embedder_funnel(_pristine_embedder_funnel):
+    """Restore the module-level embedder funnel at setup AND teardown.
+
+    Two production paths swap ``embed.embedder_for_store`` for a closure: the
+    daemon boot warm-hold (from a worker thread — the swap can land after the
+    booting test's teardown already ran) and the semantic-recall degraded
+    fallback (try/finally, same module global).  A leaked swap makes every
+    later test resolve an embedder it did not choose: patched classes never
+    constructed, identity guard with nothing to refuse, cosine over foreign
+    vectors.  Setup-side restore is load-bearing for the worker-thread case:
+    the swap can land between two tests.
+    """
+    if _pristine_embedder_funnel is None:
+        yield
+        return
+
+    # keep this on the setup side and in from-import form: a test poisons
+    # sys.modules["iai_mcp.embed"] with None inside its body, so an
+    # import-as on the teardown side would raise while the
+    # package-attribute path survives.
+    from iai_mcp import embed as _embed_mod
+
+    if _embed_mod.embedder_for_store is not _pristine_embedder_funnel:
+        _embed_mod.embedder_for_store = _pristine_embedder_funnel
+    # The construction cache is state separate from the function reference
+    # above -- a stubbed Embedder cached by one test must not leak into the
+    # next. getattr, never a bare attribute access: import-poison-safe.
+    _reset = getattr(_embed_mod, "_reset_embedder_singleton", None)
+    _reset and _reset()
+    yield
+    if _embed_mod.embedder_for_store is not _pristine_embedder_funnel:
+        _embed_mod.embedder_for_store = _pristine_embedder_funnel
+    _reset = getattr(_embed_mod, "_reset_embedder_singleton", None)
+    _reset and _reset()
+
+
+@pytest.fixture(autouse=True)
+def _guard_recall_stub_not_degraded():
+    """Fail loud when an armed recall-embedder double silently degraded.
+
+    A stub whose signature no longer matches ``embedder_for_store`` raises
+    TypeError inside the bounded acquire; the pipeline catches it, emits
+    ``recall_pipeline_fallback``, and degrades -- so a broken double can
+    make a test pass-by-degrading on the fallback path instead of failing
+    where the actual break is. Arming is via the shared factory (in-process
+    flag) or the shared env var (the bench / dual-gate plain-assign sites,
+    which do not use monkeypatch). Checking arming inside ``emit`` (not at
+    teardown) is load-bearing: the env var can be cleared by its own
+    context manager's ``__exit__`` before this fixture's teardown runs.
+    """
+    _stub_helpers._recall_stub_armed.clear()
+    tripped: list[tuple[str, str]] = []
+
+    class _Trip(logging.Handler):
+        def emit(self, record: logging.LogRecord) -> None:
+            msg = record.getMessage()
+            if not msg.startswith("recall_pipeline_fallback"):
+                return
+            armed = bool(_stub_helpers._recall_stub_armed) or bool(
+                os.environ.get(_stub_helpers.RECALL_STUB_ACTIVE_ENV)
+            )
+            if armed:
+                tripped.append((record.threadName, msg))
+
+    handler = _Trip()
+    logger = logging.getLogger("iai_mcp.core")
+    logger.addHandler(handler)
+    try:
+        yield
+    finally:
+        logger.removeHandler(handler)
+        # arm-flag clear + env pop MUST precede pytest.fail: a tripping
+        # test must never leak armed state into the next test.
+        _stub_helpers._recall_stub_armed.clear()
+        os.environ.pop(_stub_helpers.RECALL_STUB_ACTIVE_ENV, None)
+        if tripped:
+            details = "; ".join(f"[{t}] {m}" for t, m in tripped)
+            pytest.fail(
+                "recall embedder stub silently degraded instead of being "
+                f"used -- stub signature is likely stale: {details}"
+            )
+
+
+_AUTOFLUSH_OPT_OUT_ENV = "IAI_MCP_TEST_NO_AUTOFLUSH"
+
+
+@pytest.fixture(autouse=True)
+def _autoflush_lance_buffers(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Flush the record/edge/event buffers after every insert in every test.
+
+    This means every OTHER test in the suite does NOT exercise the real
+    production buffered-visibility window: a row is invisible to a reader
+    until its buffer flushes, and this fixture flushes immediately after each
+    insert so that window never appears. A test that needs to assert
+    buffered/unflushed behavior (or the SQL visibility contract across that
+    window) MUST opt out via ``IAI_MCP_TEST_NO_AUTOFLUSH=1`` (see
+    ``_AUTOFLUSH_OPT_OUT_ENV`` below) — set it BEFORE the insert under test,
+    since this fixture reads the environment at insert time, not at fixture
+    setup.
+    """
+    try:
+        from iai_mcp import store as _store_mod
+    except Exception:  # noqa: BLE001 -- env without iai_mcp installed yet
+        return
+
+    MemoryStore = getattr(_store_mod, "MemoryStore", None)
+    flush_record_buffer = getattr(_store_mod, "flush_record_buffer", None)
+    flush_edge_buffer = getattr(_store_mod, "flush_edge_buffer", None)
+    if (
+        MemoryStore is None
+        or flush_record_buffer is None
+        or flush_edge_buffer is None
+    ):
+        return
+
+    try:
+        from iai_mcp.events import flush_event_buffer as _flush_event_buffer
+    except Exception:  # noqa: BLE001
+        _flush_event_buffer = None
+
+    def _opt_out() -> bool:
+        return os.environ.get(_AUTOFLUSH_OPT_OUT_ENV) == "1"
+
+    _orig_insert = MemoryStore.insert
+
+    def _insert_then_flush(self, *args, **kwargs):
+        result = _orig_insert(self, *args, **kwargs)
+        if _opt_out():
+            return result
+        try:
+            flush_record_buffer(self)
+            flush_edge_buffer(self)
+            if _flush_event_buffer is not None:
+                _flush_event_buffer(self)
+        except Exception:  # noqa: BLE001 -- flush MUST NOT fail the test
+            pass
+        return result
+
+    monkeypatch.setattr(MemoryStore, "insert", _insert_then_flush)
+
+    _orig_boost = getattr(MemoryStore, "boost_edges", None)
+    if _orig_boost is not None:
+        def _boost_then_flush(self, *args, **kwargs):
+            result = _orig_boost(self, *args, **kwargs)
+            if _opt_out():
+                return result
+            try:
+                flush_edge_buffer(self)
+            except Exception:  # noqa: BLE001
+                pass
+            return result
+
+        monkeypatch.setattr(MemoryStore, "boost_edges", _boost_then_flush)
+
+    _orig_add_contradicts = getattr(MemoryStore, "add_contradicts_edge", None)
+    if _orig_add_contradicts is not None:
+        def _add_contradicts_then_flush(self, *args, **kwargs):
+            result = _orig_add_contradicts(self, *args, **kwargs)
+            if _opt_out():
+                return result
+            try:
+                flush_edge_buffer(self)
+            except Exception:  # noqa: BLE001
+                pass
+            return result
+
+        monkeypatch.setattr(
+            MemoryStore, "add_contradicts_edge", _add_contradicts_then_flush,
+        )
+
+    try:
+        from iai_mcp import provenance_buffer as _prov_buf_mod
+    except Exception:  # noqa: BLE001
+        _prov_buf_mod = None
+
+    if _prov_buf_mod is not None:
+        _orig_defer = _prov_buf_mod.defer_provenance
+        _orig_flush = _prov_buf_mod.flush_deferred_provenance
+
+        def _defer_then_flush(store, entries):
+            result = _orig_defer(store, entries)
+            if _opt_out():
+                return result
+            try:
+                _orig_flush(store)
+            except Exception:  # noqa: BLE001
+                pass
+            return result
+
+        monkeypatch.setattr(_prov_buf_mod, "defer_provenance", _defer_then_flush)
+
+
+def pytest_addoption(parser: pytest.Parser) -> None:
+    parser.addoption(
+        "--runslow",
+        action="store_true",
+        default=False,
+        help="run tests marked @pytest.mark.slow (subprocess-heavy bench-shim resolution checks)",
+    )
+    parser.addoption(
+        "--perf",
+        action="store_true",
+        default=False,
+        help="run tests marked @pytest.mark.perf (wall-clock latency benches, out of the default gate)",
+    )
+    parser.addoption(
+        "--live",
+        action="store_true",
+        default=False,
+        help="run @pytest.mark.live integration tests (real daemon subprocess; out of the default correctness gate)",
+    )
+    parser.addoption(
+        "--bench",
+        action="store_true",
+        default=False,
+        help="run @pytest.mark.bench harness smokes (need local HF caches and bench artifacts; out of the default correctness gate)",
+    )
+    parser.addoption(
+        "--runrealstore",
+        action="store_true",
+        default=False,
+        help="run @pytest.mark.realstore tests (open a copy of the operator's real store; non-hermetic and slow, out of the default correctness gate)",
+    )
+
+
+def pytest_collection_modifyitems(
+    config: pytest.Config, items: list[pytest.Item]
+) -> None:
+    if not config.getoption("--runslow"):
+        skip_slow = pytest.mark.skip(reason="need --runslow to run")
+        for item in items:
+            if "slow" in item.keywords:
+                item.add_marker(skip_slow)
+    if not config.getoption("--perf"):
+        skip_perf = pytest.mark.skip(reason="need --perf to run wall-clock bench")
+        for item in items:
+            if "perf" in item.keywords:
+                item.add_marker(skip_perf)
+    if not config.getoption("--bench"):
+        skip_bench = pytest.mark.skip(reason="need --bench to run the bench-harness smoke")
+        for item in items:
+            if "bench" in item.keywords:
+                item.add_marker(skip_bench)
+    if not config.getoption("--live"):
+        skip_live = pytest.mark.skip(reason="need --live to run the real-daemon E2E gate")
+        for item in items:
+            if "live" in item.keywords:
+                item.add_marker(skip_live)
+    if not config.getoption("--runrealstore"):
+        skip_realstore = pytest.mark.skip(reason="need --runrealstore to run")
+        for item in items:
+            if "realstore" in item.keywords:
+                item.add_marker(skip_realstore)
+
+
+@pytest.fixture()
+def short_socket():
+    d = Path(tempfile.mkdtemp(prefix="iai-sock-"))
+    sock = d / "d.sock"
+    yield sock
+    shutil.rmtree(d, ignore_errors=True)
+
+
+@pytest.fixture
+def hermetic_store(tmp_path: pytest.TempPathFactory, monkeypatch: pytest.MonkeyPatch):
+    store_root = tmp_path / ".iai-mcp"
+    store_root.mkdir(parents=True, exist_ok=True)
+    dead_socket = tmp_path / "no-such.sock"
+    _sandbox_home_env(monkeypatch, tmp_path)
+    monkeypatch.setenv("IAI_MCP_STORE", str(store_root))
+    monkeypatch.setenv("IAI_DAEMON_SOCKET_PATH", str(dead_socket))
+    yield store_root
+
+
+# ---------------------------------------------------------------------------
+# Shed-state fixture: a small, scale-independent lilli store whose
+# runtime-graph cache is forced to shed node_payload (use_cached_payload=False
+# in build_runtime_graph) via a low MAX_CACHE_BYTES cap -- the boot-time state
+# of a freshly-migrated store, before any daemon process has warmed an
+# in-memory bundle. Shared by the ranking-parity golden capture and its later
+# replay so both compare on the identical shed-path store.
+# ---------------------------------------------------------------------------
+
+SHED_STATE_N_RECORDS = 8
+SHED_STATE_N_EDGES = 10
+SHED_STATE_FROZEN_INSTANT = datetime(2024, 6, 1, tzinfo=timezone.utc)
+SHED_STATE_RECORD_CREATED_AT = datetime(2024, 1, 1, tzinfo=timezone.utc)
+
+
+def shed_only_node_payload_cap(n_records: int) -> int:
+    """A MAX_CACHE_BYTES value that sheds only node_payload, never the whole
+    cache write, for any community count between 1 and n_records.
+
+    Derived from runtime_graph_cache's own per-entry size estimator: the gap
+    between the cache size with and without node_payload is a constant
+    (node_payload_cost) regardless of community count, so any cap between the
+    worst-case floor (all-communities-singleton, node_payload dropped) and
+    that floor plus node_payload_cost sheds node_payload only. Sitting the cap
+    at floor + node_payload_cost // 2 keeps it in that band for every
+    community count from 1 to n_records.
+    """
+    from iai_mcp import runtime_graph_cache as rgc
+
+    floor = (
+        rgc._BASE_SCAFFOLD_BYTES
+        + n_records * rgc._CENTRALITY_BYTES_PER_ENTRY
+        + n_records * 50  # node_to_community bytes/entry (assignment block)
+        + n_records * 16  # top_communities worst case (one entry/community)
+        + n_records * rgc._RICH_CLUB_BYTES_PER_ENTRY
+        + rgc._CENTROID_BYTES_PER_RECORD + 4
+        + rgc._MID_REGION_BYTES_PER_RECORD + 4
+    )
+    node_payload_cost = n_records * (
+        rgc._NODE_PAYLOAD_BYTES_PER_RECORD + rgc._JSON_DICT_ENTRY_OVERHEAD + 38
+    )
+    return int(floor + node_payload_cost // 2)
+
+
+def build_shed_state_store(root: Path, monkeypatch: pytest.MonkeyPatch):
+    """Build a small lilli store whose runtime-graph cache is warm-but-shed.
+
+    node_payload is empty on disk after the prewarm build but the compact
+    centrality survives (never shed), so a subsequent `build_runtime_graph`
+    call takes the lock-free no-rebuild branch and reconstructs by streaming
+    instead of a cache miss or an in-memory memo hit -- the in-process memo is
+    cleared here for exactly that reason.
+
+    Fully deterministic: fixed record UUIDs, fixed created_at (never
+    `datetime.now()`). Two independent calls to this function, even from
+    separate processes, produce byte-identical on-disk cache content.
+    """
+    from iai_mcp import runtime_graph_cache
+    from iai_mcp.retrieve import build_runtime_graph
+    from iai_mcp.store import MemoryStore
+    from iai_mcp.types import EMBED_DIM, MemoryRecord
+
+    root.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setenv("IAI_MCP_STORE", str(root))
+    monkeypatch.setenv("IAI_DAEMON_SOCKET_PATH", str(root / "no-such.sock"))
+    monkeypatch.setenv("LILLI_STORAGE_DRIVER", "lilli")
+    monkeypatch.setenv("LILLI_FSYNC_MODE", "fast")
+    # At this fixture's tiny scale a healthy RO pool would serve the boot
+    # COUNT from a borrowed connection distinct from db._conn, making the
+    # engine's cell-visit counters on db._conn misreport zero work regardless
+    # of corpus size. Force the writer-connection fallback so a counter probe
+    # against db._conn reflects the query actually run.
+    monkeypatch.setenv("IAI_MCP_RO_POOL_OFF", "1")
+    monkeypatch.setattr(
+        runtime_graph_cache,
+        "MAX_CACHE_BYTES",
+        shed_only_node_payload_cap(SHED_STATE_N_RECORDS),
+    )
+
+    store = MemoryStore(path=root)
+    records = []
+    for i in range(SHED_STATE_N_RECORDS):
+        vec = [0.0] * EMBED_DIM
+        vec[i % EMBED_DIM] = 1.0
+        rec = MemoryRecord(
+            id=uuid.UUID(int=i + 1),
+            tier="episodic",
+            literal_surface=f"shed state fixture record {i}",
+            aaak_index="",
+            embedding=vec,
+            community_id=None,
+            centrality=0.0,
+            detail_level=2,
+            pinned=False,
+            stability=0.5,
+            difficulty=0.0,
+            last_reviewed=None,
+            never_decay=False,
+            never_merge=False,
+            provenance=[],
+            created_at=SHED_STATE_RECORD_CREATED_AT,
+            updated_at=SHED_STATE_RECORD_CREATED_AT,
+            tags=[],
+            language="en",
+        )
+        store.insert(rec)
+        records.append(rec)
+
+    pairs = []
+    for i in range(SHED_STATE_N_EDGES):
+        src = records[i % SHED_STATE_N_RECORDS]
+        dst = records[(i * 3 + 1) % SHED_STATE_N_RECORDS]
+        if src.id != dst.id:
+            pairs.append((src.id, dst.id))
+    store.boost_edges(pairs, delta=0.5, edge_type="hebbian")
+
+    build_runtime_graph(store)
+    store._warm_graph_bundle = None
+    return store, records
+
+
+class _ShedStateFrozenClock(datetime):
+    """`datetime` subclass whose `now()` always returns the fixture's frozen
+    instant. Swapped into a module's global `datetime` name (not used
+    directly) so the AGE rank term is byte-reproducible run to run."""
+
+    @classmethod
+    def now(cls, tz=None):
+        if tz is None:
+            return SHED_STATE_FROZEN_INSTANT
+        return SHED_STATE_FROZEN_INSTANT.astimezone(tz)
+
+
+def freeze_recall_clock(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Freeze `datetime.now()` in every recall-path module that reads it for
+    a rank-affecting computation, for the duration of the current test."""
+    import iai_mcp.pipeline as pipeline_mod
+    import iai_mcp.retrieve as retrieve_mod
+
+    monkeypatch.setattr(pipeline_mod, "datetime", _ShedStateFrozenClock)
+    monkeypatch.setattr(retrieve_mod, "datetime", _ShedStateFrozenClock)
+
+
+@pytest.fixture
+def shed_state_store(tmp_path, monkeypatch):
+    """Yields `(store, records)` for the shed-state fixture (see
+    `build_shed_state_store`). The store is closed at teardown."""
+    store, records = build_shed_state_store(tmp_path / "shed-state", monkeypatch)
+    yield store, records
+    store.close()
+
+
+@pytest.fixture
+def _pdf_fixture(tmp_path):
+    """Build a 1-page PDF in tmp_path on demand for ingestion tests.
+
+    Skipped if reportlab is not installed (dev-only dep).
+    """
+    try:
+        from reportlab.pdfgen import canvas
+    except ImportError:
+        pytest.skip("reportlab not installed (dev-only PDF fixture builder)")
+    pdf_path = tmp_path / "fixture.pdf"
+    c = canvas.Canvas(str(pdf_path))
+    c.drawString(100, 750, "This is a test PDF body for the upload integration test.")
+    c.save()
+    yield pdf_path
+
+
+@pytest.fixture(autouse=True)
+def _reset_module_singletons() -> None:
+    try:
+        import iai_mcp.runtime_graph_cache as _rgc
+        with _rgc._GEN_LOCK:
+            _rgc._current_generation = 0
+            _rgc._rebuild_timestamp_override = ""
+        _rgc.reset_dirty_counter()
+    except Exception:  # noqa: BLE001 -- not yet installed in some test envs
+        pass
+
+    try:
+        import iai_mcp.semantic_recall as _sr
+        _sr._WARM_LOCAL_STORE = None
+    except Exception:  # noqa: BLE001 -- not yet installed in some test envs
+        pass
+
+
+def _nx_graph_to_memory_graph(nx_g):
+    from uuid import uuid4
+
+    from iai_mcp.graph import MemoryGraph
+
+    mg = MemoryGraph()
+    node_to_uuid = {n: uuid4() for n in nx_g.nodes()}
+    for _n, uid in node_to_uuid.items():
+        mg.add_node(uid, community_id=None, embedding=[0.0] * 384)
+    for u, v, data in nx_g.edges(data=True):
+        w = 1.0
+        try:
+            w = float(data.get("weight", 1.0))
+        except (TypeError, ValueError):
+            w = 1.0
+        mg.add_edge(node_to_uuid[u], node_to_uuid[v], weight=w)
+    return mg
+
+
+@pytest.fixture(autouse=True)
+def _clear_crisis_state_cache():
+    """The crisis-state cache is process-global with a 1s TTL — an entry
+    left by one test can flip the next test's recall into the crisis tier."""
+    yield
+    try:
+        from iai_mcp import core as _core
+    except ImportError:
+        return
+    _core._CRISIS_STATE_CACHE.clear()

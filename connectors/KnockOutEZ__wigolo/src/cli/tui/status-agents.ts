@@ -1,0 +1,95 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { join } from 'node:path';
+import TOML from '@iarna/toml';
+import { vscodeUserDir } from '../agents/vscode.js';
+import { parseJsonObject } from './config-writer-json.js';
+
+export interface ConnectedAgent {
+  id: string;
+  displayName: string;
+  configured: boolean;
+  path: string;
+}
+
+interface AgentSpec {
+  id: string;
+  displayName: string;
+  format: 'json' | 'toml' | 'cli';
+  relPath: string;
+  keyPath: readonly string[];
+  validate?: (value: unknown) => boolean;
+}
+
+function isOpenCodeMcpEntry(value: unknown): boolean {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) return false;
+  const entry = value as Record<string, unknown>;
+  return entry.type === 'local'
+    && Array.isArray(entry.command)
+    && entry.command.length > 0
+    && entry.command.every((part) => typeof part === 'string')
+    && (entry.enabled === undefined || entry.enabled === true);
+}
+
+const SPECS: readonly AgentSpec[] = [
+  { id: 'claude-code', displayName: 'Claude Code',    format: 'cli',  relPath: '',                                  keyPath: [] },
+  { id: 'cursor',      displayName: 'Cursor',         format: 'json', relPath: '.cursor/mcp.json',                  keyPath: ['mcpServers', 'wigolo'] },
+  { id: 'vscode',      displayName: 'VS Code',        format: 'json', relPath: '.vscode/mcp.json',                  keyPath: ['servers', 'wigolo'] },
+  { id: 'zed',         displayName: 'Zed',            format: 'json', relPath: '.config/zed/settings.json',         keyPath: ['context_servers', 'wigolo'] },
+  { id: 'gemini-cli',  displayName: 'Gemini CLI',     format: 'json', relPath: '.gemini/settings.json',             keyPath: ['mcpServers', 'wigolo'] },
+  { id: 'windsurf',    displayName: 'Windsurf',       format: 'json', relPath: '.codeium/windsurf/mcp_config.json', keyPath: ['mcpServers', 'wigolo'] },
+  { id: 'opencode',    displayName: 'OpenCode',       format: 'json', relPath: '.config/opencode/opencode.json',    keyPath: ['mcp', 'wigolo'], validate: isOpenCodeMcpEntry },
+  { id: 'codex',       displayName: 'Codex',          format: 'toml', relPath: '.codex/config.toml',                keyPath: ['mcp_servers', 'wigolo'] },
+];
+
+export interface ReadConnectedAgentsOptions {
+  home?: string;
+}
+
+export function readConnectedAgents(opts: ReadConnectedAgentsOptions = {}): ConnectedAgent[] {
+  const home = opts.home ?? homedir();
+  const out: ConnectedAgent[] = [];
+
+  for (const spec of SPECS) {
+    if (spec.format === 'cli') {
+      out.push({ id: spec.id, displayName: spec.displayName, configured: false, path: '(use `claude mcp list`)' });
+      continue;
+    }
+
+    const abs = spec.id === 'vscode'
+      ? join(vscodeUserDir(home), 'mcp.json')
+      : join(home, spec.relPath);
+    if (!existsSync(abs)) {
+      out.push({ id: spec.id, displayName: spec.displayName, configured: false, path: abs });
+      continue;
+    }
+
+    let parsed: unknown;
+    try {
+      const raw = readFileSync(abs, 'utf-8');
+      parsed = spec.format === 'toml'
+        ? TOML.parse(raw)
+        : parseJsonObject(raw, spec.id === 'opencode');
+    } catch {
+      out.push({ id: spec.id, displayName: spec.displayName, configured: false, path: abs });
+      continue;
+    }
+
+    const value = valueAtKeyPath(parsed, spec.keyPath);
+    const configured = value !== undefined && value !== null
+      && (spec.validate ? spec.validate(value) : true);
+    out.push({ id: spec.id, displayName: spec.displayName, configured, path: abs });
+  }
+
+  return out;
+}
+
+function valueAtKeyPath(node: unknown, keyPath: readonly string[]): unknown {
+  let cursor: unknown = node;
+  for (const key of keyPath) {
+    if (typeof cursor !== 'object' || cursor === null) return undefined;
+    if (!(key in (cursor as Record<string, unknown>))) return undefined;
+    cursor = (cursor as Record<string, unknown>)[key];
+  }
+  return cursor;
+}

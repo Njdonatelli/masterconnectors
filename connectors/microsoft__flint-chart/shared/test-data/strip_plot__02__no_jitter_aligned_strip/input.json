@@ -1,0 +1,68 @@
+{
+  "title": "No Jitter (aligned strip)",
+  "description": "jitterWidth=0 produces a clean strip",
+  "chartType": "Strip Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "A",
+          "Value": 10
+        },
+        {
+          "Category": "A",
+          "Value": 15
+        },
+        {
+          "Category": "A",
+          "Value": 12
+        },
+        {
+          "Category": "A",
+          "Value": 18
+        },
+        {
+          "Category": "B",
+          "Value": 25
+        },
+        {
+          "Category": "B",
+          "Value": 30
+        },
+        {
+          "Category": "B",
+          "Value": 22
+        },
+        {
+          "Category": "B",
+          "Value": 28
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Strip Plot",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "jitterWidth": 0
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,5663 @@
+{
+  "mark": {
+    "type": "boxplot",
+    "size": 4
+  },
+  "encoding": {
+    "y": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...29 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Cat025",
+          "Cat029",
+          "Cat039",
+          "Cat070",
+          "Cat084",
+          "Cat093",
+          "Cat111",
+          "Cat119",
+          "Cat018",
+          "Cat037",
+          "Cat049",
+          "Cat052",
+          "Cat055",
+          "Cat056",
+          "Cat060",
+          "Cat061",
+          "Cat083",
+          "Cat088",
+          "Cat100",
+          "Cat104",
+          "Cat113",
+          "Cat118",
+          "Cat004",
+          "Cat005",
+          "Cat010",
+          "Cat012",
+          "Cat019",
+          "Cat020",
+          "Cat033",
+          "Cat035",
+          "Cat041",
+          "Cat045",
+          "Cat046",
+          "Cat058",
+          "Cat072",
+          "Cat075",
+          "Cat081",
+          "Cat090",
+          "Cat106",
+          "Cat008",
+          "Cat016",
+          "Cat021",
+          "Cat026",
+          "Cat032",
+          "Cat043",
+          "Cat048",
+          "Cat050",
+          "Cat062",
+          "Cat086",
+          "Cat087",
+          "Cat098",
+          "Cat099",
+          "Cat101",
+          "Cat102",
+          "Cat115",
+          "Cat006",
+          "Cat023",
+          "Cat038",
+          "Cat051",
+          "Cat053",
+          "Cat054",
+          "Cat057",
+          "Cat065",
+          "Cat077",
+          "Cat080",
+          "Cat085",
+          "Cat091",
+          "Cat108",
+          "Cat114",
+          "Cat009",
+          "Cat011",
+          "Cat014",
+          "Cat015",
+          "Cat034",
+          "Cat036",
+          "Cat082",
+          "Cat105",
+          "Cat107",
+          "Cat112",
+          "Cat120",
+          "Cat013",
+          "Cat024",
+          "Cat028",
+          "Cat066",
+          "Cat076",
+          "Cat109",
+          "Cat003",
+          "Cat047",
+          "Cat068",
+          "Cat071",
+          "Cat078",
+          "...29 items omitted"
+        ]
+      }
+    },
+    "x": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 155,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 6
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Cat003",
+        "Score": 66
+      },
+      {
+        "Category": "Cat003",
+        "Score": 93
+      },
+      {
+        "Category": "Cat003",
+        "Score": 53
+      },
+      {
+        "Category": "Cat003",
+        "Score": 82
+      },
+      {
+        "Category": "Cat003",
+        "Score": 5
+      },
+      {
+        "Category": "Cat003",
+        "Score": 20
+      },
+      {
+        "Category": "Cat003",
+        "Score": 22
+      },
+      {
+        "Category": "Cat003",
+        "Score": 93
+      },
+      {
+        "Category": "Cat003",
+        "Score": 62
+      },
+      {
+        "Category": "Cat003",
+        "Score": 77
+      },
+      {
+        "Category": "Cat003",
+        "Score": 56
+      },
+      {
+        "Category": "Cat003",
+        "Score": 43
+      },
+      {
+        "Category": "Cat003",
+        "Score": 77
+      },
+      {
+        "Category": "Cat003",
+        "Score": 40
+      },
+      {
+        "Category": "Cat003",
+        "Score": 72
+      },
+      {
+        "Category": "Cat004",
+        "Score": 38
+      },
+      {
+        "Category": "Cat004",
+        "Score": 42
+      },
+      {
+        "Category": "Cat004",
+        "Score": 75
+      },
+      {
+        "Category": "Cat004",
+        "Score": 8
+      },
+      {
+        "Category": "Cat004",
+        "Score": 2
+      },
+      {
+        "Category": "Cat004",
+        "Score": 59
+      },
+      {
+        "Category": "Cat004",
+        "Score": 29
+      },
+      {
+        "Category": "Cat004",
+        "Score": 40
+      },
+      {
+        "Category": "Cat004",
+        "Score": 70
+      },
+      {
+        "Category": "Cat004",
+        "Score": 98
+      },
+      {
+        "Category": "Cat004",
+        "Score": 11
+      },
+      {
+        "Category": "Cat004",
+        "Score": 93
+      },
+      {
+        "Category": "Cat004",
+        "Score": 34
+      },
+      {
+        "Category": "Cat004",
+        "Score": 52
+      },
+      {
+        "Category": "Cat004",
+        "Score": 46
+      },
+      {
+        "Category": "Cat005",
+        "Score": 44
+      },
+      {
+        "Category": "Cat005",
+        "Score": 16
+      },
+      {
+        "Category": "Cat005",
+        "Score": 15
+      },
+      {
+        "Category": "Cat005",
+        "Score": 59
+      },
+      {
+        "Category": "Cat005",
+        "Score": 29
+      },
+      {
+        "Category": "Cat005",
+        "Score": 96
+      },
+      {
+        "Category": "Cat005",
+        "Score": 98
+      },
+      {
+        "Category": "Cat005",
+        "Score": 25
+      },
+      {
+        "Category": "Cat005",
+        "Score": 82
+      },
+      {
+        "Category": "Cat005",
+        "Score": 24
+      },
+      {
+        "Category": "Cat005",
+        "Score": 9
+      },
+      {
+        "Category": "Cat005",
+        "Score": 33
+      },
+      {
+        "Category": "Cat005",
+        "Score": 93
+      },
+      {
+        "Category": "Cat005",
+        "Score": 33
+      },
+      {
+        "Category": "Cat005",
+        "Score": 3
+      },
+      {
+        "Category": "Cat006",
+        "Score": 7
+      },
+      {
+        "Category": "Cat006",
+        "Score": 65
+      },
+      {
+        "Category": "Cat006",
+        "Score": 38
+      },
+      {
+        "Category": "Cat006",
+        "Score": 73
+      },
+      {
+        "Category": "Cat006",
+        "Score": 83
+      },
+      {
+        "Category": "Cat006",
+        "Score": 79
+      },
+      {
+        "Category": "Cat006",
+        "Score": 45
+      },
+      {
+        "Category": "Cat006",
+        "Score": 2
+      },
+      {
+        "Category": "Cat006",
+        "Score": 89
+      },
+      {
+        "Category": "Cat006",
+        "Score": 57
+      },
+      {
+        "Category": "Cat006",
+        "Score": 88
+      },
+      {
+        "Category": "Cat006",
+        "Score": 93
+      },
+      {
+        "Category": "Cat006",
+        "Score": 96
+      },
+      {
+        "Category": "Cat006",
+        "Score": 71
+      },
+      {
+        "Category": "Cat006",
+        "Score": 32
+      },
+      {
+        "Category": "Cat008",
+        "Score": 63
+      },
+      {
+        "Category": "Cat008",
+        "Score": 65
+      },
+      {
+        "Category": "Cat008",
+        "Score": 80
+      },
+      {
+        "Category": "Cat008",
+        "Score": 37
+      },
+      {
+        "Category": "Cat008",
+        "Score": 47
+      },
+      {
+        "Category": "Cat008",
+        "Score": 63
+      },
+      {
+        "Category": "Cat008",
+        "Score": 62
+      },
+      {
+        "Category": "Cat008",
+        "Score": 41
+      },
+      {
+        "Category": "Cat008",
+        "Score": 97
+      },
+      {
+        "Category": "Cat008",
+        "Score": 58
+      },
+      {
+        "Category": "Cat008",
+        "Score": 71
+      },
+      {
+        "Category": "Cat008",
+        "Score": 12
+      },
+      {
+        "Category": "Cat008",
+        "Score": 48
+      },
+      {
+        "Category": "Cat008",
+        "Score": 14
+      },
+      {
+        "Category": "Cat008",
+        "Score": 80
+      },
+      {
+        "Category": "Cat009",
+        "Score": 91
+      },
+      {
+        "Category": "Cat009",
+        "Score": 40
+      },
+      {
+        "Category": "Cat009",
+        "Score": 21
+      },
+      {
+        "Category": "Cat009",
+        "Score": 95
+      },
+      {
+        "Category": "Cat009",
+        "Score": 38
+      },
+      {
+        "Category": "Cat009",
+        "Score": 80
+      },
+      {
+        "Category": "Cat009",
+        "Score": 2
+      },
+      {
+        "Category": "Cat009",
+        "Score": 13
+      },
+      {
+        "Category": "Cat009",
+        "Score": 58
+      },
+      {
+        "Category": "Cat009",
+        "Score": 42
+      },
+      {
+        "Category": "Cat009",
+        "Score": 53
+      },
+      {
+        "Category": "Cat009",
+        "Score": 44
+      },
+      {
+        "Category": "Cat009",
+        "Score": 42
+      },
+      {
+        "Category": "Cat009",
+        "Score": 52
+      },
+      {
+        "Category": "Cat009",
+        "Score": 86
+      },
+      {
+        "Category": "Cat010",
+        "Score": 86
+      },
+      {
+        "Category": "Cat010",
+        "Score": 89
+      },
+      {
+        "Category": "Cat010",
+        "Score": 39
+      },
+      {
+        "Category": "Cat010",
+        "Score": 84
+      },
+      {
+        "Category": "Cat010",
+        "Score": 59
+      },
+      {
+        "Category": "Cat010",
+        "Score": 13
+      },
+      {
+        "Category": "Cat010",
+        "Score": 98
+      },
+      {
+        "Category": "Cat010",
+        "Score": 27
+      },
+      {
+        "Category": "Cat010",
+        "Score": 69
+      },
+      {
+        "Category": "Cat010",
+        "Score": 48
+      },
+      {
+        "Category": "Cat010",
+        "Score": 87
+      },
+      {
+        "Category": "Cat010",
+        "Score": 55
+      },
+      {
+        "Category": "Cat010",
+        "Score": 1
+      },
+      {
+        "Category": "Cat010",
+        "Score": 8
+      },
+      {
+        "Category": "Cat010",
+        "Score": 40
+      },
+      {
+        "Category": "Cat011",
+        "Score": 24
+      },
+      {
+        "Category": "Cat011",
+        "Score": 1
+      },
+      {
+        "Category": "Cat011",
+        "Score": 95
+      },
+      {
+        "Category": "Cat011",
+        "Score": 51
+      },
+      {
+        "Category": "Cat011",
+        "Score": 2
+      },
+      {
+        "Category": "Cat011",
+        "Score": 46
+      },
+      {
+        "Category": "Cat011",
+        "Score": 49
+      },
+      {
+        "Category": "Cat011",
+        "Score": 46
+      },
+      {
+        "Category": "Cat011",
+        "Score": 84
+      },
+      {
+        "Category": "Cat011",
+        "Score": 6
+      },
+      {
+        "Category": "Cat011",
+        "Score": 65
+      },
+      {
+        "Category": "Cat011",
+        "Score": 89
+      },
+      {
+        "Category": "Cat011",
+        "Score": 8
+      },
+      {
+        "Category": "Cat011",
+        "Score": 14
+      },
+      {
+        "Category": "Cat011",
+        "Score": 15
+      },
+      {
+        "Category": "Cat012",
+        "Score": 18
+      },
+      {
+        "Category": "Cat012",
+        "Score": 25
+      },
+      {
+        "Category": "Cat012",
+        "Score": 79
+      },
+      {
+        "Category": "Cat012",
+        "Score": 24
+      },
+      {
+        "Category": "Cat012",
+        "Score": 53
+      },
+      {
+        "Category": "Cat012",
+        "Score": 98
+      },
+      {
+        "Category": "Cat012",
+        "Score": 16
+      },
+      {
+        "Category": "Cat012",
+        "Score": 80
+      },
+      {
+        "Category": "Cat012",
+        "Score": 61
+      },
+      {
+        "Category": "Cat012",
+        "Score": 35
+      },
+      {
+        "Category": "Cat012",
+        "Score": 27
+      },
+      {
+        "Category": "Cat012",
+        "Score": 71
+      },
+      {
+        "Category": "Cat012",
+        "Score": 52
+      },
+      {
+        "Category": "Cat012",
+        "Score": 25
+      },
+      {
+        "Category": "Cat012",
+        "Score": 58
+      },
+      {
+        "Category": "Cat013",
+        "Score": 53
+      },
+      {
+        "Category": "Cat013",
+        "Score": 40
+      },
+      {
+        "Category": "Cat013",
+        "Score": 37
+      },
+      {
+        "Category": "Cat013",
+        "Score": 86
+      },
+      {
+        "Category": "Cat013",
+        "Score": 14
+      },
+      {
+        "Category": "Cat013",
+        "Score": 94
+      },
+      {
+        "Category": "Cat013",
+        "Score": 65
+      },
+      {
+        "Category": "Cat013",
+        "Score": 89
+      },
+      {
+        "Category": "Cat013",
+        "Score": 21
+      },
+      {
+        "Category": "Cat013",
+        "Score": 92
+      },
+      {
+        "Category": "Cat013",
+        "Score": 17
+      },
+      {
+        "Category": "Cat013",
+        "Score": 86
+      },
+      {
+        "Category": "Cat013",
+        "Score": 31
+      },
+      {
+        "Category": "Cat013",
+        "Score": 19
+      },
+      {
+        "Category": "Cat013",
+        "Score": 80
+      },
+      {
+        "Category": "Cat014",
+        "Score": 31
+      },
+      {
+        "Category": "Cat014",
+        "Score": 76
+      },
+      {
+        "Category": "Cat014",
+        "Score": 8
+      },
+      {
+        "Category": "Cat014",
+        "Score": 45
+      },
+      {
+        "Category": "Cat014",
+        "Score": 83
+      },
+      {
+        "Category": "Cat014",
+        "Score": 95
+      },
+      {
+        "Category": "Cat014",
+        "Score": 18
+      },
+      {
+        "Category": "Cat014",
+        "Score": 44
+      },
+      {
+        "Category": "Cat014",
+        "Score": 17
+      },
+      {
+        "Category": "Cat014",
+        "Score": 85
+      },
+      {
+        "Category": "Cat014",
+        "Score": 89
+      },
+      {
+        "Category": "Cat014",
+        "Score": 70
+      },
+      {
+        "Category": "Cat014",
+        "Score": 66
+      },
+      {
+        "Category": "Cat014",
+        "Score": 32
+      },
+      {
+        "Category": "Cat014",
+        "Score": 84
+      },
+      {
+        "Category": "Cat015",
+        "Score": 95
+      },
+      {
+        "Category": "Cat015",
+        "Score": 38
+      },
+      {
+        "Category": "Cat015",
+        "Score": 17
+      },
+      {
+        "Category": "Cat015",
+        "Score": 61
+      },
+      {
+        "Category": "Cat015",
+        "Score": 49
+      },
+      {
+        "Category": "Cat015",
+        "Score": 10
+      },
+      {
+        "Category": "Cat015",
+        "Score": 53
+      },
+      {
+        "Category": "Cat015",
+        "Score": 54
+      },
+      {
+        "Category": "Cat015",
+        "Score": 45
+      },
+      {
+        "Category": "Cat015",
+        "Score": 11
+      },
+      {
+        "Category": "Cat015",
+        "Score": 79
+      },
+      {
+        "Category": "Cat015",
+        "Score": 51
+      },
+      {
+        "Category": "Cat015",
+        "Score": 45
+      },
+      {
+        "Category": "Cat015",
+        "Score": 0
+      },
+      {
+        "Category": "Cat015",
+        "Score": 19
+      },
+      {
+        "Category": "Cat016",
+        "Score": 36
+      },
+      {
+        "Category": "Cat016",
+        "Score": 12
+      },
+      {
+        "Category": "Cat016",
+        "Score": 79
+      },
+      {
+        "Category": "Cat016",
+        "Score": 13
+      },
+      {
+        "Category": "Cat016",
+        "Score": 62
+      },
+      {
+        "Category": "Cat016",
+        "Score": 97
+      },
+      {
+        "Category": "Cat016",
+        "Score": 22
+      },
+      {
+        "Category": "Cat016",
+        "Score": 92
+      },
+      {
+        "Category": "Cat016",
+        "Score": 24
+      },
+      {
+        "Category": "Cat016",
+        "Score": 96
+      },
+      {
+        "Category": "Cat016",
+        "Score": 94
+      },
+      {
+        "Category": "Cat016",
+        "Score": 59
+      },
+      {
+        "Category": "Cat016",
+        "Score": 86
+      },
+      {
+        "Category": "Cat016",
+        "Score": 93
+      },
+      {
+        "Category": "Cat016",
+        "Score": 43
+      },
+      {
+        "Category": "Cat018",
+        "Score": 36
+      },
+      {
+        "Category": "Cat018",
+        "Score": 93
+      },
+      {
+        "Category": "Cat018",
+        "Score": 87
+      },
+      {
+        "Category": "Cat018",
+        "Score": 6
+      },
+      {
+        "Category": "Cat018",
+        "Score": 37
+      },
+      {
+        "Category": "Cat018",
+        "Score": 98
+      },
+      {
+        "Category": "Cat018",
+        "Score": 95
+      },
+      {
+        "Category": "Cat018",
+        "Score": 77
+      },
+      {
+        "Category": "Cat018",
+        "Score": 2
+      },
+      {
+        "Category": "Cat018",
+        "Score": 32
+      },
+      {
+        "Category": "Cat018",
+        "Score": 7
+      },
+      {
+        "Category": "Cat018",
+        "Score": 37
+      },
+      {
+        "Category": "Cat018",
+        "Score": 6
+      },
+      {
+        "Category": "Cat018",
+        "Score": 97
+      },
+      {
+        "Category": "Cat018",
+        "Score": 99
+      },
+      {
+        "Category": "Cat019",
+        "Score": 22
+      },
+      {
+        "Category": "Cat019",
+        "Score": 28
+      },
+      {
+        "Category": "Cat019",
+        "Score": 20
+      },
+      {
+        "Category": "Cat019",
+        "Score": 18
+      },
+      {
+        "Category": "Cat019",
+        "Score": 8
+      },
+      {
+        "Category": "Cat019",
+        "Score": 9
+      },
+      {
+        "Category": "Cat019",
+        "Score": 64
+      },
+      {
+        "Category": "Cat019",
+        "Score": 63
+      },
+      {
+        "Category": "Cat019",
+        "Score": 0
+      },
+      {
+        "Category": "Cat019",
+        "Score": 38
+      },
+      {
+        "Category": "Cat019",
+        "Score": 7
+      },
+      {
+        "Category": "Cat019",
+        "Score": 29
+      },
+      {
+        "Category": "Cat019",
+        "Score": 43
+      },
+      {
+        "Category": "Cat019",
+        "Score": 98
+      },
+      {
+        "Category": "Cat019",
+        "Score": 50
+      },
+      {
+        "Category": "Cat020",
+        "Score": 59
+      },
+      {
+        "Category": "Cat020",
+        "Score": 15
+      },
+      {
+        "Category": "Cat020",
+        "Score": 75
+      },
+      {
+        "Category": "Cat020",
+        "Score": 65
+      },
+      {
+        "Category": "Cat020",
+        "Score": 76
+      },
+      {
+        "Category": "Cat020",
+        "Score": 27
+      },
+      {
+        "Category": "Cat020",
+        "Score": 11
+      },
+      {
+        "Category": "Cat020",
+        "Score": 3
+      },
+      {
+        "Category": "Cat020",
+        "Score": 61
+      },
+      {
+        "Category": "Cat020",
+        "Score": 59
+      },
+      {
+        "Category": "Cat020",
+        "Score": 45
+      },
+      {
+        "Category": "Cat020",
+        "Score": 14
+      },
+      {
+        "Category": "Cat020",
+        "Score": 13
+      },
+      {
+        "Category": "Cat020",
+        "Score": 98
+      },
+      {
+        "Category": "Cat020",
+        "Score": 52
+      },
+      {
+        "Category": "Cat021",
+        "Score": 86
+      },
+      {
+        "Category": "Cat021",
+        "Score": 17
+      },
+      {
+        "Category": "Cat021",
+        "Score": 22
+      },
+      {
+        "Category": "Cat021",
+        "Score": 79
+      },
+      {
+        "Category": "Cat021",
+        "Score": 66
+      },
+      {
+        "Category": "Cat021",
+        "Score": 9
+      },
+      {
+        "Category": "Cat021",
+        "Score": 14
+      },
+      {
+        "Category": "Cat021",
+        "Score": 6
+      },
+      {
+        "Category": "Cat021",
+        "Score": 93
+      },
+      {
+        "Category": "Cat021",
+        "Score": 50
+      },
+      {
+        "Category": "Cat021",
+        "Score": 97
+      },
+      {
+        "Category": "Cat021",
+        "Score": 66
+      },
+      {
+        "Category": "Cat021",
+        "Score": 5
+      },
+      {
+        "Category": "Cat021",
+        "Score": 65
+      },
+      {
+        "Category": "Cat021",
+        "Score": 49
+      },
+      {
+        "Category": "Cat023",
+        "Score": 34
+      },
+      {
+        "Category": "Cat023",
+        "Score": 2
+      },
+      {
+        "Category": "Cat023",
+        "Score": 85
+      },
+      {
+        "Category": "Cat023",
+        "Score": 43
+      },
+      {
+        "Category": "Cat023",
+        "Score": 47
+      },
+      {
+        "Category": "Cat023",
+        "Score": 32
+      },
+      {
+        "Category": "Cat023",
+        "Score": 68
+      },
+      {
+        "Category": "Cat023",
+        "Score": 33
+      },
+      {
+        "Category": "Cat023",
+        "Score": 75
+      },
+      {
+        "Category": "Cat023",
+        "Score": 87
+      },
+      {
+        "Category": "Cat023",
+        "Score": 96
+      },
+      {
+        "Category": "Cat023",
+        "Score": 10
+      },
+      {
+        "Category": "Cat023",
+        "Score": 13
+      },
+      {
+        "Category": "Cat023",
+        "Score": 87
+      },
+      {
+        "Category": "Cat023",
+        "Score": 3
+      },
+      {
+        "Category": "Cat024",
+        "Score": 80
+      },
+      {
+        "Category": "Cat024",
+        "Score": 92
+      },
+      {
+        "Category": "Cat024",
+        "Score": 23
+      },
+      {
+        "Category": "Cat024",
+        "Score": 29
+      },
+      {
+        "Category": "Cat024",
+        "Score": 81
+      },
+      {
+        "Category": "Cat024",
+        "Score": 20
+      },
+      {
+        "Category": "Cat024",
+        "Score": 63
+      },
+      {
+        "Category": "Cat024",
+        "Score": 94
+      },
+      {
+        "Category": "Cat024",
+        "Score": 18
+      },
+      {
+        "Category": "Cat024",
+        "Score": 47
+      },
+      {
+        "Category": "Cat024",
+        "Score": 85
+      },
+      {
+        "Category": "Cat024",
+        "Score": 80
+      },
+      {
+        "Category": "Cat024",
+        "Score": 12
+      },
+      {
+        "Category": "Cat024",
+        "Score": 79
+      },
+      {
+        "Category": "Cat024",
+        "Score": 60
+      },
+      {
+        "Category": "Cat025",
+        "Score": 34
+      },
+      {
+        "Category": "Cat025",
+        "Score": 41
+      },
+      {
+        "Category": "Cat025",
+        "Score": 28
+      },
+      {
+        "Category": "Cat025",
+        "Score": 5
+      },
+      {
+        "Category": "Cat025",
+        "Score": 82
+      },
+      {
+        "Category": "Cat025",
+        "Score": 67
+      },
+      {
+        "Category": "Cat025",
+        "Score": 44
+      },
+      {
+        "Category": "Cat025",
+        "Score": 100
+      },
+      {
+        "Category": "Cat025",
+        "Score": 86
+      },
+      {
+        "Category": "Cat025",
+        "Score": 13
+      },
+      {
+        "Category": "Cat025",
+        "Score": 49
+      },
+      {
+        "Category": "Cat025",
+        "Score": 98
+      },
+      {
+        "Category": "Cat025",
+        "Score": 20
+      },
+      {
+        "Category": "Cat025",
+        "Score": 37
+      },
+      {
+        "Category": "Cat025",
+        "Score": 58
+      },
+      {
+        "Category": "Cat026",
+        "Score": 67
+      },
+      {
+        "Category": "Cat026",
+        "Score": 94
+      },
+      {
+        "Category": "Cat026",
+        "Score": 95
+      },
+      {
+        "Category": "Cat026",
+        "Score": 97
+      },
+      {
+        "Category": "Cat026",
+        "Score": 54
+      },
+      {
+        "Category": "Cat026",
+        "Score": 86
+      },
+      {
+        "Category": "Cat026",
+        "Score": 21
+      },
+      {
+        "Category": "Cat026",
+        "Score": 27
+      },
+      {
+        "Category": "Cat026",
+        "Score": 56
+      },
+      {
+        "Category": "Cat026",
+        "Score": 26
+      },
+      {
+        "Category": "Cat026",
+        "Score": 7
+      },
+      {
+        "Category": "Cat026",
+        "Score": 52
+      },
+      {
+        "Category": "Cat026",
+        "Score": 43
+      },
+      {
+        "Category": "Cat026",
+        "Score": 66
+      },
+      {
+        "Category": "Cat026",
+        "Score": 46
+      },
+      {
+        "Category": "Cat028",
+        "Score": 74
+      },
+      {
+        "Category": "Cat028",
+        "Score": 53
+      },
+      {
+        "Category": "Cat028",
+        "Score": 56
+      },
+      {
+        "Category": "Cat028",
+        "Score": 54
+      },
+      {
+        "Category": "Cat028",
+        "Score": 58
+      },
+      {
+        "Category": "Cat028",
+        "Score": 67
+      },
+      {
+        "Category": "Cat028",
+        "Score": 4
+      },
+      {
+        "Category": "Cat028",
+        "Score": 47
+      },
+      {
+        "Category": "Cat028",
+        "Score": 60
+      },
+      {
+        "Category": "Cat028",
+        "Score": 45
+      },
+      {
+        "Category": "Cat028",
+        "Score": 50
+      },
+      {
+        "Category": "Cat028",
+        "Score": 37
+      },
+      {
+        "Category": "Cat028",
+        "Score": 94
+      },
+      {
+        "Category": "Cat028",
+        "Score": 91
+      },
+      {
+        "Category": "Cat028",
+        "Score": 40
+      },
+      {
+        "Category": "Cat029",
+        "Score": 9
+      },
+      {
+        "Category": "Cat029",
+        "Score": 33
+      },
+      {
+        "Category": "Cat029",
+        "Score": 2
+      },
+      {
+        "Category": "Cat029",
+        "Score": 78
+      },
+      {
+        "Category": "Cat029",
+        "Score": 8
+      },
+      {
+        "Category": "Cat029",
+        "Score": 19
+      },
+      {
+        "Category": "Cat029",
+        "Score": 65
+      },
+      {
+        "Category": "Cat029",
+        "Score": 7
+      },
+      {
+        "Category": "Cat029",
+        "Score": 92
+      },
+      {
+        "Category": "Cat029",
+        "Score": 53
+      },
+      {
+        "Category": "Cat029",
+        "Score": 100
+      },
+      {
+        "Category": "Cat029",
+        "Score": 19
+      },
+      {
+        "Category": "Cat029",
+        "Score": 28
+      },
+      {
+        "Category": "Cat029",
+        "Score": 100
+      },
+      {
+        "Category": "Cat029",
+        "Score": 98
+      },
+      {
+        "Category": "Cat032",
+        "Score": 61
+      },
+      {
+        "Category": "Cat032",
+        "Score": 16
+      },
+      {
+        "Category": "Cat032",
+        "Score": 9
+      },
+      {
+        "Category": "Cat032",
+        "Score": 66
+      },
+      {
+        "Category": "Cat032",
+        "Score": 47
+      },
+      {
+        "Category": "Cat032",
+        "Score": 11
+      },
+      {
+        "Category": "Cat032",
+        "Score": 29
+      },
+      {
+        "Category": "Cat032",
+        "Score": 85
+      },
+      {
+        "Category": "Cat032",
+        "Score": 91
+      },
+      {
+        "Category": "Cat032",
+        "Score": 65
+      },
+      {
+        "Category": "Cat032",
+        "Score": 48
+      },
+      {
+        "Category": "Cat032",
+        "Score": 97
+      },
+      {
+        "Category": "Cat032",
+        "Score": 93
+      },
+      {
+        "Category": "Cat032",
+        "Score": 82
+      },
+      {
+        "Category": "Cat032",
+        "Score": 49
+      },
+      {
+        "Category": "Cat033",
+        "Score": 18
+      },
+      {
+        "Category": "Cat033",
+        "Score": 43
+      },
+      {
+        "Category": "Cat033",
+        "Score": 38
+      },
+      {
+        "Category": "Cat033",
+        "Score": 3
+      },
+      {
+        "Category": "Cat033",
+        "Score": 71
+      },
+      {
+        "Category": "Cat033",
+        "Score": 54
+      },
+      {
+        "Category": "Cat033",
+        "Score": 19
+      },
+      {
+        "Category": "Cat033",
+        "Score": 49
+      },
+      {
+        "Category": "Cat033",
+        "Score": 98
+      },
+      {
+        "Category": "Cat033",
+        "Score": 40
+      },
+      {
+        "Category": "Cat033",
+        "Score": 5
+      },
+      {
+        "Category": "Cat033",
+        "Score": 23
+      },
+      {
+        "Category": "Cat033",
+        "Score": 93
+      },
+      {
+        "Category": "Cat033",
+        "Score": 96
+      },
+      {
+        "Category": "Cat033",
+        "Score": 59
+      },
+      {
+        "Category": "Cat034",
+        "Score": 27
+      },
+      {
+        "Category": "Cat034",
+        "Score": 45
+      },
+      {
+        "Category": "Cat034",
+        "Score": 84
+      },
+      {
+        "Category": "Cat034",
+        "Score": 83
+      },
+      {
+        "Category": "Cat034",
+        "Score": 8
+      },
+      {
+        "Category": "Cat034",
+        "Score": 95
+      },
+      {
+        "Category": "Cat034",
+        "Score": 88
+      },
+      {
+        "Category": "Cat034",
+        "Score": 58
+      },
+      {
+        "Category": "Cat034",
+        "Score": 79
+      },
+      {
+        "Category": "Cat034",
+        "Score": 83
+      },
+      {
+        "Category": "Cat034",
+        "Score": 53
+      },
+      {
+        "Category": "Cat034",
+        "Score": 26
+      },
+      {
+        "Category": "Cat034",
+        "Score": 54
+      },
+      {
+        "Category": "Cat034",
+        "Score": 87
+      },
+      {
+        "Category": "Cat034",
+        "Score": 5
+      },
+      {
+        "Category": "Cat035",
+        "Score": 18
+      },
+      {
+        "Category": "Cat035",
+        "Score": 11
+      },
+      {
+        "Category": "Cat035",
+        "Score": 8
+      },
+      {
+        "Category": "Cat035",
+        "Score": 48
+      },
+      {
+        "Category": "Cat035",
+        "Score": 62
+      },
+      {
+        "Category": "Cat035",
+        "Score": 28
+      },
+      {
+        "Category": "Cat035",
+        "Score": 98
+      },
+      {
+        "Category": "Cat035",
+        "Score": 79
+      },
+      {
+        "Category": "Cat035",
+        "Score": 72
+      },
+      {
+        "Category": "Cat035",
+        "Score": 20
+      },
+      {
+        "Category": "Cat035",
+        "Score": 83
+      },
+      {
+        "Category": "Cat035",
+        "Score": 54
+      },
+      {
+        "Category": "Cat035",
+        "Score": 86
+      },
+      {
+        "Category": "Cat035",
+        "Score": 24
+      },
+      {
+        "Category": "Cat035",
+        "Score": 65
+      },
+      {
+        "Category": "Cat036",
+        "Score": 87
+      },
+      {
+        "Category": "Cat036",
+        "Score": 8
+      },
+      {
+        "Category": "Cat036",
+        "Score": 70
+      },
+      {
+        "Category": "Cat036",
+        "Score": 32
+      },
+      {
+        "Category": "Cat036",
+        "Score": 46
+      },
+      {
+        "Category": "Cat036",
+        "Score": 92
+      },
+      {
+        "Category": "Cat036",
+        "Score": 61
+      },
+      {
+        "Category": "Cat036",
+        "Score": 11
+      },
+      {
+        "Category": "Cat036",
+        "Score": 57
+      },
+      {
+        "Category": "Cat036",
+        "Score": 57
+      },
+      {
+        "Category": "Cat036",
+        "Score": 95
+      },
+      {
+        "Category": "Cat036",
+        "Score": 18
+      },
+      {
+        "Category": "Cat036",
+        "Score": 40
+      },
+      {
+        "Category": "Cat036",
+        "Score": 11
+      },
+      {
+        "Category": "Cat036",
+        "Score": 23
+      },
+      {
+        "Category": "Cat037",
+        "Score": 49
+      },
+      {
+        "Category": "Cat037",
+        "Score": 20
+      },
+      {
+        "Category": "Cat037",
+        "Score": 56
+      },
+      {
+        "Category": "Cat037",
+        "Score": 35
+      },
+      {
+        "Category": "Cat037",
+        "Score": 89
+      },
+      {
+        "Category": "Cat037",
+        "Score": 19
+      },
+      {
+        "Category": "Cat037",
+        "Score": 4
+      },
+      {
+        "Category": "Cat037",
+        "Score": 6
+      },
+      {
+        "Category": "Cat037",
+        "Score": 84
+      },
+      {
+        "Category": "Cat037",
+        "Score": 35
+      },
+      {
+        "Category": "Cat037",
+        "Score": 42
+      },
+      {
+        "Category": "Cat037",
+        "Score": 23
+      },
+      {
+        "Category": "Cat037",
+        "Score": 1
+      },
+      {
+        "Category": "Cat037",
+        "Score": 99
+      },
+      {
+        "Category": "Cat037",
+        "Score": 58
+      },
+      {
+        "Category": "Cat038",
+        "Score": 67
+      },
+      {
+        "Category": "Cat038",
+        "Score": 95
+      },
+      {
+        "Category": "Cat038",
+        "Score": 17
+      },
+      {
+        "Category": "Cat038",
+        "Score": 47
+      },
+      {
+        "Category": "Cat038",
+        "Score": 39
+      },
+      {
+        "Category": "Cat038",
+        "Score": 18
+      },
+      {
+        "Category": "Cat038",
+        "Score": 16
+      },
+      {
+        "Category": "Cat038",
+        "Score": 69
+      },
+      {
+        "Category": "Cat038",
+        "Score": 53
+      },
+      {
+        "Category": "Cat038",
+        "Score": 23
+      },
+      {
+        "Category": "Cat038",
+        "Score": 74
+      },
+      {
+        "Category": "Cat038",
+        "Score": 8
+      },
+      {
+        "Category": "Cat038",
+        "Score": 32
+      },
+      {
+        "Category": "Cat038",
+        "Score": 92
+      },
+      {
+        "Category": "Cat038",
+        "Score": 96
+      },
+      {
+        "Category": "Cat039",
+        "Score": 100
+      },
+      {
+        "Category": "Cat039",
+        "Score": 44
+      },
+      {
+        "Category": "Cat039",
+        "Score": 73
+      },
+      {
+        "Category": "Cat039",
+        "Score": 90
+      },
+      {
+        "Category": "Cat039",
+        "Score": 42
+      },
+      {
+        "Category": "Cat039",
+        "Score": 80
+      },
+      {
+        "Category": "Cat039",
+        "Score": 48
+      },
+      {
+        "Category": "Cat039",
+        "Score": 15
+      },
+      {
+        "Category": "Cat039",
+        "Score": 60
+      },
+      {
+        "Category": "Cat039",
+        "Score": 52
+      },
+      {
+        "Category": "Cat039",
+        "Score": 6
+      },
+      {
+        "Category": "Cat039",
+        "Score": 59
+      },
+      {
+        "Category": "Cat039",
+        "Score": 72
+      },
+      {
+        "Category": "Cat039",
+        "Score": 47
+      },
+      {
+        "Category": "Cat039",
+        "Score": 94
+      },
+      {
+        "Category": "Cat041",
+        "Score": 22
+      },
+      {
+        "Category": "Cat041",
+        "Score": 41
+      },
+      {
+        "Category": "Cat041",
+        "Score": 43
+      },
+      {
+        "Category": "Cat041",
+        "Score": 60
+      },
+      {
+        "Category": "Cat041",
+        "Score": 43
+      },
+      {
+        "Category": "Cat041",
+        "Score": 52
+      },
+      {
+        "Category": "Cat041",
+        "Score": 0
+      },
+      {
+        "Category": "Cat041",
+        "Score": 26
+      },
+      {
+        "Category": "Cat041",
+        "Score": 36
+      },
+      {
+        "Category": "Cat041",
+        "Score": 98
+      },
+      {
+        "Category": "Cat041",
+        "Score": 5
+      },
+      {
+        "Category": "Cat041",
+        "Score": 89
+      },
+      {
+        "Category": "Cat041",
+        "Score": 16
+      },
+      {
+        "Category": "Cat041",
+        "Score": 52
+      },
+      {
+        "Category": "Cat041",
+        "Score": 41
+      },
+      {
+        "Category": "Cat043",
+        "Score": 56
+      },
+      {
+        "Category": "Cat043",
+        "Score": 46
+      },
+      {
+        "Category": "Cat043",
+        "Score": 22
+      },
+      {
+        "Category": "Cat043",
+        "Score": 68
+      },
+      {
+        "Category": "Cat043",
+        "Score": 57
+      },
+      {
+        "Category": "Cat043",
+        "Score": 32
+      },
+      {
+        "Category": "Cat043",
+        "Score": 94
+      },
+      {
+        "Category": "Cat043",
+        "Score": 58
+      },
+      {
+        "Category": "Cat043",
+        "Score": 49
+      },
+      {
+        "Category": "Cat043",
+        "Score": 87
+      },
+      {
+        "Category": "Cat043",
+        "Score": 76
+      },
+      {
+        "Category": "Cat043",
+        "Score": 2
+      },
+      {
+        "Category": "Cat043",
+        "Score": 97
+      },
+      {
+        "Category": "Cat043",
+        "Score": 88
+      },
+      {
+        "Category": "Cat043",
+        "Score": 25
+      },
+      {
+        "Category": "Cat045",
+        "Score": 69
+      },
+      {
+        "Category": "Cat045",
+        "Score": 14
+      },
+      {
+        "Category": "Cat045",
+        "Score": 94
+      },
+      {
+        "Category": "Cat045",
+        "Score": 88
+      },
+      {
+        "Category": "Cat045",
+        "Score": 46
+      },
+      {
+        "Category": "Cat045",
+        "Score": 59
+      },
+      {
+        "Category": "Cat045",
+        "Score": 50
+      },
+      {
+        "Category": "Cat045",
+        "Score": 51
+      },
+      {
+        "Category": "Cat045",
+        "Score": 93
+      },
+      {
+        "Category": "Cat045",
+        "Score": 98
+      },
+      {
+        "Category": "Cat045",
+        "Score": 79
+      },
+      {
+        "Category": "Cat045",
+        "Score": 26
+      },
+      {
+        "Category": "Cat045",
+        "Score": 70
+      },
+      {
+        "Category": "Cat045",
+        "Score": 2
+      },
+      {
+        "Category": "Cat045",
+        "Score": 67
+      },
+      {
+        "Category": "Cat046",
+        "Score": 0
+      },
+      {
+        "Category": "Cat046",
+        "Score": 32
+      },
+      {
+        "Category": "Cat046",
+        "Score": 74
+      },
+      {
+        "Category": "Cat046",
+        "Score": 68
+      },
+      {
+        "Category": "Cat046",
+        "Score": 32
+      },
+      {
+        "Category": "Cat046",
+        "Score": 4
+      },
+      {
+        "Category": "Cat046",
+        "Score": 26
+      },
+      {
+        "Category": "Cat046",
+        "Score": 91
+      },
+      {
+        "Category": "Cat046",
+        "Score": 96
+      },
+      {
+        "Category": "Cat046",
+        "Score": 98
+      },
+      {
+        "Category": "Cat046",
+        "Score": 30
+      },
+      {
+        "Category": "Cat046",
+        "Score": 46
+      },
+      {
+        "Category": "Cat046",
+        "Score": 23
+      },
+      {
+        "Category": "Cat046",
+        "Score": 18
+      },
+      {
+        "Category": "Cat046",
+        "Score": 70
+      },
+      {
+        "Category": "Cat047",
+        "Score": 15
+      },
+      {
+        "Category": "Cat047",
+        "Score": 16
+      },
+      {
+        "Category": "Cat047",
+        "Score": 7
+      },
+      {
+        "Category": "Cat047",
+        "Score": 93
+      },
+      {
+        "Category": "Cat047",
+        "Score": 38
+      },
+      {
+        "Category": "Cat047",
+        "Score": 35
+      },
+      {
+        "Category": "Cat047",
+        "Score": 75
+      },
+      {
+        "Category": "Cat047",
+        "Score": 16
+      },
+      {
+        "Category": "Cat047",
+        "Score": 10
+      },
+      {
+        "Category": "Cat047",
+        "Score": 61
+      },
+      {
+        "Category": "Cat047",
+        "Score": 33
+      },
+      {
+        "Category": "Cat047",
+        "Score": 3
+      },
+      {
+        "Category": "Cat047",
+        "Score": 24
+      },
+      {
+        "Category": "Cat047",
+        "Score": 90
+      },
+      {
+        "Category": "Cat047",
+        "Score": 83
+      },
+      {
+        "Category": "Cat048",
+        "Score": 49
+      },
+      {
+        "Category": "Cat048",
+        "Score": 55
+      },
+      {
+        "Category": "Cat048",
+        "Score": 63
+      },
+      {
+        "Category": "Cat048",
+        "Score": 57
+      },
+      {
+        "Category": "Cat048",
+        "Score": 56
+      },
+      {
+        "Category": "Cat048",
+        "Score": 43
+      },
+      {
+        "Category": "Cat048",
+        "Score": 97
+      },
+      {
+        "Category": "Cat048",
+        "Score": 68
+      },
+      {
+        "Category": "Cat048",
+        "Score": 47
+      },
+      {
+        "Category": "Cat048",
+        "Score": 25
+      },
+      {
+        "Category": "Cat048",
+        "Score": 66
+      },
+      {
+        "Category": "Cat048",
+        "Score": 28
+      },
+      {
+        "Category": "Cat048",
+        "Score": 69
+      },
+      {
+        "Category": "Cat048",
+        "Score": 37
+      },
+      {
+        "Category": "Cat048",
+        "Score": 53
+      },
+      {
+        "Category": "Cat049",
+        "Score": 99
+      },
+      {
+        "Category": "Cat049",
+        "Score": 67
+      },
+      {
+        "Category": "Cat049",
+        "Score": 93
+      },
+      {
+        "Category": "Cat049",
+        "Score": 73
+      },
+      {
+        "Category": "Cat049",
+        "Score": 1
+      },
+      {
+        "Category": "Cat049",
+        "Score": 36
+      },
+      {
+        "Category": "Cat049",
+        "Score": 6
+      },
+      {
+        "Category": "Cat049",
+        "Score": 88
+      },
+      {
+        "Category": "Cat049",
+        "Score": 73
+      },
+      {
+        "Category": "Cat049",
+        "Score": 36
+      },
+      {
+        "Category": "Cat049",
+        "Score": 70
+      },
+      {
+        "Category": "Cat049",
+        "Score": 81
+      },
+      {
+        "Category": "Cat049",
+        "Score": 7
+      },
+      {
+        "Category": "Cat049",
+        "Score": 76
+      },
+      {
+        "Category": "Cat049",
+        "Score": 54
+      },
+      {
+        "Category": "Cat050",
+        "Score": 50
+      },
+      {
+        "Category": "Cat050",
+        "Score": 53
+      },
+      {
+        "Category": "Cat050",
+        "Score": 9
+      },
+      {
+        "Category": "Cat050",
+        "Score": 56
+      },
+      {
+        "Category": "Cat050",
+        "Score": 19
+      },
+      {
+        "Category": "Cat050",
+        "Score": 97
+      },
+      {
+        "Category": "Cat050",
+        "Score": 37
+      },
+      {
+        "Category": "Cat050",
+        "Score": 66
+      },
+      {
+        "Category": "Cat050",
+        "Score": 24
+      },
+      {
+        "Category": "Cat050",
+        "Score": 53
+      },
+      {
+        "Category": "Cat050",
+        "Score": 20
+      },
+      {
+        "Category": "Cat050",
+        "Score": 97
+      },
+      {
+        "Category": "Cat050",
+        "Score": 92
+      },
+      {
+        "Category": "Cat050",
+        "Score": 62
+      },
+      {
+        "Category": "Cat050",
+        "Score": 35
+      },
+      {
+        "Category": "Cat051",
+        "Score": 92
+      },
+      {
+        "Category": "Cat051",
+        "Score": 18
+      },
+      {
+        "Category": "Cat051",
+        "Score": 49
+      },
+      {
+        "Category": "Cat051",
+        "Score": 1
+      },
+      {
+        "Category": "Cat051",
+        "Score": 89
+      },
+      {
+        "Category": "Cat051",
+        "Score": 51
+      },
+      {
+        "Category": "Cat051",
+        "Score": 35
+      },
+      {
+        "Category": "Cat051",
+        "Score": 51
+      },
+      {
+        "Category": "Cat051",
+        "Score": 34
+      },
+      {
+        "Category": "Cat051",
+        "Score": 46
+      },
+      {
+        "Category": "Cat051",
+        "Score": 4
+      },
+      {
+        "Category": "Cat051",
+        "Score": 77
+      },
+      {
+        "Category": "Cat051",
+        "Score": 51
+      },
+      {
+        "Category": "Cat051",
+        "Score": 30
+      },
+      {
+        "Category": "Cat051",
+        "Score": 96
+      },
+      {
+        "Category": "Cat052",
+        "Score": 40
+      },
+      {
+        "Category": "Cat052",
+        "Score": 67
+      },
+      {
+        "Category": "Cat052",
+        "Score": 46
+      },
+      {
+        "Category": "Cat052",
+        "Score": 29
+      },
+      {
+        "Category": "Cat052",
+        "Score": 44
+      },
+      {
+        "Category": "Cat052",
+        "Score": 19
+      },
+      {
+        "Category": "Cat052",
+        "Score": 61
+      },
+      {
+        "Category": "Cat052",
+        "Score": 63
+      },
+      {
+        "Category": "Cat052",
+        "Score": 96
+      },
+      {
+        "Category": "Cat052",
+        "Score": 85
+      },
+      {
+        "Category": "Cat052",
+        "Score": 15
+      },
+      {
+        "Category": "Cat052",
+        "Score": 56
+      },
+      {
+        "Category": "Cat052",
+        "Score": 98
+      },
+      {
+        "Category": "Cat052",
+        "Score": 99
+      },
+      {
+        "Category": "Cat052",
+        "Score": 14
+      },
+      {
+        "Category": "Cat053",
+        "Score": 17
+      },
+      {
+        "Category": "Cat053",
+        "Score": 8
+      },
+      {
+        "Category": "Cat053",
+        "Score": 57
+      },
+      {
+        "Category": "Cat053",
+        "Score": 21
+      },
+      {
+        "Category": "Cat053",
+        "Score": 45
+      },
+      {
+        "Category": "Cat053",
+        "Score": 46
+      },
+      {
+        "Category": "Cat053",
+        "Score": 80
+      },
+      {
+        "Category": "Cat053",
+        "Score": 78
+      },
+      {
+        "Category": "Cat053",
+        "Score": 54
+      },
+      {
+        "Category": "Cat053",
+        "Score": 20
+      },
+      {
+        "Category": "Cat053",
+        "Score": 32
+      },
+      {
+        "Category": "Cat053",
+        "Score": 34
+      },
+      {
+        "Category": "Cat053",
+        "Score": 96
+      },
+      {
+        "Category": "Cat053",
+        "Score": 79
+      },
+      {
+        "Category": "Cat053",
+        "Score": 52
+      },
+      {
+        "Category": "Cat054",
+        "Score": 43
+      },
+      {
+        "Category": "Cat054",
+        "Score": 54
+      },
+      {
+        "Category": "Cat054",
+        "Score": 81
+      },
+      {
+        "Category": "Cat054",
+        "Score": 68
+      },
+      {
+        "Category": "Cat054",
+        "Score": 38
+      },
+      {
+        "Category": "Cat054",
+        "Score": 70
+      },
+      {
+        "Category": "Cat054",
+        "Score": 58
+      },
+      {
+        "Category": "Cat054",
+        "Score": 30
+      },
+      {
+        "Category": "Cat054",
+        "Score": 50
+      },
+      {
+        "Category": "Cat054",
+        "Score": 2
+      },
+      {
+        "Category": "Cat054",
+        "Score": 83
+      },
+      {
+        "Category": "Cat054",
+        "Score": 93
+      },
+      {
+        "Category": "Cat054",
+        "Score": 80
+      },
+      {
+        "Category": "Cat054",
+        "Score": 96
+      },
+      {
+        "Category": "Cat054",
+        "Score": 64
+      },
+      {
+        "Category": "Cat055",
+        "Score": 17
+      },
+      {
+        "Category": "Cat055",
+        "Score": 95
+      },
+      {
+        "Category": "Cat055",
+        "Score": 64
+      },
+      {
+        "Category": "Cat055",
+        "Score": 58
+      },
+      {
+        "Category": "Cat055",
+        "Score": 53
+      },
+      {
+        "Category": "Cat055",
+        "Score": 6
+      },
+      {
+        "Category": "Cat055",
+        "Score": 93
+      },
+      {
+        "Category": "Cat055",
+        "Score": 12
+      },
+      {
+        "Category": "Cat055",
+        "Score": 3
+      },
+      {
+        "Category": "Cat055",
+        "Score": 99
+      },
+      {
+        "Category": "Cat055",
+        "Score": 83
+      },
+      {
+        "Category": "Cat055",
+        "Score": 36
+      },
+      {
+        "Category": "Cat055",
+        "Score": 74
+      },
+      {
+        "Category": "Cat055",
+        "Score": 53
+      },
+      {
+        "Category": "Cat055",
+        "Score": 50
+      },
+      {
+        "Category": "Cat056",
+        "Score": 73
+      },
+      {
+        "Category": "Cat056",
+        "Score": 41
+      },
+      {
+        "Category": "Cat056",
+        "Score": 93
+      },
+      {
+        "Category": "Cat056",
+        "Score": 19
+      },
+      {
+        "Category": "Cat056",
+        "Score": 48
+      },
+      {
+        "Category": "Cat056",
+        "Score": 93
+      },
+      {
+        "Category": "Cat056",
+        "Score": 99
+      },
+      {
+        "Category": "Cat056",
+        "Score": 55
+      },
+      {
+        "Category": "Cat056",
+        "Score": 67
+      },
+      {
+        "Category": "Cat056",
+        "Score": 99
+      },
+      {
+        "Category": "Cat056",
+        "Score": 18
+      },
+      {
+        "Category": "Cat056",
+        "Score": 71
+      },
+      {
+        "Category": "Cat056",
+        "Score": 73
+      },
+      {
+        "Category": "Cat056",
+        "Score": 61
+      },
+      {
+        "Category": "Cat056",
+        "Score": 94
+      },
+      {
+        "Category": "Cat057",
+        "Score": 65
+      },
+      {
+        "Category": "Cat057",
+        "Score": 50
+      },
+      {
+        "Category": "Cat057",
+        "Score": 57
+      },
+      {
+        "Category": "Cat057",
+        "Score": 21
+      },
+      {
+        "Category": "Cat057",
+        "Score": 43
+      },
+      {
+        "Category": "Cat057",
+        "Score": 96
+      },
+      {
+        "Category": "Cat057",
+        "Score": 53
+      },
+      {
+        "Category": "Cat057",
+        "Score": 94
+      },
+      {
+        "Category": "Cat057",
+        "Score": 39
+      },
+      {
+        "Category": "Cat057",
+        "Score": 12
+      },
+      {
+        "Category": "Cat057",
+        "Score": 20
+      },
+      {
+        "Category": "Cat057",
+        "Score": 38
+      },
+      {
+        "Category": "Cat057",
+        "Score": 75
+      },
+      {
+        "Category": "Cat057",
+        "Score": 78
+      },
+      {
+        "Category": "Cat057",
+        "Score": 48
+      },
+      {
+        "Category": "Cat058",
+        "Score": 98
+      },
+      {
+        "Category": "Cat058",
+        "Score": 37
+      },
+      {
+        "Category": "Cat058",
+        "Score": 34
+      },
+      {
+        "Category": "Cat058",
+        "Score": 31
+      },
+      {
+        "Category": "Cat058",
+        "Score": 40
+      },
+      {
+        "Category": "Cat058",
+        "Score": 24
+      },
+      {
+        "Category": "Cat058",
+        "Score": 98
+      },
+      {
+        "Category": "Cat058",
+        "Score": 24
+      },
+      {
+        "Category": "Cat058",
+        "Score": 14
+      },
+      {
+        "Category": "Cat058",
+        "Score": 20
+      },
+      {
+        "Category": "Cat058",
+        "Score": 53
+      },
+      {
+        "Category": "Cat058",
+        "Score": 34
+      },
+      {
+        "Category": "Cat058",
+        "Score": 47
+      },
+      {
+        "Category": "Cat058",
+        "Score": 77
+      },
+      {
+        "Category": "Cat058",
+        "Score": 67
+      },
+      {
+        "Category": "Cat060",
+        "Score": 46
+      },
+      {
+        "Category": "Cat060",
+        "Score": 57
+      },
+      {
+        "Category": "Cat060",
+        "Score": 35
+      },
+      {
+        "Category": "Cat060",
+        "Score": 38
+      },
+      {
+        "Category": "Cat060",
+        "Score": 90
+      },
+      {
+        "Category": "Cat060",
+        "Score": 48
+      },
+      {
+        "Category": "Cat060",
+        "Score": 46
+      },
+      {
+        "Category": "Cat060",
+        "Score": 97
+      },
+      {
+        "Category": "Cat060",
+        "Score": 38
+      },
+      {
+        "Category": "Cat060",
+        "Score": 82
+      },
+      {
+        "Category": "Cat060",
+        "Score": 19
+      },
+      {
+        "Category": "Cat060",
+        "Score": 99
+      },
+      {
+        "Category": "Cat060",
+        "Score": 26
+      },
+      {
+        "Category": "Cat060",
+        "Score": 63
+      },
+      {
+        "Category": "Cat060",
+        "Score": 46
+      },
+      {
+        "Category": "Cat061",
+        "Score": 71
+      },
+      {
+        "Category": "Cat061",
+        "Score": 41
+      },
+      {
+        "Category": "Cat061",
+        "Score": 54
+      },
+      {
+        "Category": "Cat061",
+        "Score": 36
+      },
+      {
+        "Category": "Cat061",
+        "Score": 97
+      },
+      {
+        "Category": "Cat061",
+        "Score": 86
+      },
+      {
+        "Category": "Cat061",
+        "Score": 44
+      },
+      {
+        "Category": "Cat061",
+        "Score": 99
+      },
+      {
+        "Category": "Cat061",
+        "Score": 73
+      },
+      {
+        "Category": "Cat061",
+        "Score": 10
+      },
+      {
+        "Category": "Cat061",
+        "Score": 47
+      },
+      {
+        "Category": "Cat061",
+        "Score": 33
+      },
+      {
+        "Category": "Cat061",
+        "Score": 53
+      },
+      {
+        "Category": "Cat061",
+        "Score": 34
+      },
+      {
+        "Category": "Cat061",
+        "Score": 61
+      },
+      {
+        "Category": "Cat062",
+        "Score": 87
+      },
+      {
+        "Category": "Cat062",
+        "Score": 29
+      },
+      {
+        "Category": "Cat062",
+        "Score": 24
+      },
+      {
+        "Category": "Cat062",
+        "Score": 40
+      },
+      {
+        "Category": "Cat062",
+        "Score": 71
+      },
+      {
+        "Category": "Cat062",
+        "Score": 71
+      },
+      {
+        "Category": "Cat062",
+        "Score": 53
+      },
+      {
+        "Category": "Cat062",
+        "Score": 62
+      },
+      {
+        "Category": "Cat062",
+        "Score": 75
+      },
+      {
+        "Category": "Cat062",
+        "Score": 34
+      },
+      {
+        "Category": "Cat062",
+        "Score": 12
+      },
+      {
+        "Category": "Cat062",
+        "Score": 17
+      },
+      {
+        "Category": "Cat062",
+        "Score": 44
+      },
+      {
+        "Category": "Cat062",
+        "Score": 97
+      },
+      {
+        "Category": "Cat062",
+        "Score": 74
+      },
+      {
+        "Category": "Cat065",
+        "Score": 0
+      },
+      {
+        "Category": "Cat065",
+        "Score": 49
+      },
+      {
+        "Category": "Cat065",
+        "Score": 62
+      },
+      {
+        "Category": "Cat065",
+        "Score": 58
+      },
+      {
+        "Category": "Cat065",
+        "Score": 58
+      },
+      {
+        "Category": "Cat065",
+        "Score": 96
+      },
+      {
+        "Category": "Cat065",
+        "Score": 74
+      },
+      {
+        "Category": "Cat065",
+        "Score": 36
+      },
+      {
+        "Category": "Cat065",
+        "Score": 66
+      },
+      {
+        "Category": "Cat065",
+        "Score": 57
+      },
+      {
+        "Category": "Cat065",
+        "Score": 20
+      },
+      {
+        "Category": "Cat065",
+        "Score": 52
+      },
+      {
+        "Category": "Cat065",
+        "Score": 13
+      },
+      {
+        "Category": "Cat065",
+        "Score": 63
+      },
+      {
+        "Category": "Cat065",
+        "Score": 39
+      },
+      {
+        "Category": "Cat066",
+        "Score": 63
+      },
+      {
+        "Category": "Cat066",
+        "Score": 43
+      },
+      {
+        "Category": "Cat066",
+        "Score": 81
+      },
+      {
+        "Category": "Cat066",
+        "Score": 90
+      },
+      {
+        "Category": "Cat066",
+        "Score": 68
+      },
+      {
+        "Category": "Cat066",
+        "Score": 90
+      },
+      {
+        "Category": "Cat066",
+        "Score": 27
+      },
+      {
+        "Category": "Cat066",
+        "Score": 69
+      },
+      {
+        "Category": "Cat066",
+        "Score": 94
+      },
+      {
+        "Category": "Cat066",
+        "Score": 43
+      },
+      {
+        "Category": "Cat066",
+        "Score": 35
+      },
+      {
+        "Category": "Cat066",
+        "Score": 40
+      },
+      {
+        "Category": "Cat066",
+        "Score": 68
+      },
+      {
+        "Category": "Cat066",
+        "Score": 27
+      },
+      {
+        "Category": "Cat066",
+        "Score": 54
+      },
+      {
+        "Category": "Cat068",
+        "Score": 57
+      },
+      {
+        "Category": "Cat068",
+        "Score": 54
+      },
+      {
+        "Category": "Cat068",
+        "Score": 60
+      },
+      {
+        "Category": "Cat068",
+        "Score": 5
+      },
+      {
+        "Category": "Cat068",
+        "Score": 25
+      },
+      {
+        "Category": "Cat068",
+        "Score": 26
+      },
+      {
+        "Category": "Cat068",
+        "Score": 48
+      },
+      {
+        "Category": "Cat068",
+        "Score": 93
+      },
+      {
+        "Category": "Cat068",
+        "Score": 39
+      },
+      {
+        "Category": "Cat068",
+        "Score": 6
+      },
+      {
+        "Category": "Cat068",
+        "Score": 45
+      },
+      {
+        "Category": "Cat068",
+        "Score": 33
+      },
+      {
+        "Category": "Cat068",
+        "Score": 41
+      },
+      {
+        "Category": "Cat068",
+        "Score": 20
+      },
+      {
+        "Category": "Cat068",
+        "Score": 37
+      },
+      {
+        "Category": "Cat070",
+        "Score": 14
+      },
+      {
+        "Category": "Cat070",
+        "Score": 100
+      },
+      {
+        "Category": "Cat070",
+        "Score": 87
+      },
+      {
+        "Category": "Cat070",
+        "Score": 59
+      },
+      {
+        "Category": "Cat070",
+        "Score": 83
+      },
+      {
+        "Category": "Cat070",
+        "Score": 5
+      },
+      {
+        "Category": "Cat070",
+        "Score": 12
+      },
+      {
+        "Category": "Cat070",
+        "Score": 6
+      },
+      {
+        "Category": "Cat070",
+        "Score": 88
+      },
+      {
+        "Category": "Cat070",
+        "Score": 90
+      },
+      {
+        "Category": "Cat070",
+        "Score": 54
+      },
+      {
+        "Category": "Cat070",
+        "Score": 26
+      },
+      {
+        "Category": "Cat070",
+        "Score": 68
+      },
+      {
+        "Category": "Cat070",
+        "Score": 92
+      },
+      {
+        "Category": "Cat070",
+        "Score": 93
+      },
+      {
+        "Category": "Cat071",
+        "Score": 46
+      },
+      {
+        "Category": "Cat071",
+        "Score": 93
+      },
+      {
+        "Category": "Cat071",
+        "Score": 29
+      },
+      {
+        "Category": "Cat071",
+        "Score": 26
+      },
+      {
+        "Category": "Cat071",
+        "Score": 4
+      },
+      {
+        "Category": "Cat071",
+        "Score": 52
+      },
+      {
+        "Category": "Cat071",
+        "Score": 4
+      },
+      {
+        "Category": "Cat071",
+        "Score": 14
+      },
+      {
+        "Category": "Cat071",
+        "Score": 54
+      },
+      {
+        "Category": "Cat071",
+        "Score": 70
+      },
+      {
+        "Category": "Cat071",
+        "Score": 50
+      },
+      {
+        "Category": "Cat071",
+        "Score": 91
+      },
+      {
+        "Category": "Cat071",
+        "Score": 71
+      },
+      {
+        "Category": "Cat071",
+        "Score": 54
+      },
+      {
+        "Category": "Cat071",
+        "Score": 11
+      },
+      {
+        "Category": "Cat072",
+        "Score": 65
+      },
+      {
+        "Category": "Cat072",
+        "Score": 95
+      },
+      {
+        "Category": "Cat072",
+        "Score": 12
+      },
+      {
+        "Category": "Cat072",
+        "Score": 53
+      },
+      {
+        "Category": "Cat072",
+        "Score": 28
+      },
+      {
+        "Category": "Cat072",
+        "Score": 94
+      },
+      {
+        "Category": "Cat072",
+        "Score": 98
+      },
+      {
+        "Category": "Cat072",
+        "Score": 42
+      },
+      {
+        "Category": "Cat072",
+        "Score": 69
+      },
+      {
+        "Category": "Cat072",
+        "Score": 12
+      },
+      {
+        "Category": "Cat072",
+        "Score": 24
+      },
+      {
+        "Category": "Cat072",
+        "Score": 4
+      },
+      {
+        "Category": "Cat072",
+        "Score": 1
+      },
+      {
+        "Category": "Cat072",
+        "Score": 19
+      },
+      {
+        "Category": "Cat072",
+        "Score": 72
+      },
+      {
+        "Category": "Cat075",
+        "Score": 30
+      },
+      {
+        "Category": "Cat075",
+        "Score": 50
+      },
+      {
+        "Category": "Cat075",
+        "Score": 4
+      },
+      {
+        "Category": "Cat075",
+        "Score": 89
+      },
+      {
+        "Category": "Cat075",
+        "Score": 34
+      },
+      {
+        "Category": "Cat075",
+        "Score": 87
+      },
+      {
+        "Category": "Cat075",
+        "Score": 72
+      },
+      {
+        "Category": "Cat075",
+        "Score": 66
+      },
+      {
+        "Category": "Cat075",
+        "Score": 28
+      },
+      {
+        "Category": "Cat075",
+        "Score": 98
+      },
+      {
+        "Category": "Cat075",
+        "Score": 44
+      },
+      {
+        "Category": "Cat075",
+        "Score": 45
+      },
+      {
+        "Category": "Cat075",
+        "Score": 25
+      },
+      {
+        "Category": "Cat075",
+        "Score": 39
+      },
+      {
+        "Category": "Cat075",
+        "Score": 66
+      },
+      {
+        "Category": "Cat076",
+        "Score": 75
+      },
+      {
+        "Category": "Cat076",
+        "Score": 4
+      },
+      {
+        "Category": "Cat076",
+        "Score": 48
+      },
+      {
+        "Category": "Cat076",
+        "Score": 76
+      },
+      {
+        "Category": "Cat076",
+        "Score": 81
+      },
+      {
+        "Category": "Cat076",
+        "Score": 50
+      },
+      {
+        "Category": "Cat076",
+        "Score": 20
+      },
+      {
+        "Category": "Cat076",
+        "Score": 81
+      },
+      {
+        "Category": "Cat076",
+        "Score": 94
+      },
+      {
+        "Category": "Cat076",
+        "Score": 78
+      },
+      {
+        "Category": "Cat076",
+        "Score": 4
+      },
+      {
+        "Category": "Cat076",
+        "Score": 50
+      },
+      {
+        "Category": "Cat076",
+        "Score": 92
+      },
+      {
+        "Category": "Cat076",
+        "Score": 14
+      },
+      {
+        "Category": "Cat076",
+        "Score": 26
+      },
+      {
+        "Category": "Cat077",
+        "Score": 18
+      },
+      {
+        "Category": "Cat077",
+        "Score": 57
+      },
+      {
+        "Category": "Cat077",
+        "Score": 86
+      },
+      {
+        "Category": "Cat077",
+        "Score": 36
+      },
+      {
+        "Category": "Cat077",
+        "Score": 28
+      },
+      {
+        "Category": "Cat077",
+        "Score": 96
+      },
+      {
+        "Category": "Cat077",
+        "Score": 58
+      },
+      {
+        "Category": "Cat077",
+        "Score": 52
+      },
+      {
+        "Category": "Cat077",
+        "Score": 1
+      },
+      {
+        "Category": "Cat077",
+        "Score": 3
+      },
+      {
+        "Category": "Cat077",
+        "Score": 24
+      },
+      {
+        "Category": "Cat077",
+        "Score": 63
+      },
+      {
+        "Category": "Cat077",
+        "Score": 1
+      },
+      {
+        "Category": "Cat077",
+        "Score": 55
+      },
+      {
+        "Category": "Cat077",
+        "Score": 51
+      },
+      {
+        "Category": "Cat078",
+        "Score": 31
+      },
+      {
+        "Category": "Cat078",
+        "Score": 1
+      },
+      {
+        "Category": "Cat078",
+        "Score": 71
+      },
+      {
+        "Category": "Cat078",
+        "Score": 74
+      },
+      {
+        "Category": "Cat078",
+        "Score": 73
+      },
+      {
+        "Category": "Cat078",
+        "Score": 25
+      },
+      {
+        "Category": "Cat078",
+        "Score": 71
+      },
+      {
+        "Category": "Cat078",
+        "Score": 42
+      },
+      {
+        "Category": "Cat078",
+        "Score": 15
+      },
+      {
+        "Category": "Cat078",
+        "Score": 32
+      },
+      {
+        "Category": "Cat078",
+        "Score": 6
+      },
+      {
+        "Category": "Cat078",
+        "Score": 93
+      },
+      {
+        "Category": "Cat078",
+        "Score": 32
+      },
+      {
+        "Category": "Cat078",
+        "Score": 73
+      },
+      {
+        "Category": "Cat078",
+        "Score": 82
+      },
+      {
+        "Category": "Cat080",
+        "Score": 50
+      },
+      {
+        "Category": "Cat080",
+        "Score": 59
+      },
+      {
+        "Category": "Cat080",
+        "Score": 9
+      },
+      {
+        "Category": "Cat080",
+        "Score": 23
+      },
+      {
+        "Category": "Cat080",
+        "Score": 26
+      },
+      {
+        "Category": "Cat080",
+        "Score": 45
+      },
+      {
+        "Category": "Cat080",
+        "Score": 73
+      },
+      {
+        "Category": "Cat080",
+        "Score": 27
+      },
+      {
+        "Category": "Cat080",
+        "Score": 87
+      },
+      {
+        "Category": "Cat080",
+        "Score": 54
+      },
+      {
+        "Category": "Cat080",
+        "Score": 34
+      },
+      {
+        "Category": "Cat080",
+        "Score": 79
+      },
+      {
+        "Category": "Cat080",
+        "Score": 71
+      },
+      {
+        "Category": "Cat080",
+        "Score": 96
+      },
+      {
+        "Category": "Cat080",
+        "Score": 34
+      },
+      {
+        "Category": "Cat081",
+        "Score": 91
+      },
+      {
+        "Category": "Cat081",
+        "Score": 81
+      },
+      {
+        "Category": "Cat081",
+        "Score": 92
+      },
+      {
+        "Category": "Cat081",
+        "Score": 44
+      },
+      {
+        "Category": "Cat081",
+        "Score": 20
+      },
+      {
+        "Category": "Cat081",
+        "Score": 22
+      },
+      {
+        "Category": "Cat081",
+        "Score": 62
+      },
+      {
+        "Category": "Cat081",
+        "Score": 51
+      },
+      {
+        "Category": "Cat081",
+        "Score": 28
+      },
+      {
+        "Category": "Cat081",
+        "Score": 53
+      },
+      {
+        "Category": "Cat081",
+        "Score": 62
+      },
+      {
+        "Category": "Cat081",
+        "Score": 80
+      },
+      {
+        "Category": "Cat081",
+        "Score": 57
+      },
+      {
+        "Category": "Cat081",
+        "Score": 33
+      },
+      {
+        "Category": "Cat081",
+        "Score": 98
+      },
+      {
+        "Category": "Cat082",
+        "Score": 37
+      },
+      {
+        "Category": "Cat082",
+        "Score": 57
+      },
+      {
+        "Category": "Cat082",
+        "Score": 74
+      },
+      {
+        "Category": "Cat082",
+        "Score": 69
+      },
+      {
+        "Category": "Cat082",
+        "Score": 17
+      },
+      {
+        "Category": "Cat082",
+        "Score": 11
+      },
+      {
+        "Category": "Cat082",
+        "Score": 85
+      },
+      {
+        "Category": "Cat082",
+        "Score": 27
+      },
+      {
+        "Category": "Cat082",
+        "Score": 43
+      },
+      {
+        "Category": "Cat082",
+        "Score": 68
+      },
+      {
+        "Category": "Cat082",
+        "Score": 11
+      },
+      {
+        "Category": "Cat082",
+        "Score": 1
+      },
+      {
+        "Category": "Cat082",
+        "Score": 95
+      },
+      {
+        "Category": "Cat082",
+        "Score": 84
+      },
+      {
+        "Category": "Cat082",
+        "Score": 25
+      },
+      {
+        "Category": "Cat083",
+        "Score": 33
+      },
+      {
+        "Category": "Cat083",
+        "Score": 83
+      },
+      {
+        "Category": "Cat083",
+        "Score": 91
+      },
+      {
+        "Category": "Cat083",
+        "Score": 60
+      },
+      {
+        "Category": "Cat083",
+        "Score": 58
+      },
+      {
+        "Category": "Cat083",
+        "Score": 18
+      },
+      {
+        "Category": "Cat083",
+        "Score": 89
+      },
+      {
+        "Category": "Cat083",
+        "Score": 47
+      },
+      {
+        "Category": "Cat083",
+        "Score": 40
+      },
+      {
+        "Category": "Cat083",
+        "Score": 91
+      },
+      {
+        "Category": "Cat083",
+        "Score": 86
+      },
+      {
+        "Category": "Cat083",
+        "Score": 75
+      },
+      {
+        "Category": "Cat083",
+        "Score": 69
+      },
+      {
+        "Category": "Cat083",
+        "Score": 99
+      },
+      {
+        "Category": "Cat083",
+        "Score": 0
+      },
+      {
+        "Category": "Cat084",
+        "Score": 84
+      },
+      {
+        "Category": "Cat084",
+        "Score": 34
+      },
+      {
+        "Category": "Cat084",
+        "Score": 82
+      },
+      {
+        "Category": "Cat084",
+        "Score": 35
+      },
+      {
+        "Category": "Cat084",
+        "Score": 100
+      },
+      {
+        "Category": "Cat084",
+        "Score": 92
+      },
+      {
+        "Category": "Cat084",
+        "Score": 64
+      },
+      {
+        "Category": "Cat084",
+        "Score": 35
+      },
+      {
+        "Category": "Cat084",
+        "Score": 100
+      },
+      {
+        "Category": "Cat084",
+        "Score": 82
+      },
+      {
+        "Category": "Cat084",
+        "Score": 77
+      },
+      {
+        "Category": "Cat084",
+        "Score": 52
+      },
+      {
+        "Category": "Cat084",
+        "Score": 86
+      },
+      {
+        "Category": "Cat084",
+        "Score": 28
+      },
+      {
+        "Category": "Cat084",
+        "Score": 4
+      },
+      {
+        "Category": "Cat085",
+        "Score": 62
+      },
+      {
+        "Category": "Cat085",
+        "Score": 92
+      },
+      {
+        "Category": "Cat085",
+        "Score": 87
+      },
+      {
+        "Category": "Cat085",
+        "Score": 13
+      },
+      {
+        "Category": "Cat085",
+        "Score": 90
+      },
+      {
+        "Category": "Cat085",
+        "Score": 65
+      },
+      {
+        "Category": "Cat085",
+        "Score": 96
+      },
+      {
+        "Category": "Cat085",
+        "Score": 8
+      },
+      {
+        "Category": "Cat085",
+        "Score": 38
+      },
+      {
+        "Category": "Cat085",
+        "Score": 70
+      },
+      {
+        "Category": "Cat085",
+        "Score": 86
+      },
+      {
+        "Category": "Cat085",
+        "Score": 90
+      },
+      {
+        "Category": "Cat085",
+        "Score": 71
+      },
+      {
+        "Category": "Cat085",
+        "Score": 92
+      },
+      {
+        "Category": "Cat085",
+        "Score": 72
+      },
+      {
+        "Category": "Cat086",
+        "Score": 32
+      },
+      {
+        "Category": "Cat086",
+        "Score": 9
+      },
+      {
+        "Category": "Cat086",
+        "Score": 7
+      },
+      {
+        "Category": "Cat086",
+        "Score": 46
+      },
+      {
+        "Category": "Cat086",
+        "Score": 22
+      },
+      {
+        "Category": "Cat086",
+        "Score": 25
+      },
+      {
+        "Category": "Cat086",
+        "Score": 56
+      },
+      {
+        "Category": "Cat086",
+        "Score": 94
+      },
+      {
+        "Category": "Cat086",
+        "Score": 70
+      },
+      {
+        "Category": "Cat086",
+        "Score": 77
+      },
+      {
+        "Category": "Cat086",
+        "Score": 3
+      },
+      {
+        "Category": "Cat086",
+        "Score": 13
+      },
+      {
+        "Category": "Cat086",
+        "Score": 97
+      },
+      {
+        "Category": "Cat086",
+        "Score": 15
+      },
+      {
+        "Category": "Cat086",
+        "Score": 35
+      },
+      {
+        "Category": "Cat087",
+        "Score": 55
+      },
+      {
+        "Category": "Cat087",
+        "Score": 68
+      },
+      {
+        "Category": "Cat087",
+        "Score": 6
+      },
+      {
+        "Category": "Cat087",
+        "Score": 43
+      },
+      {
+        "Category": "Cat087",
+        "Score": 54
+      },
+      {
+        "Category": "Cat087",
+        "Score": 23
+      },
+      {
+        "Category": "Cat087",
+        "Score": 59
+      },
+      {
+        "Category": "Cat087",
+        "Score": 31
+      },
+      {
+        "Category": "Cat087",
+        "Score": 97
+      },
+      {
+        "Category": "Cat087",
+        "Score": 93
+      },
+      {
+        "Category": "Cat087",
+        "Score": 5
+      },
+      {
+        "Category": "Cat087",
+        "Score": 41
+      },
+      {
+        "Category": "Cat087",
+        "Score": 57
+      },
+      {
+        "Category": "Cat087",
+        "Score": 59
+      },
+      {
+        "Category": "Cat087",
+        "Score": 36
+      },
+      {
+        "Category": "Cat088",
+        "Score": 79
+      },
+      {
+        "Category": "Cat088",
+        "Score": 93
+      },
+      {
+        "Category": "Cat088",
+        "Score": 4
+      },
+      {
+        "Category": "Cat088",
+        "Score": 94
+      },
+      {
+        "Category": "Cat088",
+        "Score": 69
+      },
+      {
+        "Category": "Cat088",
+        "Score": 99
+      },
+      {
+        "Category": "Cat088",
+        "Score": 43
+      },
+      {
+        "Category": "Cat088",
+        "Score": 24
+      },
+      {
+        "Category": "Cat088",
+        "Score": 94
+      },
+      {
+        "Category": "Cat088",
+        "Score": 2
+      },
+      {
+        "Category": "Cat088",
+        "Score": 34
+      },
+      {
+        "Category": "Cat088",
+        "Score": 36
+      },
+      {
+        "Category": "Cat088",
+        "Score": 97
+      },
+      {
+        "Category": "Cat088",
+        "Score": 68
+      },
+      {
+        "Category": "Cat088",
+        "Score": 96
+      },
+      {
+        "Category": "Cat090",
+        "Score": 66
+      },
+      {
+        "Category": "Cat090",
+        "Score": 65
+      },
+      {
+        "Category": "Cat090",
+        "Score": 75
+      },
+      {
+        "Category": "Cat090",
+        "Score": 98
+      },
+      {
+        "Category": "Cat090",
+        "Score": 28
+      },
+      {
+        "Category": "Cat090",
+        "Score": 74
+      },
+      {
+        "Category": "Cat090",
+        "Score": 13
+      },
+      {
+        "Category": "Cat090",
+        "Score": 64
+      },
+      {
+        "Category": "Cat090",
+        "Score": 70
+      },
+      {
+        "Category": "Cat090",
+        "Score": 74
+      },
+      {
+        "Category": "Cat090",
+        "Score": 83
+      },
+      {
+        "Category": "Cat090",
+        "Score": 57
+      },
+      {
+        "Category": "Cat090",
+        "Score": 43
+      },
+      {
+        "Category": "Cat090",
+        "Score": 81
+      },
+      {
+        "Category": "Cat090",
+        "Score": 8
+      },
+      {
+        "Category": "Cat091",
+        "Score": 96
+      },
+      {
+        "Category": "Cat091",
+        "Score": 48
+      },
+      {
+        "Category": "Cat091",
+        "Score": 66
+      },
+      {
+        "Category": "Cat091",
+        "Score": 9
+      },
+      {
+        "Category": "Cat091",
+        "Score": 96
+      },
+      {
+        "Category": "Cat091",
+        "Score": 0
+      },
+      {
+        "Category": "Cat091",
+        "Score": 56
+      },
+      {
+        "Category": "Cat091",
+        "Score": 20
+      },
+      {
+        "Category": "Cat091",
+        "Score": 41
+      },
+      {
+        "Category": "Cat091",
+        "Score": 18
+      },
+      {
+        "Category": "Cat091",
+        "Score": 58
+      },
+      {
+        "Category": "Cat091",
+        "Score": 5
+      },
+      {
+        "Category": "Cat091",
+        "Score": 67
+      },
+      {
+        "Category": "Cat091",
+        "Score": 1
+      },
+      {
+        "Category": "Cat091",
+        "Score": 37
+      },
+      {
+        "Category": "Cat093",
+        "Score": 54
+      },
+      {
+        "Category": "Cat093",
+        "Score": 97
+      },
+      {
+        "Category": "Cat093",
+        "Score": 85
+      },
+      {
+        "Category": "Cat093",
+        "Score": 96
+      },
+      {
+        "Category": "Cat093",
+        "Score": 51
+      },
+      {
+        "Category": "Cat093",
+        "Score": 100
+      },
+      {
+        "Category": "Cat093",
+        "Score": 42
+      },
+      {
+        "Category": "Cat093",
+        "Score": 5
+      },
+      {
+        "Category": "Cat093",
+        "Score": 40
+      },
+      {
+        "Category": "Cat093",
+        "Score": 96
+      },
+      {
+        "Category": "Cat093",
+        "Score": 22
+      },
+      {
+        "Category": "Cat093",
+        "Score": 13
+      },
+      {
+        "Category": "Cat093",
+        "Score": 28
+      },
+      {
+        "Category": "Cat093",
+        "Score": 21
+      },
+      {
+        "Category": "Cat093",
+        "Score": 91
+      },
+      {
+        "Category": "Cat098",
+        "Score": 85
+      },
+      {
+        "Category": "Cat098",
+        "Score": 4
+      },
+      {
+        "Category": "Cat098",
+        "Score": 12
+      },
+      {
+        "Category": "Cat098",
+        "Score": 92
+      },
+      {
+        "Category": "Cat098",
+        "Score": 20
+      },
+      {
+        "Category": "Cat098",
+        "Score": 3
+      },
+      {
+        "Category": "Cat098",
+        "Score": 87
+      },
+      {
+        "Category": "Cat098",
+        "Score": 41
+      },
+      {
+        "Category": "Cat098",
+        "Score": 36
+      },
+      {
+        "Category": "Cat098",
+        "Score": 78
+      },
+      {
+        "Category": "Cat098",
+        "Score": 35
+      },
+      {
+        "Category": "Cat098",
+        "Score": 49
+      },
+      {
+        "Category": "Cat098",
+        "Score": 97
+      },
+      {
+        "Category": "Cat098",
+        "Score": 85
+      },
+      {
+        "Category": "Cat098",
+        "Score": 40
+      },
+      {
+        "Category": "Cat099",
+        "Score": 69
+      },
+      {
+        "Category": "Cat099",
+        "Score": 62
+      },
+      {
+        "Category": "Cat099",
+        "Score": 25
+      },
+      {
+        "Category": "Cat099",
+        "Score": 90
+      },
+      {
+        "Category": "Cat099",
+        "Score": 6
+      },
+      {
+        "Category": "Cat099",
+        "Score": 9
+      },
+      {
+        "Category": "Cat099",
+        "Score": 85
+      },
+      {
+        "Category": "Cat099",
+        "Score": 97
+      },
+      {
+        "Category": "Cat099",
+        "Score": 71
+      },
+      {
+        "Category": "Cat099",
+        "Score": 59
+      },
+      {
+        "Category": "Cat099",
+        "Score": 31
+      },
+      {
+        "Category": "Cat099",
+        "Score": 81
+      },
+      {
+        "Category": "Cat099",
+        "Score": 17
+      },
+      {
+        "Category": "Cat099",
+        "Score": 6
+      },
+      {
+        "Category": "Cat099",
+        "Score": 92
+      },
+      {
+        "Category": "Cat100",
+        "Score": 77
+      },
+      {
+        "Category": "Cat100",
+        "Score": 54
+      },
+      {
+        "Category": "Cat100",
+        "Score": 88
+      },
+      {
+        "Category": "Cat100",
+        "Score": 57
+      },
+      {
+        "Category": "Cat100",
+        "Score": 73
+      },
+      {
+        "Category": "Cat100",
+        "Score": 31
+      },
+      {
+        "Category": "Cat100",
+        "Score": 60
+      },
+      {
+        "Category": "Cat100",
+        "Score": 90
+      },
+      {
+        "Category": "Cat100",
+        "Score": 56
+      },
+      {
+        "Category": "Cat100",
+        "Score": 75
+      },
+      {
+        "Category": "Cat100",
+        "Score": 99
+      },
+      {
+        "Category": "Cat100",
+        "Score": 93
+      },
+      {
+        "Category": "Cat100",
+        "Score": 0
+      },
+      {
+        "Category": "Cat100",
+        "Score": 8
+      },
+      {
+        "Category": "Cat100",
+        "Score": 76
+      },
+      {
+        "Category": "Cat101",
+        "Score": 50
+      },
+      {
+        "Category": "Cat101",
+        "Score": 77
+      },
+      {
+        "Category": "Cat101",
+        "Score": 87
+      },
+      {
+        "Category": "Cat101",
+        "Score": 96
+      },
+      {
+        "Category": "Cat101",
+        "Score": 39
+      },
+      {
+        "Category": "Cat101",
+        "Score": 60
+      },
+      {
+        "Category": "Cat101",
+        "Score": 24
+      },
+      {
+        "Category": "Cat101",
+        "Score": 97
+      },
+      {
+        "Category": "Cat101",
+        "Score": 87
+      },
+      {
+        "Category": "Cat101",
+        "Score": 31
+      },
+      {
+        "Category": "Cat101",
+        "Score": 57
+      },
+      {
+        "Category": "Cat101",
+        "Score": 24
+      },
+      {
+        "Category": "Cat101",
+        "Score": 37
+      },
+      {
+        "Category": "Cat101",
+        "Score": 10
+      },
+      {
+        "Category": "Cat101",
+        "Score": 64
+      },
+      {
+        "Category": "Cat102",
+        "Score": 12
+      },
+      {
+        "Category": "Cat102",
+        "Score": 41
+      },
+      {
+        "Category": "Cat102",
+        "Score": 82
+      },
+      {
+        "Category": "Cat102",
+        "Score": 81
+      },
+      {
+        "Category": "Cat102",
+        "Score": 25
+      },
+      {
+        "Category": "Cat102",
+        "Score": 41
+      },
+      {
+        "Category": "Cat102",
+        "Score": 97
+      },
+      {
+        "Category": "Cat102",
+        "Score": 43
+      },
+      {
+        "Category": "Cat102",
+        "Score": 93
+      },
+      {
+        "Category": "Cat102",
+        "Score": 26
+      },
+      {
+        "Category": "Cat102",
+        "Score": 51
+      },
+      {
+        "Category": "Cat102",
+        "Score": 87
+      },
+      {
+        "Category": "Cat102",
+        "Score": 89
+      },
+      {
+        "Category": "Cat102",
+        "Score": 84
+      },
+      {
+        "Category": "Cat102",
+        "Score": 24
+      },
+      {
+        "Category": "Cat104",
+        "Score": 19
+      },
+      {
+        "Category": "Cat104",
+        "Score": 95
+      },
+      {
+        "Category": "Cat104",
+        "Score": 54
+      },
+      {
+        "Category": "Cat104",
+        "Score": 30
+      },
+      {
+        "Category": "Cat104",
+        "Score": 78
+      },
+      {
+        "Category": "Cat104",
+        "Score": 5
+      },
+      {
+        "Category": "Cat104",
+        "Score": 20
+      },
+      {
+        "Category": "Cat104",
+        "Score": 32
+      },
+      {
+        "Category": "Cat104",
+        "Score": 99
+      },
+      {
+        "Category": "Cat104",
+        "Score": 10
+      },
+      {
+        "Category": "Cat104",
+        "Score": 56
+      },
+      {
+        "Category": "Cat104",
+        "Score": 32
+      },
+      {
+        "Category": "Cat104",
+        "Score": 84
+      },
+      {
+        "Category": "Cat104",
+        "Score": 47
+      },
+      {
+        "Category": "Cat104",
+        "Score": 53
+      },
+      {
+        "Category": "Cat105",
+        "Score": 89
+      },
+      {
+        "Category": "Cat105",
+        "Score": 61
+      },
+      {
+        "Category": "Cat105",
+        "Score": 79
+      },
+      {
+        "Category": "Cat105",
+        "Score": 76
+      },
+      {
+        "Category": "Cat105",
+        "Score": 9
+      },
+      {
+        "Category": "Cat105",
+        "Score": 84
+      },
+      {
+        "Category": "Cat105",
+        "Score": 95
+      },
+      {
+        "Category": "Cat105",
+        "Score": 12
+      },
+      {
+        "Category": "Cat105",
+        "Score": 65
+      },
+      {
+        "Category": "Cat105",
+        "Score": 6
+      },
+      {
+        "Category": "Cat105",
+        "Score": 61
+      },
+      {
+        "Category": "Cat105",
+        "Score": 1
+      },
+      {
+        "Category": "Cat105",
+        "Score": 14
+      },
+      {
+        "Category": "Cat105",
+        "Score": 17
+      },
+      {
+        "Category": "Cat105",
+        "Score": 89
+      },
+      {
+        "Category": "Cat106",
+        "Score": 89
+      },
+      {
+        "Category": "Cat106",
+        "Score": 65
+      },
+      {
+        "Category": "Cat106",
+        "Score": 10
+      },
+      {
+        "Category": "Cat106",
+        "Score": 24
+      },
+      {
+        "Category": "Cat106",
+        "Score": 26
+      },
+      {
+        "Category": "Cat106",
+        "Score": 64
+      },
+      {
+        "Category": "Cat106",
+        "Score": 58
+      },
+      {
+        "Category": "Cat106",
+        "Score": 44
+      },
+      {
+        "Category": "Cat106",
+        "Score": 91
+      },
+      {
+        "Category": "Cat106",
+        "Score": 69
+      },
+      {
+        "Category": "Cat106",
+        "Score": 85
+      },
+      {
+        "Category": "Cat106",
+        "Score": 13
+      },
+      {
+        "Category": "Cat106",
+        "Score": 98
+      },
+      {
+        "Category": "Cat106",
+        "Score": 76
+      },
+      {
+        "Category": "Cat106",
+        "Score": 94
+      },
+      {
+        "Category": "Cat107",
+        "Score": 48
+      },
+      {
+        "Category": "Cat107",
+        "Score": 76
+      },
+      {
+        "Category": "Cat107",
+        "Score": 7
+      },
+      {
+        "Category": "Cat107",
+        "Score": 64
+      },
+      {
+        "Category": "Cat107",
+        "Score": 95
+      },
+      {
+        "Category": "Cat107",
+        "Score": 73
+      },
+      {
+        "Category": "Cat107",
+        "Score": 68
+      },
+      {
+        "Category": "Cat107",
+        "Score": 22
+      },
+      {
+        "Category": "Cat107",
+        "Score": 9
+      },
+      {
+        "Category": "Cat107",
+        "Score": 41
+      },
+      {
+        "Category": "Cat107",
+        "Score": 8
+      },
+      {
+        "Category": "Cat107",
+        "Score": 80
+      },
+      {
+        "Category": "Cat107",
+        "Score": 2
+      },
+      {
+        "Category": "Cat107",
+        "Score": 56
+      },
+      {
+        "Category": "Cat107",
+        "Score": 55
+      },
+      {
+        "Category": "Cat108",
+        "Score": 42
+      },
+      {
+        "Category": "Cat108",
+        "Score": 36
+      },
+      {
+        "Category": "Cat108",
+        "Score": 68
+      },
+      {
+        "Category": "Cat108",
+        "Score": 68
+      },
+      {
+        "Category": "Cat108",
+        "Score": 73
+      },
+      {
+        "Category": "Cat108",
+        "Score": 87
+      },
+      {
+        "Category": "Cat108",
+        "Score": 74
+      },
+      {
+        "Category": "Cat108",
+        "Score": 96
+      },
+      {
+        "Category": "Cat108",
+        "Score": 71
+      },
+      {
+        "Category": "Cat108",
+        "Score": 89
+      },
+      {
+        "Category": "Cat108",
+        "Score": 65
+      },
+      {
+        "Category": "Cat108",
+        "Score": 80
+      },
+      {
+        "Category": "Cat108",
+        "Score": 34
+      },
+      {
+        "Category": "Cat108",
+        "Score": 94
+      },
+      {
+        "Category": "Cat108",
+        "Score": 69
+      },
+      {
+        "Category": "Cat109",
+        "Score": 42
+      },
+      {
+        "Category": "Cat109",
+        "Score": 2
+      },
+      {
+        "Category": "Cat109",
+        "Score": 94
+      },
+      {
+        "Category": "Cat109",
+        "Score": 56
+      },
+      {
+        "Category": "Cat109",
+        "Score": 39
+      },
+      {
+        "Category": "Cat109",
+        "Score": 74
+      },
+      {
+        "Category": "Cat109",
+        "Score": 65
+      },
+      {
+        "Category": "Cat109",
+        "Score": 48
+      },
+      {
+        "Category": "Cat109",
+        "Score": 35
+      },
+      {
+        "Category": "Cat109",
+        "Score": 56
+      },
+      {
+        "Category": "Cat109",
+        "Score": 32
+      },
+      {
+        "Category": "Cat109",
+        "Score": 4
+      },
+      {
+        "Category": "Cat109",
+        "Score": 16
+      },
+      {
+        "Category": "Cat109",
+        "Score": 27
+      },
+      {
+        "Category": "Cat109",
+        "Score": 40
+      },
+      {
+        "Category": "Cat111",
+        "Score": 43
+      },
+      {
+        "Category": "Cat111",
+        "Score": 66
+      },
+      {
+        "Category": "Cat111",
+        "Score": 75
+      },
+      {
+        "Category": "Cat111",
+        "Score": 40
+      },
+      {
+        "Category": "Cat111",
+        "Score": 59
+      },
+      {
+        "Category": "Cat111",
+        "Score": 14
+      },
+      {
+        "Category": "Cat111",
+        "Score": 61
+      },
+      {
+        "Category": "Cat111",
+        "Score": 100
+      },
+      {
+        "Category": "Cat111",
+        "Score": 18
+      },
+      {
+        "Category": "Cat111",
+        "Score": 51
+      },
+      {
+        "Category": "Cat111",
+        "Score": 26
+      },
+      {
+        "Category": "Cat111",
+        "Score": 36
+      },
+      {
+        "Category": "Cat111",
+        "Score": 61
+      },
+      {
+        "Category": "Cat111",
+        "Score": 89
+      },
+      {
+        "Category": "Cat111",
+        "Score": 59
+      },
+      {
+        "Category": "Cat112",
+        "Score": 13
+      },
+      {
+        "Category": "Cat112",
+        "Score": 79
+      },
+      {
+        "Category": "Cat112",
+        "Score": 59
+      },
+      {
+        "Category": "Cat112",
+        "Score": 69
+      },
+      {
+        "Category": "Cat112",
+        "Score": 13
+      },
+      {
+        "Category": "Cat112",
+        "Score": 56
+      },
+      {
+        "Category": "Cat112",
+        "Score": 2
+      },
+      {
+        "Category": "Cat112",
+        "Score": 95
+      },
+      {
+        "Category": "Cat112",
+        "Score": 17
+      },
+      {
+        "Category": "Cat112",
+        "Score": 49
+      },
+      {
+        "Category": "Cat112",
+        "Score": 21
+      },
+      {
+        "Category": "Cat112",
+        "Score": 85
+      },
+      {
+        "Category": "Cat112",
+        "Score": 31
+      },
+      {
+        "Category": "Cat112",
+        "Score": 48
+      },
+      {
+        "Category": "Cat112",
+        "Score": 9
+      },
+      {
+        "Category": "Cat113",
+        "Score": 43
+      },
+      {
+        "Category": "Cat113",
+        "Score": 38
+      },
+      {
+        "Category": "Cat113",
+        "Score": 81
+      },
+      {
+        "Category": "Cat113",
+        "Score": 32
+      },
+      {
+        "Category": "Cat113",
+        "Score": 35
+      },
+      {
+        "Category": "Cat113",
+        "Score": 43
+      },
+      {
+        "Category": "Cat113",
+        "Score": 51
+      },
+      {
+        "Category": "Cat113",
+        "Score": 99
+      },
+      {
+        "Category": "Cat113",
+        "Score": 3
+      },
+      {
+        "Category": "Cat113",
+        "Score": 92
+      },
+      {
+        "Category": "Cat113",
+        "Score": 21
+      },
+      {
+        "Category": "Cat113",
+        "Score": 16
+      },
+      {
+        "Category": "Cat113",
+        "Score": 89
+      },
+      {
+        "Category": "Cat113",
+        "Score": 25
+      },
+      {
+        "Category": "Cat113",
+        "Score": 4
+      },
+      {
+        "Category": "Cat114",
+        "Score": 67
+      },
+      {
+        "Category": "Cat114",
+        "Score": 71
+      },
+      {
+        "Category": "Cat114",
+        "Score": 96
+      },
+      {
+        "Category": "Cat114",
+        "Score": 30
+      },
+      {
+        "Category": "Cat114",
+        "Score": 48
+      },
+      {
+        "Category": "Cat114",
+        "Score": 42
+      },
+      {
+        "Category": "Cat114",
+        "Score": 34
+      },
+      {
+        "Category": "Cat114",
+        "Score": 39
+      },
+      {
+        "Category": "Cat114",
+        "Score": 49
+      },
+      {
+        "Category": "Cat114",
+        "Score": 20
+      },
+      {
+        "Category": "Cat114",
+        "Score": 18
+      },
+      {
+        "Category": "Cat114",
+        "Score": 83
+      },
+      {
+        "Category": "Cat114",
+        "Score": 95
+      },
+      {
+        "Category": "Cat114",
+        "Score": 4
+      },
+      {
+        "Category": "Cat114",
+        "Score": 45
+      },
+      {
+        "Category": "Cat115",
+        "Score": 91
+      },
+      {
+        "Category": "Cat115",
+        "Score": 35
+      },
+      {
+        "Category": "Cat115",
+        "Score": 80
+      },
+      {
+        "Category": "Cat115",
+        "Score": 65
+      },
+      {
+        "Category": "Cat115",
+        "Score": 73
+      },
+      {
+        "Category": "Cat115",
+        "Score": 7
+      },
+      {
+        "Category": "Cat115",
+        "Score": 42
+      },
+      {
+        "Category": "Cat115",
+        "Score": 97
+      },
+      {
+        "Category": "Cat115",
+        "Score": 45
+      },
+      {
+        "Category": "Cat115",
+        "Score": 43
+      },
+      {
+        "Category": "Cat115",
+        "Score": 96
+      },
+      {
+        "Category": "Cat115",
+        "Score": 44
+      },
+      {
+        "Category": "Cat115",
+        "Score": 70
+      },
+      {
+        "Category": "Cat115",
+        "Score": 13
+      },
+      {
+        "Category": "Cat115",
+        "Score": 24
+      },
+      {
+        "Category": "Cat118",
+        "Score": 88
+      },
+      {
+        "Category": "Cat118",
+        "Score": 86
+      },
+      {
+        "Category": "Cat118",
+        "Score": 82
+      },
+      {
+        "Category": "Cat118",
+        "Score": 86
+      },
+      {
+        "Category": "Cat118",
+        "Score": 57
+      },
+      {
+        "Category": "Cat118",
+        "Score": 85
+      },
+      {
+        "Category": "Cat118",
+        "Score": 48
+      },
+      {
+        "Category": "Cat118",
+        "Score": 47
+      },
+      {
+        "Category": "Cat118",
+        "Score": 96
+      },
+      {
+        "Category": "Cat118",
+        "Score": 62
+      },
+      {
+        "Category": "Cat118",
+        "Score": 76
+      },
+      {
+        "Category": "Cat118",
+        "Score": 94
+      },
+      {
+        "Category": "Cat118",
+        "Score": 27
+      },
+      {
+        "Category": "Cat118",
+        "Score": 99
+      },
+      {
+        "Category": "Cat118",
+        "Score": 6
+      },
+      {
+        "Category": "Cat119",
+        "Score": 77
+      },
+      {
+        "Category": "Cat119",
+        "Score": 33
+      },
+      {
+        "Category": "Cat119",
+        "Score": 38
+      },
+      {
+        "Category": "Cat119",
+        "Score": 56
+      },
+      {
+        "Category": "Cat119",
+        "Score": 89
+      },
+      {
+        "Category": "Cat119",
+        "Score": 80
+      },
+      {
+        "Category": "Cat119",
+        "Score": 48
+      },
+      {
+        "Category": "Cat119",
+        "Score": 64
+      },
+      {
+        "Category": "Cat119",
+        "Score": 84
+      },
+      {
+        "Category": "Cat119",
+        "Score": 86
+      },
+      {
+        "Category": "Cat119",
+        "Score": 96
+      },
+      {
+        "Category": "Cat119",
+        "Score": 68
+      },
+      {
+        "Category": "Cat119",
+        "Score": 100
+      },
+      {
+        "Category": "Cat119",
+        "Score": 3
+      },
+      {
+        "Category": "Cat119",
+        "Score": 82
+      },
+      {
+        "Category": "Cat120",
+        "Score": 6
+      },
+      {
+        "Category": "Cat120",
+        "Score": 81
+      },
+      {
+        "Category": "Cat120",
+        "Score": 86
+      },
+      {
+        "Category": "Cat120",
+        "Score": 77
+      },
+      {
+        "Category": "Cat120",
+        "Score": 32
+      },
+      {
+        "Category": "Cat120",
+        "Score": 84
+      },
+      {
+        "Category": "Cat120",
+        "Score": 55
+      },
+      {
+        "Category": "Cat120",
+        "Score": 29
+      },
+      {
+        "Category": "Cat120",
+        "Score": 25
+      },
+      {
+        "Category": "Cat120",
+        "Score": 95
+      },
+      {
+        "Category": "Cat120",
+        "Score": 8
+      },
+      {
+        "Category": "Cat120",
+        "Score": 51
+      },
+      {
+        "Category": "Cat120",
+        "Score": 54
+      },
+      {
+        "Category": "Cat120",
+        "Score": 56
+      },
+      {
+        "Category": "Cat120",
+        "Score": 39
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "29 of 120 values in 'Category' were omitted (showing top 91).",
+      "channel": "y",
+      "field": "Category"
+    }
+  ],
+  "_width": 155,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

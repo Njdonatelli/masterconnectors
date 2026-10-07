@@ -1,0 +1,230 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 16
+  },
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": false,
+        "domain": [
+          0.5,
+          30.5
+        ]
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 558,
+      "continuousHeight": 232
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 23
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 1,
+        "Value": 390
+      },
+      {
+        "X": 2,
+        "Value": 934
+      },
+      {
+        "X": 3,
+        "Value": 91
+      },
+      {
+        "X": 4,
+        "Value": 151
+      },
+      {
+        "X": 5,
+        "Value": 615
+      },
+      {
+        "X": 6,
+        "Value": 442
+      },
+      {
+        "X": 7,
+        "Value": 332
+      },
+      {
+        "X": 8,
+        "Value": 151
+      },
+      {
+        "X": 9,
+        "Value": 857
+      },
+      {
+        "X": 10,
+        "Value": 708
+      },
+      {
+        "X": 11,
+        "Value": 746
+      },
+      {
+        "X": 12,
+        "Value": 875
+      },
+      {
+        "X": 13,
+        "Value": 83
+      },
+      {
+        "X": 14,
+        "Value": 799
+      },
+      {
+        "X": 15,
+        "Value": 517
+      },
+      {
+        "X": 16,
+        "Value": 167
+      },
+      {
+        "X": 17,
+        "Value": 890
+      },
+      {
+        "X": 18,
+        "Value": 140
+      },
+      {
+        "X": 19,
+        "Value": 130
+      },
+      {
+        "X": 20,
+        "Value": 235
+      },
+      {
+        "X": 21,
+        "Value": 145
+      },
+      {
+        "X": 22,
+        "Value": 174
+      },
+      {
+        "X": 23,
+        "Value": 170
+      },
+      {
+        "X": 24,
+        "Value": 214
+      },
+      {
+        "X": 25,
+        "Value": 74
+      },
+      {
+        "X": 26,
+        "Value": 511
+      },
+      {
+        "X": 27,
+        "Value": 519
+      },
+      {
+        "X": 28,
+        "Value": 721
+      },
+      {
+        "X": 29,
+        "Value": 304
+      },
+      {
+        "X": 30,
+        "Value": 191
+      }
+    ]
+  },
+  "_width": 558,
+  "_height": 232,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

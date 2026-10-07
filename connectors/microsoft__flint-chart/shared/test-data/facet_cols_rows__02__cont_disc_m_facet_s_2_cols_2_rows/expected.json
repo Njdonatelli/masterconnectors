@@ -1,0 +1,319 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "column": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null
+    },
+    "row": {
+      "field": "Row",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Row: Value"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 211,
+      "continuousHeight": 155
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerColumn": {
+      "labelLimit": 231
+    },
+    "headerRow": {
+      "labelLimit": 155
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 26
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Electronics",
+        "Value": 120,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 338,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Food",
+        "Value": 154,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Books",
+        "Value": 408,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Sports",
+        "Value": 383,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Home",
+        "Value": 355,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Garden",
+        "Value": 181,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Auto",
+        "Value": 136,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 126,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 387,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Food",
+        "Value": 407,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Books",
+        "Value": 173,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Sports",
+        "Value": 94,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Home",
+        "Value": 351,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Garden",
+        "Value": 492,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Auto",
+        "Value": 135,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 188,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 197,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Food",
+        "Value": 95,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Books",
+        "Value": 336,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Sports",
+        "Value": 529,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Home",
+        "Value": 509,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Garden",
+        "Value": 316,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Auto",
+        "Value": 194,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 193,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 322,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Food",
+        "Value": 51,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Books",
+        "Value": 95,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Sports",
+        "Value": 494,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Home",
+        "Value": 311,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Garden",
+        "Value": 149,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "Auto",
+        "Value": 102,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      }
+    ]
+  },
+  "_width": 211,
+  "_height": 155,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

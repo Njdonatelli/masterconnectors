@@ -1,0 +1,73 @@
+{
+  "title": "Pie (medium, 10 slices)",
+  "description": "10 products — tests color scheme at boundary",
+  "chartType": "Pie Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Product": "Laptop",
+          "Revenue": 2924
+        },
+        {
+          "Product": "Phone",
+          "Revenue": 2506
+        },
+        {
+          "Product": "Tablet",
+          "Revenue": 6721
+        },
+        {
+          "Product": "Desktop",
+          "Revenue": 1826
+        },
+        {
+          "Product": "Monitor",
+          "Revenue": 4934
+        },
+        {
+          "Product": "Keyboard",
+          "Revenue": 7789
+        },
+        {
+          "Product": "Mouse",
+          "Revenue": 8215
+        },
+        {
+          "Product": "Headphones",
+          "Revenue": 5798
+        },
+        {
+          "Product": "Speaker",
+          "Revenue": 7950
+        },
+        {
+          "Product": "Camera",
+          "Revenue": 6919
+        }
+      ]
+    },
+    "semantic_types": {
+      "Product": "Product",
+      "Revenue": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Pie Chart",
+      "encodings": {
+        "size": {
+          "field": "Revenue"
+        },
+        "color": {
+          "field": "Product"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,725 @@
+{
+  "encoding": {
+    "x": {
+      "field": "Step",
+      "type": "ordinal",
+      "sort": null,
+      "axis": {
+        "labelAngle": -45
+      }
+    }
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "sum",
+          "field": "Amount",
+          "as": "__wf_sum_raw"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? datum.__wf_sum_raw - datum['Amount'] : datum.__wf_sum_raw",
+      "as": "__wf_sum"
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? 0 : datum.__wf_sum - datum['Amount']",
+      "as": "__wf_prev_sum"
+    },
+    {
+      "calculate": "datum['Type'] !== 'delta' ? 'total' : datum['Amount'] >= 0 ? 'increase' : 'decrease'",
+      "as": "__wf_color"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "y": {
+          "field": "__wf_prev_sum",
+          "type": "quantitative",
+          "title": "Amount",
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y2": {
+          "field": "__wf_sum"
+        },
+        "color": {
+          "field": "__wf_color",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "total",
+              "increase",
+              "decrease"
+            ],
+            "range": [
+              "#f7e0b6",
+              "#93c4aa",
+              "#f78a64"
+            ]
+          },
+          "legend": {
+            "title": "Type"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 134
+    },
+    "axisX": {
+      "labelLimit": 40,
+      "labelFontSize": 6,
+      "labelAngle": -90,
+      "labelAlign": "right",
+      "labelBaseline": "middle"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 13
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "Step": "Step001",
+        "Amount": 863,
+        "Type": "start"
+      },
+      {
+        "Step": "Step002",
+        "Amount": 27,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step003",
+        "Amount": 37,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step004",
+        "Amount": -25,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step005",
+        "Amount": -134,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step006",
+        "Amount": -73,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step007",
+        "Amount": 113,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step008",
+        "Amount": -86,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step009",
+        "Amount": -126,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step010",
+        "Amount": 64,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step011",
+        "Amount": 146,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step012",
+        "Amount": 24,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step013",
+        "Amount": 63,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step014",
+        "Amount": 98,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step015",
+        "Amount": -30,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step016",
+        "Amount": 76,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step017",
+        "Amount": 33,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step018",
+        "Amount": -100,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step019",
+        "Amount": 82,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step020",
+        "Amount": 94,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step021",
+        "Amount": 119,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step022",
+        "Amount": 28,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step023",
+        "Amount": -105,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step024",
+        "Amount": 50,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step025",
+        "Amount": 101,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step026",
+        "Amount": -101,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step027",
+        "Amount": 75,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step028",
+        "Amount": -112,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step029",
+        "Amount": 17,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step030",
+        "Amount": 16,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step031",
+        "Amount": -141,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step032",
+        "Amount": -42,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step033",
+        "Amount": 128,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step034",
+        "Amount": -55,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step035",
+        "Amount": 73,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step036",
+        "Amount": 148,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step037",
+        "Amount": 69,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step038",
+        "Amount": 101,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step039",
+        "Amount": -29,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step040",
+        "Amount": 73,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step041",
+        "Amount": -37,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step042",
+        "Amount": 73,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step043",
+        "Amount": -144,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step044",
+        "Amount": 121,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step045",
+        "Amount": 109,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step046",
+        "Amount": 129,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step047",
+        "Amount": 99,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step048",
+        "Amount": -118,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step049",
+        "Amount": -60,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step050",
+        "Amount": 140,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step051",
+        "Amount": -44,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step052",
+        "Amount": 128,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step053",
+        "Amount": -94,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step054",
+        "Amount": -138,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step055",
+        "Amount": -39,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step056",
+        "Amount": -11,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step057",
+        "Amount": 63,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step058",
+        "Amount": -123,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step059",
+        "Amount": 123,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step060",
+        "Amount": 125,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step061",
+        "Amount": -140,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step062",
+        "Amount": -38,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step063",
+        "Amount": 32,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step064",
+        "Amount": 62,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step065",
+        "Amount": -48,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step066",
+        "Amount": 65,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step067",
+        "Amount": 54,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step068",
+        "Amount": 131,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step069",
+        "Amount": -55,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step070",
+        "Amount": -105,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step071",
+        "Amount": -43,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step072",
+        "Amount": -123,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step073",
+        "Amount": -26,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step074",
+        "Amount": 63,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step075",
+        "Amount": -62,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step076",
+        "Amount": 25,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step077",
+        "Amount": -120,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step078",
+        "Amount": 58,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step079",
+        "Amount": 22,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step080",
+        "Amount": -89,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step081",
+        "Amount": 144,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step082",
+        "Amount": -139,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step083",
+        "Amount": -44,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step084",
+        "Amount": 107,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step085",
+        "Amount": 140,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step086",
+        "Amount": -144,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step087",
+        "Amount": 81,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step088",
+        "Amount": -79,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step089",
+        "Amount": -139,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step090",
+        "Amount": 103,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step091",
+        "Amount": -21,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step092",
+        "Amount": 103,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step093",
+        "Amount": -55,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step094",
+        "Amount": -26,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step095",
+        "Amount": -150,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step096",
+        "Amount": -137,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step097",
+        "Amount": -14,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step098",
+        "Amount": 50,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step099",
+        "Amount": 64,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step100",
+        "Amount": -73,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step101",
+        "Amount": 28,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step102",
+        "Amount": 41,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step103",
+        "Amount": 11,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step104",
+        "Amount": -76,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step105",
+        "Amount": 147,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step106",
+        "Amount": -94,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step107",
+        "Amount": -115,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step108",
+        "Amount": -42,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step109",
+        "Amount": -42,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step110",
+        "Amount": 146,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step111",
+        "Amount": -34,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step112",
+        "Amount": 31,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step113",
+        "Amount": -149,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step114",
+        "Amount": -61,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step115",
+        "Amount": -85,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step116",
+        "Amount": 66,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step117",
+        "Amount": 11,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step118",
+        "Amount": -135,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step119",
+        "Amount": 59,
+        "Type": "delta"
+      },
+      {
+        "Step": "Step120",
+        "Amount": 347,
+        "Type": "end"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 134,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

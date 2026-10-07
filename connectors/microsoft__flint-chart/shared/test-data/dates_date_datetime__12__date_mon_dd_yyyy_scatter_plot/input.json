@@ -1,0 +1,81 @@
+{
+  "title": "Date (Mon DD YYYY) → Scatter Plot",
+  "description": "Natural date: \"Jan 15 2020\", \"Feb 15 2020\", … (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 15 2020",
+          "Value": 273
+        },
+        {
+          "Date": "Feb 15 2020",
+          "Value": 370
+        },
+        {
+          "Date": "Mar 15 2020",
+          "Value": 258
+        },
+        {
+          "Date": "Apr 15 2020",
+          "Value": 265
+        },
+        {
+          "Date": "May 15 2020",
+          "Value": 416
+        },
+        {
+          "Date": "Jun 15 2020",
+          "Value": 375
+        },
+        {
+          "Date": "Jul 15 2020",
+          "Value": 315
+        },
+        {
+          "Date": "Aug 15 2020",
+          "Value": 357
+        },
+        {
+          "Date": "Sep 15 2020",
+          "Value": 293
+        },
+        {
+          "Date": "Oct 15 2020",
+          "Value": 152
+        },
+        {
+          "Date": "Nov 15 2020",
+          "Value": 489
+        },
+        {
+          "Date": "Dec 15 2020",
+          "Value": 496
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

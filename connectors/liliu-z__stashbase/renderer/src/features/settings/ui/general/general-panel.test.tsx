@@ -1,0 +1,72 @@
+import { cleanup, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { afterEach, describe, expect, it, vi } from 'vite-plus/test';
+
+import type { SoftwareUpdateRow } from '@/shared/domain/software-update';
+
+import { GeneralPanel } from './general-panel';
+
+afterEach(cleanup);
+
+function renderPanel(softwareUpdate: SoftwareUpdateRow | null = null) {
+  return render(<GeneralPanel softwareUpdate={softwareUpdate} />);
+}
+
+function updateRow(overrides: Partial<SoftwareUpdateRow> = {}): SoftwareUpdateRow {
+  return {
+    autoCheckEnabled: false,
+    busy: false,
+    actionLabel: 'Check for updates',
+    act: vi.fn(),
+    failure: null,
+    setAutoCheck: vi.fn(),
+    status: 'StashBase is up to date.',
+    version: '2.0.0',
+    ...overrides,
+  };
+}
+
+describe('GeneralPanel', () => {
+  it('says nothing about updates in a build with no updater', async () => {
+    renderPanel();
+    expect(screen.queryByText('Software updates')).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Check for updates' })).toBeNull();
+  });
+
+  it('names the running build, where it stands, and both update controls', async () => {
+    const row = updateRow({ autoCheckEnabled: true });
+    renderPanel(row);
+
+    expect(screen.getByText('StashBase 2.0.0')).not.toBeNull();
+    expect(screen.getByText('StashBase is up to date.')).not.toBeNull();
+    const auto = screen.getByRole('switch', { name: 'Check for updates automatically' });
+    expect(auto.getAttribute('aria-checked')).toBe('true');
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: 'Check for updates' }));
+    expect(row.act).toHaveBeenCalledOnce();
+    await user.click(auto);
+    expect(row.setAutoCheck).toHaveBeenCalledWith(false);
+  });
+
+  it('locks both controls while the updater is already working', async () => {
+    const row = updateRow({ busy: true, status: 'Looking for a new version…' });
+    renderPanel(row);
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: 'Check for updates' }));
+    await user.click(screen.getByRole('switch', { name: 'Check for updates automatically' }));
+    expect(row.act).not.toHaveBeenCalled();
+    expect(row.setAutoCheck).not.toHaveBeenCalled();
+  });
+});
+
+it.each(['Update and restart', 'Install and restart'])(
+  'offers %s in Settings',
+  async (actionLabel) => {
+    const row = updateRow({ actionLabel });
+    renderPanel(row);
+    await userEvent.setup().click(screen.getByRole('button', { name: actionLabel }));
+    expect(row.act).toHaveBeenCalledTimes(1);
+  },
+);

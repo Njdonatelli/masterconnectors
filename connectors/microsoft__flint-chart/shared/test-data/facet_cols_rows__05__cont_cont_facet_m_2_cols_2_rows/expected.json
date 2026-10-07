@@ -1,0 +1,607 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Y",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "column": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null
+    },
+    "row": {
+      "field": "Row",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Row: Y"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 222,
+      "continuousHeight": 202
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerColumn": {
+      "labelLimit": 242
+    },
+    "headerRow": {
+      "labelLimit": 202
+    },
+    "facet": {
+      "spacing": 20
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 74,
+        "Y": 80,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 83,
+        "Y": 12,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 97,
+        "Y": 51,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 57,
+        "Y": 88,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 53,
+        "Y": 68,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 73,
+        "Y": 28,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 17,
+        "Y": 98,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 69,
+        "Y": 73,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 84,
+        "Y": 98,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 99,
+        "Y": 95,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 24,
+        "Y": 38,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 18,
+        "Y": 71,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 55,
+        "Y": 50,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 42,
+        "Y": 94,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 82,
+        "Y": 83,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 83,
+        "Y": 17,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 13,
+        "Y": 82,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 40,
+        "Y": 57,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 16,
+        "Y": 28,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 24,
+        "Y": 40,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "X": 34,
+        "Y": 21,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 59,
+        "Y": 69,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 70,
+        "Y": 20,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 53,
+        "Y": 73,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 50,
+        "Y": 27,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 67,
+        "Y": 92,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 48,
+        "Y": 52,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 11,
+        "Y": 99,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 59,
+        "Y": 30,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 24,
+        "Y": 62,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 95,
+        "Y": 50,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 83,
+        "Y": 84,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 31,
+        "Y": 84,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 71,
+        "Y": 24,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 40,
+        "Y": 59,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 36,
+        "Y": 78,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 39,
+        "Y": 34,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 58,
+        "Y": 45,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 92,
+        "Y": 78,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 41,
+        "Y": 81,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "X": 93,
+        "Y": 90,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 40,
+        "Y": 24,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 10,
+        "Y": 84,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 86,
+        "Y": 70,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 98,
+        "Y": 38,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 16,
+        "Y": 13,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 22,
+        "Y": 59,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 29,
+        "Y": 49,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 46,
+        "Y": 37,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 58,
+        "Y": 87,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 64,
+        "Y": 72,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 62,
+        "Y": 89,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 33,
+        "Y": 26,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 60,
+        "Y": 40,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 78,
+        "Y": 27,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 75,
+        "Y": 41,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 59,
+        "Y": 41,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 77,
+        "Y": 32,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 97,
+        "Y": 65,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 84,
+        "Y": 20,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "X": 78,
+        "Y": 44,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 97,
+        "Y": 53,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 40,
+        "Y": 25,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 77,
+        "Y": 51,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 46,
+        "Y": 25,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 84,
+        "Y": 85,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 66,
+        "Y": 12,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 42,
+        "Y": 63,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 20,
+        "Y": 23,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 89,
+        "Y": 85,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 41,
+        "Y": 46,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 52,
+        "Y": 47,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 93,
+        "Y": 76,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 84,
+        "Y": 61,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 53,
+        "Y": 38,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 65,
+        "Y": 63,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 23,
+        "Y": 48,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 42,
+        "Y": 77,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 96,
+        "Y": 12,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "X": 48,
+        "Y": 41,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      }
+    ]
+  },
+  "_width": 222,
+  "_height": 202,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

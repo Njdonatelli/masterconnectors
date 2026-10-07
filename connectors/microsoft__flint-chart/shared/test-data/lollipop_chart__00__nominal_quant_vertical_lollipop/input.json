@@ -1,0 +1,65 @@
+{
+  "title": "Nominal × Quant (vertical lollipop)",
+  "description": "8 countries — rule from 0 to value + dot",
+  "chartType": "Lollipop Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Country": "USA",
+          "GDP": 646
+        },
+        {
+          "Country": "China",
+          "GDP": 7103
+        },
+        {
+          "Country": "Japan",
+          "GDP": 14759
+        },
+        {
+          "Country": "Germany",
+          "GDP": 11392
+        },
+        {
+          "Country": "UK",
+          "GDP": 9971
+        },
+        {
+          "Country": "France",
+          "GDP": 13141
+        },
+        {
+          "Country": "India",
+          "GDP": 15530
+        },
+        {
+          "Country": "Brazil",
+          "GDP": 7384
+        }
+      ]
+    },
+    "semantic_types": {
+      "Country": "Country",
+      "GDP": "GDP"
+    },
+    "chart_spec": {
+      "chartType": "Lollipop Chart",
+      "encodings": {
+        "x": {
+          "field": "Country"
+        },
+        "y": {
+          "field": "GDP"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

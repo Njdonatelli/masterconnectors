@@ -1,0 +1,29 @@
+<UserControl
+    x:Class="Gridex.TabBarControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex">
+
+    <Grid MinHeight="36"
+          Background="{ThemeResource LayerFillColorDefaultBrush}"
+          BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+          BorderThickness="0,0,0,1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Tab strip -->
+        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Disabled">
+            <StackPanel x:Name="TabStrip" Orientation="Horizontal" Spacing="0" />
+        </ScrollViewer>
+
+        <!-- New tab button -->
+        <Button x:Name="NewTabBtn" Grid.Column="1" Width="36" Height="36" Padding="0"
+                Background="Transparent" BorderThickness="0"
+                ToolTipService.ToolTip="New Query Tab">
+            <FontIcon Glyph="&#xE710;" FontSize="12" />
+        </Button>
+    </Grid>
+</UserControl>

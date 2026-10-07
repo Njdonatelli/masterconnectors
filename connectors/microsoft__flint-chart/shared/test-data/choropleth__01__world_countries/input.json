@@ -1,0 +1,189 @@
+{
+  "title": "World countries",
+  "description": "Each country filled by its 2023 population (millions). The region property is set to World. Rows carry plain country names; the gazetteer resolves them (or ISO alpha-2/alpha-3 codes) to the world-110m.json TopoJSON feature ids.",
+  "chartType": "Choropleth",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "country": "China",
+          "value": 1410
+        },
+        {
+          "country": "India",
+          "value": 1428
+        },
+        {
+          "country": "United States",
+          "value": 339
+        },
+        {
+          "country": "Indonesia",
+          "value": 277
+        },
+        {
+          "country": "Pakistan",
+          "value": 240
+        },
+        {
+          "country": "Nigeria",
+          "value": 223
+        },
+        {
+          "country": "Brazil",
+          "value": 216
+        },
+        {
+          "country": "Bangladesh",
+          "value": 173
+        },
+        {
+          "country": "Russia",
+          "value": 144
+        },
+        {
+          "country": "Mexico",
+          "value": 128
+        },
+        {
+          "country": "Ethiopia",
+          "value": 126
+        },
+        {
+          "country": "Japan",
+          "value": 124
+        },
+        {
+          "country": "Philippines",
+          "value": 117
+        },
+        {
+          "country": "Egypt",
+          "value": 112
+        },
+        {
+          "country": "DR Congo",
+          "value": 102
+        },
+        {
+          "country": "Vietnam",
+          "value": 98
+        },
+        {
+          "country": "Iran",
+          "value": 89
+        },
+        {
+          "country": "Turkey",
+          "value": 85
+        },
+        {
+          "country": "Germany",
+          "value": 84
+        },
+        {
+          "country": "Thailand",
+          "value": 71
+        },
+        {
+          "country": "United Kingdom",
+          "value": 67
+        },
+        {
+          "country": "France",
+          "value": 68
+        },
+        {
+          "country": "South Africa",
+          "value": 60
+        },
+        {
+          "country": "Italy",
+          "value": 59
+        },
+        {
+          "country": "Kenya",
+          "value": 55
+        },
+        {
+          "country": "Colombia",
+          "value": 52
+        },
+        {
+          "country": "Spain",
+          "value": 47
+        },
+        {
+          "country": "Argentina",
+          "value": 46
+        },
+        {
+          "country": "Algeria",
+          "value": 45
+        },
+        {
+          "country": "Canada",
+          "value": 39
+        },
+        {
+          "country": "Poland",
+          "value": 38
+        },
+        {
+          "country": "Ukraine",
+          "value": 37
+        },
+        {
+          "country": "Saudi Arabia",
+          "value": 37
+        },
+        {
+          "country": "Morocco",
+          "value": 37
+        },
+        {
+          "country": "Peru",
+          "value": 34
+        },
+        {
+          "country": "Australia",
+          "value": 26
+        },
+        {
+          "country": "Kazakhstan",
+          "value": 19
+        },
+        {
+          "country": "Chile",
+          "value": 19
+        },
+        {
+          "country": "Sweden",
+          "value": 10
+        },
+        {
+          "country": "Norway",
+          "value": 5.5
+        }
+      ]
+    },
+    "semantic_types": {
+      "country": "Country",
+      "value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Choropleth",
+      "encodings": {
+        "id": "country",
+        "color": "value"
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      },
+      "chartProperties": {
+        "region": "world"
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "X": 1,
+        "Group": "Headphones",
+        "Segment": "USA"
+      },
+      {
+        "X": 1,
+        "Group": "Monitor",
+        "Segment": "China"
+      },
+      {
+        "X": 1,
+        "Group": "Desktop",
+        "Segment": "Japan"
+      },
+      {
+        "X": 2,
+        "Group": "Phone",
+        "Segment": "USA"
+      },
+      {
+        "X": 2,
+        "Group": "Laptop",
+        "Segment": "China"
+      },
+      {
+        "X": 2,
+        "Group": "Tablet",
+        "Segment": "Japan"
+      },
+      {
+        "X": 3,
+        "Group": "Monitor",
+        "Segment": "USA"
+      },
+      {
+        "X": 3,
+        "Group": "Mouse",
+        "Segment": "China"
+      },
+      {
+        "X": 3,
+        "Group": "Laptop",
+        "Segment": "Japan"
+      },
+      {
+        "X": 4,
+        "Group": "Tablet",
+        "Segment": "USA"
+      },
+      {
+        "X": 4,
+        "Group": "Laptop",
+        "Segment": "China"
+      },
+      {
+        "X": 4,
+        "Group": "Phone",
+        "Segment": "Japan"
+      },
+      {
+        "X": 5,
+        "Group": "Keyboard",
+        "Segment": "USA"
+      },
+      {
+        "X": 5,
+        "Group": "Laptop",
+        "Segment": "China"
+      },
+      {
+        "X": 5,
+        "Group": "Tablet",
+        "Segment": "Japan"
+      },
+      {
+        "X": 6,
+        "Group": "Mouse",
+        "Segment": "USA"
+      },
+      {
+        "X": 6,
+        "Group": "Desktop",
+        "Segment": "China"
+      },
+      {
+        "X": 6,
+        "Group": "Tablet",
+        "Segment": "Japan"
+      },
+      {
+        "X": 7,
+        "Group": "Desktop",
+        "Segment": "USA"
+      },
+      {
+        "X": 7,
+        "Group": "Desktop",
+        "Segment": "China"
+      },
+      {
+        "X": 7,
+        "Group": "Headphones",
+        "Segment": "Japan"
+      },
+      {
+        "X": 8,
+        "Group": "Desktop",
+        "Segment": "USA"
+      },
+      {
+        "X": 8,
+        "Group": "Keyboard",
+        "Segment": "China"
+      },
+      {
+        "X": 8,
+        "Group": "Monitor",
+        "Segment": "Japan"
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

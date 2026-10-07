@@ -1,0 +1,169 @@
+<UserControl
+    x:Class="Gridex.DetailsPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex">
+
+    <Grid Background="{ThemeResource LayerFillColorDefaultBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Tab Header: Details | Assistant -->
+        <Grid Grid.Row="0" Padding="0,0,0,0"
+              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+              BorderThickness="0,0,0,1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ToggleButton x:Name="DetailsTab" Grid.Column="0"
+                          Content="Details" IsChecked="True"
+                          HorizontalAlignment="Stretch"
+                          Padding="8,10"
+                          Background="Transparent" BorderThickness="0"
+                          Click="DetailsTab_Click" />
+            <ToggleButton x:Name="AssistantTab" Grid.Column="1"
+                          Content="Assistant"
+                          HorizontalAlignment="Stretch"
+                          Padding="8,10"
+                          Background="Transparent" BorderThickness="0"
+                          Click="AssistantTab_Click" />
+        </Grid>
+
+        <!-- Search bar for fields -->
+        <AutoSuggestBox x:Name="FieldSearchBox" Grid.Row="1"
+                        PlaceholderText="Search field..."
+                        QueryIcon="Find"
+                        Margin="8,8,8,4"
+                        FontSize="12"
+                        TextChanged="FieldSearch_TextChanged" />
+
+        <!-- Separator -->
+        <Border Grid.Row="2" Height="1"
+                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+        <!-- Details Content -->
+        <Grid x:Name="DetailsContent" Grid.Row="3">
+            <!-- Empty state -->
+            <StackPanel x:Name="EmptyState"
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Spacing="6">
+                <FontIcon Glyph="&#xE8A9;" FontSize="32"
+                          Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                          HorizontalAlignment="Center" />
+                <TextBlock Text="Select a row to see details"
+                           FontSize="12" TextWrapping="Wrap"
+                           HorizontalAlignment="Center" TextAlignment="Center"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
+
+            <!-- Detail fields scroll -->
+            <ScrollViewer x:Name="DetailsScroller"
+                          Visibility="Collapsed"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="DetailsContainer" Spacing="0" Padding="8,0" />
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Assistant Content (hidden by default) -->
+        <Grid x:Name="AssistantContent" Grid.Row="3" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Chat area placeholder -->
+            <ScrollViewer Grid.Row="0" Padding="8">
+                <StackPanel x:Name="ChatMessages" Spacing="8">
+                    <TextBlock Text="Ask about your database..."
+                               FontSize="12" Opacity="0.4"
+                               HorizontalAlignment="Center"
+                               Margin="0,40,0,0" />
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Chat input + context chips -->
+            <StackPanel Grid.Row="1" Padding="8"
+                        BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                        BorderThickness="0,1,0,0"
+                        Spacing="6">
+
+                <!-- Context chips (selected tables). Single-line horizontal
+                     scroller — stays collapsed until the user adds a table. -->
+                <ScrollViewer x:Name="ChatContextChipsScroller"
+                              Visibility="Collapsed"
+                              HorizontalScrollMode="Auto"
+                              HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollMode="Disabled"
+                              VerticalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="ChatContextChips"
+                                Orientation="Horizontal"
+                                Spacing="4" />
+                </ScrollViewer>
+
+                <!-- Input row: [ + ] [ textbox ] [ send ] -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- "+" context picker button. Flyout hosts a ListView
+                         populated from the current DB table list. Property
+                         element (Button.Flyout + Button.Content) declared
+                         explicitly so the XAML parser doesn't confuse the
+                         content child with the property-element ordering. -->
+                    <Button x:Name="AddContextButton" Grid.Column="0"
+                            Width="32" Height="32" Padding="0"
+                            Margin="0,0,4,0"
+                            ToolTipService.ToolTip="Add table as context">
+                        <Button.Flyout>
+                            <Flyout x:Name="TablePickerFlyout" Placement="Top">
+                                <Grid Width="260" Height="360">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                               Text="Add table as context"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,6" />
+                                    <AutoSuggestBox x:Name="TablePickerSearch"
+                                                    Grid.Row="1"
+                                                    PlaceholderText="Search tables..."
+                                                    QueryIcon="Find"
+                                                    FontSize="12"
+                                                    Margin="0,0,0,6" />
+                                    <ListView x:Name="TablePickerList"
+                                              Grid.Row="2"
+                                              SelectionMode="None"
+                                              FontSize="12" />
+                                </Grid>
+                            </Flyout>
+                        </Button.Flyout>
+                        <Button.Content>
+                            <FontIcon Glyph="&#xE710;" FontSize="14" />
+                        </Button.Content>
+                    </Button>
+
+                    <TextBox x:Name="ChatInputBox" Grid.Column="1"
+                             PlaceholderText="Ask about your database..."
+                             FontSize="12" />
+                    <Button x:Name="SendChatButton" Grid.Column="2"
+                            Margin="4,0,0,0"
+                            Width="32" Height="32" Padding="0">
+                        <FontIcon Glyph="&#xE724;" FontSize="14" />
+                    </Button>
+                </Grid>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

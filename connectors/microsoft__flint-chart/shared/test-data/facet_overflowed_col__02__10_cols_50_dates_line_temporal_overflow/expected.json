@@ -1,0 +1,2682 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null,
+      "columns": 6
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 115,
+      "continuousHeight": 82
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 135
+    },
+    "facet": {
+      "spacing": 8
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2018-01-01",
+        "Value": 55,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 181,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 449,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 131,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 381,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 92,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 176,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 491,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 272,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 535,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 210,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 190,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 508,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 56,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 354,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 385,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 468,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 62,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 154,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 64,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 333,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 139,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 474,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 264,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 405,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 81,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 419,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 251,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 366,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 525,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 169,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 241,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 407,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 449,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 239,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 230,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 398,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 473,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 215,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 385,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 372,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 190,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 502,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 485,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 189,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 369,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 244,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 494,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 84,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 154,
+        "Col": "Electronics"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 538,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 53,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 341,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 514,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 432,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 446,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 273,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 424,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 444,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 477,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 479,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 494,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 156,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 240,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 354,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 129,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 310,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 117,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 545,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 61,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 510,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 127,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 430,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 445,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 416,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 404,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 128,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 155,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 296,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 453,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 459,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 163,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 380,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 234,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 279,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 383,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 332,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 293,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 197,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 511,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 360,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 466,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 61,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 191,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 365,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 284,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 315,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 373,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 376,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 472,
+        "Col": "Clothing"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 335,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 164,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 525,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 141,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 122,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 197,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 416,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 68,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 477,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 61,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 490,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 189,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 84,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 420,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 327,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 218,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 59,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 51,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 326,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 458,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 285,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 307,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 503,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 255,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 546,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 143,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 121,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 232,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 313,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 268,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 481,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 540,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 418,
+        "Col": "Food"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 106,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 215,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 459,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 381,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 94,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 308,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 520,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 211,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 521,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 101,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 497,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 182,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 157,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 375,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 299,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 184,
+        "Col": "Food"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 73,
+        "Col": "Food"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 134,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 223,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 96,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 92,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 382,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 204,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 540,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 516,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 234,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 351,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 395,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 207,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 494,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 366,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 522,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 539,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 200,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 506,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 364,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 164,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 454,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 107,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 55,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 141,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 312,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 386,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 290,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 506,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 383,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 455,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 90,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 497,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 173,
+        "Col": "Books"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 70,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 272,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 177,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 465,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 258,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 382,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 470,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 342,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 427,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 406,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 283,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 104,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 471,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 390,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 463,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 54,
+        "Col": "Books"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 428,
+        "Col": "Books"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 77,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 187,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 182,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 374,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 227,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 395,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 414,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 447,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 385,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 83,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 493,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 194,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 515,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 116,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 441,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 433,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 319,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 505,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 407,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 479,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 356,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 317,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 173,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 491,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 488,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 352,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 209,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 64,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 460,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 279,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 240,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 452,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 160,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 166,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 226,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 125,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 361,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 411,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 92,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 93,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 409,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 311,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 413,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 179,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 268,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 249,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 475,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 547,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 498,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 294,
+        "Col": "Sports"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 437,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 122,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 502,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 545,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 335,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 488,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 354,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 96,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 175,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 59,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 57,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 539,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 101,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 261,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 417,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 401,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 268,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 69,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 321,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 174,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 406,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 402,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 345,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 309,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 152,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 457,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 290,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 346,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 71,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 233,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 323,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 417,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 427,
+        "Col": "Home"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 137,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 429,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 192,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 382,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 242,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 308,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 199,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 309,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 233,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 197,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 467,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 123,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 216,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 386,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 251,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 151,
+        "Col": "Home"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 445,
+        "Col": "Home"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 304,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 214,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 408,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 413,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 293,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 489,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 332,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 74,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 142,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 501,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 484,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 56,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 146,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 331,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 163,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 196,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 172,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 309,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 497,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 57,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 486,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 50,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 137,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 271,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 151,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 135,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 341,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 416,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 322,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 532,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 57,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 67,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 404,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 460,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 358,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 528,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 370,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 499,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 252,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 353,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 381,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 280,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 123,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 374,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 270,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 84,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 464,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 96,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 386,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 293,
+        "Col": "Garden"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 212,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 92,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 143,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 321,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 263,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 456,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 284,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 375,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 203,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 398,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 384,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 283,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 61,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 129,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 85,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 69,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 115,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 76,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 173,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 478,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 359,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 244,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 483,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 426,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 198,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 274,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 345,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 302,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 206,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 413,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 538,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 437,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 512,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 315,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 487,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 319,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 245,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 76,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 216,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 99,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 278,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 138,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 163,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 178,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 246,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 79,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 69,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 209,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 265,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 53,
+        "Col": "Auto"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 186,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 137,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 94,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 317,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 218,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 518,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 222,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 163,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 202,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 470,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 135,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 122,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 195,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 148,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 216,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 536,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 533,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 388,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 220,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 411,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 492,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 101,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 162,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 63,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 215,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 403,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 198,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 277,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 410,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 182,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 488,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 145,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 466,
+        "Col": "Health"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 511,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 148,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 129,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 431,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 160,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 335,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 313,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 139,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 112,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 295,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 160,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 218,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 302,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 205,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 118,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 259,
+        "Col": "Health"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 346,
+        "Col": "Health"
+      },
+      {
+        "Date": "2018-01-01",
+        "Value": 105,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-01-22",
+        "Value": 532,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-02-13",
+        "Value": 463,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-03-07",
+        "Value": 123,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-03-29",
+        "Value": 408,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-04-20",
+        "Value": 154,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-05-12",
+        "Value": 288,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-06-03",
+        "Value": 168,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-06-25",
+        "Value": 294,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-07-17",
+        "Value": 293,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-08-08",
+        "Value": 344,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-08-29",
+        "Value": 92,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-09-20",
+        "Value": 276,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-10-12",
+        "Value": 212,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-11-03",
+        "Value": 402,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-11-25",
+        "Value": 205,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2018-12-17",
+        "Value": 167,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-01-08",
+        "Value": 293,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-01-30",
+        "Value": 438,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-02-21",
+        "Value": 475,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-03-15",
+        "Value": 53,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-04-05",
+        "Value": 131,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-04-27",
+        "Value": 508,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-05-19",
+        "Value": 109,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-06-10",
+        "Value": 233,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-07-02",
+        "Value": 222,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-07-24",
+        "Value": 262,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-08-15",
+        "Value": 57,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-09-06",
+        "Value": 377,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-09-28",
+        "Value": 420,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-10-20",
+        "Value": 538,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-11-10",
+        "Value": 198,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-12-02",
+        "Value": 343,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2019-12-24",
+        "Value": 360,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 303,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 454,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-02-28",
+        "Value": 104,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-03-21",
+        "Value": 401,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-04-12",
+        "Value": 187,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-05-04",
+        "Value": 243,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 521,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-06-16",
+        "Value": 313,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-07-08",
+        "Value": 459,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-07-30",
+        "Value": 314,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-08-21",
+        "Value": 207,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 225,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-10-04",
+        "Value": 152,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-10-26",
+        "Value": 355,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-11-17",
+        "Value": 304,
+        "Col": "Beauty"
+      },
+      {
+        "Date": "2020-12-09",
+        "Value": 407,
+        "Col": "Beauty"
+      }
+    ]
+  },
+  "_width": 115,
+  "_height": 82,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "title": "Decade (number) → Area Chart",
+  "description": "Decades as integers: 1950, 1960, … (8 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": 1950,
+          "Value": 410
+        },
+        {
+          "Decade": 1960,
+          "Value": 490
+        },
+        {
+          "Decade": 1970,
+          "Value": 346
+        },
+        {
+          "Decade": 1980,
+          "Value": 274
+        },
+        {
+          "Decade": 1990,
+          "Value": 208
+        },
+        {
+          "Decade": 2000,
+          "Value": 260
+        },
+        {
+          "Decade": 2010,
+          "Value": 205
+        },
+        {
+          "Decade": 2020,
+          "Value": 213
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

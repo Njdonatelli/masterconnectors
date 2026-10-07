@@ -1,0 +1,157 @@
+{
+  "title": "Decade (string) → Stacked Bar Chart",
+  "description": "Decades as plain strings: \"1950\", \"1960\", … (8 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": "1950",
+          "Value": 164,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "1950",
+          "Value": 545,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "1950",
+          "Value": 74,
+          "Category": "Gamma"
+        },
+        {
+          "Decade": "1960",
+          "Value": 479,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "1960",
+          "Value": 219,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "1960",
+          "Value": 481,
+          "Category": "Gamma"
+        },
+        {
+          "Decade": "1970",
+          "Value": 132,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "1970",
+          "Value": 61,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "1970",
+          "Value": 530,
+          "Category": "Gamma"
+        },
+        {
+          "Decade": "1980",
+          "Value": 380,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "1980",
+          "Value": 85,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "1980",
+          "Value": 117,
+          "Category": "Gamma"
+        },
+        {
+          "Decade": "1990",
+          "Value": 262,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "1990",
+          "Value": 322,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "1990",
+          "Value": 359,
+          "Category": "Gamma"
+        },
+        {
+          "Decade": "2000",
+          "Value": 549,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "2000",
+          "Value": 225,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "2000",
+          "Value": 474,
+          "Category": "Gamma"
+        },
+        {
+          "Decade": "2010",
+          "Value": 240,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "2010",
+          "Value": 53,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "2010",
+          "Value": 198,
+          "Category": "Gamma"
+        },
+        {
+          "Decade": "2020",
+          "Value": 359,
+          "Category": "Alpha"
+        },
+        {
+          "Decade": "2020",
+          "Value": 548,
+          "Category": "Beta"
+        },
+        {
+          "Decade": "2020",
+          "Value": 534,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

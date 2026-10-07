@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  LaunchAgent template for the iai-mcp daemon.
+  Rendered by scripts/install.sh: substitutes {PYTHON_PATH} + {HOME},
+  writes to ~/Library/LaunchAgents/com.iai-mcp.daemon.plist.
+
+  DO NOT edit ~/Library/LaunchAgents/com.iai-mcp.daemon.plist directly —
+  re-run scripts/install.sh after changes here.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.iai-mcp.daemon</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>{PYTHON_PATH}</string>
+    <string>-m</string>
+    <string>iai_mcp.daemon</string>
+  </array>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <!-- Respawn after any unsuccessful death incl. SIGKILL (jetsam), which
+       launchd does not count as Crashed; graceful shutdown exits 0. -->
+  <key>KeepAlive</key>
+  <dict>
+    <key>Crashed</key>
+    <true/>
+    <key>SuccessfulExit</key>
+    <false/>
+  </dict>
+
+  <key>ThrottleInterval</key>
+  <integer>5</integer>
+
+  <!--
+    Interactive, NOT Background: this daemon IS the awake recall path.
+    Background puts the process in the darwin-background QoS band (CPU
+    throttled, low-priority IO), stretching every recall ~3-4x while other
+    apps are active. Consolidation stays polite through its own gates.
+  -->
+  <key>ProcessType</key>
+  <string>Interactive</string>
+
+  <!-- FD floor for a socket-serving daemon. -->
+  <key>SoftResourceLimits</key>
+  <dict>
+    <key>NumberOfFiles</key>
+    <integer>8192</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>{HOME}/.iai-mcp/logs/launchd-stdout.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>{HOME}/.iai-mcp/logs/launchd-stderr.log</string>
+
+  <key>WorkingDirectory</key>
+  <string>{HOME}</string>
+
+  <!--
+    Rendered by the editable-install path (scripts/install.sh).
+    IAI_MCP_LAUNCHD_MANAGED=1 signals launchd ownership so the running
+    process can tell it was started by the LaunchAgent rather than by hand;
+    the operator-install plist carries the same marker and log path so both
+    render targets stay consistent.
+  -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/usr/local/bin:/usr/bin:/bin:/opt/homebrew/bin</string>
+    <key>IAI_MCP_STORE</key>
+    <string>{HOME}/.iai-mcp</string>
+    <key>HOME</key>
+    <string>{HOME}</string>
+    <key>LANG</key>
+    <string>en_US.UTF-8</string>
+    <key>IAI_MCP_LAUNCHD_MANAGED</key>
+    <string>1</string>
+    <!-- mimalloc page decommit: return freed pages to the OS immediately
+         instead of holding them resident until the heap next re-grows. -->
+    <key>MIMALLOC_DECOMMIT_DELAY</key>
+    <string>0</string>
+    <key>MIMALLOC_SEGMENT_DECOMMIT_DELAY</key>
+    <string>0</string>
+    <key>MIMALLOC_ALLOW_DECOMMIT</key>
+    <string>1</string>
+    <key>LIFECYCLE_DROWSY_AFTER_SEC</key>
+    <string>300</string>
+    <key>LIFECYCLE_SLEEP_HEARTBEAT_IDLE_SEC</key>
+    <string>1800</string>
+    <key>LIFECYCLE_HIBERNATE_AFTER_SEC</key>
+    <string>7200</string>
+    <key>IAI_MCP_SLEEP_QUARANTINE_TTL_HOURS</key>
+    <string>24</string>
+    <key>IAI_MCP_WATCHDOG_LIVENESS_POLL_SEC</key>
+    <string>30.0</string>
+    <key>IAI_MCP_WATCHDOG_WARN_POLL_SEC</key>
+    <string>7.0</string>
+    <key>IAI_MCP_WATCHDOG_PROBE_TIMEOUT_SEC</key>
+    <string>5.0</string>
+    <key>IAI_MCP_WATCHDOG_FAILURE_DEBOUNCE_N</key>
+    <string>3</string>
+    <key>IAI_MCP_WATCHDOG_RSS_HARD_CAP_BYTES</key>
+    <string>2684354560</string>
+    <key>IAI_MCP_WATCHDOG_RSS_CONTRIBUTOR_FLOOR_BYTES</key>
+    <string>1610612736</string>
+    <key>IAI_MCP_WATCHDOG_MAX_RECOVERIES</key>
+    <string>3</string>
+    <key>IAI_MCP_WATCHDOG_RECOVERY_WINDOW_SEC</key>
+    <string>600.0</string>
+    <key>IAI_MCP_WATCHDOG_COLD_START_GRACE_SEC</key>
+    <string>600.0</string>
+  </dict>
+</dict>
+</plist>

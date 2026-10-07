@@ -1,0 +1,206 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "size": {
+      "field": "Size",
+      "type": "quantitative",
+      "scale": {
+        "type": "sqrt",
+        "zero": true,
+        "range": [
+          9,
+          361
+        ]
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Electronics",
+        "Group": "China",
+        "Size": 681
+      },
+      {
+        "Category": "Electronics",
+        "Group": "Japan",
+        "Size": 802
+      },
+      {
+        "Category": "Electronics",
+        "Group": "Germany",
+        "Size": 852
+      },
+      {
+        "Category": "Electronics",
+        "Group": "UK",
+        "Size": 860
+      },
+      {
+        "Category": "Clothing",
+        "Group": "USA",
+        "Size": 510
+      },
+      {
+        "Category": "Clothing",
+        "Group": "China",
+        "Size": 508
+      },
+      {
+        "Category": "Clothing",
+        "Group": "Japan",
+        "Size": 778
+      },
+      {
+        "Category": "Clothing",
+        "Group": "Germany",
+        "Size": 908
+      },
+      {
+        "Category": "Clothing",
+        "Group": "UK",
+        "Size": 189
+      },
+      {
+        "Category": "Clothing",
+        "Group": "France",
+        "Size": 744
+      },
+      {
+        "Category": "Food",
+        "Group": "Japan",
+        "Size": 728
+      },
+      {
+        "Category": "Food",
+        "Group": "Germany",
+        "Size": 472
+      },
+      {
+        "Category": "Food",
+        "Group": "UK",
+        "Size": 343
+      },
+      {
+        "Category": "Books",
+        "Group": "USA",
+        "Size": 296
+      },
+      {
+        "Category": "Books",
+        "Group": "Germany",
+        "Size": 324
+      },
+      {
+        "Category": "Books",
+        "Group": "UK",
+        "Size": 510
+      },
+      {
+        "Category": "Books",
+        "Group": "France",
+        "Size": 898
+      },
+      {
+        "Category": "Sports",
+        "Group": "China",
+        "Size": 238
+      },
+      {
+        "Category": "Sports",
+        "Group": "Japan",
+        "Size": 160
+      },
+      {
+        "Category": "Sports",
+        "Group": "France",
+        "Size": 996
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

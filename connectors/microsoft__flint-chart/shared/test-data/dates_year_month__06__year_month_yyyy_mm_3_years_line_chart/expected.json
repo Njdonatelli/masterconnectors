@@ -1,0 +1,310 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 386,
+      "continuousHeight": 311
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 31
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01",
+        "Value": 544
+      },
+      {
+        "Date": "2020-02",
+        "Value": 150
+      },
+      {
+        "Date": "2020-03",
+        "Value": 253
+      },
+      {
+        "Date": "2020-04",
+        "Value": 62
+      },
+      {
+        "Date": "2020-05",
+        "Value": 346
+      },
+      {
+        "Date": "2020-06",
+        "Value": 321
+      },
+      {
+        "Date": "2020-07",
+        "Value": 205
+      },
+      {
+        "Date": "2020-08",
+        "Value": 517
+      },
+      {
+        "Date": "2020-09",
+        "Value": 263
+      },
+      {
+        "Date": "2020-10",
+        "Value": 200
+      },
+      {
+        "Date": "2020-11",
+        "Value": 139
+      },
+      {
+        "Date": "2020-12",
+        "Value": 86
+      },
+      {
+        "Date": "2021-01",
+        "Value": 250
+      },
+      {
+        "Date": "2021-02",
+        "Value": 495
+      },
+      {
+        "Date": "2021-03",
+        "Value": 213
+      },
+      {
+        "Date": "2021-04",
+        "Value": 123
+      },
+      {
+        "Date": "2021-05",
+        "Value": 160
+      },
+      {
+        "Date": "2021-06",
+        "Value": 417
+      },
+      {
+        "Date": "2021-07",
+        "Value": 52
+      },
+      {
+        "Date": "2021-08",
+        "Value": 351
+      },
+      {
+        "Date": "2021-09",
+        "Value": 413
+      },
+      {
+        "Date": "2021-10",
+        "Value": 282
+      },
+      {
+        "Date": "2021-11",
+        "Value": 427
+      },
+      {
+        "Date": "2021-12",
+        "Value": 139
+      },
+      {
+        "Date": "2022-01",
+        "Value": 67
+      },
+      {
+        "Date": "2022-02",
+        "Value": 237
+      },
+      {
+        "Date": "2022-03",
+        "Value": 270
+      },
+      {
+        "Date": "2022-04",
+        "Value": 452
+      },
+      {
+        "Date": "2022-05",
+        "Value": 284
+      },
+      {
+        "Date": "2022-06",
+        "Value": 247
+      },
+      {
+        "Date": "2022-07",
+        "Value": 480
+      },
+      {
+        "Date": "2022-08",
+        "Value": 310
+      },
+      {
+        "Date": "2022-09",
+        "Value": 275
+      },
+      {
+        "Date": "2022-10",
+        "Value": 281
+      },
+      {
+        "Date": "2022-11",
+        "Value": 227
+      },
+      {
+        "Date": "2022-12",
+        "Value": 278
+      }
+    ]
+  },
+  "_width": 386,
+  "_height": 311,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

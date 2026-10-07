@@ -1,0 +1,81 @@
+{
+  "title": "Month (number) → Line Chart",
+  "description": "Months as integers: 1, 2, …, 12 (12 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": 1,
+          "Value": 306
+        },
+        {
+          "Month": 2,
+          "Value": 123
+        },
+        {
+          "Month": 3,
+          "Value": 215
+        },
+        {
+          "Month": 4,
+          "Value": 349
+        },
+        {
+          "Month": 5,
+          "Value": 444
+        },
+        {
+          "Month": 6,
+          "Value": 358
+        },
+        {
+          "Month": 7,
+          "Value": 436
+        },
+        {
+          "Month": 8,
+          "Value": 215
+        },
+        {
+          "Month": 9,
+          "Value": 353
+        },
+        {
+          "Month": 10,
+          "Value": 194
+        },
+        {
+          "Month": 11,
+          "Value": 76
+        },
+        {
+          "Month": 12,
+          "Value": 262
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

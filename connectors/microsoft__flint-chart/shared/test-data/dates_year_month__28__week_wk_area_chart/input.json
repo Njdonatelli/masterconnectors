@@ -1,0 +1,129 @@
+{
+  "title": "Week (Wk ##) → Area Chart",
+  "description": "Week labels: \"Wk 01\", \"Wk 02\", …, \"Wk 24\" (24 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Week": "Wk 01",
+          "Value": 332
+        },
+        {
+          "Week": "Wk 02",
+          "Value": 183
+        },
+        {
+          "Week": "Wk 03",
+          "Value": 439
+        },
+        {
+          "Week": "Wk 04",
+          "Value": 348
+        },
+        {
+          "Week": "Wk 05",
+          "Value": 217
+        },
+        {
+          "Week": "Wk 06",
+          "Value": 128
+        },
+        {
+          "Week": "Wk 07",
+          "Value": 51
+        },
+        {
+          "Week": "Wk 08",
+          "Value": 186
+        },
+        {
+          "Week": "Wk 09",
+          "Value": 236
+        },
+        {
+          "Week": "Wk 10",
+          "Value": 265
+        },
+        {
+          "Week": "Wk 11",
+          "Value": 187
+        },
+        {
+          "Week": "Wk 12",
+          "Value": 386
+        },
+        {
+          "Week": "Wk 13",
+          "Value": 151
+        },
+        {
+          "Week": "Wk 14",
+          "Value": 504
+        },
+        {
+          "Week": "Wk 15",
+          "Value": 123
+        },
+        {
+          "Week": "Wk 16",
+          "Value": 525
+        },
+        {
+          "Week": "Wk 17",
+          "Value": 113
+        },
+        {
+          "Week": "Wk 18",
+          "Value": 193
+        },
+        {
+          "Week": "Wk 19",
+          "Value": 64
+        },
+        {
+          "Week": "Wk 20",
+          "Value": 511
+        },
+        {
+          "Week": "Wk 21",
+          "Value": 146
+        },
+        {
+          "Week": "Wk 22",
+          "Value": 461
+        },
+        {
+          "Week": "Wk 23",
+          "Value": 222
+        },
+        {
+          "Week": "Wk 24",
+          "Value": 240
+        }
+      ]
+    },
+    "semantic_types": {
+      "Week": "Week",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Week"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

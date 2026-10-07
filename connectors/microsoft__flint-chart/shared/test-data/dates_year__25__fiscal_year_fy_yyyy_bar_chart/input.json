@@ -1,0 +1,65 @@
+{
+  "title": "Fiscal Year (FY YYYY) → Bar Chart",
+  "description": "Fiscal years: \"FY 2018\", \"FY 2019\", … (8 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "FiscalYear": "FY 2018",
+          "Value": 59
+        },
+        {
+          "FiscalYear": "FY 2019",
+          "Value": 139
+        },
+        {
+          "FiscalYear": "FY 2020",
+          "Value": 240
+        },
+        {
+          "FiscalYear": "FY 2021",
+          "Value": 448
+        },
+        {
+          "FiscalYear": "FY 2022",
+          "Value": 184
+        },
+        {
+          "FiscalYear": "FY 2023",
+          "Value": 310
+        },
+        {
+          "FiscalYear": "FY 2024",
+          "Value": 535
+        },
+        {
+          "FiscalYear": "FY 2025",
+          "Value": 311
+        }
+      ]
+    },
+    "semantic_types": {
+      "FiscalYear": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "FiscalYear"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

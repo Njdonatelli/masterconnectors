@@ -1,0 +1,2031 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "y": {
+      "field": "Lab",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...29 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Lab042",
+          "Lab089",
+          "Lab006",
+          "Lab017",
+          "Lab032",
+          "Lab071",
+          "Lab080",
+          "Lab083",
+          "Lab097",
+          "Lab108",
+          "Lab120",
+          "Lab013",
+          "Lab049",
+          "Lab056",
+          "Lab058",
+          "Lab094",
+          "Lab019",
+          "Lab039",
+          "Lab050",
+          "Lab069",
+          "Lab078",
+          "Lab090",
+          "Lab098",
+          "Lab011",
+          "Lab070",
+          "Lab084",
+          "Lab035",
+          "Lab053",
+          "Lab115",
+          "Lab116",
+          "Lab008",
+          "Lab018",
+          "Lab045",
+          "Lab060",
+          "Lab063",
+          "Lab022",
+          "Lab028",
+          "Lab034",
+          "Lab048",
+          "Lab077",
+          "Lab079",
+          "Lab114",
+          "Lab002",
+          "Lab014",
+          "Lab020",
+          "Lab037",
+          "Lab046",
+          "Lab107",
+          "Lab001",
+          "Lab030",
+          "Lab040",
+          "Lab064",
+          "Lab067",
+          "Lab068",
+          "Lab036",
+          "Lab054",
+          "Lab059",
+          "Lab062",
+          "Lab091",
+          "Lab117",
+          "Lab038",
+          "Lab082",
+          "Lab093",
+          "Lab101",
+          "Lab043",
+          "Lab061",
+          "Lab088",
+          "Lab119",
+          "Lab044",
+          "Lab095",
+          "Lab109",
+          "Lab118",
+          "Lab027",
+          "Lab073",
+          "Lab096",
+          "Lab007",
+          "Lab015",
+          "Lab047",
+          "Lab075",
+          "Lab065",
+          "Lab072",
+          "Lab106",
+          "Lab029",
+          "Lab031",
+          "Lab113",
+          "Lab087",
+          "Lab112",
+          "Lab005",
+          "Lab055",
+          "Lab026",
+          "Lab041",
+          "...29 items omitted"
+        ]
+      }
+    },
+    "x": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 155,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 6
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "Lab": "Lab001",
+        "Score": 25
+      },
+      {
+        "Lab": "Lab001",
+        "Score": 76
+      },
+      {
+        "Lab": "Lab001",
+        "Score": 67
+      },
+      {
+        "Lab": "Lab001",
+        "Score": 89
+      },
+      {
+        "Lab": "Lab001",
+        "Score": 10
+      },
+      {
+        "Lab": "Lab002",
+        "Score": 33
+      },
+      {
+        "Lab": "Lab002",
+        "Score": 46
+      },
+      {
+        "Lab": "Lab002",
+        "Score": 45
+      },
+      {
+        "Lab": "Lab002",
+        "Score": 91
+      },
+      {
+        "Lab": "Lab002",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab005",
+        "Score": 52
+      },
+      {
+        "Lab": "Lab005",
+        "Score": 26
+      },
+      {
+        "Lab": "Lab005",
+        "Score": 22
+      },
+      {
+        "Lab": "Lab005",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab005",
+        "Score": 78
+      },
+      {
+        "Lab": "Lab006",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab006",
+        "Score": 36
+      },
+      {
+        "Lab": "Lab006",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab006",
+        "Score": 33
+      },
+      {
+        "Lab": "Lab006",
+        "Score": 46
+      },
+      {
+        "Lab": "Lab007",
+        "Score": 18
+      },
+      {
+        "Lab": "Lab007",
+        "Score": 5
+      },
+      {
+        "Lab": "Lab007",
+        "Score": 11
+      },
+      {
+        "Lab": "Lab007",
+        "Score": 82
+      },
+      {
+        "Lab": "Lab007",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab008",
+        "Score": 94
+      },
+      {
+        "Lab": "Lab008",
+        "Score": 37
+      },
+      {
+        "Lab": "Lab008",
+        "Score": 57
+      },
+      {
+        "Lab": "Lab008",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab008",
+        "Score": 43
+      },
+      {
+        "Lab": "Lab011",
+        "Score": 29
+      },
+      {
+        "Lab": "Lab011",
+        "Score": 96
+      },
+      {
+        "Lab": "Lab011",
+        "Score": 3
+      },
+      {
+        "Lab": "Lab011",
+        "Score": 82
+      },
+      {
+        "Lab": "Lab011",
+        "Score": 77
+      },
+      {
+        "Lab": "Lab013",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab013",
+        "Score": 98
+      },
+      {
+        "Lab": "Lab013",
+        "Score": 19
+      },
+      {
+        "Lab": "Lab013",
+        "Score": 17
+      },
+      {
+        "Lab": "Lab013",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab014",
+        "Score": 82
+      },
+      {
+        "Lab": "Lab014",
+        "Score": 91
+      },
+      {
+        "Lab": "Lab014",
+        "Score": 56
+      },
+      {
+        "Lab": "Lab014",
+        "Score": 83
+      },
+      {
+        "Lab": "Lab014",
+        "Score": 18
+      },
+      {
+        "Lab": "Lab015",
+        "Score": 41
+      },
+      {
+        "Lab": "Lab015",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab015",
+        "Score": 56
+      },
+      {
+        "Lab": "Lab015",
+        "Score": 82
+      },
+      {
+        "Lab": "Lab015",
+        "Score": 18
+      },
+      {
+        "Lab": "Lab017",
+        "Score": 48
+      },
+      {
+        "Lab": "Lab017",
+        "Score": 85
+      },
+      {
+        "Lab": "Lab017",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab017",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab017",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab018",
+        "Score": 65
+      },
+      {
+        "Lab": "Lab018",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab018",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab018",
+        "Score": 93
+      },
+      {
+        "Lab": "Lab018",
+        "Score": 69
+      },
+      {
+        "Lab": "Lab019",
+        "Score": 74
+      },
+      {
+        "Lab": "Lab019",
+        "Score": 8
+      },
+      {
+        "Lab": "Lab019",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab019",
+        "Score": 97
+      },
+      {
+        "Lab": "Lab019",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab020",
+        "Score": 62
+      },
+      {
+        "Lab": "Lab020",
+        "Score": 47
+      },
+      {
+        "Lab": "Lab020",
+        "Score": 91
+      },
+      {
+        "Lab": "Lab020",
+        "Score": 2
+      },
+      {
+        "Lab": "Lab020",
+        "Score": 17
+      },
+      {
+        "Lab": "Lab022",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab022",
+        "Score": 83
+      },
+      {
+        "Lab": "Lab022",
+        "Score": 55
+      },
+      {
+        "Lab": "Lab022",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab022",
+        "Score": 7
+      },
+      {
+        "Lab": "Lab026",
+        "Score": 16
+      },
+      {
+        "Lab": "Lab026",
+        "Score": 20
+      },
+      {
+        "Lab": "Lab026",
+        "Score": 58
+      },
+      {
+        "Lab": "Lab026",
+        "Score": 75
+      },
+      {
+        "Lab": "Lab026",
+        "Score": 38
+      },
+      {
+        "Lab": "Lab027",
+        "Score": 11
+      },
+      {
+        "Lab": "Lab027",
+        "Score": 16
+      },
+      {
+        "Lab": "Lab027",
+        "Score": 58
+      },
+      {
+        "Lab": "Lab027",
+        "Score": 83
+      },
+      {
+        "Lab": "Lab027",
+        "Score": 0
+      },
+      {
+        "Lab": "Lab028",
+        "Score": 20
+      },
+      {
+        "Lab": "Lab028",
+        "Score": 4
+      },
+      {
+        "Lab": "Lab028",
+        "Score": 69
+      },
+      {
+        "Lab": "Lab028",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab028",
+        "Score": 66
+      },
+      {
+        "Lab": "Lab029",
+        "Score": 19
+      },
+      {
+        "Lab": "Lab029",
+        "Score": 4
+      },
+      {
+        "Lab": "Lab029",
+        "Score": 13
+      },
+      {
+        "Lab": "Lab029",
+        "Score": 80
+      },
+      {
+        "Lab": "Lab029",
+        "Score": 35
+      },
+      {
+        "Lab": "Lab030",
+        "Score": 88
+      },
+      {
+        "Lab": "Lab030",
+        "Score": 58
+      },
+      {
+        "Lab": "Lab030",
+        "Score": 32
+      },
+      {
+        "Lab": "Lab030",
+        "Score": 51
+      },
+      {
+        "Lab": "Lab030",
+        "Score": 2
+      },
+      {
+        "Lab": "Lab031",
+        "Score": 80
+      },
+      {
+        "Lab": "Lab031",
+        "Score": 21
+      },
+      {
+        "Lab": "Lab031",
+        "Score": 73
+      },
+      {
+        "Lab": "Lab031",
+        "Score": 53
+      },
+      {
+        "Lab": "Lab031",
+        "Score": 44
+      },
+      {
+        "Lab": "Lab032",
+        "Score": 67
+      },
+      {
+        "Lab": "Lab032",
+        "Score": 52
+      },
+      {
+        "Lab": "Lab032",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab032",
+        "Score": 75
+      },
+      {
+        "Lab": "Lab032",
+        "Score": 34
+      },
+      {
+        "Lab": "Lab034",
+        "Score": 16
+      },
+      {
+        "Lab": "Lab034",
+        "Score": 62
+      },
+      {
+        "Lab": "Lab034",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab034",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab034",
+        "Score": 85
+      },
+      {
+        "Lab": "Lab035",
+        "Score": 12
+      },
+      {
+        "Lab": "Lab035",
+        "Score": 8
+      },
+      {
+        "Lab": "Lab035",
+        "Score": 95
+      },
+      {
+        "Lab": "Lab035",
+        "Score": 94
+      },
+      {
+        "Lab": "Lab035",
+        "Score": 37
+      },
+      {
+        "Lab": "Lab036",
+        "Score": 17
+      },
+      {
+        "Lab": "Lab036",
+        "Score": 87
+      },
+      {
+        "Lab": "Lab036",
+        "Score": 26
+      },
+      {
+        "Lab": "Lab036",
+        "Score": 43
+      },
+      {
+        "Lab": "Lab036",
+        "Score": 78
+      },
+      {
+        "Lab": "Lab037",
+        "Score": 60
+      },
+      {
+        "Lab": "Lab037",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab037",
+        "Score": 91
+      },
+      {
+        "Lab": "Lab037",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab037",
+        "Score": 44
+      },
+      {
+        "Lab": "Lab038",
+        "Score": 36
+      },
+      {
+        "Lab": "Lab038",
+        "Score": 77
+      },
+      {
+        "Lab": "Lab038",
+        "Score": 43
+      },
+      {
+        "Lab": "Lab038",
+        "Score": 65
+      },
+      {
+        "Lab": "Lab038",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab039",
+        "Score": 97
+      },
+      {
+        "Lab": "Lab039",
+        "Score": 91
+      },
+      {
+        "Lab": "Lab039",
+        "Score": 93
+      },
+      {
+        "Lab": "Lab039",
+        "Score": 37
+      },
+      {
+        "Lab": "Lab039",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab040",
+        "Score": 88
+      },
+      {
+        "Lab": "Lab040",
+        "Score": 71
+      },
+      {
+        "Lab": "Lab040",
+        "Score": 49
+      },
+      {
+        "Lab": "Lab040",
+        "Score": 13
+      },
+      {
+        "Lab": "Lab040",
+        "Score": 13
+      },
+      {
+        "Lab": "Lab041",
+        "Score": 75
+      },
+      {
+        "Lab": "Lab041",
+        "Score": 34
+      },
+      {
+        "Lab": "Lab041",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab041",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab041",
+        "Score": 37
+      },
+      {
+        "Lab": "Lab042",
+        "Score": 100
+      },
+      {
+        "Lab": "Lab042",
+        "Score": 3
+      },
+      {
+        "Lab": "Lab042",
+        "Score": 35
+      },
+      {
+        "Lab": "Lab042",
+        "Score": 11
+      },
+      {
+        "Lab": "Lab042",
+        "Score": 26
+      },
+      {
+        "Lab": "Lab043",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab043",
+        "Score": 33
+      },
+      {
+        "Lab": "Lab043",
+        "Score": 56
+      },
+      {
+        "Lab": "Lab043",
+        "Score": 24
+      },
+      {
+        "Lab": "Lab043",
+        "Score": 85
+      },
+      {
+        "Lab": "Lab044",
+        "Score": 15
+      },
+      {
+        "Lab": "Lab044",
+        "Score": 75
+      },
+      {
+        "Lab": "Lab044",
+        "Score": 84
+      },
+      {
+        "Lab": "Lab044",
+        "Score": 71
+      },
+      {
+        "Lab": "Lab044",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab045",
+        "Score": 93
+      },
+      {
+        "Lab": "Lab045",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab045",
+        "Score": 88
+      },
+      {
+        "Lab": "Lab045",
+        "Score": 51
+      },
+      {
+        "Lab": "Lab045",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab046",
+        "Score": 48
+      },
+      {
+        "Lab": "Lab046",
+        "Score": 29
+      },
+      {
+        "Lab": "Lab046",
+        "Score": 70
+      },
+      {
+        "Lab": "Lab046",
+        "Score": 69
+      },
+      {
+        "Lab": "Lab046",
+        "Score": 91
+      },
+      {
+        "Lab": "Lab047",
+        "Score": 53
+      },
+      {
+        "Lab": "Lab047",
+        "Score": 47
+      },
+      {
+        "Lab": "Lab047",
+        "Score": 82
+      },
+      {
+        "Lab": "Lab047",
+        "Score": 56
+      },
+      {
+        "Lab": "Lab047",
+        "Score": 26
+      },
+      {
+        "Lab": "Lab048",
+        "Score": 59
+      },
+      {
+        "Lab": "Lab048",
+        "Score": 36
+      },
+      {
+        "Lab": "Lab048",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab048",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab048",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab049",
+        "Score": 66
+      },
+      {
+        "Lab": "Lab049",
+        "Score": 70
+      },
+      {
+        "Lab": "Lab049",
+        "Score": 50
+      },
+      {
+        "Lab": "Lab049",
+        "Score": 98
+      },
+      {
+        "Lab": "Lab049",
+        "Score": 42
+      },
+      {
+        "Lab": "Lab050",
+        "Score": 42
+      },
+      {
+        "Lab": "Lab050",
+        "Score": 63
+      },
+      {
+        "Lab": "Lab050",
+        "Score": 80
+      },
+      {
+        "Lab": "Lab050",
+        "Score": 59
+      },
+      {
+        "Lab": "Lab050",
+        "Score": 97
+      },
+      {
+        "Lab": "Lab053",
+        "Score": 85
+      },
+      {
+        "Lab": "Lab053",
+        "Score": 46
+      },
+      {
+        "Lab": "Lab053",
+        "Score": 10
+      },
+      {
+        "Lab": "Lab053",
+        "Score": 95
+      },
+      {
+        "Lab": "Lab053",
+        "Score": 32
+      },
+      {
+        "Lab": "Lab054",
+        "Score": 28
+      },
+      {
+        "Lab": "Lab054",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab054",
+        "Score": 43
+      },
+      {
+        "Lab": "Lab054",
+        "Score": 87
+      },
+      {
+        "Lab": "Lab054",
+        "Score": 65
+      },
+      {
+        "Lab": "Lab055",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab055",
+        "Score": 32
+      },
+      {
+        "Lab": "Lab055",
+        "Score": 29
+      },
+      {
+        "Lab": "Lab055",
+        "Score": 67
+      },
+      {
+        "Lab": "Lab055",
+        "Score": 78
+      },
+      {
+        "Lab": "Lab056",
+        "Score": 26
+      },
+      {
+        "Lab": "Lab056",
+        "Score": 87
+      },
+      {
+        "Lab": "Lab056",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab056",
+        "Score": 98
+      },
+      {
+        "Lab": "Lab056",
+        "Score": 58
+      },
+      {
+        "Lab": "Lab058",
+        "Score": 25
+      },
+      {
+        "Lab": "Lab058",
+        "Score": 52
+      },
+      {
+        "Lab": "Lab058",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab058",
+        "Score": 98
+      },
+      {
+        "Lab": "Lab058",
+        "Score": 66
+      },
+      {
+        "Lab": "Lab059",
+        "Score": 65
+      },
+      {
+        "Lab": "Lab059",
+        "Score": 87
+      },
+      {
+        "Lab": "Lab059",
+        "Score": 49
+      },
+      {
+        "Lab": "Lab059",
+        "Score": 66
+      },
+      {
+        "Lab": "Lab059",
+        "Score": 77
+      },
+      {
+        "Lab": "Lab060",
+        "Score": 30
+      },
+      {
+        "Lab": "Lab060",
+        "Score": 62
+      },
+      {
+        "Lab": "Lab060",
+        "Score": 93
+      },
+      {
+        "Lab": "Lab060",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab060",
+        "Score": 4
+      },
+      {
+        "Lab": "Lab061",
+        "Score": 83
+      },
+      {
+        "Lab": "Lab061",
+        "Score": 17
+      },
+      {
+        "Lab": "Lab061",
+        "Score": 9
+      },
+      {
+        "Lab": "Lab061",
+        "Score": 85
+      },
+      {
+        "Lab": "Lab061",
+        "Score": 75
+      },
+      {
+        "Lab": "Lab062",
+        "Score": 87
+      },
+      {
+        "Lab": "Lab062",
+        "Score": 60
+      },
+      {
+        "Lab": "Lab062",
+        "Score": 17
+      },
+      {
+        "Lab": "Lab062",
+        "Score": 35
+      },
+      {
+        "Lab": "Lab062",
+        "Score": 46
+      },
+      {
+        "Lab": "Lab063",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab063",
+        "Score": 30
+      },
+      {
+        "Lab": "Lab063",
+        "Score": 63
+      },
+      {
+        "Lab": "Lab063",
+        "Score": 93
+      },
+      {
+        "Lab": "Lab063",
+        "Score": 56
+      },
+      {
+        "Lab": "Lab064",
+        "Score": 12
+      },
+      {
+        "Lab": "Lab064",
+        "Score": 59
+      },
+      {
+        "Lab": "Lab064",
+        "Score": 75
+      },
+      {
+        "Lab": "Lab064",
+        "Score": 39
+      },
+      {
+        "Lab": "Lab064",
+        "Score": 88
+      },
+      {
+        "Lab": "Lab065",
+        "Score": 16
+      },
+      {
+        "Lab": "Lab065",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab065",
+        "Score": 81
+      },
+      {
+        "Lab": "Lab065",
+        "Score": 45
+      },
+      {
+        "Lab": "Lab065",
+        "Score": 15
+      },
+      {
+        "Lab": "Lab067",
+        "Score": 17
+      },
+      {
+        "Lab": "Lab067",
+        "Score": 4
+      },
+      {
+        "Lab": "Lab067",
+        "Score": 88
+      },
+      {
+        "Lab": "Lab067",
+        "Score": 69
+      },
+      {
+        "Lab": "Lab067",
+        "Score": 53
+      },
+      {
+        "Lab": "Lab068",
+        "Score": 88
+      },
+      {
+        "Lab": "Lab068",
+        "Score": 54
+      },
+      {
+        "Lab": "Lab068",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab068",
+        "Score": 15
+      },
+      {
+        "Lab": "Lab068",
+        "Score": 42
+      },
+      {
+        "Lab": "Lab069",
+        "Score": 19
+      },
+      {
+        "Lab": "Lab069",
+        "Score": 97
+      },
+      {
+        "Lab": "Lab069",
+        "Score": 48
+      },
+      {
+        "Lab": "Lab069",
+        "Score": 15
+      },
+      {
+        "Lab": "Lab069",
+        "Score": 63
+      },
+      {
+        "Lab": "Lab070",
+        "Score": 96
+      },
+      {
+        "Lab": "Lab070",
+        "Score": 10
+      },
+      {
+        "Lab": "Lab070",
+        "Score": 66
+      },
+      {
+        "Lab": "Lab070",
+        "Score": 91
+      },
+      {
+        "Lab": "Lab070",
+        "Score": 66
+      },
+      {
+        "Lab": "Lab071",
+        "Score": 16
+      },
+      {
+        "Lab": "Lab071",
+        "Score": 57
+      },
+      {
+        "Lab": "Lab071",
+        "Score": 32
+      },
+      {
+        "Lab": "Lab071",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab071",
+        "Score": 22
+      },
+      {
+        "Lab": "Lab072",
+        "Score": 73
+      },
+      {
+        "Lab": "Lab072",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab072",
+        "Score": 30
+      },
+      {
+        "Lab": "Lab072",
+        "Score": 0
+      },
+      {
+        "Lab": "Lab072",
+        "Score": 81
+      },
+      {
+        "Lab": "Lab073",
+        "Score": 58
+      },
+      {
+        "Lab": "Lab073",
+        "Score": 83
+      },
+      {
+        "Lab": "Lab073",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab073",
+        "Score": 20
+      },
+      {
+        "Lab": "Lab073",
+        "Score": 8
+      },
+      {
+        "Lab": "Lab075",
+        "Score": 82
+      },
+      {
+        "Lab": "Lab075",
+        "Score": 57
+      },
+      {
+        "Lab": "Lab075",
+        "Score": 78
+      },
+      {
+        "Lab": "Lab075",
+        "Score": 20
+      },
+      {
+        "Lab": "Lab075",
+        "Score": 36
+      },
+      {
+        "Lab": "Lab077",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab077",
+        "Score": 45
+      },
+      {
+        "Lab": "Lab077",
+        "Score": 37
+      },
+      {
+        "Lab": "Lab077",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab077",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab078",
+        "Score": 73
+      },
+      {
+        "Lab": "Lab078",
+        "Score": 46
+      },
+      {
+        "Lab": "Lab078",
+        "Score": 70
+      },
+      {
+        "Lab": "Lab078",
+        "Score": 97
+      },
+      {
+        "Lab": "Lab078",
+        "Score": 61
+      },
+      {
+        "Lab": "Lab079",
+        "Score": 2
+      },
+      {
+        "Lab": "Lab079",
+        "Score": 23
+      },
+      {
+        "Lab": "Lab079",
+        "Score": 74
+      },
+      {
+        "Lab": "Lab079",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab079",
+        "Score": 62
+      },
+      {
+        "Lab": "Lab080",
+        "Score": 5
+      },
+      {
+        "Lab": "Lab080",
+        "Score": 11
+      },
+      {
+        "Lab": "Lab080",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab080",
+        "Score": 80
+      },
+      {
+        "Lab": "Lab080",
+        "Score": 88
+      },
+      {
+        "Lab": "Lab082",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab082",
+        "Score": 54
+      },
+      {
+        "Lab": "Lab082",
+        "Score": 46
+      },
+      {
+        "Lab": "Lab082",
+        "Score": 64
+      },
+      {
+        "Lab": "Lab082",
+        "Score": 26
+      },
+      {
+        "Lab": "Lab083",
+        "Score": 34
+      },
+      {
+        "Lab": "Lab083",
+        "Score": 28
+      },
+      {
+        "Lab": "Lab083",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab083",
+        "Score": 22
+      },
+      {
+        "Lab": "Lab083",
+        "Score": 71
+      },
+      {
+        "Lab": "Lab084",
+        "Score": 26
+      },
+      {
+        "Lab": "Lab084",
+        "Score": 96
+      },
+      {
+        "Lab": "Lab084",
+        "Score": 56
+      },
+      {
+        "Lab": "Lab084",
+        "Score": 24
+      },
+      {
+        "Lab": "Lab084",
+        "Score": 57
+      },
+      {
+        "Lab": "Lab087",
+        "Score": 58
+      },
+      {
+        "Lab": "Lab087",
+        "Score": 25
+      },
+      {
+        "Lab": "Lab087",
+        "Score": 29
+      },
+      {
+        "Lab": "Lab087",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab087",
+        "Score": 47
+      },
+      {
+        "Lab": "Lab088",
+        "Score": 53
+      },
+      {
+        "Lab": "Lab088",
+        "Score": 84
+      },
+      {
+        "Lab": "Lab088",
+        "Score": 80
+      },
+      {
+        "Lab": "Lab088",
+        "Score": 80
+      },
+      {
+        "Lab": "Lab088",
+        "Score": 85
+      },
+      {
+        "Lab": "Lab089",
+        "Score": 9
+      },
+      {
+        "Lab": "Lab089",
+        "Score": 16
+      },
+      {
+        "Lab": "Lab089",
+        "Score": 100
+      },
+      {
+        "Lab": "Lab089",
+        "Score": 8
+      },
+      {
+        "Lab": "Lab089",
+        "Score": 74
+      },
+      {
+        "Lab": "Lab090",
+        "Score": 90
+      },
+      {
+        "Lab": "Lab090",
+        "Score": 97
+      },
+      {
+        "Lab": "Lab090",
+        "Score": 45
+      },
+      {
+        "Lab": "Lab090",
+        "Score": 42
+      },
+      {
+        "Lab": "Lab090",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab091",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab091",
+        "Score": 39
+      },
+      {
+        "Lab": "Lab091",
+        "Score": 42
+      },
+      {
+        "Lab": "Lab091",
+        "Score": 87
+      },
+      {
+        "Lab": "Lab091",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab093",
+        "Score": 40
+      },
+      {
+        "Lab": "Lab093",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab093",
+        "Score": 69
+      },
+      {
+        "Lab": "Lab093",
+        "Score": 61
+      },
+      {
+        "Lab": "Lab093",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab094",
+        "Score": 4
+      },
+      {
+        "Lab": "Lab094",
+        "Score": 32
+      },
+      {
+        "Lab": "Lab094",
+        "Score": 98
+      },
+      {
+        "Lab": "Lab094",
+        "Score": 64
+      },
+      {
+        "Lab": "Lab094",
+        "Score": 48
+      },
+      {
+        "Lab": "Lab095",
+        "Score": 56
+      },
+      {
+        "Lab": "Lab095",
+        "Score": 82
+      },
+      {
+        "Lab": "Lab095",
+        "Score": 75
+      },
+      {
+        "Lab": "Lab095",
+        "Score": 57
+      },
+      {
+        "Lab": "Lab095",
+        "Score": 84
+      },
+      {
+        "Lab": "Lab096",
+        "Score": 43
+      },
+      {
+        "Lab": "Lab096",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab096",
+        "Score": 33
+      },
+      {
+        "Lab": "Lab096",
+        "Score": 83
+      },
+      {
+        "Lab": "Lab096",
+        "Score": 74
+      },
+      {
+        "Lab": "Lab097",
+        "Score": 98
+      },
+      {
+        "Lab": "Lab097",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab097",
+        "Score": 41
+      },
+      {
+        "Lab": "Lab097",
+        "Score": 4
+      },
+      {
+        "Lab": "Lab097",
+        "Score": 8
+      },
+      {
+        "Lab": "Lab098",
+        "Score": 34
+      },
+      {
+        "Lab": "Lab098",
+        "Score": 1
+      },
+      {
+        "Lab": "Lab098",
+        "Score": 97
+      },
+      {
+        "Lab": "Lab098",
+        "Score": 64
+      },
+      {
+        "Lab": "Lab098",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab101",
+        "Score": 54
+      },
+      {
+        "Lab": "Lab101",
+        "Score": 51
+      },
+      {
+        "Lab": "Lab101",
+        "Score": 39
+      },
+      {
+        "Lab": "Lab101",
+        "Score": 48
+      },
+      {
+        "Lab": "Lab101",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab106",
+        "Score": 9
+      },
+      {
+        "Lab": "Lab106",
+        "Score": 81
+      },
+      {
+        "Lab": "Lab106",
+        "Score": 9
+      },
+      {
+        "Lab": "Lab106",
+        "Score": 1
+      },
+      {
+        "Lab": "Lab106",
+        "Score": 13
+      },
+      {
+        "Lab": "Lab107",
+        "Score": 27
+      },
+      {
+        "Lab": "Lab107",
+        "Score": 90
+      },
+      {
+        "Lab": "Lab107",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab107",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab107",
+        "Score": 12
+      },
+      {
+        "Lab": "Lab108",
+        "Score": 99
+      },
+      {
+        "Lab": "Lab108",
+        "Score": 96
+      },
+      {
+        "Lab": "Lab108",
+        "Score": 74
+      },
+      {
+        "Lab": "Lab108",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab108",
+        "Score": 86
+      },
+      {
+        "Lab": "Lab109",
+        "Score": 54
+      },
+      {
+        "Lab": "Lab109",
+        "Score": 58
+      },
+      {
+        "Lab": "Lab109",
+        "Score": 9
+      },
+      {
+        "Lab": "Lab109",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab109",
+        "Score": 84
+      },
+      {
+        "Lab": "Lab112",
+        "Score": 15
+      },
+      {
+        "Lab": "Lab112",
+        "Score": 13
+      },
+      {
+        "Lab": "Lab112",
+        "Score": 79
+      },
+      {
+        "Lab": "Lab112",
+        "Score": 78
+      },
+      {
+        "Lab": "Lab112",
+        "Score": 37
+      },
+      {
+        "Lab": "Lab113",
+        "Score": 39
+      },
+      {
+        "Lab": "Lab113",
+        "Score": 12
+      },
+      {
+        "Lab": "Lab113",
+        "Score": 80
+      },
+      {
+        "Lab": "Lab113",
+        "Score": 13
+      },
+      {
+        "Lab": "Lab113",
+        "Score": 34
+      },
+      {
+        "Lab": "Lab114",
+        "Score": 10
+      },
+      {
+        "Lab": "Lab114",
+        "Score": 62
+      },
+      {
+        "Lab": "Lab114",
+        "Score": 92
+      },
+      {
+        "Lab": "Lab114",
+        "Score": 41
+      },
+      {
+        "Lab": "Lab114",
+        "Score": 16
+      },
+      {
+        "Lab": "Lab115",
+        "Score": 95
+      },
+      {
+        "Lab": "Lab115",
+        "Score": 46
+      },
+      {
+        "Lab": "Lab115",
+        "Score": 5
+      },
+      {
+        "Lab": "Lab115",
+        "Score": 8
+      },
+      {
+        "Lab": "Lab115",
+        "Score": 44
+      },
+      {
+        "Lab": "Lab116",
+        "Score": 10
+      },
+      {
+        "Lab": "Lab116",
+        "Score": 95
+      },
+      {
+        "Lab": "Lab116",
+        "Score": 2
+      },
+      {
+        "Lab": "Lab116",
+        "Score": 55
+      },
+      {
+        "Lab": "Lab116",
+        "Score": 13
+      },
+      {
+        "Lab": "Lab117",
+        "Score": 3
+      },
+      {
+        "Lab": "Lab117",
+        "Score": 15
+      },
+      {
+        "Lab": "Lab117",
+        "Score": 14
+      },
+      {
+        "Lab": "Lab117",
+        "Score": 68
+      },
+      {
+        "Lab": "Lab117",
+        "Score": 87
+      },
+      {
+        "Lab": "Lab118",
+        "Score": 69
+      },
+      {
+        "Lab": "Lab118",
+        "Score": 84
+      },
+      {
+        "Lab": "Lab118",
+        "Score": 73
+      },
+      {
+        "Lab": "Lab118",
+        "Score": 24
+      },
+      {
+        "Lab": "Lab118",
+        "Score": 54
+      },
+      {
+        "Lab": "Lab119",
+        "Score": 15
+      },
+      {
+        "Lab": "Lab119",
+        "Score": 85
+      },
+      {
+        "Lab": "Lab119",
+        "Score": 66
+      },
+      {
+        "Lab": "Lab119",
+        "Score": 2
+      },
+      {
+        "Lab": "Lab119",
+        "Score": 31
+      },
+      {
+        "Lab": "Lab120",
+        "Score": 1
+      },
+      {
+        "Lab": "Lab120",
+        "Score": 72
+      },
+      {
+        "Lab": "Lab120",
+        "Score": 44
+      },
+      {
+        "Lab": "Lab120",
+        "Score": 1
+      },
+      {
+        "Lab": "Lab120",
+        "Score": 99
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "29 of 120 values in 'Lab' were omitted (showing top 91).",
+      "channel": "y",
+      "field": "Lab"
+    }
+  ],
+  "_width": 155,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

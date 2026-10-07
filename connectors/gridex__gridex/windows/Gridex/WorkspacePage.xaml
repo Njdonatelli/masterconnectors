@@ -1,0 +1,463 @@
+<Page
+    x:Class="Gridex.WorkspacePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex"
+    Background="Transparent">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Top Toolbar -->
+        <Grid x:Name="TopToolbar" Grid.Row="0" Padding="12,8"
+              Background="{ThemeResource LayerFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+              BorderThickness="0,0,0,1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Home + Sidebar Toggle + Database Picker -->
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="4">
+                <Button x:Name="HomeBtn" Width="32" Height="32" Padding="0"
+                        Background="Transparent" BorderThickness="0"
+                        ToolTipService.ToolTip="Back to Connections (Ctrl+H)">
+                    <FontIcon Glyph="&#xE80F;" FontSize="14" />
+                </Button>
+                <Button x:Name="SidebarToggleBtn" Width="32" Height="32" Padding="0"
+                        Background="Transparent" BorderThickness="0"
+                        ToolTipService.ToolTip="Toggle Sidebar">
+                    <FontIcon Glyph="&#xE700;" FontSize="14" />
+                </Button>
+
+                <!-- Database Picker (dynamically populated) -->
+                <DropDownButton x:Name="DbPickerButton" Padding="6,4"
+                                Background="Transparent" BorderThickness="0"
+                                ToolTipService.ToolTip="Switch Database">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <FontIcon Glyph="&#xEDA2;" FontSize="13" />
+                        <TextBlock x:Name="DbPickerText" Text="app_db" FontSize="12" />
+                    </StackPanel>
+                    <DropDownButton.Flyout>
+                        <!-- Custom Flyout instead of MenuFlyout so the
+                             "+ New database" button can stay pinned below
+                             a scrollable database list rather than living
+                             inside the scroll region. -->
+                        <Flyout x:Name="DbPickerFlyout" Placement="Bottom">
+                            <Flyout.FlyoutPresenterStyle>
+                                <Style TargetType="FlyoutPresenter">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="MinWidth" Value="220" />
+                                </Style>
+                            </Flyout.FlyoutPresenterStyle>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" MaxHeight="380" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Database list — populated programmatically -->
+                                <ScrollViewer Grid.Row="0"
+                                              VerticalScrollBarVisibility="Auto"
+                                              HorizontalScrollMode="Disabled">
+                                    <StackPanel x:Name="DbPickerItemsPanel"
+                                                Padding="4" Spacing="0" />
+                                </ScrollViewer>
+
+                                <!-- Sticky bottom: New database button -->
+                                <Border Grid.Row="1"
+                                        BorderThickness="0,1,0,0"
+                                        BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}">
+                                    <Button x:Name="NewDatabaseBtn"
+                                            HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Left"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Padding="12,8">
+                                        <StackPanel Orientation="Horizontal" Spacing="8">
+                                            <FontIcon Glyph="&#xE710;" FontSize="12" />
+                                            <TextBlock Text="New database&#x2026;" FontSize="13" />
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+                            </Grid>
+                        </Flyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+            </StackPanel>
+
+            <!-- Center: Connection Breadcrumb -->
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8"
+                        Margin="12,0,0,0" VerticalAlignment="Center">
+                <Ellipse x:Name="ConnectionDot" Width="8" Height="8" />
+                <TextBlock x:Name="ConnectionNameText" FontWeight="SemiBold" FontSize="12"
+                           Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                <TextBlock x:Name="ConnectionInfoText" FontSize="11"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+            </StackPanel>
+
+            <!-- Right toolbar, grouped: [Backup] | [Schema] | [App] -->
+            <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="4">
+                <!-- Group 1: Backup / Restore -->
+                <Button x:Name="DumpBtn" Width="32" Height="32" Padding="0"
+                        Background="Transparent" BorderThickness="0"
+                        ToolTipService.ToolTip="Dump Database">
+                    <FontIcon Glyph="&#xE74E;" FontSize="14" />
+                </Button>
+                <Button x:Name="RestoreBtn" Width="32" Height="32" Padding="0"
+                        Background="Transparent" BorderThickness="0"
+                        ToolTipService.ToolTip="Restore Database">
+                    <FontIcon Glyph="&#xE777;" FontSize="14" />
+                </Button>
+
+                <Border Width="1" Height="20" Margin="4,0"
+                        Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                <!-- Group 2: Schema visualization -->
+                <Button x:Name="ERDiagramBtn" Width="32" Height="32" Padding="0"
+                        Background="Transparent" BorderThickness="0"
+                        ToolTipService.ToolTip="ER Diagram (current schema)">
+                    <FontIcon Glyph="&#xF169;" FontSize="14" />
+                </Button>
+
+                <Border Width="1" Height="20" Margin="4,0"
+                        Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+                <!-- Group 3: UI toggles + app settings -->
+                <Button x:Name="DetailsToggleBtn" Width="32" Height="32" Padding="0"
+                        Background="Transparent" BorderThickness="0"
+                        ToolTipService.ToolTip="Toggle Details Panel">
+                    <FontIcon Glyph="&#xE146;" FontSize="14" />
+                </Button>
+                <Button x:Name="SettingsBtn" Width="32" Height="32" Padding="0"
+                        Background="Transparent" BorderThickness="0"
+                        ToolTipService.ToolTip="Settings (Ctrl+Shift+P)">
+                    <FontIcon Glyph="&#xE713;" FontSize="14" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Main 3-Panel Layout -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="SidebarColumn" Width="280" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" MinWidth="400" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition x:Name="DetailsColumn" Width="260" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Sidebar -->
+            <local:SidebarPanel x:Name="Sidebar" Grid.Column="0" />
+
+            <!-- Left resize grip: 5px transparent hit area with 1px visible
+                 divider centered inside. Drag handlers wired in code-behind. -->
+            <Grid x:Name="LeftSidebarResizer" Grid.Column="1" Width="5"
+                  Background="Transparent">
+                <Border Width="1" HorizontalAlignment="Center"
+                        Background="{ThemeResource DividerStrokeColorDefaultBrush}"
+                        IsHitTestVisible="False" />
+            </Grid>
+
+            <!-- Main Content Area -->
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <!-- Tab Bar -->
+                <local:TabBarControl x:Name="TabBar" Grid.Row="0" />
+
+                <!-- Content Switcher -->
+                <Grid x:Name="ContentArea" Grid.Row="1">
+                    <!-- Empty state -->
+                    <StackPanel x:Name="EmptyContentState"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Spacing="8">
+                        <FontIcon Glyph="&#xE8F1;" FontSize="48"
+                                  Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                  HorizontalAlignment="Center" />
+                        <TextBlock Text="Select a table or run a query"
+                                   FontSize="14"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+                    </StackPanel>
+
+                    <!-- DataGrid -->
+                    <local:DataGridView x:Name="DataGrid" Visibility="Collapsed" />
+                    <!-- Structure View -->
+                    <local:StructureView x:Name="Structure" Visibility="Collapsed" />
+                    <!-- Query Editor -->
+                    <local:QueryEditorView x:Name="QueryEditor" Visibility="Collapsed" />
+                    <!-- Loader overlay shown while LoadTableDataFromDB is
+                         in flight. Sits as the last child of ContentArea so
+                         it stacks on top of DataGrid / Structure / etc. -->
+                    <Grid x:Name="DataLoadingOverlay"
+                          Visibility="Collapsed"
+                          Background="{ThemeResource SolidBackgroundFillColorBaseBrush}">
+                        <StackPanel HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Spacing="12">
+                            <ProgressRing IsActive="True"
+                                          Width="40" Height="40"
+                                          HorizontalAlignment="Center" />
+                            <TextBlock x:Name="DataLoadingText"
+                                       Text="Loading table..."
+                                       FontSize="13"
+                                       Opacity="0.7"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
+                    <!-- ER Diagram View — WebView2 hosts inline SVG (Direct2D
+                         doesn't render <text> in SVG, so we use the browser). -->
+                    <Grid x:Name="ERDiagramView" Visibility="Collapsed">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="ERDiagramSubtitle" Grid.Row="0"
+                                   FontSize="12" Opacity="0.7"
+                                   Margin="12,8,12,4" />
+                        <!-- Row 1 hosts WebView, loader, and floating controls.
+                             Loader and WebView swap via Visibility; controls
+                             overlay top-right. -->
+                        <Grid Grid.Row="1">
+                            <WebView2 x:Name="ERDiagramWebView" />
+                            <StackPanel x:Name="ERDiagramLoadingPanel"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Spacing="12"
+                                        Visibility="Collapsed">
+                                <ProgressRing IsActive="True"
+                                              Width="48" Height="48"
+                                              HorizontalAlignment="Center" />
+                                <TextBlock x:Name="ERDiagramLoadingText"
+                                           Text="Generating ER diagram..."
+                                           FontSize="14"
+                                           Opacity="0.7"
+                                           HorizontalAlignment="Center" />
+                            </StackPanel>
+
+                            <!-- Floating top-right controls: zoom in/out,
+                                 zoom %, reset layout, fullscreen toggle -->
+                            <Border x:Name="ERControlsPanel"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Margin="0,12,12,0"
+                                    CornerRadius="6"
+                                    Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
+                                    BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    Padding="2">
+                                <StackPanel Orientation="Horizontal" Spacing="0">
+                                    <Button x:Name="ERZoomOutBtn"
+                                            Width="28" Height="28" Padding="0"
+                                            Background="Transparent" BorderThickness="0"
+                                            ToolTipService.ToolTip="Zoom Out">
+                                        <FontIcon Glyph="&#xE71F;" FontSize="12" />
+                                    </Button>
+                                    <Button x:Name="ERZoomLabelBtn"
+                                            MinWidth="48" Height="28" Padding="4,0"
+                                            Background="Transparent" BorderThickness="0"
+                                            ToolTipService.ToolTip="Reset Zoom (100%)">
+                                        <TextBlock x:Name="ERZoomLabel"
+                                                   Text="100%" FontSize="11"
+                                                   TextAlignment="Center" />
+                                    </Button>
+                                    <Button x:Name="ERZoomInBtn"
+                                            Width="28" Height="28" Padding="0"
+                                            Background="Transparent" BorderThickness="0"
+                                            ToolTipService.ToolTip="Zoom In">
+                                        <FontIcon Glyph="&#xE71E;" FontSize="12" />
+                                    </Button>
+                                    <Border Width="1" Height="20" Margin="2,0"
+                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                    <Button x:Name="ERResetLayoutBtn"
+                                            Width="28" Height="28" Padding="0"
+                                            Background="Transparent" BorderThickness="0"
+                                            ToolTipService.ToolTip="Reset Table Positions">
+                                        <FontIcon Glyph="&#xE72C;" FontSize="12" />
+                                    </Button>
+                                    <Button x:Name="ERFullscreenBtn"
+                                            Width="28" Height="28" Padding="0"
+                                            Background="Transparent" BorderThickness="0"
+                                            ToolTipService.ToolTip="Toggle Fullscreen">
+                                        <FontIcon x:Name="ERFullscreenIcon"
+                                                  Glyph="&#xE740;" FontSize="12" />
+                                    </Button>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8"
+                                    HorizontalAlignment="Right" Padding="12,8">
+                            <Button x:Name="ERExportPngBtn" Content="Export PNG..."
+                                    ToolTipService.ToolTip="Save the diagram as a PNG image" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <!-- Query Log Panel. Top row hosts a 5px vertical resize
+                     grip; the 1px divider line is now drawn inside the grip
+                     instead of via the panel's BorderThickness. -->
+                <Grid x:Name="QueryLogPanel" Grid.Row="2" Height="140">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Top resize grip — drag vertically to grow/shrink -->
+                    <Grid x:Name="QueryLogResizer" Grid.Row="0"
+                          Background="Transparent">
+                        <Border Height="1" VerticalAlignment="Top"
+                                Background="{ThemeResource DividerStrokeColorDefaultBrush}"
+                                IsHitTestVisible="False" />
+                    </Grid>
+
+                    <Grid Grid.Row="1" Padding="8,4"
+                          Background="{ThemeResource LayerFillColorDefaultBrush}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Query Log" FontSize="11" FontWeight="SemiBold"
+                                   VerticalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <Button x:Name="ClearLogBtn" Grid.Column="1"
+                                Padding="6,2" FontSize="10"
+                                Background="Transparent" BorderThickness="0"
+                                Content="Clear" />
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="2" x:Name="QueryLogScroller"
+                                  VerticalScrollBarVisibility="Auto"
+                                  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                        <StackPanel x:Name="QueryLogEntries" Spacing="4" Padding="12,6" />
+                    </ScrollViewer>
+                </Grid>
+
+                <!-- Filter Bar -->
+                <local:FilterBar x:Name="FilterBarControl" Grid.Row="3" Visibility="Collapsed" />
+
+                <!-- Bottom Bar -->
+                <Grid x:Name="BottomBar" Grid.Row="4"
+                      Padding="8,4"
+                      Background="{ThemeResource LayerFillColorDefaultBrush}"
+                      BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                      BorderThickness="0,1,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Data | Structure toggle -->
+                    <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="0">
+                        <ToggleButton x:Name="DataToggle" Content="Data"
+                                      IsChecked="True" Padding="10,4" />
+                        <ToggleButton x:Name="StructureToggle" Content="Structure"
+                                      Padding="10,4" />
+                    </StackPanel>
+
+                    <!-- + Row / Duplicate Row Buttons -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal"
+                                Spacing="2" Margin="8,0,0,0">
+                        <Button x:Name="AddRowBtn"
+                                Padding="6,4"
+                                Background="Transparent" BorderThickness="0"
+                                ToolTipService.ToolTip="Add Row">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <FontIcon Glyph="&#xE710;" FontSize="10" />
+                                <TextBlock Text="Row" FontSize="11" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="DuplicateRowBtn"
+                                Padding="6,4"
+                                Background="Transparent" BorderThickness="0"
+                                IsEnabled="False"
+                                ToolTipService.ToolTip="Duplicate selected row (pending — edit before commit)">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <FontIcon Glyph="&#xE8C8;" FontSize="10" />
+                                <TextBlock Text="Duplicate" FontSize="11" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Pagination -->
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="4"
+                                VerticalAlignment="Center">
+                        <Button x:Name="PrevPageBtn" Width="24" Height="24" Padding="0"
+                                Background="Transparent" BorderThickness="0"
+                                ToolTipService.ToolTip="Previous Page">
+                            <FontIcon Glyph="&#xE76B;" FontSize="10" />
+                        </Button>
+                        <TextBlock x:Name="PaginationText" Text="0 rows"
+                                   FontSize="11" VerticalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <Button x:Name="NextPageBtn" Width="24" Height="24" Padding="0"
+                                Background="Transparent" BorderThickness="0"
+                                ToolTipService.ToolTip="Next Page">
+                            <FontIcon Glyph="&#xE76C;" FontSize="10" />
+                        </Button>
+                    </StackPanel>
+
+                    <!-- Pending Changes -->
+                    <StackPanel x:Name="PendingChangesPanel" Grid.Column="4"
+                                Orientation="Horizontal" Spacing="6"
+                                Margin="12,0,0,0" Visibility="Collapsed">
+                        <TextBlock x:Name="PendingCountText" FontSize="11"
+                                   VerticalAlignment="Center"
+                                   Foreground="Orange" />
+                        <Button x:Name="DiscardBtn" Content="Discard"
+                                Padding="6,2" FontSize="11" />
+                        <Button x:Name="CommitBottomBtn" Content="Commit"
+                                Padding="6,2" FontSize="11"
+                                Style="{StaticResource AccentButtonStyle}" />
+                    </StackPanel>
+
+                    <!-- Filter Toggle -->
+                    <Button x:Name="FilterToggleBtn" Grid.Column="5" Margin="8,0,0,0"
+                            Padding="6,4"
+                            Background="Transparent" BorderThickness="0"
+                            ToolTipService.ToolTip="Toggle Filters">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon Glyph="&#xE71C;" FontSize="10" />
+                            <TextBlock Text="Filters" FontSize="11" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <!-- Right resize grip: mirrors LeftSidebarResizer, drag handlers
+                 in code-behind adjust DetailsColumn.Width live. -->
+            <Grid x:Name="RightSidebarResizer" Grid.Column="3" Width="5"
+                  Background="Transparent">
+                <Border Width="1" HorizontalAlignment="Center"
+                        Background="{ThemeResource DividerStrokeColorDefaultBrush}"
+                        IsHitTestVisible="False" />
+            </Grid>
+
+            <!-- Details Panel -->
+            <local:DetailsPanel x:Name="Details" Grid.Column="4" />
+        </Grid>
+
+        <!-- Status Bar -->
+        <local:StatusBarControl x:Name="StatusBar" Grid.Row="2" />
+    </Grid>
+</Page>

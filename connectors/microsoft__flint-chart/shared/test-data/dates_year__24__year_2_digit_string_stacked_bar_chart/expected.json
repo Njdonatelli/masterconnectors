@@ -1,0 +1,244 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "1997-07-02T09:20:00.000Z",
+          "2007-07-02T14:40:00.000Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 297,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Year": "1998",
+        "Value": 340,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "1998",
+        "Value": 477,
+        "Category": "Beta"
+      },
+      {
+        "Year": "1998",
+        "Value": 494,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "1999",
+        "Value": 450,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "1999",
+        "Value": 291,
+        "Category": "Beta"
+      },
+      {
+        "Year": "1999",
+        "Value": 386,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2000",
+        "Value": 541,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2000",
+        "Value": 423,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2000",
+        "Value": 323,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2001",
+        "Value": 269,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2001",
+        "Value": 339,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2001",
+        "Value": 224,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2002",
+        "Value": 188,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2002",
+        "Value": 527,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2002",
+        "Value": 106,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2003",
+        "Value": 312,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2003",
+        "Value": 541,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2003",
+        "Value": 457,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2004",
+        "Value": 406,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2004",
+        "Value": 114,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2004",
+        "Value": 222,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2005",
+        "Value": 522,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2005",
+        "Value": 63,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2005",
+        "Value": 292,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2006",
+        "Value": 128,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2006",
+        "Value": 53,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2006",
+        "Value": 214,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2007",
+        "Value": 412,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2007",
+        "Value": 429,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2007",
+        "Value": 461,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 297,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

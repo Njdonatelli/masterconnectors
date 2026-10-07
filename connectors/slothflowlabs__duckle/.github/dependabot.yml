@@ -1,0 +1,108 @@
+version: 2
+# Quiet, but not so quiet that nothing can land.
+#
+# Everything used to be one grouped PR per ecosystem with majors included. That
+# kept the noise down but produced a single 32-crate pull request carrying
+# thiserror 1->2, axum 0.7->0.8, zip 2->8 and redis 0.27->1.6 - a migration
+# rather than an update - and every safe patch in it had to wait for that work.
+#
+# So: two groups per ecosystem. Minor and patch travel together and can be
+# merged as soon as CI is green, which is where security patches live. Majors
+# are grouped on their own, so a red build there blocks only the majors. The
+# cadence stays monthly and the PR count stays small.
+updates:
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    # lopdf is not ours to choose. src.pdf parses each document TWICE - our
+    # lopdf reads the page tree and the Info dictionary, then pdf-extract reads
+    # the text - and connectors.rs joins the two results POSITIONALLY, by index.
+    # That is sound only while both sides are the same parser, which they are
+    # because pdf-extract pins lopdf 0.42 and so do we. Bumping our copy alone
+    # puts two versions of a PDF parser in the binary and makes that positional
+    # join a cross-version one, where a disagreement about the page tree
+    # silently attaches a page's text to a different page.
+    #
+    # There is nothing to gain from it either: lopdf's only advisory
+    # (RUSTSEC-2026-0187, unbounded recursion) is patched in >= 0.42.0, and
+    # 0.44's decompression-bomb limit is opt-in by its author's own decision,
+    # so it does nothing unless called.
+    #
+    # Drop this entry when pdf-extract moves - then bump both together. Until
+    # then a future lopdf advisory reaches us through the cargo-audit job
+    # rather than through a dependabot PR.
+    # arrow is not ours to choose either, for the same reason lopdf is not: it
+    # has to agree with what else is in the binary. duckle-lance hands
+    # RecordBatches between lancedb and its own arrow, and lancedb 0.38 declares
+    # arrow-array 58.0 while vortex declares 58.3. Taking arrow 59 puts two
+    # arrow majors in one binary and the handoff stops type-checking:
+    #
+    #   error[E0308]: expected `arrow_schema::schema::Schema`,
+    #                    found `lancedb::arrow::arrow_schema::Schema`
+    #
+    # So arrow tracks lancedb and vortex rather than "latest". Patches inside
+    # the current major still arrive; only the major is withheld. Drop these
+    # four entries when lancedb and vortex both declare the next arrow.
+    #
+    # This is not hypothetical: the same grouped bump has now been proposed and
+    # withdrawn twice (#337, #339). The LanceDB sidecar workflow catches it, but
+    # a gate that fires every month on a change nobody can take is noise, and
+    # the point of an ignore is to stop proposing what cannot be merged.
+    ignore:
+      - dependency-name: "lopdf"
+      - dependency-name: "arrow-array"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "arrow-schema"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "arrow-select"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "parquet"
+        update-types: ["version-update:semver-major"]
+      # vortex 0.85 is a measured RUNTIME regression, not a compile problem.
+      # Once the arrow bridge is repointed it builds, and then refuses to write:
+      # "Extension DType vortex.date not permitted by enabled editions", and
+      # with the date column removed, "struct column writer finished before all
+      # chunks were sent". 0.85 introduced editions and reworked the write path.
+      # 0.75 round-trips with zero differing rows.
+      #
+      # Withheld entirely rather than by version, because which future release
+      # fixes editions is not knowable from here. Revisit by hand: take the
+      # bump, run `cargo test -p duckle-lance`, and keep it only if the
+      # round-trip test passes. A vortex advisory would reach us through the
+      # cargo-audit job meanwhile, as with lopdf.
+      - dependency-name: "vortex"
+    groups:
+      cargo-safe:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+      cargo-major:
+        patterns: ["*"]
+        update-types: ["major"]
+
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    groups:
+      npm-safe:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+      npm-major:
+        patterns: ["*"]
+        update-types: ["major"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 2
+    groups:
+      actions-safe:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+      actions-major:
+        patterns: ["*"]
+        update-types: ["major"]

@@ -1,0 +1,468 @@
+name: Release
+
+# Tag a version (e.g. `git tag v0.0.5 && git push --tags`) to build the
+# Duckle binary for every OS and attach it directly to a draft GitHub
+# release. We do NOT ship installers (no NSIS / MSI / DMG / DEB / RPM /
+# AppImage). The asset on the release is the raw executable that the
+# user can run.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Existing release tag to (re)upload binaries to. Builds from the branch this run is dispatched on; the tag itself is never moved. Leave empty on a normal tag push.'
+        required: false
+        default: ''
+      os_filter:
+        description: 'Limit the re-roll to one OS family. "all" builds every binary (default, and always used on a tag push); "linux" rebuilds and re-uploads only the two Linux binaries, leaving the macOS/Windows assets untouched.'
+        required: false
+        type: choice
+        default: 'all'
+        options:
+          - all
+          - linux
+
+jobs:
+  # Single point that creates the draft release so the per-OS build
+  # jobs don't race on `gh release create`.
+  prepare-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create draft release if missing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          REL_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: |
+          set -e
+          tag="$REL_TAG"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "release $tag already exists"
+          else
+            gh release create "$tag" --draft --title "Duckle $tag"
+          fi
+
+  # Build the static Linux runner ONCE. It serves two purposes:
+  #   1. a workflow artifact the per-OS build jobs embed, so a shipped desktop
+  #      binary can cross-build a Linux pipeline file from any OS;
+  #   2. a published release asset, so a pipeline repo's CI can gate on
+  #      `duckle-runner validate`.
+  # (2) cannot be served by the desktop asset. Duckle-linux-x64 is a Tauri
+  # binary with libwebkit2gtk-4.1, libgtk-3, libsoup-3, libjavascriptcoregtk,
+  # libgdk-3, libgdk_pixbuf and libcairo in DT_NEEDED. Those resolve at load
+  # time, before main() and before the headless-CLI branch, so on a runner with
+  # no GUI stack it cannot start at all. This runner is static musl with no
+  # shared-library deps, so it runs on alpine or in a scratch container.
+  # The job fails loudly if the runner is not produced, so a release can never
+  # ship with the Linux target silently disabled.
+  build-linux-runner:
+    needs: prepare-release
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Build the static Linux duckle-runner (musl, in Docker)
+        run: bash scripts/build-runner-linux.sh
+      - name: Upload as a workflow artifact (embedded by the desktop builds)
+        uses: actions/upload-artifact@v7
+        with:
+          name: duckle-runner-linux-x64
+          path: apps/desktop/bin/duckle-runner-linux-x64
+          if-no-files-found: error
+      # Runs before the `build` matrix, which runs before `checksums`, so the
+      # asset is always present by the time SHA256SUMS is computed.
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          REL_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: |
+          set -e
+          gh release upload "$REL_TAG" \
+            apps/desktop/bin/duckle-runner-linux-x64 --clobber
+
+  # #313 criterion 3: publish the capability registry with the release, so a
+  # tool or an agent can target a KNOWN Duckle version rather than asking a
+  # binary it may not have. Runs before `checksums`, like the runner asset, so
+  # SHA256SUMS covers it.
+  capability-registry:
+    needs: prepare-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+
+      # duckle-runner links unixODBC statically, so building it needs the
+      # system libraries even though this job only wants the registry JSON.
+      # Without them the job died on `could not find native static library
+      # odbc` - after the whole workspace had compiled - and v0.7.2 built every
+      # binary but shipped no capabilities.json. libltdl-dev goes alongside
+      # unixodbc-dev for the static link (#131), the same pair ci.yml installs.
+      - name: Install ODBC build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unixodbc-dev libltdl-dev
+
+      - name: Generate the registry
+        env:
+          REL_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: |
+          set -e
+          cargo run --release -p duckle-runner -- capabilities --json > capabilities.json
+          # Stamp the release it describes. The command itself cannot know the
+          # tag - it is a property of the publication, not of the build.
+          python3 - "$REL_TAG" <<'PY'
+          import json, sys
+          d = json.load(open("capabilities.json"))
+          d["duckleVersion"] = sys.argv[1]
+          json.dump(d, open("capabilities.json", "w"), indent=2)
+          print(f"stamped {d['count']} components as {sys.argv[1]}")
+          PY
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          REL_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: gh release upload "$REL_TAG" capabilities.json --clobber
+
+  # Compute the build matrix so a workflow_dispatch can re-roll a single OS
+  # family (os_filter=linux) without rebuilding/clobbering the other assets. A
+  # normal tag push leaves os_filter unset and builds every binary.
+  #   macOS: both built on the macos-14 (Apple Silicon) runner. The Intel binary
+  #   is cross-compiled to x86_64-apple-darwin rather than run on a macos-13
+  #   runner: GitHub's Intel-mac runners are scarce / being deprecated and
+  #   routinely leave the job queued for hours, stalling the whole release.
+  plan:
+    needs: prepare-release
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+    steps:
+      - id: set
+        shell: bash
+        env:
+          OS_FILTER: ${{ github.event.inputs.os_filter }}
+        run: |
+          linux='[{"os":"ubuntu-24.04","binary":"duckle","asset":"Duckle-linux-x64"},{"os":"ubuntu-24.04-arm","binary":"duckle","asset":"Duckle-linux-arm64"}]'
+          all='[{"os":"ubuntu-24.04","binary":"duckle","asset":"Duckle-linux-x64"},{"os":"ubuntu-24.04-arm","binary":"duckle","asset":"Duckle-linux-arm64"},{"os":"macos-14","binary":"duckle","asset":"Duckle-macos-x64","target":"x86_64-apple-darwin"},{"os":"macos-14","binary":"duckle","asset":"Duckle-macos-arm64"},{"os":"windows-latest","binary":"duckle.exe","asset":"Duckle-windows-x64.exe"},{"os":"windows-11-arm","binary":"duckle.exe","asset":"Duckle-windows-arm64.exe"}]'
+          if [ "$OS_FILTER" = "linux" ]; then include="$linux"; else include="$all"; fi
+          echo "matrix={\"include\":$include}" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: [prepare-release, build-linux-runner, plan]
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      # Reclaim ~20 GB on Linux runners so the full workspace + embedded
+      # binaries build does not hit "No space left on device".
+      - name: Free disk space (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /opt/hostedtoolcache/CodeQL /usr/local/.ghcup /usr/local/share/boost \
+            /usr/local/share/powershell /usr/share/swift || true
+          sudo docker image prune --all --force || true
+          df -h /
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend deps
+        run: npm --prefix frontend ci
+      - name: Build frontend (embedded into the Rust binary)
+        run: npm --prefix frontend run build
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target || '' }}
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Linux WebView deps (Tauri)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev libgtk-3-dev \
+            libayatana-appindicator3-dev librsvg2-dev libsoup-3.0-dev \
+            unixodbc-dev libltdl-dev
+          # unixodbc-dev + libltdl-dev ship the static archives (libodbc.a,
+          # libodbcinst.a, libltdl.a) the Teradata connector links statically on
+          # Linux, so the shipped binary needs no libodbc.so.2 at runtime (#131).
+          # Point odbc-sys at those archives (compile-time bundling + final link)
+          # for this arch; redundant with .cargo/config.toml but robust if a
+          # RUSTFLAGS override ever shadows the config rustflags.
+          echo "ODBC_SYS_STATIC_PATH=/usr/lib/$(gcc -dumpmachine)" >> "$GITHUB_ENV"
+
+      - name: Build duckle-runner + duckle-mcp (bundled into the app)
+        shell: bash
+        run: |
+          set -e
+          if [ -n "${{ matrix.target }}" ]; then
+            cargo build --profile release-runner --target "${{ matrix.target }}" -p duckle-runner -p duckle-mcp
+            base="target/${{ matrix.target }}/release-runner"
+          else
+            cargo build --profile release-runner -p duckle-runner -p duckle-mcp
+            base="target/release-runner"
+          fi
+          mkdir -p apps/desktop/bin
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            cp "$base/duckle-runner.exe" apps/desktop/bin/duckle-runner.exe
+            cp "$base/duckle-mcp.exe" apps/desktop/bin/duckle-mcp.exe
+          else
+            cp "$base/duckle-runner" apps/desktop/bin/duckle-runner
+            cp "$base/duckle-mcp" apps/desktop/bin/duckle-mcp
+          fi
+
+      # Stage the prebuilt static Linux runner so build.rs embeds it into THIS
+      # desktop binary, enabling Build Pipeline -> Linux from any OS. This is a
+      # workflow artifact from the build-linux-runner job, never a release asset.
+      - name: Stage the embedded Linux runner
+        uses: actions/download-artifact@v8
+        with:
+          name: duckle-runner-linux-x64
+          path: apps/desktop/bin
+
+      # protoc is needed only by the LanceDB sidecar build below (lancedb ->
+      # lance pulls prost-build); the engine/desktop builds don't need it.
+      - name: Install protoc (for the LanceDB sidecar)
+        uses: arduino/setup-protoc@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Build the LanceDB sidecar (duckle-lance) and stage it so build.rs embeds
+      # it into THIS desktop binary -> src.lancedb / snk.lancedb work out of the
+      # box. Kept out of the engine because lancedb pulls DataFusion + needs
+      # protoc. Best-effort: if a (cross-)target build fails, the bundle omits it
+      # and LanceDB nodes fall back to a duckle-lance on PATH / DUCKLE_LANCE_BIN.
+      - name: Build duckle-lance (LanceDB sidecar)
+        # Skip on the Linux arm64 runner only: the LanceDB sidecar pulls
+        # DataFusion + Vortex, and compiling those exhausts that runner (the job
+        # dies mid-build with no logs, the signature of an out-of-resource kill),
+        # which continue-on-error cannot catch because the runner itself is lost.
+        # arm64 Linux desktop then falls back to a duckle-lance on PATH /
+        # DUCKLE_LANCE_BIN, the same best-effort path this step already documents.
+        # Every other target (incl. windows-arm64) still bundles it.
+        if: ${{ !(runner.os == 'Linux' && runner.arch == 'ARM64') }}
+        shell: bash
+        continue-on-error: true
+        run: |
+          set -e
+          if [ -n "${{ matrix.target }}" ]; then
+            cargo build --profile release-runner --target "${{ matrix.target }}" -p duckle-lance
+            base="target/${{ matrix.target }}/release-runner"
+          else
+            cargo build --profile release-runner -p duckle-lance
+            base="target/release-runner"
+          fi
+          mkdir -p apps/desktop/bin
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            cp "$base/duckle-lance.exe" apps/desktop/bin/duckle-lance.exe
+          else
+            cp "$base/duckle-lance" apps/desktop/bin/duckle-lance
+          fi
+
+      # The runner/mcp/lance binaries are already staged into apps/desktop/bin/,
+      # so their release-runner build tree (multi-GB, lance pulls DataFusion +
+      # Vortex + Arrow) is dead weight for the desktop build below, which writes a
+      # second full target/release tree. Drop it first so the arm64 Linux runner
+      # does not run out of disk: the "Free disk space" step above barely helps
+      # there because the x86 toolchains it deletes are absent on arm64. Linux
+      # only; the desktop build uses the release profile, not release-runner, so
+      # this costs no rebuild. df before/after for visibility if it ever recurs.
+      - name: Reclaim disk before the desktop build (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -e
+          df -h . || true
+          if [ -n "${{ matrix.target }}" ]; then
+            rm -rf "target/${{ matrix.target }}/release-runner"
+          else
+            rm -rf target/release-runner
+          fi
+          df -h . || true
+
+      - name: Build raw Duckle binary
+        shell: bash
+        run: |
+          set -e
+          if [ -n "${{ matrix.target }}" ]; then
+            cargo build --release --target "${{ matrix.target }}" \
+              --manifest-path apps/desktop/Cargo.toml --features custom-protocol
+          else
+            cargo build --release \
+              --manifest-path apps/desktop/Cargo.toml --features custom-protocol
+          fi
+
+      - name: Stage release assets
+        shell: bash
+        run: |
+          set -e
+          mkdir -p _release
+          if [ -n "${{ matrix.target }}" ]; then
+            src="target/${{ matrix.target }}/release/${{ matrix.binary }}"
+          else
+            src="target/release/${{ matrix.binary }}"
+          fi
+          # The standalone desktop binary, named exactly as before so the
+          # in-app update check (apps/desktop/src/update_check.rs) and the
+          # README download table keep matching it. Single file, double-click.
+          # The duckle-runner is embedded into this binary at compile time
+          # (no separate with-runner asset needed).
+          cp "$src" "_release/${{ matrix.asset }}"
+
+      # Guard (issue #131): a shipped Linux binary must NOT carry a dynamic
+      # libodbc.so dependency, or it fails to launch on machines without
+      # unixODBC installed. The Teradata connector links unixODBC statically on
+      # Linux (engine `teradata-static`); this check fails the release loudly if
+      # that ever regresses, for the published asset and the two bundled gnu
+      # binaries embedded into it.
+      - name: Verify Linux binaries do not require libodbc.so
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -e
+          fail=0
+          for b in "_release/${{ matrix.asset }}" \
+                   apps/desktop/bin/duckle-runner \
+                   apps/desktop/bin/duckle-mcp; do
+            [ -f "$b" ] || { echo "skip (missing): $b"; continue; }
+            if readelf -d "$b" 2>/dev/null | grep -qi 'libodbc'; then
+              echo "FAIL: $b dynamically requires libodbc.so"
+              readelf -d "$b" 2>/dev/null | grep -i 'NEEDED' || true
+              fail=1
+            else
+              echo "ok: $b (no libodbc.so dependency)"
+            fi
+          done
+          [ "$fail" = 0 ] || { echo "::error::A Linux binary requires libodbc.so (issue #131 regression)"; exit 1; }
+
+      - name: Upload to release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          REL_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: |
+          set -e
+          asset="${{ matrix.asset }}"
+          gh release upload "$REL_TAG" "_release/$asset" --clobber
+
+  # Publish a software bill of materials with the release, so a deployment can
+  # answer "does this version contain <crate>?" against the artifact it actually
+  # installed, rather than against whatever the repository looks like today.
+  # CycloneDX because that is what the scanners consume.
+  sbom:
+    name: Publish SBOM
+    needs: prepare-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          format: cyclonedx-json
+          output-file: duckle-sbom.cdx.json
+          upload-artifact: false
+          upload-release-assets: false
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: duckle-sbom.cdx.json
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          REL_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: gh release upload "$REL_TAG" duckle-sbom.cdx.json --clobber
+
+  # Publish SHA256SUMS.txt covering the 6 binaries so the in-app self-updater
+  # can verify a downloaded build before swapping it in. Uploads are per-matrix
+  # job, so checksums must be a separate job that pulls the finished assets back.
+  checksums:
+    name: Publish SHA256SUMS
+    # capability-registry is named explicitly rather than relied on to finish
+    # first: it uploads an asset (#313) and SHA256SUMS must cover it.
+    needs: [build, capability-registry]
+    # Run even when a build leg failed (issue #156). The successful legs still
+    # re-upload their binaries via --clobber, so if this job is skipped the
+    # published SHA256SUMS.txt keeps stale checksums for the changed binaries and
+    # the in-app self-updater aborts every update with a checksum mismatch. It
+    # re-downloads whatever is actually on the release and checksums that, so the
+    # sums always match the published binaries even after a partial re-roll. Skip
+    # only on cancellation.
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      # Build provenance is signed with this workflow's own short-lived OIDC
+      # identity through Sigstore, so it needs no signing key or certificate of
+      # ours to manage, rotate or lose.
+      id-token: write
+      attestations: write
+    steps:
+      - name: Download assets, checksum, upload
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          REL_TAG: ${{ github.event.inputs.release_tag || github.ref_name }}
+        run: |
+          set -e
+          mkdir -p _sums && cd _sums
+          gh release download "$REL_TAG" --clobber
+          # Checksum the published binaries (not any prior SHA file): the 6
+          # desktop apps plus the headless runner, which CI downloads. The
+          # in-app self-updater verifies a downloaded build against this file
+          # before swapping it in, and looks its own asset up by name, so the
+          # extra line is safe.
+          sha256sum \
+            Duckle-linux-x64 Duckle-linux-arm64 \
+            Duckle-macos-x64 Duckle-macos-arm64 \
+            Duckle-windows-x64.exe Duckle-windows-arm64.exe \
+            duckle-runner-linux-x64 \
+            > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+          gh release upload "$REL_TAG" SHA256SUMS.txt --clobber
+
+      # What SHA256SUMS.txt cannot say: WHERE a binary came from. The checksum
+      # proves a download was not altered in flight; it says nothing about who
+      # built it, from which commit, or on what workflow - so a substituted
+      # asset with a matching, also-substituted sums file passes. Provenance
+      # binds each digest to this repository, this commit and this run, and a
+      # consumer checks it without trusting the release page:
+      #
+      #   gh attestation verify Duckle-linux-x64 --repo ${{ github.repository }}
+      #
+      # Deliberately not the same thing as code signing. Authenticode and
+      # macOS notarization still need a purchased certificate; this is the
+      # supply-chain half, and it is free and keyless.
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            _sums/Duckle-linux-x64
+            _sums/Duckle-linux-arm64
+            _sums/Duckle-macos-x64
+            _sums/Duckle-macos-arm64
+            _sums/Duckle-windows-x64.exe
+            _sums/Duckle-windows-arm64.exe
+            _sums/duckle-runner-linux-x64
+            _sums/SHA256SUMS.txt

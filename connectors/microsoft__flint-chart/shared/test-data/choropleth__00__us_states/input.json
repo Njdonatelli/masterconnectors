@@ -1,0 +1,233 @@
+{
+  "title": "US states",
+  "description": "Each US state filled by its 2020 population (millions). The region property is set to US. Rows carry plain state names; the gazetteer resolves them (or USPS codes / FIPS ids) to the us-10m.json TopoJSON feature ids.",
+  "chartType": "Choropleth",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "state": "Alabama",
+          "value": 5.02
+        },
+        {
+          "state": "Alaska",
+          "value": 0.73
+        },
+        {
+          "state": "Arizona",
+          "value": 7.15
+        },
+        {
+          "state": "Arkansas",
+          "value": 3.01
+        },
+        {
+          "state": "California",
+          "value": 39.54
+        },
+        {
+          "state": "Colorado",
+          "value": 5.77
+        },
+        {
+          "state": "Connecticut",
+          "value": 3.61
+        },
+        {
+          "state": "Delaware",
+          "value": 0.99
+        },
+        {
+          "state": "District of Columbia",
+          "value": 0.69
+        },
+        {
+          "state": "Florida",
+          "value": 21.54
+        },
+        {
+          "state": "Georgia",
+          "value": 10.71
+        },
+        {
+          "state": "Hawaii",
+          "value": 1.46
+        },
+        {
+          "state": "Idaho",
+          "value": 1.84
+        },
+        {
+          "state": "Illinois",
+          "value": 12.81
+        },
+        {
+          "state": "Indiana",
+          "value": 6.79
+        },
+        {
+          "state": "Iowa",
+          "value": 3.19
+        },
+        {
+          "state": "Kansas",
+          "value": 2.94
+        },
+        {
+          "state": "Kentucky",
+          "value": 4.51
+        },
+        {
+          "state": "Louisiana",
+          "value": 4.66
+        },
+        {
+          "state": "Maine",
+          "value": 1.36
+        },
+        {
+          "state": "Maryland",
+          "value": 6.18
+        },
+        {
+          "state": "Massachusetts",
+          "value": 7.03
+        },
+        {
+          "state": "Michigan",
+          "value": 10.08
+        },
+        {
+          "state": "Minnesota",
+          "value": 5.71
+        },
+        {
+          "state": "Mississippi",
+          "value": 2.96
+        },
+        {
+          "state": "Missouri",
+          "value": 6.15
+        },
+        {
+          "state": "Montana",
+          "value": 1.08
+        },
+        {
+          "state": "Nebraska",
+          "value": 1.96
+        },
+        {
+          "state": "Nevada",
+          "value": 3.1
+        },
+        {
+          "state": "New Hampshire",
+          "value": 1.38
+        },
+        {
+          "state": "New Jersey",
+          "value": 9.29
+        },
+        {
+          "state": "New Mexico",
+          "value": 2.12
+        },
+        {
+          "state": "New York",
+          "value": 20.2
+        },
+        {
+          "state": "North Carolina",
+          "value": 10.44
+        },
+        {
+          "state": "North Dakota",
+          "value": 0.78
+        },
+        {
+          "state": "Ohio",
+          "value": 11.8
+        },
+        {
+          "state": "Oklahoma",
+          "value": 3.96
+        },
+        {
+          "state": "Oregon",
+          "value": 4.24
+        },
+        {
+          "state": "Pennsylvania",
+          "value": 13
+        },
+        {
+          "state": "Rhode Island",
+          "value": 1.1
+        },
+        {
+          "state": "South Carolina",
+          "value": 5.12
+        },
+        {
+          "state": "South Dakota",
+          "value": 0.89
+        },
+        {
+          "state": "Tennessee",
+          "value": 6.91
+        },
+        {
+          "state": "Texas",
+          "value": 29.15
+        },
+        {
+          "state": "Utah",
+          "value": 3.27
+        },
+        {
+          "state": "Vermont",
+          "value": 0.64
+        },
+        {
+          "state": "Virginia",
+          "value": 8.63
+        },
+        {
+          "state": "Washington",
+          "value": 7.71
+        },
+        {
+          "state": "West Virginia",
+          "value": 1.79
+        },
+        {
+          "state": "Wisconsin",
+          "value": 5.89
+        },
+        {
+          "state": "Wyoming",
+          "value": 0.58
+        }
+      ]
+    },
+    "semantic_types": {
+      "state": "State",
+      "value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Choropleth",
+      "encodings": {
+        "id": "state",
+        "color": "value"
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      },
+      "chartProperties": {
+        "region": "us"
+      }
+    }
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "title": "O(30)×Q (30 pts)",
+  "description": "30 ordinal categories — label overflow",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Stage": "Stage 1",
+          "Value": 134
+        },
+        {
+          "Stage": "Stage 2",
+          "Value": 132
+        },
+        {
+          "Stage": "Stage 3",
+          "Value": 148
+        },
+        {
+          "Stage": "Stage 4",
+          "Value": 161
+        },
+        {
+          "Stage": "Stage 5",
+          "Value": 166
+        },
+        {
+          "Stage": "Stage 6",
+          "Value": 157
+        },
+        {
+          "Stage": "Stage 7",
+          "Value": 146
+        },
+        {
+          "Stage": "Stage 8",
+          "Value": 138
+        },
+        {
+          "Stage": "Stage 9",
+          "Value": 126
+        },
+        {
+          "Stage": "Stage 10",
+          "Value": 131
+        },
+        {
+          "Stage": "Stage 11",
+          "Value": 122
+        },
+        {
+          "Stage": "Stage 12",
+          "Value": 103
+        },
+        {
+          "Stage": "Stage 13",
+          "Value": 112
+        },
+        {
+          "Stage": "Stage 14",
+          "Value": 125
+        },
+        {
+          "Stage": "Stage 15",
+          "Value": 145
+        },
+        {
+          "Stage": "Stage 16",
+          "Value": 169
+        },
+        {
+          "Stage": "Stage 17",
+          "Value": 191
+        },
+        {
+          "Stage": "Stage 18",
+          "Value": 200
+        },
+        {
+          "Stage": "Stage 19",
+          "Value": 223
+        },
+        {
+          "Stage": "Stage 20",
+          "Value": 246
+        },
+        {
+          "Stage": "Stage 21",
+          "Value": 275
+        },
+        {
+          "Stage": "Stage 22",
+          "Value": 303
+        },
+        {
+          "Stage": "Stage 23",
+          "Value": 316
+        },
+        {
+          "Stage": "Stage 24",
+          "Value": 343
+        },
+        {
+          "Stage": "Stage 25",
+          "Value": 354
+        },
+        {
+          "Stage": "Stage 26",
+          "Value": 370
+        },
+        {
+          "Stage": "Stage 27",
+          "Value": 397
+        },
+        {
+          "Stage": "Stage 28",
+          "Value": 426
+        },
+        {
+          "Stage": "Stage 29",
+          "Value": 439
+        },
+        {
+          "Stage": "Stage 30",
+          "Value": 457
+        }
+      ]
+    },
+    "semantic_types": {
+      "Stage": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Stage"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

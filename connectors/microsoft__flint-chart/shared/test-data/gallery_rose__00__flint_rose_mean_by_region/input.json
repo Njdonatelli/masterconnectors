@@ -1,0 +1,52 @@
+{
+  "title": "Flint: Rose — mean % by region",
+  "description": "Polar bars: N/E/S/W with average approval % across waves.",
+  "chartType": "Rose Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Direction": "N",
+          "AvgPct": 43
+        },
+        {
+          "Direction": "E",
+          "AvgPct": 76.2
+        },
+        {
+          "Direction": "S",
+          "AvgPct": 65.4
+        },
+        {
+          "Direction": "W",
+          "AvgPct": 41.2
+        }
+      ]
+    },
+    "semantic_types": {
+      "Direction": "Category",
+      "AvgPct": "Percentage"
+    },
+    "chart_spec": {
+      "chartType": "Rose Chart",
+      "encodings": {
+        "x": {
+          "field": "Direction"
+        },
+        "y": {
+          "field": "AvgPct"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "alignment": "center"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

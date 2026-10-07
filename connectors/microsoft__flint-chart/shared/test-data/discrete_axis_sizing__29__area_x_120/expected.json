@@ -1,0 +1,1977 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Period",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 134
+    },
+    "axisX": {
+      "labelLimit": 40,
+      "labelFontSize": 6,
+      "labelAngle": -90,
+      "labelAlign": "right",
+      "labelBaseline": "middle"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 13
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "Period": "Period001",
+        "Series": "S1",
+        "Value": 181
+      },
+      {
+        "Period": "Period001",
+        "Series": "S2",
+        "Value": 168
+      },
+      {
+        "Period": "Period001",
+        "Series": "S3",
+        "Value": 106
+      },
+      {
+        "Period": "Period002",
+        "Series": "S1",
+        "Value": 198
+      },
+      {
+        "Period": "Period002",
+        "Series": "S2",
+        "Value": 23
+      },
+      {
+        "Period": "Period002",
+        "Series": "S3",
+        "Value": 183
+      },
+      {
+        "Period": "Period003",
+        "Series": "S1",
+        "Value": 97
+      },
+      {
+        "Period": "Period003",
+        "Series": "S2",
+        "Value": 37
+      },
+      {
+        "Period": "Period003",
+        "Series": "S3",
+        "Value": 62
+      },
+      {
+        "Period": "Period004",
+        "Series": "S1",
+        "Value": 163
+      },
+      {
+        "Period": "Period004",
+        "Series": "S2",
+        "Value": 75
+      },
+      {
+        "Period": "Period004",
+        "Series": "S3",
+        "Value": 108
+      },
+      {
+        "Period": "Period005",
+        "Series": "S1",
+        "Value": 7
+      },
+      {
+        "Period": "Period005",
+        "Series": "S2",
+        "Value": 83
+      },
+      {
+        "Period": "Period005",
+        "Series": "S3",
+        "Value": 104
+      },
+      {
+        "Period": "Period006",
+        "Series": "S1",
+        "Value": 129
+      },
+      {
+        "Period": "Period006",
+        "Series": "S2",
+        "Value": 102
+      },
+      {
+        "Period": "Period006",
+        "Series": "S3",
+        "Value": 71
+      },
+      {
+        "Period": "Period007",
+        "Series": "S1",
+        "Value": 36
+      },
+      {
+        "Period": "Period007",
+        "Series": "S2",
+        "Value": 171
+      },
+      {
+        "Period": "Period007",
+        "Series": "S3",
+        "Value": 74
+      },
+      {
+        "Period": "Period008",
+        "Series": "S1",
+        "Value": 49
+      },
+      {
+        "Period": "Period008",
+        "Series": "S2",
+        "Value": 147
+      },
+      {
+        "Period": "Period008",
+        "Series": "S3",
+        "Value": 13
+      },
+      {
+        "Period": "Period009",
+        "Series": "S1",
+        "Value": 84
+      },
+      {
+        "Period": "Period009",
+        "Series": "S2",
+        "Value": 150
+      },
+      {
+        "Period": "Period009",
+        "Series": "S3",
+        "Value": 66
+      },
+      {
+        "Period": "Period010",
+        "Series": "S1",
+        "Value": 30
+      },
+      {
+        "Period": "Period010",
+        "Series": "S2",
+        "Value": 129
+      },
+      {
+        "Period": "Period010",
+        "Series": "S3",
+        "Value": 62
+      },
+      {
+        "Period": "Period011",
+        "Series": "S1",
+        "Value": 63
+      },
+      {
+        "Period": "Period011",
+        "Series": "S2",
+        "Value": 108
+      },
+      {
+        "Period": "Period011",
+        "Series": "S3",
+        "Value": 183
+      },
+      {
+        "Period": "Period012",
+        "Series": "S1",
+        "Value": 108
+      },
+      {
+        "Period": "Period012",
+        "Series": "S2",
+        "Value": 64
+      },
+      {
+        "Period": "Period012",
+        "Series": "S3",
+        "Value": 87
+      },
+      {
+        "Period": "Period013",
+        "Series": "S1",
+        "Value": 28
+      },
+      {
+        "Period": "Period013",
+        "Series": "S2",
+        "Value": 67
+      },
+      {
+        "Period": "Period013",
+        "Series": "S3",
+        "Value": 98
+      },
+      {
+        "Period": "Period014",
+        "Series": "S1",
+        "Value": 62
+      },
+      {
+        "Period": "Period014",
+        "Series": "S2",
+        "Value": 79
+      },
+      {
+        "Period": "Period014",
+        "Series": "S3",
+        "Value": 159
+      },
+      {
+        "Period": "Period015",
+        "Series": "S1",
+        "Value": 23
+      },
+      {
+        "Period": "Period015",
+        "Series": "S2",
+        "Value": 189
+      },
+      {
+        "Period": "Period015",
+        "Series": "S3",
+        "Value": 89
+      },
+      {
+        "Period": "Period016",
+        "Series": "S1",
+        "Value": 168
+      },
+      {
+        "Period": "Period016",
+        "Series": "S2",
+        "Value": 175
+      },
+      {
+        "Period": "Period016",
+        "Series": "S3",
+        "Value": 178
+      },
+      {
+        "Period": "Period017",
+        "Series": "S1",
+        "Value": 123
+      },
+      {
+        "Period": "Period017",
+        "Series": "S2",
+        "Value": 30
+      },
+      {
+        "Period": "Period017",
+        "Series": "S3",
+        "Value": 8
+      },
+      {
+        "Period": "Period018",
+        "Series": "S1",
+        "Value": 130
+      },
+      {
+        "Period": "Period018",
+        "Series": "S2",
+        "Value": 154
+      },
+      {
+        "Period": "Period018",
+        "Series": "S3",
+        "Value": 64
+      },
+      {
+        "Period": "Period019",
+        "Series": "S1",
+        "Value": 36
+      },
+      {
+        "Period": "Period019",
+        "Series": "S2",
+        "Value": 197
+      },
+      {
+        "Period": "Period019",
+        "Series": "S3",
+        "Value": 131
+      },
+      {
+        "Period": "Period020",
+        "Series": "S1",
+        "Value": 167
+      },
+      {
+        "Period": "Period020",
+        "Series": "S2",
+        "Value": 123
+      },
+      {
+        "Period": "Period020",
+        "Series": "S3",
+        "Value": 173
+      },
+      {
+        "Period": "Period021",
+        "Series": "S1",
+        "Value": 150
+      },
+      {
+        "Period": "Period021",
+        "Series": "S2",
+        "Value": 154
+      },
+      {
+        "Period": "Period021",
+        "Series": "S3",
+        "Value": 144
+      },
+      {
+        "Period": "Period022",
+        "Series": "S1",
+        "Value": 16
+      },
+      {
+        "Period": "Period022",
+        "Series": "S2",
+        "Value": 174
+      },
+      {
+        "Period": "Period022",
+        "Series": "S3",
+        "Value": 186
+      },
+      {
+        "Period": "Period023",
+        "Series": "S1",
+        "Value": 45
+      },
+      {
+        "Period": "Period023",
+        "Series": "S2",
+        "Value": 57
+      },
+      {
+        "Period": "Period023",
+        "Series": "S3",
+        "Value": 181
+      },
+      {
+        "Period": "Period024",
+        "Series": "S1",
+        "Value": 95
+      },
+      {
+        "Period": "Period024",
+        "Series": "S2",
+        "Value": 111
+      },
+      {
+        "Period": "Period024",
+        "Series": "S3",
+        "Value": 136
+      },
+      {
+        "Period": "Period025",
+        "Series": "S1",
+        "Value": 73
+      },
+      {
+        "Period": "Period025",
+        "Series": "S2",
+        "Value": 160
+      },
+      {
+        "Period": "Period025",
+        "Series": "S3",
+        "Value": 161
+      },
+      {
+        "Period": "Period026",
+        "Series": "S1",
+        "Value": 160
+      },
+      {
+        "Period": "Period026",
+        "Series": "S2",
+        "Value": 166
+      },
+      {
+        "Period": "Period026",
+        "Series": "S3",
+        "Value": 7
+      },
+      {
+        "Period": "Period027",
+        "Series": "S1",
+        "Value": 43
+      },
+      {
+        "Period": "Period027",
+        "Series": "S2",
+        "Value": 31
+      },
+      {
+        "Period": "Period027",
+        "Series": "S3",
+        "Value": 192
+      },
+      {
+        "Period": "Period028",
+        "Series": "S1",
+        "Value": 25
+      },
+      {
+        "Period": "Period028",
+        "Series": "S2",
+        "Value": 83
+      },
+      {
+        "Period": "Period028",
+        "Series": "S3",
+        "Value": 123
+      },
+      {
+        "Period": "Period029",
+        "Series": "S1",
+        "Value": 44
+      },
+      {
+        "Period": "Period029",
+        "Series": "S2",
+        "Value": 30
+      },
+      {
+        "Period": "Period029",
+        "Series": "S3",
+        "Value": 91
+      },
+      {
+        "Period": "Period030",
+        "Series": "S1",
+        "Value": 175
+      },
+      {
+        "Period": "Period030",
+        "Series": "S2",
+        "Value": 171
+      },
+      {
+        "Period": "Period030",
+        "Series": "S3",
+        "Value": 104
+      },
+      {
+        "Period": "Period031",
+        "Series": "S1",
+        "Value": 65
+      },
+      {
+        "Period": "Period031",
+        "Series": "S2",
+        "Value": 31
+      },
+      {
+        "Period": "Period031",
+        "Series": "S3",
+        "Value": 163
+      },
+      {
+        "Period": "Period032",
+        "Series": "S1",
+        "Value": 28
+      },
+      {
+        "Period": "Period032",
+        "Series": "S2",
+        "Value": 110
+      },
+      {
+        "Period": "Period032",
+        "Series": "S3",
+        "Value": 141
+      },
+      {
+        "Period": "Period033",
+        "Series": "S1",
+        "Value": 117
+      },
+      {
+        "Period": "Period033",
+        "Series": "S2",
+        "Value": 192
+      },
+      {
+        "Period": "Period033",
+        "Series": "S3",
+        "Value": 170
+      },
+      {
+        "Period": "Period034",
+        "Series": "S1",
+        "Value": 74
+      },
+      {
+        "Period": "Period034",
+        "Series": "S2",
+        "Value": 19
+      },
+      {
+        "Period": "Period034",
+        "Series": "S3",
+        "Value": 150
+      },
+      {
+        "Period": "Period035",
+        "Series": "S1",
+        "Value": 76
+      },
+      {
+        "Period": "Period035",
+        "Series": "S2",
+        "Value": 37
+      },
+      {
+        "Period": "Period035",
+        "Series": "S3",
+        "Value": 95
+      },
+      {
+        "Period": "Period036",
+        "Series": "S1",
+        "Value": 171
+      },
+      {
+        "Period": "Period036",
+        "Series": "S2",
+        "Value": 87
+      },
+      {
+        "Period": "Period036",
+        "Series": "S3",
+        "Value": 24
+      },
+      {
+        "Period": "Period037",
+        "Series": "S1",
+        "Value": 188
+      },
+      {
+        "Period": "Period037",
+        "Series": "S2",
+        "Value": 56
+      },
+      {
+        "Period": "Period037",
+        "Series": "S3",
+        "Value": 61
+      },
+      {
+        "Period": "Period038",
+        "Series": "S1",
+        "Value": 164
+      },
+      {
+        "Period": "Period038",
+        "Series": "S2",
+        "Value": 24
+      },
+      {
+        "Period": "Period038",
+        "Series": "S3",
+        "Value": 80
+      },
+      {
+        "Period": "Period039",
+        "Series": "S1",
+        "Value": 181
+      },
+      {
+        "Period": "Period039",
+        "Series": "S2",
+        "Value": 51
+      },
+      {
+        "Period": "Period039",
+        "Series": "S3",
+        "Value": 17
+      },
+      {
+        "Period": "Period040",
+        "Series": "S1",
+        "Value": 62
+      },
+      {
+        "Period": "Period040",
+        "Series": "S2",
+        "Value": 10
+      },
+      {
+        "Period": "Period040",
+        "Series": "S3",
+        "Value": 139
+      },
+      {
+        "Period": "Period041",
+        "Series": "S1",
+        "Value": 111
+      },
+      {
+        "Period": "Period041",
+        "Series": "S2",
+        "Value": 194
+      },
+      {
+        "Period": "Period041",
+        "Series": "S3",
+        "Value": 108
+      },
+      {
+        "Period": "Period042",
+        "Series": "S1",
+        "Value": 159
+      },
+      {
+        "Period": "Period042",
+        "Series": "S2",
+        "Value": 138
+      },
+      {
+        "Period": "Period042",
+        "Series": "S3",
+        "Value": 143
+      },
+      {
+        "Period": "Period043",
+        "Series": "S1",
+        "Value": 194
+      },
+      {
+        "Period": "Period043",
+        "Series": "S2",
+        "Value": 15
+      },
+      {
+        "Period": "Period043",
+        "Series": "S3",
+        "Value": 13
+      },
+      {
+        "Period": "Period044",
+        "Series": "S1",
+        "Value": 80
+      },
+      {
+        "Period": "Period044",
+        "Series": "S2",
+        "Value": 86
+      },
+      {
+        "Period": "Period044",
+        "Series": "S3",
+        "Value": 93
+      },
+      {
+        "Period": "Period045",
+        "Series": "S1",
+        "Value": 56
+      },
+      {
+        "Period": "Period045",
+        "Series": "S2",
+        "Value": 54
+      },
+      {
+        "Period": "Period045",
+        "Series": "S3",
+        "Value": 93
+      },
+      {
+        "Period": "Period046",
+        "Series": "S1",
+        "Value": 38
+      },
+      {
+        "Period": "Period046",
+        "Series": "S2",
+        "Value": 141
+      },
+      {
+        "Period": "Period046",
+        "Series": "S3",
+        "Value": 197
+      },
+      {
+        "Period": "Period047",
+        "Series": "S1",
+        "Value": 93
+      },
+      {
+        "Period": "Period047",
+        "Series": "S2",
+        "Value": 10
+      },
+      {
+        "Period": "Period047",
+        "Series": "S3",
+        "Value": 184
+      },
+      {
+        "Period": "Period048",
+        "Series": "S1",
+        "Value": 84
+      },
+      {
+        "Period": "Period048",
+        "Series": "S2",
+        "Value": 143
+      },
+      {
+        "Period": "Period048",
+        "Series": "S3",
+        "Value": 67
+      },
+      {
+        "Period": "Period049",
+        "Series": "S1",
+        "Value": 143
+      },
+      {
+        "Period": "Period049",
+        "Series": "S2",
+        "Value": 113
+      },
+      {
+        "Period": "Period049",
+        "Series": "S3",
+        "Value": 86
+      },
+      {
+        "Period": "Period050",
+        "Series": "S1",
+        "Value": 190
+      },
+      {
+        "Period": "Period050",
+        "Series": "S2",
+        "Value": 170
+      },
+      {
+        "Period": "Period050",
+        "Series": "S3",
+        "Value": 196
+      },
+      {
+        "Period": "Period051",
+        "Series": "S1",
+        "Value": 160
+      },
+      {
+        "Period": "Period051",
+        "Series": "S2",
+        "Value": 6
+      },
+      {
+        "Period": "Period051",
+        "Series": "S3",
+        "Value": 172
+      },
+      {
+        "Period": "Period052",
+        "Series": "S1",
+        "Value": 162
+      },
+      {
+        "Period": "Period052",
+        "Series": "S2",
+        "Value": 175
+      },
+      {
+        "Period": "Period052",
+        "Series": "S3",
+        "Value": 22
+      },
+      {
+        "Period": "Period053",
+        "Series": "S1",
+        "Value": 26
+      },
+      {
+        "Period": "Period053",
+        "Series": "S2",
+        "Value": 86
+      },
+      {
+        "Period": "Period053",
+        "Series": "S3",
+        "Value": 169
+      },
+      {
+        "Period": "Period054",
+        "Series": "S1",
+        "Value": 102
+      },
+      {
+        "Period": "Period054",
+        "Series": "S2",
+        "Value": 95
+      },
+      {
+        "Period": "Period054",
+        "Series": "S3",
+        "Value": 28
+      },
+      {
+        "Period": "Period055",
+        "Series": "S1",
+        "Value": 89
+      },
+      {
+        "Period": "Period055",
+        "Series": "S2",
+        "Value": 120
+      },
+      {
+        "Period": "Period055",
+        "Series": "S3",
+        "Value": 43
+      },
+      {
+        "Period": "Period056",
+        "Series": "S1",
+        "Value": 39
+      },
+      {
+        "Period": "Period056",
+        "Series": "S2",
+        "Value": 114
+      },
+      {
+        "Period": "Period056",
+        "Series": "S3",
+        "Value": 33
+      },
+      {
+        "Period": "Period057",
+        "Series": "S1",
+        "Value": 134
+      },
+      {
+        "Period": "Period057",
+        "Series": "S2",
+        "Value": 25
+      },
+      {
+        "Period": "Period057",
+        "Series": "S3",
+        "Value": 124
+      },
+      {
+        "Period": "Period058",
+        "Series": "S1",
+        "Value": 59
+      },
+      {
+        "Period": "Period058",
+        "Series": "S2",
+        "Value": 117
+      },
+      {
+        "Period": "Period058",
+        "Series": "S3",
+        "Value": 108
+      },
+      {
+        "Period": "Period059",
+        "Series": "S1",
+        "Value": 85
+      },
+      {
+        "Period": "Period059",
+        "Series": "S2",
+        "Value": 38
+      },
+      {
+        "Period": "Period059",
+        "Series": "S3",
+        "Value": 79
+      },
+      {
+        "Period": "Period060",
+        "Series": "S1",
+        "Value": 37
+      },
+      {
+        "Period": "Period060",
+        "Series": "S2",
+        "Value": 55
+      },
+      {
+        "Period": "Period060",
+        "Series": "S3",
+        "Value": 47
+      },
+      {
+        "Period": "Period061",
+        "Series": "S1",
+        "Value": 76
+      },
+      {
+        "Period": "Period061",
+        "Series": "S2",
+        "Value": 138
+      },
+      {
+        "Period": "Period061",
+        "Series": "S3",
+        "Value": 63
+      },
+      {
+        "Period": "Period062",
+        "Series": "S1",
+        "Value": 199
+      },
+      {
+        "Period": "Period062",
+        "Series": "S2",
+        "Value": 179
+      },
+      {
+        "Period": "Period062",
+        "Series": "S3",
+        "Value": 41
+      },
+      {
+        "Period": "Period063",
+        "Series": "S1",
+        "Value": 115
+      },
+      {
+        "Period": "Period063",
+        "Series": "S2",
+        "Value": 46
+      },
+      {
+        "Period": "Period063",
+        "Series": "S3",
+        "Value": 80
+      },
+      {
+        "Period": "Period064",
+        "Series": "S1",
+        "Value": 135
+      },
+      {
+        "Period": "Period064",
+        "Series": "S2",
+        "Value": 141
+      },
+      {
+        "Period": "Period064",
+        "Series": "S3",
+        "Value": 142
+      },
+      {
+        "Period": "Period065",
+        "Series": "S1",
+        "Value": 100
+      },
+      {
+        "Period": "Period065",
+        "Series": "S2",
+        "Value": 30
+      },
+      {
+        "Period": "Period065",
+        "Series": "S3",
+        "Value": 90
+      },
+      {
+        "Period": "Period066",
+        "Series": "S1",
+        "Value": 199
+      },
+      {
+        "Period": "Period066",
+        "Series": "S2",
+        "Value": 145
+      },
+      {
+        "Period": "Period066",
+        "Series": "S3",
+        "Value": 125
+      },
+      {
+        "Period": "Period067",
+        "Series": "S1",
+        "Value": 108
+      },
+      {
+        "Period": "Period067",
+        "Series": "S2",
+        "Value": 159
+      },
+      {
+        "Period": "Period067",
+        "Series": "S3",
+        "Value": 142
+      },
+      {
+        "Period": "Period068",
+        "Series": "S1",
+        "Value": 78
+      },
+      {
+        "Period": "Period068",
+        "Series": "S2",
+        "Value": 122
+      },
+      {
+        "Period": "Period068",
+        "Series": "S3",
+        "Value": 153
+      },
+      {
+        "Period": "Period069",
+        "Series": "S1",
+        "Value": 74
+      },
+      {
+        "Period": "Period069",
+        "Series": "S2",
+        "Value": 103
+      },
+      {
+        "Period": "Period069",
+        "Series": "S3",
+        "Value": 8
+      },
+      {
+        "Period": "Period070",
+        "Series": "S1",
+        "Value": 193
+      },
+      {
+        "Period": "Period070",
+        "Series": "S2",
+        "Value": 159
+      },
+      {
+        "Period": "Period070",
+        "Series": "S3",
+        "Value": 98
+      },
+      {
+        "Period": "Period071",
+        "Series": "S1",
+        "Value": 116
+      },
+      {
+        "Period": "Period071",
+        "Series": "S2",
+        "Value": 114
+      },
+      {
+        "Period": "Period071",
+        "Series": "S3",
+        "Value": 145
+      },
+      {
+        "Period": "Period072",
+        "Series": "S1",
+        "Value": 86
+      },
+      {
+        "Period": "Period072",
+        "Series": "S2",
+        "Value": 35
+      },
+      {
+        "Period": "Period072",
+        "Series": "S3",
+        "Value": 173
+      },
+      {
+        "Period": "Period073",
+        "Series": "S1",
+        "Value": 113
+      },
+      {
+        "Period": "Period073",
+        "Series": "S2",
+        "Value": 85
+      },
+      {
+        "Period": "Period073",
+        "Series": "S3",
+        "Value": 184
+      },
+      {
+        "Period": "Period074",
+        "Series": "S1",
+        "Value": 122
+      },
+      {
+        "Period": "Period074",
+        "Series": "S2",
+        "Value": 167
+      },
+      {
+        "Period": "Period074",
+        "Series": "S3",
+        "Value": 151
+      },
+      {
+        "Period": "Period075",
+        "Series": "S1",
+        "Value": 152
+      },
+      {
+        "Period": "Period075",
+        "Series": "S2",
+        "Value": 77
+      },
+      {
+        "Period": "Period075",
+        "Series": "S3",
+        "Value": 183
+      },
+      {
+        "Period": "Period076",
+        "Series": "S1",
+        "Value": 27
+      },
+      {
+        "Period": "Period076",
+        "Series": "S2",
+        "Value": 39
+      },
+      {
+        "Period": "Period076",
+        "Series": "S3",
+        "Value": 64
+      },
+      {
+        "Period": "Period077",
+        "Series": "S1",
+        "Value": 189
+      },
+      {
+        "Period": "Period077",
+        "Series": "S2",
+        "Value": 149
+      },
+      {
+        "Period": "Period077",
+        "Series": "S3",
+        "Value": 45
+      },
+      {
+        "Period": "Period078",
+        "Series": "S1",
+        "Value": 41
+      },
+      {
+        "Period": "Period078",
+        "Series": "S2",
+        "Value": 131
+      },
+      {
+        "Period": "Period078",
+        "Series": "S3",
+        "Value": 119
+      },
+      {
+        "Period": "Period079",
+        "Series": "S1",
+        "Value": 125
+      },
+      {
+        "Period": "Period079",
+        "Series": "S2",
+        "Value": 33
+      },
+      {
+        "Period": "Period079",
+        "Series": "S3",
+        "Value": 103
+      },
+      {
+        "Period": "Period080",
+        "Series": "S1",
+        "Value": 92
+      },
+      {
+        "Period": "Period080",
+        "Series": "S2",
+        "Value": 41
+      },
+      {
+        "Period": "Period080",
+        "Series": "S3",
+        "Value": 146
+      },
+      {
+        "Period": "Period081",
+        "Series": "S1",
+        "Value": 41
+      },
+      {
+        "Period": "Period081",
+        "Series": "S2",
+        "Value": 7
+      },
+      {
+        "Period": "Period081",
+        "Series": "S3",
+        "Value": 157
+      },
+      {
+        "Period": "Period082",
+        "Series": "S1",
+        "Value": 46
+      },
+      {
+        "Period": "Period082",
+        "Series": "S2",
+        "Value": 112
+      },
+      {
+        "Period": "Period082",
+        "Series": "S3",
+        "Value": 134
+      },
+      {
+        "Period": "Period083",
+        "Series": "S1",
+        "Value": 87
+      },
+      {
+        "Period": "Period083",
+        "Series": "S2",
+        "Value": 23
+      },
+      {
+        "Period": "Period083",
+        "Series": "S3",
+        "Value": 160
+      },
+      {
+        "Period": "Period084",
+        "Series": "S1",
+        "Value": 96
+      },
+      {
+        "Period": "Period084",
+        "Series": "S2",
+        "Value": 195
+      },
+      {
+        "Period": "Period084",
+        "Series": "S3",
+        "Value": 112
+      },
+      {
+        "Period": "Period085",
+        "Series": "S1",
+        "Value": 33
+      },
+      {
+        "Period": "Period085",
+        "Series": "S2",
+        "Value": 200
+      },
+      {
+        "Period": "Period085",
+        "Series": "S3",
+        "Value": 17
+      },
+      {
+        "Period": "Period086",
+        "Series": "S1",
+        "Value": 165
+      },
+      {
+        "Period": "Period086",
+        "Series": "S2",
+        "Value": 72
+      },
+      {
+        "Period": "Period086",
+        "Series": "S3",
+        "Value": 5
+      },
+      {
+        "Period": "Period087",
+        "Series": "S1",
+        "Value": 114
+      },
+      {
+        "Period": "Period087",
+        "Series": "S2",
+        "Value": 117
+      },
+      {
+        "Period": "Period087",
+        "Series": "S3",
+        "Value": 193
+      },
+      {
+        "Period": "Period088",
+        "Series": "S1",
+        "Value": 176
+      },
+      {
+        "Period": "Period088",
+        "Series": "S2",
+        "Value": 177
+      },
+      {
+        "Period": "Period088",
+        "Series": "S3",
+        "Value": 47
+      },
+      {
+        "Period": "Period089",
+        "Series": "S1",
+        "Value": 162
+      },
+      {
+        "Period": "Period089",
+        "Series": "S2",
+        "Value": 114
+      },
+      {
+        "Period": "Period089",
+        "Series": "S3",
+        "Value": 95
+      },
+      {
+        "Period": "Period090",
+        "Series": "S1",
+        "Value": 172
+      },
+      {
+        "Period": "Period090",
+        "Series": "S2",
+        "Value": 119
+      },
+      {
+        "Period": "Period090",
+        "Series": "S3",
+        "Value": 43
+      },
+      {
+        "Period": "Period091",
+        "Series": "S1",
+        "Value": 194
+      },
+      {
+        "Period": "Period091",
+        "Series": "S2",
+        "Value": 101
+      },
+      {
+        "Period": "Period091",
+        "Series": "S3",
+        "Value": 104
+      },
+      {
+        "Period": "Period092",
+        "Series": "S1",
+        "Value": 127
+      },
+      {
+        "Period": "Period092",
+        "Series": "S2",
+        "Value": 86
+      },
+      {
+        "Period": "Period092",
+        "Series": "S3",
+        "Value": 155
+      },
+      {
+        "Period": "Period093",
+        "Series": "S1",
+        "Value": 30
+      },
+      {
+        "Period": "Period093",
+        "Series": "S2",
+        "Value": 29
+      },
+      {
+        "Period": "Period093",
+        "Series": "S3",
+        "Value": 190
+      },
+      {
+        "Period": "Period094",
+        "Series": "S1",
+        "Value": 47
+      },
+      {
+        "Period": "Period094",
+        "Series": "S2",
+        "Value": 196
+      },
+      {
+        "Period": "Period094",
+        "Series": "S3",
+        "Value": 103
+      },
+      {
+        "Period": "Period095",
+        "Series": "S1",
+        "Value": 37
+      },
+      {
+        "Period": "Period095",
+        "Series": "S2",
+        "Value": 47
+      },
+      {
+        "Period": "Period095",
+        "Series": "S3",
+        "Value": 136
+      },
+      {
+        "Period": "Period096",
+        "Series": "S1",
+        "Value": 65
+      },
+      {
+        "Period": "Period096",
+        "Series": "S2",
+        "Value": 131
+      },
+      {
+        "Period": "Period096",
+        "Series": "S3",
+        "Value": 90
+      },
+      {
+        "Period": "Period097",
+        "Series": "S1",
+        "Value": 114
+      },
+      {
+        "Period": "Period097",
+        "Series": "S2",
+        "Value": 193
+      },
+      {
+        "Period": "Period097",
+        "Series": "S3",
+        "Value": 45
+      },
+      {
+        "Period": "Period098",
+        "Series": "S1",
+        "Value": 166
+      },
+      {
+        "Period": "Period098",
+        "Series": "S2",
+        "Value": 105
+      },
+      {
+        "Period": "Period098",
+        "Series": "S3",
+        "Value": 168
+      },
+      {
+        "Period": "Period099",
+        "Series": "S1",
+        "Value": 183
+      },
+      {
+        "Period": "Period099",
+        "Series": "S2",
+        "Value": 195
+      },
+      {
+        "Period": "Period099",
+        "Series": "S3",
+        "Value": 44
+      },
+      {
+        "Period": "Period100",
+        "Series": "S1",
+        "Value": 65
+      },
+      {
+        "Period": "Period100",
+        "Series": "S2",
+        "Value": 162
+      },
+      {
+        "Period": "Period100",
+        "Series": "S3",
+        "Value": 15
+      },
+      {
+        "Period": "Period101",
+        "Series": "S1",
+        "Value": 127
+      },
+      {
+        "Period": "Period101",
+        "Series": "S2",
+        "Value": 27
+      },
+      {
+        "Period": "Period101",
+        "Series": "S3",
+        "Value": 189
+      },
+      {
+        "Period": "Period102",
+        "Series": "S1",
+        "Value": 32
+      },
+      {
+        "Period": "Period102",
+        "Series": "S2",
+        "Value": 70
+      },
+      {
+        "Period": "Period102",
+        "Series": "S3",
+        "Value": 71
+      },
+      {
+        "Period": "Period103",
+        "Series": "S1",
+        "Value": 30
+      },
+      {
+        "Period": "Period103",
+        "Series": "S2",
+        "Value": 18
+      },
+      {
+        "Period": "Period103",
+        "Series": "S3",
+        "Value": 30
+      },
+      {
+        "Period": "Period104",
+        "Series": "S1",
+        "Value": 190
+      },
+      {
+        "Period": "Period104",
+        "Series": "S2",
+        "Value": 192
+      },
+      {
+        "Period": "Period104",
+        "Series": "S3",
+        "Value": 176
+      },
+      {
+        "Period": "Period105",
+        "Series": "S1",
+        "Value": 90
+      },
+      {
+        "Period": "Period105",
+        "Series": "S2",
+        "Value": 33
+      },
+      {
+        "Period": "Period105",
+        "Series": "S3",
+        "Value": 75
+      },
+      {
+        "Period": "Period106",
+        "Series": "S1",
+        "Value": 54
+      },
+      {
+        "Period": "Period106",
+        "Series": "S2",
+        "Value": 142
+      },
+      {
+        "Period": "Period106",
+        "Series": "S3",
+        "Value": 13
+      },
+      {
+        "Period": "Period107",
+        "Series": "S1",
+        "Value": 8
+      },
+      {
+        "Period": "Period107",
+        "Series": "S2",
+        "Value": 57
+      },
+      {
+        "Period": "Period107",
+        "Series": "S3",
+        "Value": 171
+      },
+      {
+        "Period": "Period108",
+        "Series": "S1",
+        "Value": 190
+      },
+      {
+        "Period": "Period108",
+        "Series": "S2",
+        "Value": 88
+      },
+      {
+        "Period": "Period108",
+        "Series": "S3",
+        "Value": 173
+      },
+      {
+        "Period": "Period109",
+        "Series": "S1",
+        "Value": 196
+      },
+      {
+        "Period": "Period109",
+        "Series": "S2",
+        "Value": 167
+      },
+      {
+        "Period": "Period109",
+        "Series": "S3",
+        "Value": 46
+      },
+      {
+        "Period": "Period110",
+        "Series": "S1",
+        "Value": 95
+      },
+      {
+        "Period": "Period110",
+        "Series": "S2",
+        "Value": 62
+      },
+      {
+        "Period": "Period110",
+        "Series": "S3",
+        "Value": 41
+      },
+      {
+        "Period": "Period111",
+        "Series": "S1",
+        "Value": 54
+      },
+      {
+        "Period": "Period111",
+        "Series": "S2",
+        "Value": 188
+      },
+      {
+        "Period": "Period111",
+        "Series": "S3",
+        "Value": 44
+      },
+      {
+        "Period": "Period112",
+        "Series": "S1",
+        "Value": 140
+      },
+      {
+        "Period": "Period112",
+        "Series": "S2",
+        "Value": 123
+      },
+      {
+        "Period": "Period112",
+        "Series": "S3",
+        "Value": 172
+      },
+      {
+        "Period": "Period113",
+        "Series": "S1",
+        "Value": 145
+      },
+      {
+        "Period": "Period113",
+        "Series": "S2",
+        "Value": 46
+      },
+      {
+        "Period": "Period113",
+        "Series": "S3",
+        "Value": 162
+      },
+      {
+        "Period": "Period114",
+        "Series": "S1",
+        "Value": 188
+      },
+      {
+        "Period": "Period114",
+        "Series": "S2",
+        "Value": 136
+      },
+      {
+        "Period": "Period114",
+        "Series": "S3",
+        "Value": 164
+      },
+      {
+        "Period": "Period115",
+        "Series": "S1",
+        "Value": 27
+      },
+      {
+        "Period": "Period115",
+        "Series": "S2",
+        "Value": 23
+      },
+      {
+        "Period": "Period115",
+        "Series": "S3",
+        "Value": 22
+      },
+      {
+        "Period": "Period116",
+        "Series": "S1",
+        "Value": 88
+      },
+      {
+        "Period": "Period116",
+        "Series": "S2",
+        "Value": 105
+      },
+      {
+        "Period": "Period116",
+        "Series": "S3",
+        "Value": 127
+      },
+      {
+        "Period": "Period117",
+        "Series": "S1",
+        "Value": 140
+      },
+      {
+        "Period": "Period117",
+        "Series": "S2",
+        "Value": 122
+      },
+      {
+        "Period": "Period117",
+        "Series": "S3",
+        "Value": 60
+      },
+      {
+        "Period": "Period118",
+        "Series": "S1",
+        "Value": 102
+      },
+      {
+        "Period": "Period118",
+        "Series": "S2",
+        "Value": 99
+      },
+      {
+        "Period": "Period118",
+        "Series": "S3",
+        "Value": 160
+      },
+      {
+        "Period": "Period119",
+        "Series": "S1",
+        "Value": 103
+      },
+      {
+        "Period": "Period119",
+        "Series": "S2",
+        "Value": 123
+      },
+      {
+        "Period": "Period119",
+        "Series": "S3",
+        "Value": 174
+      },
+      {
+        "Period": "Period120",
+        "Series": "S1",
+        "Value": 134
+      },
+      {
+        "Period": "Period120",
+        "Series": "S2",
+        "Value": 54
+      },
+      {
+        "Period": "Period120",
+        "Series": "S3",
+        "Value": 16
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 134,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

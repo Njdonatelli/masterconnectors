@@ -1,0 +1,86 @@
+# Grok Build session format
+
+## Store and files
+
+Grok Build stores sessions below `${GROK_HOME:-~/.grok}/sessions/<encoded-cwd>/<session-id>/`. `DEJA_GROK_ROOT` overrides where deja reads sessions; `GROK_HOME` relocates the whole Grok tree, including `config.toml`. `updates.jsonl` is the conversation stream and sibling `summary.json` carries metadata. A `.cwd` file beside session directories can recover the working directory when summary metadata is absent. `grok-dev`, another CLI sharing `~/.grok`, writes no session files: its history is in `${GROK_HOME:-~/.grok}/grok.db`, a SQLite store read through `sqlite3`, and `DEJA_GROK_DB` points deja at another copy. Each row of `messages` is an AI SDK message: text parts are the turn, `tool-call` parts become commands (`bash`), files, edits and written lines (`read_file`, `write_file`, `edit_file` under `path`), and the `tool-result` parts on `tool` rows tool output.
+
+The working-directory group is URL-encoded, although observed names are not always encoded consistently. deja prefers `summary.json` and `.cwd` over decoding the directory name.
+
+## Three products share this directory
+
+Grok Build reads `config.toml`. `grok-dev` keeps its history in `grok.db` and
+reads MCP servers from `~/.grok/user-settings.json`, as an array under
+`mcp.servers` of `{id, label, enabled, transport, command, args}` rather than a
+map. `deja install grok` writes both files. `@vibe-kit/grok-cli` (npm) reads
+MCP servers only from the project's `.grok/settings.json` and has no user-level
+MCP, so a global `deja install` cannot wire it: run `grok mcp add deja
+--command deja --args mcp` inside a project to use deja there. What reaches it
+from install is `~/.grok/GROK.md`, which it reads only when the project has no
+`.grok/GROK.md` of its own.
+
+## Records
+
+`summary.json` includes `info.id`, `info.cwd`, titles, and RFC 3339 creation/update times. Conversation lines use ACP session updates:
+
+```json
+{"timestamp":1784278802,"params":{"update":{"sessionUpdate":"agent_message_chunk","content":{"type":"text","text":"The first chunk "}},"_meta":{"promptId":"prompt-1"}}}
+```
+
+`user_message_chunk` maps to `user` and `agent_message_chunk` maps to `assistant`. Content is usually `{ "type": "text", "text": "..." }`; arrays of text-bearing parts are also accepted. Timestamps accept Unix seconds or milliseconds. `_meta.agentTimestampMs` is the fallback.
+
+Consecutive assistant chunks with the same `promptId` are joined. Consecutive user chunks with the same `promptIndex` are joined.
+
+## Spawn tree
+
+`summary.json` records what a session is and where it came from:
+`session_kind` (`subagent`, `subagent_fork`), `parent_session_id`, `agent_name`
+and `forked_at`. deja reads the first three into the session record — they show
+up in `--json` as `kind`, `parent` and `agent`, and `deja show` names the
+session a child was spawned from and the children a parent spawned. A
+`subagent` with no `parent_session_id` keeps its kind and no edge: which
+session asked for it is not written down, and deja does not guess. A
+`grok -p` run is marked `headless`, which says how the session was started,
+not that something spawned it, so deja records no kind for it (#4585).
+
+## Known quirks and drift
+
+- The ACP stream contains large tool updates. deja filters lines for message chunk kinds before decoding JSON.
+- Rewind can truncate and regrow `updates.jsonl`, which looks like growth from
+  the outside. deja compares the prefix hash it recorded: an intact prefix takes
+  the append path and reads only the new bytes, a moved one reparses the stream
+  in full. A live session used to rewrite the whole index on every touch.
+- `generated_title` takes precedence over `session_summary`.
+- Missing summary files fall back to directory IDs and the `.cwd` or URL-decoded path.
+- Path encoding is ambiguous when upstream leaves separators or percent escapes in different forms.
+- `deja resume` prints `grok --resume <id>` and runs it in the recovered
+  working directory, since Grok Build scopes its session list by directory.
+  It reopens a session from any directory, so a deleted one gets no `cd` and
+  a note instead (#4459).
+  Rows that came out of `grok.db` belong to the other product and get an error
+  instead.
+
+- Grok Build reads deja's wiring three ways at once: `[mcp_servers.deja]` in
+  `config.toml`, `~/.grok/hooks/deja.json` in Claude Code's hook shape, and the
+  shared skill in `~/.agents/skills`. It also scans `~/.claude.json` and
+  `~/.cursor/mcp.json`, so a machine wired for those has deja in Grok already.
+  `~/.grok/GROK.md` is the exception: that file is for the other product, and
+  Grok Build's home rules are `Agents.md`, `AGENTS.md`, `Claude.md`, `CLAUDE.md`.
+- The hooks run, but on 1.0.5 what session start, the prompt and both tool
+  events print is discarded — measured against a stubbed proxy by reading the
+  request the model was sent. The one reply Grok applies is a `PreToolUse`
+  `updatedInput`, which is how memory reaches a spawned agent's prompt; the
+  rest of the wiring is there for its side effects, warming the index and
+  forgetting what a compaction threw away.
+- `PostToolUse` on `Bash` (grok maps it to `run_terminal_command`) runs
+  `deja hook-tool-after`. Grok 1.0.41's own hook docs say it fires for a
+  command that exited non-zero and hands `additionalContext` to the model with
+  the result. The output is read from `toolResult.output_for_prompt`; `output`
+  there is the raw bytes as a number array (#4499).
+- On 1.0.41 session start and the prompt are still passive: grok shows a
+  hook's `systemMessage` and drops its `additionalContext`, and the session's
+  `chat_history.jsonl` carries no deja-recall from either. Under grok, which
+  sets `GROK_HOOK_EVENT` on every hook it runs, `hook-context` and
+  `hook-prompt` serve nothing and log nothing as arrived; the session-start
+  receipt is left to say only what the index is doing (#4588).
+
+**Last verified:** 2026-08-24 against Grok Build 1.0.5 (macos-aarch64)

@@ -1,0 +1,40 @@
+# Duckle - open-source, local-first ETL on DuckDB
+User-agent: *
+Allow: /
+
+# AI assistants and crawlers are welcome. Duckle is open source and benefits
+# from being cited in AI answers and included in training data.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://duckle.org/sitemap.xml
+
+# Machine-readable summaries for language models (llmstxt.org).
+# llms-full.txt carries every component id and summary inline, so an assistant
+# can answer "does Duckle support X" from a single fetch.
+# https://duckle.org/llms.txt
+# https://duckle.org/llms-full.txt

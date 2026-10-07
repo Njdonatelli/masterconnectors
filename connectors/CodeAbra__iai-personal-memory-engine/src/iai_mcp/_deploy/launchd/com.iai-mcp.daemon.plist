@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.iai-mcp.daemon</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/python3</string>
+        <string>-m</string>
+        <string>iai_mcp.daemon</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!--
+      KeepAlive: `SuccessfulExit=false` respawns after ANY unsuccessful
+      death — including SIGKILL (jetsam/OOM), which launchd does NOT count
+      as `Crashed`. Graceful paths (Hibernation, `daemon stop` SIGTERM
+      handler) exit 0 = successful, so launchd leaves the job down and the
+      MCP wrapper kickstart stays the sole wake mechanism in steady state.
+    -->
+    <key>KeepAlive</key>
+    <dict>
+        <key>Crashed</key>
+        <true/>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <key>ThrottleInterval</key>
+    <integer>5</integer>
+
+    <!--
+      Interactive, NOT Background: this daemon IS the awake recall path —
+      every memory lookup a live session makes goes through it. Background
+      puts the whole process in the darwin-background QoS band (CPU
+      throttled, low-priority IO), which stretched every recall stage
+      ~3-4x whenever other apps were active. Consolidation stays polite
+      through its own night window, cooldown, and foreground-yield gates,
+      not through process-wide deprioritization.
+    -->
+    <key>ProcessType</key>
+    <string>Interactive</string>
+
+    <!--
+      Belt-and-suspenders FD floor for a socket-serving daemon.
+      The daemon also calls setrlimit(RLIMIT_NOFILE) at boot, but setting
+      this key here ensures the process starts with a sane ceiling even
+      before that boot-time call runs.  8192 is conservative; raise via
+      IAI_MCP_DAEMON_NOFILE_FLOOR if workload demands more.
+    -->
+    <key>SoftResourceLimits</key>
+    <dict>
+        <key>NumberOfFiles</key>
+        <integer>8192</integer>
+    </dict>
+
+    <!--
+      Log path matches the editable-install template
+      (scripts/com.iai-mcp.daemon.plist.template) so logs land in one place
+      regardless of which install path rendered the LaunchAgent.
+    -->
+    <key>StandardOutPath</key>
+    <string>/Users/{USERNAME}/.iai-mcp/logs/launchd-stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/{USERNAME}/.iai-mcp/logs/launchd-stderr.log</string>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/{USERNAME}</string>
+
+    <!--
+      Active lifecycle + sleep-quarantine env vars:
+        - LIFECYCLE_DROWSY_AFTER_SEC (default 300 == 5 min)
+        - LIFECYCLE_SLEEP_HEARTBEAT_IDLE_SEC (default 1800 == 30 min)
+        - LIFECYCLE_HIBERNATE_AFTER_SEC (default 7200 == 2 h)
+        - IAI_MCP_SLEEP_QUARANTINE_TTL_HOURS (default 24)
+    -->
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/usr/bin:/bin</string>
+        <key>IAI_MCP_STORE</key>
+        <string>/Users/{USERNAME}/.iai-mcp</string>
+        <key>HOME</key>
+        <string>/Users/{USERNAME}</string>
+        <key>LANG</key>
+        <string>en_US.UTF-8</string>
+        <!--
+          Rendered by `iai-mcp daemon install` (the pip-installed operator
+          path). The managed marker keeps this plist consistent with the
+          editable-install template so a running daemon reports launchd
+          ownership the same way under either install path.
+        -->
+        <key>IAI_MCP_LAUNCHD_MANAGED</key>
+        <string>1</string>
+        <!-- mimalloc page decommit: return freed pages to the OS immediately
+             instead of holding them resident until the heap next re-grows. -->
+        <key>MIMALLOC_DECOMMIT_DELAY</key>
+        <string>0</string>
+        <key>MIMALLOC_SEGMENT_DECOMMIT_DELAY</key>
+        <string>0</string>
+        <key>MIMALLOC_ALLOW_DECOMMIT</key>
+        <string>1</string>
+        <key>LIFECYCLE_DROWSY_AFTER_SEC</key>
+        <string>300</string>
+        <key>LIFECYCLE_SLEEP_HEARTBEAT_IDLE_SEC</key>
+        <string>1800</string>
+        <key>LIFECYCLE_HIBERNATE_AFTER_SEC</key>
+        <string>7200</string>
+        <key>IAI_MCP_SLEEP_QUARANTINE_TTL_HOURS</key>
+        <string>24</string>
+        <!--
+          Liveness + memory self-watchdog knobs (the auto-recovery watchdog;
+          distinct from the observation-only CPU watchdog). The RSS hard cap +
+          contributor floor are set well above the legitimate consolidation peak
+          so the cap never re-creates a below-peak kill trap, and the floor
+          stays strictly below the cap so a kill-on-pressure only fires when
+          the daemon is itself a significant RAM contributor.
+        -->
+        <key>IAI_MCP_WATCHDOG_LIVENESS_POLL_SEC</key>
+        <string>30.0</string>
+        <key>IAI_MCP_WATCHDOG_WARN_POLL_SEC</key>
+        <string>7.0</string>
+        <key>IAI_MCP_WATCHDOG_PROBE_TIMEOUT_SEC</key>
+        <string>5.0</string>
+        <key>IAI_MCP_WATCHDOG_FAILURE_DEBOUNCE_N</key>
+        <string>3</string>
+        <key>IAI_MCP_WATCHDOG_RSS_HARD_CAP_BYTES</key>
+        <string>4294967296</string>
+        <key>IAI_MCP_WATCHDOG_RSS_CONTRIBUTOR_FLOOR_BYTES</key>
+        <string>1610612736</string>
+        <key>IAI_MCP_WATCHDOG_MAX_RECOVERIES</key>
+        <string>3</string>
+        <key>IAI_MCP_WATCHDOG_RECOVERY_WINDOW_SEC</key>
+        <string>600.0</string>
+        <key>IAI_MCP_WATCHDOG_COLD_START_GRACE_SEC</key>
+        <string>600.0</string>
+    </dict>
+</dict>
+</plist>

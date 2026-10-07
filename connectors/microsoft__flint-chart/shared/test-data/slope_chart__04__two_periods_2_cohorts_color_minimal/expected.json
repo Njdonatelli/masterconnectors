@@ -1,0 +1,127 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Phase",
+      "type": "nominal",
+      "sort": [
+        "Before",
+        "After"
+      ],
+      "scale": {
+        "padding": 0.4
+      }
+    },
+    "y": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true,
+        "padding": 12
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Cohort",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "width": {
+    "step": 224
+  },
+  "data": {
+    "values": [
+      {
+        "Phase": "Before",
+        "Cohort": "Treatment",
+        "Score": 62
+      },
+      {
+        "Phase": "After",
+        "Cohort": "Treatment",
+        "Score": 88
+      },
+      {
+        "Phase": "Before",
+        "Cohort": "Control",
+        "Score": 60
+      },
+      {
+        "Phase": "After",
+        "Cohort": "Control",
+        "Score": 64
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+<UserControl
+    x:Class="Gridex.SidebarPanel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex">
+
+    <Grid Background="{ThemeResource LayerFillColorDefaultBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Tab bar: Items | Queries | History | (spacer) | Action slot -->
+        <Grid Grid.Row="0" Padding="8,6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ToggleButton x:Name="ItemsTab" Grid.Column="0"
+                          IsChecked="True" Padding="6,4"
+                          Background="Transparent" BorderThickness="0"
+                          Click="ItemsTab_Click"
+                          ToolTipService.ToolTip="Database Objects">
+                <FontIcon Glyph="&#xE8B7;" FontSize="13" />
+            </ToggleButton>
+            <ToggleButton x:Name="QueriesTab" Grid.Column="1"
+                          Padding="6,4"
+                          Background="Transparent" BorderThickness="0"
+                          Click="QueriesTab_Click"
+                          ToolTipService.ToolTip="Saved Queries">
+                <FontIcon Glyph="&#xE8A5;" FontSize="13" />
+            </ToggleButton>
+            <ToggleButton x:Name="HistoryTab" Grid.Column="2"
+                          Padding="6,4"
+                          Background="Transparent" BorderThickness="0"
+                          Click="HistoryTab_Click"
+                          ToolTipService.ToolTip="Query History">
+                <FontIcon Glyph="&#xE81C;" FontSize="13" />
+            </ToggleButton>
+            <!-- Right-aligned action buttons (EE hooks). Both Collapsed
+                 by default so OSS build is unchanged; EE WorkspacePage
+                 wires the callbacks + calls Set*ButtonVisible(true) on
+                 supported DB types. -->
+            <StackPanel Grid.Column="4" Orientation="Horizontal">
+                <Button x:Name="QueryBuilderButton"
+                        Padding="6,4"
+                        Background="Transparent" BorderThickness="0"
+                        Visibility="Collapsed"
+                        Click="QueryBuilderButton_Click"
+                        ToolTipService.ToolTip="Visual Query Builder">
+                    <FontIcon Glyph="&#xE90F;" FontSize="13" />
+                </Button>
+                <Button x:Name="MonitorButton"
+                        Padding="6,4"
+                        Background="Transparent" BorderThickness="0"
+                        Visibility="Collapsed"
+                        Click="MonitorButton_Click"
+                        ToolTipService.ToolTip="Realtime Connection Monitor">
+                    <FontIcon Glyph="&#xE950;" FontSize="13" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Search box -->
+        <TextBox Grid.Row="1" x:Name="SearchBox"
+                 PlaceholderText="Search for item..."
+                 Margin="8,0,8,6" Padding="8,6"
+                 FontSize="12"
+                 TextChanged="SearchBox_TextChanged" />
+
+        <!-- Separator -->
+        <Border Grid.Row="2" Height="1"
+                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+        <!-- Content area: Items / Queries / History -->
+        <Grid Grid.Row="3">
+            <!-- Items: Tree of tables/views/functions -->
+            <ScrollViewer x:Name="ItemsContent" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="TreeContainer" Spacing="0" Padding="0,4" />
+            </ScrollViewer>
+
+            <!-- Queries: Saved queries list (placeholder for now) -->
+            <ScrollViewer x:Name="QueriesContent" Visibility="Collapsed"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="QueriesContainer" Spacing="0" Padding="0,4" />
+            </ScrollViewer>
+
+            <!-- History: Query log entries -->
+            <ScrollViewer x:Name="HistoryContent" Visibility="Collapsed"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="HistoryContainer" Spacing="0" Padding="0,4" />
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Bottom bar: Add + Delete + Schema picker -->
+        <Grid Grid.Row="4" Padding="8,4"
+              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+              BorderThickness="0,1,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="AddItemBtn" Grid.Column="0" Width="28" Height="28" Padding="0"
+                    Background="Transparent" BorderThickness="0"
+                    ToolTipService.ToolTip="Create Table">
+                <FontIcon Glyph="&#xE710;" FontSize="12" />
+            </Button>
+            <Button x:Name="DeleteItemBtn" Grid.Column="1" Width="28" Height="28" Padding="0"
+                    Background="Transparent" BorderThickness="0"
+                    ToolTipService.ToolTip="Drop Table">
+                <FontIcon Glyph="&#xE74D;" FontSize="11"
+                          Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            </Button>
+            <ComboBox x:Name="SchemaPicker" Grid.Column="3"
+                      MinWidth="90" Padding="6,2"
+                      FontSize="11" SelectedIndex="0">
+                <ComboBoxItem Content="public" />
+            </ComboBox>
+        </Grid>
+    </Grid>
+</UserControl>

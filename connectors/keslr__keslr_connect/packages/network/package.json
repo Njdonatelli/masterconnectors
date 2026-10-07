@@ -1,0 +1,41 @@
+{
+  "name": "@keslr/network",
+  "version": "0.1.0",
+  "description": "Resolve inbound requests to the Keslr member who owns the calling device.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "keywords": [
+    "keslr",
+    "identity",
+    "attribution",
+    "express",
+    "middleware",
+    "network"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keslr/keslr_connect.git",
+    "directory": "packages/network"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "test": "vitest run --dir ."
+  },
+  "sideEffects": false
+}

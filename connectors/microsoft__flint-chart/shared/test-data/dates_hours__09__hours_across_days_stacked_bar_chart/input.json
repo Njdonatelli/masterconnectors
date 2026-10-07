@@ -1,0 +1,397 @@
+{
+  "title": "Hours (across days) → Stacked Bar Chart",
+  "description": "Hourly data across 3 days: \"2020-01-01T00:00\", … (24 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "DateTime": "2020-01-01T08:00:00",
+          "Value": 463,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T08:00:00",
+          "Value": 55,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T08:00:00",
+          "Value": 141,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-01T09:00:00",
+          "Value": 297,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T09:00:00",
+          "Value": 461,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T09:00:00",
+          "Value": 539,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-01T10:00:00",
+          "Value": 409,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T10:00:00",
+          "Value": 91,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T10:00:00",
+          "Value": 75,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-01T11:00:00",
+          "Value": 403,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T11:00:00",
+          "Value": 170,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T11:00:00",
+          "Value": 156,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-01T12:00:00",
+          "Value": 90,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T12:00:00",
+          "Value": 408,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T12:00:00",
+          "Value": 141,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-01T13:00:00",
+          "Value": 382,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T13:00:00",
+          "Value": 89,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T13:00:00",
+          "Value": 375,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-01T14:00:00",
+          "Value": 150,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T14:00:00",
+          "Value": 237,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T14:00:00",
+          "Value": 121,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-01T15:00:00",
+          "Value": 304,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-01T15:00:00",
+          "Value": 361,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-01T15:00:00",
+          "Value": 77,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T08:00:00",
+          "Value": 298,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T08:00:00",
+          "Value": 354,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T08:00:00",
+          "Value": 296,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T09:00:00",
+          "Value": 540,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T09:00:00",
+          "Value": 437,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T09:00:00",
+          "Value": 364,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T10:00:00",
+          "Value": 87,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T10:00:00",
+          "Value": 59,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T10:00:00",
+          "Value": 115,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T11:00:00",
+          "Value": 211,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T11:00:00",
+          "Value": 70,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T11:00:00",
+          "Value": 421,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T12:00:00",
+          "Value": 107,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T12:00:00",
+          "Value": 247,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T12:00:00",
+          "Value": 449,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T13:00:00",
+          "Value": 542,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T13:00:00",
+          "Value": 58,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T13:00:00",
+          "Value": 498,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T14:00:00",
+          "Value": 65,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T14:00:00",
+          "Value": 129,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T14:00:00",
+          "Value": 421,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-02T15:00:00",
+          "Value": 125,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-02T15:00:00",
+          "Value": 149,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-02T15:00:00",
+          "Value": 71,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T08:00:00",
+          "Value": 422,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T08:00:00",
+          "Value": 465,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T08:00:00",
+          "Value": 71,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T09:00:00",
+          "Value": 312,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T09:00:00",
+          "Value": 378,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T09:00:00",
+          "Value": 461,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T10:00:00",
+          "Value": 437,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T10:00:00",
+          "Value": 124,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T10:00:00",
+          "Value": 359,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T11:00:00",
+          "Value": 298,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T11:00:00",
+          "Value": 352,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T11:00:00",
+          "Value": 430,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T12:00:00",
+          "Value": 418,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T12:00:00",
+          "Value": 248,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T12:00:00",
+          "Value": 233,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T13:00:00",
+          "Value": 538,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T13:00:00",
+          "Value": 172,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T13:00:00",
+          "Value": 73,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T14:00:00",
+          "Value": 235,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T14:00:00",
+          "Value": 156,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T14:00:00",
+          "Value": 507,
+          "Category": "Gamma"
+        },
+        {
+          "DateTime": "2020-01-03T15:00:00",
+          "Value": 101,
+          "Category": "Alpha"
+        },
+        {
+          "DateTime": "2020-01-03T15:00:00",
+          "Value": 421,
+          "Category": "Beta"
+        },
+        {
+          "DateTime": "2020-01-03T15:00:00",
+          "Value": 171,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "DateTime": "DateTime",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "DateTime"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

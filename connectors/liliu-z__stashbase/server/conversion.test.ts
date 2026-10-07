@@ -1,0 +1,266 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import test from 'node:test';
+import {
+  INDEX_EXCLUDED_DIRS,
+  isRetrievalEligibleDirectoryPath,
+  isRetrievalEligiblePath,
+  shouldIndexFilePath,
+} from './indexable.ts';
+import { closeStateDb } from './state-db.ts';
+
+function deferred(): { promise: Promise<void>; resolve: () => void } {
+  let resolve!: () => void;
+  const promise = new Promise<void>((done) => { resolve = done; });
+  return { promise, resolve };
+}
+
+function tick(): Promise<void> {
+  return new Promise((resolve) => setImmediate(resolve));
+}
+
+test('path eligibility applies hidden exclusions to both direct and prepared formats', () => {
+  assert.equal(isRetrievalEligiblePath('report.pdf'), true);
+  assert.equal(isRetrievalEligiblePath('recordings/interview.wav'), true);
+  assert.equal(isRetrievalEligiblePath('.private/report.pdf'), false);
+  assert.equal(isRetrievalEligiblePath('docs/.cache/interview.wav'), false);
+  assert.equal(isRetrievalEligibleDirectoryPath('docs'), true);
+  assert.equal(isRetrievalEligibleDirectoryPath('.private'), false);
+  assert.equal(isRetrievalEligibleDirectoryPath('docs/.cache'), false);
+  assert.equal(shouldIndexFilePath('note.md'), true);
+  assert.equal(shouldIndexFilePath('report.pdf'), false, 'prepared sources are not direct-text index inputs');
+});
+
+test('conversion discovery skips project directories excluded from indexing', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'stashbase-conversion-discovery-'));
+  const previousDataRoot = process.env.STASHBASE_LOCAL_DATA_ROOT;
+  process.env.STASHBASE_LOCAL_DATA_ROOT = path.join(root, 'data');
+  try {
+    const { discoverNewSources } = await import('./conversion.ts');
+    fs.writeFileSync(path.join(root, 'visible.pdf'), 'visible');
+    for (const directory of INDEX_EXCLUDED_DIRS) {
+      const excluded = path.join(root, directory);
+      fs.mkdirSync(excluded, { recursive: true });
+      fs.writeFileSync(path.join(excluded, 'hidden.pdf'), 'hidden');
+    }
+
+    const originalReaddirSync = fs.readdirSync;
+    fs.readdirSync = (() => {
+      throw new Error('conversion discovery used synchronous directory I/O');
+    }) as typeof fs.readdirSync;
+    const discovered: string[] = [];
+    try {
+      await discoverNewSources(root, {
+        kind: 'discovery_test',
+        lane: 'light',
+        cost: 0,
+        matches: (name: string) => name.endsWith('.pdf'),
+        derivedNote: (absPath: string) => `${absPath}.md`,
+        convert: async () => undefined,
+        cleanupDerived: () => undefined,
+      }, (absPath) => discovered.push(path.relative(root, absPath)));
+    } finally {
+      fs.readdirSync = originalReaddirSync;
+    }
+
+    assert.deepEqual(discovered, ['visible.pdf']);
+  } finally {
+    closeStateDb();
+    if (previousDataRoot == null) delete process.env.STASHBASE_LOCAL_DATA_ROOT;
+    else process.env.STASHBASE_LOCAL_DATA_ROOT = previousDataRoot;
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('format dispatch shares one recursive discovery pass', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'stashbase-conversion-dispatch-'));
+  const previousDataRoot = process.env.STASHBASE_LOCAL_DATA_ROOT;
+  process.env.STASHBASE_LOCAL_DATA_ROOT = path.join(root, 'data');
+  try {
+    const { discoverConvertibleSources } = await import('./conversion-dispatch.ts');
+    fs.mkdirSync(path.join(root, 'src'));
+    fs.writeFileSync(path.join(root, 'src', 'main.ts'), 'export {};');
+    fs.mkdirSync(path.join(root, 'node_modules'));
+    fs.writeFileSync(path.join(root, 'node_modules', 'hidden.pdf'), 'hidden');
+
+    const promises = fs.promises as typeof fs.promises & {
+      readdir: (...args: unknown[]) => Promise<unknown>;
+    };
+    const originalReaddir = promises.readdir;
+    let readdirCalls = 0;
+    promises.readdir = (async (...args: unknown[]) => {
+      readdirCalls += 1;
+      return (originalReaddir as (...inner: unknown[]) => Promise<unknown>)(...args);
+    }) as typeof promises.readdir;
+    try {
+      await discoverConvertibleSources(root);
+    } finally {
+      promises.readdir = originalReaddir;
+    }
+
+    assert.equal(readdirCalls, 2, 'root and visible src should each be read once');
+  } finally {
+    closeStateDb();
+    if (previousDataRoot == null) delete process.env.STASHBASE_LOCAL_DATA_ROOT;
+    else process.env.STASHBASE_LOCAL_DATA_ROOT = previousDataRoot;
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('stale final output is invalidated synchronously when conversion is queued', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'stashbase-conversion-'));
+  const previousDataRoot = process.env.STASHBASE_LOCAL_DATA_ROOT;
+  process.env.STASHBASE_LOCAL_DATA_ROOT = path.join(root, 'data');
+  try {
+    const { maybeConvert } = await import('./conversion.ts');
+    const source = path.join(root, 'report.docx');
+    const derived = path.join(root, 'report.html');
+    const runGate = deferred();
+    fs.writeFileSync(source, 'source');
+    fs.writeFileSync(derived, 'stale derived output');
+    fs.utimesSync(derived, new Date(1_000), new Date(1_000));
+    fs.utimesSync(source, new Date(2_000), new Date(2_000));
+
+    const completion = maybeConvert(source, {
+      kind: 'test_extract',
+      lane: 'light',
+      cost: 0,
+      matches: (name: string) => name.endsWith('.docx'),
+      derivedNote: () => derived,
+      convert: async () => {
+        await runGate.promise;
+        fs.writeFileSync(derived, '<p>fresh searchable text</p>');
+      },
+      cleanupDerived: () => fs.rmSync(derived, { force: true }),
+    });
+
+    assert.ok(completion);
+    assert.equal(fs.existsSync(derived), false);
+    runGate.resolve();
+    await completion;
+    assert.equal(fs.readFileSync(derived, 'utf8'), '<p>fresh searchable text</p>');
+  } finally {
+    closeStateDb();
+    if (previousDataRoot == null) delete process.env.STASHBASE_LOCAL_DATA_ROOT;
+    else process.env.STASHBASE_LOCAL_DATA_ROOT = previousDataRoot;
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('filesystem-root folder paths retain one separator', async () => {
+  const { runWithFolderRoot, toSourcePath } = await import('./folder.ts');
+  const { filesystemPath } = await import('./filesystem-path.ts');
+  const filesystemRoot = path.parse(process.cwd()).root;
+  const child = path.resolve(filesystemRoot, 'nested', 'report.docx');
+  assert.equal(filesystemPath.relative(filesystemRoot, child), 'nested/report.docx');
+  assert.equal(filesystemPath.join(filesystemRoot, 'nested/report.docx'), filesystemPath.absolute(child));
+  await runWithFolderRoot(filesystemRoot, () => {
+    assert.equal(toSourcePath('nested/report.docx'), filesystemPath.absolute(child));
+  });
+  if (process.platform === 'win32') {
+    assert.equal(filesystemPath.equal(child, filesystemPath.absolute(child).toUpperCase()), true);
+  }
+});
+
+test('file operations cancel queued/running conversion work and await release', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'stashbase-file-guard-'));
+  const previousDataRoot = process.env.STASHBASE_LOCAL_DATA_ROOT;
+  process.env.STASHBASE_LOCAL_DATA_ROOT = path.join(root, 'data');
+  const source = path.join(root, 'report.docx');
+  const secondSource = path.join(root, 'second.docx');
+  const queuedSource = path.join(root, 'queued.docx');
+  const gate = deferred();
+  fs.writeFileSync(source, 'source');
+  fs.writeFileSync(secondSource, 'source');
+  fs.writeFileSync(queuedSource, 'source');
+  try {
+    const { cancelConversionAndWait, getScheduledConversion, maybeConvert } = await import('./conversion.ts');
+    const { runWithFolderRoot } = await import('./folder.ts');
+    const { filesystemPath } = await import('./filesystem-path.ts');
+    const { prepareFileOperation } = await import('./routes/files.ts');
+    const spec = {
+      kind: 'guard_test',
+      lane: 'light',
+      cost: 0,
+      matches: (name: string) => name.endsWith('.docx'),
+      derivedNote: (absPath: string) => `${absPath}.html`,
+      convert: async (absPath: string, _onProgress?: unknown, signal?: AbortSignal) => {
+        await Promise.race([
+          gate.promise,
+          new Promise<never>((_resolve, reject) => {
+            signal?.addEventListener('abort', () => reject(new Error('cancelled')), { once: true });
+          }),
+        ]);
+        fs.writeFileSync(`${absPath}.html`, '<p>done</p>');
+      },
+      cleanupDerived: (absPath: string) => fs.rmSync(`${absPath}.html`, { force: true }),
+    } as const;
+    const completion = maybeConvert(source, spec);
+    const secondCompletion = maybeConvert(secondSource, spec);
+    const queuedCompletion = maybeConvert(queuedSource, spec);
+    assert.ok(completion);
+    assert.ok(secondCompletion);
+    assert.ok(queuedCompletion);
+    for (let attempt = 0; attempt < 10 && getScheduledConversion(source)?.state !== 'running'; attempt += 1) {
+      await tick();
+    }
+    assert.equal(getScheduledConversion(source)?.state, 'running');
+    assert.equal(getScheduledConversion(queuedSource)?.state, 'queued');
+    if (process.platform === 'win32') {
+      assert.equal(filesystemPath.canonicalRelative(root, 'REPORT.DOCX'), 'report.docx');
+    }
+    assert.equal(await runWithFolderRoot(root, () => prepareFileOperation('report.docx')), true);
+    assert.equal(getScheduledConversion(source), null);
+    assert.equal(await runWithFolderRoot(root, () => prepareFileOperation('queued.docx')), true);
+    assert.equal(getScheduledConversion(queuedSource), null);
+    await cancelConversionAndWait(secondSource, 'file-operation');
+    gate.resolve();
+    await Promise.all([completion, secondCompletion, queuedCompletion]);
+  } finally {
+    gate.resolve();
+    closeStateDb();
+    if (previousDataRoot == null) delete process.env.STASHBASE_LOCAL_DATA_ROOT;
+    else process.env.STASHBASE_LOCAL_DATA_ROOT = previousDataRoot;
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+
+test('converted indexing hands the complete derived projection to MFS', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'stashbase-derived-projection-'));
+  const previousDataRoot = process.env.STASHBASE_LOCAL_DATA_ROOT;
+  process.env.STASHBASE_LOCAL_DATA_ROOT = path.join(root, 'data');
+  const source = path.join(root, 'meeting.wav');
+  const derived = path.join(root, 'meeting.md');
+  fs.writeFileSync(source, 'old source bytes');
+  let indexed: { source: string; derived: string } | undefined;
+  try {
+    const { maybeConvert, setDerivedNoteIndexer } = await import('./conversion.ts');
+    setDerivedNoteIndexer(async (sourceAbs, derivedAbs) => {
+      indexed = { source: sourceAbs, derived: derivedAbs };
+      return { outcome: 'added' };
+    });
+    const completion = maybeConvert(source, {
+      kind: 'bound_hash_test',
+      lane: 'heavy',
+      cost: 1,
+      matches: () => true,
+      derivedNote: () => derived,
+      derivedReady: () => true,
+      convert: async () => { fs.writeFileSync(derived, 'timestamped transcript'); },
+      cleanupDerived: () => fs.rmSync(derived, { force: true }),
+    });
+    assert.ok(completion);
+    await completion;
+    assert.deepEqual(indexed, { source, derived });
+  } finally {
+    const { setDerivedNoteIndexer } = await import('./conversion.ts');
+    setDerivedNoteIndexer(async () => null);
+    closeStateDb();
+    if (previousDataRoot == null) delete process.env.STASHBASE_LOCAL_DATA_ROOT;
+    else process.env.STASHBASE_LOCAL_DATA_ROOT = previousDataRoot;
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});

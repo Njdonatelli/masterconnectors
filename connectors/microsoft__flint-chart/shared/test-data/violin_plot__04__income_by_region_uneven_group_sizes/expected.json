@@ -1,0 +1,1354 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Income (k$)",
+      "groupby": [
+        "Region"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        19.39040643102811,
+        136.80959356897188
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Income (k$)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "legend": null
+    },
+    "facet": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": [
+        "North",
+        "East",
+        "South",
+        "West"
+      ],
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      },
+      "columns": 4
+    }
+  },
+  "width": 125,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 125,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Region": "North",
+        "Income (k$)": 42.4
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 53.1
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 99
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 44.5
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 41.9
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 40.9
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 46.4
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 45.2
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 40.2
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 39.1
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 56
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 40.2
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 61.5
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 39.5
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 52.7
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 48.1
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 43.3
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 53
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 50.3
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 73.9
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 38.4
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 42.1
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 70.7
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 47.8
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 87.7
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 50.6
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 58
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 47.8
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 47.7
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 60.7
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 50.2
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 42.9
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 38.1
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 70.2
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 45.9
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 39.6
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 66.4
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 40.9
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 65.9
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 39.7
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 47.3
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 47
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 61
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 46
+      },
+      {
+        "Region": "North",
+        "Income (k$)": 47.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 48
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 37
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 39.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 38.8
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 34.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 33.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 39.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 51.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.1
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 54
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 39.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.8
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 33.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 77.1
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 40.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 49.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 39
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 53.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 50.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 45.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 55
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 46.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 34.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36.1
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 54.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 33.1
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 40.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 35.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 54.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.8
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 44.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 41.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 55.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 38.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 33.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 34.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 34.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36.8
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 72.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 53
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 41
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 38.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.8
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 37.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 37.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 57
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 37.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32.8
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 50.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 44.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 55.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 35.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 79.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 40.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 50
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 34.8
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 35
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 66.1
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 35.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 39.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 43.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 57.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 38.1
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 31.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 38.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 38.2
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 37.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 66.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 35.4
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 44
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 50.1
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 34.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 42.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 30.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 43.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 36.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 42
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 49.5
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 39.7
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32.9
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 71.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 53.3
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 32.6
+      },
+      {
+        "Region": "South",
+        "Income (k$)": 35.2
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 98.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 66.2
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 103.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 49.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 59.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 44.9
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 42.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 50
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 56.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 50.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 42.2
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 53.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 40.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 42.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 41.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 43
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 43.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 44.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 98.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 49.2
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 70.3
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 73.2
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 126.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 55.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 66.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 91.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 43
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 94
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 64.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 58.9
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 52.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 61.8
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 66.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 49.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 114.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 48.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 50.9
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 69.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 43.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 55.9
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 79.8
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 44.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 42.3
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.4
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 43.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 57.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 81.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 40
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 46.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 60.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.5
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.8
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 55.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 45.9
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 44.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 47.7
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 78.1
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 54.2
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 74.2
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 54.6
+      },
+      {
+        "Region": "East",
+        "Income (k$)": 61.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 55.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 58.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 47
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 45.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 49.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40.7
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 64.8
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 53.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 41.8
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 33.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 54.4
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 37.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 55.8
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 36
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 91.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 37.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 41.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 60.7
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 46.7
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 35
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40.4
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 61.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 76.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 54.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40.4
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 46.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 42.4
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 48.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 41
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 39
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 56.8
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 60.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 51.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 34
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 34.4
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 34.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 34.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 89.7
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 79.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 47.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 53.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 32.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 50.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 34
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38.8
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 43.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 60.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 36.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 65.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 43.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 35.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 36.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 35.8
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 44
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 56.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 39.5
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 34.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 34
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 54
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 35.4
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 32.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 45.3
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 44.7
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 51.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 32.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 39.4
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 118
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 32.7
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 49.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 65.8
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 40.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 41
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 58.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 52.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 37.6
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 37.2
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 44.9
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 36.1
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 38
+      },
+      {
+        "Region": "West",
+        "Income (k$)": 36.6
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

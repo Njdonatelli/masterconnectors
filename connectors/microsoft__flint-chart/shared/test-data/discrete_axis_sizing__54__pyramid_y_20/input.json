@@ -1,0 +1,237 @@
+{
+  "title": "Pyramid ▸ Y ×20",
+  "description": "Pyramid chart with 20 age groups on Y",
+  "chartType": "Pyramid Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "AgeGroup": "Age01",
+          "Gender": "Male",
+          "Population": 1460
+        },
+        {
+          "AgeGroup": "Age01",
+          "Gender": "Female",
+          "Population": 42422
+        },
+        {
+          "AgeGroup": "Age02",
+          "Gender": "Male",
+          "Population": 36593
+        },
+        {
+          "AgeGroup": "Age02",
+          "Gender": "Female",
+          "Population": 19628
+        },
+        {
+          "AgeGroup": "Age03",
+          "Gender": "Male",
+          "Population": 16714
+        },
+        {
+          "AgeGroup": "Age03",
+          "Gender": "Female",
+          "Population": 37800
+        },
+        {
+          "AgeGroup": "Age04",
+          "Gender": "Male",
+          "Population": 23223
+        },
+        {
+          "AgeGroup": "Age04",
+          "Gender": "Female",
+          "Population": 32245
+        },
+        {
+          "AgeGroup": "Age05",
+          "Gender": "Male",
+          "Population": 8629
+        },
+        {
+          "AgeGroup": "Age05",
+          "Gender": "Female",
+          "Population": 31942
+        },
+        {
+          "AgeGroup": "Age06",
+          "Gender": "Male",
+          "Population": 10922
+        },
+        {
+          "AgeGroup": "Age06",
+          "Gender": "Female",
+          "Population": 15683
+        },
+        {
+          "AgeGroup": "Age07",
+          "Gender": "Male",
+          "Population": 8762
+        },
+        {
+          "AgeGroup": "Age07",
+          "Gender": "Female",
+          "Population": 24840
+        },
+        {
+          "AgeGroup": "Age08",
+          "Gender": "Male",
+          "Population": 8544
+        },
+        {
+          "AgeGroup": "Age08",
+          "Gender": "Female",
+          "Population": 32371
+        },
+        {
+          "AgeGroup": "Age09",
+          "Gender": "Male",
+          "Population": 19584
+        },
+        {
+          "AgeGroup": "Age09",
+          "Gender": "Female",
+          "Population": 12653
+        },
+        {
+          "AgeGroup": "Age10",
+          "Gender": "Male",
+          "Population": 5840
+        },
+        {
+          "AgeGroup": "Age10",
+          "Gender": "Female",
+          "Population": 11324
+        },
+        {
+          "AgeGroup": "Age11",
+          "Gender": "Male",
+          "Population": 49175
+        },
+        {
+          "AgeGroup": "Age11",
+          "Gender": "Female",
+          "Population": 7235
+        },
+        {
+          "AgeGroup": "Age12",
+          "Gender": "Male",
+          "Population": 38827
+        },
+        {
+          "AgeGroup": "Age12",
+          "Gender": "Female",
+          "Population": 26666
+        },
+        {
+          "AgeGroup": "Age13",
+          "Gender": "Male",
+          "Population": 20613
+        },
+        {
+          "AgeGroup": "Age13",
+          "Gender": "Female",
+          "Population": 16412
+        },
+        {
+          "AgeGroup": "Age14",
+          "Gender": "Male",
+          "Population": 18536
+        },
+        {
+          "AgeGroup": "Age14",
+          "Gender": "Female",
+          "Population": 35435
+        },
+        {
+          "AgeGroup": "Age15",
+          "Gender": "Male",
+          "Population": 10762
+        },
+        {
+          "AgeGroup": "Age15",
+          "Gender": "Female",
+          "Population": 22007
+        },
+        {
+          "AgeGroup": "Age16",
+          "Gender": "Male",
+          "Population": 19865
+        },
+        {
+          "AgeGroup": "Age16",
+          "Gender": "Female",
+          "Population": 32245
+        },
+        {
+          "AgeGroup": "Age17",
+          "Gender": "Male",
+          "Population": 47236
+        },
+        {
+          "AgeGroup": "Age17",
+          "Gender": "Female",
+          "Population": 47913
+        },
+        {
+          "AgeGroup": "Age18",
+          "Gender": "Male",
+          "Population": 15615
+        },
+        {
+          "AgeGroup": "Age18",
+          "Gender": "Female",
+          "Population": 44172
+        },
+        {
+          "AgeGroup": "Age19",
+          "Gender": "Male",
+          "Population": 9148
+        },
+        {
+          "AgeGroup": "Age19",
+          "Gender": "Female",
+          "Population": 34937
+        },
+        {
+          "AgeGroup": "Age20",
+          "Gender": "Male",
+          "Population": 12998
+        },
+        {
+          "AgeGroup": "Age20",
+          "Gender": "Female",
+          "Population": 20914
+        }
+      ]
+    },
+    "semantic_types": {
+      "AgeGroup": "Category",
+      "Gender": "Category",
+      "Population": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Pyramid Chart",
+      "encodings": {
+        "y": {
+          "field": "AgeGroup"
+        },
+        "x": {
+          "field": "Population"
+        },
+        "color": {
+          "field": "Gender"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

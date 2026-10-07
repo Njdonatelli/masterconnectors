@@ -1,0 +1,187 @@
+{
+  "title": "Boolean Color (True/False)",
+  "description": "Semantic type \"Boolean\" on color uses categorical scheme with fixed 2-value domain. Ideal for binary classification display. WITHOUT this: treated as generic string, no fixed-domain awareness.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "customer_id": "C1",
+          "purchase_amount": 31,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C2",
+          "purchase_amount": 294,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C3",
+          "purchase_amount": 421,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C4",
+          "purchase_amount": 107,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C5",
+          "purchase_amount": 293,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C6",
+          "purchase_amount": 447,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C7",
+          "purchase_amount": 369,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C8",
+          "purchase_amount": 230,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C9",
+          "purchase_amount": 77,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C10",
+          "purchase_amount": 323,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C11",
+          "purchase_amount": 440,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C12",
+          "purchase_amount": 269,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C13",
+          "purchase_amount": 186,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C14",
+          "purchase_amount": 494,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C15",
+          "purchase_amount": 219,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C16",
+          "purchase_amount": 439,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C17",
+          "purchase_amount": 318,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C18",
+          "purchase_amount": 491,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C19",
+          "purchase_amount": 283,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C20",
+          "purchase_amount": 70,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C21",
+          "purchase_amount": 195,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C22",
+          "purchase_amount": 358,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C23",
+          "purchase_amount": 119,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C24",
+          "purchase_amount": 277,
+          "is_member": "False"
+        },
+        {
+          "customer_id": "C25",
+          "purchase_amount": 213,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C26",
+          "purchase_amount": 140,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C27",
+          "purchase_amount": 289,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C28",
+          "purchase_amount": 94,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C29",
+          "purchase_amount": 39,
+          "is_member": "True"
+        },
+        {
+          "customer_id": "C30",
+          "purchase_amount": 276,
+          "is_member": "True"
+        }
+      ]
+    },
+    "semantic_types": {
+      "customer_id": "ID",
+      "purchase_amount": "Amount",
+      "is_member": "Boolean"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "customer_id"
+        },
+        "y": {
+          "field": "purchase_amount"
+        },
+        "color": {
+          "field": "is_member"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

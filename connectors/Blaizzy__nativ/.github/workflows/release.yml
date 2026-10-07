@@ -1,0 +1,233 @@
+name: Publish macOS Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Published stable/RC tag without macOS assets, or preview to refresh only the rolling feed"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: macos-release
+  cancel-in-progress: false
+
+jobs:
+  build-notarize-publish:
+    if: ${{ (github.event.release.tag_name || inputs.tag) != 'preview' }}
+    runs-on: macos-26
+    outputs:
+      release_channel: ${{ steps.build.outputs.release_channel }}
+    env:
+      APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+      APP_BUNDLE_ID: ${{ vars.NATIV_BUNDLE_IDENTIFIER }}
+      FRAMEWORK_BUNDLE_ID: ${{ vars.NATIV_SERVER_KIT_BUNDLE_IDENTIFIER }}
+      GITHUB_APP_CLIENT_ID: ${{ vars.NATIV_GITHUB_APP_CLIENT_ID }}
+      GITHUB_APP_SLUG: ${{ vars.NATIV_GITHUB_APP_SLUG }}
+      RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+      SPARKLE_PRIVATE_KEY: ${{ secrets.SPARKLE_PRIVATE_KEY }}
+      NOTARY_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+      NOTARY_ISSUER: ${{ secrets.APPLE_API_ISSUER_ID }}
+
+    steps:
+      - name: Check out release tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Keep the previous stable appcast available during the build
+        run: |
+          python3 scripts/macos_release.py seed-appcast \
+            --repository "$GITHUB_REPOSITORY" --tag "$RELEASE_TAG"
+
+      - name: Validate release configuration
+        env:
+          DEVELOPER_ID_APPLICATION_P12_BASE64: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64 }}
+          DEVELOPER_ID_APPLICATION_P12_PASSWORD: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_PASSWORD }}
+          APPLE_API_KEY_P8_BASE64: ${{ secrets.APPLE_API_KEY_P8_BASE64 }}
+        run: |
+          set -euo pipefail
+          required=(
+            APPLE_TEAM_ID APP_BUNDLE_ID FRAMEWORK_BUNDLE_ID
+            GITHUB_APP_CLIENT_ID GITHUB_APP_SLUG
+            DEVELOPER_ID_APPLICATION_P12_BASE64
+            DEVELOPER_ID_APPLICATION_P12_PASSWORD
+            APPLE_API_KEY_P8_BASE64 NOTARY_KEY_ID NOTARY_ISSUER
+            SPARKLE_PRIVATE_KEY
+          )
+          for name in "${required[@]}"; do
+            if [[ -z "${!name:-}" ]]; then
+              echo "::error::Missing repository variable or secret: $name"
+              exit 1
+            fi
+          done
+          python3 scripts/macos_release.py preflight \
+            --repository "$GITHUB_REPOSITORY" --tag "$RELEASE_TAG" \
+            --environment "$GITHUB_ENV" --notes "$RUNNER_TEMP/release-notes.md"
+
+      - name: Check out mlx-vlm main for RC builds
+        if: ${{ env.RELEASE_CHANNEL == 'rc' }}
+        uses: actions/checkout@v4
+        with:
+          repository: Blaizzy/mlx-vlm
+          ref: main
+          path: .cache/mlx-vlm
+          persist-credentials: false
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Install Metal Toolchain for the terminal renderer
+        run: xcodebuild -downloadComponent MetalToolchain
+
+      - name: Configure project signing values
+        run: |
+          cat > Configuration/Signing.local.xcconfig <<EOF
+          NATIV_BUNDLE_IDENTIFIER = $APP_BUNDLE_ID
+          NATIV_SERVER_KIT_BUNDLE_IDENTIFIER = $FRAMEWORK_BUNDLE_ID
+          NATIV_VOICE_EXTENSION_BUNDLE_IDENTIFIER = ${APP_BUNDLE_ID}.VoiceDictationExtension
+          NATIV_GITHUB_APP_CLIENT_ID = $GITHUB_APP_CLIENT_ID
+          NATIV_GITHUB_APP_SLUG = $GITHUB_APP_SLUG
+          DEVELOPMENT_TEAM = $APPLE_TEAM_ID
+          EOF
+
+      - name: Import Developer ID certificate
+        env:
+          CERTIFICATE_BASE64: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_BASE64 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.DEVELOPER_ID_APPLICATION_P12_PASSWORD }}
+        run: |
+          set -euo pipefail
+          certificate_path="$RUNNER_TEMP/developer-id-application.p12"
+          keychain_path="$RUNNER_TEMP/release-signing.keychain-db"
+          keychain_password="$(uuidgen)"
+          printf '%s' "$CERTIFICATE_BASE64" | base64 -D > "$certificate_path"
+          security create-keychain -p "$keychain_password" "$keychain_path"
+          security set-keychain-settings -lut 21600 "$keychain_path"
+          security unlock-keychain -p "$keychain_password" "$keychain_path"
+          security import "$certificate_path" \
+            -P "$CERTIFICATE_PASSWORD" \
+            -A -t cert -f pkcs12 \
+            -k "$keychain_path"
+          security set-key-partition-list \
+            -S apple-tool:,apple: \
+            -s -k "$keychain_password" \
+            "$keychain_path"
+          security list-keychains -d user -s "$keychain_path"
+          security find-identity -v -p codesigning "$keychain_path"
+
+      - name: Configure notarization API key
+        env:
+          API_KEY_BASE64: ${{ secrets.APPLE_API_KEY_P8_BASE64 }}
+        run: |
+          set -euo pipefail
+          NOTARY_KEY_PATH="$RUNNER_TEMP/AuthKey_${NOTARY_KEY_ID}.p8"
+          printf '%s' "$API_KEY_BASE64" | base64 -D > "$NOTARY_KEY_PATH"
+          chmod 600 "$NOTARY_KEY_PATH"
+          echo "NOTARY_KEY_PATH=$NOTARY_KEY_PATH" >> "$GITHUB_ENV"
+
+      - name: Build, sign, notarize, and create appcast
+        id: build
+        env:
+          MLX_VLM_SOURCE_PATH: ${{ env.RELEASE_CHANNEL == 'rc' && format('{0}/.cache/mlx-vlm', github.workspace) || '' }}
+        run: |
+          scripts/release_macos.sh \
+            --build-number "$RELEASE_BUILD_NUMBER" \
+            --release-notes "$RUNNER_TEMP/release-notes.md" \
+            "$RELEASE_VERSION"
+          echo "release_channel=$RELEASE_CHANNEL" >> "$GITHUB_OUTPUT"
+
+      - name: Upload notarized app to GitHub Release
+        run: |
+          set -euo pipefail
+          python3 scripts/macos_release.py validate-release \
+            --repository "$GITHUB_REPOSITORY" --tag "$RELEASE_TAG"
+          release_id="$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" --jq '.id')"
+          upload_url="$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" --jq '.upload_url')"
+          upload_url="${upload_url%%\{*}"
+          if [[ "$upload_url" != https://uploads.github.com/* ]]; then
+            echo "::error::Could not resolve a GitHub upload URL for $RELEASE_TAG"
+            exit 1
+          fi
+
+          assets=(
+            "dist/release/Nativ-${RELEASE_VERSION}.dmg|application/x-apple-diskimage"
+          )
+          for asset in "${assets[@]}"; do
+            IFS='|' read -r asset_path content_type <<< "$asset"
+            asset_name="$(basename "$asset_path")"
+            existing_asset_id="$(gh api "repos/$GITHUB_REPOSITORY/releases/$release_id/assets" \
+              --jq ".[] | select(.name == \"$asset_name\") | .id")"
+            if [[ -n "$existing_asset_id" ]]; then
+              echo "::error::Refusing to replace a signed release asset: $asset_name"
+              exit 1
+            fi
+            response_path="$RUNNER_TEMP/release-upload-${asset_name}.json"
+            curl \
+              --silent \
+              --show-error \
+              --fail-with-body \
+              --retry 6 \
+              --retry-delay 10 \
+              --retry-max-time 300 \
+              --retry-all-errors \
+              --request POST \
+              --header "Authorization: Bearer $GH_TOKEN" \
+              --header "Accept: application/vnd.github+json" \
+              --header "X-GitHub-Api-Version: 2026-03-10" \
+              --header "Content-Type: $content_type" \
+              --data-binary "@$asset_path" \
+              --output "$response_path" \
+              "${upload_url}?name=${asset_name}"
+            jq -r '"Uploaded \(.name): \(.browser_download_url)"' "$response_path"
+          done
+
+      - name: Replace the temporary appcast with the new release feed
+        run: |
+          python3 scripts/macos_release.py publish-appcast \
+            --repository "$GITHUB_REPOSITORY" --tag "$RELEASE_TAG" \
+            --path dist/release/appcast.xml
+
+      - name: Verify published appcast
+        run: |
+          archive_url="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/Nativ-${RELEASE_VERSION}.dmg"
+          release_appcast_url="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/appcast.xml"
+          latest_appcast_url="https://github.com/${GITHUB_REPOSITORY}/releases/latest/download/appcast.xml"
+          scripts/verify_macos_appcast.sh \
+            "$release_appcast_url" \
+            "$archive_url" \
+            dist/release/appcast.xml
+          if [[ "$RELEASE_CHANNEL" == stable ]]; then
+            latest_tag="$(gh api "repos/$GITHUB_REPOSITORY/releases/latest" --jq '.tag_name')"
+            if [[ "$latest_tag" == "$RELEASE_TAG" ]]; then
+              scripts/verify_macos_appcast.sh \
+                "$latest_appcast_url" \
+                "$archive_url" \
+                dist/release/appcast.xml
+            fi
+          fi
+
+  publish-preview:
+    needs: build-notarize-publish
+    # Stable releases skip this job; RCs and explicit preview refreshes run it.
+    if: >-
+      ${{ !cancelled() && ((needs.build-notarize-publish.result == 'success' &&
+          needs.build-notarize-publish.outputs.release_channel == 'rc') ||
+          (github.event_name == 'workflow_dispatch' && inputs.tag == 'preview')) }}
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out current release tooling
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Refresh and verify the fixed preview release
+        run: |
+          python3 scripts/macos_release.py publish-preview \
+            --repository "$GITHUB_REPOSITORY"

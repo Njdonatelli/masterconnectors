@@ -1,0 +1,672 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "column": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null
+    },
+    "row": {
+      "field": "Row",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Row: Value"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 96,
+      "continuousHeight": 79
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerColumn": {
+      "labelFontSize": 9,
+      "labelLimit": 116
+    },
+    "headerRow": {
+      "labelFontSize": 9,
+      "labelLimit": 79
+    },
+    "facet": {
+      "spacing": 8
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "A",
+        "Value": 55,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 420,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 225,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 285,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 71,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 334,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 294,
+        "Col": "Electronics",
+        "Row": "Food"
+      },
+      {
+        "Category": "B",
+        "Value": 336,
+        "Col": "Electronics",
+        "Row": "Food"
+      },
+      {
+        "Category": "C",
+        "Value": 100,
+        "Col": "Electronics",
+        "Row": "Food"
+      },
+      {
+        "Category": "A",
+        "Value": 147,
+        "Col": "Electronics",
+        "Row": "Books"
+      },
+      {
+        "Category": "B",
+        "Value": 370,
+        "Col": "Electronics",
+        "Row": "Books"
+      },
+      {
+        "Category": "C",
+        "Value": 413,
+        "Col": "Electronics",
+        "Row": "Books"
+      },
+      {
+        "Category": "A",
+        "Value": 270,
+        "Col": "Electronics",
+        "Row": "Sports"
+      },
+      {
+        "Category": "B",
+        "Value": 174,
+        "Col": "Electronics",
+        "Row": "Sports"
+      },
+      {
+        "Category": "C",
+        "Value": 215,
+        "Col": "Electronics",
+        "Row": "Sports"
+      },
+      {
+        "Category": "A",
+        "Value": 197,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 122,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 254,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 317,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 391,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 134,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 168,
+        "Col": "Clothing",
+        "Row": "Food"
+      },
+      {
+        "Category": "B",
+        "Value": 415,
+        "Col": "Clothing",
+        "Row": "Food"
+      },
+      {
+        "Category": "C",
+        "Value": 547,
+        "Col": "Clothing",
+        "Row": "Food"
+      },
+      {
+        "Category": "A",
+        "Value": 58,
+        "Col": "Clothing",
+        "Row": "Books"
+      },
+      {
+        "Category": "B",
+        "Value": 503,
+        "Col": "Clothing",
+        "Row": "Books"
+      },
+      {
+        "Category": "C",
+        "Value": 241,
+        "Col": "Clothing",
+        "Row": "Books"
+      },
+      {
+        "Category": "A",
+        "Value": 94,
+        "Col": "Clothing",
+        "Row": "Sports"
+      },
+      {
+        "Category": "B",
+        "Value": 226,
+        "Col": "Clothing",
+        "Row": "Sports"
+      },
+      {
+        "Category": "C",
+        "Value": 477,
+        "Col": "Clothing",
+        "Row": "Sports"
+      },
+      {
+        "Category": "A",
+        "Value": 256,
+        "Col": "Food",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 253,
+        "Col": "Food",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 409,
+        "Col": "Food",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 51,
+        "Col": "Food",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 296,
+        "Col": "Food",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 101,
+        "Col": "Food",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 92,
+        "Col": "Food",
+        "Row": "Food"
+      },
+      {
+        "Category": "B",
+        "Value": 217,
+        "Col": "Food",
+        "Row": "Food"
+      },
+      {
+        "Category": "C",
+        "Value": 74,
+        "Col": "Food",
+        "Row": "Food"
+      },
+      {
+        "Category": "A",
+        "Value": 272,
+        "Col": "Food",
+        "Row": "Books"
+      },
+      {
+        "Category": "B",
+        "Value": 491,
+        "Col": "Food",
+        "Row": "Books"
+      },
+      {
+        "Category": "C",
+        "Value": 388,
+        "Col": "Food",
+        "Row": "Books"
+      },
+      {
+        "Category": "A",
+        "Value": 96,
+        "Col": "Food",
+        "Row": "Sports"
+      },
+      {
+        "Category": "B",
+        "Value": 350,
+        "Col": "Food",
+        "Row": "Sports"
+      },
+      {
+        "Category": "C",
+        "Value": 128,
+        "Col": "Food",
+        "Row": "Sports"
+      },
+      {
+        "Category": "A",
+        "Value": 461,
+        "Col": "Books",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 479,
+        "Col": "Books",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 106,
+        "Col": "Books",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 176,
+        "Col": "Books",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 197,
+        "Col": "Books",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 378,
+        "Col": "Books",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 444,
+        "Col": "Books",
+        "Row": "Food"
+      },
+      {
+        "Category": "B",
+        "Value": 330,
+        "Col": "Books",
+        "Row": "Food"
+      },
+      {
+        "Category": "C",
+        "Value": 518,
+        "Col": "Books",
+        "Row": "Food"
+      },
+      {
+        "Category": "A",
+        "Value": 61,
+        "Col": "Books",
+        "Row": "Books"
+      },
+      {
+        "Category": "B",
+        "Value": 286,
+        "Col": "Books",
+        "Row": "Books"
+      },
+      {
+        "Category": "C",
+        "Value": 312,
+        "Col": "Books",
+        "Row": "Books"
+      },
+      {
+        "Category": "A",
+        "Value": 518,
+        "Col": "Books",
+        "Row": "Sports"
+      },
+      {
+        "Category": "B",
+        "Value": 76,
+        "Col": "Books",
+        "Row": "Sports"
+      },
+      {
+        "Category": "C",
+        "Value": 55,
+        "Col": "Books",
+        "Row": "Sports"
+      },
+      {
+        "Category": "A",
+        "Value": 293,
+        "Col": "Sports",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 313,
+        "Col": "Sports",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 504,
+        "Col": "Sports",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 479,
+        "Col": "Sports",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 388,
+        "Col": "Sports",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 370,
+        "Col": "Sports",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 164,
+        "Col": "Sports",
+        "Row": "Food"
+      },
+      {
+        "Category": "B",
+        "Value": 488,
+        "Col": "Sports",
+        "Row": "Food"
+      },
+      {
+        "Category": "C",
+        "Value": 134,
+        "Col": "Sports",
+        "Row": "Food"
+      },
+      {
+        "Category": "A",
+        "Value": 111,
+        "Col": "Sports",
+        "Row": "Books"
+      },
+      {
+        "Category": "B",
+        "Value": 482,
+        "Col": "Sports",
+        "Row": "Books"
+      },
+      {
+        "Category": "C",
+        "Value": 261,
+        "Col": "Sports",
+        "Row": "Books"
+      },
+      {
+        "Category": "A",
+        "Value": 347,
+        "Col": "Sports",
+        "Row": "Sports"
+      },
+      {
+        "Category": "B",
+        "Value": 392,
+        "Col": "Sports",
+        "Row": "Sports"
+      },
+      {
+        "Category": "C",
+        "Value": 226,
+        "Col": "Sports",
+        "Row": "Sports"
+      },
+      {
+        "Category": "A",
+        "Value": 326,
+        "Col": "Home",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 489,
+        "Col": "Home",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 151,
+        "Col": "Home",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 335,
+        "Col": "Home",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 145,
+        "Col": "Home",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 346,
+        "Col": "Home",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 148,
+        "Col": "Home",
+        "Row": "Food"
+      },
+      {
+        "Category": "B",
+        "Value": 245,
+        "Col": "Home",
+        "Row": "Food"
+      },
+      {
+        "Category": "C",
+        "Value": 196,
+        "Col": "Home",
+        "Row": "Food"
+      },
+      {
+        "Category": "A",
+        "Value": 549,
+        "Col": "Home",
+        "Row": "Books"
+      },
+      {
+        "Category": "B",
+        "Value": 201,
+        "Col": "Home",
+        "Row": "Books"
+      },
+      {
+        "Category": "C",
+        "Value": 383,
+        "Col": "Home",
+        "Row": "Books"
+      },
+      {
+        "Category": "A",
+        "Value": 277,
+        "Col": "Home",
+        "Row": "Sports"
+      },
+      {
+        "Category": "B",
+        "Value": 219,
+        "Col": "Home",
+        "Row": "Sports"
+      },
+      {
+        "Category": "C",
+        "Value": 468,
+        "Col": "Home",
+        "Row": "Sports"
+      }
+    ]
+  },
+  "_width": 96,
+  "_height": 79,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+<UserControl
+    x:Class="Gridex.ConnectionCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid Padding="12,10" CornerRadius="8"
+          Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+          BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+          BorderThickness="1"
+          Height="72">
+
+        <!-- Right-click context menu -->
+        <Grid.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Connect" Click="ContextConnect_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE703;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Edit" Click="ContextEdit_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE70F;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+                <MenuFlyoutSeparator />
+                <MenuFlyoutItem Text="Delete" Click="ContextDelete_Click">
+                    <MenuFlyoutItem.Icon>
+                        <FontIcon Glyph="&#xE74D;" />
+                    </MenuFlyoutItem.Icon>
+                </MenuFlyoutItem>
+            </MenuFlyout>
+        </Grid.ContextFlyout>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="12" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="12" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Color Tag Bar -->
+        <Border x:Name="ColorTagBar"
+                Grid.Column="0"
+                Width="4" CornerRadius="2"
+                VerticalAlignment="Stretch" />
+
+        <!-- Database Type Icon -->
+        <Border Grid.Column="2"
+                Width="36" Height="36"
+                CornerRadius="8"
+                Background="{ThemeResource AccentFillColorDefaultBrush}">
+            <FontIcon x:Name="DbTypeIcon"
+                      FontSize="18"
+                      Foreground="White"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center" />
+        </Border>
+
+        <!-- Name + Subtitle -->
+        <StackPanel Grid.Column="4" VerticalAlignment="Center" Spacing="2">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock x:Name="ConnNameText"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Foreground="{ThemeResource TextFillColorPrimaryBrush}"
+                           TextTrimming="CharacterEllipsis" />
+                <!-- Color tag hint badge -->
+                <Border x:Name="TagBadge"
+                        CornerRadius="4"
+                        Padding="6,1"
+                        Visibility="Collapsed">
+                    <TextBlock x:Name="TagBadgeText"
+                               FontSize="10"
+                               Foreground="White" />
+                </Border>
+                <!-- Environment tag badge (Production / Staging / ...). Color
+                     varies by tag value so prod/dev pop visually different. -->
+                <Border x:Name="EnvTagBadge"
+                        CornerRadius="4"
+                        Padding="6,1"
+                        Visibility="Collapsed">
+                    <TextBlock x:Name="EnvTagBadgeText"
+                               FontSize="10"
+                               Foreground="White" />
+                </Border>
+            </StackPanel>
+            <TextBlock x:Name="SubtitleText"
+                       FontSize="12"
+                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                       TextTrimming="CharacterEllipsis" />
+        </StackPanel>
+
+        <!-- DB Type Label -->
+        <TextBlock x:Name="DbTypeLabel"
+                   Grid.Column="5"
+                   FontSize="11"
+                   FontWeight="SemiBold"
+                   VerticalAlignment="Center"
+                   Foreground="{ThemeResource TextFillColorDisabledBrush}" />
+    </Grid>
+</UserControl>

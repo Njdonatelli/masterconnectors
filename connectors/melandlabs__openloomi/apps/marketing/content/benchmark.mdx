@@ -1,0 +1,95 @@
+---
+title: "Memory Benchmarks"
+description: "OpenLoomi memory system evaluation benchmarks — LoCoMo, LongMemEval, and Aloomi Harness performance data"
+icon: "FaChartLine"
+---
+
+# Memory Benchmarks
+
+OpenLoomi's memory system is rigorously evaluated against academic and industry benchmarks to ensure industry-leading performance in real-world scenarios.
+
+This page summarises the headline numbers and links to the per-benchmark harness code. For the deeper evaluation framework (accuracy, recall, temporal reasoning, knowledge update), see the [Memory Evaluation Framework](/docs/memory#memory-evaluation-framework) section of the Memory doc.
+
+## Scope
+
+Three benchmark families, each measuring a different dimension of the memory stack:
+
+| Benchmark     | Question                                    | What it stresses                                                  |
+| ------------- | ------------------------------------------- | ----------------------------------------------------------------- |
+| LoCoMo        | "Did the agent recall what was said?"       | Long-term conversation recall across retrieval modes              |
+| LongMemEval-S | "Did the agent reason across sessions?"     | Cross-session, temporal, and knowledge-update questions           |
+| CL-bench      | "Did the agent apply context to new tasks?" | Domain reasoning, extraction, and text generation in long context |
+
+## Results
+
+OpenLoomi reports **96%+ accuracy** on LoCoMo and LongMemEval-S500 — on par with leading open-source memory projects (`agentmemory`, `mempalace`). See the [GitHub harness](https://github.com/melandlabs/openloomi/tree/main/benchmark) for raw numbers, splits, and replay instructions.
+
+---
+
+## LoCoMo (Long-term Conversation Memory)
+
+**Source**: Stony Brook University — Academic Benchmark Dataset
+
+LoCoMo contains real conversation records with corresponding observations, summaries, and QA pairs, specifically designed to evaluate memory system performance across different retrieval modes.
+
+### Question Categories
+
+| Category      | Description                         |
+| ------------- | ----------------------------------- |
+| `single_hop`  | Single memory retrieval fact recall |
+| `temporal`    | Date/time reasoning questions       |
+| `multi_hop`   | Cross-session multi-step reasoning  |
+| `open_domain` | Open-domain fusion Q&A              |
+
+Performance is on par with leading open-source memory projects like agentmemory and mempalace.
+
+🔗 [GitHub Repository](https://github.com/melandlabs/openloomi/tree/main/benchmark/locomo)
+
+---
+
+## LongMemEval-S
+
+**Scale**: 500 QA Pairs, 10+ Question Types, 100+ Sessions
+
+Extracted from real multi-turn conversations, LongMemEval contains questions covering short-term memory, cross-session reasoning, temporal reasoning, and more — evaluating Agent memory recall capability in complex scenarios.
+
+### Question Types
+
+- **single-session-assistant**: Assistant interactions within a single session
+- **single-session-user**: User interactions within a single session
+- **multi-session**: Cross-session multi-step reasoning
+- **temporal-reasoning**: Time-sensitive query reasoning
+- **knowledge-update**: Knowledge iteration and fact changes
+- **single-session-preference**: User preference queries
+
+🔗 [GitHub Repository](https://github.com/melandlabs/openloomi/tree/main/benchmark/longmemeval)
+
+---
+
+## CL-bench (Context Learning Benchmark)
+
+**Source**: Tencent — Industry Benchmark Dataset
+
+**Scale**: 1,899 Tasks (CL-bench), 405 Tasks (CL-bench-Life)
+
+CL-bench evaluates AI models' context learning capabilities across professional and everyday life scenarios. It tests the model's ability to understand, reason about, and apply information from extended context.
+
+### Task Categories
+
+| Category                   | Description                                    |
+| -------------------------- | ---------------------------------------------- |
+| Domain Knowledge Reasoning | Professional domain-specific reasoning         |
+| Language Understanding     | Natural language comprehension                 |
+| Information Extraction     | Structured information extraction from context |
+| Text Generation            | Context-aware content generation               |
+
+🔗 [GitHub Repository](https://github.com/melandlabs/openloomi/tree/main/benchmark/clbench)
+
+---
+
+## Related
+
+- [Memory](/docs/memory) — the system these benchmarks evaluate
+- [Embedding Providers](/docs/reference/embedding-providers) — backend choices that affect retrieval numbers
+- [What is OpenLoomi?](/docs/what-is-openloomi) — the 30-second pitch
+- [Changelog](/docs/changelog) — benchmark history and methodology updates

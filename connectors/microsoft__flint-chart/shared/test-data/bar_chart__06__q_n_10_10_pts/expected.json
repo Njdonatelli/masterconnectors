@@ -1,0 +1,140 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "X": 1,
+        "Group": "Speaker"
+      },
+      {
+        "X": 2,
+        "Group": "Speaker"
+      },
+      {
+        "X": 3,
+        "Group": "Monitor"
+      },
+      {
+        "X": 4,
+        "Group": "Phone"
+      },
+      {
+        "X": 5,
+        "Group": "Monitor"
+      },
+      {
+        "X": 6,
+        "Group": "Camera"
+      },
+      {
+        "X": 7,
+        "Group": "Desktop"
+      },
+      {
+        "X": 8,
+        "Group": "Desktop"
+      },
+      {
+        "X": 9,
+        "Group": "Phone"
+      },
+      {
+        "X": 10,
+        "Group": "Speaker"
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

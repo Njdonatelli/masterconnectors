@@ -1,0 +1,1546 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Grade",
+      "groupby": [
+        "Subject"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        27.582522723109836,
+        109.41747727689017
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Grade",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Subject",
+      "type": "nominal",
+      "legend": null
+    },
+    "facet": {
+      "field": "Subject",
+      "type": "nominal",
+      "sort": null,
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      },
+      "columns": 6
+    }
+  },
+  "width": 83,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 83,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Subject": "Electronics",
+        "Grade": 68
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 62
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 55
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 42
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 69
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 61
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 61
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 60
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 54
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 68
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 60
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 56
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 51
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 67
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 63
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 54
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 63
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 59
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 79
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 68
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 56
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 59
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 64
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 63
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 65
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 57
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 43
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 72
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 68
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 67
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 75
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 65
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 58
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 47
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 57
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 49
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 67
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 59
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 62
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 60
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 68
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 49
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 62
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 59
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 46
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 59
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 55
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 56
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 60
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 58
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 55
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 70
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 43
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 56
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 60
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 49
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 51
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 50
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 61
+      },
+      {
+        "Subject": "Electronics",
+        "Grade": 54
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 79
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 62
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 61
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 63
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 59
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 74
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 80
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 60
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 76
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 69
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 61
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 66
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 57
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 63
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 56
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 56
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 83
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 77
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 49
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 48
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 67
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 41
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 65
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 70
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 62
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 71
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 70
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 89
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 74
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 83
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 59
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 49
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 71
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 51
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 72
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 64
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 51
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 59
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 72
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 49
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 58
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 59
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 63
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 62
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 61
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 64
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 62
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 47
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 62
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 76
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 69
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 82
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 56
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 61
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 65
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 60
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 56
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 63
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 50
+      },
+      {
+        "Subject": "Clothing",
+        "Grade": 70
+      },
+      {
+        "Subject": "Food",
+        "Grade": 69
+      },
+      {
+        "Subject": "Food",
+        "Grade": 68
+      },
+      {
+        "Subject": "Food",
+        "Grade": 73
+      },
+      {
+        "Subject": "Food",
+        "Grade": 75
+      },
+      {
+        "Subject": "Food",
+        "Grade": 80
+      },
+      {
+        "Subject": "Food",
+        "Grade": 50
+      },
+      {
+        "Subject": "Food",
+        "Grade": 74
+      },
+      {
+        "Subject": "Food",
+        "Grade": 82
+      },
+      {
+        "Subject": "Food",
+        "Grade": 78
+      },
+      {
+        "Subject": "Food",
+        "Grade": 52
+      },
+      {
+        "Subject": "Food",
+        "Grade": 88
+      },
+      {
+        "Subject": "Food",
+        "Grade": 56
+      },
+      {
+        "Subject": "Food",
+        "Grade": 97
+      },
+      {
+        "Subject": "Food",
+        "Grade": 71
+      },
+      {
+        "Subject": "Food",
+        "Grade": 65
+      },
+      {
+        "Subject": "Food",
+        "Grade": 59
+      },
+      {
+        "Subject": "Food",
+        "Grade": 65
+      },
+      {
+        "Subject": "Food",
+        "Grade": 68
+      },
+      {
+        "Subject": "Food",
+        "Grade": 51
+      },
+      {
+        "Subject": "Food",
+        "Grade": 57
+      },
+      {
+        "Subject": "Food",
+        "Grade": 100
+      },
+      {
+        "Subject": "Food",
+        "Grade": 40
+      },
+      {
+        "Subject": "Food",
+        "Grade": 74
+      },
+      {
+        "Subject": "Food",
+        "Grade": 73
+      },
+      {
+        "Subject": "Food",
+        "Grade": 42
+      },
+      {
+        "Subject": "Food",
+        "Grade": 64
+      },
+      {
+        "Subject": "Food",
+        "Grade": 62
+      },
+      {
+        "Subject": "Food",
+        "Grade": 88
+      },
+      {
+        "Subject": "Food",
+        "Grade": 62
+      },
+      {
+        "Subject": "Food",
+        "Grade": 78
+      },
+      {
+        "Subject": "Food",
+        "Grade": 63
+      },
+      {
+        "Subject": "Food",
+        "Grade": 89
+      },
+      {
+        "Subject": "Food",
+        "Grade": 47
+      },
+      {
+        "Subject": "Food",
+        "Grade": 69
+      },
+      {
+        "Subject": "Food",
+        "Grade": 60
+      },
+      {
+        "Subject": "Food",
+        "Grade": 71
+      },
+      {
+        "Subject": "Food",
+        "Grade": 73
+      },
+      {
+        "Subject": "Food",
+        "Grade": 100
+      },
+      {
+        "Subject": "Food",
+        "Grade": 63
+      },
+      {
+        "Subject": "Food",
+        "Grade": 61
+      },
+      {
+        "Subject": "Food",
+        "Grade": 54
+      },
+      {
+        "Subject": "Food",
+        "Grade": 81
+      },
+      {
+        "Subject": "Food",
+        "Grade": 52
+      },
+      {
+        "Subject": "Food",
+        "Grade": 57
+      },
+      {
+        "Subject": "Food",
+        "Grade": 67
+      },
+      {
+        "Subject": "Food",
+        "Grade": 65
+      },
+      {
+        "Subject": "Food",
+        "Grade": 76
+      },
+      {
+        "Subject": "Food",
+        "Grade": 64
+      },
+      {
+        "Subject": "Food",
+        "Grade": 100
+      },
+      {
+        "Subject": "Food",
+        "Grade": 73
+      },
+      {
+        "Subject": "Food",
+        "Grade": 60
+      },
+      {
+        "Subject": "Food",
+        "Grade": 42
+      },
+      {
+        "Subject": "Food",
+        "Grade": 51
+      },
+      {
+        "Subject": "Food",
+        "Grade": 63
+      },
+      {
+        "Subject": "Food",
+        "Grade": 98
+      },
+      {
+        "Subject": "Food",
+        "Grade": 57
+      },
+      {
+        "Subject": "Food",
+        "Grade": 75
+      },
+      {
+        "Subject": "Food",
+        "Grade": 46
+      },
+      {
+        "Subject": "Food",
+        "Grade": 54
+      },
+      {
+        "Subject": "Food",
+        "Grade": 71
+      },
+      {
+        "Subject": "Books",
+        "Grade": 69
+      },
+      {
+        "Subject": "Books",
+        "Grade": 73
+      },
+      {
+        "Subject": "Books",
+        "Grade": 77
+      },
+      {
+        "Subject": "Books",
+        "Grade": 74
+      },
+      {
+        "Subject": "Books",
+        "Grade": 65
+      },
+      {
+        "Subject": "Books",
+        "Grade": 82
+      },
+      {
+        "Subject": "Books",
+        "Grade": 83
+      },
+      {
+        "Subject": "Books",
+        "Grade": 53
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 75
+      },
+      {
+        "Subject": "Books",
+        "Grade": 73
+      },
+      {
+        "Subject": "Books",
+        "Grade": 64
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 80
+      },
+      {
+        "Subject": "Books",
+        "Grade": 57
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 64
+      },
+      {
+        "Subject": "Books",
+        "Grade": 42
+      },
+      {
+        "Subject": "Books",
+        "Grade": 65
+      },
+      {
+        "Subject": "Books",
+        "Grade": 64
+      },
+      {
+        "Subject": "Books",
+        "Grade": 75
+      },
+      {
+        "Subject": "Books",
+        "Grade": 64
+      },
+      {
+        "Subject": "Books",
+        "Grade": 73
+      },
+      {
+        "Subject": "Books",
+        "Grade": 69
+      },
+      {
+        "Subject": "Books",
+        "Grade": 59
+      },
+      {
+        "Subject": "Books",
+        "Grade": 80
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 71
+      },
+      {
+        "Subject": "Books",
+        "Grade": 58
+      },
+      {
+        "Subject": "Books",
+        "Grade": 56
+      },
+      {
+        "Subject": "Books",
+        "Grade": 62
+      },
+      {
+        "Subject": "Books",
+        "Grade": 62
+      },
+      {
+        "Subject": "Books",
+        "Grade": 58
+      },
+      {
+        "Subject": "Books",
+        "Grade": 78
+      },
+      {
+        "Subject": "Books",
+        "Grade": 80
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 68
+      },
+      {
+        "Subject": "Books",
+        "Grade": 66
+      },
+      {
+        "Subject": "Books",
+        "Grade": 81
+      },
+      {
+        "Subject": "Books",
+        "Grade": 63
+      },
+      {
+        "Subject": "Books",
+        "Grade": 64
+      },
+      {
+        "Subject": "Books",
+        "Grade": 64
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 73
+      },
+      {
+        "Subject": "Books",
+        "Grade": 65
+      },
+      {
+        "Subject": "Books",
+        "Grade": 58
+      },
+      {
+        "Subject": "Books",
+        "Grade": 68
+      },
+      {
+        "Subject": "Books",
+        "Grade": 72
+      },
+      {
+        "Subject": "Books",
+        "Grade": 84
+      },
+      {
+        "Subject": "Books",
+        "Grade": 60
+      },
+      {
+        "Subject": "Books",
+        "Grade": 70
+      },
+      {
+        "Subject": "Books",
+        "Grade": 78
+      },
+      {
+        "Subject": "Books",
+        "Grade": 88
+      },
+      {
+        "Subject": "Books",
+        "Grade": 78
+      },
+      {
+        "Subject": "Books",
+        "Grade": 83
+      },
+      {
+        "Subject": "Books",
+        "Grade": 62
+      },
+      {
+        "Subject": "Books",
+        "Grade": 67
+      },
+      {
+        "Subject": "Books",
+        "Grade": 53
+      },
+      {
+        "Subject": "Books",
+        "Grade": 76
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 59
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 60
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 59
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 57
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 68
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 50
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 66
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 75
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 80
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 74
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 75
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 86
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 81
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 80
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 80
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 83
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 81
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 52
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 63
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 82
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 87
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 71
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 71
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 98
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 77
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 79
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 58
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 57
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 59
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 69
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 78
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 83
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 59
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 79
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 71
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 60
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 57
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 62
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 79
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 65
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 66
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 63
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 57
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 84
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 83
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 84
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 72
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 56
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 88
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 74
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 77
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 76
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 65
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 69
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 83
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 68
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 79
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 88
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 59
+      },
+      {
+        "Subject": "Sports",
+        "Grade": 81
+      },
+      {
+        "Subject": "Home",
+        "Grade": 69
+      },
+      {
+        "Subject": "Home",
+        "Grade": 90
+      },
+      {
+        "Subject": "Home",
+        "Grade": 84
+      },
+      {
+        "Subject": "Home",
+        "Grade": 97
+      },
+      {
+        "Subject": "Home",
+        "Grade": 62
+      },
+      {
+        "Subject": "Home",
+        "Grade": 79
+      },
+      {
+        "Subject": "Home",
+        "Grade": 88
+      },
+      {
+        "Subject": "Home",
+        "Grade": 94
+      },
+      {
+        "Subject": "Home",
+        "Grade": 87
+      },
+      {
+        "Subject": "Home",
+        "Grade": 63
+      },
+      {
+        "Subject": "Home",
+        "Grade": 83
+      },
+      {
+        "Subject": "Home",
+        "Grade": 90
+      },
+      {
+        "Subject": "Home",
+        "Grade": 78
+      },
+      {
+        "Subject": "Home",
+        "Grade": 72
+      },
+      {
+        "Subject": "Home",
+        "Grade": 50
+      },
+      {
+        "Subject": "Home",
+        "Grade": 97
+      },
+      {
+        "Subject": "Home",
+        "Grade": 72
+      },
+      {
+        "Subject": "Home",
+        "Grade": 77
+      },
+      {
+        "Subject": "Home",
+        "Grade": 88
+      },
+      {
+        "Subject": "Home",
+        "Grade": 53
+      },
+      {
+        "Subject": "Home",
+        "Grade": 75
+      },
+      {
+        "Subject": "Home",
+        "Grade": 71
+      },
+      {
+        "Subject": "Home",
+        "Grade": 70
+      },
+      {
+        "Subject": "Home",
+        "Grade": 48
+      },
+      {
+        "Subject": "Home",
+        "Grade": 94
+      },
+      {
+        "Subject": "Home",
+        "Grade": 68
+      },
+      {
+        "Subject": "Home",
+        "Grade": 93
+      },
+      {
+        "Subject": "Home",
+        "Grade": 76
+      },
+      {
+        "Subject": "Home",
+        "Grade": 52
+      },
+      {
+        "Subject": "Home",
+        "Grade": 59
+      },
+      {
+        "Subject": "Home",
+        "Grade": 65
+      },
+      {
+        "Subject": "Home",
+        "Grade": 69
+      },
+      {
+        "Subject": "Home",
+        "Grade": 72
+      },
+      {
+        "Subject": "Home",
+        "Grade": 70
+      },
+      {
+        "Subject": "Home",
+        "Grade": 75
+      },
+      {
+        "Subject": "Home",
+        "Grade": 69
+      },
+      {
+        "Subject": "Home",
+        "Grade": 55
+      },
+      {
+        "Subject": "Home",
+        "Grade": 52
+      },
+      {
+        "Subject": "Home",
+        "Grade": 37
+      },
+      {
+        "Subject": "Home",
+        "Grade": 79
+      },
+      {
+        "Subject": "Home",
+        "Grade": 53
+      },
+      {
+        "Subject": "Home",
+        "Grade": 71
+      },
+      {
+        "Subject": "Home",
+        "Grade": 77
+      },
+      {
+        "Subject": "Home",
+        "Grade": 100
+      },
+      {
+        "Subject": "Home",
+        "Grade": 80
+      },
+      {
+        "Subject": "Home",
+        "Grade": 78
+      },
+      {
+        "Subject": "Home",
+        "Grade": 56
+      },
+      {
+        "Subject": "Home",
+        "Grade": 86
+      },
+      {
+        "Subject": "Home",
+        "Grade": 78
+      },
+      {
+        "Subject": "Home",
+        "Grade": 69
+      },
+      {
+        "Subject": "Home",
+        "Grade": 69
+      },
+      {
+        "Subject": "Home",
+        "Grade": 67
+      },
+      {
+        "Subject": "Home",
+        "Grade": 71
+      },
+      {
+        "Subject": "Home",
+        "Grade": 77
+      },
+      {
+        "Subject": "Home",
+        "Grade": 78
+      },
+      {
+        "Subject": "Home",
+        "Grade": 66
+      },
+      {
+        "Subject": "Home",
+        "Grade": 82
+      },
+      {
+        "Subject": "Home",
+        "Grade": 66
+      },
+      {
+        "Subject": "Home",
+        "Grade": 86
+      },
+      {
+        "Subject": "Home",
+        "Grade": 61
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

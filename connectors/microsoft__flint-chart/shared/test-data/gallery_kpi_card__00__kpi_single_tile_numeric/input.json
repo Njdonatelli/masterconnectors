@@ -1,0 +1,35 @@
+{
+  "title": "KPI: Single tile (Numeric)",
+  "description": "One row, only `value` bound. Caption defaults to the value field name. Numeric value rendered via `toLocaleString`.",
+  "chartType": "KPI Card",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Revenue": 1184320
+        }
+      ]
+    },
+    "semantic_types": {
+      "Revenue": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "KPI Card",
+      "encodings": {
+        "value": {
+          "field": "Revenue"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "layout": "horizontal"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

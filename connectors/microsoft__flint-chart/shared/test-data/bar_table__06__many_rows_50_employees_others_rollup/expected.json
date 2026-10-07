@@ -1,0 +1,589 @@
+{
+  "spacing": 8,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 206,
+      "height": 380,
+      "title": {
+        "text": "Employee",
+        "anchor": "start",
+        "offset": 6,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.842
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "Employee",
+          "type": "nominal",
+          "sort": [
+            "Patricia Anderson",
+            "Jennifer Scott",
+            "Steven Brown",
+            "Elizabeth Thomas",
+            "Paul White",
+            "William Jones",
+            "Barbara Johnson",
+            "Andrew Smith",
+            "Christopher Lewis",
+            "Kimberly Ramirez",
+            "Susan Moore",
+            "Andrew Brown",
+            "Thomas Wilson",
+            "Christopher Walker",
+            "Karen Lopez",
+            "Jennifer Thomas",
+            "Daniel Anderson",
+            "Joseph Perez",
+            "Emily Martin",
+            "Others (+31)"
+          ],
+          "axis": {
+            "title": null,
+            "domain": false,
+            "ticks": false,
+            "labelFontSize": 12,
+            "labelAlign": "left",
+            "labelPadding": 131,
+            "labelLimit": 131
+          }
+        },
+        "x": {
+          "field": "Sales",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "nice": false
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.__bt_others",
+            "value": "#bdbdbd"
+          },
+          "field": "Sales",
+          "type": "quantitative",
+          "legend": null,
+          "scale": {
+            "range": [
+              "#cdebd3",
+              "#41a25f"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 55,
+      "height": 380,
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "Sales",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "Employee"
+          ]
+        }
+      ],
+      "title": {
+        "text": "Sales",
+        "anchor": "end",
+        "offset": 6,
+        "limit": 51,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "Employee",
+          "type": "nominal",
+          "sort": [
+            "Patricia Anderson",
+            "Jennifer Scott",
+            "Steven Brown",
+            "Elizabeth Thomas",
+            "Paul White",
+            "William Jones",
+            "Barbara Johnson",
+            "Andrew Smith",
+            "Christopher Lewis",
+            "Kimberly Ramirez",
+            "Susan Moore",
+            "Andrew Brown",
+            "Thomas Wilson",
+            "Christopher Walker",
+            "Karen Lopez",
+            "Jennifer Thomas",
+            "Daniel Anderson",
+            "Joseph Perez",
+            "Emily Martin",
+            "Others (+31)"
+          ],
+          "axis": null
+        },
+        "x": {
+          "datum": 1,
+          "axis": null,
+          "scale": {
+            "type": "linear",
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "text": {
+          "field": "__bt_val",
+          "type": "quantitative"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.__bt_others_num === 1 || datum.__bt_others === true",
+            "value": "#bdbdbd"
+          },
+          "value": "#666"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 9
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "Employee": "Patricia Anderson",
+        "Sales": 12072,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Jennifer Scott",
+        "Sales": 11839,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Steven Brown",
+        "Sales": 11056,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Elizabeth Thomas",
+        "Sales": 10880,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Paul White",
+        "Sales": 10820,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "William Jones",
+        "Sales": 10336,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Barbara Johnson",
+        "Sales": 10243,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Andrew Smith",
+        "Sales": 10156,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Christopher Lewis",
+        "Sales": 9705,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Kimberly Ramirez",
+        "Sales": 9301,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Susan Moore",
+        "Sales": 9263,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Andrew Brown",
+        "Sales": 9215,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Thomas Wilson",
+        "Sales": 8476,
+        "__bt_sort": 12,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Christopher Walker",
+        "Sales": 7730,
+        "__bt_sort": 13,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Karen Lopez",
+        "Sales": 7341,
+        "__bt_sort": 14,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Jennifer Thomas",
+        "Sales": 7260,
+        "__bt_sort": 15,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Daniel Anderson",
+        "Sales": 7253,
+        "__bt_sort": 16,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Joseph Perez",
+        "Sales": 7026,
+        "__bt_sort": 17,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Emily Martin",
+        "Sales": 6937,
+        "__bt_sort": 18,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Employee": "Others (+31)",
+        "Sales": 103206,
+        "__bt_sort": 19,
+        "__bt_others": true,
+        "__bt_others_num": 1
+      }
+    ]
+  },
+  "height": {
+    "step": 11
+  },
+  "data": {
+    "values": [
+      {
+        "Employee": "James Thompson",
+        "Sales": 185
+      },
+      {
+        "Employee": "Dorothy Torres",
+        "Sales": 6914
+      },
+      {
+        "Employee": "Barbara Johnson",
+        "Sales": 10243
+      },
+      {
+        "Employee": "Steven Brown",
+        "Sales": 11056
+      },
+      {
+        "Employee": "Karen Sanchez",
+        "Sales": 3525
+      },
+      {
+        "Employee": "Matthew Garcia",
+        "Sales": 507
+      },
+      {
+        "Employee": "Susan Moore",
+        "Sales": 9263
+      },
+      {
+        "Employee": "Nancy Martin",
+        "Sales": 1156
+      },
+      {
+        "Employee": "John Flores",
+        "Sales": 5865
+      },
+      {
+        "Employee": "Christopher Walker",
+        "Sales": 7730
+      },
+      {
+        "Employee": "Karen Lopez",
+        "Sales": 7341
+      },
+      {
+        "Employee": "Jessica Walker",
+        "Sales": 1894
+      },
+      {
+        "Employee": "Michael Flores",
+        "Sales": 4270
+      },
+      {
+        "Employee": "Nancy Taylor",
+        "Sales": 5213
+      },
+      {
+        "Employee": "Jennifer Thomas",
+        "Sales": 7260
+      },
+      {
+        "Employee": "Karen King",
+        "Sales": 6070
+      },
+      {
+        "Employee": "Daniel Garcia",
+        "Sales": 997
+      },
+      {
+        "Employee": "Patricia Anderson",
+        "Sales": 12072
+      },
+      {
+        "Employee": "John White",
+        "Sales": 6398
+      },
+      {
+        "Employee": "Andrew Brown",
+        "Sales": 9215
+      },
+      {
+        "Employee": "Kimberly Allen",
+        "Sales": 6037
+      },
+      {
+        "Employee": "Elizabeth Williams",
+        "Sales": 3417
+      },
+      {
+        "Employee": "Michael Davis",
+        "Sales": 4657
+      },
+      {
+        "Employee": "Kimberly Ramirez",
+        "Sales": 9301
+      },
+      {
+        "Employee": "Sandra Hernandez",
+        "Sales": 2088
+      },
+      {
+        "Employee": "Jennifer Scott",
+        "Sales": 11839
+      },
+      {
+        "Employee": "Daniel Anderson",
+        "Sales": 7253
+      },
+      {
+        "Employee": "Elizabeth Hill",
+        "Sales": 5048
+      },
+      {
+        "Employee": "Charles Williams",
+        "Sales": 1821
+      },
+      {
+        "Employee": "Susan Harris",
+        "Sales": 4687
+      },
+      {
+        "Employee": "Richard Smith",
+        "Sales": 5880
+      },
+      {
+        "Employee": "Andrew Smith",
+        "Sales": 10156
+      },
+      {
+        "Employee": "Emily Martin",
+        "Sales": 6937
+      },
+      {
+        "Employee": "Christopher Johnson",
+        "Sales": 1843
+      },
+      {
+        "Employee": "Jennifer Davis",
+        "Sales": 1281
+      },
+      {
+        "Employee": "Andrew Clark",
+        "Sales": 4479
+      },
+      {
+        "Employee": "Lisa Davis",
+        "Sales": 921
+      },
+      {
+        "Employee": "Joseph Perez",
+        "Sales": 7026
+      },
+      {
+        "Employee": "William Jones",
+        "Sales": 10336
+      },
+      {
+        "Employee": "Karen Hill",
+        "Sales": 1214
+      },
+      {
+        "Employee": "Thomas Allen",
+        "Sales": 6800
+      },
+      {
+        "Employee": "Elizabeth Hernandez",
+        "Sales": 1759
+      },
+      {
+        "Employee": "Elizabeth Thomas",
+        "Sales": 10880
+      },
+      {
+        "Employee": "Christopher Lewis",
+        "Sales": 9705
+      },
+      {
+        "Employee": "Kenneth Moore",
+        "Sales": 2865
+      },
+      {
+        "Employee": "John Thompson",
+        "Sales": 958
+      },
+      {
+        "Employee": "Richard Flores",
+        "Sales": 1972
+      },
+      {
+        "Employee": "Nancy Nguyen",
+        "Sales": 2485
+      },
+      {
+        "Employee": "Paul White",
+        "Sales": 10820
+      },
+      {
+        "Employee": "Thomas Wilson",
+        "Sales": 8476
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

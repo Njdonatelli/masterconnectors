@@ -1,0 +1,81 @@
+{
+  "title": "Year (number) → Scatter Plot",
+  "description": "Years as integers: 2000, 2001, … (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Year": 2000,
+          "Value": 397
+        },
+        {
+          "Year": 2001,
+          "Value": 112
+        },
+        {
+          "Year": 2002,
+          "Value": 115
+        },
+        {
+          "Year": 2003,
+          "Value": 412
+        },
+        {
+          "Year": 2004,
+          "Value": 496
+        },
+        {
+          "Year": 2005,
+          "Value": 240
+        },
+        {
+          "Year": 2006,
+          "Value": 199
+        },
+        {
+          "Year": 2007,
+          "Value": 445
+        },
+        {
+          "Year": 2008,
+          "Value": 107
+        },
+        {
+          "Year": 2009,
+          "Value": 263
+        },
+        {
+          "Year": 2010,
+          "Value": 131
+        },
+        {
+          "Year": 2011,
+          "Value": 495
+        }
+      ]
+    },
+    "semantic_types": {
+      "Year": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Year"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

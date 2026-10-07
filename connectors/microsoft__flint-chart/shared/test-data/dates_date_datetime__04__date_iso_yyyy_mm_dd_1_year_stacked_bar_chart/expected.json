@@ -1,0 +1,274 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2019-12-30T18:32:43.636Z",
+          "2020-12-30T05:27:16.363Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 351,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01-15",
+        "Value": 156,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 351,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 543,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-02-15",
+        "Value": 264,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-02-15",
+        "Value": 352,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-02-15",
+        "Value": 327,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-03-15",
+        "Value": 214,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-03-15",
+        "Value": 98,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-03-15",
+        "Value": 443,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-04-15",
+        "Value": 482,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-04-15",
+        "Value": 339,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-04-15",
+        "Value": 184,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-05-15",
+        "Value": 285,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-05-15",
+        "Value": 212,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-05-15",
+        "Value": 525,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-06-15",
+        "Value": 93,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-06-15",
+        "Value": 242,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-06-15",
+        "Value": 282,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-07-15",
+        "Value": 251,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-07-15",
+        "Value": 502,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-07-15",
+        "Value": 82,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-08-15",
+        "Value": 230,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-08-15",
+        "Value": 413,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-08-15",
+        "Value": 236,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-09-15",
+        "Value": 403,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-09-15",
+        "Value": 131,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-09-15",
+        "Value": 263,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-10-15",
+        "Value": 273,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-10-15",
+        "Value": 214,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-10-15",
+        "Value": 545,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-11-15",
+        "Value": 117,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-11-15",
+        "Value": 376,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-11-15",
+        "Value": 516,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-12-15",
+        "Value": 471,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-12-15",
+        "Value": 408,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-12-15",
+        "Value": 474,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 351,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

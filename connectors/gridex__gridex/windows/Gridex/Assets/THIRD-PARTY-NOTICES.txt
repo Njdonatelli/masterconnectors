@@ -1,0 +1,176 @@
+Gridex - Third-Party Notices
+================================
+
+Gridex incorporates components from the projects listed below.
+The original copyright notices and the licenses under which Gridex
+received such components are set forth below for informational purposes.
+Gridex licenses these components under the terms of the licenses
+shown below. All other rights are reserved by their respective owners.
+
+
+--------------------------------------------------------------------------------
+1. D2 (https://github.com/terrastruct/d2)
+--------------------------------------------------------------------------------
+Used as a bundled CLI binary (Assets/d2/d2.exe) to compile D2 declarative
+diagram source into SVG for the ER Diagram feature. Invoked as a separate
+process; not statically linked into Gridex.
+
+License: Mozilla Public License 2.0 (MPL-2.0)
+Source:  https://github.com/terrastruct/d2
+License text: see Assets/d2/LICENSE
+
+
+--------------------------------------------------------------------------------
+2. Microsoft Edge WebView2
+--------------------------------------------------------------------------------
+Used to host an HTML page that renders the SVG produced by D2 in the
+ER Diagram tab. Distributed via NuGet as Microsoft.Web.WebView2.
+
+License: Microsoft Software License Terms for Microsoft Edge WebView2 SDK
+         (free for commercial and non-commercial use)
+Source:  https://developer.microsoft.com/en-us/microsoft-edge/webview2/
+
+
+--------------------------------------------------------------------------------
+3. Windows App SDK / WinUI 3
+--------------------------------------------------------------------------------
+UI framework. Distributed via NuGet as Microsoft.WindowsAppSDK and related
+packages.
+
+License: MIT License
+Source:  https://github.com/microsoft/WindowsAppSDK
+
+
+--------------------------------------------------------------------------------
+4. C++/WinRT
+--------------------------------------------------------------------------------
+C++ language projection for the Windows Runtime. Distributed via NuGet
+as Microsoft.Windows.CppWinRT.
+
+License: MIT License
+Source:  https://github.com/microsoft/cppwinrt
+
+
+--------------------------------------------------------------------------------
+5. Windows Implementation Libraries (WIL)
+--------------------------------------------------------------------------------
+Header-only helpers for Windows interop. Distributed via NuGet as
+Microsoft.Windows.ImplementationLibrary.
+
+License: MIT License
+Source:  https://github.com/microsoft/wil
+
+
+--------------------------------------------------------------------------------
+6. PostgreSQL libpq
+--------------------------------------------------------------------------------
+PostgreSQL client library used by the PostgreSQLAdapter. Linked
+dynamically as libpq.dll.
+
+License: PostgreSQL License (BSD-style permissive)
+Source:  https://www.postgresql.org/
+
+Copyright (c) 1996-2024, PostgreSQL Global Development Group
+Copyright (c) 1994, The Regents of the University of California
+
+
+--------------------------------------------------------------------------------
+7. MariaDB Connector/C (libmariadb)
+--------------------------------------------------------------------------------
+MySQL/MariaDB client library used by the MySQLAdapter. Linked
+DYNAMICALLY as libmariadb.dll, which satisfies the LGPL requirement
+that users be able to replace the library.
+
+License: GNU Lesser General Public License v2.1 (LGPL-2.1)
+Source:  https://github.com/mariadb-corporation/mariadb-connector-c
+
+Per LGPL-2.1, the user is free to replace libmariadb.dll with another
+compatible build of MariaDB Connector/C.
+
+
+--------------------------------------------------------------------------------
+8. SQLite
+--------------------------------------------------------------------------------
+Embedded database engine used by the SQLiteAdapter and for storing
+Gridex connection metadata. Linked dynamically as sqlite3.dll.
+
+License: Public Domain
+Source:  https://www.sqlite.org/
+
+
+--------------------------------------------------------------------------------
+9. OpenSSL
+--------------------------------------------------------------------------------
+Cryptography and TLS used for SSL connections to PostgreSQL/MySQL and
+HTTPS calls to AI providers. Linked dynamically as libssl-3-x64.dll
+and libcrypto-3-x64.dll.
+
+License: Apache License 2.0 (OpenSSL 3.x)
+Source:  https://www.openssl.org/
+
+
+--------------------------------------------------------------------------------
+10. cpp-httplib
+--------------------------------------------------------------------------------
+Header-only HTTP/HTTPS client used by AiService and McpServer.
+
+License: MIT License
+Source:  https://github.com/yhirose/cpp-httplib
+
+
+--------------------------------------------------------------------------------
+11. nlohmann/json
+--------------------------------------------------------------------------------
+Header-only JSON library used by AiService and McpServer for request
+and response payloads.
+
+License: MIT License
+Source:  https://github.com/nlohmann/json
+
+
+--------------------------------------------------------------------------------
+12. Source Sans Pro / Source Code Pro (fonts, embedded by D2)
+--------------------------------------------------------------------------------
+Default fonts used inside SVG output produced by D2.
+
+License: SIL Open Font License 1.1
+Source:  https://github.com/adobe-fonts/source-sans-pro
+         https://github.com/adobe-fonts/source-code-pro
+
+
+--------------------------------------------------------------------------------
+Compliance Notes
+--------------------------------------------------------------------------------
+- D2 (MPL-2.0): bundled binary unmodified; LICENSE file shipped at
+  Assets/d2/LICENSE; attribution shown in Gridex Settings -> About.
+- libmariadb (LGPL-2.1): linked dynamically; user can replace the DLL.
+- All other components use permissive licenses (MIT, BSD, Apache 2.0,
+  PostgreSQL License, Public Domain, SIL OFL).
+
+12. hiredis
+    https://github.com/redis/hiredis
+    Copyright (c) 2009-2011, Salvatore Sanfilippo
+    License: BSD-3-Clause
+    Used for Redis protocol communication in RedisAdapter.
+
+13. mongo-cxx-driver (mongocxx / bsoncxx)
+    https://github.com/mongodb/mongo-cxx-driver
+    Copyright (c) 2014-present MongoDB, Inc.
+    License: Apache 2.0
+    Used for MongoDB connectivity in MongoDBAdapter.
+
+14. libssh2
+    https://github.com/libssh2/libssh2
+    Copyright (c) 2004-2019 Sara Golemon and contributors
+    License: BSD-3-Clause
+    Used for SSH tunnel (local port forwarding) in SSHTunnelService.
+
+15. Velopack
+    https://github.com/velopack/velopack
+    Copyright (c) 2023-present Clowd Pty Ltd
+    License: MIT
+    Used for Windows installer packaging and auto-update framework.
+
+For full license texts, see the individual upstream repositories
+linked above. The MPL-2.0 text for D2 is included verbatim at
+Assets/d2/LICENSE.

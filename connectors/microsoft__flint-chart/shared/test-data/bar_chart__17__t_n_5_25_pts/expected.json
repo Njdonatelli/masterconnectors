@@ -1,0 +1,195 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01-01",
+        "Group": "Laptop"
+      },
+      {
+        "Date": "2020-02-13",
+        "Group": "Desktop"
+      },
+      {
+        "Date": "2020-03-28",
+        "Group": "Laptop"
+      },
+      {
+        "Date": "2020-05-11",
+        "Group": "Phone"
+      },
+      {
+        "Date": "2020-06-24",
+        "Group": "Monitor"
+      },
+      {
+        "Date": "2020-08-07",
+        "Group": "Laptop"
+      },
+      {
+        "Date": "2020-09-19",
+        "Group": "Laptop"
+      },
+      {
+        "Date": "2020-11-02",
+        "Group": "Tablet"
+      },
+      {
+        "Date": "2020-12-16",
+        "Group": "Tablet"
+      },
+      {
+        "Date": "2021-01-29",
+        "Group": "Tablet"
+      },
+      {
+        "Date": "2021-03-14",
+        "Group": "Monitor"
+      },
+      {
+        "Date": "2021-04-26",
+        "Group": "Monitor"
+      },
+      {
+        "Date": "2021-06-09",
+        "Group": "Phone"
+      },
+      {
+        "Date": "2021-07-23",
+        "Group": "Desktop"
+      },
+      {
+        "Date": "2021-09-05",
+        "Group": "Phone"
+      },
+      {
+        "Date": "2021-10-19",
+        "Group": "Desktop"
+      },
+      {
+        "Date": "2021-12-01",
+        "Group": "Phone"
+      },
+      {
+        "Date": "2022-01-14",
+        "Group": "Desktop"
+      },
+      {
+        "Date": "2022-02-27",
+        "Group": "Desktop"
+      },
+      {
+        "Date": "2022-04-12",
+        "Group": "Desktop"
+      },
+      {
+        "Date": "2022-05-26",
+        "Group": "Monitor"
+      },
+      {
+        "Date": "2022-07-08",
+        "Group": "Laptop"
+      },
+      {
+        "Date": "2022-08-21",
+        "Group": "Tablet"
+      },
+      {
+        "Date": "2022-10-04",
+        "Group": "Desktop"
+      },
+      {
+        "Date": "2022-11-17",
+        "Group": "Desktop"
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

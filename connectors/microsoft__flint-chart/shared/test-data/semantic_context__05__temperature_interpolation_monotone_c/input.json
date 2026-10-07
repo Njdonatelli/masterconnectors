@@ -1,0 +1,160 @@
+{
+  "title": "Temperature Interpolation (monotone + °C)",
+  "description": "Semantic type \"Temperature\" applies monotone interpolation for smooth curves and adds \"°C\" suffix to axis labels. WITHOUT this: jagged linear segments between points, no unit on axis.",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "month": "Jan",
+          "city": "Seattle",
+          "temperature": -1
+        },
+        {
+          "month": "Jan",
+          "city": "Miami",
+          "temperature": 20
+        },
+        {
+          "month": "Feb",
+          "city": "Seattle",
+          "temperature": 2
+        },
+        {
+          "month": "Feb",
+          "city": "Miami",
+          "temperature": 21
+        },
+        {
+          "month": "Mar",
+          "city": "Seattle",
+          "temperature": 6
+        },
+        {
+          "month": "Mar",
+          "city": "Miami",
+          "temperature": 23
+        },
+        {
+          "month": "Apr",
+          "city": "Seattle",
+          "temperature": 10
+        },
+        {
+          "month": "Apr",
+          "city": "Miami",
+          "temperature": 25
+        },
+        {
+          "month": "May",
+          "city": "Seattle",
+          "temperature": 14
+        },
+        {
+          "month": "May",
+          "city": "Miami",
+          "temperature": 27
+        },
+        {
+          "month": "Jun",
+          "city": "Seattle",
+          "temperature": 18
+        },
+        {
+          "month": "Jun",
+          "city": "Miami",
+          "temperature": 29
+        },
+        {
+          "month": "Jul",
+          "city": "Seattle",
+          "temperature": 22
+        },
+        {
+          "month": "Jul",
+          "city": "Miami",
+          "temperature": 30
+        },
+        {
+          "month": "Aug",
+          "city": "Seattle",
+          "temperature": 21
+        },
+        {
+          "month": "Aug",
+          "city": "Miami",
+          "temperature": 30
+        },
+        {
+          "month": "Sep",
+          "city": "Seattle",
+          "temperature": 17
+        },
+        {
+          "month": "Sep",
+          "city": "Miami",
+          "temperature": 29
+        },
+        {
+          "month": "Oct",
+          "city": "Seattle",
+          "temperature": 11
+        },
+        {
+          "month": "Oct",
+          "city": "Miami",
+          "temperature": 27
+        },
+        {
+          "month": "Nov",
+          "city": "Seattle",
+          "temperature": 5
+        },
+        {
+          "month": "Nov",
+          "city": "Miami",
+          "temperature": 24
+        },
+        {
+          "month": "Dec",
+          "city": "Seattle",
+          "temperature": 1
+        },
+        {
+          "month": "Dec",
+          "city": "Miami",
+          "temperature": 21
+        }
+      ]
+    },
+    "semantic_types": {
+      "month": "Month",
+      "city": "City",
+      "temperature": {
+        "semanticType": "Temperature",
+        "unit": "°C"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "month"
+        },
+        "y": {
+          "field": "temperature"
+        },
+        "color": {
+          "field": "city"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

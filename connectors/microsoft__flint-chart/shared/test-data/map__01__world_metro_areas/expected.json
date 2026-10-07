@@ -1,0 +1,479 @@
+{
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "white"
+      },
+      "data": {
+        "url": "https://vega.github.io/vega-lite/data/world-110m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "countries"
+        }
+      },
+      "projection": {
+        "type": "equalEarth"
+      }
+    },
+    {
+      "mark": "circle",
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative",
+          "scale": {
+            "nice": false
+          }
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative",
+          "scale": {
+            "nice": false
+          }
+        },
+        "size": {
+          "field": "pop",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt",
+            "zero": true,
+            "range": [
+              9,
+              361
+            ]
+          }
+        },
+        "color": {
+          "field": "pop",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "goldgreen"
+          }
+        }
+      },
+      "projection": {
+        "type": "equalEarth"
+      }
+    }
+  ],
+  "width": 600,
+  "height": 350,
+  "config": {
+    "view": {
+      "continuousWidth": 600,
+      "continuousHeight": 350,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "city": "Tokyo",
+        "lon": 139.69,
+        "lat": 35.68,
+        "pop": 37.4
+      },
+      {
+        "city": "Delhi",
+        "lon": 77.1,
+        "lat": 28.7,
+        "pop": 32.9
+      },
+      {
+        "city": "Shanghai",
+        "lon": 121.47,
+        "lat": 31.23,
+        "pop": 29.2
+      },
+      {
+        "city": "Dhaka",
+        "lon": 90.41,
+        "lat": 23.81,
+        "pop": 23.2
+      },
+      {
+        "city": "São Paulo",
+        "lon": -46.63,
+        "lat": -23.55,
+        "pop": 22.6
+      },
+      {
+        "city": "Mexico City",
+        "lon": -99.13,
+        "lat": 19.43,
+        "pop": 22.3
+      },
+      {
+        "city": "Cairo",
+        "lon": 31.24,
+        "lat": 30.04,
+        "pop": 22.2
+      },
+      {
+        "city": "Beijing",
+        "lon": 116.41,
+        "lat": 39.9,
+        "pop": 21.7
+      },
+      {
+        "city": "Mumbai",
+        "lon": 72.88,
+        "lat": 19.08,
+        "pop": 21.3
+      },
+      {
+        "city": "Osaka",
+        "lon": 135.5,
+        "lat": 34.69,
+        "pop": 19
+      },
+      {
+        "city": "New York",
+        "lon": -74.01,
+        "lat": 40.71,
+        "pop": 18.9
+      },
+      {
+        "city": "Karachi",
+        "lon": 67.01,
+        "lat": 24.86,
+        "pop": 17.2
+      },
+      {
+        "city": "Istanbul",
+        "lon": 28.98,
+        "lat": 41.01,
+        "pop": 16
+      },
+      {
+        "city": "Lagos",
+        "lon": 3.38,
+        "lat": 6.52,
+        "pop": 15.9
+      },
+      {
+        "city": "Buenos Aires",
+        "lon": -58.38,
+        "lat": -34.6,
+        "pop": 15.4
+      },
+      {
+        "city": "Moscow",
+        "lon": 37.62,
+        "lat": 55.75,
+        "pop": 12.6
+      },
+      {
+        "city": "Los Angeles",
+        "lon": -118.24,
+        "lat": 34.05,
+        "pop": 12.4
+      },
+      {
+        "city": "Paris",
+        "lon": 2.35,
+        "lat": 48.86,
+        "pop": 11.1
+      },
+      {
+        "city": "Jakarta",
+        "lon": 106.85,
+        "lat": -6.21,
+        "pop": 11.1
+      },
+      {
+        "city": "Lima",
+        "lon": -77.04,
+        "lat": -12.05,
+        "pop": 11
+      },
+      {
+        "city": "Bangkok",
+        "lon": 100.5,
+        "lat": 13.76,
+        "pop": 10.9
+      },
+      {
+        "city": "Seoul",
+        "lon": 126.98,
+        "lat": 37.57,
+        "pop": 9.9
+      },
+      {
+        "city": "Johannesburg",
+        "lon": 28.05,
+        "lat": -26.2,
+        "pop": 9.6
+      },
+      {
+        "city": "London",
+        "lon": -0.13,
+        "lat": 51.51,
+        "pop": 9.5
+      },
+      {
+        "city": "Sydney",
+        "lon": 151.21,
+        "lat": -33.87,
+        "pop": 5.3
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "region",
+      "label": "Region",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto-detect"
+        },
+        {
+          "value": "us",
+          "label": "United States"
+        },
+        {
+          "value": "world",
+          "label": "World"
+        }
+      ],
+      "defaultValue": "auto",
+      "applicable": true,
+      "value": "world"
+    },
+    {
+      "key": "projection",
+      "label": "Projection",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "mercator",
+          "label": "Mercator"
+        },
+        {
+          "value": "equalEarth",
+          "label": "Equal Earth"
+        },
+        {
+          "value": "orthographic",
+          "label": "Orthographic (Globe)"
+        },
+        {
+          "value": "stereographic",
+          "label": "Stereographic"
+        },
+        {
+          "value": "conicEqualArea",
+          "label": "Conic Equal Area"
+        },
+        {
+          "value": "conicEquidistant",
+          "label": "Conic Equidistant"
+        },
+        {
+          "value": "azimuthalEquidistant",
+          "label": "Azimuthal Equidistant"
+        },
+        {
+          "value": "mollweide",
+          "label": "Mollweide"
+        }
+      ],
+      "defaultValue": "default",
+      "applicable": true,
+      "value": "default"
+    },
+    {
+      "key": "projectionCenter",
+      "label": "Center",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default"
+        },
+        {
+          "value": [
+            0,
+            0
+          ],
+          "label": "World (Atlantic) [0, 0]"
+        },
+        {
+          "value": [
+            150,
+            0
+          ],
+          "label": "World (Pacific) [150, 0]"
+        },
+        {
+          "value": [
+            105,
+            35
+          ],
+          "label": "China [105, 35]"
+        },
+        {
+          "value": [
+            -98,
+            39
+          ],
+          "label": "USA [-98, 39]"
+        },
+        {
+          "value": [
+            10,
+            50
+          ],
+          "label": "Europe [10, 50]"
+        },
+        {
+          "value": [
+            138,
+            36
+          ],
+          "label": "Japan [138, 36]"
+        },
+        {
+          "value": [
+            78,
+            22
+          ],
+          "label": "India [78, 22]"
+        },
+        {
+          "value": [
+            -52,
+            -14
+          ],
+          "label": "Brazil [-52, -14]"
+        },
+        {
+          "value": [
+            134,
+            -25
+          ],
+          "label": "Australia [134, -25]"
+        },
+        {
+          "value": [
+            100,
+            60
+          ],
+          "label": "Russia [100, 60]"
+        },
+        {
+          "value": [
+            20,
+            0
+          ],
+          "label": "Africa [20, 0]"
+        },
+        {
+          "value": [
+            45,
+            28
+          ],
+          "label": "Middle East [45, 28]"
+        },
+        {
+          "value": [
+            115,
+            5
+          ],
+          "label": "Southeast Asia [115, 5]"
+        },
+        {
+          "value": [
+            -60,
+            -15
+          ],
+          "label": "South America [-60, -15]"
+        },
+        {
+          "value": [
+            -100,
+            45
+          ],
+          "label": "North America [-100, 45]"
+        },
+        {
+          "value": [
+            -2,
+            54
+          ],
+          "label": "UK [-2, 54]"
+        },
+        {
+          "value": [
+            10,
+            51
+          ],
+          "label": "Germany [10, 51]"
+        },
+        {
+          "value": [
+            2,
+            47
+          ],
+          "label": "France [2, 47]"
+        },
+        {
+          "value": [
+            128,
+            36
+          ],
+          "label": "Korea [128, 36]"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

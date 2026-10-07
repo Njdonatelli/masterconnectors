@@ -1,0 +1,58 @@
+import { describe, expect, it } from 'vite-plus/test';
+
+import { folderIndexStatus } from '@/test/fakes/preparation';
+
+import { folderSearchReadiness } from './search-readiness';
+
+describe('folder search readiness', () => {
+  it('answers unknown for a folder whose status has not arrived', () => {
+    const readiness = folderSearchReadiness(null);
+
+    expect(readiness.semantic).toEqual({ state: 'unknown' });
+    expect(readiness.readyCount).toBe(0);
+    expect(readiness.counts).toEqual({
+      cancelled: 0,
+      failed: 0,
+      needsAttention: false,
+      pending: 0,
+    });
+  });
+
+  it('counts as ready only the sources not pending', () => {
+    const readiness = folderSearchReadiness(
+      folderIndexStatus({
+        pendingConversions: ['study.pdf', 'paper.pdf'],
+        total: 9,
+      }),
+    );
+
+    expect(readiness.counts).toMatchObject({ pending: 2 });
+    expect(readiness.readyCount).toBe(7);
+  });
+
+  it('carries each index state with exactly the facts that state has', () => {
+    expect(
+      folderSearchReadiness(
+        folderIndexStatus({
+          semantic: { partial: false, remaining: 2, state: 'indexing' },
+        }),
+      ).semantic,
+    ).toEqual({ partial: false, remaining: 2, state: 'indexing' });
+
+    expect(
+      folderSearchReadiness(
+        folderIndexStatus({
+          indexWarning: { at: 'now', sentence: 'daemon restarted' },
+          semantic: { state: 'failed' },
+        }),
+      ).semantic,
+    ).toEqual({ state: 'failed', warning: 'daemon restarted' });
+  });
+
+  it('treats a failed index with no warning as one with nothing to say', () => {
+    const readiness = folderSearchReadiness(folderIndexStatus({ semantic: { state: 'failed' } }));
+
+    expect(readiness.semantic).toEqual({ state: 'ready' });
+    expect(readiness.counts.needsAttention).toBe(false);
+  });
+});

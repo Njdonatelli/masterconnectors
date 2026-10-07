@@ -1,0 +1,195 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Facet",
+      "type": "nominal",
+      "sort": null,
+      "columns": 2
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 211,
+      "continuousHeight": 279
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 231
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 26
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Electronics",
+        "Value": 414,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 193,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Food",
+        "Value": 349,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Books",
+        "Value": 130,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Sports",
+        "Value": 304,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Home",
+        "Value": 368,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Garden",
+        "Value": 328,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Auto",
+        "Value": 545,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 70,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 428,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Food",
+        "Value": 379,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Books",
+        "Value": 399,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Sports",
+        "Value": 376,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Home",
+        "Value": 529,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Garden",
+        "Value": 353,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Auto",
+        "Value": 132,
+        "Facet": "Clothing"
+      }
+    ]
+  },
+  "_width": 211,
+  "_height": 279,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

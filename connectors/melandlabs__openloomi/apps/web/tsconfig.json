@@ -1,0 +1,48 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "ESNext",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"esModuleInterop": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"incremental": true,
+		"tsBuildInfoFile": ".next/cache/tsconfig.tsbuildinfo",
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"paths": {
+			"@/*": ["./*"],
+			"cookie": ["./lib/compat/cookie.ts"],
+			"@openloomi/ui": ["./components/ui/index.ts"],
+			"@openloomi/ui/*": ["./components/ui/*"],
+			"@openloomi/ai/agent": ["./node_modules/@melandlabs/ai/dist/agent/index.d.ts"],
+			"@openloomi/ai/agent/*": ["./node_modules/@melandlabs/ai/dist/agent/*"]
+		},
+		"typeRoots": ["./node_modules/@types"]
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"next-env.d.ts",
+		"next.config.js",
+		"types/**/*.d.ts",
+		".next/types/**/*.ts",
+		".next/dev/types/**/*.ts"
+	],
+	"exclude": [
+		"node_modules",
+		".next/**/*",
+		"src-tauri/**/*",
+		"node_modules/playwright/types/**/*"
+	]
+}

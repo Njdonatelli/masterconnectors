@@ -1,0 +1,81 @@
+{
+  "title": "Date (Mon DD YYYY) → Area Chart",
+  "description": "Natural date: \"Jan 15 2020\", \"Feb 15 2020\", … (12 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 15 2020",
+          "Value": 339
+        },
+        {
+          "Date": "Feb 15 2020",
+          "Value": 273
+        },
+        {
+          "Date": "Mar 15 2020",
+          "Value": 247
+        },
+        {
+          "Date": "Apr 15 2020",
+          "Value": 397
+        },
+        {
+          "Date": "May 15 2020",
+          "Value": 255
+        },
+        {
+          "Date": "Jun 15 2020",
+          "Value": 351
+        },
+        {
+          "Date": "Jul 15 2020",
+          "Value": 159
+        },
+        {
+          "Date": "Aug 15 2020",
+          "Value": 454
+        },
+        {
+          "Date": "Sep 15 2020",
+          "Value": 274
+        },
+        {
+          "Date": "Oct 15 2020",
+          "Value": 277
+        },
+        {
+          "Date": "Nov 15 2020",
+          "Value": 100
+        },
+        {
+          "Date": "Dec 15 2020",
+          "Value": 431
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

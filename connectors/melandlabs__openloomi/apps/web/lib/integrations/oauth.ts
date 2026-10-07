@@ -1,0 +1,562 @@
+"use client";
+
+import { isTauri } from "@/lib/tauri";
+
+type StartRequest = {
+  redirectPath?: string | null;
+  token?: string; // Bearer token (Tauri mode)
+  pendingId?: string;
+};
+
+type AuthorizationUrlOptions = {
+  token?: string;
+  pendingId?: string;
+};
+
+type StartResponse = {
+  authorizationUrl: string;
+  sessionId?: string;
+  redirectUri?: string;
+};
+
+type SlackExchangeResponse = {
+  accessToken: string;
+  authedUser: {
+    id?: string;
+    scope?: string;
+    token_type?: string;
+  } | null;
+  team: {
+    id?: string;
+    name?: string;
+  } | null;
+};
+
+type DiscordExchangeResponse = {
+  accessToken: string;
+  tokenType: string;
+  expiresIn: number | null;
+  refreshToken: string | null;
+  scope: string | null;
+};
+
+type TeamsExchangeResponse = {
+  accessToken: string;
+  refreshToken: string | null;
+  expiresIn: number | null;
+  expiresAt: number | null;
+  tokenType: string | null;
+  scope: string | null;
+  tenantId: string | null;
+  user: {
+    id?: string;
+    displayName?: string;
+    userPrincipalName?: string;
+    mail?: string | null;
+  } | null;
+};
+
+type HubspotExchangeResponse = {
+  accessToken: string;
+  refreshToken: string | null;
+  expiresIn: number | null;
+  tokenType: string | null;
+  scope: string | null;
+  hubId: number | null;
+  hubDomain: string | null;
+  userEmail: string | null;
+  userId: number | null;
+};
+
+type GoogleDocsExchangeResponse = {
+  accessToken: string;
+  refreshToken: string | null;
+  scope: string | null;
+  tokenType: string | null;
+  expiresIn: number | null;
+  email?: string | null;
+  name?: string | null;
+};
+
+type JiraExchangeResponse = {
+  accessToken: string;
+  refreshToken: string | null;
+  expiresIn: number | null;
+  scope: string | null;
+  tokenType: string | null;
+};
+
+type LinearExchangeResponse = {
+  accessToken: string;
+  refreshToken: string | null;
+  expiresIn: number | null;
+  scope: string | null;
+  tokenType: string | null;
+};
+
+async function requestAuthorizationUrl(
+  endpoint: string,
+  redirectPath: string,
+  options: AuthorizationUrlOptions = {},
+): Promise<string> {
+  if (typeof window === "undefined") {
+    throw new Error("OAuth flow is only available in the browser");
+  }
+
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+  if (options.token) {
+    headers.Authorization = `Bearer ${options.token}`;
+  }
+
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers,
+    credentials: "include",
+    body: JSON.stringify({
+      redirectPath,
+      token: options.token,
+      pendingId: options.pendingId,
+    } satisfies StartRequest),
+  });
+
+  if (!response.ok) {
+    let message = "Failed to start OAuth flow";
+    try {
+      const body = (await response.json()) as { error?: string };
+      if (body?.error) {
+        message = body.error;
+      }
+    } catch {
+      // ignore JSON parse errors and use default message
+    }
+    throw new Error(message);
+  }
+
+  const data = (await response.json()) as StartResponse;
+  if (!data.authorizationUrl) {
+    throw new Error("OAuth endpoint did not return an authorization URL");
+  }
+
+  return data.authorizationUrl;
+}
+
+async function exchangeAuthorizationCode<T>(
+  endpoint: string,
+  redirectPath: string,
+  code: string,
+  state: string,
+): Promise<T> {
+  if (typeof window === "undefined") {
+    throw new Error("OAuth flow is only available in the browser");
+  }
+
+  const redirectUri = `${window.location.origin}${redirectPath}`;
+  const response = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ code, state, redirectUri }),
+  });
+
+  if (!response.ok) {
+    let message = "Failed to finalize OAuth flow";
+    try {
+      const body = (await response.json()) as { error?: string };
+      if (body?.error) {
+        message = body.error;
+      }
+    } catch {
+      // ignore JSON parse errors
+    }
+    throw new Error(message);
+  }
+
+  return (await response.json()) as T;
+}
+
+export async function getSlackAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  // Always use local API, server decides whether to forward to cloud
+  // In Tauri mode, pass Bearer token
+  return requestAuthorizationUrl(
+    "/api/slack/oauth/start",
+    "/slack-authorized",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getDiscordAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  // Always use local API, server decides whether to forward to cloud
+  // In Tauri mode, pass Bearer token
+  return requestAuthorizationUrl(
+    "/api/discord/oauth/start",
+    "/discord-authorized",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getXAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<{ authorizationUrl: string; sessionId: string }> {
+  // Always use local API, server decides whether to forward to cloud
+  // In Tauri mode, pass Bearer token
+  const response = await fetch("/api/x/oauth", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({
+      redirectPath: "/x-authorized",
+      token,
+      pendingId: options.pendingId,
+    } satisfies StartRequest),
+  });
+
+  if (!response.ok) {
+    let message = "Failed to start OAuth flow";
+    try {
+      const body = (await response.json()) as { error?: string };
+      if (body?.error) {
+        message = body.error;
+      }
+    } catch {
+      // ignore JSON parse errors and use default message
+    }
+    throw new Error(message);
+  }
+
+  const data = (await response.json()) as StartResponse;
+  if (!data.authorizationUrl) {
+    throw new Error("OAuth endpoint did not return an authorization URL");
+  }
+  if (!data.sessionId) {
+    throw new Error("OAuth endpoint did not return a session ID");
+  }
+
+  return {
+    authorizationUrl: data.authorizationUrl,
+    sessionId: data.sessionId,
+  };
+}
+
+export async function getTeamsAuthorizationUrl(
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/teams/oauth/start",
+    "/teams-authorized",
+    {
+      pendingId: options.pendingId,
+    },
+  );
+}
+
+export async function getHubspotAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/hubspot/oauth/start",
+    "/api/hubspot/callback",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getGoogleDocsAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/google-docs/oauth",
+    "/api/google-docs/callback",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getOutlookCalendarAuthorizationUrl(
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/outlook-calendar/oauth",
+    "/outlook-calendar-authorized",
+    { pendingId: options.pendingId },
+  );
+}
+
+export async function getGoogleDriveAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/google-drive/oauth",
+    "/api/google-drive/callback",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getGoogleCalendarAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/google-calendar/oauth",
+    "/api/google-calendar/callback",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getGoogleMeetAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/google-meet/oauth",
+    "/api/google-meet/callback",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getGmailAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/integrations/gmail/oauth/start",
+    "/api/gmail/callback",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function exchangeSlackAuthorizationCode(
+  code: string,
+  state: string,
+): Promise<SlackExchangeResponse> {
+  if (isTauri()) {
+    // Tauri local version: call the local backend (relative path resolves
+    // to the Tauri-served webview origin). No cloud hop required.
+    const response = await fetch("/api/integrations/slack/oauth/exchange", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code, state }),
+    });
+
+    if (!response.ok) {
+      const error = (await response
+        .json()
+        .catch(() => ({ error: "Failed to exchange code" }))) as {
+        error?: string;
+      };
+      throw new Error(error.error || "Failed to exchange authorization code");
+    }
+
+    return (await response.json()) as SlackExchangeResponse;
+  }
+
+  // Web version: keep original logic
+  return exchangeAuthorizationCode<SlackExchangeResponse>(
+    "/api/slack/oauth/exchange",
+    "/slack-authorized",
+    code,
+    state,
+  );
+}
+
+export async function exchangeDiscordAuthorizationCode(
+  code: string,
+  state: string,
+): Promise<DiscordExchangeResponse> {
+  if (isTauri()) {
+    // Tauri local version: call the local backend (relative path resolves
+    // to the Tauri-served webview origin). No cloud hop required.
+    const response = await fetch(`/api/integrations/discord/oauth/exchange`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code, state }),
+    });
+
+    if (!response.ok) {
+      const error = (await response
+        .json()
+        .catch(() => ({ error: "Failed to exchange code" }))) as {
+        error?: string;
+      };
+      throw new Error(error.error || "Failed to exchange authorization code");
+    }
+
+    return (await response.json()) as DiscordExchangeResponse;
+  }
+
+  // Web version: keep original logic
+  return exchangeAuthorizationCode<DiscordExchangeResponse>(
+    "/api/discord/oauth/exchange",
+    "/discord-authorized",
+    code,
+    state,
+  );
+}
+
+export async function exchangeTeamsAuthorizationCode(
+  code: string,
+  state: string,
+): Promise<TeamsExchangeResponse> {
+  return exchangeAuthorizationCode<TeamsExchangeResponse>(
+    "/api/teams/oauth/exchange",
+    "/teams-authorized",
+    code,
+    state,
+  );
+}
+
+export async function exchangeHubspotAuthorizationCode(
+  code: string,
+  state: string,
+): Promise<HubspotExchangeResponse> {
+  if (isTauri()) {
+    // Tauri local version: call the local backend (relative path resolves
+    // to the Tauri-served webview origin). No cloud hop required.
+    const response = await fetch("/api/integrations/hubspot/oauth/exchange", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ code, state }),
+    });
+
+    if (!response.ok) {
+      const error = (await response
+        .json()
+        .catch(() => ({ error: "Failed to exchange code" }))) as {
+        error?: string;
+      };
+      throw new Error(error.error || "Failed to exchange authorization code");
+    }
+
+    return (await response.json()) as HubspotExchangeResponse;
+  }
+
+  // Web version: keep original logic
+  return exchangeAuthorizationCode<HubspotExchangeResponse>(
+    "/api/hubspot/oauth/exchange",
+    "/api/hubspot/callback",
+    code,
+    state,
+  );
+}
+
+export async function exchangeGoogleDocsAuthorizationCode(
+  code: string,
+  state: string,
+): Promise<GoogleDocsExchangeResponse> {
+  if (isTauri()) {
+    // Tauri local version: call the local backend (relative path resolves
+    // to the Tauri-served webview origin). No cloud hop required.
+    const response = await fetch(
+      `/api/integrations/google-docs/oauth/exchange`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ code, state }),
+      },
+    );
+
+    if (!response.ok) {
+      const error = (await response
+        .json()
+        .catch(() => ({ error: "Failed to exchange code" }))) as {
+        error?: string;
+      };
+      throw new Error(error.error || "Failed to exchange authorization code");
+    }
+
+    return (await response.json()) as GoogleDocsExchangeResponse;
+  }
+
+  // Web version: keep original logic
+  return exchangeAuthorizationCode<GoogleDocsExchangeResponse>(
+    "/api/google-docs/callback",
+    "/api/google-docs/callback",
+    code,
+    state,
+  );
+}
+
+export async function getJiraAuthorizationUrl(
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl("/api/jira/oauth/start", "/jira-authorized", {
+    pendingId: options.pendingId,
+  });
+}
+
+export async function getLinearAuthorizationUrl(
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/linear/oauth/start",
+    "/linear-authorized",
+    { pendingId: options.pendingId },
+  );
+}
+
+export async function getNotionAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/notion/oauth/start",
+    "/notion-authorized",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function getLinkedinAuthorizationUrl(
+  token?: string,
+  options: { pendingId?: string } = {},
+): Promise<string> {
+  return requestAuthorizationUrl(
+    "/api/linkedin/oauth",
+    "/api/linkedin/callback",
+    { token, pendingId: options.pendingId },
+  );
+}
+
+export async function exchangeJiraAuthorizationCode(
+  code: string,
+  state: string,
+): Promise<JiraExchangeResponse> {
+  return exchangeAuthorizationCode<JiraExchangeResponse>(
+    "/api/jira/oauth/exchange",
+    "/jira-authorized",
+    code,
+    state,
+  );
+}
+
+export async function exchangeLinearAuthorizationCode(
+  code: string,
+  state: string,
+): Promise<LinearExchangeResponse> {
+  return exchangeAuthorizationCode<LinearExchangeResponse>(
+    "/api/linear/oauth/exchange",
+    "/linear-authorized",
+    code,
+    state,
+  );
+}

@@ -1,0 +1,237 @@
+{
+  "title": "Ranged Dot ▸ Y ×20",
+  "description": "Ranged dot plot with 20 categories on Y",
+  "chartType": "Ranged Dot Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Metric": "Metric01",
+          "Phase": "Before",
+          "Score": 21
+        },
+        {
+          "Metric": "Metric01",
+          "Phase": "After",
+          "Score": 31
+        },
+        {
+          "Metric": "Metric02",
+          "Phase": "Before",
+          "Score": 79
+        },
+        {
+          "Metric": "Metric02",
+          "Phase": "After",
+          "Score": 28
+        },
+        {
+          "Metric": "Metric03",
+          "Phase": "Before",
+          "Score": 81
+        },
+        {
+          "Metric": "Metric03",
+          "Phase": "After",
+          "Score": 58
+        },
+        {
+          "Metric": "Metric04",
+          "Phase": "Before",
+          "Score": 80
+        },
+        {
+          "Metric": "Metric04",
+          "Phase": "After",
+          "Score": 49
+        },
+        {
+          "Metric": "Metric05",
+          "Phase": "Before",
+          "Score": 21
+        },
+        {
+          "Metric": "Metric05",
+          "Phase": "After",
+          "Score": 60
+        },
+        {
+          "Metric": "Metric06",
+          "Phase": "Before",
+          "Score": 83
+        },
+        {
+          "Metric": "Metric06",
+          "Phase": "After",
+          "Score": 33
+        },
+        {
+          "Metric": "Metric07",
+          "Phase": "Before",
+          "Score": 45
+        },
+        {
+          "Metric": "Metric07",
+          "Phase": "After",
+          "Score": 48
+        },
+        {
+          "Metric": "Metric08",
+          "Phase": "Before",
+          "Score": 79
+        },
+        {
+          "Metric": "Metric08",
+          "Phase": "After",
+          "Score": 61
+        },
+        {
+          "Metric": "Metric09",
+          "Phase": "Before",
+          "Score": 63
+        },
+        {
+          "Metric": "Metric09",
+          "Phase": "After",
+          "Score": 74
+        },
+        {
+          "Metric": "Metric10",
+          "Phase": "Before",
+          "Score": 75
+        },
+        {
+          "Metric": "Metric10",
+          "Phase": "After",
+          "Score": 61
+        },
+        {
+          "Metric": "Metric11",
+          "Phase": "Before",
+          "Score": 54
+        },
+        {
+          "Metric": "Metric11",
+          "Phase": "After",
+          "Score": 54
+        },
+        {
+          "Metric": "Metric12",
+          "Phase": "Before",
+          "Score": 60
+        },
+        {
+          "Metric": "Metric12",
+          "Phase": "After",
+          "Score": 63
+        },
+        {
+          "Metric": "Metric13",
+          "Phase": "Before",
+          "Score": 64
+        },
+        {
+          "Metric": "Metric13",
+          "Phase": "After",
+          "Score": 69
+        },
+        {
+          "Metric": "Metric14",
+          "Phase": "Before",
+          "Score": 73
+        },
+        {
+          "Metric": "Metric14",
+          "Phase": "After",
+          "Score": 54
+        },
+        {
+          "Metric": "Metric15",
+          "Phase": "Before",
+          "Score": 48
+        },
+        {
+          "Metric": "Metric15",
+          "Phase": "After",
+          "Score": 67
+        },
+        {
+          "Metric": "Metric16",
+          "Phase": "Before",
+          "Score": 51
+        },
+        {
+          "Metric": "Metric16",
+          "Phase": "After",
+          "Score": 25
+        },
+        {
+          "Metric": "Metric17",
+          "Phase": "Before",
+          "Score": 50
+        },
+        {
+          "Metric": "Metric17",
+          "Phase": "After",
+          "Score": 52
+        },
+        {
+          "Metric": "Metric18",
+          "Phase": "Before",
+          "Score": 56
+        },
+        {
+          "Metric": "Metric18",
+          "Phase": "After",
+          "Score": 57
+        },
+        {
+          "Metric": "Metric19",
+          "Phase": "Before",
+          "Score": 69
+        },
+        {
+          "Metric": "Metric19",
+          "Phase": "After",
+          "Score": 88
+        },
+        {
+          "Metric": "Metric20",
+          "Phase": "Before",
+          "Score": 52
+        },
+        {
+          "Metric": "Metric20",
+          "Phase": "After",
+          "Score": 53
+        }
+      ]
+    },
+    "semantic_types": {
+      "Metric": "Category",
+      "Phase": "Category",
+      "Score": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Ranged Dot Plot",
+      "encodings": {
+        "y": {
+          "field": "Metric"
+        },
+        "x": {
+          "field": "Score"
+        },
+        "color": {
+          "field": "Phase"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,259 @@
+// Unified entry point for LLM calls across wigolo. Selects a backend from
+// env (or keystore) and delegates:
+//   - cloud provider name (anthropic/openai/gemini/groq) → SDK adapter
+//   - OpenAI-compatible URL (http://...)               → POST /v1/chat/completions
+//
+// SP4: keys are resolved via resolveProviderKey (keychain → file → env) and
+// passed explicitly to adapters. process.env is never hydrated from keystore.
+//
+// Used by research synthesis, agent synthesis, and v1 extract LLM fallback
+// so a single WIGOLO_LLM_PROVIDER configuration drives every code path.
+
+import { TEXT_ADAPTERS, type TextCallResult } from './text-adapters.js';
+import { selectProvider, selectProviderWithKeyStore, providerEnvVar } from './select.js';
+import { resolveModel } from './model-select.js';
+import { resolveCustomBackend, pickOllamaModel, type CustomBackend } from './custom-backend.js';
+import type { LLMProvider } from './types.js';
+import { createLogger } from '../../../logger.js';
+import { resolveProviderKey } from '../../../security/key-store.js';
+import { getConfig } from '../../../config.js';
+
+const log = createLogger('providers');
+
+const DEFAULT_TIMEOUT_MS = 60_000;
+
+/**
+ * Explicit OpenAI-compatible backend override for a single call. When set, it
+ * takes precedence over `resolveCustomBackend(process.env)` and routes to the
+ * given `url` + `model` for THAT call only — reading nothing from process.env.
+ * This is the concurrency-safe way to route a call to a resolved endpoint (e.g.
+ * the local-model tier) without mutating ambient env. Omitting it preserves the
+ * existing behavior exactly.
+ */
+export interface LlmBackendOverride {
+  /** Base URL or full /chat/completions URL of an OpenAI-compatible server. */
+  url: string;
+  /** Model to request; falls back to modelOverride > WIGOLO_LLM_MODEL > 'local'. */
+  model?: string;
+  /** When true, auto-pick an installed model from /api/tags if none is given. */
+  isOllama?: boolean;
+}
+
+export interface RunLlmTextOpts {
+  prompt: string;
+  maxTokens?: number;
+  modelOverride?: string;
+  timeoutMs?: number;
+  signal?: AbortSignal;
+  /** Route this call to an explicit backend, bypassing process.env resolution. */
+  backend?: LlmBackendOverride;
+  /**
+   * Optional image sent alongside the prompt for vision-capable cloud models
+   * (anthropic/openai/gemini). Ignored by groq and the custom OpenAI-compatible
+   * backend, which stay text-only.
+   */
+  image?: LlmImageInput;
+}
+
+/** Base64 image input attached to an LLM text call. */
+export interface LlmImageInput {
+  /** Base64-encoded image bytes, without a `data:` URI prefix. */
+  data: string;
+  /** IANA media type, e.g. 'image/png'. */
+  mediaType: string;
+}
+
+export interface RunLlmTextResult {
+  text: string;
+  provider: LLMProvider | 'custom';
+  model: string;
+  latencyMs: number;
+}
+
+export interface RunLlmJsonOpts extends RunLlmTextOpts {
+  jsonSchema?: Record<string, unknown>;
+}
+
+export interface RunLlmJsonResult {
+  values: Record<string, unknown>;
+  provider: LLMProvider | 'custom';
+  model: string;
+  latencyMs: number;
+}
+
+export function isLlmConfigured(env: Record<string, string | undefined> = process.env): boolean {
+  if (resolveCustomBackend(env) !== null) return true;
+  return selectProvider(env) !== null;
+}
+
+/**
+ * Async variant of isLlmConfigured that also checks the keystore.
+ * Use this when you have access to the data dir.
+ */
+export async function isLlmConfiguredWithKeyStore(
+  env: Record<string, string | undefined> = process.env,
+): Promise<boolean> {
+  if (resolveCustomBackend(env) !== null) return true;
+  const cfg = getConfig();
+  const result = await selectProviderWithKeyStore(env, { dataDir: cfg.dataDir });
+  return result !== null;
+}
+
+function buildSignal(opts: { timeoutMs?: number; signal?: AbortSignal }): AbortSignal | undefined {
+  if (opts.signal) return opts.signal;
+  if (opts.timeoutMs) return AbortSignal.timeout(opts.timeoutMs);
+  return AbortSignal.timeout(DEFAULT_TIMEOUT_MS);
+}
+
+const RETRY_STATUS = new Set([408, 425, 429, 500, 502, 503, 504, 529]);
+const RETRY_MESSAGE_PATTERN = /\b(429|500|502|503|504|529)\b|too many requests|rate.?limit|unavailable|overloaded|high demand|service unavailable|temporar/i;
+const MAX_RETRIES = 2;
+const BASE_BACKOFF_MS = 500;
+
+function isTransientError(err: unknown): boolean {
+  if (!err) return false;
+  const status = (err as { status?: unknown }).status;
+  if (typeof status === 'number' && RETRY_STATUS.has(status)) return true;
+  const code = (err as { code?: unknown }).code;
+  if (typeof code === 'string' && /ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENETUNREACH|ECONNREFUSED/.test(code)) {
+    return true;
+  }
+  const msg = err instanceof Error ? err.message : String(err);
+  return RETRY_MESSAGE_PATTERN.test(msg);
+}
+
+async function withRetry<T>(label: string, fn: () => Promise<T>): Promise<T> {
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastErr = err;
+      if (attempt === MAX_RETRIES || !isTransientError(err)) throw err;
+      const backoff = BASE_BACKOFF_MS * Math.pow(3, attempt);
+      log.warn('LLM call transient failure, retrying', {
+        label,
+        attempt: attempt + 1,
+        backoffMs: backoff,
+        error: err instanceof Error ? err.message : String(err),
+      });
+      await new Promise((r) => setTimeout(r, backoff));
+    }
+  }
+  throw lastErr;
+}
+
+export async function runLlmText(opts: RunLlmTextOpts): Promise<RunLlmTextResult> {
+  const cfg = getConfig();
+  const ksOpts = { dataDir: cfg.dataDir };
+  const signal = buildSignal(opts);
+
+  // Custom URL backend (Ollama, vLLM, LM Studio) — no key needed. An explicit
+  // per-call `backend` override wins over the process.env resolution: it routes
+  // to the given url+model without reading env, so a concurrent caller can never
+  // corrupt a shared WIGOLO_LLM_PROVIDER.
+  const custom: CustomBackend | null = opts.backend
+    ? { url: opts.backend.url, isOllama: opts.backend.isOllama ?? false }
+    : resolveCustomBackend(process.env);
+  if (custom) {
+    const endpoint = custom.url.includes('/chat/completions')
+      ? custom.url
+      : custom.url.replace(/\/+$/, '') + '/v1/chat/completions';
+    // Model precedence: explicit backend.model > caller override >
+    // WIGOLO_LLM_MODEL > (ollama only) auto-pick from /api/tags > 'local'.
+    // Auto-pick resolves once per request. When an explicit backend is given we
+    // never fall back to WIGOLO_LLM_MODEL — the override is self-contained.
+    let model = opts.backend
+      ? (opts.backend.model ?? opts.modelOverride)
+      : (opts.modelOverride ?? process.env.WIGOLO_LLM_MODEL);
+    if (!model && custom.isOllama) {
+      model = await pickOllamaModel(custom.url, fetch, signal);
+    }
+    model = model ?? 'local';
+    log.debug('runLlmText custom', { url: endpoint, model });
+    return withRetry(`custom:${model}`, async () => {
+      const start = Date.now();
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model,
+          messages: [{ role: 'user', content: opts.prompt }],
+          max_tokens: opts.maxTokens,
+        }),
+        signal,
+      });
+      if (!response.ok) {
+        const err = new Error(`Local LLM endpoint returned ${response.status}`) as Error & { status?: number };
+        err.status = response.status;
+        throw err;
+      }
+      const payload = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
+      const text = payload.choices?.[0]?.message?.content;
+      if (typeof text !== 'string' || text.trim().length === 0) {
+        throw new Error('Local LLM response missing message content');
+      }
+      return { text, provider: 'custom' as const, model, latencyMs: Date.now() - start };
+    });
+  }
+
+  // Cloud provider — resolve key through keystore seam
+  const resolved = await selectProviderWithKeyStore(process.env, ksOpts);
+  if (!resolved) {
+    throw new Error('No LLM configured — set WIGOLO_LLM_PROVIDER or a provider API key');
+  }
+
+  const { provider, key: apiKey } = resolved;
+  const model = resolveModel(provider, opts.modelOverride);
+  log.debug('runLlmText cloud', { provider, model });
+  return withRetry(`${provider}:${model}`, async () => {
+    const r: TextCallResult = await TEXT_ADAPTERS[provider](
+      { prompt: opts.prompt, model, maxTokens: opts.maxTokens, signal, image: opts.image },
+      apiKey,
+    );
+    return { text: r.text, provider: r.provider, model: r.model, latencyMs: r.latencyMs };
+  });
+}
+
+export async function runLlmJson(opts: RunLlmJsonOpts): Promise<RunLlmJsonResult> {
+  const schemaText = opts.jsonSchema ? `\nReturn JSON matching this schema:\n${JSON.stringify(opts.jsonSchema)}` : '';
+  const wrapped = `${opts.prompt}\n\nReturn ONLY valid JSON, no prose.${schemaText}`;
+  const r = await runLlmText({ ...opts, prompt: wrapped });
+  let values: unknown;
+  try {
+    values = JSON.parse(stripJsonFences(r.text));
+  } catch (e) {
+    throw new Error(`LLM returned invalid JSON: ${(e as Error).message}`);
+  }
+  if (!values || typeof values !== 'object' || Array.isArray(values)) {
+    throw new Error('LLM response is not a JSON object');
+  }
+  return {
+    values: values as Record<string, unknown>,
+    provider: r.provider,
+    model: r.model,
+    latencyMs: r.latencyMs,
+  };
+}
+
+function stripJsonFences(text: string): string {
+  const trimmed = text.trim();
+  const fenced = trimmed.match(/^```(?:json)?\s*([\s\S]+?)\s*```$/);
+  if (fenced) return fenced[1];
+  return trimmed;
+}
+
+/**
+ * Resolve the API key for the currently configured provider through the
+ * full keystore chain (keychain → file → env). Returns undefined when no
+ * provider is configured.
+ *
+ * Used by llm-fallback.ts which needs the key + provider separately.
+ */
+export async function resolveActiveProviderKey(): Promise<{ provider: LLMProvider; key: string } | null> {
+  const cfg = getConfig();
+  return selectProviderWithKeyStore(process.env, { dataDir: cfg.dataDir });
+}
+
+// Re-export resolveProviderKey for direct use by llm-fallback
+export { resolveProviderKey } from '../../../security/key-store.js';

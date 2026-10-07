@@ -1,0 +1,97 @@
+{
+  "title": "Quarter Canonical Order (Q1→Q4)",
+  "description": "Semantic type \"Quarter\" sorts Q1→Q2→Q3→Q4 in canonical order regardless of data encounter order. Quarter is cyclic (Q4→Q1 wraps). WITHOUT this: alphabetical order happens to work here, but no guarantee for variant labels or cross-year data.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "quarter": "Q3",
+          "region": "North",
+          "sales": 54071
+        },
+        {
+          "quarter": "Q1",
+          "region": "North",
+          "sales": 75957
+        },
+        {
+          "quarter": "Q4",
+          "region": "North",
+          "sales": 115889
+        },
+        {
+          "quarter": "Q2",
+          "region": "North",
+          "sales": 239799
+        },
+        {
+          "quarter": "Q3",
+          "region": "South",
+          "sales": 195517
+        },
+        {
+          "quarter": "Q1",
+          "region": "South",
+          "sales": 152569
+        },
+        {
+          "quarter": "Q4",
+          "region": "South",
+          "sales": 122609
+        },
+        {
+          "quarter": "Q2",
+          "region": "South",
+          "sales": 195426
+        },
+        {
+          "quarter": "Q3",
+          "region": "East",
+          "sales": 219990
+        },
+        {
+          "quarter": "Q1",
+          "region": "East",
+          "sales": 77244
+        },
+        {
+          "quarter": "Q4",
+          "region": "East",
+          "sales": 147781
+        },
+        {
+          "quarter": "Q2",
+          "region": "East",
+          "sales": 50397
+        }
+      ]
+    },
+    "semantic_types": {
+      "quarter": "Quarter",
+      "region": "Category",
+      "sales": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "quarter"
+        },
+        "y": {
+          "field": "sales"
+        },
+        "color": {
+          "field": "region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

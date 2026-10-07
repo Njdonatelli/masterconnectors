@@ -1,0 +1,448 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Quarter",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 25
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Quarter": "Q1 2018",
+        "Value": 278,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q1 2018",
+        "Value": 391,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q1 2018",
+        "Value": 315,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q2 2018",
+        "Value": 102,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q2 2018",
+        "Value": 131,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q2 2018",
+        "Value": 103,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q3 2018",
+        "Value": 503,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q3 2018",
+        "Value": 415,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q3 2018",
+        "Value": 323,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q4 2018",
+        "Value": 381,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q4 2018",
+        "Value": 83,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q4 2018",
+        "Value": 199,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q1 2019",
+        "Value": 536,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q1 2019",
+        "Value": 379,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q1 2019",
+        "Value": 382,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q2 2019",
+        "Value": 203,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q2 2019",
+        "Value": 445,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q2 2019",
+        "Value": 56,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q3 2019",
+        "Value": 118,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q3 2019",
+        "Value": 245,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q3 2019",
+        "Value": 58,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q4 2019",
+        "Value": 524,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q4 2019",
+        "Value": 241,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q4 2019",
+        "Value": 201,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q1 2020",
+        "Value": 248,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q1 2020",
+        "Value": 356,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q1 2020",
+        "Value": 404,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q2 2020",
+        "Value": 163,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q2 2020",
+        "Value": 76,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q2 2020",
+        "Value": 350,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q3 2020",
+        "Value": 466,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q3 2020",
+        "Value": 309,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q3 2020",
+        "Value": 413,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q4 2020",
+        "Value": 429,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q4 2020",
+        "Value": 483,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q4 2020",
+        "Value": 353,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q1 2021",
+        "Value": 169,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q1 2021",
+        "Value": 227,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q1 2021",
+        "Value": 453,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q2 2021",
+        "Value": 466,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q2 2021",
+        "Value": 445,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q2 2021",
+        "Value": 545,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q3 2021",
+        "Value": 118,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q3 2021",
+        "Value": 332,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q3 2021",
+        "Value": 502,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q4 2021",
+        "Value": 308,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q4 2021",
+        "Value": 294,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q4 2021",
+        "Value": 122,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q1 2022",
+        "Value": 281,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q1 2022",
+        "Value": 143,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q1 2022",
+        "Value": 483,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q2 2022",
+        "Value": 302,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q2 2022",
+        "Value": 192,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q2 2022",
+        "Value": 72,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q3 2022",
+        "Value": 107,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q3 2022",
+        "Value": 357,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q3 2022",
+        "Value": 150,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q4 2022",
+        "Value": 434,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q4 2022",
+        "Value": 539,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q4 2022",
+        "Value": 62,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q1 2023",
+        "Value": 449,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q1 2023",
+        "Value": 461,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q1 2023",
+        "Value": 274,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q2 2023",
+        "Value": 120,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q2 2023",
+        "Value": 250,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q2 2023",
+        "Value": 527,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q3 2023",
+        "Value": 287,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q3 2023",
+        "Value": 105,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q3 2023",
+        "Value": 472,
+        "Category": "Gamma"
+      },
+      {
+        "Quarter": "Q4 2023",
+        "Value": 527,
+        "Category": "Alpha"
+      },
+      {
+        "Quarter": "Q4 2023",
+        "Value": 310,
+        "Category": "Beta"
+      },
+      {
+        "Quarter": "Q4 2023",
+        "Value": 191,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

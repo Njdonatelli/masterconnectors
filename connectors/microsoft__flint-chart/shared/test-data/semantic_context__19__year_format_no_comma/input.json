@@ -1,0 +1,61 @@
+{
+  "title": "Year Format (no comma)",
+  "description": "Semantic type \"Year\" uses integer format without comma grouping: \"2024\" not \"2,024\". WITHOUT this: years shown as \"2,024\" with thousands separator.",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "year": 2018,
+          "gdp_trillion": 18.04
+        },
+        {
+          "year": 2019,
+          "gdp_trillion": 22.83
+        },
+        {
+          "year": 2020,
+          "gdp_trillion": 19.87
+        },
+        {
+          "year": 2021,
+          "gdp_trillion": 21.69
+        },
+        {
+          "year": 2022,
+          "gdp_trillion": 24.58
+        },
+        {
+          "year": 2023,
+          "gdp_trillion": 24.61
+        },
+        {
+          "year": 2024,
+          "gdp_trillion": 20.65
+        }
+      ]
+    },
+    "semantic_types": {
+      "year": "Year",
+      "gdp_trillion": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "year"
+        },
+        "y": {
+          "field": "gdp_trillion"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

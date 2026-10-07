@@ -1,0 +1,138 @@
+from __future__ import annotations
+
+from iai_mcp.profile import (
+    LIVE_KNOB_NAMES,
+    DEFERRED_KNOB_NAMES,
+    PROFILE_KNOBS,
+    default_state,
+    profile_get,
+    profile_set,
+)
+
+def test_profile_has_exactly_10_knobs():
+    assert len(PROFILE_KNOBS) == 10
+
+def test_live_knob_names_cover_the_sealed_registry():
+    assert len(LIVE_KNOB_NAMES) == 10
+    assert "literal_preservation" in LIVE_KNOB_NAMES
+    assert "masking_off" in LIVE_KNOB_NAMES
+    assert "task_support" in LIVE_KNOB_NAMES
+    assert "scene_construction_scaffold" in LIVE_KNOB_NAMES
+    assert "monotropism_depth" in LIVE_KNOB_NAMES
+    assert "dunn_quadrant" in LIVE_KNOB_NAMES
+    assert "wake_depth" in LIVE_KNOB_NAMES
+
+def test_deferred_knob_names_empty():
+    assert DEFERRED_KNOB_NAMES == frozenset()
+
+def test_every_knob_has_autist_requirement_id():
+    for name, spec in PROFILE_KNOBS.items():
+        if name == "wake_depth":
+            assert spec.requirement_id == "MCP-12", (
+                f"wake_depth must carry MCP-12 requirement_id, got {spec.requirement_id}"
+            )
+            continue
+        assert spec.requirement_id.startswith("AUTIST-"), (
+            f"knob {name} missing AUTIST-* requirement_id"
+        )
+
+def test_live_knob_defaults_match_d11():
+    state = default_state()
+    assert state["literal_preservation"] == "strong"
+    assert state["masking_off"] is True
+    assert state["task_support"] == "cued_recognition"
+    assert state["scene_construction_scaffold"] is True
+
+def test_default_state_excludes_deferred_knobs():
+    state = default_state()
+    assert set(state.keys()) == LIVE_KNOB_NAMES
+    assert len(state) == 10
+
+def test_profile_get_none_returns_total_10():
+    state = default_state()
+    result = profile_get(None, state)
+    assert result["total_knobs"] == 10
+    assert len(result["live"]) == 10
+    assert len(result["deferred"]) == 0
+
+def test_profile_get_none_live_values_match_d11():
+    state = default_state()
+    result = profile_get(None, state)
+    assert result["live"]["literal_preservation"] == "strong"
+    assert result["live"]["masking_off"] is True
+    assert result["live"]["task_support"] == "cued_recognition"
+    assert result["live"]["scene_construction_scaffold"] is True
+
+def test_profile_get_none_deferred_entries_have_requirement_id():
+    state = default_state()
+    result = profile_get(None, state)
+    for name, entry in result["deferred"].items():
+        assert entry["status"] == "not-yet-implemented"
+        assert entry["phase"] in (2, 3)
+        assert entry["requirement_id"].startswith("AUTIST-")
+        assert "description" in entry
+
+def test_profile_get_live_specific_knob():
+    state = default_state()
+    r = profile_get("literal_preservation", state)
+    assert r == {"knob": "literal_preservation", "value": "strong"}
+
+def test_profile_get_monotropism_depth_now_live():
+    state = default_state()
+    r = profile_get("monotropism_depth", state)
+    assert r["knob"] == "monotropism_depth"
+    assert "value" in r
+    assert r["value"] == {}
+
+def test_profile_get_unknown_knob():
+    state = default_state()
+    r = profile_get("does_not_exist", state)
+    assert r == {"knob": "does_not_exist", "status": "unknown"}
+
+def test_profile_set_live_enum_success():
+    state = default_state()
+    r = profile_set("literal_preservation", "loose", state)
+    assert r["status"] == "ok"
+    assert r["value"] == "loose"
+    assert profile_get("literal_preservation", state)["value"] == "loose"
+
+def test_profile_set_live_enum_rejects_bogus_value():
+    state = default_state()
+    r = profile_set("literal_preservation", "bogus", state)
+    assert r["status"] == "error"
+    assert state["literal_preservation"] == "strong"
+
+def test_profile_set_live_bool_rejects_non_bool():
+    state = default_state()
+    r = profile_set("masking_off", 1, state)
+    assert r["status"] == "error"
+    assert state["masking_off"] is True
+
+def test_profile_set_live_bool_accepts_true():
+    state = default_state()
+    r = profile_set("masking_off", False, state)
+    assert r["status"] == "ok"
+    assert state["masking_off"] is False
+
+def test_profile_set_monotropism_depth_rejects_non_dict():
+    state = default_state()
+    r = profile_set("monotropism_depth", 3, state)
+    assert r["status"] == "error"
+    assert "dict" in r["reason"].lower()
+
+def test_profile_set_unknown_knob_returns_unknown_reason():
+    state = default_state()
+    r = profile_set("does_not_exist", 1, state)
+    assert r["status"] == "error"
+    assert r["reason"] == "unknown knob"
+
+def test_profile_set_task_support_enum_accepts_blank_recall():
+    state = default_state()
+    r = profile_set("task_support", "blank_recall", state)
+    assert r["status"] == "ok"
+    assert state["task_support"] == "blank_recall"
+
+def test_profile_set_scene_construction_scaffold_rejects_string():
+    state = default_state()
+    r = profile_set("scene_construction_scaffold", "yes", state)
+    assert r["status"] == "error"

@@ -1,0 +1,73 @@
+---
+title: "Plugins"
+description: "First-party plugins that bridge OpenLoomi to other agent shells — Claude Code and Codex CLI"
+icon: "FaRobot"
+---
+
+# Plugins
+
+First-party plugins that turn external agent shells into a coding surface for a local OpenLoomi runtime. Each plugin is a thin bridge — no business logic is reimplemented, every side effect lands on the local HTTP runtime, and no command ever prints or forwards your API keys or auth tokens.
+
+## Choose your path
+
+| If you already live in… | Install                                                                                                                                                                                                                   | First-run setup                                     |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **Claude Code**         | `/plugin marketplace add melandlabs/plugins` then `/plugin install openloomi`                                                                                                                                             | `/openloomi:setup`                                  |
+| **Codex CLI**           | `codex plugin marketplace add melandlabs/plugins` then `codex plugin add openloomi@openloomi`                                                                                                                             | `@OpenLoomi Run first-use setup.`                   |
+| **MCP runtime**         | `pnpm --filter @openloomi/mcp build` then `node dist/cli.js`                                                                                                                                                              | `openloomi_setup`                                   |
+| **Skills.sh runtime**   | `npx skills add https://github.com/melandlabs/openloomi/tree/main/skills` then `--skill openloomi openloomi-setup openloomi-memory openloomi-connectors openloomi-loop openloomi-goals openloomi-api openloomi-feature-guide composio -y` | `/openloomi:setup` (or the agent-native equivalent) |
+
+## Overview
+
+If you already live in **Claude Code** or **Codex CLI**, you don't need to leave your editor to use OpenLoomi. Install the matching plugin, run its first-use setup, and OpenLoomi's memory, connectors, scheduled jobs, and Pet become reachable as slash commands, skills, or `@OpenLoomi` prompts inside your existing shell.
+
+For runtimes that support MCP directly, build the OpenLoomi MCP server locally
+and point the client at the built stdio entrypoint:
+
+```json
+{
+  "mcpServers": {
+    "openloomi": {
+      "command": "node",
+      "args": ["/path/to/openloomi/packages/ai/mcp/dist/cli.js"]
+    }
+  }
+}
+```
+
+Both plugins follow the same contract:
+
+- A Node bridge that talks to the local OpenLoomi runtime over HTTP (`127.0.0.1:3414`, falling back to `127.0.0.1:3515`).
+- A `setup-status` command that reports readiness as stable JSON (`mode`, `installed`, `tokenPresent`, `aiProviderConfigured`, `ready`, `nextAction`, `reason`).
+- An auto-enable wizard (`setup`) that walks the install → launch → guest login → token-mint → recheck state machine.
+- An opt-in Pet mirror that maps plugin lifecycle events onto the [Attention Agent](/docs/attention-agent) without ever blocking the user's turn.
+
+<Callout type="info">
+  **Secret handling is identical across both plugins.** API keys, OAuth tokens,
+  connector secrets, and auth tokens never appear in chat, argv, stdout, stderr,
+  or logs. The bridge only reports _presence_ (`hasApiKey`, `baseUrlPresent`,
+  `modelPresent`, etc.) — never values.
+</Callout>
+
+## Available plugins
+
+- **[Claude Code Plugin](/docs/plugins/claude)** — Wire Claude Code into the local OpenLoomi runtime with `/openloomi:*` slash commands, a first-run setup wizard, and opt-in Pet mirror + Stop-archive hooks.
+- **[Codex Plugin](/docs/plugins/codex)** — Use Codex CLI as your coding surface while OpenLoomi owns memory, connectors, and the runtime. Ships 13 bridge commands, 8 workflow skills, and a switch that makes Codex the default agent provider.
+
+## Skills.sh / skill-only runtimes
+
+For agents that only consume the [`skills.sh`](https://skills.sh/) skill protocol, install the OpenLoomi skill set directly from this repository:
+
+```bash
+npx skills add https://github.com/melandlabs/openloomi/tree/main/skills \
+  --skill openloomi openloomi-setup openloomi-memory openloomi-connectors openloomi-loop openloomi-goals openloomi-api openloomi-feature-guide composio \
+  -y
+```
+
+Start with the `openloomi` or `openloomi-setup` skill. The setup pass verifies that the OpenLoomi desktop app is installed, the local API is reachable, and a session token is available; if the desktop app is missing, the skill points you back to [Getting Started](/docs/getting-started) before continuing.
+
+## Related
+
+- [Attention Agent](/docs/attention-agent) — the desktop companion that mirrors plugin lifecycle events
+- [Getting Started](/docs/getting-started) — first-run setup for the OpenLoomi desktop app itself
+- [Claude Agent Runtime](/docs/reference/agent-runtimes/claude) · [Codex CLI Runtime](/docs/reference/agent-runtimes/codex) — how OpenLoomi drives the underlying runtimes

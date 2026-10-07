@@ -1,0 +1,168 @@
+{
+  "title": "Correlation Diverging + Domain",
+  "description": "Semantic type \"Correlation\" on color sets a diverging scheme with midpoint 0 and domain [-1, 1]. Positive correlations appear in one hue, negative in another. Domain is fixed to the mathematical bounds. WITHOUT this: auto-fitted color domain, sequential palette, no midpoint.",
+  "chartType": "Heatmap",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "var_x": "GDP",
+          "var_y": "GDP",
+          "correlation": 1
+        },
+        {
+          "var_x": "GDP",
+          "var_y": "Unemployment",
+          "correlation": -0.89
+        },
+        {
+          "var_x": "GDP",
+          "var_y": "Inflation",
+          "correlation": -0.17
+        },
+        {
+          "var_x": "GDP",
+          "var_y": "Education",
+          "correlation": 0.63
+        },
+        {
+          "var_x": "GDP",
+          "var_y": "Health",
+          "correlation": -0.56
+        },
+        {
+          "var_x": "Unemployment",
+          "var_y": "GDP",
+          "correlation": -0.48
+        },
+        {
+          "var_x": "Unemployment",
+          "var_y": "Unemployment",
+          "correlation": 1
+        },
+        {
+          "var_x": "Unemployment",
+          "var_y": "Inflation",
+          "correlation": 0.43
+        },
+        {
+          "var_x": "Unemployment",
+          "var_y": "Education",
+          "correlation": 0.9
+        },
+        {
+          "var_x": "Unemployment",
+          "var_y": "Health",
+          "correlation": -0.57
+        },
+        {
+          "var_x": "Inflation",
+          "var_y": "GDP",
+          "correlation": 0.21
+        },
+        {
+          "var_x": "Inflation",
+          "var_y": "Unemployment",
+          "correlation": 0.46
+        },
+        {
+          "var_x": "Inflation",
+          "var_y": "Inflation",
+          "correlation": 1
+        },
+        {
+          "var_x": "Inflation",
+          "var_y": "Education",
+          "correlation": -0.69
+        },
+        {
+          "var_x": "Inflation",
+          "var_y": "Health",
+          "correlation": 0.71
+        },
+        {
+          "var_x": "Education",
+          "var_y": "GDP",
+          "correlation": -0.66
+        },
+        {
+          "var_x": "Education",
+          "var_y": "Unemployment",
+          "correlation": 0.07
+        },
+        {
+          "var_x": "Education",
+          "var_y": "Inflation",
+          "correlation": -0.17
+        },
+        {
+          "var_x": "Education",
+          "var_y": "Education",
+          "correlation": 1
+        },
+        {
+          "var_x": "Education",
+          "var_y": "Health",
+          "correlation": -0.59
+        },
+        {
+          "var_x": "Health",
+          "var_y": "GDP",
+          "correlation": -0.04
+        },
+        {
+          "var_x": "Health",
+          "var_y": "Unemployment",
+          "correlation": 0.34
+        },
+        {
+          "var_x": "Health",
+          "var_y": "Inflation",
+          "correlation": -0.84
+        },
+        {
+          "var_x": "Health",
+          "var_y": "Education",
+          "correlation": 0.5
+        },
+        {
+          "var_x": "Health",
+          "var_y": "Health",
+          "correlation": 1
+        }
+      ]
+    },
+    "semantic_types": {
+      "var_x": "Category",
+      "var_y": "Category",
+      "correlation": {
+        "semanticType": "Correlation",
+        "intrinsicDomain": [
+          -1,
+          1
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Heatmap",
+      "encodings": {
+        "x": {
+          "field": "var_x"
+        },
+        "y": {
+          "field": "var_y"
+        },
+        "color": {
+          "field": "correlation"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

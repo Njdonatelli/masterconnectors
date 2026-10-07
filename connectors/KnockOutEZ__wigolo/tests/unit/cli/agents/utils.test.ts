@@ -1,0 +1,247 @@
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { mkdirSync, writeFileSync, rmSync, existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { tmpdir } from 'node:os';
+
+// We test the pure functions that don't depend on package root resolution
+// by calling them with a temp dir.
+
+// For functions that need the package root we test via their observable effects.
+
+let tmpDir: string;
+
+beforeEach(() => {
+  tmpDir = join(tmpdir(), `wigolo-utils-test-${Date.now()}`);
+  mkdirSync(tmpDir, { recursive: true });
+});
+
+afterEach(() => {
+  rmSync(tmpDir, { recursive: true, force: true });
+});
+
+// ---------------------------------------------------------------------------
+// mergeBlock
+// ---------------------------------------------------------------------------
+
+import { mergeBlock, removeBlock, mergeMcpJson, removeMcpJson } from '../../../../src/cli/agents/utils.js';
+
+const BLOCK = '<!-- wigolo:start v1 -->\n## Wigolo\nContent here.\n<!-- wigolo:end -->';
+
+describe('mergeBlock', () => {
+  it('creates file with block when file does not exist', () => {
+    const filePath = join(tmpDir, 'new.md');
+    mergeBlock(filePath, BLOCK);
+    expect(existsSync(filePath)).toBe(true);
+    const content = readFileSync(filePath, 'utf-8');
+    expect(content).toContain('<!-- wigolo:start');
+    expect(content).toContain('<!-- wigolo:end -->');
+  });
+
+  it('creates parent directories if missing', () => {
+    const filePath = join(tmpDir, 'sub', 'dir', 'new.md');
+    mergeBlock(filePath, BLOCK);
+    expect(existsSync(filePath)).toBe(true);
+  });
+
+  it('appends block to existing file without block', () => {
+    const filePath = join(tmpDir, 'existing.md');
+    writeFileSync(filePath, '# Existing content\n\nSome text here.\n', 'utf-8');
+    mergeBlock(filePath, BLOCK);
+    const content = readFileSync(filePath, 'utf-8');
+    expect(content).toContain('# Existing content');
+    expect(content).toContain('<!-- wigolo:start');
+  });
+
+  it('replaces existing block', () => {
+    const filePath = join(tmpDir, 'existing.md');
+    const original = '# Header\n\n<!-- wigolo:start v0 -->\n## Old\n<!-- wigolo:end -->\n\n# Footer\n';
+    writeFileSync(filePath, original, 'utf-8');
+    mergeBlock(filePath, BLOCK);
+    const content = readFileSync(filePath, 'utf-8');
+    expect(content).toContain('## Wigolo');
+    expect(content).not.toContain('## Old');
+    expect(content).toContain('# Header');
+    expect(content).toContain('# Footer');
+  });
+
+  it('does not silently append when only the start marker is present', () => {
+    // Mismatched markers come from a previous install whose write was
+    // interrupted. Silent-append produces two start markers and on the next
+    // merge-replace the content between marker #1 and end #2 gets eaten.
+    const filePath = join(tmpDir, 'mismatched.md');
+    const original = '# Header\n\n<!-- wigolo:start v0 -->\n## Old\n\n# Footer\n';
+    writeFileSync(filePath, original, 'utf-8');
+    mergeBlock(filePath, BLOCK);
+
+    const content = readFileSync(filePath, 'utf-8');
+    const startCount = (content.match(/<!-- wigolo:start/g) ?? []).length;
+    const endCount = (content.match(/<!-- wigolo:end -->/g) ?? []).length;
+    expect(startCount).toBe(1);
+    expect(endCount).toBe(1);
+    // Original content outside the recovered block must survive.
+    expect(content).toContain('# Header');
+    expect(content).toContain('# Footer');
+    // A backup of the broken state must exist so user content is recoverable.
+    expect(existsSync(filePath + '.wigolo-bak')).toBe(true);
+  });
+
+  it('does not silently append when only the end marker is present', () => {
+    const filePath = join(tmpDir, 'mismatched-end.md');
+    const original = '# Header\n\n## Old\n<!-- wigolo:end -->\n\n# Footer\n';
+    writeFileSync(filePath, original, 'utf-8');
+    mergeBlock(filePath, BLOCK);
+
+    const content = readFileSync(filePath, 'utf-8');
+    const startCount = (content.match(/<!-- wigolo:start/g) ?? []).length;
+    const endCount = (content.match(/<!-- wigolo:end -->/g) ?? []).length;
+    expect(startCount).toBe(1);
+    expect(endCount).toBe(1);
+    expect(existsSync(filePath + '.wigolo-bak')).toBe(true);
+  });
+
+  it('rotates an existing .wigolo-bak so a repeated interrupted install does not overwrite the prior backup', () => {
+    // First interrupted install leaves a `.wigolo-bak` with original user
+    // content. Second interrupted install must not clobber it.
+    const filePath = join(tmpDir, 'rotate.md');
+    const firstUser = '# Very Important Notes\n\n<!-- wigolo:start v0 -->\n';
+    writeFileSync(filePath, firstUser, 'utf-8');
+    mergeBlock(filePath, BLOCK);
+    expect(existsSync(filePath + '.wigolo-bak')).toBe(true);
+    expect(readFileSync(filePath + '.wigolo-bak', 'utf-8')).toContain('Very Important Notes');
+
+    // Second interrupted install: another orphan-start state shows up.
+    const secondUser = '# Different Notes\n\n<!-- wigolo:start v1 -->\n';
+    writeFileSync(filePath, secondUser, 'utf-8');
+    mergeBlock(filePath, BLOCK);
+
+    // Primary .wigolo-bak should still hold the first interrupted state.
+    expect(existsSync(filePath + '.wigolo-bak')).toBe(true);
+    const primary = readFileSync(filePath + '.wigolo-bak', 'utf-8');
+    // A rotated copy with a timestamp suffix must exist alongside.
+    const fs = require('node:fs');
+    const all = fs.readdirSync(tmpDir) as string[];
+    const rotated = all.filter((n: string) => n.startsWith('rotate.md.wigolo-bak.'));
+    expect(rotated.length).toBeGreaterThanOrEqual(1);
+
+    // Together the primary + rotated copies must contain BOTH the first and
+    // second user contents — no data lost.
+    const rotatedContents = rotated.map((n: string) => readFileSync(join(tmpDir, n), 'utf-8'));
+    const allBackups = [primary, ...rotatedContents].join('\n--\n');
+    expect(allBackups).toContain('Very Important Notes');
+    expect(allBackups).toContain('Different Notes');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// removeBlock
+// ---------------------------------------------------------------------------
+
+describe('removeBlock', () => {
+  it('removes block from file, preserving surrounding content', () => {
+    const filePath = join(tmpDir, 'with-block.md');
+    writeFileSync(filePath, '# Header\n\n' + BLOCK + '\n\n# Footer\n', 'utf-8');
+    removeBlock(filePath);
+    const content = readFileSync(filePath, 'utf-8');
+    expect(content).not.toContain('<!-- wigolo:start');
+    expect(content).not.toContain('<!-- wigolo:end -->');
+    expect(content).toContain('# Header');
+    expect(content).toContain('# Footer');
+  });
+
+  it('is noop when file does not exist', () => {
+    expect(() => removeBlock(join(tmpDir, 'missing.md'))).not.toThrow();
+  });
+
+  it('is noop when file has no block', () => {
+    const filePath = join(tmpDir, 'no-block.md');
+    writeFileSync(filePath, '# No block here\n', 'utf-8');
+    removeBlock(filePath);
+    const content = readFileSync(filePath, 'utf-8');
+    expect(content).toBe('# No block here\n');
+  });
+
+  it('unlinks the file when the wigolo block was the only content', () => {
+    // A CLAUDE.md that wigolo created on first install contains only the
+    // wigolo block. After uninstall the file would otherwise be left as a
+    // 0-byte stub — user-visible noise that needs manual cleanup.
+    const filePath = join(tmpDir, 'wigolo-only.md');
+    writeFileSync(filePath, BLOCK + '\n', 'utf-8');
+    const removed = removeBlock(filePath);
+    expect(removed).toBe(true);
+    expect(existsSync(filePath)).toBe(false);
+  });
+
+  it('does not unlink the file when non-wigolo content remains', () => {
+    const filePath = join(tmpDir, 'mixed.md');
+    writeFileSync(filePath, '# Header\n\n' + BLOCK + '\n', 'utf-8');
+    removeBlock(filePath);
+    expect(existsSync(filePath)).toBe(true);
+    expect(readFileSync(filePath, 'utf-8')).toContain('# Header');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// mergeMcpJson
+// ---------------------------------------------------------------------------
+
+describe('mergeMcpJson', () => {
+  it('creates JSON file with entry when file does not exist', () => {
+    const cfgPath = join(tmpDir, 'mcp.json');
+    mergeMcpJson(cfgPath, { command: 'wigolo', args: [] }, ['mcpServers', 'wigolo']);
+    const parsed = JSON.parse(readFileSync(cfgPath, 'utf-8'));
+    expect(parsed.mcpServers.wigolo.command).toBe('wigolo');
+  });
+
+  it('preserves other servers when merging', () => {
+    const cfgPath = join(tmpDir, 'mcp.json');
+    writeFileSync(cfgPath, JSON.stringify({ mcpServers: { other: { command: 'other' } } }, null, 2), 'utf-8');
+    mergeMcpJson(cfgPath, { command: 'wigolo', args: [] }, ['mcpServers', 'wigolo']);
+    const parsed = JSON.parse(readFileSync(cfgPath, 'utf-8'));
+    expect(parsed.mcpServers.other.command).toBe('other');
+    expect(parsed.mcpServers.wigolo.command).toBe('wigolo');
+  });
+
+  it('creates nested keys as needed', () => {
+    const cfgPath = join(tmpDir, 'mcp.json');
+    mergeMcpJson(cfgPath, { command: 'wigolo', args: [] }, ['a', 'b', 'c']);
+    const parsed = JSON.parse(readFileSync(cfgPath, 'utf-8'));
+    expect(parsed.a.b.c.command).toBe('wigolo');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// removeMcpJson
+// ---------------------------------------------------------------------------
+
+describe('removeMcpJson', () => {
+  it('removes wigolo entry and preserves other servers', () => {
+    const cfgPath = join(tmpDir, 'mcp.json');
+    writeFileSync(cfgPath, JSON.stringify({
+      mcpServers: { wigolo: { command: 'wigolo' }, other: { command: 'other' } },
+    }, null, 2), 'utf-8');
+    removeMcpJson(cfgPath, ['mcpServers', 'wigolo']);
+    const parsed = JSON.parse(readFileSync(cfgPath, 'utf-8'));
+    expect(parsed.mcpServers.wigolo).toBeUndefined();
+    expect(parsed.mcpServers.other.command).toBe('other');
+  });
+
+  it('is noop when file does not exist', () => {
+    expect(() => removeMcpJson(join(tmpDir, 'missing.json'), ['mcpServers', 'wigolo'])).not.toThrow();
+  });
+});
+
+
+// ---------------------------------------------------------------------------
+// getMcpCommand — uses execSync which is hard to unit-test cleanly;
+// we just ensure it returns a valid shape.
+// ---------------------------------------------------------------------------
+
+describe('getMcpCommand', () => {
+  it('returns an object with command and args', async () => {
+    const { getMcpCommand } = await import('../../../../src/cli/agents/utils.js');
+    const result = getMcpCommand();
+    expect(typeof result.command).toBe('string');
+    expect(Array.isArray(result.args)).toBe(true);
+    expect(result.command.length).toBeGreaterThan(0);
+  });
+});

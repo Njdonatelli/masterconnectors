@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+
+# Build outputs and release artifacts
+dist/
+artifacts/
+build-info.json
+extension/build-info.json
+
+# Release notes and launch ads belong on GitHub Releases, not source control
+RELEASE-v*.md
+assets/readme/*-ad*
+
+# Local QA/temp work
+web-ext-artifacts/
+tmp/
+.hermes/
+.gitnexus/
+.claude/
+
+# GitHub Actions are intentionally disabled for this repo while hosted runners are unavailable.
+# Keep local verification as the release gate instead of pushing false-red workflows.
+.github/workflows/
+
+# Private backups and local secrets
+backups/
+/dist.pem
+.env
+.env.*
+*.bak
+
+# Licensed signature faces stay on the build machine. Do not publish them.
+extension/assets/fonts/Rules*.woff2
+extension/assets/fonts/google/Smokum-400.woff2
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Python bytecode cache
+__pycache__/
+*.pyc
+
+docs/
+.omx/
+CLAUDE.md
+AGENTS.md

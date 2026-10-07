@@ -1,0 +1,158 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "year",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2020-07-02T12:00:00.000Z",
+          "2024-07-01T12:00:00.000Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "revenue",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "region",
+      "type": "nominal",
+      "sort": [
+        "North",
+        "South"
+      ],
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 135,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 14
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "year": "2021",
+        "region": "North",
+        "revenue": 542274
+      },
+      {
+        "year": "2021",
+        "region": "South",
+        "revenue": 1501363
+      },
+      {
+        "year": "2022",
+        "region": "North",
+        "revenue": 1902148
+      },
+      {
+        "year": "2022",
+        "region": "South",
+        "revenue": 1398688
+      },
+      {
+        "year": "2023",
+        "region": "North",
+        "revenue": 1242233
+      },
+      {
+        "year": "2023",
+        "region": "South",
+        "revenue": 1208045
+      },
+      {
+        "year": "2024",
+        "region": "North",
+        "revenue": 1111494
+      },
+      {
+        "year": "2024",
+        "region": "South",
+        "revenue": 1387768
+      }
+    ]
+  },
+  "_width": 135,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,1933 @@
+// Decision-file watcher: background thread that polls `decisions.json`
+// for changes and maps fresh done/dismissed/attention signals into the
+// pet's background state. Pending count is emitted separately as a badge;
+// it does not claim that the chat runtime is thinking or juggling.
+//
+// The polling is intentionally simple (read + sleep). We re-evaluate the
+// snapshot on every poll even when the file is unchanged because some pet
+// states expire with time (`presenting`) or change when the user reviews a
+// card. An mtime-only gate would leave those states pinned indefinitely.
+//
+// B2: also emits `loop:decision` to the bubble + card windows so the
+// speech bubble tracks the latest pending decision and the larger card
+// window stays in sync with whatever the user most recently opened.
+
+use std::path::PathBuf;
+use std::time::Duration;
+
+use std::fs;
+
+use serde::{Deserialize, Serialize};
+use tauri::{AppHandle, Emitter, Listener, Manager};
+
+use super::{
+    handle_runtime_state_event, last_review_seen_secs_ago, publish_baseline_state,
+    publish_baseline_state_with_meta, set_pending_decision_count, PET_BUBBLE_LABEL, PET_CARD_LABEL,
+    PET_LABEL,
+};
+
+const POLL_MS: u64 = 2000;
+
+/// Grace period after the watcher thread starts before the first poll.
+/// Lets the eagerly-built pet / bubble / card webviews (see `setup()` in
+/// `main.rs`) finish mounting their `loop:state` listeners, otherwise
+/// the initial emit lands before `window.__TAURI__.event.listen` is wired
+/// and gets dropped.
+const FIRST_RUN_SETUP_DELAY_MS: u64 = 1500;
+
+/// 30s freshness window for "just happened" rules (e.g. a decision moved
+/// to `done` in the last 30s => `happy` with "N done" monologue).
+const JUST_NOW_SECS: i64 = 30;
+
+/// How long after a `done` decision the user has to open the card
+/// before `presenting` flips to `happy`. 60 s is generous — the bubble
+/// text is "Click to view" so the cue is immediate — but long enough
+/// that background tabs / multi-monitor workflows don't lose the
+/// signal.
+pub const PRESENTING_REVIEW_GRACE_SECS: u64 = 60;
+
+/// Spawn the dedicated watcher thread. The thread name surfaces in crash
+/// dumps and process listings, which makes "which thread ate my CPU"
+/// answers easy.
+pub fn spawn_decision_watcher(app: AppHandle) {
+    // Shared one-shot guard for the `needs-setup` bootstrap emit. The
+    // AI-settings-changed listener below needs to reset it when the user
+    // finishes configuration; the watch poll loop reads/writes it on
+    // every iteration. `Arc<Mutex<…>>` rather than `AtomicBool` so the
+    // bootstrap block can read+write atomically under the same lock —
+    // avoids the "emit twice in a row" race if the listener fires right
+    // after a poll.
+    let setup_emitted = std::sync::Arc::new(std::sync::Mutex::new(false));
+
+    // AI settings saved (or reset) — the pet card + bubble should leave
+    // the "needs-setup" mode and return to a natural idle/sleeping
+    // state. Without this listener the pet sprite + bubble monologue
+    // stayed pinned to "Let's get you set up" indefinitely after the
+    // user saved their first AI key, because the watch poll loop only
+    // emits state on decisions.json bucket changes (the AI key lives
+    // in the DB, not on disk).
+    {
+        let app_for_listener = app.clone();
+        let setup_emitted_for_listener = setup_emitted.clone();
+        app.listen("openloomi:ai-settings-changed", move |_event| {
+            if let Ok(mut flag) = setup_emitted_for_listener.lock() {
+                *flag = false;
+            }
+            let hour = current_hour_local();
+            let (state, monologue) = if hour >= 22 || hour < 6 {
+                ("sleeping", "circle back in the morning")
+            } else {
+                ("idle", "All clear")
+            };
+            publish_baseline_state(&app_for_listener, state, Some(monologue.into()));
+            // Hide the bubble that the bootstrap emit showed — the user
+            // just finished setup, no need to keep prompting.
+            super::hide_bubble_window(&app_for_listener);
+        });
+    }
+
+    // Clone once up-front so both spawned closures can take ownership
+    // without fighting over `app`. Tauri's `AppHandle` is cheap to
+    // clone (it's an Arc internally), so this is free.
+    let app_for_decision = app.clone();
+    let app_for_runtime_state = app.clone();
+
+    std::thread::Builder::new()
+        .name("loomi-pet-decision-watcher".into())
+        .spawn(move || {
+            let _ = crate::panic_guard::catch_unwind_str("loomi-pet watcher", || {
+                watch_loop(&app_for_decision, setup_emitted)
+            });
+        })
+        .expect("spawn loomi-pet watcher");
+
+    // Runtime-state file watcher. The Next.js route
+    // `/api/pet/state` writes `~/.openloomi/pet/runtime_state.json`
+    // when an external client (Codex / Claude Code bridge) wants to
+    // drive the pet sprite. We tail its mtime and forward each new
+    // payload to the same `handle_runtime_state_event` the chat UI
+    // uses, so externally-driven and internally-driven states share
+    // the same coordinator and baseline/restore semantics.
+    std::thread::Builder::new()
+        .name("loomi-pet-runtime-state-watcher".into())
+        .spawn(move || {
+            let _ = crate::panic_guard::catch_unwind_str("loomi-pet runtime-state watcher", || {
+                watch_runtime_state_loop(&app_for_runtime_state)
+            });
+        })
+        .expect("spawn loomi-pet runtime-state watcher");
+}
+
+/// Cap on the `recently_completed` ring buffer. Bounds memory under
+/// pathological fan-out (many pending → done transitions in one poll
+/// window). 16 is generous: in practice transitions are minutes apart.
+const RECENTLY_COMPLETED_CAP: usize = 16;
+
+fn watch_loop(app: &AppHandle, setup_emitted: std::sync::Arc<std::sync::Mutex<bool>>) {
+    let path = resolve_decisions_path(app);
+    let mut last_buckets: (usize, usize, usize) = (0, 0, 0);
+    let mut last_decision_ts: Option<String> = None;
+    let mut last_top_id: Option<String> = None;
+    // Track ids that were pending on the previous poll so we can detect
+    // transitions out of `pending` and emit a terminal `loop:decision`
+    // payload (status=done | dismissed). Without this the pet card's
+    // Cancel button can stay stuck after countdown because the watcher
+    // only emitted `loop:decision` for the *new* top-pending id.
+    let mut last_pending_ids: Vec<String> = Vec::new();
+    let mut recently_completed: Vec<(String, String)> = Vec::new();
+    // Track the last emitted pet state + whether the user had been
+    // "recently reviewed". The watcher normally only re-emits on
+    // bucket / ts / id changes, but the `presenting → happy`
+    // transition is triggered by `mark_review_seen` (i.e. the user
+    // clicking the bubble), not by a decisions.json edit. Without
+    // tracking `reviewed_recently` here, the pet would stay on
+    // `presenting` for the full 60 s grace window even after the user
+    // opened the card.
+    let mut last_emitted_state: Option<String> = None;
+    let mut last_reviewed_recently: bool = false;
+    // #365 — track whether the previous poll had at least one pending
+    // decision so we can detect the non-empty → empty transition and
+    // auto-hide the card window. Without this flag the watcher would
+    // have to remember the bucket count across iterations (which it
+    // already does via `last_buckets`), but a separate boolean keeps
+    // the intent obvious at the call site and gives the unit test a
+    // dedicated seam (`should_hide_when_pending_emptied`).
+    let mut previously_had_pending: bool = false;
+
+    // One-shot first-run detection: if `~/.openloomi/loop/decisions.json`
+    // doesn't exist AND the runtime isn't configured (no env-level
+    // Anthropic key, and `OPENLOOMI_AGENT_PROVIDER` is unset or `claude`),
+    // surface a setup hint so the pet sprite + bubble invite the user to
+    // click through to AI settings. Without this, the watcher stays silent
+    // on a brand-new install — the pet sprite defaults to "idle" and the
+    // bubble never appears, so the user has no visual cue that anything
+    // is needed. The pet card self-shows its no-api-key CTA via
+    // `apply()` in `loomi-card.html` (GET /api/preferences/ai returns
+    // 200 in Tauri mode → apiConfigured === false → pet:open-card emit),
+    // so we don't need to show the card again here — only the bubble.
+    //
+    // `setup_emitted` is shared with the `openloomi:ai-settings-changed`
+    // listener registered in `spawn_decision_watcher` — the listener
+    // resets it to `false` after the user saves a key, so a later
+    // reset (or a future watcher restart) can re-trigger the hint.
+    std::thread::sleep(Duration::from_millis(FIRST_RUN_SETUP_DELAY_MS));
+    if !*setup_emitted.lock().unwrap() && !path.exists() && !is_runtime_ready() {
+        publish_baseline_state(
+            app,
+            "needs-setup",
+            Some("Tap me — let's set up your AI provider".into()),
+        );
+        // Show the bubble so the monologue is immediately visible.
+        // The card is already self-shown by `loomi-card.html` on first
+        // load (see comment above), so we skip it here to avoid a
+        // duplicate show race that could disturb the focus order.
+        super::show_bubble_window(app);
+        *setup_emitted.lock().unwrap() = true;
+    }
+
+    loop {
+        std::thread::sleep(Duration::from_millis(POLL_MS));
+
+        // File appeared — clear the setup guard so a future deletion
+        // re-triggers the hint on next watcher restart.
+        *setup_emitted.lock().unwrap() = false;
+
+        let Ok(bytes) = std::fs::read(&path) else {
+            set_pending_decision_count(0);
+            let _ = app.emit_to(
+                PET_LABEL,
+                "loop:pending-count",
+                serde_json::json!({ "count": 0 }),
+            );
+            continue;
+        };
+        let Ok(snap) = serde_json::from_slice::<DecisionsSnap>(&bytes) else {
+            continue;
+        };
+
+        let buckets = (snap.pending.len(), snap.done.len(), snap.dismissed.len());
+        // Publish pending count on every successful poll (not just on
+        // change) so handlers like `pet:close-card` always see fresh
+        // data when they ask `pending_decision_count()`. Cheap atomic
+        // store — happens on the watcher thread, off the UI critical
+        // path.
+        set_pending_decision_count(snap.pending.len());
+        let _ = app.emit_to(
+            PET_LABEL,
+            "loop:pending-count",
+            serde_json::json!({ "count": snap.pending.len() }),
+        );
+        let newest_ts = snap
+            .pending
+            .iter()
+            .chain(snap.done.iter())
+            .chain(snap.dismissed.iter())
+            .filter_map(|d| d.completed_at.clone().or(d.created_at.clone()))
+            .max();
+        let needs_user = snap.pending.iter().any(|d| d.needs_user.unwrap_or(false));
+        // SP-1 — project `pending` through `rank_pending` once so the
+        // bubble/card surfaces the most-urgent card, not the FIFO
+        // first. The same ranked slice backs the top-id snapshot, the
+        // `loop:decision` emit, and the top-5 pending list. We clone
+        // to a `Vec<&DecItem>` (cheap — pointer array) because the
+        // rest of the watch loop needs to keep using `snap` for the
+        // terminal-transition diff and other reads.
+        let ranked = rank_pending(&snap.pending);
+        let top_pending_id = ranked.first().and_then(|d| d.id.clone());
+        // Snapshot the current pending ids so the transition-diff below
+        // can compare against the previous poll. We clone rather than
+        // borrow because `snap.pending` is moved through several helpers
+        // (`set_pending_decision_count` takes &usize, but future readers
+        // may consume) and a small Vec<String> is cheap.
+        let current_pending_ids: Vec<String> =
+            snap.pending.iter().filter_map(|d| d.id.clone()).collect();
+        // #365 — hoist the boolean the auto-hide check needs so we
+        // don't borrow `current_pending_ids` after it's moved into
+        // `last_pending_ids` further down (the move is required by
+        // existing transition-diff helpers and isn't worth
+        // reordering). Mirrors the `top_changed` hoist above.
+        let current_has_pending = !current_pending_ids.is_empty();
+
+        let reviewed_recently = last_review_seen_secs_ago()
+            .map(|s| s < PRESENTING_REVIEW_GRACE_SECS)
+            .unwrap_or(false);
+        let (state, monologue) = map_state_to_pet(&snap, needs_user, reviewed_recently);
+
+        // #364 follow-up — capture the top-id transition here, BEFORE
+        // `last_top_id` is overwritten below. The B2 card auto-show
+        // branch (further down) reuses this so `show_card_window`
+        // fires only on a *new* top pending, not on every data_changed
+        // poll. Without the hoist the comparison would read the
+        // freshly-updated `last_top_id` and never trigger.
+        let top_changed = top_pending_id != last_top_id;
+        let data_changed = buckets != last_buckets
+            || newest_ts != last_decision_ts
+            || top_changed
+            || current_pending_ids != last_pending_ids;
+        if !should_emit_update(
+            data_changed,
+            reviewed_recently != last_reviewed_recently,
+            last_emitted_state.as_deref(),
+            state,
+        ) {
+            continue;
+        }
+        // Detect ids that left `pending` between this poll and the last.
+        // For each, look up the terminal bucket (done → "done",
+        // dismissed → "dismissed"); fall back to "done" if the bucket
+        // moved but the item is no longer present (defensive — handles
+        // the rare case where the loop skill writes the bucket count
+        // without echoing the item). Push onto `recently_completed`
+        // capped at RECENTLY_COMPLETED_CAP (FIFO drop). We only compute
+        // this on the `changed` branch so it's cheap on idle polls.
+        for (id, status) in diff_completed_ids(&last_pending_ids, &current_pending_ids, &snap) {
+            if recently_completed.len() >= RECENTLY_COMPLETED_CAP {
+                recently_completed.remove(0);
+            }
+            recently_completed.push((id, status));
+        }
+        last_buckets = buckets;
+        last_decision_ts = newest_ts.clone();
+        last_top_id = top_pending_id.clone();
+        last_pending_ids = current_pending_ids;
+        last_reviewed_recently = reviewed_recently;
+
+        last_emitted_state = Some(state.to_string());
+        // Runtime chat activity temporarily wins over this baseline.
+        // The coordinator still records every watcher update and restores
+        // the latest one after the chat UI releases its override.
+        //
+        // #365 — fold `enabled` (loop on/off) + the current poll
+        // timestamp into the payload so the widget's idle pill and
+        // the card's compact view can read both from a single
+        // `loop:state` subscription. `enabled` is a static hint for
+        // now (the watcher only runs when loop is conceptually live);
+        // the timestamp gives the card a stable "last checked" line
+        // that ticks every poll.
+        let last_polled_at = current_poll_timestamp_iso();
+        let loop_enabled = is_loop_enabled();
+        publish_baseline_state_with_meta(app, state, monologue, loop_enabled, Some(last_polled_at));
+
+        // B2: keep bubble + card windows in sync. The bubble auto-shows
+        // when the latest pending decision changes and auto-hides when
+        // the pending bucket empties. The card was historically
+        // user-opened only, but the connector-status strip on the card
+        // is the user's primary at-a-glance "is the loop healthy" view
+        // — the user shouldn't have to click the bubble to see it. We
+        // auto-show the card the first time a pending decision lands
+        // (so the user immediately sees the decision + connector dots)
+        // and otherwise leave its visibility alone (the × / click
+        // handlers drive subsequent toggles).
+        if let Some(top) = ranked.first() {
+            let decision_payload = build_decision_payload(top);
+            let _ = app.emit_to(PET_BUBBLE_LABEL, "loop:decision", decision_payload.clone());
+            let _ = app.emit_to(PET_CARD_LABEL, "loop:decision", decision_payload);
+            // #364 follow-up — gate the card auto-show on a *change* in
+            // the top pending id, not on every data_changed poll. The
+            // previous code unconditionally called `show_card_window`
+            // here, which meant the watcher re-showed the same card
+            // every 2 s as long as anything in decisions.json moved
+            // (bucket counts, completed_at, lower-priority pending
+            // inserts, etc.). That fights the user's × click and
+            // produces the visual loop reported in #364: dismiss → card
+            // pops back up before the watcher sees the dismiss.
+            //
+            // We emit the payload (so the bubble text tracks the top
+            // pending) and we still auto-show on the *transition*
+            // (last_top_id was None / a different id). After that, the
+            // × / click handlers own visibility — exactly what the
+            // comment above says we wanted all along. `top_changed`
+            // was captured above (before `last_top_id` was overwritten)
+            // so the comparison sees the previous poll's value, not
+            // the freshly-cloned current one.
+            if top_changed {
+                // Auto-show the card so the connector strip is visible
+                // without an extra click. `show_card_window` is idempotent
+                // and re-focuses the existing window. We do this BEFORE
+                // showing the bubble so the bubble's `set_focus` call ends
+                // up as the last focus event — which is what determines the
+                // z-order in the OS float layer (both windows are
+                // `always_on_top(true)`). If we did it in the opposite
+                // order, the card would end up on top of the bubble and
+                // obscure the speech text.
+                super::show_card_window(app);
+            }
+            // Show the bubble as a transient notification on top of
+            // the card. The bubble's JS owns the auto-dismiss
+            // lifecycle — see `loomi-bubble.html::scheduleAutoHide`.
+            // We just need to show + focus.
+            super::show_bubble_window(app);
+        } else {
+            let empty = serde_json::json!({});
+            let _ = app.emit_to(PET_BUBBLE_LABEL, "loop:decision", empty);
+            if let Some(w) = app.get_webview_window(PET_BUBBLE_LABEL) {
+                let _ = w.hide();
+            }
+            // #365 — auto-hide the card when the pending bucket drains.
+            // Mirrors the existing `top_changed`-gated auto-show path:
+            // the bubble was always auto-hidden on the same transition
+            // (see the `if let Some(w) = ...` block above), but the
+            // card had no symmetric drain handler — once opened it
+            // would stay open until the user clicked × or the layout
+            // decided to swap. With this branch, dismissing the last
+            // pending decision closes the card within one watcher
+            // poll (≤ 2 s), so the desktop never carries a stale
+            // decision card when there's nothing left to act on.
+            if should_hide_when_pending_emptied(snap.pending.is_empty(), previously_had_pending) {
+                log::info!(
+                    "[loop-pet] pending drained from non-empty to empty — auto-hiding card window"
+                );
+                super::hide_card_window(app);
+            }
+        }
+        // Track whether the current poll had pending decisions so the
+        // *next* iteration's drain branch can compare against it. We
+        // update this AFTER the auto-hide check above so the helper
+        // sees the previous poll's state, not the freshly-snapshotted
+        // one (mirrors the `top_changed` hoist earlier in this loop).
+        previously_had_pending = current_has_pending;
+
+        // Drain terminal transitions: for each id that left `pending`
+        // between polls, emit a `loop:decision` payload that carries
+        // the resolved status (`done` | `dismissed`). Mirrors the
+        // bubble/card symmetry used for top-pending emissions. We
+        // intentionally do NOT auto-show card/bubble for these — the
+        // user's card is already open and the existing top-pending
+        // branch above owns visibility decisions.
+        if !recently_completed.is_empty() {
+            for (id, status) in recently_completed.iter() {
+                if let Some(payload) = build_terminal_decision_payload(id, status, &snap) {
+                    let _ = app.emit_to(PET_BUBBLE_LABEL, "loop:decision", payload.clone());
+                    let _ = app.emit_to(PET_CARD_LABEL, "loop:decision", payload);
+                }
+            }
+            recently_completed.clear();
+        }
+
+        // C: emit a slim pending-list to the card so connection-check
+        // (Form 1) and any layout that wants to render a queue can
+        // subscribe. Top 5 entries is plenty for a 360×420 window —
+        // the user can dismiss / open to see more in the dashboard.
+        // SP-1 — slice the *ranked* projection, not the raw FIFO
+        // `snap.pending`, so the top-5 list mirrors the bubble's
+        // #1 (P0 surfaces first).
+        let pending_list = serde_json::json!({
+            "items": ranked.iter().take(5).map(|d| {
+                serde_json::json!({
+                    "id": d.id,
+                    "type": d.r#type,
+                    "title": d.title,
+                    "source": d.source_signal.as_ref().map(|s| s.source.clone()),
+                    "source_type": d.source_signal.as_ref().map(|s| s.r#type.clone()),
+                    "source_ts": d.source_signal.as_ref().and_then(|s| s.ts.clone()),
+                    "confidence": d.confidence,
+                })
+            }).collect::<Vec<_>>()
+        });
+        let _ = app.emit_to(PET_CARD_LABEL, "loop:pending-list", pending_list);
+    }
+}
+
+/// Decide whether the watcher should publish a fresh pet state.
+///
+/// `state` is included separately from data/review changes so wall-clock
+/// transitions still publish. In particular, a `presenting` state must fall
+/// back after its freshness window even if `decisions.json` is untouched.
+fn should_emit_update(
+    data_changed: bool,
+    review_changed: bool,
+    last_state: Option<&str>,
+    next_state: &str,
+) -> bool {
+    data_changed || review_changed || last_state != Some(next_state)
+}
+
+/// Resolve the card-display priority for a single decision.
+///
+/// SP-2 contract: priority is TS-precomputed and persisted at
+/// `context.priority` (set by `lib/loop/store.ts::normalizeDecision`
+/// using `readiness.ts::derivePriority`). The pet/bubble/card chip
+/// reads that precomputed value, NOT `confidence` — the historical
+/// `confidence → priority` mapping in this file violated the
+/// `derivePriority — never derived from confidence` invariant and
+/// made `quiet_digest` (confidence 0.9) surface as p0. The TS layer
+/// is the single source of truth; Rust is a pure reader.
+///
+/// Returns the literal "p0" | "p1" | "p2" string for direct
+/// `serde_json::json!({...})` interpolation. Falls back to "p2"
+/// when the field is missing, malformed, or carries an unknown
+/// value — under-prioritising a card the TS layer never classified
+/// is the safer failure mode (the user can still open the card and
+/// see it in the queue).
+fn dec_priority(d: &DecItem) -> &'static str {
+    let raw = d
+        .context
+        .as_ref()
+        .and_then(|c| c.extra.get("priority"))
+        .and_then(|v| v.as_str())
+        .map(|s| s.to_ascii_lowercase());
+    match raw.as_deref() {
+        Some("p0") => "p0",
+        Some("p1") => "p1",
+        _ => "p2",
+    }
+}
+
+/// Numeric rank used by the `rank_pending` projector: p0=0 (top),
+/// p1=1, p2=2 (default fallback). The watcher sorts by this rank
+/// so the bubble surfaces the most urgent card, not the oldest
+/// arrival — see SP-1.
+fn priority_rank(d: &DecItem) -> u8 {
+    match dec_priority(d) {
+        "p0" => 0,
+        "p1" => 1,
+        _ => 2,
+    }
+}
+
+/// Project `snap.pending` into priority order. SP-1 contract: the
+/// pet bubble + card must show the most-urgent pending card, not
+/// the FIFO first. TS pre-computes the priority and persists it;
+/// Rust re-projects the snapshot on every poll (2 s, cheap — just
+/// pointer Vec<u8>+&DecItem). Returns borrowed references so the
+/// caller can keep using `snap` for the rest of the watch loop
+/// without cloning every item.
+fn rank_pending(items: &[DecItem]) -> Vec<&DecItem> {
+    let mut indexed: Vec<(u8, &DecItem)> =
+        items.iter().map(|d| (priority_rank(d), d)).collect();
+    indexed.sort_by_key(|(rank, _)| *rank);
+    indexed.into_iter().map(|(_, d)| d).collect()
+}
+
+/// Build the `loop:decision` payload that the bubble + card webviews
+/// listen for. Mirrors the shape consumed by `loomi-bubble.html` /
+/// `loomi-card.html` (id, type, title, dialogue, priority, confidence,
+/// source chain, why bullets). Includes `status: "pending"` so the
+/// card can self-describe the top-pending payload against the same
+/// field contract the terminal emit uses (status=done|dismissed) —
+/// without this, the success branch in the card cannot distinguish
+/// "no payload yet" from "still pending". Note: `confidence` is
+/// emitted as-is (`Option<f32>` → `null` if missing) so the card's
+/// meta-node row can render `Math.round(c * 100) + "%"` directly;
+/// priority comes from `context.priority` (TS-precomputed via
+/// `readiness.ts::derivePriority`) so the chip and the dashboard's
+/// `derivePriority(decision)` always render the same bucket.
+fn build_decision_payload(d: &DecItem) -> serde_json::Value {
+    let priority = dec_priority(d);
+    let (source, source_type, source_ts) = match d.source_signal.as_ref() {
+        Some(s) => (Some(s.source.clone()), Some(s.r#type.clone()), s.ts.clone()),
+        None => (None, None, None),
+    };
+    serde_json::json!({
+        "id": d.id,
+        "type": d.r#type,
+        "title": d.title,
+        "dialogue": d.dialogue,
+        "priority": priority,
+        "confidence": d.confidence,
+        "source": source,
+        "source_type": source_type,
+        "source_ts": source_ts,
+        "action": d.action,
+        "context": d.context,
+        "why": d.context.as_ref().and_then(|c| c.why.clone()).unwrap_or_default(),
+        "status": "pending",
+    })
+}
+
+/// Build the `loop:decision` payload for a decision that just
+/// transitioned out of `pending`. Mirrors `build_decision_payload`'s
+/// shape (id/type/title/dialogue/priority/source/why) but stamps the
+/// resolved status so the card's terminal branch can fire. Returns
+/// `None` if we cannot find the underlying item — in that case we
+/// still emit nothing rather than fabricating a half-formed payload.
+fn build_terminal_decision_payload(
+    id: &str,
+    status: &str,
+    snap: &DecisionsSnap,
+) -> Option<serde_json::Value> {
+    let item = snap
+        .done
+        .iter()
+        .chain(snap.dismissed.iter())
+        .find(|d| d.id.as_deref() == Some(id))?;
+    let mut payload = build_decision_payload(item);
+    // `build_decision_payload` defaults to status="pending" — override
+    // with the resolved terminal status. Use a map so the order is
+    // stable for downstream consumers that key off field position.
+    if let Some(obj) = payload.as_object_mut() {
+        obj.insert("status".into(), serde_json::Value::String(status.into()));
+    }
+    Some(payload)
+}
+
+/// Pure helper: given the previous and current pending id lists,
+/// produce the (id, status) pairs that transitioned OUT of pending.
+/// Status is determined by which terminal bucket the item landed in:
+/// `snap.done` → "done", `snap.dismissed` → "dismissed". If the item
+/// is no longer present in either bucket (defensive — handles the
+/// rare case where the loop skill adjusts the bucket counts without
+/// echoing the item), we fall back to "done" so the card still clears
+/// rather than getting stuck forever.
+///
+/// Order of `out` matches the order in `prev` (stable, not sorted) so
+/// emit order on the wire is predictable across polls.
+fn diff_completed_ids(
+    prev: &[String],
+    curr: &[String],
+    snap: &DecisionsSnap,
+) -> Vec<(String, String)> {
+    let mut out = Vec::new();
+    for id in prev {
+        if curr.contains(id) {
+            continue;
+        }
+        let status = if snap
+            .done
+            .iter()
+            .any(|d| d.id.as_deref() == Some(id.as_str()))
+        {
+            "done"
+        } else if snap
+            .dismissed
+            .iter()
+            .any(|d| d.id.as_deref() == Some(id.as_str()))
+        {
+            "dismissed"
+        } else {
+            // Item left pending but didn't reappear in done/dismissed.
+            // Treat as done so the card's Cancel still clears rather
+            // than getting stuck. Better to surface "Done" for a
+            // vanished decision than to wedge the UI.
+            "done"
+        };
+        out.push((id.clone(), status.to_string()));
+    }
+    out
+}
+
+/// #365 — decide whether the watcher should auto-hide the card window
+/// on this poll. We hide exactly when the bucket transitions from
+/// non-empty to empty; staying empty or staying non-empty leaves the
+/// existing visibility decisions alone (the user's × / click handlers
+/// remain in charge).
+///
+/// `current_empty` is the freshly-snapshotted `snap.pending.is_empty()`
+/// value; `previous_had_pending` is the boolean we tracked from the
+/// previous poll. Both are passed by value so the function is pure
+/// and trivially unit-testable.
+fn should_hide_when_pending_emptied(current_empty: bool, previous_had_pending: bool) -> bool {
+    current_empty && previous_had_pending
+}
+
+/// #365 — render the current poll moment as an ISO-8601 / RFC3339
+/// timestamp (UTC, second precision). Reused on every watcher emit so
+/// the card's "Last checked: just now" line ticks once per poll cycle.
+/// We avoid pulling in `chrono` for this single field — the format is
+/// a fixed width and `days_from_civil` (already in this file for
+/// `is_just_now`) gives us the inverse conversion cheaply.
+fn current_poll_timestamp_iso() -> String {
+    let secs = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
+    let days = secs / 86_400;
+    let secs_in_day = secs % 86_400;
+    let hour = (secs_in_day / 3600) as u32;
+    let minute = ((secs_in_day % 3600) / 60) as u32;
+    let second = (secs_in_day % 60) as u32;
+    // Howard Hinnant's `civil_from_days` (https://howardhinnant.github.io/date_algorithms.html)
+    // — inverse of `days_from_civil`. Returns y/m/d for the given day
+    // count since 1970-01-01. Branch-light, no allocations.
+    let z = days + 719_468;
+    // `days` is a non-negative day count since the Unix epoch (we
+    // early-returned on the negative branch via the `unwrap_or(0)`
+    // above), so the `z >= 0` branch is the only one that ever
+    // fires. We keep the symmetric form for clarity but suppress
+    // the useless-comparison lint explicitly.
+    #[allow(unused_comparisons)]
+    let era = if z >= 0 { z } else { z - 146_096 } / 146_097;
+    let doe = (z - era * 146_097) as u64;
+    let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+    let y = yoe as i64 + (era * 400) as i64;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = (doy - (153 * mp + 2) / 5 + 1) as u32;
+    let m = (if mp < 10 { mp + 3 } else { mp - 9 }) as u32;
+    let y = if m <= 2 { y + 1 } else { y };
+    format!(
+        "{:04}-{:02}-{:02}T{:02}:{:02}:{:02}Z",
+        y, m, d, hour, minute, second
+    )
+}
+
+/// #365 — whether the loop subsystem should report itself as enabled
+/// in the `loop:state` payload. The widget's idle pill colours its
+/// status dot green when this is `true` and grey when `false`. Today
+/// the watcher runs whenever the host process runs, so the answer is
+/// `true` unless the user explicitly disabled loop via the
+/// `OPENLOOMI_LOOP_ENABLED` env var (read "0" / "false" / "no" /
+/// case-insensitive variants as disabled). This keeps the integration
+/// testable from the shell without a DB round-trip.
+fn is_loop_enabled() -> bool {
+    let Ok(value) = std::env::var("OPENLOOMI_LOOP_ENABLED") else {
+        return true;
+    };
+    !matches!(
+        value.trim().to_ascii_lowercase().as_str(),
+        "" | "0" | "false" | "no" | "off"
+    )
+}
+
+/// Resolve where the loop skill writes its decision JSON.
+///
+/// Precedence:
+/// 1. `LOOMI_PET_DECISIONS_PATH` env var — useful for tests and for
+///    pointing at a non-default skill install.
+/// 2. Tauri-resolved home directory — handles macOS, Linux, and Windows
+///    correctly so the watcher reads the same file the Next.js loop
+///    writes on every platform. Must match the layout written by
+///    `apps/web/lib/loop/paths.ts` (`LOOP_HOME = homedir()/.openloomi/loop`)
+///    or the watcher will be looking at a stale file.
+/// 3. Env-var fallback. On POSIX shells `HOME` is set; on Windows it's
+///    typically `USERPROFILE`, and older Windows shells only have the
+///    `HOMEDRIVE` + `HOMEPATH` pair. Mirrors what the `dirs` crate does.
+/// 4. Relative `".openloomi/loop/decisions.json"` — preserved as a last
+///    resort so unit tests that don't go through the Tauri runtime still
+///    produce a usable path.
+pub fn resolve_decisions_path(app: &AppHandle) -> PathBuf {
+    if let Ok(p) = std::env::var("LOOMI_PET_DECISIONS_PATH") {
+        return PathBuf::from(p);
+    }
+    if let Ok(home) = app.path().home_dir() {
+        return home.join(".openloomi").join("loop").join("decisions.json");
+    }
+    if let Some(p) = resolve_home_from_env() {
+        return p;
+    }
+    PathBuf::from(".openloomi/loop/decisions.json")
+}
+
+/// Resolve the runtime-state file written by `/api/pet/state`. Mirrors
+/// `resolve_decisions_path` so the runtime_state lives next to
+/// `loop/decisions.json`. The HTTP route is the single writer; this
+/// watcher is the single reader; both sides stay in sync via file mtime.
+pub fn resolve_pet_runtime_state_path(app: &AppHandle) -> PathBuf {
+    if let Ok(p) = std::env::var("LOOMI_PET_RUNTIME_STATE_PATH") {
+        return PathBuf::from(p);
+    }
+    if let Ok(home) = app.path().home_dir() {
+        return home
+            .join(".openloomi")
+            .join("pet")
+            .join("runtime_state.json");
+    }
+    if let Some(home) = resolve_home_dir_only() {
+        return home
+            .join(".openloomi")
+            .join("pet")
+            .join("runtime_state.json");
+    }
+    PathBuf::from(".openloomi/pet/runtime_state.json")
+}
+
+/// Home-directory-only env fallback (no `.openloomi/...` suffix). Used
+/// by `resolve_pet_runtime_state_path` so we don't have to duplicate
+/// the full env-var chain next to the existing one in
+/// `resolve_home_from_env` (which appends the loop suffix).
+fn resolve_home_dir_only() -> Option<PathBuf> {
+    if let Some(home) = std::env::var_os("HOME").or_else(|| std::env::var_os("USERPROFILE")) {
+        return Some(PathBuf::from(home));
+    }
+    let drive = std::env::var_os("HOMEDRIVE")?;
+    let path = std::env::var_os("HOMEPATH")?;
+    Some(PathBuf::from(format!(
+        "{}{}",
+        drive.to_string_lossy(),
+        path.to_string_lossy()
+    )))
+}
+
+/// Pure env-var home resolution. Extracted so unit tests can exercise the
+/// non-Tauri fallback chain without fabricating an `AppHandle`. Behavior:
+///   - Prefers `HOME` (POSIX).
+///   - Falls back to `USERPROFILE` (modern Windows).
+///   - Falls back to `HOMEDRIVE` + `HOMEPATH` (legacy Windows shells that
+///     split the profile across two env vars).
+fn resolve_home_from_env() -> Option<PathBuf> {
+    if let Some(home) = std::env::var_os("HOME").or_else(|| std::env::var_os("USERPROFILE")) {
+        return Some(
+            PathBuf::from(home)
+                .join(".openloomi")
+                .join("loop")
+                .join("decisions.json"),
+        );
+    }
+    let drive = std::env::var_os("HOMEDRIVE")?;
+    let path = std::env::var_os("HOMEPATH")?;
+    Some(
+        PathBuf::from(drive)
+            .join(PathBuf::from(path))
+            .join(".openloomi")
+            .join("loop")
+            .join("decisions.json"),
+    )
+}
+
+#[cfg(test)]
+mod path_tests {
+    use super::*;
+    use std::sync::Mutex;
+
+    /// Env-var mutation is process-global. We serialize the path tests
+    /// behind a single mutex so they can't race each other (and can't
+    /// leak state into the rest of the suite if a panic occurs).
+    static ENV_LOCK: Mutex<()> = Mutex::new(());
+
+    fn with_env<F: FnOnce()>(vars: &[&str], f: F) {
+        let _guard = ENV_LOCK.lock().unwrap_or_else(|p| p.into_inner());
+        let saved: Vec<_> = vars
+            .iter()
+            .map(|k| (k.to_string(), std::env::var_os(k)))
+            .collect();
+        for k in vars {
+            std::env::remove_var(k);
+        }
+        f();
+        for (k, v) in saved {
+            match v {
+                Some(v) => std::env::set_var(&k, v),
+                None => std::env::remove_var(&k),
+            }
+        }
+    }
+
+    #[test]
+    fn home_env_var_wins() {
+        with_env(
+            &[
+                "LOOMI_PET_DECISIONS_PATH",
+                "HOME",
+                "USERPROFILE",
+                "HOMEDRIVE",
+                "HOMEPATH",
+            ],
+            || {
+                std::env::set_var("HOME", "/home/alice");
+                let resolved = resolve_home_from_env().expect("HOME set");
+                assert_eq!(
+                    resolved,
+                    PathBuf::from("/home/alice")
+                        .join(".openloomi")
+                        .join("loop")
+                        .join("decisions.json")
+                );
+            },
+        );
+    }
+
+    #[test]
+    fn userprofile_is_used_when_home_missing() {
+        with_env(
+            &[
+                "LOOMI_PET_DECISIONS_PATH",
+                "HOME",
+                "USERPROFILE",
+                "HOMEDRIVE",
+                "HOMEPATH",
+            ],
+            || {
+                std::env::set_var("USERPROFILE", r"C:\Users\Alice");
+                let resolved = resolve_home_from_env().expect("USERPROFILE set");
+                let expected = PathBuf::from(r"C:\Users\Alice")
+                    .join(".openloomi")
+                    .join("loop")
+                    .join("decisions.json");
+                // PathBuf equality is OS-aware: backslashes on Windows,
+                // forward slashes on POSIX. Compare component-wise so the
+                // assertion works on both.
+                assert_eq!(resolved.components().count(), expected.components().count());
+                for (a, b) in resolved.components().zip(expected.components()) {
+                    assert_eq!(a, b);
+                }
+            },
+        );
+    }
+
+    #[test]
+    fn homedrive_and_homepath_combine_when_present() {
+        with_env(
+            &[
+                "LOOMI_PET_DECISIONS_PATH",
+                "HOME",
+                "USERPROFILE",
+                "HOMEDRIVE",
+                "HOMEPATH",
+            ],
+            || {
+                std::env::set_var("HOMEDRIVE", "C:");
+                std::env::set_var("HOMEPATH", r"\Users\Alice");
+                let resolved = resolve_home_from_env().expect("HOME* set");
+                assert!(resolved.starts_with(PathBuf::from("C:")));
+                assert!(resolved.to_string_lossy().contains("Alice"));
+                assert!(resolved.ends_with(PathBuf::from(".openloomi/loop/decisions.json")));
+            },
+        );
+    }
+
+    #[test]
+    fn returns_none_when_no_env_set() {
+        with_env(
+            &[
+                "LOOMI_PET_DECISIONS_PATH",
+                "HOME",
+                "USERPROFILE",
+                "HOMEDRIVE",
+                "HOMEPATH",
+            ],
+            || {
+                assert!(resolve_home_from_env().is_none());
+            },
+        );
+    }
+
+    #[test]
+    fn homedrive_alone_does_not_combine() {
+        // HOMEDRIVE without HOMEPATH shouldn't fabricate a profile —
+        // matching the dirs crate's behavior. Either both must be set or
+        // the function returns None and lets the caller fall through.
+        with_env(
+            &[
+                "LOOMI_PET_DECISIONS_PATH",
+                "HOME",
+                "USERPROFILE",
+                "HOMEDRIVE",
+                "HOMEPATH",
+            ],
+            || {
+                std::env::set_var("HOMEDRIVE", "C:");
+                assert!(resolve_home_from_env().is_none());
+            },
+        );
+    }
+    #[test]
+    fn runtime_state_env_var_overrides_default() {
+        with_env(
+            &[
+                "LOOMI_PET_RUNTIME_STATE_PATH",
+                "HOME",
+                "USERPROFILE",
+                "HOMEDRIVE",
+                "HOMEPATH",
+            ],
+            || {
+                std::env::set_var(
+                    "LOOMI_PET_RUNTIME_STATE_PATH",
+                    "/tmp/openloomi-runtime-state-override.json",
+                );
+                // We can't fabricate an AppHandle here, but the env-var
+                // short-circuit is the highest-priority branch in
+                // resolve_pet_runtime_state_path — and the function
+                // *would* have returned this exact path if the Tauri
+                // runtime were available.
+                assert_eq!(
+                    std::env::var("LOOMI_PET_RUNTIME_STATE_PATH").unwrap(),
+                    "/tmp/openloomi-runtime-state-override.json"
+                );
+            },
+        );
+    }
+
+    #[test]
+    fn home_dir_only_resolves_via_home() {
+        with_env(&["HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH"], || {
+            std::env::set_var("HOME", "/home/alice");
+            let home = resolve_home_dir_only().expect("HOME set");
+            assert_eq!(home, PathBuf::from("/home/alice"));
+        });
+    }
+
+    #[test]
+    fn home_dir_only_returns_none_when_no_env_set() {
+        with_env(&["HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH"], || {
+            assert!(resolve_home_dir_only().is_none());
+        });
+    }
+}
+
+#[derive(Deserialize)]
+pub struct DecisionsSnap {
+    #[serde(default)]
+    pub pending: Vec<DecItem>,
+    #[serde(default)]
+    pub done: Vec<DecItem>,
+    #[serde(default)]
+    pub dismissed: Vec<DecItem>,
+}
+
+#[derive(Deserialize)]
+pub struct DecItem {
+    #[serde(default)]
+    pub id: Option<String>,
+    #[serde(default)]
+    pub r#type: Option<String>,
+    #[serde(default)]
+    pub title: Option<String>,
+    /// `defaultDialogue` and `defaultNextStep` in `lib/loop/server.ts`
+    /// populate this when the card is built, but decisions written by
+    /// the tick pipeline may leave it empty. The bubble / card fall
+    /// back to a generic line in that case.
+    #[serde(default)]
+    pub dialogue: Option<String>,
+    #[serde(default)]
+    pub confidence: Option<f32>,
+    #[serde(default)]
+    pub source_signal: Option<SourceSignal>,
+    #[serde(default)]
+    pub action: Option<DecAction>,
+    #[serde(default)]
+    pub context: Option<DecContext>,
+    #[serde(default)]
+    pub created_at: Option<String>,
+    #[serde(default)]
+    pub completed_at: Option<String>,
+    /// Loop does not currently emit this field; if it ever does, the
+    /// `needsinput` branch will automatically light up. Default is
+    /// `false` so missing-field behavior is well-defined.
+    #[serde(default)]
+    pub needs_user: Option<bool>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct SourceSignal {
+    #[serde(default)]
+    pub source: String,
+    #[serde(default)]
+    pub r#type: String,
+    #[serde(default)]
+    pub ts: Option<String>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct DecAction {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub kind: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub params: Option<serde_json::Value>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct DecContext {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub why: Option<Vec<String>>,
+    #[serde(flatten)]
+    pub extra: serde_json::Map<String, serde_json::Value>,
+}
+
+/// Map a decision snapshot to `(pet_state, optional_monologue_hint)`.
+///
+/// Rules fire in priority order — the first match wins. Keep this
+/// function pure (no IO, no time access other than the `Utc::now()`-style
+/// "fresh" check below) so it can be unit-tested by feeding in canned
+/// snapshots.
+///
+/// `reviewed_recently` is true when the user has opened the decision
+/// card within the last `PRESENTING_REVIEW_GRACE_SECS` window. It gates
+/// the `presenting → happy` transition: when the user clicks the bubble
+/// to see their freshly-done decisions, we want the pet to immediately
+/// flip from "I have results for you" to "happy / done".
+pub fn map_state_to_pet(
+    s: &DecisionsSnap,
+    needs_user: bool,
+    reviewed_recently: bool,
+) -> (&'static str, Option<String>) {
+    let done = s.done.len();
+    let dismissed = s.dismissed.len();
+    let hour = current_hour_local();
+    let done_just_now = is_just_now(&newest_bucket_ts(&s.done));
+    let dismissed_just_now = is_just_now(&newest_bucket_ts(&s.dismissed));
+
+    // `presenting` surfaces when there's a freshly-done decision that
+    // the user hasn't yet seen. The pet sprite + bubble text deliberately differentiates
+    // this from `happy` so the user feels the loop "handing off" the
+    // result rather than just celebrating. As soon as the user
+    // clicks through (`pet:open-card` → `mark_review_seen`), the
+    // watcher re-emits with `reviewed_recently = true` and we fall
+    // through to the `happy` branch on the next poll.
+    if done > 0 && done_just_now && !reviewed_recently {
+        return (
+            "presenting",
+            Some(format!("{done} done — review when you're ready")),
+        );
+    }
+    if done > 0 && done_just_now {
+        return ("happy", Some(format!("{} done. Tap to see.", done)));
+    }
+    if dismissed > 0 && dismissed_just_now {
+        return ("sweeping", None);
+    }
+    if needs_user {
+        return ("needsinput", None);
+    }
+    if !(6..22).contains(&hour) {
+        return ("sleeping", None);
+    }
+    ("idle", None)
+}
+
+fn newest_bucket_ts(items: &[DecItem]) -> Option<String> {
+    items
+        .iter()
+        .filter_map(|item| item.completed_at.clone().or(item.created_at.clone()))
+        .max()
+}
+
+/// Whether `newest_ts` is within `JUST_NOW_SECS` of "now".
+///
+/// Parses RFC3339 (the format loop-lib.cjs uses for `created_at` /
+/// `completed_at`) and falls back to `false` on any parse failure — we'd
+/// rather under-emphasize "just now" than crash the watcher.
+fn is_just_now(newest_ts: &Option<String>) -> bool {
+    let Some(t) = newest_ts else { return false };
+    // Lightweight RFC3339-ish parser: positions 0..=9 are YYYY-MM-DD,
+    // 11..=12 HH, 14..=15 MM, 17..=18 SS. We do not handle fractional
+    // seconds or full ISO 8601 week dates — loop emits a fixed shape and
+    // anything else is conservatively treated as "not just now".
+    if t.len() < 19 {
+        return false;
+    }
+    let parse_int = |s: &str| s.parse::<u32>().ok();
+    let (Some(y), Some(mo), Some(d)) = (
+        parse_int(&t[0..4]),
+        parse_int(&t[5..7]),
+        parse_int(&t[8..10]),
+    ) else {
+        return false;
+    };
+    let (Some(h), Some(mi), Some(s)) = (
+        parse_int(&t[11..13]),
+        parse_int(&t[14..16]),
+        parse_int(&t[17..19]),
+    ) else {
+        return false;
+    };
+    let days_from_epoch = days_from_civil(y, mo, d);
+    let stamp = days_from_epoch * 86_400 + h as i64 * 3_600 + mi as i64 * 60 + s as i64;
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs() as i64)
+        .unwrap_or(stamp);
+    (now - stamp).abs() < JUST_NOW_SECS
+}
+
+/// Howard Hinnant's `days_from_civil` (https://howardhinnant.github.io/date_algorithms.html).
+/// Inverse of the algorithm: given y/m/d, returns the count of days since
+/// the Unix epoch (1970-01-01). Fast, branch-light, and dependency-free.
+fn days_from_civil(y: u32, m: u32, d: u32) -> i64 {
+    let y = if m <= 2 { y - 1 } else { y } as i64;
+    let era = if y >= 0 { y } else { y - 399 } / 400;
+    let yoe = y - era * 400; // [0, 399]
+    let m = m as i64;
+    let d = d as i64;
+    let doy = (153 * (if m > 2 { m - 3 } else { m + 9 }) + 2) / 5 + d - 1; // [0, 365]
+    let doe = yoe * 365 + yoe / 4 - yoe / 100 + doy; // [0, 146096]
+    era * 146_097 + doe - 719_468
+}
+
+/// Local hour used by the `sleeping` rule.
+///
+/// `chrono` isn't in our dep tree, so we approximate the user's timezone
+/// with a fixed UTC+8 offset (openloomi is primarily used in APAC). A
+/// future revision can read the system timezone via `tauri::api` or
+/// expose this as a Tauri command if precision matters.
+fn current_hour_local() -> u32 {
+    let secs = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
+    ((secs / 3600 + 8) % 24) as u32
+}
+
+/// Whether the runtime already has a usable conversation-model
+/// configuration from the watcher's point of view.
+///
+/// Reads `~/.openloomi/loop/activation_state.json` (the JS-side
+/// `lib/loop/activation.ts` writes this on every refresh of
+/// `coreReady`). The watcher polls decisions/decisions-side files via
+/// mtime already, so adding JSON parsing here costs nothing and keeps
+/// the pet card / `needs-setup` hint in lockstep with the actual
+/// runtime.
+///
+/// `OPENLOOMI_AGENT_PROVIDER` is still consulted as a synchronous
+/// fallback: a non-Claude runtime (codex/opencode/hermes/openclaw) brings
+/// its own CLI auth and the activation_state file may not have been
+/// written yet on first launch (the watcher fires before the web
+/// server becomes reachable). All other readiness — including the
+/// AI-provider env-var shortcut a previous revision leaned on — is
+/// now the JS runtime's responsibility, never the watcher's.
+fn is_runtime_ready() -> bool {
+    if let Ok(value) = std::env::var("OPENLOOMI_AGENT_PROVIDER") {
+        let trimmed = value.trim();
+        if !trimmed.is_empty() && !trimmed.eq_ignore_ascii_case("claude") {
+            return true;
+        }
+    }
+    let home = match dirs_home() {
+        Some(h) => h,
+        None => return false,
+    };
+    let path = home
+        .join(".openloomi")
+        .join("loop")
+        .join("activation_state.json");
+    let bytes = match fs::read(&path) {
+        Ok(b) => b,
+        Err(_) => return false,
+    };
+    let parsed: serde_json::Value = match serde_json::from_slice(&bytes) {
+        Ok(v) => v,
+        Err(_) => return false,
+    };
+    parsed
+        .get("coreReady")
+        .and_then(|v| v.as_bool())
+        .unwrap_or(false)
+}
+
+fn dirs_home() -> Option<PathBuf> {
+    // `dirs` is intentionally NOT a dep — we only need HOME / USERPROFILE
+    // for one file path, and the `home` crate would add a transitive
+    // dep for nothing else.
+    if let Ok(value) = std::env::var("HOME") {
+        if !value.trim().is_empty() {
+            return Some(PathBuf::from(value));
+        }
+    }
+    if let Ok(value) = std::env::var("USERPROFILE") {
+        if !value.trim().is_empty() {
+            return Some(PathBuf::from(value));
+        }
+    }
+    None
+}
+
+// ---------------------------------------------------------------------------
+// External pet state driver — tail ~/.openloomi/pet/runtime_state.json
+// and forward each new payload to `handle_runtime_state_event`. Same
+// mtime-poll design as `watch_loop` so we don't take a dep on the
+// `notify` crate just for one file.
+// ---------------------------------------------------------------------------
+
+/// How often to poll the runtime_state file. 1 s is enough — the
+/// bridge fires `pet <state>` at human pace and the worst-case
+/// staleness is one poll cycle. Don't make this faster than
+/// `POLL_MS / 2` so a misbehaving writer can't busy-loop the watcher.
+const RUNTIME_STATE_POLL_MS: u64 = 1000;
+
+/// JSON shape written by `/api/pet/state`. Mirrors the Rust
+/// `RuntimeStatePayload` in `state.rs` (intentionally duplicated —
+/// these two types live on opposite sides of a filesystem, not a
+/// type-checked boundary).
+#[derive(Deserialize)]
+struct RuntimeStateFilePayload {
+    state: String,
+    #[serde(default)]
+    monologue: Option<String>,
+    #[serde(default)]
+    #[allow(dead_code)]
+    source: Option<String>,
+    #[serde(default)]
+    #[allow(dead_code)]
+    persisted_at: Option<String>,
+}
+
+fn watch_runtime_state_loop(app: &AppHandle) {
+    // Mirror the FIRST_RUN_SETUP_DELAY grace so the eagerly-built
+    // pet / bubble webviews mount their listeners before the first
+    // emit. Without this the initial state change can be lost.
+    std::thread::sleep(Duration::from_millis(FIRST_RUN_SETUP_DELAY_MS));
+
+    let path = resolve_pet_runtime_state_path(app);
+
+    // Initial mtime capture. If the file already exists when the
+    // watcher starts (e.g. user ran `pet happy` before opening the
+    // desktop app), we want to apply it once on boot.
+    let mut last_mtime: Option<std::time::SystemTime> =
+        std::fs::metadata(&path).and_then(|m| m.modified()).ok();
+
+    // Apply the existing file once on startup so a state set while
+    // the desktop was closed is still honored when it reopens.
+    if last_mtime.is_some() {
+        apply_runtime_state_file(app, &path);
+    }
+
+    loop {
+        std::thread::sleep(Duration::from_millis(RUNTIME_STATE_POLL_MS));
+
+        let Ok(meta) = std::fs::metadata(&path) else {
+            // File removed — clear the mtime so a later recreate
+            // re-applies the new state. Do NOT emit anything here;
+            // absence of the file means "no external override".
+            last_mtime = None;
+            continue;
+        };
+        let Ok(mtime) = meta.modified() else {
+            continue;
+        };
+        if last_mtime == Some(mtime) {
+            continue;
+        }
+        last_mtime = Some(mtime);
+        apply_runtime_state_file(app, &path);
+    }
+}
+
+fn apply_runtime_state_file(app: &AppHandle, path: &std::path::Path) {
+    let Ok(bytes) = std::fs::read(path) else {
+        return;
+    };
+    let Ok(payload) = serde_json::from_slice::<RuntimeStateFilePayload>(&bytes) else {
+        eprintln!(
+            "[loomi-pet] runtime_state.json present but malformed; ignoring. path={}",
+            path.display()
+        );
+        return;
+    };
+    // The handler enforces the same allowlist as the HTTP route. We
+    // serialize back through JSON so `handle_runtime_state_event`
+    // gets the exact payload shape it already validates.
+    let forwarded = serde_json::json!({
+        "state": payload.state,
+        "monologue": payload.monologue,
+    });
+    if let Err(error) = handle_runtime_state_event(app, &forwarded.to_string()) {
+        eprintln!("[loomi-pet] ignored runtime_state file: {error}");
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn snap(pending: usize, done: usize, dismissed: usize) -> DecisionsSnap {
+        DecisionsSnap {
+            pending: (0..pending)
+                .map(|i| DecItem {
+                    id: Some(format!("dec_test_pending_{i}")),
+                    r#type: Some("email_reply".into()),
+                    title: Some(format!("pending {i}")),
+                    dialogue: None,
+                    confidence: Some(0.8),
+                    source_signal: None,
+                    action: None,
+                    context: None,
+                    created_at: Some(format!("2026-01-01T00:00:0{i}Z")),
+                    completed_at: None,
+                    needs_user: None,
+                })
+                .collect(),
+            done: (0..done)
+                .map(|i| DecItem {
+                    id: Some(format!("dec_test_done_{i}")),
+                    r#type: Some("email_reply".into()),
+                    title: Some(format!("done {i}")),
+                    dialogue: None,
+                    confidence: Some(0.8),
+                    source_signal: None,
+                    action: None,
+                    context: None,
+                    created_at: None,
+                    completed_at: Some(format!("2026-01-01T00:00:0{i}Z")),
+                    needs_user: None,
+                })
+                .collect(),
+            dismissed: (0..dismissed)
+                .map(|i| DecItem {
+                    id: Some(format!("dec_test_dismissed_{i}")),
+                    r#type: Some("email_reply".into()),
+                    title: Some(format!("dismissed {i}")),
+                    dialogue: None,
+                    confidence: Some(0.8),
+                    source_signal: None,
+                    action: None,
+                    context: None,
+                    created_at: Some(format!("2026-01-01T00:00:0{i}Z")),
+                    completed_at: None,
+                    needs_user: None,
+                })
+                .collect(),
+        }
+    }
+
+    #[test]
+    fn empty_pending_during_sleep_hours_is_sleeping() {
+        let s = snap(0, 0, 0);
+        // Force sleeping window by stubbing hour via a one-off wrapper.
+        // We can't easily inject hour, so check both branches: any result
+        // is "sleeping" or "idle" depending on local clock; just assert
+        // it is not the "happy" / "juggling" family.
+        let (state, _) = map_state_to_pet(&s, false, false);
+        assert!(matches!(state, "sleeping" | "idle"), "got {state}");
+    }
+
+    #[test]
+    fn multiple_pending_does_not_claim_runtime_is_juggling() {
+        let s = snap(3, 0, 0);
+        let (state, mono) = map_state_to_pet(&s, false, false);
+        assert!(matches!(state, "idle" | "sleeping"), "got {state}");
+        assert_eq!(mono, None);
+    }
+
+    #[test]
+    fn single_pending_with_needs_user_is_needsinput() {
+        let mut s = snap(1, 0, 0);
+        s.pending[0].needs_user = Some(true);
+        let (state, _) = map_state_to_pet(&s, true, false);
+        assert_eq!(state, "needsinput");
+    }
+
+    #[test]
+    fn single_pending_no_needs_user_stays_at_baseline() {
+        let s = snap(1, 0, 0);
+        let (state, _) = map_state_to_pet(&s, false, false);
+        assert!(matches!(state, "idle" | "sleeping"), "got {state}");
+    }
+
+    #[test]
+    fn fresh_pending_does_not_make_an_old_done_item_presenting() {
+        let mut s = snap(1, 1, 0);
+        s.pending[0].created_at = Some(format_iso_now_approx());
+        s.done[0].completed_at = Some("2020-01-01T00:00:00Z".into());
+
+        let (state, _) = map_state_to_pet(&s, false, false);
+        assert!(matches!(state, "idle" | "sleeping"), "got {state}");
+    }
+
+    /// Build a snapshot whose `done` bucket contains exactly one
+    /// decision whose `completed_at` matches the supplied ISO string.
+    /// Helper for the `presenting` rule tests below — keeps the test
+    /// bodies focused on the input/output contract.
+    fn snap_with_done_completed_at(done: usize, completed_at: &str) -> DecisionsSnap {
+        DecisionsSnap {
+            pending: Vec::new(),
+            done: (0..done)
+                .map(|i| DecItem {
+                    id: Some(format!("dec_test_done_{i}")),
+                    r#type: Some("email_reply".into()),
+                    title: Some(format!("done {i}")),
+                    dialogue: None,
+                    confidence: Some(0.8),
+                    source_signal: None,
+                    action: None,
+                    context: None,
+                    created_at: None,
+                    completed_at: Some(completed_at.into()),
+                    needs_user: None,
+                })
+                .collect(),
+            dismissed: Vec::new(),
+        }
+    }
+
+    #[test]
+    fn done_with_just_now_and_not_reviewed_emits_presenting() {
+        // The done item's completion time is "now-ish" (the test runs at
+        // the moment of wall-clock), `reviewed_recently = false` → we
+        // expect the `presenting` rule to win over the `happy` rule that would
+        // otherwise fire on `done > 0 && just_now`.
+        let now_iso = format_iso_now_approx();
+        let s = snap_with_done_completed_at(1, &now_iso);
+        let (state, _) = map_state_to_pet(&s, false, false);
+        assert_eq!(state, "presenting");
+    }
+
+    #[test]
+    fn done_with_just_now_and_reviewed_falls_back_to_happy() {
+        let now_iso = format_iso_now_approx();
+        let s = snap_with_done_completed_at(1, &now_iso);
+        let (state, _) = map_state_to_pet(&s, false, true);
+        assert_eq!(state, "happy");
+    }
+
+    #[test]
+    fn done_with_old_completed_at_never_emits_presenting() {
+        // `completed_at` is years in the past — `just_now` returns
+        // false, so we skip both `presenting` and `happy`. The empty
+        // bucket branch lands on `idle` (or `sleeping` if the test
+        // happens to run in night hours).
+        let s = snap_with_done_completed_at(1, "2020-01-01T00:00:00Z");
+        let (state, _) = map_state_to_pet(&s, false, false);
+        assert!(
+            matches!(state, "idle" | "sleeping"),
+            "expected idle/sleeping, got {state}"
+        );
+    }
+
+    #[test]
+    fn watcher_emits_when_time_changes_state_without_file_changes() {
+        assert!(should_emit_update(false, false, Some("presenting"), "idle"));
+    }
+
+    #[test]
+    fn watcher_stays_quiet_when_data_review_and_state_are_unchanged() {
+        assert!(!should_emit_update(false, false, Some("idle"), "idle"));
+    }
+
+    /// Rough "now" in the format `is_just_now` accepts. We don't need
+    /// timezone precision — `is_just_now` only checks the absolute
+    /// delta against the wall clock, and `secs` are bounded enough
+    /// that UTC vs local makes no difference for the just-now test.
+    fn format_iso_now_approx() -> String {
+        let secs = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|d| d.as_secs())
+            .unwrap_or(0);
+        let (y, mo, d, h, mi, s) = epoch_to_ymdhms(secs);
+        format!("{y:04}-{mo:02}-{d:02}T{h:02}:{mi:02}:{s:02}Z")
+    }
+
+    /// Tiny epoch → civil converter used only by the just-now tests.
+    /// Mirrors the algorithm in `theme::civil_from_days`; copied here
+    /// rather than re-exported because tests in this file already
+    /// exercise pure data flow.
+    fn epoch_to_ymdhms(secs: u64) -> (u32, u32, u32, u32, u32, u32) {
+        let s = (secs % 60) as u32;
+        let m = ((secs / 60) % 60) as u32;
+        let h = ((secs / 3600) % 24) as u32;
+        let days = (secs / 86_400) as i64;
+        let z = days + 719_468;
+        let era = if z >= 0 { z } else { z - 146_096 } / 146_097;
+        let doe = (z - era * 146_097) as u64;
+        let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+        let y_signed = yoe as i64 + era * 400;
+        let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+        let mp = (5 * doy + 2) / 153;
+        let d_signed = doy - (153 * mp + 2) / 5 + 1;
+        let m_signed = if mp < 10 { mp + 3 } else { mp - 9 };
+        let y = if m_signed <= 2 {
+            y_signed + 1
+        } else {
+            y_signed
+        };
+        (y as u32, m_signed as u32, d_signed as u32, h, m, s)
+    }
+
+    fn dec_with_id(id: &str) -> DecItem {
+        DecItem {
+            id: Some(id.into()),
+            r#type: Some("email_reply".into()),
+            title: Some(format!("title {id}")),
+            dialogue: Some("hello".into()),
+            confidence: Some(0.8),
+            source_signal: None,
+            action: None,
+            context: None,
+            created_at: None,
+            completed_at: Some("2026-01-01T00:00:00Z".into()),
+            needs_user: None,
+        }
+    }
+
+    #[test]
+    fn build_decision_payload_includes_status_pending() {
+        // The card's success branch keys on `payload.status !== "pending"`.
+        // If the top-pending emit forgets the field, the contract breaks
+        // silently. Lock the field in via test.
+        let d = dec_with_id("dec_x");
+        let v = build_decision_payload(&d);
+        assert_eq!(
+            v.get("status").and_then(|s| s.as_str()),
+            Some("pending"),
+            "top-pending payload must include status=pending"
+        );
+        assert_eq!(v.get("id").and_then(|s| s.as_str()), Some("dec_x"));
+    }
+
+    #[test]
+    fn build_decision_payload_includes_confidence() {
+        // The card's meta-node row renders `Math.round(confidence * 100) +
+        // "%"`. The top-pending emit (`loop:decision`) is the only event
+        // that drives that row, so it must carry confidence too — the
+        // priority chip is TS-precomputed (see `readiness.ts::derivePriority`)
+        // and stored at `context.priority`, so the raw number on the card
+        // matches the chip independently. Without this test the
+        // `confidence` field was forgotten and the card rendered "—"
+        // even for a decision with confidence=0.92 (bug surfaced via the
+        // birthday_wish demo screenshot, 2026-07-14).
+        let d = dec_with_id("dec_y");
+        let v = build_decision_payload(&d);
+        let conf = v.get("confidence").and_then(|c| c.as_f64());
+        assert!(
+            conf.is_some(),
+            "top-pending payload must include numeric confidence; got {:?}",
+            v.get("confidence"),
+        );
+        let conf = conf.unwrap();
+        assert!(
+            (0.0..=1.0).contains(&conf),
+            "confidence must be in [0,1]; got {conf}"
+        );
+        // SP-2: priority is TS-precomputed and persisted at
+        // `context.priority`. `build_decision_payload` reads that
+        // value verbatim, so a decision with no priority on disk
+        // falls back to p2 (the safer default — under-prioritising a
+        // card the TS layer never classified is preferable to the
+        // historical confidence-bucket mapping, which labelled
+        // `quiet_digest` (confidence 0.9, readiness=not_actionable)
+        // as p0). The dec_with_id helper above doesn't stamp
+        // `context.priority`, so the expected bucket is the p2
+        // fallback.
+        let p = v.get("priority").and_then(|s| s.as_str()).unwrap_or("");
+        assert_eq!(
+            p, "p2",
+            "priority must derive from context.priority (defaulting to p2 when absent)"
+        );
+    }
+
+    #[test]
+    fn build_decision_payload_reads_priority_from_context() {
+        // SP-2 contract: the chip on the pet/bubble/card always
+        // matches the TS-computed `derivePriority(decision)`. A
+        // decision with a high-confidence `quiet_digest` (which
+        // `readiness.ts` would resolve to P2 because readiness is
+        // `not_actionable`) MUST surface as p2 even though
+        // `confidence: 0.92` would have hit the old confidence
+        // bucket. This is the regression test for the priority
+        // invariant the old `match d.confidence` block violated.
+        let mut extra = serde_json::Map::new();
+        extra.insert("priority".into(), serde_json::json!("p0"));
+        extra.insert(
+            "deadlineAt".into(),
+            serde_json::json!("2030-01-01T00:00:00Z"),
+        );
+        let d_low_conf_p0 = DecItem {
+            id: Some("dec_low_conf_p0".into()),
+            r#type: Some("deadline_reminder".into()),
+            title: Some("Low confidence but urgent".into()),
+            dialogue: None,
+            // confidence 0.5 would have hit the p2 bucket under the
+            // old code; with context.priority = "p0" the new code
+            // honours the TS-computed value.
+            confidence: Some(0.5),
+            source_signal: None,
+            action: None,
+            context: Some(DecContext {
+                why: None,
+                extra,
+            }),
+            created_at: None,
+            completed_at: None,
+            needs_user: None,
+        };
+        let v = build_decision_payload(&d_low_conf_p0);
+        assert_eq!(
+            v.get("priority").and_then(|s| s.as_str()),
+            Some("p0"),
+            "context.priority must override any confidence-based bucket"
+        );
+
+        // Symmetric case: a high-confidence quiet_digest with
+        // context.priority = "p2" (readiness=not_actionable →
+        // derivePriority always P2) must surface as p2.
+        let mut extra2 = serde_json::Map::new();
+        extra2.insert("priority".into(), serde_json::json!("p2"));
+        let d_high_conf_p2 = DecItem {
+            id: Some("dec_quiet_digest".into()),
+            r#type: Some("quiet_digest".into()),
+            title: Some("AI news digest".into()),
+            dialogue: None,
+            confidence: Some(0.92),
+            source_signal: None,
+            action: None,
+            context: Some(DecContext {
+                why: None,
+                extra: extra2,
+            }),
+            created_at: None,
+            completed_at: None,
+            needs_user: None,
+        };
+        let v2 = build_decision_payload(&d_high_conf_p2);
+        assert_eq!(
+            v2.get("priority").and_then(|s| s.as_str()),
+            Some("p2"),
+            "quiet_digest (readiness=not_actionable) must always be p2"
+        );
+
+        // Garbage / missing values fall back to p2.
+        let mut extra3 = serde_json::Map::new();
+        extra3.insert("priority".into(), serde_json::json!("banana"));
+        let d_garbage = DecItem {
+            id: Some("dec_garbage".into()),
+            r#type: Some("todo".into()),
+            title: Some("garbage".into()),
+            dialogue: None,
+            confidence: Some(0.9),
+            source_signal: None,
+            action: None,
+            context: Some(DecContext {
+                why: None,
+                extra: extra3,
+            }),
+            created_at: None,
+            completed_at: None,
+            needs_user: None,
+        };
+        assert_eq!(
+            build_decision_payload(&d_garbage)
+                .get("priority")
+                .and_then(|s| s.as_str()),
+            Some("p2"),
+            "unknown priority values must fall back to p2"
+        );
+    }
+
+    #[test]
+    fn rank_pending_orders_by_priority_then_keeps_diversity() {
+        // SP-1 contract: the bubble + card must surface the most
+        // urgent pending card, not the FIFO first. `rank_pending`
+        // is the only sanctioned projection — every read of
+        // `snap.pending.first()` / `snap.pending.iter().take(5)`
+        // funnels through this helper.
+        let mk = |id: &str, prio: &str, conf: f32| DecItem {
+            id: Some(id.into()),
+            r#type: Some("todo".into()),
+            title: Some(id.into()),
+            dialogue: None,
+            confidence: Some(conf),
+            source_signal: None,
+            action: None,
+            context: Some(DecContext {
+                why: None,
+                extra: {
+                    let mut m = serde_json::Map::new();
+                    m.insert("priority".into(), serde_json::json!(prio));
+                    m
+                },
+            }),
+            created_at: None,
+            completed_at: None,
+            needs_user: None,
+        };
+        // P2 oldest, P1 middle, P0 newest — rank should put P0 first.
+        let items = vec![
+            mk("dec_p2", "p2", 0.9),
+            mk("dec_p1", "p1", 0.8),
+            mk("dec_p0", "p0", 0.7),
+        ];
+        let ranked = rank_pending(&items);
+        let ids: Vec<&str> = ranked.iter().filter_map(|d| d.id.as_deref()).collect();
+        assert_eq!(ids, vec!["dec_p0", "dec_p1", "dec_p2"]);
+
+        // Two P0 + one P2: P0s first (stable order preserved among
+        // the tied bucket), P2 last.
+        let items2 = vec![
+            mk("dec_p2_again", "p2", 0.9),
+            mk("dec_p0_a", "p0", 0.7),
+            mk("dec_p0_b", "p0", 0.7),
+        ];
+        let ranked2 = rank_pending(&items2);
+        let ids2: Vec<&str> = ranked2.iter().filter_map(|d| d.id.as_deref()).collect();
+        assert_eq!(ids2, vec!["dec_p0_a", "dec_p0_b", "dec_p2_again"]);
+
+        // Missing / invalid priority falls back to p2.
+        let items3 = vec![
+            DecItem {
+                id: Some("dec_unclassified".into()),
+                r#type: Some("todo".into()),
+                title: Some("unclassified".into()),
+                dialogue: None,
+                confidence: Some(0.5),
+                source_signal: None,
+                action: None,
+                context: None,
+                created_at: None,
+                completed_at: None,
+                needs_user: None,
+            },
+            mk("dec_p0_only", "p0", 0.7),
+        ];
+        let ranked3 = rank_pending(&items3);
+        let ids3: Vec<&str> = ranked3.iter().filter_map(|d| d.id.as_deref()).collect();
+        assert_eq!(ids3, vec!["dec_p0_only", "dec_unclassified"]);
+
+        // Empty input → empty output.
+        let empty: Vec<DecItem> = vec![];
+        assert!(rank_pending(&empty).is_empty());
+    }
+
+    #[test]
+    fn build_decision_payload_preserves_quiet_digest_action_and_items() {
+        let mut extra = serde_json::Map::new();
+        extra.insert("module".into(), serde_json::json!("github-notifications"));
+        extra.insert(
+            "items".into(),
+            serde_json::json!([
+                {
+                    "repo": "melandlabs/openloomi",
+                    "title": "Issue 447 repro",
+                    "summary": "You were mentioned",
+                    "url": "https://github.com/melandlabs/openloomi/issues/447"
+                }
+            ]),
+        );
+        let d = DecItem {
+            id: Some("gh_digest_repro".into()),
+            r#type: Some("quiet_digest".into()),
+            title: Some("GitHub has 1 update".into()),
+            dialogue: Some(
+                "1 unread GitHub notification across 1 repo: melandlabs/openloomi.".into(),
+            ),
+            confidence: Some(0.9),
+            source_signal: None,
+            action: Some(DecAction {
+                kind: Some("quiet_digest".into()),
+                params: Some(serde_json::json!({
+                    "module": "github-notifications"
+                })),
+            }),
+            context: Some(DecContext {
+                why: Some(vec![
+                    "Grouped 1 passive GitHub notification into one read-only summary".into(),
+                ]),
+                extra,
+            }),
+            created_at: None,
+            completed_at: None,
+            needs_user: None,
+        };
+
+        let v = build_decision_payload(&d);
+        assert_eq!(
+            v.pointer("/action/params/module").and_then(|m| m.as_str()),
+            Some("github-notifications"),
+            "pet card payload must keep the quiet digest module"
+        );
+        assert_eq!(
+            v.pointer("/context/items/0/url").and_then(|u| u.as_str()),
+            Some("https://github.com/melandlabs/openloomi/issues/447"),
+            "pet card payload must keep GitHub digest items for navigation"
+        );
+        assert_eq!(
+            v.pointer("/context/items/0/title").and_then(|t| t.as_str()),
+            Some("Issue 447 repro")
+        );
+        assert_eq!(
+            v.get("why").and_then(|w| w.as_array()).map(|w| w.len()),
+            Some(1),
+            "legacy top-level why remains populated for old card code"
+        );
+    }
+
+    #[test]
+    fn diff_completed_ids_returns_missing() {
+        // Two ids pending, one stays, one moves to done. Expect the
+        // missing one to surface as ("b", "done").
+        let prev = vec!["a".to_string(), "b".to_string()];
+        let curr = vec!["a".to_string()];
+        let mut s = snap(0, 0, 0);
+        s.done.push(dec_with_id("b"));
+        let out = diff_completed_ids(&prev, &curr, &s);
+        assert_eq!(out, vec![("b".to_string(), "done".to_string())]);
+    }
+
+    #[test]
+    fn terminal_payload_resolves_done_vs_dismissed() {
+        // Decision "x" moved to done and "y" moved to dismissed. The
+        // helper should pull title/type from the looked-up item and
+        // stamp the resolved status. Also covers the "missing from
+        // buckets" fallback path: id "z" left pending but isn't in
+        // either bucket → falls back to "done".
+        let prev = vec!["x".to_string(), "y".to_string(), "z".to_string()];
+        let curr: Vec<String> = vec![];
+        let mut s = snap(0, 0, 0);
+        s.done.push(dec_with_id("x"));
+        s.dismissed.push(dec_with_id("y"));
+        // Note: "z" deliberately not added to either bucket.
+        let transitions = diff_completed_ids(&prev, &curr, &s);
+        assert_eq!(transitions.len(), 3);
+        assert_eq!(transitions[0], ("x".to_string(), "done".to_string()));
+        assert_eq!(transitions[1], ("y".to_string(), "dismissed".to_string()));
+        assert_eq!(transitions[2], ("z".to_string(), "done".to_string())); // fallback
+
+        // And the terminal payload helper renders the resolved status
+        // for the two items it can find.
+        let px = build_terminal_decision_payload("x", "done", &s).expect("x payload");
+        assert_eq!(px.get("status").and_then(|s| s.as_str()), Some("done"));
+        assert_eq!(px.get("id").and_then(|s| s.as_str()), Some("x"));
+        let py = build_terminal_decision_payload("y", "dismissed", &s).expect("y payload");
+        assert_eq!(py.get("status").and_then(|s| s.as_str()), Some("dismissed"));
+        // Missing item → None rather than a half-formed payload.
+        assert!(build_terminal_decision_payload("z", "done", &s).is_none());
+    }
+
+    // ----------------------------------------------------------------
+    // #365 — auto-hide seam + enriched-payload helpers. Pinned here so
+    // a future refactor of the watch loop can't quietly drop the
+    // pending-drained → hide_card_window transition.
+    // ----------------------------------------------------------------
+
+    #[test]
+    fn should_hide_only_on_drain_transition() {
+        // Drained transition: previously non-empty, now empty → hide.
+        assert!(should_hide_when_pending_emptied(true, true));
+        // Stayed empty across two polls → don't repeatedly hide.
+        assert!(!should_hide_when_pending_emptied(true, false));
+        // Stayed non-empty → leave card alone (user's × / click owns it).
+        assert!(!should_hide_when_pending_emptied(false, true));
+        // Cold boot: never had pending → no spurious hide on first poll.
+        assert!(!should_hide_when_pending_emptied(true, false));
+    }
+
+    #[test]
+    fn current_poll_timestamp_iso_is_well_formed() {
+        // The helper is best-effort; we just verify the shape so a
+        // future regression (e.g. accidental truncation) is caught by
+        // tests rather than silently breaking the card's "Last
+        // checked" line.
+        let s = current_poll_timestamp_iso();
+        assert_eq!(s.len(), 20, "expected `YYYY-MM-DDTHH:MM:SSZ`, got {s:?}");
+        assert!(s.ends_with('Z'), "expected UTC suffix, got {s:?}");
+        let bytes = s.as_bytes();
+        assert_eq!(bytes[4], b'-');
+        assert_eq!(bytes[7], b'-');
+        assert_eq!(bytes[10], b'T');
+        assert_eq!(bytes[13], b':');
+        assert_eq!(bytes[16], b':');
+    }
+
+    #[test]
+    fn loop_enabled_defaults_true_when_env_missing() {
+        // Remove the var so we test the documented default branch.
+        // `with_env` in `path_tests` already wraps this — we just
+        // call it directly here rather than creating a third env
+        // helper.
+        let saved = std::env::var_os("OPENLOOMI_LOOP_ENABLED");
+        std::env::remove_var("OPENLOOMI_LOOP_ENABLED");
+        assert!(is_loop_enabled());
+        // Defensive restore so the rest of the suite sees its prior
+        // value. `None` is the expected case (env var unset on a
+        // normal host) but we still want to round-trip cleanly.
+        if let Some(v) = saved {
+            std::env::set_var("OPENLOOMI_LOOP_ENABLED", v);
+        }
+    }
+
+    #[test]
+    fn loop_enabled_recognises_falsy_env_values() {
+        let saved = std::env::var_os("OPENLOOMI_LOOP_ENABLED");
+        for falsy in ["0", "false", "FALSE", "no", "off", "Off", ""] {
+            std::env::set_var("OPENLOOMI_LOOP_ENABLED", falsy);
+            assert!(!is_loop_enabled(), "value {falsy:?} should disable");
+        }
+        for truthy in ["1", "true", "yes", "on"] {
+            std::env::set_var("OPENLOOMI_LOOP_ENABLED", truthy);
+            assert!(is_loop_enabled(), "value {truthy:?} should enable");
+        }
+        if let Some(v) = saved {
+            std::env::set_var("OPENLOOMI_LOOP_ENABLED", v);
+        } else {
+            std::env::remove_var("OPENLOOMI_LOOP_ENABLED");
+        }
+    }
+}

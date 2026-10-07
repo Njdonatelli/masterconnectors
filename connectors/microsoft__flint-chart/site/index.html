@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flint: A Visualization Language for the AI Era</title>
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <style>
+      html, body, #root { margin: 0; padding: 0; height: 100%; }
+      body {
+        font: 14px/1.5 'Inter Variable', Inter, -apple-system, 'Segoe UI', system-ui, Roboto, 'Helvetica Neue', Arial, sans-serif;
+        color: #1f2328;
+        background: #ffffff;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      a { color: #0969da; }
+
+      /* Thin, flat, low-contrast scrollbars (sidebars, panels, page). */
+      * { scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.16) transparent; }
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.16);
+        border-radius: 8px;
+        border: 2px solid transparent;
+        background-clip: padding-box;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.28);
+        background-clip: padding-box;
+      }
+      ::-webkit-scrollbar-corner { background: transparent; }
+
+      /* Sidebars scroll with the wheel but hide their own scrollbar, so only
+         the main content shows one — avoids a competing second scrollbar. */
+      .app-sidebar { scrollbar-width: none; }
+      .app-sidebar::-webkit-scrollbar { width: 0; height: 0; display: none; }
+
+      /* Doc nav links: keep the focus ring inset so it isn't clipped by the
+         sidebar's overflow:hidden (which made it look like an overflowing box). */
+      .doc-nav-link { outline: none; }
+      .doc-nav-link:focus-visible {
+        outline: 2px solid #0078d4;
+        outline-offset: -2px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

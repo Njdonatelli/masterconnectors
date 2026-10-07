@@ -1,0 +1,344 @@
+import AppKit
+import Combine
+import NativExtensionSDK
+import NativServerKit
+import SwiftUI
+import UniformTypeIdentifiers
+
+extension ControlPanelView {
+    var projectsSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            sidebarProjectsHeader
+                .padding(.leading, 8)
+                .padding(.trailing, 10)
+                .padding(.bottom, 4)
+
+            if !chromeState.sidebarProjectsCollapsed {
+                VStack(alignment: .leading, spacing: 0) {
+                    if sidebarState.recents.projects.isEmpty {
+                        emptyProjectsHint
+                    } else {
+                        ForEach(sidebarState.recents.projects) { project in
+                            projectView(project)
+                        }
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    var emptyProjectsHint: some View {
+        Button(action: createProject) {
+            Label("Choose a folder to create a project", systemImage: "folder.badge.plus")
+                .legacyTextStyle(.body)
+                .foregroundStyle(.secondary.opacity(0.7))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 17)
+                .padding(.vertical, 10)
+        }
+        .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    func projectView(_ project: ChatProject) -> some View {
+        let projectSessions = sessions(inProject: project.id)
+        VStack(alignment: .leading, spacing: 0) {
+            ControlPanelProjectHeaderView(
+                project: project,
+                isAvailable: projects.isRootAvailable(for: project),
+                onToggleCollapse: {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        projects.setCollapsed(project.id, collapsed: !project.isCollapsed)
+                    }
+                },
+                onNewChat: {
+                    createChatSession(projectID: project.id)
+                },
+                onRename: {
+                    projects.renameProject(project.id, to: $0)
+                },
+                onReveal: {
+                    revealProject(project)
+                },
+                onLocate: {
+                    locateProject(project)
+                },
+                onRemove: {
+                    pendingDeleteProject = project
+                }
+            )
+            .padding(.leading, 8)
+            .padding(.trailing, 10)
+
+            if !project.isCollapsed {
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(projectSessions) { recent in
+                        projectSessionRow(recent, project: project)
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+        .animation(.easeInOut(duration: 0.2), value: project.isCollapsed)
+    }
+
+    var pinnedChats: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            sidebarSectionHeader(
+                title: "Pinned",
+                isCollapsed: chromeState.sidebarPinnedCollapsed,
+                onToggle: { model.settings.sidebarPinnedCollapsed.toggle() },
+                trailing: { EmptyView() }
+            )
+            .padding(.leading, 8)
+            .padding(.trailing, 10)
+            .padding(.bottom, 4)
+
+            if !chromeState.sidebarPinnedCollapsed {
+                ForEach(pinnedSessions) { recent in
+                    draggableRow(recent, isPinnedRow: true)
+                        .overlay(alignment: .top) {
+                            pinnedInsertionLine(
+                                visible: reorderTargetID == recent.id && !reorderInsertAfter
+                                    && isPinnedDropTargeted)
+                        }
+                        .overlay(alignment: .bottom) {
+                            pinnedInsertionLine(
+                                visible: reorderTargetID == recent.id && reorderInsertAfter
+                                    && isPinnedDropTargeted)
+                        }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(dropHighlight(isTargeted: isPinnedDropTargeted))
+        .onDrop(of: [.text], isTargeted: $isPinnedDropTargeted) { providers in
+            loadDropString(providers) { payload in
+                revealSidebarSection(\.sidebarPinnedCollapsed)
+                handlePinnedDrop(payload)
+            }
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel("Pinned chats")
+    }
+
+    var sessionsSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            sidebarRecentsHeader
+                .padding(.leading, 8)
+                .padding(.trailing, 10)
+                .padding(.bottom, 4)
+
+            if isSelectingRecents {
+                bulkSelectionBar
+                    .padding(.bottom, 8)
+            }
+
+            if !chromeState.sidebarSessionsCollapsed {
+                VStack(alignment: .leading, spacing: 0) {
+                    ForEach(unpinnedSessions) { recent in
+                        draggableRow(recent, isPinnedRow: false)
+                            .overlay(alignment: .top) {
+                                pinnedInsertionLine(
+                                    visible: reorderTargetID == recent.id && !reorderInsertAfter
+                                        && isSessionsDropTargeted)
+                            }
+                            .overlay(alignment: .bottom) {
+                                pinnedInsertionLine(
+                                    visible: reorderTargetID == recent.id && reorderInsertAfter
+                                        && isSessionsDropTargeted)
+                            }
+                    }
+                }
+                .transition(.opacity)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(dropHighlight(isTargeted: isSessionsDropTargeted))
+        .onDrop(of: [.text], isTargeted: $isSessionsDropTargeted) { providers in
+            loadDropString(providers) { payload in
+                revealSidebarSection(\.sidebarSessionsCollapsed)
+                _ = handleSessionsDrop([payload])
+            }
+        }
+    }
+
+    func sidebarSectionHeader<Trailing: View>(
+        title: String,
+        isCollapsed: Bool,
+        onToggle: @escaping () -> Void,
+        @ViewBuilder trailing: () -> Trailing
+    ) -> some View {
+        HStack(spacing: 8) {
+            Button {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    onToggle()
+                }
+            } label: {
+                HStack(spacing: 4) {
+                    Text(title)
+                        .legacyTextStyle(.sidebarSectionTitle)
+                        .foregroundStyle(.secondary.opacity(0.7))
+
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(.secondary.opacity(0.7))
+                        .rotationEffect(.degrees(isCollapsed ? 0 : 90))
+                        .frame(width: 12)
+
+                    Spacer(minLength: 0)
+                }
+                .frame(maxWidth: .infinity, minHeight: 24, alignment: .leading)
+                .contentShape(.rect)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(title)
+            .accessibilityValue(isCollapsed ? "Collapsed" : "Expanded")
+            .help(isCollapsed ? "Expand \(title)" : "Collapse \(title)")
+
+            trailing()
+        }
+        .animation(.easeInOut(duration: 0.2), value: isCollapsed)
+    }
+
+    var sidebarProjectsHeader: some View {
+        sidebarSectionHeader(
+            title: "Projects",
+            isCollapsed: chromeState.sidebarProjectsCollapsed,
+            onToggle: { model.settings.sidebarProjectsCollapsed.toggle() },
+            trailing: {
+                Button(action: createProject) {
+                    Image(systemName: "folder.badge.plus")
+                        .font(.system(size: 15, weight: .medium))
+                        .frame(width: 24, height: 24)
+                        .foregroundStyle(Color.secondary)
+                }
+                .buttonStyle(.plain)
+                .help("New project")
+                .opacity(isProjectsHeaderHovering ? 1 : 0)
+                .allowsHitTesting(isProjectsHeaderHovering)
+            }
+        )
+        .contentShape(.rect)
+        .onHover { isProjectsHeaderHovering = $0 }
+    }
+
+    var sidebarRecentsHeader: some View {
+        sidebarSectionHeader(
+            title: "Sessions",
+            isCollapsed: chromeState.sidebarSessionsCollapsed,
+            onToggle: { model.settings.sidebarSessionsCollapsed.toggle() },
+            trailing: {
+                HStack(spacing: 4) {
+                    Button(action: importChat) {
+                        Label("Import chat", systemImage: "square.and.arrow.down")
+                            .labelStyle(.iconOnly)
+                            .font(.system(size: 15, weight: .medium))
+                            // Optically align the tray symbol with the checklist.
+                            .offset(y: -1)
+                            .frame(width: 24, height: 24)
+                            .contentShape(.rect)
+                    }
+                    .help("Import a chat archive")
+
+                    Button {
+                        withAnimation(.snappy(duration: 0.2)) {
+                            enterSelectMode()
+                        }
+                    } label: {
+                        Label("Select Multiple", systemImage: "checklist")
+                            .labelStyle(.iconOnly)
+                            .font(.system(size: 15, weight: .medium))
+                            .frame(width: 24, height: 24)
+                            .contentShape(.rect)
+                    }
+                    .disabled(isSelectingRecents)
+                    .help("Select multiple")
+
+                    Button {
+                        createChatSession()
+                    } label: {
+                        Label("New Chat", systemImage: "square.and.pencil")
+                            .labelStyle(.iconOnly)
+                            .font(.system(size: 15, weight: .medium))
+                            .frame(width: 24, height: 24)
+                            .contentShape(.rect)
+                    }
+                    .help("New chat")
+                }
+                .buttonStyle(.plain)
+                .foregroundStyle(Color.secondary)
+                .opacity(isSessionsHeaderHovering ? 1 : 0)
+                .allowsHitTesting(isSessionsHeaderHovering)
+            }
+        )
+        .contentShape(.rect)
+        .onHover { isSessionsHeaderHovering = $0 }
+    }
+
+    var allSidebarSectionsCollapsed: Bool {
+        (pinnedSessions.isEmpty || chromeState.sidebarPinnedCollapsed)
+            && chromeState.sidebarProjectsCollapsed
+            && chromeState.sidebarSessionsCollapsed
+            && !projects.projects.contains { !$0.isCollapsed }
+    }
+
+    func revealSidebarSection(_ keyPath: WritableKeyPath<NativSettings, Bool>) {
+        guard model.settings[keyPath: keyPath] else {
+            return
+        }
+        withAnimation(.snappy(duration: 0.2)) {
+            model.settings[keyPath: keyPath] = false
+        }
+    }
+
+    func toggleAllSidebarSections() {
+        let shouldCollapse = !allSidebarSectionsCollapsed
+        withAnimation(.snappy(duration: 0.2)) {
+            model.settings.setAllSidebarSectionsCollapsed(shouldCollapse)
+            projects.setAllCollapsed(shouldCollapse)
+        }
+    }
+
+    func toggleSidebarVisibility() {
+        withAnimation(.easeInOut(duration: ControlPanelLayout.sidebarTransitionDuration)) {
+            isSidebarVisible.toggle()
+        }
+    }
+
+    func toggleModelConfigurationVisibility() {
+        isModelConfigurationVisible.toggle()
+    }
+
+    var showsModelConfigurationToggle: Bool {
+        switch selectedTab {
+        case .chat:
+            chatWorkspaceMode == .chat
+        case .models:
+            true
+        case .dev:
+            selectedDevSection == .developer
+        case .scheduled, .artifacts, .dashboard, .system, .extensions, .settings:
+            false
+        }
+    }
+
+    var recentSessions: [ControlPanelRecentSession] {
+        sidebarState.recents.recentSessions
+    }
+
+    var pinnedSessions: [ControlPanelRecentSession] {
+        sidebarState.recents.pinnedSessions
+    }
+
+    var unpinnedSessions: [ControlPanelRecentSession] {
+        sidebarState.recents.unpinnedSessions
+    }
+
+    func sessions(inProject projectID: UUID) -> [ControlPanelRecentSession] {
+        sidebarState.recents.sessions(inProject: projectID)
+    }
+
+}

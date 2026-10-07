@@ -1,0 +1,166 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Laptop",
+        "Group": "USA"
+      },
+      {
+        "Category": "Laptop",
+        "Group": "Japan"
+      },
+      {
+        "Category": "Laptop",
+        "Group": "UK"
+      },
+      {
+        "Category": "Phone",
+        "Group": "USA"
+      },
+      {
+        "Category": "Phone",
+        "Group": "Japan"
+      },
+      {
+        "Category": "Phone",
+        "Group": "Germany"
+      },
+      {
+        "Category": "Phone",
+        "Group": "UK"
+      },
+      {
+        "Category": "Tablet",
+        "Group": "USA"
+      },
+      {
+        "Category": "Tablet",
+        "Group": "Japan"
+      },
+      {
+        "Category": "Tablet",
+        "Group": "Germany"
+      },
+      {
+        "Category": "Tablet",
+        "Group": "UK"
+      },
+      {
+        "Category": "Desktop",
+        "Group": "China"
+      },
+      {
+        "Category": "Desktop",
+        "Group": "Germany"
+      },
+      {
+        "Category": "Desktop",
+        "Group": "UK"
+      },
+      {
+        "Category": "Monitor",
+        "Group": "USA"
+      },
+      {
+        "Category": "Monitor",
+        "Group": "China"
+      },
+      {
+        "Category": "Monitor",
+        "Group": "Japan"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,1891 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "City",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Amount",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 134
+    },
+    "axisX": {
+      "labelLimit": 40,
+      "labelFontSize": 6,
+      "labelAngle": -90,
+      "labelAlign": "right",
+      "labelBaseline": "middle"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 13
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "City": "City001",
+        "Segment": "Seg1",
+        "Amount": 366
+      },
+      {
+        "City": "City001",
+        "Segment": "Seg2",
+        "Amount": 338
+      },
+      {
+        "City": "City001",
+        "Segment": "Seg3",
+        "Amount": 464
+      },
+      {
+        "City": "City002",
+        "Segment": "Seg1",
+        "Amount": 45
+      },
+      {
+        "City": "City002",
+        "Segment": "Seg2",
+        "Amount": 426
+      },
+      {
+        "City": "City002",
+        "Segment": "Seg3",
+        "Amount": 445
+      },
+      {
+        "City": "City003",
+        "Segment": "Seg1",
+        "Amount": 405
+      },
+      {
+        "City": "City003",
+        "Segment": "Seg2",
+        "Amount": 25
+      },
+      {
+        "City": "City003",
+        "Segment": "Seg3",
+        "Amount": 466
+      },
+      {
+        "City": "City004",
+        "Segment": "Seg1",
+        "Amount": 413
+      },
+      {
+        "City": "City004",
+        "Segment": "Seg2",
+        "Amount": 496
+      },
+      {
+        "City": "City004",
+        "Segment": "Seg3",
+        "Amount": 427
+      },
+      {
+        "City": "City005",
+        "Segment": "Seg1",
+        "Amount": 197
+      },
+      {
+        "City": "City005",
+        "Segment": "Seg2",
+        "Amount": 173
+      },
+      {
+        "City": "City005",
+        "Segment": "Seg3",
+        "Amount": 183
+      },
+      {
+        "City": "City006",
+        "Segment": "Seg1",
+        "Amount": 144
+      },
+      {
+        "City": "City006",
+        "Segment": "Seg2",
+        "Amount": 66
+      },
+      {
+        "City": "City006",
+        "Segment": "Seg3",
+        "Amount": 173
+      },
+      {
+        "City": "City007",
+        "Segment": "Seg1",
+        "Amount": 265
+      },
+      {
+        "City": "City007",
+        "Segment": "Seg2",
+        "Amount": 267
+      },
+      {
+        "City": "City007",
+        "Segment": "Seg3",
+        "Amount": 168
+      },
+      {
+        "City": "City008",
+        "Segment": "Seg1",
+        "Amount": 154
+      },
+      {
+        "City": "City008",
+        "Segment": "Seg2",
+        "Amount": 481
+      },
+      {
+        "City": "City008",
+        "Segment": "Seg3",
+        "Amount": 372
+      },
+      {
+        "City": "City009",
+        "Segment": "Seg1",
+        "Amount": 305
+      },
+      {
+        "City": "City009",
+        "Segment": "Seg2",
+        "Amount": 101
+      },
+      {
+        "City": "City009",
+        "Segment": "Seg3",
+        "Amount": 412
+      },
+      {
+        "City": "City010",
+        "Segment": "Seg1",
+        "Amount": 476
+      },
+      {
+        "City": "City010",
+        "Segment": "Seg2",
+        "Amount": 269
+      },
+      {
+        "City": "City010",
+        "Segment": "Seg3",
+        "Amount": 205
+      },
+      {
+        "City": "City011",
+        "Segment": "Seg1",
+        "Amount": 495
+      },
+      {
+        "City": "City011",
+        "Segment": "Seg2",
+        "Amount": 417
+      },
+      {
+        "City": "City011",
+        "Segment": "Seg3",
+        "Amount": 420
+      },
+      {
+        "City": "City012",
+        "Segment": "Seg1",
+        "Amount": 112
+      },
+      {
+        "City": "City012",
+        "Segment": "Seg2",
+        "Amount": 404
+      },
+      {
+        "City": "City012",
+        "Segment": "Seg3",
+        "Amount": 299
+      },
+      {
+        "City": "City013",
+        "Segment": "Seg1",
+        "Amount": 357
+      },
+      {
+        "City": "City013",
+        "Segment": "Seg2",
+        "Amount": 193
+      },
+      {
+        "City": "City013",
+        "Segment": "Seg3",
+        "Amount": 165
+      },
+      {
+        "City": "City014",
+        "Segment": "Seg1",
+        "Amount": 372
+      },
+      {
+        "City": "City014",
+        "Segment": "Seg2",
+        "Amount": 170
+      },
+      {
+        "City": "City014",
+        "Segment": "Seg3",
+        "Amount": 419
+      },
+      {
+        "City": "City015",
+        "Segment": "Seg1",
+        "Amount": 201
+      },
+      {
+        "City": "City015",
+        "Segment": "Seg2",
+        "Amount": 45
+      },
+      {
+        "City": "City015",
+        "Segment": "Seg3",
+        "Amount": 283
+      },
+      {
+        "City": "City016",
+        "Segment": "Seg1",
+        "Amount": 224
+      },
+      {
+        "City": "City016",
+        "Segment": "Seg2",
+        "Amount": 279
+      },
+      {
+        "City": "City016",
+        "Segment": "Seg3",
+        "Amount": 407
+      },
+      {
+        "City": "City017",
+        "Segment": "Seg1",
+        "Amount": 101
+      },
+      {
+        "City": "City017",
+        "Segment": "Seg2",
+        "Amount": 331
+      },
+      {
+        "City": "City017",
+        "Segment": "Seg3",
+        "Amount": 43
+      },
+      {
+        "City": "City018",
+        "Segment": "Seg1",
+        "Amount": 145
+      },
+      {
+        "City": "City018",
+        "Segment": "Seg2",
+        "Amount": 257
+      },
+      {
+        "City": "City018",
+        "Segment": "Seg3",
+        "Amount": 473
+      },
+      {
+        "City": "City019",
+        "Segment": "Seg1",
+        "Amount": 485
+      },
+      {
+        "City": "City019",
+        "Segment": "Seg2",
+        "Amount": 496
+      },
+      {
+        "City": "City019",
+        "Segment": "Seg3",
+        "Amount": 43
+      },
+      {
+        "City": "City020",
+        "Segment": "Seg1",
+        "Amount": 387
+      },
+      {
+        "City": "City020",
+        "Segment": "Seg2",
+        "Amount": 141
+      },
+      {
+        "City": "City020",
+        "Segment": "Seg3",
+        "Amount": 18
+      },
+      {
+        "City": "City021",
+        "Segment": "Seg1",
+        "Amount": 275
+      },
+      {
+        "City": "City021",
+        "Segment": "Seg2",
+        "Amount": 28
+      },
+      {
+        "City": "City021",
+        "Segment": "Seg3",
+        "Amount": 164
+      },
+      {
+        "City": "City022",
+        "Segment": "Seg1",
+        "Amount": 359
+      },
+      {
+        "City": "City022",
+        "Segment": "Seg2",
+        "Amount": 391
+      },
+      {
+        "City": "City022",
+        "Segment": "Seg3",
+        "Amount": 228
+      },
+      {
+        "City": "City023",
+        "Segment": "Seg1",
+        "Amount": 358
+      },
+      {
+        "City": "City023",
+        "Segment": "Seg2",
+        "Amount": 184
+      },
+      {
+        "City": "City023",
+        "Segment": "Seg3",
+        "Amount": 195
+      },
+      {
+        "City": "City024",
+        "Segment": "Seg1",
+        "Amount": 328
+      },
+      {
+        "City": "City024",
+        "Segment": "Seg2",
+        "Amount": 167
+      },
+      {
+        "City": "City024",
+        "Segment": "Seg3",
+        "Amount": 480
+      },
+      {
+        "City": "City025",
+        "Segment": "Seg1",
+        "Amount": 408
+      },
+      {
+        "City": "City025",
+        "Segment": "Seg2",
+        "Amount": 34
+      },
+      {
+        "City": "City025",
+        "Segment": "Seg3",
+        "Amount": 69
+      },
+      {
+        "City": "City026",
+        "Segment": "Seg1",
+        "Amount": 214
+      },
+      {
+        "City": "City026",
+        "Segment": "Seg2",
+        "Amount": 451
+      },
+      {
+        "City": "City026",
+        "Segment": "Seg3",
+        "Amount": 17
+      },
+      {
+        "City": "City027",
+        "Segment": "Seg1",
+        "Amount": 176
+      },
+      {
+        "City": "City027",
+        "Segment": "Seg2",
+        "Amount": 53
+      },
+      {
+        "City": "City027",
+        "Segment": "Seg3",
+        "Amount": 312
+      },
+      {
+        "City": "City028",
+        "Segment": "Seg1",
+        "Amount": 165
+      },
+      {
+        "City": "City028",
+        "Segment": "Seg2",
+        "Amount": 243
+      },
+      {
+        "City": "City028",
+        "Segment": "Seg3",
+        "Amount": 477
+      },
+      {
+        "City": "City029",
+        "Segment": "Seg1",
+        "Amount": 497
+      },
+      {
+        "City": "City029",
+        "Segment": "Seg2",
+        "Amount": 146
+      },
+      {
+        "City": "City029",
+        "Segment": "Seg3",
+        "Amount": 208
+      },
+      {
+        "City": "City030",
+        "Segment": "Seg1",
+        "Amount": 249
+      },
+      {
+        "City": "City030",
+        "Segment": "Seg2",
+        "Amount": 384
+      },
+      {
+        "City": "City030",
+        "Segment": "Seg3",
+        "Amount": 367
+      },
+      {
+        "City": "City031",
+        "Segment": "Seg1",
+        "Amount": 378
+      },
+      {
+        "City": "City031",
+        "Segment": "Seg2",
+        "Amount": 163
+      },
+      {
+        "City": "City031",
+        "Segment": "Seg3",
+        "Amount": 369
+      },
+      {
+        "City": "City032",
+        "Segment": "Seg1",
+        "Amount": 287
+      },
+      {
+        "City": "City032",
+        "Segment": "Seg2",
+        "Amount": 109
+      },
+      {
+        "City": "City032",
+        "Segment": "Seg3",
+        "Amount": 477
+      },
+      {
+        "City": "City033",
+        "Segment": "Seg1",
+        "Amount": 291
+      },
+      {
+        "City": "City033",
+        "Segment": "Seg2",
+        "Amount": 45
+      },
+      {
+        "City": "City033",
+        "Segment": "Seg3",
+        "Amount": 142
+      },
+      {
+        "City": "City034",
+        "Segment": "Seg1",
+        "Amount": 326
+      },
+      {
+        "City": "City034",
+        "Segment": "Seg2",
+        "Amount": 120
+      },
+      {
+        "City": "City034",
+        "Segment": "Seg3",
+        "Amount": 470
+      },
+      {
+        "City": "City035",
+        "Segment": "Seg1",
+        "Amount": 29
+      },
+      {
+        "City": "City035",
+        "Segment": "Seg2",
+        "Amount": 189
+      },
+      {
+        "City": "City035",
+        "Segment": "Seg3",
+        "Amount": 351
+      },
+      {
+        "City": "City036",
+        "Segment": "Seg1",
+        "Amount": 406
+      },
+      {
+        "City": "City036",
+        "Segment": "Seg2",
+        "Amount": 94
+      },
+      {
+        "City": "City036",
+        "Segment": "Seg3",
+        "Amount": 112
+      },
+      {
+        "City": "City037",
+        "Segment": "Seg1",
+        "Amount": 123
+      },
+      {
+        "City": "City037",
+        "Segment": "Seg2",
+        "Amount": 108
+      },
+      {
+        "City": "City037",
+        "Segment": "Seg3",
+        "Amount": 383
+      },
+      {
+        "City": "City038",
+        "Segment": "Seg1",
+        "Amount": 254
+      },
+      {
+        "City": "City038",
+        "Segment": "Seg2",
+        "Amount": 252
+      },
+      {
+        "City": "City038",
+        "Segment": "Seg3",
+        "Amount": 467
+      },
+      {
+        "City": "City039",
+        "Segment": "Seg1",
+        "Amount": 92
+      },
+      {
+        "City": "City039",
+        "Segment": "Seg2",
+        "Amount": 435
+      },
+      {
+        "City": "City039",
+        "Segment": "Seg3",
+        "Amount": 151
+      },
+      {
+        "City": "City040",
+        "Segment": "Seg1",
+        "Amount": 445
+      },
+      {
+        "City": "City040",
+        "Segment": "Seg2",
+        "Amount": 214
+      },
+      {
+        "City": "City040",
+        "Segment": "Seg3",
+        "Amount": 183
+      },
+      {
+        "City": "City041",
+        "Segment": "Seg1",
+        "Amount": 43
+      },
+      {
+        "City": "City041",
+        "Segment": "Seg2",
+        "Amount": 149
+      },
+      {
+        "City": "City041",
+        "Segment": "Seg3",
+        "Amount": 335
+      },
+      {
+        "City": "City042",
+        "Segment": "Seg1",
+        "Amount": 212
+      },
+      {
+        "City": "City042",
+        "Segment": "Seg2",
+        "Amount": 180
+      },
+      {
+        "City": "City042",
+        "Segment": "Seg3",
+        "Amount": 432
+      },
+      {
+        "City": "City043",
+        "Segment": "Seg1",
+        "Amount": 417
+      },
+      {
+        "City": "City043",
+        "Segment": "Seg2",
+        "Amount": 61
+      },
+      {
+        "City": "City043",
+        "Segment": "Seg3",
+        "Amount": 457
+      },
+      {
+        "City": "City044",
+        "Segment": "Seg1",
+        "Amount": 401
+      },
+      {
+        "City": "City044",
+        "Segment": "Seg2",
+        "Amount": 470
+      },
+      {
+        "City": "City044",
+        "Segment": "Seg3",
+        "Amount": 153
+      },
+      {
+        "City": "City045",
+        "Segment": "Seg1",
+        "Amount": 464
+      },
+      {
+        "City": "City045",
+        "Segment": "Seg2",
+        "Amount": 184
+      },
+      {
+        "City": "City045",
+        "Segment": "Seg3",
+        "Amount": 164
+      },
+      {
+        "City": "City046",
+        "Segment": "Seg1",
+        "Amount": 340
+      },
+      {
+        "City": "City046",
+        "Segment": "Seg2",
+        "Amount": 73
+      },
+      {
+        "City": "City046",
+        "Segment": "Seg3",
+        "Amount": 266
+      },
+      {
+        "City": "City047",
+        "Segment": "Seg1",
+        "Amount": 117
+      },
+      {
+        "City": "City047",
+        "Segment": "Seg2",
+        "Amount": 451
+      },
+      {
+        "City": "City047",
+        "Segment": "Seg3",
+        "Amount": 126
+      },
+      {
+        "City": "City048",
+        "Segment": "Seg1",
+        "Amount": 229
+      },
+      {
+        "City": "City048",
+        "Segment": "Seg2",
+        "Amount": 453
+      },
+      {
+        "City": "City048",
+        "Segment": "Seg3",
+        "Amount": 426
+      },
+      {
+        "City": "City049",
+        "Segment": "Seg1",
+        "Amount": 380
+      },
+      {
+        "City": "City049",
+        "Segment": "Seg2",
+        "Amount": 171
+      },
+      {
+        "City": "City049",
+        "Segment": "Seg3",
+        "Amount": 321
+      },
+      {
+        "City": "City050",
+        "Segment": "Seg1",
+        "Amount": 166
+      },
+      {
+        "City": "City050",
+        "Segment": "Seg2",
+        "Amount": 293
+      },
+      {
+        "City": "City050",
+        "Segment": "Seg3",
+        "Amount": 459
+      },
+      {
+        "City": "City051",
+        "Segment": "Seg1",
+        "Amount": 214
+      },
+      {
+        "City": "City051",
+        "Segment": "Seg2",
+        "Amount": 160
+      },
+      {
+        "City": "City051",
+        "Segment": "Seg3",
+        "Amount": 71
+      },
+      {
+        "City": "City052",
+        "Segment": "Seg1",
+        "Amount": 361
+      },
+      {
+        "City": "City052",
+        "Segment": "Seg2",
+        "Amount": 238
+      },
+      {
+        "City": "City052",
+        "Segment": "Seg3",
+        "Amount": 197
+      },
+      {
+        "City": "City053",
+        "Segment": "Seg1",
+        "Amount": 62
+      },
+      {
+        "City": "City053",
+        "Segment": "Seg2",
+        "Amount": 256
+      },
+      {
+        "City": "City053",
+        "Segment": "Seg3",
+        "Amount": 167
+      },
+      {
+        "City": "City054",
+        "Segment": "Seg1",
+        "Amount": 342
+      },
+      {
+        "City": "City054",
+        "Segment": "Seg2",
+        "Amount": 265
+      },
+      {
+        "City": "City054",
+        "Segment": "Seg3",
+        "Amount": 453
+      },
+      {
+        "City": "City055",
+        "Segment": "Seg1",
+        "Amount": 311
+      },
+      {
+        "City": "City055",
+        "Segment": "Seg2",
+        "Amount": 198
+      },
+      {
+        "City": "City055",
+        "Segment": "Seg3",
+        "Amount": 86
+      },
+      {
+        "City": "City056",
+        "Segment": "Seg1",
+        "Amount": 50
+      },
+      {
+        "City": "City056",
+        "Segment": "Seg2",
+        "Amount": 160
+      },
+      {
+        "City": "City056",
+        "Segment": "Seg3",
+        "Amount": 285
+      },
+      {
+        "City": "City057",
+        "Segment": "Seg1",
+        "Amount": 423
+      },
+      {
+        "City": "City057",
+        "Segment": "Seg2",
+        "Amount": 35
+      },
+      {
+        "City": "City057",
+        "Segment": "Seg3",
+        "Amount": 141
+      },
+      {
+        "City": "City058",
+        "Segment": "Seg1",
+        "Amount": 51
+      },
+      {
+        "City": "City058",
+        "Segment": "Seg2",
+        "Amount": 115
+      },
+      {
+        "City": "City058",
+        "Segment": "Seg3",
+        "Amount": 364
+      },
+      {
+        "City": "City059",
+        "Segment": "Seg1",
+        "Amount": 12
+      },
+      {
+        "City": "City059",
+        "Segment": "Seg2",
+        "Amount": 161
+      },
+      {
+        "City": "City059",
+        "Segment": "Seg3",
+        "Amount": 380
+      },
+      {
+        "City": "City060",
+        "Segment": "Seg1",
+        "Amount": 246
+      },
+      {
+        "City": "City060",
+        "Segment": "Seg2",
+        "Amount": 155
+      },
+      {
+        "City": "City060",
+        "Segment": "Seg3",
+        "Amount": 194
+      },
+      {
+        "City": "City061",
+        "Segment": "Seg1",
+        "Amount": 197
+      },
+      {
+        "City": "City061",
+        "Segment": "Seg2",
+        "Amount": 453
+      },
+      {
+        "City": "City061",
+        "Segment": "Seg3",
+        "Amount": 223
+      },
+      {
+        "City": "City062",
+        "Segment": "Seg1",
+        "Amount": 349
+      },
+      {
+        "City": "City062",
+        "Segment": "Seg2",
+        "Amount": 284
+      },
+      {
+        "City": "City062",
+        "Segment": "Seg3",
+        "Amount": 204
+      },
+      {
+        "City": "City063",
+        "Segment": "Seg1",
+        "Amount": 107
+      },
+      {
+        "City": "City063",
+        "Segment": "Seg2",
+        "Amount": 95
+      },
+      {
+        "City": "City063",
+        "Segment": "Seg3",
+        "Amount": 136
+      },
+      {
+        "City": "City064",
+        "Segment": "Seg1",
+        "Amount": 80
+      },
+      {
+        "City": "City064",
+        "Segment": "Seg2",
+        "Amount": 120
+      },
+      {
+        "City": "City064",
+        "Segment": "Seg3",
+        "Amount": 172
+      },
+      {
+        "City": "City065",
+        "Segment": "Seg1",
+        "Amount": 21
+      },
+      {
+        "City": "City065",
+        "Segment": "Seg2",
+        "Amount": 110
+      },
+      {
+        "City": "City065",
+        "Segment": "Seg3",
+        "Amount": 237
+      },
+      {
+        "City": "City066",
+        "Segment": "Seg1",
+        "Amount": 141
+      },
+      {
+        "City": "City066",
+        "Segment": "Seg2",
+        "Amount": 120
+      },
+      {
+        "City": "City066",
+        "Segment": "Seg3",
+        "Amount": 240
+      },
+      {
+        "City": "City067",
+        "Segment": "Seg1",
+        "Amount": 372
+      },
+      {
+        "City": "City067",
+        "Segment": "Seg2",
+        "Amount": 238
+      },
+      {
+        "City": "City067",
+        "Segment": "Seg3",
+        "Amount": 481
+      },
+      {
+        "City": "City068",
+        "Segment": "Seg1",
+        "Amount": 59
+      },
+      {
+        "City": "City068",
+        "Segment": "Seg2",
+        "Amount": 470
+      },
+      {
+        "City": "City068",
+        "Segment": "Seg3",
+        "Amount": 54
+      },
+      {
+        "City": "City069",
+        "Segment": "Seg1",
+        "Amount": 105
+      },
+      {
+        "City": "City069",
+        "Segment": "Seg2",
+        "Amount": 133
+      },
+      {
+        "City": "City069",
+        "Segment": "Seg3",
+        "Amount": 425
+      },
+      {
+        "City": "City070",
+        "Segment": "Seg1",
+        "Amount": 170
+      },
+      {
+        "City": "City070",
+        "Segment": "Seg2",
+        "Amount": 386
+      },
+      {
+        "City": "City070",
+        "Segment": "Seg3",
+        "Amount": 435
+      },
+      {
+        "City": "City071",
+        "Segment": "Seg1",
+        "Amount": 90
+      },
+      {
+        "City": "City071",
+        "Segment": "Seg2",
+        "Amount": 149
+      },
+      {
+        "City": "City071",
+        "Segment": "Seg3",
+        "Amount": 119
+      },
+      {
+        "City": "City072",
+        "Segment": "Seg1",
+        "Amount": 437
+      },
+      {
+        "City": "City072",
+        "Segment": "Seg2",
+        "Amount": 329
+      },
+      {
+        "City": "City072",
+        "Segment": "Seg3",
+        "Amount": 150
+      },
+      {
+        "City": "City073",
+        "Segment": "Seg1",
+        "Amount": 359
+      },
+      {
+        "City": "City073",
+        "Segment": "Seg2",
+        "Amount": 211
+      },
+      {
+        "City": "City073",
+        "Segment": "Seg3",
+        "Amount": 248
+      },
+      {
+        "City": "City074",
+        "Segment": "Seg1",
+        "Amount": 376
+      },
+      {
+        "City": "City074",
+        "Segment": "Seg2",
+        "Amount": 82
+      },
+      {
+        "City": "City074",
+        "Segment": "Seg3",
+        "Amount": 301
+      },
+      {
+        "City": "City075",
+        "Segment": "Seg1",
+        "Amount": 22
+      },
+      {
+        "City": "City075",
+        "Segment": "Seg2",
+        "Amount": 165
+      },
+      {
+        "City": "City075",
+        "Segment": "Seg3",
+        "Amount": 391
+      },
+      {
+        "City": "City076",
+        "Segment": "Seg1",
+        "Amount": 139
+      },
+      {
+        "City": "City076",
+        "Segment": "Seg2",
+        "Amount": 129
+      },
+      {
+        "City": "City076",
+        "Segment": "Seg3",
+        "Amount": 233
+      },
+      {
+        "City": "City077",
+        "Segment": "Seg1",
+        "Amount": 144
+      },
+      {
+        "City": "City077",
+        "Segment": "Seg2",
+        "Amount": 172
+      },
+      {
+        "City": "City077",
+        "Segment": "Seg3",
+        "Amount": 168
+      },
+      {
+        "City": "City078",
+        "Segment": "Seg1",
+        "Amount": 212
+      },
+      {
+        "City": "City078",
+        "Segment": "Seg2",
+        "Amount": 73
+      },
+      {
+        "City": "City078",
+        "Segment": "Seg3",
+        "Amount": 16
+      },
+      {
+        "City": "City079",
+        "Segment": "Seg1",
+        "Amount": 24
+      },
+      {
+        "City": "City079",
+        "Segment": "Seg2",
+        "Amount": 224
+      },
+      {
+        "City": "City079",
+        "Segment": "Seg3",
+        "Amount": 301
+      },
+      {
+        "City": "City080",
+        "Segment": "Seg1",
+        "Amount": 189
+      },
+      {
+        "City": "City080",
+        "Segment": "Seg2",
+        "Amount": 223
+      },
+      {
+        "City": "City080",
+        "Segment": "Seg3",
+        "Amount": 119
+      },
+      {
+        "City": "City081",
+        "Segment": "Seg1",
+        "Amount": 35
+      },
+      {
+        "City": "City081",
+        "Segment": "Seg2",
+        "Amount": 209
+      },
+      {
+        "City": "City081",
+        "Segment": "Seg3",
+        "Amount": 319
+      },
+      {
+        "City": "City082",
+        "Segment": "Seg1",
+        "Amount": 175
+      },
+      {
+        "City": "City082",
+        "Segment": "Seg2",
+        "Amount": 23
+      },
+      {
+        "City": "City082",
+        "Segment": "Seg3",
+        "Amount": 206
+      },
+      {
+        "City": "City083",
+        "Segment": "Seg1",
+        "Amount": 259
+      },
+      {
+        "City": "City083",
+        "Segment": "Seg2",
+        "Amount": 191
+      },
+      {
+        "City": "City083",
+        "Segment": "Seg3",
+        "Amount": 479
+      },
+      {
+        "City": "City084",
+        "Segment": "Seg1",
+        "Amount": 54
+      },
+      {
+        "City": "City084",
+        "Segment": "Seg2",
+        "Amount": 421
+      },
+      {
+        "City": "City084",
+        "Segment": "Seg3",
+        "Amount": 171
+      },
+      {
+        "City": "City085",
+        "Segment": "Seg1",
+        "Amount": 63
+      },
+      {
+        "City": "City085",
+        "Segment": "Seg2",
+        "Amount": 20
+      },
+      {
+        "City": "City085",
+        "Segment": "Seg3",
+        "Amount": 340
+      },
+      {
+        "City": "City086",
+        "Segment": "Seg1",
+        "Amount": 58
+      },
+      {
+        "City": "City086",
+        "Segment": "Seg2",
+        "Amount": 329
+      },
+      {
+        "City": "City086",
+        "Segment": "Seg3",
+        "Amount": 49
+      },
+      {
+        "City": "City087",
+        "Segment": "Seg1",
+        "Amount": 352
+      },
+      {
+        "City": "City087",
+        "Segment": "Seg2",
+        "Amount": 253
+      },
+      {
+        "City": "City087",
+        "Segment": "Seg3",
+        "Amount": 304
+      },
+      {
+        "City": "City088",
+        "Segment": "Seg1",
+        "Amount": 35
+      },
+      {
+        "City": "City088",
+        "Segment": "Seg2",
+        "Amount": 156
+      },
+      {
+        "City": "City088",
+        "Segment": "Seg3",
+        "Amount": 125
+      },
+      {
+        "City": "City089",
+        "Segment": "Seg1",
+        "Amount": 246
+      },
+      {
+        "City": "City089",
+        "Segment": "Seg2",
+        "Amount": 36
+      },
+      {
+        "City": "City089",
+        "Segment": "Seg3",
+        "Amount": 371
+      },
+      {
+        "City": "City090",
+        "Segment": "Seg1",
+        "Amount": 453
+      },
+      {
+        "City": "City090",
+        "Segment": "Seg2",
+        "Amount": 149
+      },
+      {
+        "City": "City090",
+        "Segment": "Seg3",
+        "Amount": 158
+      },
+      {
+        "City": "City091",
+        "Segment": "Seg1",
+        "Amount": 482
+      },
+      {
+        "City": "City091",
+        "Segment": "Seg2",
+        "Amount": 102
+      },
+      {
+        "City": "City091",
+        "Segment": "Seg3",
+        "Amount": 45
+      },
+      {
+        "City": "City092",
+        "Segment": "Seg1",
+        "Amount": 379
+      },
+      {
+        "City": "City092",
+        "Segment": "Seg2",
+        "Amount": 395
+      },
+      {
+        "City": "City092",
+        "Segment": "Seg3",
+        "Amount": 248
+      },
+      {
+        "City": "City093",
+        "Segment": "Seg1",
+        "Amount": 188
+      },
+      {
+        "City": "City093",
+        "Segment": "Seg2",
+        "Amount": 299
+      },
+      {
+        "City": "City093",
+        "Segment": "Seg3",
+        "Amount": 155
+      },
+      {
+        "City": "City094",
+        "Segment": "Seg1",
+        "Amount": 252
+      },
+      {
+        "City": "City094",
+        "Segment": "Seg2",
+        "Amount": 156
+      },
+      {
+        "City": "City094",
+        "Segment": "Seg3",
+        "Amount": 278
+      },
+      {
+        "City": "City095",
+        "Segment": "Seg1",
+        "Amount": 125
+      },
+      {
+        "City": "City095",
+        "Segment": "Seg2",
+        "Amount": 487
+      },
+      {
+        "City": "City095",
+        "Segment": "Seg3",
+        "Amount": 134
+      },
+      {
+        "City": "City096",
+        "Segment": "Seg1",
+        "Amount": 458
+      },
+      {
+        "City": "City096",
+        "Segment": "Seg2",
+        "Amount": 212
+      },
+      {
+        "City": "City096",
+        "Segment": "Seg3",
+        "Amount": 267
+      },
+      {
+        "City": "City097",
+        "Segment": "Seg1",
+        "Amount": 354
+      },
+      {
+        "City": "City097",
+        "Segment": "Seg2",
+        "Amount": 84
+      },
+      {
+        "City": "City097",
+        "Segment": "Seg3",
+        "Amount": 69
+      },
+      {
+        "City": "City098",
+        "Segment": "Seg1",
+        "Amount": 322
+      },
+      {
+        "City": "City098",
+        "Segment": "Seg2",
+        "Amount": 38
+      },
+      {
+        "City": "City098",
+        "Segment": "Seg3",
+        "Amount": 253
+      },
+      {
+        "City": "City099",
+        "Segment": "Seg1",
+        "Amount": 449
+      },
+      {
+        "City": "City099",
+        "Segment": "Seg2",
+        "Amount": 436
+      },
+      {
+        "City": "City099",
+        "Segment": "Seg3",
+        "Amount": 462
+      },
+      {
+        "City": "City100",
+        "Segment": "Seg1",
+        "Amount": 190
+      },
+      {
+        "City": "City100",
+        "Segment": "Seg2",
+        "Amount": 245
+      },
+      {
+        "City": "City100",
+        "Segment": "Seg3",
+        "Amount": 491
+      },
+      {
+        "City": "City101",
+        "Segment": "Seg1",
+        "Amount": 226
+      },
+      {
+        "City": "City101",
+        "Segment": "Seg2",
+        "Amount": 459
+      },
+      {
+        "City": "City101",
+        "Segment": "Seg3",
+        "Amount": 277
+      },
+      {
+        "City": "City102",
+        "Segment": "Seg1",
+        "Amount": 427
+      },
+      {
+        "City": "City102",
+        "Segment": "Seg2",
+        "Amount": 314
+      },
+      {
+        "City": "City102",
+        "Segment": "Seg3",
+        "Amount": 70
+      },
+      {
+        "City": "City103",
+        "Segment": "Seg1",
+        "Amount": 373
+      },
+      {
+        "City": "City103",
+        "Segment": "Seg2",
+        "Amount": 415
+      },
+      {
+        "City": "City103",
+        "Segment": "Seg3",
+        "Amount": 230
+      },
+      {
+        "City": "City104",
+        "Segment": "Seg1",
+        "Amount": 137
+      },
+      {
+        "City": "City104",
+        "Segment": "Seg2",
+        "Amount": 336
+      },
+      {
+        "City": "City104",
+        "Segment": "Seg3",
+        "Amount": 24
+      },
+      {
+        "City": "City105",
+        "Segment": "Seg1",
+        "Amount": 443
+      },
+      {
+        "City": "City105",
+        "Segment": "Seg2",
+        "Amount": 270
+      },
+      {
+        "City": "City105",
+        "Segment": "Seg3",
+        "Amount": 450
+      },
+      {
+        "City": "City106",
+        "Segment": "Seg1",
+        "Amount": 129
+      },
+      {
+        "City": "City106",
+        "Segment": "Seg2",
+        "Amount": 15
+      },
+      {
+        "City": "City106",
+        "Segment": "Seg3",
+        "Amount": 88
+      },
+      {
+        "City": "City107",
+        "Segment": "Seg1",
+        "Amount": 249
+      },
+      {
+        "City": "City107",
+        "Segment": "Seg2",
+        "Amount": 148
+      },
+      {
+        "City": "City107",
+        "Segment": "Seg3",
+        "Amount": 330
+      },
+      {
+        "City": "City108",
+        "Segment": "Seg1",
+        "Amount": 227
+      },
+      {
+        "City": "City108",
+        "Segment": "Seg2",
+        "Amount": 169
+      },
+      {
+        "City": "City108",
+        "Segment": "Seg3",
+        "Amount": 225
+      },
+      {
+        "City": "City109",
+        "Segment": "Seg1",
+        "Amount": 450
+      },
+      {
+        "City": "City109",
+        "Segment": "Seg2",
+        "Amount": 192
+      },
+      {
+        "City": "City109",
+        "Segment": "Seg3",
+        "Amount": 419
+      },
+      {
+        "City": "City110",
+        "Segment": "Seg1",
+        "Amount": 196
+      },
+      {
+        "City": "City110",
+        "Segment": "Seg2",
+        "Amount": 76
+      },
+      {
+        "City": "City110",
+        "Segment": "Seg3",
+        "Amount": 487
+      },
+      {
+        "City": "City111",
+        "Segment": "Seg1",
+        "Amount": 14
+      },
+      {
+        "City": "City111",
+        "Segment": "Seg2",
+        "Amount": 487
+      },
+      {
+        "City": "City111",
+        "Segment": "Seg3",
+        "Amount": 416
+      },
+      {
+        "City": "City112",
+        "Segment": "Seg1",
+        "Amount": 87
+      },
+      {
+        "City": "City112",
+        "Segment": "Seg2",
+        "Amount": 312
+      },
+      {
+        "City": "City112",
+        "Segment": "Seg3",
+        "Amount": 456
+      },
+      {
+        "City": "City113",
+        "Segment": "Seg1",
+        "Amount": 316
+      },
+      {
+        "City": "City113",
+        "Segment": "Seg2",
+        "Amount": 394
+      },
+      {
+        "City": "City113",
+        "Segment": "Seg3",
+        "Amount": 418
+      },
+      {
+        "City": "City114",
+        "Segment": "Seg1",
+        "Amount": 291
+      },
+      {
+        "City": "City114",
+        "Segment": "Seg2",
+        "Amount": 21
+      },
+      {
+        "City": "City114",
+        "Segment": "Seg3",
+        "Amount": 408
+      },
+      {
+        "City": "City115",
+        "Segment": "Seg1",
+        "Amount": 439
+      },
+      {
+        "City": "City115",
+        "Segment": "Seg2",
+        "Amount": 486
+      },
+      {
+        "City": "City115",
+        "Segment": "Seg3",
+        "Amount": 111
+      },
+      {
+        "City": "City116",
+        "Segment": "Seg1",
+        "Amount": 186
+      },
+      {
+        "City": "City116",
+        "Segment": "Seg2",
+        "Amount": 150
+      },
+      {
+        "City": "City116",
+        "Segment": "Seg3",
+        "Amount": 470
+      },
+      {
+        "City": "City117",
+        "Segment": "Seg1",
+        "Amount": 266
+      },
+      {
+        "City": "City117",
+        "Segment": "Seg2",
+        "Amount": 309
+      },
+      {
+        "City": "City117",
+        "Segment": "Seg3",
+        "Amount": 323
+      },
+      {
+        "City": "City118",
+        "Segment": "Seg1",
+        "Amount": 437
+      },
+      {
+        "City": "City118",
+        "Segment": "Seg2",
+        "Amount": 30
+      },
+      {
+        "City": "City118",
+        "Segment": "Seg3",
+        "Amount": 159
+      },
+      {
+        "City": "City119",
+        "Segment": "Seg1",
+        "Amount": 344
+      },
+      {
+        "City": "City119",
+        "Segment": "Seg2",
+        "Amount": 154
+      },
+      {
+        "City": "City119",
+        "Segment": "Seg3",
+        "Amount": 311
+      },
+      {
+        "City": "City120",
+        "Segment": "Seg1",
+        "Amount": 253
+      },
+      {
+        "City": "City120",
+        "Segment": "Seg2",
+        "Amount": 267
+      },
+      {
+        "City": "City120",
+        "Segment": "Seg3",
+        "Amount": 263
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 134,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

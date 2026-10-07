@@ -1,0 +1,150 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "height_cm",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "weight_kg",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 376,
+      "continuousHeight": 319
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "athlete": "Chen",
+        "weight_kg": 55.1,
+        "height_cm": 178
+      },
+      {
+        "athlete": "Maria",
+        "weight_kg": 86.6,
+        "height_cm": 181
+      },
+      {
+        "athlete": "James",
+        "weight_kg": 85.9,
+        "height_cm": 164
+      },
+      {
+        "athlete": "Yuki",
+        "weight_kg": 80.2,
+        "height_cm": 160
+      },
+      {
+        "athlete": "Priya",
+        "weight_kg": 65.9,
+        "height_cm": 187
+      },
+      {
+        "athlete": "Lars",
+        "weight_kg": 78.4,
+        "height_cm": 192
+      },
+      {
+        "athlete": "Fatima",
+        "weight_kg": 97.7,
+        "height_cm": 194
+      },
+      {
+        "athlete": "Carlos",
+        "weight_kg": 95,
+        "height_cm": 195
+      },
+      {
+        "athlete": "Anna",
+        "weight_kg": 83.6,
+        "height_cm": 177
+      },
+      {
+        "athlete": "Kwame",
+        "weight_kg": 77.5,
+        "height_cm": 175
+      }
+    ]
+  },
+  "_width": 376,
+  "_height": 319,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "title": "Year-Month (YYYY-MM, 3 years) → Line Chart",
+  "description": "Year-month strings spanning 3 years: \"2020-01\", …, \"2022-12\" (36 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2020-01",
+          "Value": 544
+        },
+        {
+          "Date": "2020-02",
+          "Value": 150
+        },
+        {
+          "Date": "2020-03",
+          "Value": 253
+        },
+        {
+          "Date": "2020-04",
+          "Value": 62
+        },
+        {
+          "Date": "2020-05",
+          "Value": 346
+        },
+        {
+          "Date": "2020-06",
+          "Value": 321
+        },
+        {
+          "Date": "2020-07",
+          "Value": 205
+        },
+        {
+          "Date": "2020-08",
+          "Value": 517
+        },
+        {
+          "Date": "2020-09",
+          "Value": 263
+        },
+        {
+          "Date": "2020-10",
+          "Value": 200
+        },
+        {
+          "Date": "2020-11",
+          "Value": 139
+        },
+        {
+          "Date": "2020-12",
+          "Value": 86
+        },
+        {
+          "Date": "2021-01",
+          "Value": 250
+        },
+        {
+          "Date": "2021-02",
+          "Value": 495
+        },
+        {
+          "Date": "2021-03",
+          "Value": 213
+        },
+        {
+          "Date": "2021-04",
+          "Value": 123
+        },
+        {
+          "Date": "2021-05",
+          "Value": 160
+        },
+        {
+          "Date": "2021-06",
+          "Value": 417
+        },
+        {
+          "Date": "2021-07",
+          "Value": 52
+        },
+        {
+          "Date": "2021-08",
+          "Value": 351
+        },
+        {
+          "Date": "2021-09",
+          "Value": 413
+        },
+        {
+          "Date": "2021-10",
+          "Value": 282
+        },
+        {
+          "Date": "2021-11",
+          "Value": 427
+        },
+        {
+          "Date": "2021-12",
+          "Value": 139
+        },
+        {
+          "Date": "2022-01",
+          "Value": 67
+        },
+        {
+          "Date": "2022-02",
+          "Value": 237
+        },
+        {
+          "Date": "2022-03",
+          "Value": 270
+        },
+        {
+          "Date": "2022-04",
+          "Value": 452
+        },
+        {
+          "Date": "2022-05",
+          "Value": 284
+        },
+        {
+          "Date": "2022-06",
+          "Value": 247
+        },
+        {
+          "Date": "2022-07",
+          "Value": 480
+        },
+        {
+          "Date": "2022-08",
+          "Value": 310
+        },
+        {
+          "Date": "2022-09",
+          "Value": 275
+        },
+        {
+          "Date": "2022-10",
+          "Value": 281
+        },
+        {
+          "Date": "2022-11",
+          "Value": 227
+        },
+        {
+          "Date": "2022-12",
+          "Value": 278
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "title": "2 Rows — Bar",
+  "description": "2 row facets, 4 bars each. Should stack vertically.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "A",
+          "Value": 55,
+          "Row": "Electronics"
+        },
+        {
+          "Category": "B",
+          "Value": 104,
+          "Row": "Electronics"
+        },
+        {
+          "Category": "C",
+          "Value": 169,
+          "Row": "Electronics"
+        },
+        {
+          "Category": "D",
+          "Value": 199,
+          "Row": "Electronics"
+        },
+        {
+          "Category": "A",
+          "Value": 243,
+          "Row": "Clothing"
+        },
+        {
+          "Category": "B",
+          "Value": 144,
+          "Row": "Clothing"
+        },
+        {
+          "Category": "C",
+          "Value": 324,
+          "Row": "Clothing"
+        },
+        {
+          "Category": "D",
+          "Value": 548,
+          "Row": "Clothing"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Amount",
+      "Row": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "row": {
+          "field": "Row"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

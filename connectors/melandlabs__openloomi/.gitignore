@@ -1,0 +1,263 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# next.js
+.next/
+out/
+build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.test
+.env.production.local
+
+# turbo
+.turbo
+.next-build-home/
+
+.env
+.vercel
+.env*.local
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/*
+apps/*/test-results/
+apps/*/playwright-report/
+apps/*/blob-report/
+apps/*/playwright/*
+
+# Ts build info
+tsconfig.tsbuildinfo
+
+# settings
+.vscode
+.cursorignore
+
+# Telegram dependencies
+_td_database
+_td_files
+session_name.session*
+token.json
+
+# Electron
+/dist/
+/build/
+*.dmg
+*.exe
+*.AppImage
+*.deb
+*.rpm
+*.zip
+.electron-data/
+.data.db
+data.db
+
+# Electron local data
+.electron-data/
+*.log
+.env.electron
+
+/build/
+.vs/
+.vscode/
+.idea/
+venv
+.tmp/
+
+.pytest_cache
+__pycache__
+*.pyc
+build-result/
+dist/
+.eggs/
+.wwebjs_auth
+.wwebjs_cache
+.insight
+
+# Rust / Tauri
+src-tauri/target/
+src-tauri/Cargo.lock
+apps/*/src-tauri/target/
+apps/*/src-tauri/Cargo.lock
+
+# Tauri build output
+/src-tauri/target/
+*.dmg
+*.exe
+*.AppImage
+*.deb
+*.rpm
+*.app
+
+# Node.js runtime for Tauri (bundled during build)
+node-runtime/
+apps/*/node-runtime/
+
+cli-bundle/
+apps/*/cli-bundle/
+apps/*/src-tauri/cli/*
+!apps/*/src-tauri/cli/.gitkeep
+
+# Skills standalone build (copied during build, not needed)
+apps/skills/
+
+# Cursor rules
+.cursor
+# Claude rules
+.claude
+
+# Local notes
+Note.md
+
+# Real historical owner queries - must never be committed. Requirements MR-10
+# allows reason codes and identifiers to be explained, not query text retained.
+apps/web/scripts/lib/p4t2-scenario-queries.local.json
+apps/web/scripts/lib/p4t2-scenario-queries-expansion.local.json
+
+# Loomi pet design sources
+apps/web/public/loomi-pet/design/
+
+# Tauri bundled app resources (contains embedded .env with secrets)
+**/*.app/Contents/Resources/_up_/
+
+# pnpm-lock.yaml - kept in version control for reproducible builds
+
+# Large dataset files (downloaded separately)
+benchmark/longmemeval/dataset/*.json
+
+# Benchmark dev-junk backups (failed-fetch retries, scratch json fixes, etc.)
+# NOTE: keep real results/*.json tracked — they are the evidence in benchmark/README.md.
+benchmark/**/*.bak_before*
+
+# Native-agent LLM usage is now stored in the `llm_usage` DB table, not
+# on disk. Keep this section in case future per-user file artifacts are
+# reintroduced, but the line itself is currently a no-op.
+apps/web/data/
+
+# Benchmark results
+benchmark/clbench/results/*.json
+# Benchmark results
+benchmark/clbench/results/
+
+# --- Submodule reset: keep local benchmark source but exclude heavy/locals ---
+# Debug scripts (anywhere)
+__dbg_*.py
+__debug_*.py
+debug_*.py
+
+# Logs (any directory)
+logs/
+*_logs/
+harness_logs/
+*.log
+*.jsonl
+*.locked
+!scripts/**/*.log
+
+# Checkpoints and model weights
+checkpoints/
+*.ckpt
+*.pt
+*.pth
+*.h5
+*.pb
+*.onnx
+*.bin
+*.safetensors
+
+# Eval / benchmark outputs
+results/
+!results/README.md
+outputs/
+runs/
+wandb/
+
+# Virtual environments (anywhere)
+.venv/
+.venv38/
+venv/
+env/
+
+# Cloned upstream repos used by SWE-bench-CL eval
+cloned_repos/
+
+# GDPval-AA v2 openloomi-runner: debug scripts (transient, never committed)
+benchmark/GDPval-AA v2/openloomi-runner/scripts/
+
+# GDPval-AA v2 openloomi-runner: local Python launcher shims (developer-only)
+benchmark/GDPval-AA v2/openloomi-runner/.shims/
+
+# SWE-bench-CL eval: Python virtualenvs (per-Python-version, never committed)
+benchmark/SWE-bench-CL/eval_openloomi/.venv310/
+benchmark/SWE-bench-CL/eval_openloomi/.venv39/
+benchmark/SWE-bench-CL/eval_openloomi/.venv/
+
+# Exclude data/ under the 5 reset submodule paths (JSON datasets live separately)
+benchmark/SWE-bench-CL/data/
+benchmark/jobbench-official/dataset/
+benchmark/GDPval-AA v2/grader/GDPVal_Eval/results/
+
+# Paper PDFs (fetched separately)
+*.pdf
+
+# Local handoff / debug notes (contain environment-specific info)
+HANDOFF*.md
+HANDOFF_SUMMAR*.md
+*_handoff.md
+
+# Vendor: continual-learning-bench (vendored pgasawa/continual-learning-bench)
+# Top-level venv, datasets and run artifacts must never enter the repo.
+benchmark/continual-learning-bench/.venv/
+benchmark/continual-learning-bench/data/
+benchmark/continual-learning-bench/results/
+benchmark/continual-learning-bench/final_results/
+benchmark/continual-learning-bench/scratchpad/
+benchmark/continual-learning-bench/tmp/
+benchmark/continual-learning-bench/cl_benchmark.egg-info/
+benchmark/continual-learning-bench/.env
+benchmark/continual-learning-bench/.env.*
+!.env.example
+!.env.openloomi.example
+benchmark/continual-learning-bench/assets/
+benchmark/continual-learning-bench/web_app/
+
+# Override jobbench-official nested .gitignore (submodule boundary hides it)
+benchmark/jobbench-official/eval/logs/
+benchmark/jobbench-official/eval/.judge_tmp/
+benchmark/jobbench-official/opencode/
+benchmark/jobbench-official/.venv/
+
+# Secrets / API keys / credentials
+*.key
+*_key.txt
+*_key_.txt
+.openai_key*
+.openrouter_key*
+.qwen_key*
+*secret*
+*credentials*
+.env
+.env.*
+!.env.example

@@ -1,0 +1,155 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Timestamp",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "1999-07-02T16:43:38.181Z",
+          "2011-07-02T23:16:21.818Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 351,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Timestamp": "2000-01-01T08:00:00.000Z",
+        "Value": 186
+      },
+      {
+        "Timestamp": "2001-01-01T08:00:00.000Z",
+        "Value": 188
+      },
+      {
+        "Timestamp": "2002-01-01T08:00:00.000Z",
+        "Value": 91
+      },
+      {
+        "Timestamp": "2003-01-01T08:00:00.000Z",
+        "Value": 243
+      },
+      {
+        "Timestamp": "2004-01-01T08:00:00.000Z",
+        "Value": 366
+      },
+      {
+        "Timestamp": "2005-01-01T08:00:00.000Z",
+        "Value": 363
+      },
+      {
+        "Timestamp": "2006-01-01T08:00:00.000Z",
+        "Value": 305
+      },
+      {
+        "Timestamp": "2007-01-01T08:00:00.000Z",
+        "Value": 216
+      },
+      {
+        "Timestamp": "2008-01-01T08:00:00.000Z",
+        "Value": 155
+      },
+      {
+        "Timestamp": "2009-01-01T08:00:00.000Z",
+        "Value": 279
+      },
+      {
+        "Timestamp": "2010-01-01T08:00:00.000Z",
+        "Value": 112
+      },
+      {
+        "Timestamp": "2011-01-01T08:00:00.000Z",
+        "Value": 236
+      }
+    ]
+  },
+  "_width": 351,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

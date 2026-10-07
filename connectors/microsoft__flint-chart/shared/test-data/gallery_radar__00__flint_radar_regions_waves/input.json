@@ -1,0 +1,137 @@
+{
+  "title": "Flint: Radar — regions × waves (% )",
+  "description": "Each region is a series; each spoke is a survey wave.",
+  "chartType": "Radar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Wave": "2025-01-01",
+          "Score": 85,
+          "Region": "N"
+        },
+        {
+          "Wave": "2025-01-01",
+          "Score": 78,
+          "Region": "E"
+        },
+        {
+          "Wave": "2025-01-01",
+          "Score": 65,
+          "Region": "S"
+        },
+        {
+          "Wave": "2025-01-01",
+          "Score": 42,
+          "Region": "W"
+        },
+        {
+          "Wave": "2025-04-01",
+          "Score": 55,
+          "Region": "N"
+        },
+        {
+          "Wave": "2025-04-01",
+          "Score": 92,
+          "Region": "E"
+        },
+        {
+          "Wave": "2025-04-01",
+          "Score": 88,
+          "Region": "S"
+        },
+        {
+          "Wave": "2025-04-01",
+          "Score": 30,
+          "Region": "W"
+        },
+        {
+          "Wave": "2025-06-30",
+          "Score": 15,
+          "Region": "N"
+        },
+        {
+          "Wave": "2025-06-30",
+          "Score": 60,
+          "Region": "E"
+        },
+        {
+          "Wave": "2025-06-30",
+          "Score": 72,
+          "Region": "S"
+        },
+        {
+          "Wave": "2025-06-30",
+          "Score": 48,
+          "Region": "W"
+        },
+        {
+          "Wave": "2025-09-28",
+          "Score": 35,
+          "Region": "N"
+        },
+        {
+          "Wave": "2025-09-28",
+          "Score": 81,
+          "Region": "E"
+        },
+        {
+          "Wave": "2025-09-28",
+          "Score": 58,
+          "Region": "S"
+        },
+        {
+          "Wave": "2025-09-28",
+          "Score": 66,
+          "Region": "W"
+        },
+        {
+          "Wave": "2025-12-27",
+          "Score": 25,
+          "Region": "N"
+        },
+        {
+          "Wave": "2025-12-27",
+          "Score": 70,
+          "Region": "E"
+        },
+        {
+          "Wave": "2025-12-27",
+          "Score": 44,
+          "Region": "S"
+        },
+        {
+          "Wave": "2025-12-27",
+          "Score": 20,
+          "Region": "W"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Wave": "Date",
+      "Score": "Percentage",
+      "Region": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Radar Chart",
+      "encodings": {
+        "x": {
+          "field": "Wave"
+        },
+        "y": {
+          "field": "Score"
+        },
+        "color": {
+          "field": "Region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

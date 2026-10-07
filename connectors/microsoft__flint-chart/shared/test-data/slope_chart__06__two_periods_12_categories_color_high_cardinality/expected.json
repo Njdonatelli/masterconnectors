@@ -1,0 +1,227 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Period",
+      "type": "nominal",
+      "sort": [
+        "2021",
+        "2022"
+      ],
+      "scale": {
+        "padding": 0.4
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true,
+        "padding": 12
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Name",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau20"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "width": {
+    "step": 224
+  },
+  "data": {
+    "values": [
+      {
+        "Period": "2021",
+        "Name": "Alice",
+        "Value": 66
+      },
+      {
+        "Period": "2022",
+        "Name": "Alice",
+        "Value": 60
+      },
+      {
+        "Period": "2021",
+        "Name": "Bob",
+        "Value": 89
+      },
+      {
+        "Period": "2022",
+        "Name": "Bob",
+        "Value": 23
+      },
+      {
+        "Period": "2021",
+        "Name": "Charlie",
+        "Value": 81
+      },
+      {
+        "Period": "2022",
+        "Name": "Charlie",
+        "Value": 18
+      },
+      {
+        "Period": "2021",
+        "Name": "Diana",
+        "Value": 25
+      },
+      {
+        "Period": "2022",
+        "Name": "Diana",
+        "Value": 22
+      },
+      {
+        "Period": "2021",
+        "Name": "Eve",
+        "Value": 56
+      },
+      {
+        "Period": "2022",
+        "Name": "Eve",
+        "Value": 76
+      },
+      {
+        "Period": "2021",
+        "Name": "Frank",
+        "Value": 44
+      },
+      {
+        "Period": "2022",
+        "Name": "Frank",
+        "Value": 25
+      },
+      {
+        "Period": "2021",
+        "Name": "Grace",
+        "Value": 94
+      },
+      {
+        "Period": "2022",
+        "Name": "Grace",
+        "Value": 57
+      },
+      {
+        "Period": "2021",
+        "Name": "Hank",
+        "Value": 76
+      },
+      {
+        "Period": "2022",
+        "Name": "Hank",
+        "Value": 88
+      },
+      {
+        "Period": "2021",
+        "Name": "Ivy",
+        "Value": 44
+      },
+      {
+        "Period": "2022",
+        "Name": "Ivy",
+        "Value": 20
+      },
+      {
+        "Period": "2021",
+        "Name": "Jack",
+        "Value": 31
+      },
+      {
+        "Period": "2022",
+        "Name": "Jack",
+        "Value": 20
+      },
+      {
+        "Period": "2021",
+        "Name": "Kate",
+        "Value": 84
+      },
+      {
+        "Period": "2022",
+        "Name": "Kate",
+        "Value": 39
+      },
+      {
+        "Period": "2021",
+        "Name": "Leo",
+        "Value": 86
+      },
+      {
+        "Period": "2022",
+        "Name": "Leo",
+        "Value": 57
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

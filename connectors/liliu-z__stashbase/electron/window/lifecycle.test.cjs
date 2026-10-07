@@ -1,0 +1,212 @@
+'use strict';
+
+const assert = require('node:assert/strict');
+const test = require('node:test');
+
+const {
+  WINDOW_LIFECYCLE_CAPABILITY,
+  registerWindowLifecycle,
+} = require('../../dist/electron/window/lifecycle.cjs');
+
+function harness({ load = true, timeoutMs = 1_000 } = {}) {
+  const handlers = new Map();
+  const windowHandlers = new Map();
+  const webContentsHandlers = new Map();
+  const sent = [];
+  // The fullscreen mirror is its own stream, so the barrier tests below can
+  // keep counting their own messages.
+  const fullscreenSent = [];
+  const frame = { url: 'app://renderer/' };
+  let closeCalls = 0;
+  let fullscreen = false;
+  let blocked = 0;
+  const webContents = {
+    id: 41,
+    isDestroyed: () => false,
+    mainFrame: frame,
+    on: (event, handler) => webContentsHandlers.set(event, handler),
+    send: (channel, payload) =>
+      (channel === 'window:fullscreen' ? fullscreenSent : sent).push([channel, payload]),
+  };
+  const window = {
+    close: () => {
+      closeCalls += 1;
+    },
+    isDestroyed: () => false,
+    isFullScreen: () => fullscreen,
+    on: (event, handler) => windowHandlers.set(event, handler),
+    webContents,
+  };
+  const dependencies = {
+    onCloseBlocked: () => { blocked += 1; },
+    BrowserWindow: { fromWebContents: (candidate) => (candidate === webContents ? window : null) },
+    expectedOrigins: new Set(['app://renderer']),
+    hasCapability: (_window, capability) => capability === WINDOW_LIFECYCLE_CAPABILITY,
+    ipcMain: { handle: (channel, handler) => handlers.set(channel, handler) },
+    isLiveWindow: (candidate) => candidate === window,
+  };
+  const lifecycle = registerWindowLifecycle(dependencies, {
+    createRequestId: () => `request-${sent.length + 1}`,
+    timeoutMs,
+  });
+  lifecycle.attach(window);
+  const finishLoad = () => webContentsHandlers.get('did-finish-load')();
+  if (load) finishLoad();
+  const event = { sender: webContents, senderFrame: frame };
+  return {
+    close: (payload) => windowHandlers.get('close')(payload),
+    closeCalls: () => closeCalls,
+    blocked: () => blocked,
+    event,
+    finishLoad,
+    crash: () => webContentsHandlers.get('render-process-gone')(),
+    fullscreenSent,
+    handlers,
+    lifecycle,
+    sent,
+    setFullScreen: (value) => {
+      fullscreen = value;
+      windowHandlers.get(value ? 'enter-full-screen' : 'leave-full-screen')();
+    },
+    window,
+  };
+}
+
+test('native fullscreen is mirrored to the renderer on load and on every change', () => {
+  const setup = harness({ load: false });
+  assert.deepEqual(setup.fullscreenSent, []);
+  setup.finishLoad();
+  assert.deepEqual(setup.fullscreenSent, [['window:fullscreen', { fullscreen: false }]]);
+  setup.setFullScreen(true);
+  setup.setFullScreen(false);
+  assert.deepEqual(setup.fullscreenSent.slice(1), [
+    ['window:fullscreen', { fullscreen: true }],
+    ['window:fullscreen', { fullscreen: false }],
+  ]);
+  // The barrier's own stream saw none of it.
+  assert.deepEqual(setup.sent, []);
+});
+
+test('native close waits for the renderer barrier and remains open after failure', async () => {
+  const setup = harness();
+  let prevented = 0;
+  setup.close({
+    preventDefault: () => {
+      prevented += 1;
+    },
+  });
+  const request = setup.sent.at(-1)[1];
+  setup.close({
+    preventDefault: () => {
+      prevented += 1;
+    },
+  });
+  assert.equal(prevented, 2);
+  assert.equal(setup.sent.length, 1);
+  assert.equal(setup.closeCalls(), 0);
+
+  const ready = setup.handlers.get('window:context-release-ready');
+  await ready(setup.event, { ...request, ready: false });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(setup.closeCalls(), 0);
+  assert.equal(setup.blocked(), 1, 'a refusal revokes pending app-quit intent');
+
+  setup.close({
+    preventDefault: () => {
+      prevented += 1;
+    },
+  });
+  const retry = setup.sent.at(-1)[1];
+  await ready(setup.event, { ...retry, ready: true });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(setup.closeCalls(), 1);
+  assert.equal(setup.blocked(), 1, 'a successful retry does not revoke quit intent');
+});
+
+test('the active save barrier rejects mismatched senders, request IDs, and reasons', async () => {
+  const setup = harness();
+  const releasing = setup.lifecycle.requestContextRelease(setup.window, 'window-close');
+  const request = setup.sent.at(-1)[1];
+  const ready = setup.handlers.get('window:context-release-ready');
+  let settled = false;
+  void releasing.then(() => { settled = true; });
+  await ready({ ...setup.event, sender: { id: 99 } }, { ...request, ready: true });
+  await ready(setup.event, { ...request, requestId: 'stale-request', ready: true });
+  await ready(setup.event, { ...request, reason: 'update-install', ready: true });
+  assert.equal(settled, false);
+  await ready(setup.event, { ...request, ready: true });
+  assert.equal(await releasing, true);
+});
+
+test('native close remains blocked when its save barrier times out', async () => {
+  const setup = harness({ timeoutMs: 10 });
+  let prevented = false;
+  setup.close({ preventDefault: () => { prevented = true; } });
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  assert.equal(prevented, true);
+  assert.equal(setup.closeCalls(), 0);
+  assert.equal(setup.handlers.has('window:safe-reload'), false);
+});
+
+test('the lifecycle service reports renderer readiness only after the first load', () => {
+  const setup = harness({ load: false });
+  assert.equal(setup.lifecycle.hasLoadedRenderer(setup.window), false);
+  setup.finishLoad();
+  assert.equal(setup.lifecycle.hasLoadedRenderer(setup.window), true);
+});
+
+test('an update install release crosses the same renderer barrier', async () => {
+  const setup = harness();
+  const releasing = setup.lifecycle.requestContextRelease(setup.window, 'update-install');
+  assert.deepEqual(setup.sent.at(-1), [
+    'window:prepare-context-release',
+    { reason: 'update-install', requestId: 'request-1' },
+  ]);
+
+  const ready = setup.handlers.get('window:context-release-ready');
+  await ready(setup.event, { ...setup.sent.at(-1)[1], ready: true });
+  assert.equal(await releasing, true);
+  assert.equal(setup.closeCalls(), 0);
+});
+
+test('an approved close skips the barrier until the approval is revoked', async () => {
+  const setup = harness();
+  let prevented = 0;
+  const closeEvent = {
+    preventDefault: () => {
+      prevented += 1;
+    },
+  };
+
+  setup.lifecycle.approveClose(setup.window);
+  setup.close(closeEvent);
+  assert.equal(prevented, 0);
+  assert.equal(setup.sent.length, 0);
+
+  setup.lifecycle.revokeCloseApproval(setup.window);
+  setup.close(closeEvent);
+  assert.equal(prevented, 1);
+  assert.equal(setup.sent.length, 1);
+  assert.equal(setup.sent.at(-1)[1].reason, 'window-close');
+
+  const ready = setup.handlers.get('window:context-release-ready');
+  await ready(setup.event, { ...setup.sent.at(-1)[1], ready: false });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(setup.closeCalls(), 0);
+});
+
+
+test('a gone renderer releases an outstanding close and a reloaded renderer needs saving again', async () => {
+  const setup = harness();
+  const release = setup.lifecycle.requestContextRelease(setup.window, 'window-close');
+  setup.crash();
+  assert.equal(await release, true);
+  assert.equal(setup.lifecycle.hasLoadedRenderer(setup.window), false);
+  setup.close({ preventDefault: () => assert.fail('a crashed renderer cannot acknowledge') });
+  setup.finishLoad();
+  assert.equal(setup.lifecycle.hasLoadedRenderer(setup.window), true);
+  const next = setup.lifecycle.requestContextRelease(setup.window, 'window-close');
+  const request = setup.sent.at(-1)[1];
+  await setup.handlers.get('window:context-release-ready')(setup.event, { ...request, ready: false });
+  assert.equal(await next, false);
+});

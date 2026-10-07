@@ -1,0 +1,84 @@
+{
+  "title": "Predicted yield confidence band (numeric x)",
+  "description": "A confidence band around predicted crop yield over a numeric fertilizer dose",
+  "chartType": "Range Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Fertilizer (kg/ha)": 0,
+          "Yield Low": 26,
+          "Yield High": 34
+        },
+        {
+          "Fertilizer (kg/ha)": 20,
+          "Yield Low": 34,
+          "Yield High": 43.2
+        },
+        {
+          "Fertilizer (kg/ha)": 40,
+          "Yield Low": 41,
+          "Yield High": 51.4
+        },
+        {
+          "Fertilizer (kg/ha)": 60,
+          "Yield Low": 47.2,
+          "Yield High": 58.8
+        },
+        {
+          "Fertilizer (kg/ha)": 80,
+          "Yield Low": 52.6,
+          "Yield High": 65.4
+        },
+        {
+          "Fertilizer (kg/ha)": 100,
+          "Yield Low": 57,
+          "Yield High": 71
+        },
+        {
+          "Fertilizer (kg/ha)": 120,
+          "Yield Low": 60.6,
+          "Yield High": 75.8
+        },
+        {
+          "Fertilizer (kg/ha)": 140,
+          "Yield Low": 63.2,
+          "Yield High": 79.6
+        },
+        {
+          "Fertilizer (kg/ha)": 160,
+          "Yield Low": 65,
+          "Yield High": 82.6
+        },
+        {
+          "Fertilizer (kg/ha)": 180,
+          "Yield Low": 66,
+          "Yield High": 84.8
+        }
+      ]
+    },
+    "semantic_types": {
+      "Fertilizer (kg/ha)": "Quantity",
+      "Yield Low": "Quantity",
+      "Yield High": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Range Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Fertilizer (kg/ha)"
+        },
+        "y": {
+          "field": "Yield Low"
+        },
+        "y2": {
+          "field": "Yield High"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

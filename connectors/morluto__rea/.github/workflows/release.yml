@@ -1,0 +1,192 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+env:
+  HUSKY: "0"
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    name: Release Please
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          # A dedicated credential lets release-PR updates trigger CI. GitHub
+          # requires manual approval for pull_request events from GITHUB_TOKEN.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Check out release pull request
+        if: steps.release.outputs.prs_created == 'true'
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
+          persist-credentials: false
+
+      - name: Set up Node.js for generated documentation
+        if: steps.release.outputs.prs_created == 'true'
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+
+      - name: Install dependencies
+        if: steps.release.outputs.prs_created == 'true'
+        run: npm ci
+
+      - name: Regenerate release documentation
+        if: steps.release.outputs.prs_created == 'true'
+        run: npm run docs:generate
+
+      - name: Commit canonical release catalog
+        if: steps.release.outputs.prs_created == 'true'
+        shell: bash
+        env:
+          # Use the same identity for the follow-up commit so it also triggers CI.
+          GH_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          RELEASE_PR_JSON: ${{ steps.release.outputs.pr }}
+        run: |
+          release_pr_branch="$(node --input-type=module -e '
+            const value = JSON.parse(process.env.RELEASE_PR_JSON ?? "");
+            if (
+              typeof value !== "object" ||
+              value === null ||
+              typeof value.headBranchName !== "string" ||
+              value.headBranchName.length === 0
+            ) {
+              process.exit(1);
+            }
+            process.stdout.write(value.headBranchName);
+          ')"
+          changed_paths="$(git diff --name-only)"
+          if [[ -z "${changed_paths}" ]]; then
+            echo "Release documentation is already canonical."
+            exit 0
+          fi
+          if [[ "${changed_paths}" != "docs/product-catalog.json" ]]; then
+            echo "docs:generate changed unexpected tracked paths:" >&2
+            printf '%s\n' "${changed_paths}" >&2
+            exit 1
+          fi
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- docs/product-catalog.json
+          git commit -m "chore: normalize release product catalog"
+          gh auth setup-git
+          git push origin "HEAD:${release_pr_branch}"
+
+  publish:
+    name: Publish to npm
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+          registry-url: https://registry.npmjs.org
+
+      - run: npm ci
+
+      - name: Prepare Windows native build toolchain
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y g++-mingw-w64-x86-64
+
+      - name: Build and verify bundled Windows native controls
+        run: npm run build:windows-native && npm run verify:windows-native:artifact
+
+      - name: Verify packaged release before publishing
+        run: npm run verify:package
+
+      - name: Publish
+        shell: bash
+        run: |
+          version="$(node --input-type=module -e 'import packageJson from "./package.json" with { type: "json" }; process.stdout.write(packageJson.version)')"
+          published_version="$(npm view "rea-agents@${version}" version --json 2>/dev/null || true)"
+          if [ "${published_version}" = "\"${version}\"" ]; then
+            echo "rea-agents@${version} is already published; verifying the existing package."
+          else
+            npm publish --access public
+          fi
+
+      - name: Verify published CLI from npm
+        shell: bash
+        run: |
+          version="$(node --input-type=module -e 'import packageJson from "./package.json" with { type: "json" }; process.stdout.write(packageJson.version)')"
+          verification_root="$(mktemp -d)"
+          trap 'rm -rf -- "${verification_root}"' EXIT
+          cd "${verification_root}"
+          for attempt in $(seq 1 80); do
+            published_version="$(npm view --prefer-online "rea-agents@${version}" version --json 2>/dev/null || true)"
+            if [ "${published_version}" = "\"${version}\"" ]; then
+              echo "rea-agents@${version} is visible on npm after attempt ${attempt}; verifying the published CLI."
+              npm exec --yes --package="rea-agents@${version}" -- rea --help
+              npm exec --yes --package="rea-agents@${version}" -- rea --llms
+              node "${GITHUB_WORKSPACE}/scripts/verify-published-package.mjs" "${version}"
+              exit 0
+            else
+              echo "rea-agents@${version} is not visible on npm yet (attempt ${attempt}/80; up to 20 minutes)" >&2
+            fi
+            if [ "${attempt}" -lt 80 ]; then
+              sleep 15
+            fi
+          done
+          echo "rea-agents@${version} did not become visible on npm within 20 minutes" >&2
+          exit 1
+
+  publish-mcp:
+    name: Publish to MCP Registry
+    needs: [release-please, publish]
+    if: needs.release-please.outputs.release_created == 'true' && needs.publish.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+          persist-credentials: false
+
+      - name: Verify package and registry metadata versions
+        run: npm run mcp-registry:check
+
+      - name: Install MCP Registry publisher
+        env:
+          MCP_PUBLISHER_VERSION: v1.8.0
+          MCP_PUBLISHER_SHA256_LINUX_AMD64: 1370446bbe74d562608e8005a6ccce02d146a661fbd78674e11cc70b9618d6cf
+        run: |
+          archive="mcp-publisher_linux_amd64.tar.gz"
+          curl -fsSLo "${archive}" \
+            "https://github.com/modelcontextprotocol/registry/releases/download/${MCP_PUBLISHER_VERSION}/${archive}"
+          echo "${MCP_PUBLISHER_SHA256_LINUX_AMD64}  ${archive}" | sha256sum --check --strict
+          tar xzf "${archive}" mcp-publisher
+          chmod +x mcp-publisher
+
+      - name: Validate MCP Registry metadata
+        run: ./mcp-publisher validate
+
+      - name: Authenticate to MCP Registry
+        run: ./mcp-publisher login github-oidc
+
+      - name: Publish MCP Registry metadata
+        run: ./mcp-publisher publish

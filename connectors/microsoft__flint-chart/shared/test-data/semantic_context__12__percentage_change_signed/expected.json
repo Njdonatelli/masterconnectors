@@ -1,0 +1,150 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "stock",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "ytd_change",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ".1~%"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "stock": "AAPL",
+        "ytd_change": -0.298,
+        "market_cap_B": 2416
+      },
+      {
+        "stock": "GOOG",
+        "ytd_change": 0.193,
+        "market_cap_B": 2205
+      },
+      {
+        "stock": "MSFT",
+        "ytd_change": 0.029,
+        "market_cap_B": 2745
+      },
+      {
+        "stock": "AMZN",
+        "ytd_change": 0.233,
+        "market_cap_B": 233
+      },
+      {
+        "stock": "META",
+        "ytd_change": -0.135,
+        "market_cap_B": 796
+      },
+      {
+        "stock": "TSLA",
+        "ytd_change": 0.265,
+        "market_cap_B": 2899
+      },
+      {
+        "stock": "NVDA",
+        "ytd_change": 0.269,
+        "market_cap_B": 1562
+      },
+      {
+        "stock": "AMD",
+        "ytd_change": 0.342,
+        "market_cap_B": 1201
+      },
+      {
+        "stock": "NFLX",
+        "ytd_change": 0.094,
+        "market_cap_B": 1712
+      },
+      {
+        "stock": "DIS",
+        "ytd_change": 0.242,
+        "market_cap_B": 812
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

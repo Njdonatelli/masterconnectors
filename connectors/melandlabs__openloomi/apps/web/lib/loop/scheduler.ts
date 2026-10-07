@@ -1,0 +1,380 @@
+/**
+ * Loop scheduler — Loop's three recurring jobs (tick / brief / wrap) are
+ * ScheduledJob rows in the existing `scheduled_jobs` table, dispatched
+ * through the cron executor's `customJobHandlers` registry. This means
+ * the existing `lib/cron/local-scheduler.ts` polls the table every minute
+ * and runs due jobs the same way it runs character agent-tasks — no
+ * bespoke Croner/setInterval loop here, no duplicated cron parsing.
+ *
+ * On boot (instrumentation.ts) we register the three handlers
+ * ("loop.tick" / "loop.brief" / "loop.wrap") and idempotently ensure the
+ * three ScheduledJob rows exist on the active user, mirroring the current
+ * ~/.openloomi/loop/config.json preferences. Settings changes route
+ * through `syncLoopJobsForUser()` so the schedule on disk always tracks
+ * the user's last save.
+ *
+ * Public surface kept stable so call-sites (cli.ts, server.ts,
+ * instrumentation.ts, /api/loop/preferences) don't need to change:
+ *   start() / stop() / isStarted() / status() / briefTimeToCron()
+ */
+
+import { createJob, deleteJob, listJobs, updateJob } from "@/lib/cron/service";
+import type { ScheduleConfig } from "@/lib/cron/types";
+
+import { registerLoopHandlers } from "./handlers";
+import { readPreferences } from "./preferences";
+import { log } from "./store";
+
+/**
+ * Active user under whose account loop ScheduledJob rows live. The
+ * /api/scheduled-jobs/internal/scheduler route sets this via
+ * `setSchedulerUserId()`; we mirror it locally so ensureLoopJobs runs
+ * against the same user that the existing local-scheduler is filtering
+ * due-jobs for. Stays null at instrumentation time (no auth yet) — we
+ * can't insert into `scheduled_jobs.userId` without a real `User` row to
+ * satisfy the FK, so row creation is deferred to the auth-aware path.
+ */
+let activeUserId: string | null = null;
+let lastEnsuredAt = 0;
+
+/* ------------------------------------------------------------------ */
+/* Public job-name constants                                          */
+/* ------------------------------------------------------------------ */
+
+/**
+ * `name` is what's stored in `scheduled_jobs.name` and matched by
+ * `findJobByName`, so it must stay stable per-kind. We keep the `Loop: …`
+ * prefix so the manual recovery script's `WHERE name LIKE 'Loop:%'`
+ * filter (apps/web/scripts/recreate-loop-jobs.mjs) keeps working, then
+ * follow with a short English gloss of what the job actually does.
+ * `LOOP_JOB_DESCRIPTIONS` below carries the long-form explanation that
+ * gets written to `scheduled_jobs.description`.
+ */
+export const LOOP_JOB_NAMES = {
+  tick: "Loop: tick · pull signals & classify decisions",
+  brief: "Loop: brief · build morning brief card",
+  wrap: "Loop: wrap · build evening wrap card",
+} as const;
+
+export const LOOP_JOB_DESCRIPTIONS: Record<
+  keyof typeof LOOP_JOB_NAMES,
+  string
+> = {
+  tick: "Runs the Loop brain on a recurring interval (default 10 minutes, configurable in preferences). Each tick first pulls new events from connected integrations via the watcher and appends them to signals.jsonl, then runs the tick pipeline against a 2-hour lookback — scans incoming signals, classifies them, and surfaces or mutes candidate decisions. Returns a LoopTickResult with scanned / surfaced / muted counts; failures are caught and logged to jobExecutions with status:error.",
+  brief:
+    "Runs daily at the user's configured morning brief time. Reads the day's pending decisions, builds a brief snapshot with the day's priorities, and enqueues a `type:\"brief\"` decision card titled `Morning brief · YYYY-MM-DD` so it shows up in the pet / inbox / web UI. The card lists N priorities with a short dialogue line — `Morning: N priorities queued — top one is X` — plus tap-to-expand affordances and a nextStep hint for the user.",
+  wrap: "Runs daily at the user's configured evening wrap time. Reads today's completed / dismissed / pending decisions, builds a wrap snapshot with the day's highlights, and enqueues a `type:\"wrap\"` decision card titled `Evening wrap · YYYY-MM-DD`. The card summarizes done / dismissed / still-pending counts — `Night: wrapped N today — latest was X` — and points the user at the next morning brief for any leftovers.",
+};
+
+type LoopJobKind = keyof typeof LOOP_JOB_NAMES;
+
+/* ------------------------------------------------------------------ */
+/* Helpers                                                            */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Convert "HH:MM" 24h local time into a 5-field cron expression. Returns
+ * null for malformed input so callers can decide what to do (the
+ * existing local-scheduler accepts ScheduleConfig objects directly).
+ */
+export function briefTimeToCron(time: string): string | null {
+  const m = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(time.trim());
+  if (!m) return null;
+  return `${m[2]} ${m[1]} * * *`;
+}
+
+/** Find the existing loop job row for this user by display name. */
+async function findJobByName(userId: string, name: string) {
+  const jobs = await listJobs(userId, { includeDisabled: true });
+  return jobs.find((j: { name: string }) => j.name === name) ?? null;
+}
+
+/**
+ * Resolve the timezone to attach to loop's cron rows. Priority:
+ *   1. `prefs.timezone` — the user normally sets this from their browser
+ *      via the settings panel PUT; for a containerised web server this is
+ *      *the* source of truth since the server's own `Intl` is usually UTC.
+ *   2. the runtime's IANA timezone via `Intl.DateTimeFormat()` — works for
+ *      CLI / Tauri where the runtime is on the user's machine.
+ *   3. `"UTC"` — never fall back here in production; kept only for SSR /
+ *      sandboxed envs without a working Intl.
+ *
+ * We *don't* default to "UTC" because that produces the 8h drift the user
+ * reported: croner's `nextRun()` is wall-clock-anchored to the supplied
+ * timezone, so a 09:00 cron in UTC fires at 17:00 in CST.
+ */
+function resolveTimezone(prefs?: { timezone?: string }): string {
+  const fromPrefs = (prefs?.timezone ?? "").trim();
+  if (fromPrefs) return fromPrefs;
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (tz) return tz;
+  } catch {
+    /* SSR / sandboxed env without Intl — fall through */
+  }
+  return "UTC";
+}
+
+/** Compute the ScheduleConfig for one loop job from current prefs. */
+function scheduleFor(
+  kind: LoopJobKind,
+  prefs: ReturnType<typeof readPreferences>,
+  timezone: string,
+): ScheduleConfig {
+  if (kind === "tick") {
+    const minutes = Math.max(1, Math.round(prefs.intervalSec / 60));
+    return { type: "interval-minutes", minutes };
+  }
+  // #417 — when the user has *not* opted into brief / wrap, the
+  // matching `prefs.{briefTime,wrapTime}` is `null`. The caller in
+  // `ensureLoopJobs` short-circuits before us in that case (so we
+  // never produce a ScheduleConfig for a job that's been turned off),
+  // but if some other entry path ever reaches us we still refuse to
+  // synthesise a fake cron expression — falling back to a 24-hour
+  // interval would silently keep the job alive. Return a clearly
+  // bogus 1-minute interval whose nextRunAt the caller can recognise
+  // and delete.
+  const time = kind === "brief" ? prefs.briefTime : prefs.wrapTime;
+  if (time === null || time === undefined) {
+    // Sentinel — `ensureLoopJobs` checks for this and treats it as
+    // "row should not exist".
+    return { type: "interval-minutes", minutes: 1 };
+  }
+  const expr = briefTimeToCron(time);
+  if (!expr) return { type: "interval-minutes", minutes: 60 }; // safe fallback
+  // CRITICAL: include `timezone` in the ScheduleConfig. `updateJob`'s
+  // recompute path (`computeNextRun(updates.schedule, now)`) feeds
+  // `schedule.timezone` straight to croner — if it's missing, croner
+  // falls back to UTC and the row's `next_run_at` lands on a UTC wall
+  // clock instead of the user's local one (the original 8h drift bug).
+  return { type: "cron", expression: expr, timezone };
+}
+
+/** True when `kind` should have a ScheduledJob row in this prefs shape.
+ *  Returns false for brief/wrap when the user has opted out via a null
+ *  time (#417). The tick row is always kept (gated by `prefs.enabled`
+ *  inside `ensureLoopJobs` instead).
+ */
+function isJobWanted(
+  kind: LoopJobKind,
+  prefs: ReturnType<typeof readPreferences>,
+): boolean {
+  if (kind === "tick") return true;
+  const time = kind === "brief" ? prefs.briefTime : prefs.wrapTime;
+  if (time === null || time === undefined) return false;
+  return briefTimeToCron(time) !== null;
+}
+
+function jobConfigFor(kind: LoopJobKind) {
+  return { type: "custom" as const, handler: `loop.${kind}` as const };
+}
+
+/** Resolve which user loop jobs should belong to. */
+function resolveUserId(userId?: string): string | null {
+  if (userId) return userId;
+  if (activeUserId) return activeUserId;
+  return null;
+}
+
+/* ------------------------------------------------------------------ */
+/* Cron-equivalent: idempotent ensureLoopJobs                         */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Idempotently create or update the three loop ScheduledJob rows so they
+ * reflect current preferences. Safe to call repeatedly — re-runs with the
+ * same prefs are no-ops at the SQL level (no spurious lastRunAt bumps).
+ *
+ * When no user id is available (e.g. instrumentation-time boot before
+ * auth has happened), this is a no-op. The job rows have a FK on
+ * `User.id`, so we cannot insert against a phantom id — the rows are
+ * reconciled later via `syncLoopJobsForUser()` once the runtime knows
+ * who's logged in.
+ */
+export async function ensureLoopJobs(
+  prefs: ReturnType<typeof readPreferences>,
+  userId?: string,
+): Promise<{ created: string[]; updated: string[]; skipped: string[] }> {
+  const uid = resolveUserId(userId);
+  if (!uid) {
+    return { created: [], updated: [], skipped: [] };
+  }
+  activeUserId = uid;
+  const enabled = prefs.enabled;
+  const timezone = resolveTimezone(prefs);
+  const summary = {
+    created: [] as string[],
+    updated: [] as string[],
+    skipped: [] as string[],
+  };
+
+  for (const kind of Object.keys(LOOP_JOB_NAMES) as LoopJobKind[]) {
+    const name = LOOP_JOB_NAMES[kind];
+    const job = jobConfigFor(kind);
+    const desiredEnabled = enabled;
+
+    // #417 — opt-in shape: brief / wrap are removed (not just disabled)
+    // when the user has cleared the time. The cleanest way to keep this
+    // idempotent is to delete the row if it exists, and skip creation.
+    if (!isJobWanted(kind, prefs)) {
+      const existing = await findJobByName(uid, name);
+      if (existing) {
+        await deleteJob(uid, existing.id);
+        summary.updated.push(name);
+        log(`[scheduler] deleted ${name} (job disabled by prefs)`);
+      } else {
+        summary.skipped.push(name);
+      }
+      continue;
+    }
+
+    const schedule = scheduleFor(kind, prefs, timezone);
+
+    const existing = await findJobByName(uid, name);
+    if (!existing) {
+      await createJob(uid, {
+        name,
+        description: LOOP_JOB_DESCRIPTIONS[kind],
+        schedule,
+        job,
+        enabled: desiredEnabled,
+        timezone,
+      });
+      summary.created.push(name);
+      log(
+        `[scheduler] created ${name} enabled=${desiredEnabled} tz=${timezone}`,
+      );
+      continue;
+    }
+
+    // Cheap delta check — only touch the row when something changed.
+    const sameSchedule =
+      existing.scheduleType === schedule.type &&
+      (schedule.type !== "cron" ||
+        existing.cronExpression === schedule.expression) &&
+      (schedule.type !== "interval-minutes" ||
+        existing.intervalMinutes === schedule.minutes);
+    const sameEnabled = existing.enabled === desiredEnabled;
+    const sameTimezone = (existing.timezone ?? "UTC") === timezone;
+
+    const existingCfgStr =
+      typeof existing.jobConfig === "string"
+        ? existing.jobConfig
+        : JSON.stringify(existing.jobConfig);
+    const sameHandler = existingCfgStr.includes(`"handler":"loop.${kind}"`);
+
+    if (sameSchedule && sameEnabled && sameHandler && sameTimezone) {
+      summary.skipped.push(name);
+      continue;
+    }
+
+    const patch: Parameters<typeof updateJob>[2] = {};
+    if (!sameSchedule) patch.schedule = schedule;
+    if (!sameEnabled) patch.enabled = desiredEnabled;
+    if (!sameHandler) patch.job = job;
+    if (!sameTimezone) {
+      // `updateJob` only recomputes `nextRunAt` when `updates.schedule` is
+      // also supplied (see lib/cron/service.ts updateJob — the recompute
+      // lives inside the `if (updates.schedule)` branch). For Loop a
+      // timezone drift alone is enough to invalidate the existing
+      // `nextRunAt` because croner anchors the cron to wall-clock in that
+      // tz. So when we're patching timezone, we *also* re-supply the
+      // schedule so the row gets a fresh nextRunAt computed against the
+      // new tz.
+      patch.timezone = timezone;
+      patch.schedule = schedule;
+    }
+
+    await updateJob(uid, existing.id, patch);
+    summary.updated.push(name);
+    log(`[scheduler] updated ${name} enabled=${desiredEnabled} tz=${timezone}`);
+  }
+
+  lastEnsuredAt = Date.now();
+  return summary;
+}
+
+/** Drop the three loop rows for the active user (used when loop is off). */
+export async function removeLoopJobs(userId?: string): Promise<void> {
+  const uid = resolveUserId(userId);
+  if (!uid) return;
+  for (const name of Object.values(LOOP_JOB_NAMES)) {
+    const job = await findJobByName(uid, name);
+    if (job) {
+      await deleteJob(uid, job.id);
+      log(`[scheduler] removed ${name}`);
+    }
+  }
+}
+
+/**
+ * Public hook for the settings panel: re-sync the rows from prefs after
+ * a PUT, no matter which user the runtime is currently scoped to.
+ */
+export async function syncLoopJobsForUser(userId: string): Promise<void> {
+  registerLoopHandlers();
+  const prefs = readPreferences();
+  await ensureLoopJobs(prefs, userId);
+}
+
+/**
+ * Set the runtime's active user without touching jobs. Called by
+ * instrumented routes (existing /api/scheduled-jobs/internal/scheduler)
+ * that already know the user id, or by the loop prefs handler.
+ */
+export function setActiveUser(userId: string | null): void {
+  activeUserId = userId;
+}
+
+/* ------------------------------------------------------------------ */
+/* Boot / lifecycle                                                   */
+/* ------------------------------------------------------------------ */
+
+let started = false;
+
+/**
+ * Boot-time entrypoint used by instrumentation.ts. Registers handlers
+ * so the cron executor can dispatch `loop.tick` / `loop.brief` / `loop.wrap`
+ * as soon as a row with that handler name is created. Row creation itself
+ * is deferred to the auth-aware path: the existing
+ * `/api/scheduled-jobs/internal/scheduler` route calls
+ * `syncLoopJobsForUser(userId)` once it has resolved a real userId, and
+ * the settings panel PUT path does the same. We can't insert against the
+ * `User` FK at instrumentation time because no user is logged in yet.
+ */
+export async function start(userId?: string): Promise<void> {
+  registerLoopHandlers();
+  if (userId) activeUserId = userId;
+  started = true;
+}
+
+/** Stop hook. Execution lives in the local-scheduler; we only clear state. */
+export function stop(): void {
+  started = false;
+  activeUserId = null;
+}
+
+export function isStarted(): boolean {
+  return started;
+}
+
+export function status(): {
+  started: boolean;
+  tickIntervalSec: number;
+  briefTime: string | null;
+  wrapTime: string | null;
+  enabled: boolean;
+  activeUserId: string | null;
+  lastEnsuredAt: string | null;
+} {
+  const prefs = readPreferences();
+  return {
+    started,
+    tickIntervalSec: prefs.intervalSec,
+    briefTime: prefs.briefTime,
+    wrapTime: prefs.wrapTime,
+    enabled: prefs.enabled,
+    activeUserId,
+    lastEnsuredAt: lastEnsuredAt ? new Date(lastEnsuredAt).toISOString() : null,
+  };
+}

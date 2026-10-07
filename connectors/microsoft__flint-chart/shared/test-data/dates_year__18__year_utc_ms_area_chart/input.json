@@ -1,0 +1,81 @@
+{
+  "title": "Year (UTC ms) → Area Chart",
+  "description": "Years as UTC timestamps in ms: 946684800000, … (12 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Timestamp": 946713600000,
+          "Value": 295
+        },
+        {
+          "Timestamp": 978336000000,
+          "Value": 412
+        },
+        {
+          "Timestamp": 1009872000000,
+          "Value": 225
+        },
+        {
+          "Timestamp": 1041408000000,
+          "Value": 146
+        },
+        {
+          "Timestamp": 1072944000000,
+          "Value": 467
+        },
+        {
+          "Timestamp": 1104566400000,
+          "Value": 221
+        },
+        {
+          "Timestamp": 1136102400000,
+          "Value": 503
+        },
+        {
+          "Timestamp": 1167638400000,
+          "Value": 305
+        },
+        {
+          "Timestamp": 1199174400000,
+          "Value": 67
+        },
+        {
+          "Timestamp": 1230796800000,
+          "Value": 124
+        },
+        {
+          "Timestamp": 1262332800000,
+          "Value": 330
+        },
+        {
+          "Timestamp": 1293868800000,
+          "Value": 435
+        }
+      ]
+    },
+    "semantic_types": {
+      "Timestamp": "Timestamp",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Timestamp"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

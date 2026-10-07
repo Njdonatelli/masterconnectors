@@ -1,0 +1,208 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Decade",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Decade": "1950s",
+        "Value": 368,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1950s",
+        "Value": 489,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1950s",
+        "Value": 282,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1960s",
+        "Value": 437,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1960s",
+        "Value": 425,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1960s",
+        "Value": 269,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1970s",
+        "Value": 97,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1970s",
+        "Value": 271,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1970s",
+        "Value": 515,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1980s",
+        "Value": 236,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1980s",
+        "Value": 201,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1980s",
+        "Value": 322,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1990s",
+        "Value": 535,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1990s",
+        "Value": 513,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1990s",
+        "Value": 506,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "2000s",
+        "Value": 531,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "2000s",
+        "Value": 519,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "2000s",
+        "Value": 133,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "2010s",
+        "Value": 160,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "2010s",
+        "Value": 525,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "2010s",
+        "Value": 233,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "2020s",
+        "Value": 190,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "2020s",
+        "Value": 534,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "2020s",
+        "Value": 515,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

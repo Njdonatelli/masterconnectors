@@ -1,0 +1,1036 @@
+{
+  "width": 300,
+  "height": 300,
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "__type": "spoke",
+            "__x": 0,
+            "__y": 0,
+            "__x2": 0,
+            "__y2": -1
+          },
+          {
+            "__type": "spoke",
+            "__x": 0,
+            "__y": 0,
+            "__x2": 0.9510565162951535,
+            "__y2": -0.30901699437494745
+          },
+          {
+            "__type": "spoke",
+            "__x": 0,
+            "__y": 0,
+            "__x2": 0.5877852522924732,
+            "__y2": 0.8090169943749473
+          },
+          {
+            "__type": "spoke",
+            "__x": 0,
+            "__y": 0,
+            "__x2": -0.587785252292473,
+            "__y2": 0.8090169943749475
+          },
+          {
+            "__type": "spoke",
+            "__x": 0,
+            "__y": 0,
+            "__x2": -0.9510565162951536,
+            "__y2": -0.30901699437494723
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#ddd",
+        "strokeWidth": 0.8
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -1.18,
+              1.18
+            ]
+          },
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -1.18,
+              1.18
+            ]
+          },
+          "axis": null
+        },
+        "x2": {
+          "field": "__x2"
+        },
+        "y2": {
+          "field": "__y2"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__type": "ring",
+            "__level": 0.25,
+            "__x": 0,
+            "__y": -0.25,
+            "__x2": 0.23776412907378838,
+            "__y2": -0.07725424859373686
+          },
+          {
+            "__type": "ring",
+            "__level": 0.25,
+            "__x": 0.23776412907378838,
+            "__y": -0.07725424859373686,
+            "__x2": 0.1469463130731183,
+            "__y2": 0.20225424859373684
+          },
+          {
+            "__type": "ring",
+            "__level": 0.25,
+            "__x": 0.1469463130731183,
+            "__y": 0.20225424859373684,
+            "__x2": -0.14694631307311826,
+            "__y2": 0.20225424859373686
+          },
+          {
+            "__type": "ring",
+            "__level": 0.25,
+            "__x": -0.14694631307311826,
+            "__y": 0.20225424859373686,
+            "__x2": -0.2377641290737884,
+            "__y2": -0.07725424859373681
+          },
+          {
+            "__type": "ring",
+            "__level": 0.25,
+            "__x": -0.2377641290737884,
+            "__y": -0.07725424859373681,
+            "__x2": 0,
+            "__y2": -0.25
+          },
+          {
+            "__type": "ring",
+            "__level": 0.5,
+            "__x": 0,
+            "__y": -0.5,
+            "__x2": 0.47552825814757677,
+            "__y2": -0.15450849718747373
+          },
+          {
+            "__type": "ring",
+            "__level": 0.5,
+            "__x": 0.47552825814757677,
+            "__y": -0.15450849718747373,
+            "__x2": 0.2938926261462366,
+            "__y2": 0.40450849718747367
+          },
+          {
+            "__type": "ring",
+            "__level": 0.5,
+            "__x": 0.2938926261462366,
+            "__y": 0.40450849718747367,
+            "__x2": -0.2938926261462365,
+            "__y2": 0.4045084971874737
+          },
+          {
+            "__type": "ring",
+            "__level": 0.5,
+            "__x": -0.2938926261462365,
+            "__y": 0.4045084971874737,
+            "__x2": -0.4755282581475768,
+            "__y2": -0.15450849718747361
+          },
+          {
+            "__type": "ring",
+            "__level": 0.5,
+            "__x": -0.4755282581475768,
+            "__y": -0.15450849718747361,
+            "__x2": 0,
+            "__y2": -0.5
+          },
+          {
+            "__type": "ring",
+            "__level": 0.75,
+            "__x": 0,
+            "__y": -0.75,
+            "__x2": 0.7132923872213651,
+            "__y2": -0.2317627457812106
+          },
+          {
+            "__type": "ring",
+            "__level": 0.75,
+            "__x": 0.7132923872213651,
+            "__y": -0.2317627457812106,
+            "__x2": 0.4408389392193549,
+            "__y2": 0.6067627457812105
+          },
+          {
+            "__type": "ring",
+            "__level": 0.75,
+            "__x": 0.4408389392193549,
+            "__y": 0.6067627457812105,
+            "__x2": -0.4408389392193548,
+            "__y2": 0.6067627457812106
+          },
+          {
+            "__type": "ring",
+            "__level": 0.75,
+            "__x": -0.4408389392193548,
+            "__y": 0.6067627457812106,
+            "__x2": -0.7132923872213652,
+            "__y2": -0.23176274578121042
+          },
+          {
+            "__type": "ring",
+            "__level": 0.75,
+            "__x": -0.7132923872213652,
+            "__y": -0.23176274578121042,
+            "__x2": 0,
+            "__y2": -0.75
+          },
+          {
+            "__type": "ring",
+            "__level": 1,
+            "__x": 0,
+            "__y": -1,
+            "__x2": 0.9510565162951535,
+            "__y2": -0.30901699437494745
+          },
+          {
+            "__type": "ring",
+            "__level": 1,
+            "__x": 0.9510565162951535,
+            "__y": -0.30901699437494745,
+            "__x2": 0.5877852522924732,
+            "__y2": 0.8090169943749473
+          },
+          {
+            "__type": "ring",
+            "__level": 1,
+            "__x": 0.5877852522924732,
+            "__y": 0.8090169943749473,
+            "__x2": -0.587785252292473,
+            "__y2": 0.8090169943749475
+          },
+          {
+            "__type": "ring",
+            "__level": 1,
+            "__x": -0.587785252292473,
+            "__y": 0.8090169943749475,
+            "__x2": -0.9510565162951536,
+            "__y2": -0.30901699437494723
+          },
+          {
+            "__type": "ring",
+            "__level": 1,
+            "__x": -0.9510565162951536,
+            "__y": -0.30901699437494723,
+            "__x2": 0,
+            "__y2": -1
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#e0e0e0",
+        "strokeWidth": 0.6
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "x2": {
+          "field": "__x2"
+        },
+        "y2": {
+          "field": "__y2"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__label": [
+              "Quality",
+              "(100)"
+            ],
+            "__x": 0,
+            "__y": -1.15,
+            "__align": "center",
+            "__baseline": "bottom",
+            "__dx": 0,
+            "__dy": -4
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fill": "#555",
+        "align": "center",
+        "baseline": "bottom",
+        "dx": 0,
+        "dy": -4,
+        "limit": 120,
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "text": {
+          "value": [
+            "Quality",
+            "(100)"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__label": [
+              "Price",
+              "(100)"
+            ],
+            "__x": 1.0937149937394264,
+            "__y": -0.35536954353118955,
+            "__align": "left",
+            "__baseline": "bottom",
+            "__dx": 4,
+            "__dy": 0
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fill": "#555",
+        "align": "left",
+        "baseline": "bottom",
+        "dx": 4,
+        "dy": 0,
+        "limit": 120,
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "text": {
+          "value": [
+            "Price",
+            "(100)"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__label": [
+              "Durability",
+              "(100)"
+            ],
+            "__x": 0.6759530401363442,
+            "__y": 0.9303695435311894,
+            "__align": "left",
+            "__baseline": "top",
+            "__dx": 4,
+            "__dy": 0
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fill": "#555",
+        "align": "left",
+        "baseline": "top",
+        "dx": 4,
+        "dy": 0,
+        "limit": 120,
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "text": {
+          "value": [
+            "Durability",
+            "(100)"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__label": [
+              "Design",
+              "(100)"
+            ],
+            "__x": -0.6759530401363439,
+            "__y": 0.9303695435311895,
+            "__align": "right",
+            "__baseline": "top",
+            "__dx": -4,
+            "__dy": 0
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fill": "#555",
+        "align": "right",
+        "baseline": "top",
+        "dx": -4,
+        "dy": 0,
+        "limit": 120,
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "text": {
+          "value": [
+            "Design",
+            "(100)"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__label": [
+              "Support",
+              "(100)"
+            ],
+            "__x": -1.0937149937394266,
+            "__y": -0.35536954353118927,
+            "__align": "right",
+            "__baseline": "bottom",
+            "__dx": -4,
+            "__dy": 0
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 10,
+        "fill": "#555",
+        "align": "right",
+        "baseline": "bottom",
+        "dx": -4,
+        "dy": 0,
+        "limit": 120,
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "text": {
+          "value": [
+            "Support",
+            "(100)"
+          ]
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__group": "Widget",
+            "__axis": "Quality",
+            "__value": 0.9,
+            "__raw": 90,
+            "__angle": 0,
+            "__x": 0,
+            "__y": -0.9
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Price",
+            "__value": 0.6,
+            "__raw": 60,
+            "__angle": 72,
+            "__x": 0.570633909777092,
+            "__y": -0.18541019662496847
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Durability",
+            "__value": 0.8,
+            "__raw": 80,
+            "__angle": 144,
+            "__x": 0.4702282018339786,
+            "__y": 0.6472135954999579
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Design",
+            "__value": 0.75,
+            "__raw": 75,
+            "__angle": 216,
+            "__x": -0.4408389392193548,
+            "__y": 0.6067627457812106
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Support",
+            "__value": 0.85,
+            "__raw": 85,
+            "__angle": 288,
+            "__x": -0.8083980388508806,
+            "__y": -0.26266444521870513
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Quality",
+            "__value": 0.7,
+            "__raw": 70,
+            "__angle": 0,
+            "__x": 0,
+            "__y": -0.7
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Price",
+            "__value": 0.85,
+            "__raw": 85,
+            "__angle": 72,
+            "__x": 0.8083980388508805,
+            "__y": -0.2626644452187053
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Durability",
+            "__value": 0.65,
+            "__raw": 65,
+            "__angle": 144,
+            "__x": 0.38206041399010765,
+            "__y": 0.5258610463437158
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Design",
+            "__value": 0.9,
+            "__raw": 90,
+            "__angle": 216,
+            "__x": -0.5290067270632257,
+            "__y": 0.7281152949374528
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Support",
+            "__value": 0.5,
+            "__raw": 50,
+            "__angle": 288,
+            "__x": -0.4755282581475768,
+            "__y": -0.15450849718747361
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Quality",
+            "__value": 0.8,
+            "__raw": 80,
+            "__angle": 0,
+            "__x": 0,
+            "__y": -0.8
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Price",
+            "__value": 0.7,
+            "__raw": 70,
+            "__angle": 72,
+            "__x": 0.6657395614066074,
+            "__y": -0.2163118960624632
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Durability",
+            "__value": 0.9,
+            "__raw": 90,
+            "__angle": 144,
+            "__x": 0.5290067270632259,
+            "__y": 0.7281152949374526
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Design",
+            "__value": 0.6,
+            "__raw": 60,
+            "__angle": 216,
+            "__x": -0.3526711513754838,
+            "__y": 0.4854101966249684
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Support",
+            "__value": 0.7,
+            "__raw": 70,
+            "__angle": 288,
+            "__x": -0.6657395614066075,
+            "__y": -0.21631189606246304
+          }
+        ]
+      },
+      "mark": {
+        "type": "line",
+        "interpolate": "linear-closed",
+        "strokeWidth": 1.5,
+        "point": false
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "order": {
+          "field": "__angle",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "__axis",
+            "type": "nominal",
+            "title": "Metric"
+          },
+          {
+            "field": "__raw",
+            "type": "quantitative",
+            "title": "Value"
+          }
+        ],
+        "stroke": {
+          "field": "__group",
+          "type": "nominal",
+          "title": "Product"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "__group": "Widget",
+            "__axis": "Quality",
+            "__value": 0.9,
+            "__raw": 90,
+            "__angle": 0,
+            "__x": 0,
+            "__y": -0.9
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Price",
+            "__value": 0.6,
+            "__raw": 60,
+            "__angle": 72,
+            "__x": 0.570633909777092,
+            "__y": -0.18541019662496847
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Durability",
+            "__value": 0.8,
+            "__raw": 80,
+            "__angle": 144,
+            "__x": 0.4702282018339786,
+            "__y": 0.6472135954999579
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Design",
+            "__value": 0.75,
+            "__raw": 75,
+            "__angle": 216,
+            "__x": -0.4408389392193548,
+            "__y": 0.6067627457812106
+          },
+          {
+            "__group": "Widget",
+            "__axis": "Support",
+            "__value": 0.85,
+            "__raw": 85,
+            "__angle": 288,
+            "__x": -0.8083980388508806,
+            "__y": -0.26266444521870513
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Quality",
+            "__value": 0.7,
+            "__raw": 70,
+            "__angle": 0,
+            "__x": 0,
+            "__y": -0.7
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Price",
+            "__value": 0.85,
+            "__raw": 85,
+            "__angle": 72,
+            "__x": 0.8083980388508805,
+            "__y": -0.2626644452187053
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Durability",
+            "__value": 0.65,
+            "__raw": 65,
+            "__angle": 144,
+            "__x": 0.38206041399010765,
+            "__y": 0.5258610463437158
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Design",
+            "__value": 0.9,
+            "__raw": 90,
+            "__angle": 216,
+            "__x": -0.5290067270632257,
+            "__y": 0.7281152949374528
+          },
+          {
+            "__group": "Gadget",
+            "__axis": "Support",
+            "__value": 0.5,
+            "__raw": 50,
+            "__angle": 288,
+            "__x": -0.4755282581475768,
+            "__y": -0.15450849718747361
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Quality",
+            "__value": 0.8,
+            "__raw": 80,
+            "__angle": 0,
+            "__x": 0,
+            "__y": -0.8
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Price",
+            "__value": 0.7,
+            "__raw": 70,
+            "__angle": 72,
+            "__x": 0.6657395614066074,
+            "__y": -0.2163118960624632
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Durability",
+            "__value": 0.9,
+            "__raw": 90,
+            "__angle": 144,
+            "__x": 0.5290067270632259,
+            "__y": 0.7281152949374526
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Design",
+            "__value": 0.6,
+            "__raw": 60,
+            "__angle": 216,
+            "__x": -0.3526711513754838,
+            "__y": 0.4854101966249684
+          },
+          {
+            "__group": "Doohickey",
+            "__axis": "Support",
+            "__value": 0.7,
+            "__raw": 70,
+            "__angle": 288,
+            "__x": -0.6657395614066075,
+            "__y": -0.21631189606246304
+          }
+        ]
+      },
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 25
+      },
+      "encoding": {
+        "x": {
+          "field": "__x",
+          "type": "quantitative",
+          "axis": null
+        },
+        "y": {
+          "field": "__y",
+          "type": "quantitative",
+          "axis": null
+        },
+        "tooltip": [
+          {
+            "field": "__group",
+            "type": "nominal",
+            "title": "Product"
+          },
+          {
+            "field": "__axis",
+            "type": "nominal",
+            "title": "Metric"
+          },
+          {
+            "field": "__raw",
+            "type": "quantitative",
+            "title": "Value"
+          }
+        ],
+        "color": {
+          "field": "__group",
+          "type": "nominal",
+          "title": "Product",
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 300,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Product": "Widget",
+        "Metric": "Quality",
+        "Value": 90
+      },
+      {
+        "Product": "Widget",
+        "Metric": "Price",
+        "Value": 60
+      },
+      {
+        "Product": "Widget",
+        "Metric": "Durability",
+        "Value": 80
+      },
+      {
+        "Product": "Widget",
+        "Metric": "Design",
+        "Value": 75
+      },
+      {
+        "Product": "Widget",
+        "Metric": "Support",
+        "Value": 85
+      },
+      {
+        "Product": "Gadget",
+        "Metric": "Quality",
+        "Value": 70
+      },
+      {
+        "Product": "Gadget",
+        "Metric": "Price",
+        "Value": 85
+      },
+      {
+        "Product": "Gadget",
+        "Metric": "Durability",
+        "Value": 65
+      },
+      {
+        "Product": "Gadget",
+        "Metric": "Design",
+        "Value": 90
+      },
+      {
+        "Product": "Gadget",
+        "Metric": "Support",
+        "Value": 50
+      },
+      {
+        "Product": "Doohickey",
+        "Metric": "Quality",
+        "Value": 80
+      },
+      {
+        "Product": "Doohickey",
+        "Metric": "Price",
+        "Value": 70
+      },
+      {
+        "Product": "Doohickey",
+        "Metric": "Durability",
+        "Value": 90
+      },
+      {
+        "Product": "Doohickey",
+        "Metric": "Design",
+        "Value": 60
+      },
+      {
+        "Product": "Doohickey",
+        "Metric": "Support",
+        "Value": 70
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "filled",
+      "label": "Filled",
+      "type": "binary",
+      "defaultValue": true,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "fillOpacity",
+      "label": "Fill Opacity",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.05,
+      "defaultValue": 0.15,
+      "applicable": true,
+      "value": 0.15
+    },
+    {
+      "key": "strokeWidth",
+      "label": "Line Width",
+      "type": "continuous",
+      "min": 0.5,
+      "max": 4,
+      "step": 0.5,
+      "defaultValue": 1.5,
+      "applicable": true,
+      "value": 1.5
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

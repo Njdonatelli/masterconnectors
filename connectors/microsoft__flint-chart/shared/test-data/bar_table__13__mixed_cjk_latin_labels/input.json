@@ -1,0 +1,57 @@
+{
+  "title": "Mixed CJK + Latin labels",
+  "description": "Bi-script category labels → tests CJK 2× width heuristic in label-column sizing",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "项目": "人工智能 AI Platform",
+          "收入": 5420000
+        },
+        {
+          "项目": "云计算 Cloud Services",
+          "收入": 3180000
+        },
+        {
+          "项目": "数据分析 Analytics",
+          "收入": 2650000
+        },
+        {
+          "项目": "物联网 IoT Solutions",
+          "收入": 1840000
+        },
+        {
+          "项目": "网络安全 Security",
+          "收入": 1220000
+        },
+        {
+          "项目": "区块链 Blockchain Lab",
+          "收入": 480000
+        }
+      ]
+    },
+    "semantic_types": {
+      "项目": "Category",
+      "收入": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "项目"
+        },
+        "x": {
+          "field": "收入"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

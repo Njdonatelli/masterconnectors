@@ -1,0 +1,155 @@
+/**
+ * Deep dispatch module for AppData-derived source formats.
+ *
+ * Format adapters stay private. Callers ask for lifecycle operations without
+ * repeating format switches, cleanup rules, or interactive-promotion logic.
+ */
+import fs from 'node:fs';
+import { collectSourceCandidates, isConversionTextUnavailable, promoteConversion } from './conversion.ts';
+import { clearRecord } from './conversion-status.ts';
+import { currentDerivedTextPathForDocxAsync, derivedHtmlPathForDocx, discoverNewDocx, indexFreshDocx, maybeConvertDocx } from './docx.ts';
+import { filesystemPath } from './filesystem-path.ts';
+import { isDocxFile, isImageFile } from './format.ts';
+import { currentDerivedTextPathForImageAsync, derivedNotePathForImage, discoverNewImages, indexFreshImage, maybeConvertImage } from './image.ts';
+import { currentDerivedTextPathForPdfAsync, derivedPathsForPdf, discoverNewPdfs, indexFreshPdf, maybeConvertPdf } from './pdf.ts';
+import type { IndexUpsertResult } from './indexer.ts';
+
+export interface ConvertibleOptions {
+  urgency?: 'interactive';
+}
+
+export type ConvertibleReprocessResult =
+  | { status: 'unsupported' }
+  | { status: 'queued' };
+
+interface ConvertibleFormatAdapter {
+  matches(path: string): boolean;
+  queue(sourceAbs: string, options: ConvertibleOptions): void;
+  discover(folderAbs: string, candidates?: readonly string[]): Promise<void>;
+  indexFresh(sourceAbs: string): Promise<IndexUpsertResult | null>;
+  reset(sourceAbs: string): void;
+  interactive: boolean;
+  currentTextPathAsync(sourceAbs: string, known: { sourceMtimeMs: number; derivedMtimeMs: number }): Promise<string | null>;
+  textCandidatePath(sourceAbs: string): string;
+}
+
+const FORMATS: readonly ConvertibleFormatAdapter[] = [
+  {
+    matches: (candidate) => /\.pdf$/i.test(candidate),
+    queue: (sourceAbs, options) => maybeConvertPdf(sourceAbs, urgencyOnly(options)),
+    discover: discoverNewPdfs,
+    indexFresh: indexFreshPdf,
+    reset: (sourceAbs) => {
+      const { notePath, bundleDir } = derivedPathsForPdf(sourceAbs);
+      fs.rmSync(notePath, { force: true });
+      fs.rmSync(bundleDir, { recursive: true, force: true });
+    },
+    interactive: false,
+    currentTextPathAsync: currentDerivedTextPathForPdfAsync,
+    textCandidatePath: (source) => derivedPathsForPdf(source).notePath,
+  },
+  {
+    matches: isImageFile,
+    queue: (sourceAbs, options) => maybeConvertImage(sourceAbs, urgencyOnly(options)),
+    discover: discoverNewImages,
+    indexFresh: indexFreshImage,
+    reset: (sourceAbs) => fs.rmSync(derivedNotePathForImage(sourceAbs), { force: true }),
+    interactive: false,
+    currentTextPathAsync: currentDerivedTextPathForImageAsync,
+    textCandidatePath: derivedNotePathForImage,
+  },
+  {
+    matches: isDocxFile,
+    queue: (sourceAbs, options) => maybeConvertDocx(sourceAbs, urgencyOnly(options)),
+    discover: discoverNewDocx,
+    indexFresh: indexFreshDocx,
+    reset: (sourceAbs) => fs.rmSync(derivedHtmlPathForDocx(sourceAbs), { force: true }),
+    interactive: true,
+    currentTextPathAsync: currentDerivedTextPathForDocxAsync,
+    textCandidatePath: derivedHtmlPathForDocx,
+  },
+];
+
+export function queueConvertibleSource(
+  sourceAbs: string,
+  displayName = sourceAbs,
+  options: ConvertibleOptions = {},
+): boolean {
+  const format = findFormat(displayName);
+  if (!format) return false;
+  format.queue(sourceAbs, options);
+  return true;
+}
+
+export function reprocessConvertibleSource(
+  sourceAbs: string,
+  displayName = sourceAbs,
+  options: ConvertibleOptions = {},
+): ConvertibleReprocessResult {
+  const format = findFormat(displayName);
+  if (!format) return { status: 'unsupported' };
+  clearRecord(filesystemPath.absolute(sourceAbs));
+  format.reset(sourceAbs);
+  format.queue(sourceAbs, { ...options, urgency: 'interactive' });
+  return { status: 'queued' };
+}
+
+export function prepareConvertibleSource(sourceAbs: string, displayName = sourceAbs): boolean {
+  const format = findFormat(displayName);
+  if (!format?.interactive) return false;
+  const sourcePath = filesystemPath.absolute(sourceAbs);
+  if (!promoteConversion(sourcePath, 'interactive')) {
+    format.queue(sourceAbs, { urgency: 'interactive' });
+  }
+  return true;
+}
+
+export async function discoverConvertibleSources(
+  folderAbs: string,
+  knownCandidates?: readonly string[],
+): Promise<void> {
+  const candidates = knownCandidates
+    ?? await collectSourceCandidates(folderAbs, (candidate) => findFormat(candidate) != null);
+  for (const format of FORMATS) await format.discover(folderAbs, candidates);
+}
+
+export function indexFreshConvertibleSource(
+  sourceAbs: string,
+  displayName = sourceAbs,
+): Promise<IndexUpsertResult | null> {
+  return findFormat(displayName)?.indexFresh(sourceAbs) ?? Promise.resolve(null);
+}
+
+export async function currentPreparedTextPathAsync(
+  sourceAbs: string,
+  displayName = sourceAbs,
+  known?: { sourceMtimeMs: number; derivedMtimeMs: number },
+): Promise<string | null> {
+  const format = findFormat(displayName);
+  if (!format || isConversionTextUnavailable(sourceAbs)) return null;
+  try {
+    if (!known) {
+      const [source, derived] = await Promise.all([
+        fs.promises.stat(sourceAbs), fs.promises.stat(format.textCandidatePath(sourceAbs)),
+      ]);
+      if (!source.isFile() || !derived.isFile()) return null;
+      known = { sourceMtimeMs: source.mtimeMs, derivedMtimeMs: derived.mtimeMs };
+    }
+    const current = await format.currentTextPathAsync(sourceAbs, known);
+    return isConversionTextUnavailable(sourceAbs) ? null : current;
+  } catch {
+    return null;
+  }
+}
+
+export function preparedTextCandidatePath(sourceAbs: string, displayName = sourceAbs): string | null {
+  return findFormat(displayName)?.textCandidatePath(sourceAbs) ?? null;
+}
+
+function findFormat(candidate: string): ConvertibleFormatAdapter | null {
+  return FORMATS.find((format) => format.matches(candidate)) ?? null;
+}
+
+function urgencyOnly(options: ConvertibleOptions): { urgency?: 'interactive' } {
+  return options.urgency ? { urgency: options.urgency } : {};
+}

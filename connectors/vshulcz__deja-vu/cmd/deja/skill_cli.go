@@ -1,0 +1,185 @@
+package main
+
+import (
+	"os"
+	"path/filepath"
+)
+
+// The CLI-only skill. deja's other skill names the six MCP tools, which exist
+// only after `deja install` wires a harness. A machine that has the binary and
+// nothing else can search its whole history through the shell — and the agent on
+// it had no way to learn that, because the only skill deja shipped described an
+// API that was not there (#1320). The two live side by side and point at each
+// other; the same index answers both.
+const (
+	cliSkillName = "deja-search"
+	cliSkillDesc = "deja-vu memory — search the user's past AI coding sessions with the deja CLI. Use when they say things like 'didn't we fix this before', 'what did we decide about X' or 'I already have that', before re-debugging an error that may already be solved, before changing code, config, a dependency or a schedule, and before telling them something on this machine does not exist."
+)
+
+const cliSkillBody = `Search deja before re-deriving past work: when the user refers to earlier sessions or decisions, before debugging an error, and before implementing something that may already exist. It searches this machine's own history across every AI coding tool used on it, going back further than deja itself was installed.
+
+Before you change code, config, a dependency or a schedule, run ` + "`deja search --json`" + ` once with the task's key nouns (file, package, table, setting). If a result bears on the change, say so in one line before you act.
+
+Two triggers are easy to miss because they are not questions:
+
+- The user states that something of theirs already exists and you have no record of it — "I already have X", "we use Y for this", "that's what Z is for". They are not asking; they are telling you the history exists, which is a stronger reason to search than a question is.
+- You are about to tell the user that something on this machine does not exist — a command, a file, a setting, a past decision. Recall first. Absence from the code in front of you is not absence from the machine, and a wrong denial sends them to rebuild what they have.
+
+This skill drives the ` + "`deja`" + ` binary through the shell. If the deja MCP tool is available in this session — one tool with a mode of recall, context, blame, fix, how, orient or remember — use that instead: same index, one less hop. It appears only when ` + "`deja install`" + ` has wired this harness.
+
+## Finding something
+
+- ` + "`deja search --json \"<query>\"`" + `: the most specific token available — an exact error string, function name, file path, or flag. Several words are ANDed. Only this user's own sessions, never library docs or general knowledge.
+- ` + "`deja ctx <query|id-prefix>`" + `: a full digest of the single best-matching session, once a hit looks right and the reasoning behind it matters. Takes no flags.
+- ` + "`deja show <id-prefix> --harness <name> --json`" + `: the turns themselves, paged with ` + "`--offset`" + ` and ` + "`--limit`" + `. Use the id and harness a hit printed.
+- ` + "`deja blame <path> --json`" + `: before editing, refactoring or deleting a file, the prior sessions that discussed it, so you know why it is shaped the way it is. Session history, not git authorship. ` + "`deja blame <path>:<line>`" + ` narrows it to one line: the commit that last changed it and the session whose edit replaced the text that commit deleted, or one sentence saying why neither can be named.
+- ` + "`deja fix \"<pasted error>\"`" + `: the commands that followed that same error before, in sessions where it did not come back. Paste the failing output verbatim.
+- ` + "`deja how <what>`" + `: the real command with the real flags this machine runs for a build, test, deploy or script, ordered by how many sessions ran it. A guessed invocation is plausible and fails on this setup. It answers from this project; ` + "`--all-projects`" + ` asks the machine, which is what to use when the answer is a tool rather than a repository's own wrapper.
+- ` + "`deja remember \"<text>\"`" + `: store one durable decision after it is settled, as a single self-contained fact. Not transcripts, not anything already obvious from the code.
+- ` + "`deja wip`" + `: what the last session in this directory was doing — the task, what it settled, the files in flight, the last command and whether it failed. Ask it when you have lost the thread of your own work, after a compaction or on a fresh session in a repository you were just in.
+
+Useful flags on search: ` + "`--harness`" + `, ` + "`--project`" + `, ` + "`--since 30d`" + `, ` + "`--role user|assistant|tool|files|command|edit|summary`" + `, ` + "`--session <id>`" + `, ` + "`--limit 1-100`" + `, ` + "`--all`" + `, ` + "`--re`" + ` for a regular expression.
+
+## Reading a result
+
+` + "`--json`" + ` returns an envelope: ` + "`tier`" + `, ` + "`total`" + `, ` + "`capped`" + `, ` + "`hits`" + `.
+
+- ` + "`tier: \"relevance\"`" + ` means **nothing matched** — those are the nearest sessions deja could find, and counting them as hits overstates what is there. ` + "`tier: \"error\"`" + ` IS a match: the query was an error and those sessions hit it, matched by signature rather than by words.
+- ` + "`total`" + ` is how many sessions matched; ` + "`capped`" + ` says a cap hid some of them. Read those two for coverage, never the length of ` + "`hits`" + `.
+- ` + "`policy_withheld`" + `, when present, is how many matching sessions this machine's trust policy kept out of the answer — an empty result and a rule are different answers.
+- A hit may carry ` + "`superseded`" + ` with a date: the user's own later judgement on that session. Do not repeat a rejected approach, prefer a replacement over what it replaced, and treat a stale result as needing confirmation before acting on it. A hit without it carries no judgement either way.
+
+## Saying what you used
+
+When recalled history genuinely helps — a reused fix, a skipped re-debug, even a partial hint that changed your approach — tell the user in one short line at the start of your reply, naming the session: "déjà vu: we hit this JWT skew in March — reusing that fix (deja:a1b2c3d4-e5f)". Say nothing about recalls that did not help. This is provenance, not advertising; a note on every call would be noise.
+
+## Limits worth respecting
+
+- Result windows are bounded. Do not report corpus-wide counts, or claim a complete audit, from the number of hits you got back.
+- If ` + "`deja`" + ` is not on PATH or the index is empty, say that history search is unavailable. Do not invent what it might have found.
+- Work a subagent did is in the index as its task, its answer and the edits it made, not in full. A Claude Task or a Cursor subagent writes its turns and tool calls to its own transcript, and the parent keeps only the launch and a summary — so a hit on the parent can look complete while the run itself is elsewhere. ` + "`DEJA_INCLUDE_SUBAGENTS=1`" + ` takes the whole child transcript in; Cursor's are still left out by default.
+- Vary the wording and try a second query before concluding nothing is there. Exact tokens match best, so an error string beats a paraphrase of it.` + "\n\n" + rulesSkillSection
+
+// cliSkillPath is the cross-agent skills directory, the same one the MCP skill
+// uses for the eight harnesses that read it. A CLI-only install has no wired
+// harness to key off, so there is nowhere harness-specific to put this.
+func cliSkillPath() string {
+	return filepath.Join(homeDir(), ".agents", "skills", cliSkillName, "SKILL.md")
+}
+
+// cliSkillMeta is what a skill registry reads to know what the skill needs:
+// ClawHub serves skills/deja-search as vshulcz/deja-search and checks the
+// declared binary and install specs against what the skill does. It is
+// OpenClaw's nested shape, which the Agent Skills spec does not allow: there
+// metadata maps strings to strings, and Crush drops a skill whose metadata
+// does not decode that way (#4378). So only the registry copy carries it; the
+// file deja installs into ~/.agents/skills, which Crush reads, goes without.
+// OpenClaw reads that directory too and loads a skill with no metadata.openclaw
+// block as always eligible, which is right on a machine deja was installed on.
+const cliSkillMeta = `metadata:
+  openclaw:
+    homepage: https://vshulcz.github.io/deja-vu/guide/memory-for-openclaw.html
+    requires:
+      bins:
+        - deja
+    install:
+      - kind: brew
+        formula: deja-vu
+        bins: [deja]
+      - kind: node
+        package: "@vshulcz/deja-vu"
+        bins: [deja]`
+
+func cliSkillFile() string {
+	return "---\nname: " + cliSkillName + "\ndescription: " + cliSkillDesc + "\n---\n\n" + cliSkillBody + "\n"
+}
+
+// cliSkillRegistryFile is the copy in the repository, the one ClawHub publishes.
+func cliSkillRegistryFile() string {
+	return "---\nname: " + cliSkillName + "\ndescription: " + cliSkillDesc + "\n" + cliSkillMeta + "\n---\n\n" + cliSkillBody + "\n"
+}
+
+// writeCLISkill puts the skill in place. Called by warmup, which is the only
+// command a CLI-only install runs: the point of #1320 is that this path never
+// touches an agent's configuration, and a skill file is deja's own directory
+// rather than a harness's config. An edited copy is kept, the same as any other
+// skill deja writes.
+func writeCLISkill() (string, error) {
+	path := cliSkillPath()
+	old, err := os.ReadFile(path)
+	if err != nil && !os.IsNotExist(err) {
+		return "", err
+	}
+	// Kept without saying so. writeSkillOfOurs prints "skill: kept your edited
+	// …" when it refuses, which is right for an install someone is watching and
+	// wrong here: warmup runs on its own, its stdout is otherwise empty, and
+	// that line would appear on every run for as long as the edit lives.
+	// `deja install --force` still takes deja's version back.
+	if !forceGuidance && skillWasEdited(path, old) {
+		return "", nil
+	}
+	noteCreatedDirs(filepath.Dir(path))
+	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
+		return "", err
+	}
+	return writeGuidanceFile(path, old, []byte(cliSkillFile()))
+}
+
+// cliSkillStillWanted reports whether any harness deja wired is staying. One
+// target leaving out of eight must not take the skill from the rest — every one
+// of them can still shell out to the binary. With nothing recorded there is no
+// harness to keep it for, and the person asking to uninstall gets what they
+// asked for.
+func cliSkillStillWanted(leaving []string) bool {
+	going := map[string]bool{}
+	for _, t := range leaving {
+		going[t] = true
+	}
+	for _, t := range readWiringState().Targets {
+		if !going[t] {
+			return true
+		}
+	}
+	return false
+}
+
+// removeCLISkill takes it back on uninstall, and only when the file on disk is
+// the one deja left: a copy the user rewrote is theirs.
+func removeCLISkill() error {
+	path := cliSkillPath()
+	old, err := os.ReadFile(path)
+	if os.IsNotExist(err) {
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	if skillWasEdited(path, old) {
+		return nil
+	}
+	if err := os.Remove(path); err != nil {
+		return err
+	}
+	// The same two rules the deja-history skill has: put back what install
+	// replaced, and drop a backup that is deja's own words rather than leaving
+	// them on a machine deja was removed from (#2581, #2585, #2596).
+	restored, rerr := restoreReplacedGuidance(path, "")
+	if rerr != nil {
+		return rerr
+	}
+	if restored {
+		return nil
+	}
+	// Only the directory deja named itself, and only a real one: os.Remove
+	// unlinks a symlink whatever stands behind it, so a skills tree someone
+	// keeps in their dotfiles would go while the skills it points at stayed
+	// (the bound pruneGuidanceDirs already holds).
+	if dir := filepath.Dir(path); filepath.Base(dir) == cliSkillName && isRealDir(dir) {
+		_ = os.Remove(dir)
+		// And the directories above it that deja made, which the name check
+		// cannot speak for: `~/.agents/skills` and `~/.agents` were left on
+		// every machine that had neither before (#3698).
+		pruneCreatedDir(filepath.Dir(dir))
+	}
+	return nil
+}

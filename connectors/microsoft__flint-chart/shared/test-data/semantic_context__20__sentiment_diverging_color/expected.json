@@ -1,0 +1,149 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "product",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "reviews",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "tickMinStep": 1,
+        "labelExpr": "datum.value === ceil(datum.value) ? format(datum.value, ',d') : ''"
+      }
+    },
+    "color": {
+      "field": "sentiment",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "redblue",
+        "domainMid": 0
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "product": "Widget A",
+        "reviews": 53,
+        "sentiment": -0.47
+      },
+      {
+        "product": "Widget B",
+        "reviews": 97,
+        "sentiment": -0.21
+      },
+      {
+        "product": "Gadget X",
+        "reviews": 482,
+        "sentiment": -0.59
+      },
+      {
+        "product": "Gadget Y",
+        "reviews": 299,
+        "sentiment": -0.04
+      },
+      {
+        "product": "Tool M",
+        "reviews": 416,
+        "sentiment": -0.39
+      },
+      {
+        "product": "Tool N",
+        "reviews": 492,
+        "sentiment": 0.14
+      },
+      {
+        "product": "Part P",
+        "reviews": 347,
+        "sentiment": 0.58
+      },
+      {
+        "product": "Part Q",
+        "reviews": 293,
+        "sentiment": 0.12
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

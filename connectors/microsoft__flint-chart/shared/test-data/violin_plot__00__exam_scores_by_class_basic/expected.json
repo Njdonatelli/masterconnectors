@@ -1,0 +1,1549 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Score",
+      "groupby": [
+        "Class"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        24.44001095217483,
+        109.55998904782517
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Score",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Class",
+      "type": "nominal",
+      "legend": null
+    },
+    "facet": {
+      "field": "Class",
+      "type": "nominal",
+      "sort": null,
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      },
+      "columns": 4
+    }
+  },
+  "width": 125,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 125,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 90
+      },
+      {
+        "Class": "Class A",
+        "Score": 88
+      },
+      {
+        "Class": "Class A",
+        "Score": 78
+      },
+      {
+        "Class": "Class A",
+        "Score": 84
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 85
+      },
+      {
+        "Class": "Class A",
+        "Score": 62
+      },
+      {
+        "Class": "Class A",
+        "Score": 60
+      },
+      {
+        "Class": "Class A",
+        "Score": 88
+      },
+      {
+        "Class": "Class A",
+        "Score": 86
+      },
+      {
+        "Class": "Class A",
+        "Score": 56
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 96
+      },
+      {
+        "Class": "Class A",
+        "Score": 56
+      },
+      {
+        "Class": "Class A",
+        "Score": 87
+      },
+      {
+        "Class": "Class A",
+        "Score": 66
+      },
+      {
+        "Class": "Class A",
+        "Score": 85
+      },
+      {
+        "Class": "Class A",
+        "Score": 85
+      },
+      {
+        "Class": "Class A",
+        "Score": 88
+      },
+      {
+        "Class": "Class A",
+        "Score": 82
+      },
+      {
+        "Class": "Class A",
+        "Score": 58
+      },
+      {
+        "Class": "Class A",
+        "Score": 83
+      },
+      {
+        "Class": "Class A",
+        "Score": 47
+      },
+      {
+        "Class": "Class A",
+        "Score": 58
+      },
+      {
+        "Class": "Class A",
+        "Score": 56
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 59
+      },
+      {
+        "Class": "Class A",
+        "Score": 78
+      },
+      {
+        "Class": "Class A",
+        "Score": 51
+      },
+      {
+        "Class": "Class A",
+        "Score": 81
+      },
+      {
+        "Class": "Class A",
+        "Score": 53
+      },
+      {
+        "Class": "Class A",
+        "Score": 59
+      },
+      {
+        "Class": "Class A",
+        "Score": 88
+      },
+      {
+        "Class": "Class A",
+        "Score": 61
+      },
+      {
+        "Class": "Class A",
+        "Score": 49
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 66
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 61
+      },
+      {
+        "Class": "Class A",
+        "Score": 58
+      },
+      {
+        "Class": "Class A",
+        "Score": 89
+      },
+      {
+        "Class": "Class A",
+        "Score": 91
+      },
+      {
+        "Class": "Class A",
+        "Score": 78
+      },
+      {
+        "Class": "Class A",
+        "Score": 63
+      },
+      {
+        "Class": "Class A",
+        "Score": 86
+      },
+      {
+        "Class": "Class A",
+        "Score": 77
+      },
+      {
+        "Class": "Class A",
+        "Score": 95
+      },
+      {
+        "Class": "Class A",
+        "Score": 62
+      },
+      {
+        "Class": "Class A",
+        "Score": 91
+      },
+      {
+        "Class": "Class A",
+        "Score": 70
+      },
+      {
+        "Class": "Class A",
+        "Score": 56
+      },
+      {
+        "Class": "Class A",
+        "Score": 86
+      },
+      {
+        "Class": "Class A",
+        "Score": 53
+      },
+      {
+        "Class": "Class A",
+        "Score": 64
+      },
+      {
+        "Class": "Class A",
+        "Score": 79
+      },
+      {
+        "Class": "Class A",
+        "Score": 61
+      },
+      {
+        "Class": "Class A",
+        "Score": 55
+      },
+      {
+        "Class": "Class A",
+        "Score": 78
+      },
+      {
+        "Class": "Class A",
+        "Score": 70
+      },
+      {
+        "Class": "Class A",
+        "Score": 91
+      },
+      {
+        "Class": "Class A",
+        "Score": 60
+      },
+      {
+        "Class": "Class A",
+        "Score": 80
+      },
+      {
+        "Class": "Class A",
+        "Score": 84
+      },
+      {
+        "Class": "Class A",
+        "Score": 54
+      },
+      {
+        "Class": "Class A",
+        "Score": 80
+      },
+      {
+        "Class": "Class A",
+        "Score": 55
+      },
+      {
+        "Class": "Class A",
+        "Score": 63
+      },
+      {
+        "Class": "Class A",
+        "Score": 81
+      },
+      {
+        "Class": "Class A",
+        "Score": 48
+      },
+      {
+        "Class": "Class A",
+        "Score": 45
+      },
+      {
+        "Class": "Class A",
+        "Score": 63
+      },
+      {
+        "Class": "Class A",
+        "Score": 61
+      },
+      {
+        "Class": "Class A",
+        "Score": 60
+      },
+      {
+        "Class": "Class A",
+        "Score": 89
+      },
+      {
+        "Class": "Class A",
+        "Score": 90
+      },
+      {
+        "Class": "Class A",
+        "Score": 54
+      },
+      {
+        "Class": "Class A",
+        "Score": 57
+      },
+      {
+        "Class": "Class A",
+        "Score": 95
+      },
+      {
+        "Class": "Class A",
+        "Score": 90
+      },
+      {
+        "Class": "Class A",
+        "Score": 62
+      },
+      {
+        "Class": "Class A",
+        "Score": 45
+      },
+      {
+        "Class": "Class A",
+        "Score": 93
+      },
+      {
+        "Class": "Class A",
+        "Score": 80
+      },
+      {
+        "Class": "Class A",
+        "Score": 59
+      },
+      {
+        "Class": "Class A",
+        "Score": 65
+      },
+      {
+        "Class": "Class A",
+        "Score": 62
+      },
+      {
+        "Class": "Class A",
+        "Score": 53
+      },
+      {
+        "Class": "Class B",
+        "Score": 45
+      },
+      {
+        "Class": "Class B",
+        "Score": 55
+      },
+      {
+        "Class": "Class B",
+        "Score": 50
+      },
+      {
+        "Class": "Class B",
+        "Score": 61
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 47
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 53
+      },
+      {
+        "Class": "Class B",
+        "Score": 45
+      },
+      {
+        "Class": "Class B",
+        "Score": 60
+      },
+      {
+        "Class": "Class B",
+        "Score": 55
+      },
+      {
+        "Class": "Class B",
+        "Score": 49
+      },
+      {
+        "Class": "Class B",
+        "Score": 53
+      },
+      {
+        "Class": "Class B",
+        "Score": 54
+      },
+      {
+        "Class": "Class B",
+        "Score": 46
+      },
+      {
+        "Class": "Class B",
+        "Score": 55
+      },
+      {
+        "Class": "Class B",
+        "Score": 79
+      },
+      {
+        "Class": "Class B",
+        "Score": 46
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 61
+      },
+      {
+        "Class": "Class B",
+        "Score": 55
+      },
+      {
+        "Class": "Class B",
+        "Score": 51
+      },
+      {
+        "Class": "Class B",
+        "Score": 54
+      },
+      {
+        "Class": "Class B",
+        "Score": 47
+      },
+      {
+        "Class": "Class B",
+        "Score": 51
+      },
+      {
+        "Class": "Class B",
+        "Score": 55
+      },
+      {
+        "Class": "Class B",
+        "Score": 64
+      },
+      {
+        "Class": "Class B",
+        "Score": 49
+      },
+      {
+        "Class": "Class B",
+        "Score": 58
+      },
+      {
+        "Class": "Class B",
+        "Score": 70
+      },
+      {
+        "Class": "Class B",
+        "Score": 53
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 63
+      },
+      {
+        "Class": "Class B",
+        "Score": 70
+      },
+      {
+        "Class": "Class B",
+        "Score": 46
+      },
+      {
+        "Class": "Class B",
+        "Score": 53
+      },
+      {
+        "Class": "Class B",
+        "Score": 45
+      },
+      {
+        "Class": "Class B",
+        "Score": 74
+      },
+      {
+        "Class": "Class B",
+        "Score": 47
+      },
+      {
+        "Class": "Class B",
+        "Score": 82
+      },
+      {
+        "Class": "Class B",
+        "Score": 47
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 53
+      },
+      {
+        "Class": "Class B",
+        "Score": 58
+      },
+      {
+        "Class": "Class B",
+        "Score": 51
+      },
+      {
+        "Class": "Class B",
+        "Score": 46
+      },
+      {
+        "Class": "Class B",
+        "Score": 50
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 50
+      },
+      {
+        "Class": "Class B",
+        "Score": 99
+      },
+      {
+        "Class": "Class B",
+        "Score": 54
+      },
+      {
+        "Class": "Class B",
+        "Score": 55
+      },
+      {
+        "Class": "Class B",
+        "Score": 51
+      },
+      {
+        "Class": "Class B",
+        "Score": 46
+      },
+      {
+        "Class": "Class B",
+        "Score": 58
+      },
+      {
+        "Class": "Class B",
+        "Score": 70
+      },
+      {
+        "Class": "Class B",
+        "Score": 75
+      },
+      {
+        "Class": "Class B",
+        "Score": 45
+      },
+      {
+        "Class": "Class B",
+        "Score": 49
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 57
+      },
+      {
+        "Class": "Class B",
+        "Score": 53
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 54
+      },
+      {
+        "Class": "Class B",
+        "Score": 52
+      },
+      {
+        "Class": "Class B",
+        "Score": 58
+      },
+      {
+        "Class": "Class B",
+        "Score": 50
+      },
+      {
+        "Class": "Class B",
+        "Score": 63
+      },
+      {
+        "Class": "Class B",
+        "Score": 80
+      },
+      {
+        "Class": "Class B",
+        "Score": 61
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 54
+      },
+      {
+        "Class": "Class B",
+        "Score": 51
+      },
+      {
+        "Class": "Class B",
+        "Score": 51
+      },
+      {
+        "Class": "Class B",
+        "Score": 50
+      },
+      {
+        "Class": "Class B",
+        "Score": 65
+      },
+      {
+        "Class": "Class B",
+        "Score": 94
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 60
+      },
+      {
+        "Class": "Class B",
+        "Score": 50
+      },
+      {
+        "Class": "Class B",
+        "Score": 46
+      },
+      {
+        "Class": "Class B",
+        "Score": 52
+      },
+      {
+        "Class": "Class B",
+        "Score": 48
+      },
+      {
+        "Class": "Class B",
+        "Score": 57
+      },
+      {
+        "Class": "Class B",
+        "Score": 68
+      },
+      {
+        "Class": "Class B",
+        "Score": 67
+      },
+      {
+        "Class": "Class B",
+        "Score": 66
+      },
+      {
+        "Class": "Class B",
+        "Score": 47
+      },
+      {
+        "Class": "Class B",
+        "Score": 61
+      },
+      {
+        "Class": "Class B",
+        "Score": 47
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 76
+      },
+      {
+        "Class": "Class C",
+        "Score": 76
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 76
+      },
+      {
+        "Class": "Class C",
+        "Score": 68
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 73
+      },
+      {
+        "Class": "Class C",
+        "Score": 72
+      },
+      {
+        "Class": "Class C",
+        "Score": 73
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 72
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 78
+      },
+      {
+        "Class": "Class C",
+        "Score": 70
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 88
+      },
+      {
+        "Class": "Class C",
+        "Score": 84
+      },
+      {
+        "Class": "Class C",
+        "Score": 72
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 81
+      },
+      {
+        "Class": "Class C",
+        "Score": 75
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 75
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 68
+      },
+      {
+        "Class": "Class C",
+        "Score": 75
+      },
+      {
+        "Class": "Class C",
+        "Score": 72
+      },
+      {
+        "Class": "Class C",
+        "Score": 73
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 72
+      },
+      {
+        "Class": "Class C",
+        "Score": 80
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 65
+      },
+      {
+        "Class": "Class C",
+        "Score": 68
+      },
+      {
+        "Class": "Class C",
+        "Score": 78
+      },
+      {
+        "Class": "Class C",
+        "Score": 67
+      },
+      {
+        "Class": "Class C",
+        "Score": 69
+      },
+      {
+        "Class": "Class C",
+        "Score": 70
+      },
+      {
+        "Class": "Class C",
+        "Score": 66
+      },
+      {
+        "Class": "Class C",
+        "Score": 76
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 64
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 78
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 78
+      },
+      {
+        "Class": "Class C",
+        "Score": 76
+      },
+      {
+        "Class": "Class C",
+        "Score": 67
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 72
+      },
+      {
+        "Class": "Class C",
+        "Score": 69
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 80
+      },
+      {
+        "Class": "Class C",
+        "Score": 80
+      },
+      {
+        "Class": "Class C",
+        "Score": 79
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 80
+      },
+      {
+        "Class": "Class C",
+        "Score": 76
+      },
+      {
+        "Class": "Class C",
+        "Score": 68
+      },
+      {
+        "Class": "Class C",
+        "Score": 73
+      },
+      {
+        "Class": "Class C",
+        "Score": 76
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 65
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 80
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 77
+      },
+      {
+        "Class": "Class C",
+        "Score": 69
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 81
+      },
+      {
+        "Class": "Class C",
+        "Score": 73
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 73
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 75
+      },
+      {
+        "Class": "Class C",
+        "Score": 67
+      },
+      {
+        "Class": "Class C",
+        "Score": 71
+      },
+      {
+        "Class": "Class C",
+        "Score": 74
+      },
+      {
+        "Class": "Class C",
+        "Score": 72
+      },
+      {
+        "Class": "Class D",
+        "Score": 60
+      },
+      {
+        "Class": "Class D",
+        "Score": 74
+      },
+      {
+        "Class": "Class D",
+        "Score": 76
+      },
+      {
+        "Class": "Class D",
+        "Score": 74
+      },
+      {
+        "Class": "Class D",
+        "Score": 74
+      },
+      {
+        "Class": "Class D",
+        "Score": 58
+      },
+      {
+        "Class": "Class D",
+        "Score": 61
+      },
+      {
+        "Class": "Class D",
+        "Score": 92
+      },
+      {
+        "Class": "Class D",
+        "Score": 51
+      },
+      {
+        "Class": "Class D",
+        "Score": 34
+      },
+      {
+        "Class": "Class D",
+        "Score": 60
+      },
+      {
+        "Class": "Class D",
+        "Score": 79
+      },
+      {
+        "Class": "Class D",
+        "Score": 72
+      },
+      {
+        "Class": "Class D",
+        "Score": 41
+      },
+      {
+        "Class": "Class D",
+        "Score": 57
+      },
+      {
+        "Class": "Class D",
+        "Score": 61
+      },
+      {
+        "Class": "Class D",
+        "Score": 69
+      },
+      {
+        "Class": "Class D",
+        "Score": 68
+      },
+      {
+        "Class": "Class D",
+        "Score": 74
+      },
+      {
+        "Class": "Class D",
+        "Score": 49
+      },
+      {
+        "Class": "Class D",
+        "Score": 54
+      },
+      {
+        "Class": "Class D",
+        "Score": 74
+      },
+      {
+        "Class": "Class D",
+        "Score": 67
+      },
+      {
+        "Class": "Class D",
+        "Score": 70
+      },
+      {
+        "Class": "Class D",
+        "Score": 75
+      },
+      {
+        "Class": "Class D",
+        "Score": 53
+      },
+      {
+        "Class": "Class D",
+        "Score": 69
+      },
+      {
+        "Class": "Class D",
+        "Score": 81
+      },
+      {
+        "Class": "Class D",
+        "Score": 55
+      },
+      {
+        "Class": "Class D",
+        "Score": 56
+      },
+      {
+        "Class": "Class D",
+        "Score": 63
+      },
+      {
+        "Class": "Class D",
+        "Score": 77
+      },
+      {
+        "Class": "Class D",
+        "Score": 74
+      },
+      {
+        "Class": "Class D",
+        "Score": 76
+      },
+      {
+        "Class": "Class D",
+        "Score": 83
+      },
+      {
+        "Class": "Class D",
+        "Score": 54
+      },
+      {
+        "Class": "Class D",
+        "Score": 55
+      },
+      {
+        "Class": "Class D",
+        "Score": 78
+      },
+      {
+        "Class": "Class D",
+        "Score": 53
+      },
+      {
+        "Class": "Class D",
+        "Score": 81
+      },
+      {
+        "Class": "Class D",
+        "Score": 72
+      },
+      {
+        "Class": "Class D",
+        "Score": 61
+      },
+      {
+        "Class": "Class D",
+        "Score": 61
+      },
+      {
+        "Class": "Class D",
+        "Score": 66
+      },
+      {
+        "Class": "Class D",
+        "Score": 74
+      },
+      {
+        "Class": "Class D",
+        "Score": 72
+      },
+      {
+        "Class": "Class D",
+        "Score": 61
+      },
+      {
+        "Class": "Class D",
+        "Score": 73
+      },
+      {
+        "Class": "Class D",
+        "Score": 73
+      },
+      {
+        "Class": "Class D",
+        "Score": 82
+      },
+      {
+        "Class": "Class D",
+        "Score": 71
+      },
+      {
+        "Class": "Class D",
+        "Score": 64
+      },
+      {
+        "Class": "Class D",
+        "Score": 58
+      },
+      {
+        "Class": "Class D",
+        "Score": 82
+      },
+      {
+        "Class": "Class D",
+        "Score": 64
+      },
+      {
+        "Class": "Class D",
+        "Score": 69
+      },
+      {
+        "Class": "Class D",
+        "Score": 70
+      },
+      {
+        "Class": "Class D",
+        "Score": 47
+      },
+      {
+        "Class": "Class D",
+        "Score": 63
+      },
+      {
+        "Class": "Class D",
+        "Score": 91
+      },
+      {
+        "Class": "Class D",
+        "Score": 68
+      },
+      {
+        "Class": "Class D",
+        "Score": 79
+      },
+      {
+        "Class": "Class D",
+        "Score": 61
+      },
+      {
+        "Class": "Class D",
+        "Score": 65
+      },
+      {
+        "Class": "Class D",
+        "Score": 70
+      },
+      {
+        "Class": "Class D",
+        "Score": 62
+      },
+      {
+        "Class": "Class D",
+        "Score": 68
+      },
+      {
+        "Class": "Class D",
+        "Score": 58
+      },
+      {
+        "Class": "Class D",
+        "Score": 64
+      },
+      {
+        "Class": "Class D",
+        "Score": 55
+      },
+      {
+        "Class": "Class D",
+        "Score": 81
+      },
+      {
+        "Class": "Class D",
+        "Score": 63
+      },
+      {
+        "Class": "Class D",
+        "Score": 68
+      },
+      {
+        "Class": "Class D",
+        "Score": 100
+      },
+      {
+        "Class": "Class D",
+        "Score": 81
+      },
+      {
+        "Class": "Class D",
+        "Score": 58
+      },
+      {
+        "Class": "Class D",
+        "Score": 77
+      },
+      {
+        "Class": "Class D",
+        "Score": 71
+      },
+      {
+        "Class": "Class D",
+        "Score": 54
+      },
+      {
+        "Class": "Class D",
+        "Score": 100
+      },
+      {
+        "Class": "Class D",
+        "Score": 63
+      },
+      {
+        "Class": "Class D",
+        "Score": 60
+      },
+      {
+        "Class": "Class D",
+        "Score": 71
+      },
+      {
+        "Class": "Class D",
+        "Score": 83
+      },
+      {
+        "Class": "Class D",
+        "Score": 57
+      },
+      {
+        "Class": "Class D",
+        "Score": 87
+      },
+      {
+        "Class": "Class D",
+        "Score": 75
+      },
+      {
+        "Class": "Class D",
+        "Score": 66
+      },
+      {
+        "Class": "Class D",
+        "Score": 79
+      },
+      {
+        "Class": "Class D",
+        "Score": 64
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

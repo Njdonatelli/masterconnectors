@@ -1,0 +1,237 @@
+{
+  "title": "Cont × Cont — facet S (2 facets)",
+  "description": "Scatter plot with 2 facets",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "X": 10,
+          "Y": 93,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 43,
+          "Y": 27,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 69,
+          "Y": 44,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 30,
+          "Y": 39,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 62,
+          "Y": 83,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 19,
+          "Y": 68,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 62,
+          "Y": 77,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 17,
+          "Y": 84,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 72,
+          "Y": 66,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 14,
+          "Y": 19,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 54,
+          "Y": 16,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 45,
+          "Y": 34,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 73,
+          "Y": 24,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 26,
+          "Y": 42,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 64,
+          "Y": 74,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 27,
+          "Y": 39,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 52,
+          "Y": 53,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 68,
+          "Y": 95,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 62,
+          "Y": 86,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 66,
+          "Y": 28,
+          "Facet": "Electronics"
+        },
+        {
+          "X": 30,
+          "Y": 58,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 64,
+          "Y": 11,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 92,
+          "Y": 65,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 98,
+          "Y": 84,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 66,
+          "Y": 86,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 91,
+          "Y": 68,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 70,
+          "Y": 95,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 60,
+          "Y": 91,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 92,
+          "Y": 63,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 57,
+          "Y": 40,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 81,
+          "Y": 74,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 80,
+          "Y": 48,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 99,
+          "Y": 45,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 72,
+          "Y": 50,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 69,
+          "Y": 32,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 48,
+          "Y": 54,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 32,
+          "Y": 36,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 86,
+          "Y": 70,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 63,
+          "Y": 15,
+          "Facet": "Clothing"
+        },
+        {
+          "X": 92,
+          "Y": 21,
+          "Facet": "Clothing"
+        }
+      ]
+    },
+    "semantic_types": {
+      "X": "Value",
+      "Y": "Value",
+      "Facet": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "X"
+        },
+        "y": {
+          "field": "Y"
+        },
+        "row": {
+          "field": "Facet"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

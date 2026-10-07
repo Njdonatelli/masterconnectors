@@ -1,0 +1,73 @@
+{
+  "title": "Year (2-digit string) → Line Chart",
+  "description": "Two-digit years: \"98\", \"99\", \"00\", \"01\", … (10 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Year": "98",
+          "Value": 349
+        },
+        {
+          "Year": "99",
+          "Value": 238
+        },
+        {
+          "Year": "00",
+          "Value": 75
+        },
+        {
+          "Year": "01",
+          "Value": 191
+        },
+        {
+          "Year": "02",
+          "Value": 248
+        },
+        {
+          "Year": "03",
+          "Value": 345
+        },
+        {
+          "Year": "04",
+          "Value": 316
+        },
+        {
+          "Year": "05",
+          "Value": 168
+        },
+        {
+          "Year": "06",
+          "Value": 155
+        },
+        {
+          "Year": "07",
+          "Value": 358
+        }
+      ]
+    },
+    "semantic_types": {
+      "Year": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Year"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

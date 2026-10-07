@@ -1,0 +1,48 @@
+{
+  "name": "figwright",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Free, two-way Figma MCP server. Turn designs into framework-aware code, and push code back to the canvas. Works with Claude Code, Cursor, Codex, and any MCP client.",
+  "homepage": "https://github.com/awdr74100/figwright",
+  "bugs": {
+    "url": "https://github.com/awdr74100/figwright/issues"
+  },
+  "license": "MIT",
+  "author": "Roya <a78945612385238@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/awdr74100/figwright.git"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "clean": "pnpm -r exec rm -rf dist *.tsbuildinfo",
+    "dev": "pnpm -r --parallel run dev",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "knip": "knip",
+    "knip:fix": "knip --fix",
+    "lint": "oxlint --deny-warnings .",
+    "lint:fix": "oxlint --fix .",
+    "postinstall": "node scripts/sync-skills.mjs",
+    "release": "node scripts/release.mjs",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "pnpm -r run typecheck"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1",
+    "@vitest/coverage-v8": "^5.0.3",
+    "changelogen": "^0.6.2",
+    "knip": "^6.39.0",
+    "oxfmt": "^0.71.0",
+    "oxlint": "^1.86.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.3"
+  },
+  "engines": {
+    "node": "^24.11.0 || >=26.0.0"
+  },
+  "packageManager": "pnpm@12.8.1"
+}

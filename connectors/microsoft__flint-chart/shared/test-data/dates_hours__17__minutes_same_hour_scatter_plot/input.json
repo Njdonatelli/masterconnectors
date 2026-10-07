@@ -1,0 +1,153 @@
+{
+  "title": "Minutes (same hour) → Scatter Plot",
+  "description": "Per-minute data within one hour: \"2020-01-15T10:00\", …, \"2020-01-15T10:59\" (30 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "DateTime": "2020-01-15T10:00:00",
+          "Value": 229
+        },
+        {
+          "DateTime": "2020-01-15T10:02:00",
+          "Value": 298
+        },
+        {
+          "DateTime": "2020-01-15T10:04:00",
+          "Value": 338
+        },
+        {
+          "DateTime": "2020-01-15T10:06:00",
+          "Value": 364
+        },
+        {
+          "DateTime": "2020-01-15T10:08:00",
+          "Value": 366
+        },
+        {
+          "DateTime": "2020-01-15T10:10:00",
+          "Value": 169
+        },
+        {
+          "DateTime": "2020-01-15T10:12:00",
+          "Value": 283
+        },
+        {
+          "DateTime": "2020-01-15T10:14:00",
+          "Value": 68
+        },
+        {
+          "DateTime": "2020-01-15T10:16:00",
+          "Value": 458
+        },
+        {
+          "DateTime": "2020-01-15T10:18:00",
+          "Value": 113
+        },
+        {
+          "DateTime": "2020-01-15T10:20:00",
+          "Value": 217
+        },
+        {
+          "DateTime": "2020-01-15T10:22:00",
+          "Value": 385
+        },
+        {
+          "DateTime": "2020-01-15T10:24:00",
+          "Value": 363
+        },
+        {
+          "DateTime": "2020-01-15T10:26:00",
+          "Value": 488
+        },
+        {
+          "DateTime": "2020-01-15T10:28:00",
+          "Value": 434
+        },
+        {
+          "DateTime": "2020-01-15T10:30:00",
+          "Value": 266
+        },
+        {
+          "DateTime": "2020-01-15T10:32:00",
+          "Value": 273
+        },
+        {
+          "DateTime": "2020-01-15T10:34:00",
+          "Value": 175
+        },
+        {
+          "DateTime": "2020-01-15T10:36:00",
+          "Value": 166
+        },
+        {
+          "DateTime": "2020-01-15T10:38:00",
+          "Value": 139
+        },
+        {
+          "DateTime": "2020-01-15T10:40:00",
+          "Value": 233
+        },
+        {
+          "DateTime": "2020-01-15T10:42:00",
+          "Value": 224
+        },
+        {
+          "DateTime": "2020-01-15T10:44:00",
+          "Value": 202
+        },
+        {
+          "DateTime": "2020-01-15T10:46:00",
+          "Value": 484
+        },
+        {
+          "DateTime": "2020-01-15T10:48:00",
+          "Value": 146
+        },
+        {
+          "DateTime": "2020-01-15T10:50:00",
+          "Value": 274
+        },
+        {
+          "DateTime": "2020-01-15T10:52:00",
+          "Value": 477
+        },
+        {
+          "DateTime": "2020-01-15T10:54:00",
+          "Value": 56
+        },
+        {
+          "DateTime": "2020-01-15T10:56:00",
+          "Value": 287
+        },
+        {
+          "DateTime": "2020-01-15T10:58:00",
+          "Value": 75
+        }
+      ]
+    },
+    "semantic_types": {
+      "DateTime": "DateTime",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "DateTime"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,118 @@
+# deja-vu
+
+> Local memory for coding agents, built from the session transcripts they already write to disk. deja indexes what Claude Code, Codex, Cursor, opencode, Gemini CLI, Zed and thirty-two more agents wrote on this machine — including the months before it was installed — and answers from them over MCP or the command line. BM25 over the transcripts: no model, no embeddings, and no network path unless you ask for one.
+
+Two things distinguish it from memory tools that record forward: it starts full, because the history is already on disk, and recall arrives without being asked — at session start, on each prompt, before an edit or a command, after a command fails, and on the way back from a compaction, where deja keeps the task, files and commands the summary drops. Credentials are stripped as the index is built.
+
+Install is one command (`curl -fsSL https://raw.githubusercontent.com/vshulcz/deja-vu/main/install.sh | sh`, or `brew install deja-vu`), followed by `deja install --auto` to wire the agents found on the machine.
+
+## Start here
+
+- [Getting started](https://vshulcz.github.io/deja-vu/guide/getting-started.html): install, wire an agent, and the first query
+- [Why agents forget](https://vshulcz.github.io/deja-vu/guide/forgetting.html): what ends with a session and what survives on disk
+- [Does my agent remember previous conversations](https://vshulcz.github.io/deja-vu/guide/does-my-agent-remember.html): what Claude Code, Codex and Cursor keep between sessions, and what they do not
+- [Where history lives](https://vshulcz.github.io/deja-vu/guide/where-sessions-are-stored.html): the conversation history file each of the thirty-eight agents writes, and its format
+- [Credentials in transcripts](https://vshulcz.github.io/deja-vu/guide/credentials-in-transcripts.html): coding agents record command output verbatim, so keys and connection strings sit in plaintext transcripts; how to find them with deja secrets and what to do
+- [Session files on disk](https://vshulcz.github.io/deja-vu/guide/session-files-on-disk.html): how to delete Claude Code sessions, how large ~/.claude/projects gets, what is inside a session file, and what deleting one costs
+- [Delete Cline task history](https://vshulcz.github.io/deja-vu/guide/delete-cline-task-history.html): distinguish the modern CLI session store from the VS Code extension task tree and remove only the conversation data you intend to delete
+- [Delete Roo Code task history](https://vshulcz.github.io/deja-vu/guide/delete-roo-task-history.html): Find Roo Code history across editor hosts and custom storage. Delete one task or all tasks, understand what is lost, or keep the history searchable.
+- [Delete Zed agent thread history](https://vshulcz.github.io/deja-vu/guide/delete-zed-thread-history.html): Find Zed agent threads in threads.db, delete one through the history view, or remove the built-in agent database with Zed closed. Know what is lost.
+- [Delete Kiro session history](https://vshulcz.github.io/deja-vu/guide/delete-kiro-session-history.html): the CLI writes a transcript and header pair per session and the IDE a directory per session under ~/.kiro/sessions; remove the right one, and check the globalStorage and TUI copies that tree does not cover
+- [Delete Amp thread history](https://vshulcz.github.io/deja-vu/guide/delete-amp-thread-history.html): one JSON file per thread under ~/.local/share/amp/threads, so deleting one conversation is deleting one file; the thread in your Amp account is separate
+- [Delete Continue session history](https://vshulcz.github.io/deja-vu/guide/delete-continue-session-history.html): one JSON file per session plus a sessions.json list the history view reads; remove the entry with the file, or the session stays listed and cannot be deleted from Continue
+- [Delete old Claude Code sessions](https://vshulcz.github.io/deja-vu/guide/delete-old-claude-sessions.html): `find ~/.claude/projects -mtime +30 -delete` or `cleanupPeriodDays`, and why age frees far less disk than size
+- [Delete Codex CLI sessions](https://vshulcz.github.io/deja-vu/guide/delete-codex-sessions.html): one rollout, one day, or all of ~/.codex/sessions, and why ~/.codex/history.jsonl keeps your prompts regardless
+- [Delete Cursor chat history](https://vshulcz.github.io/deja-vu/guide/delete-cursor-chat-history.html): where the chats live in state.vscdb, why deleting the file resets more than chats, and what the CLI writes separately
+- [Cursor state.vscdb too large](https://vshulcz.github.io/deja-vu/guide/cursor-state-vscdb-too-large.html): which chats fill a 30–125 GB state.vscdb, shrinking it safest first, and keeping the chats you delete searchable
+- [Delete Gemini CLI chat history](https://vshulcz.github.io/deja-vu/guide/delete-gemini-cli-history.html): chats under ~/.gemini/tmp, mapping a project id back to a directory, and what the prompt log keeps
+- [Delete opencode session history](https://vshulcz.github.io/deja-vu/guide/delete-opencode-session-history.html): one SQLite database, what its tables hold, and why deleting rows does not free the space
+- [Delete VS Code Copilot Chat history](https://vshulcz.github.io/deja-vu/guide/delete-copilot-chat-history.html): where the conversations are kept and what goes with them
+- [Delete Kilo Code task history](https://vshulcz.github.io/deja-vu/guide/delete-kilo-code-task-history.html): task JSON under the extension's storage, and the CLI's separate SQLite store
+- [CLI reference](https://vshulcz.github.io/deja-vu/guide/commands.html): every command and flag
+- [Agents & MCP](https://vshulcz.github.io/deja-vu/guide/agents.html): the deja MCP tool and its modes, and what each harness supports
+
+## Problems it answers
+
+- [The agent lost the context you had](https://vshulcz.github.io/deja-vu/guide/lost-context.html): after a crash, a clear, or a restart
+- [The context window is full](https://vshulcz.github.io/deja-vu/guide/context-window-full.html): what compaction keeps (77% of decisions, 0.2% of commands, measured) and what to do instead
+- [Resuming a session](https://vshulcz.github.io/deja-vu/guide/resume-a-session.html): find it across every agent, reopen it in the one that owns it
+- [The agent repeats a mistake you already fixed](https://vshulcz.github.io/deja-vu/guide/repeated-mistakes.html): the same error again, in a repository that solved it before
+- [Finding a session](https://vshulcz.github.io/deja-vu/guide/find-a-session.html): search chat history across every agent at once
+- [Codex CLI history](https://vshulcz.github.io/deja-vu/guide/codex-history.html): where Codex keeps sessions, the .jsonl.zst rollouts grep misses after a week, jq and sqlite3 recipes, search and sync
+- [Switching agents](https://vshulcz.github.io/deja-vu/guide/switching-agents.html): move between Claude Code, Codex and Cursor without re-explaining
+- [One set of rules for every agent](https://vshulcz.github.io/deja-vu/guide/one-rules-file.html): which rules file each agent reads, sharing AGENTS.md in a repository, and keeping your global rules in step with deja rules sync
+- [After compaction](https://vshulcz.github.io/deja-vu/guide/after-compaction.html): recovering the commands a summary dropped, and the packet deja hands back automatically
+- [Auditing an agent](https://vshulcz.github.io/deja-vu/guide/auditing-agents.html): review agent changes when the diff cannot say what was tried
+- [Exporting a conversation](https://vshulcz.github.io/deja-vu/guide/export-conversations.html): markdown, JSON, or a shareable page
+- [Across machines](https://vshulcz.github.io/deja-vu/guide/sync-across-machines.html): sync between machines with no server
+- [What memory costs](https://vshulcz.github.io/deja-vu/guide/token-cost.html): the measured token cost of recall
+- [Stats card to PNG](https://vshulcz.github.io/deja-vu/card/): turn the card `deja stats --card` writes into a PNG, in the browser
+
+## 中文
+
+- [快速开始](https://vshulcz.github.io/deja-vu/zh/guide/getting-started.html)：安装、接上智能体、第一次查询
+- [智能体记得之前的对话吗](https://vshulcz.github.io/deja-vu/zh/guide/does-my-agent-remember.html)：各个工具跨会话留下了什么
+- [为什么会忘事](https://vshulcz.github.io/deja-vu/zh/guide/forgetting.html)：会话结束时消失的是什么，磁盘上留下的是什么
+- [上下文丢了，怎么找回来](https://vshulcz.github.io/deja-vu/zh/guide/lost-context.html)：崩溃、清空或重启之后，会话记录还在，怎么把工作找回来
+- [历史文件在哪里](https://vshulcz.github.io/deja-vu/zh/guide/where-sessions-are-stored.html)：三十八个智能体各自把会话写在磁盘的哪里，用什么格式
+- [会话文件怎么删](https://vshulcz.github.io/deja-vu/zh/guide/session-files-on-disk.html)：Claude Code 的会话文件怎么删、能占多大、删掉之后失去什么
+- [找回被删掉的会话](https://vshulcz.github.io/deja-vu/zh/guide/recover-a-deleted-session.html)：claude --resume 里找不到那次会话时，四种原因里有三种不是删除，真正还能找回的是什么
+- [找回解决问题的那次会话](https://vshulcz.github.io/deja-vu/zh/guide/find-a-session.html)：按记得的词在所有智能体里同时搜历史，然后继续那次对话
+- [隐私](https://vshulcz.github.io/deja-vu/zh/guide/privacy.html)：索引什么、脱敏什么、什么永远不出这台机器，以及怎么控制留下什么
+
+## Per-harness setup
+
+- [Claude Code, Codex and the rest](https://vshulcz.github.io/deja-vu/guide/harnesses.html): the full support matrix
+- [Claude Code](https://vshulcz.github.io/deja-vu/guide/memory-for-claude-code.html)
+- [Codex](https://vshulcz.github.io/deja-vu/guide/memory-for-codex.html)
+- [Cursor](https://vshulcz.github.io/deja-vu/guide/memory-for-cursor.html)
+- [Copilot CLI](https://vshulcz.github.io/deja-vu/guide/memory-for-copilot.html)
+- [opencode](https://vshulcz.github.io/deja-vu/guide/memory-for-opencode.html)
+- [DeepSeek Harness](https://vshulcz.github.io/deja-vu/guide/memory-for-dsh.html)
+- [Kimi Code](https://vshulcz.github.io/deja-vu/guide/memory-for-kimi.html)
+- [Zed](https://vshulcz.github.io/deja-vu/guide/memory-for-zed.html)
+- [VS Code Copilot Chat](https://vshulcz.github.io/deja-vu/guide/memory-for-copilot-chat.html)
+- [Grok Build](https://vshulcz.github.io/deja-vu/guide/memory-for-grok.html)
+- [Gemini CLI](https://vshulcz.github.io/deja-vu/guide/memory-for-gemini.html)
+- [Qwen Code](https://vshulcz.github.io/deja-vu/guide/memory-for-qwen.html)
+- [Roo Code](https://vshulcz.github.io/deja-vu/guide/memory-for-roo.html)
+- [Kilo Code](https://vshulcz.github.io/deja-vu/guide/memory-for-kilocode.html)
+- [prime-agent (PrimeIntellect)](https://vshulcz.github.io/deja-vu/guide/memory-for-prime.html)
+- [Continue](https://vshulcz.github.io/deja-vu/guide/memory-for-continue.html)
+- [Crush](https://vshulcz.github.io/deja-vu/guide/memory-for-crush.html)
+- [OpenClaw](https://vshulcz.github.io/deja-vu/guide/memory-for-openclaw.html)
+- [Goose](https://vshulcz.github.io/deja-vu/guide/memory-for-goose.html)
+- [Cline](https://vshulcz.github.io/deja-vu/guide/memory-for-cline.html)
+- [pi](https://vshulcz.github.io/deja-vu/guide/memory-for-pi.html)
+- [omp (Oh My Pi)](https://vshulcz.github.io/deja-vu/guide/memory-for-omp.html)
+- [Amp](https://vshulcz.github.io/deja-vu/guide/memory-for-amp.html): plugin API modelled on pi's, plus MCP
+- [Hermes](https://vshulcz.github.io/deja-vu/guide/memory-for-hermes.html)
+- [aider](https://vshulcz.github.io/deja-vu/guide/memory-for-aider.html): no MCP and no hooks, recall through the read-only context file
+- [Antigravity](https://vshulcz.github.io/deja-vu/guide/memory-for-antigravity.html)
+- [Senpi](https://vshulcz.github.io/deja-vu/guide/memory-for-senpi.html)
+- [Kimchi Coding](https://vshulcz.github.io/deja-vu/guide/memory-for-kimchi.html)
+- [Kiro](https://vshulcz.github.io/deja-vu/guide/memory-for-kiro.html)
+- [Cherry Studio](https://vshulcz.github.io/deja-vu/guide/memory-for-cherrystudio.html)
+- [gajae-code](https://vshulcz.github.io/deja-vu/guide/memory-for-gjc.html)
+- [Command Code](https://vshulcz.github.io/deja-vu/guide/memory-for-commandcode.html)
+- [ZCode](https://vshulcz.github.io/deja-vu/guide/memory-for-zcode.html)
+- [Reasonix](https://vshulcz.github.io/deja-vu/guide/memory-for-reasonix.html): a plugin package; recall rides in the turn tail, not the system prompt
+- [CodeWhale](https://vshulcz.github.io/deja-vu/guide/memory-for-codewhale.html): read-only, nothing to install yet
+
+## Evidence
+
+- [Building deja into your own tool](https://github.com/vshulcz/deja-vu/blob/main/docs/INTEGRATING.md): the MCP server, the JSON surfaces, the hook commands, what is a contract and what is not, and how to isolate it in tests
+- [Benchmarks](https://vshulcz.github.io/deja-vu/guide/benchmarks.html): 88.1% hit@1 on LongMemEval-S (470-question cleaned set), 70.5% on LoCoMo, both harnesses in the repository
+- [How it compares](https://vshulcz.github.io/deja-vu/guide/compare.html): next to Mem0, Letta, memU, Memori, claude-mem, agentmemory, MemPalace, cognee, Graphiti / Zep, Hindsight, cass, Agent Sessions, agent-historian, casr and agentsview
+- [claude-mem alternative](https://vshulcz.github.io/deja-vu/guide/claude-mem-alternative.html): deja-vu next to claude-mem — memory from existing transcripts with no model or worker, the day-zero difference, and running both
+- [Day zero](https://vshulcz.github.io/deja-vu/guide/day-zero.html): eight tools installed on one machine that already held 19,195 sessions, then asked 100 questions only that history answers — build time, first answer, search latency, hit@1; the driver for every row is in the repository
+- [Session format registry](https://vshulcz.github.io/deja-vu/registry/README.html): where each of the thirty-eight agents stores its sessions, with fixtures
+- [Privacy](https://vshulcz.github.io/deja-vu/guide/privacy.html): what is read, what is redacted, what never leaves
+
+## Optional
+
+- [Architecture](https://github.com/vshulcz/deja-vu/blob/main/docs/ARCHITECTURE.md)
+- [Security model](https://github.com/vshulcz/deja-vu/blob/main/docs/SECURITY-MODEL.md)
+- [Installing deja for an agent](https://github.com/vshulcz/deja-vu/blob/main/llms-install.md): the install page written for an agent doing it on a user's behalf
+- [JSON output](https://github.com/vshulcz/deja-vu/blob/main/docs/json-output.md): the shape of every `--json` result
+- [Compaction recovery](https://github.com/vshulcz/deja-vu/blob/main/docs/compaction.md): what is captured before a compaction, what is handed back, and the limits

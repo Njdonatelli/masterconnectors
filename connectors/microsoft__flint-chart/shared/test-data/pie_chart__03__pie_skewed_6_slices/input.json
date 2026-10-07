@@ -1,0 +1,57 @@
+{
+  "title": "Pie (skewed, 6 slices)",
+  "description": "One dominant slice ~90%, tests circumference pressure with effective bar count",
+  "chartType": "Pie Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Dominant",
+          "Value": 5000
+        },
+        {
+          "Category": "Small-A",
+          "Value": 200
+        },
+        {
+          "Category": "Small-B",
+          "Value": 180
+        },
+        {
+          "Category": "Small-C",
+          "Value": 150
+        },
+        {
+          "Category": "Tiny-1",
+          "Value": 30
+        },
+        {
+          "Category": "Tiny-2",
+          "Value": 20
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Pie Chart",
+      "encodings": {
+        "size": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

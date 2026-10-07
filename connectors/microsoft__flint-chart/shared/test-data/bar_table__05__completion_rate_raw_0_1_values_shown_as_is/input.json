@@ -1,0 +1,53 @@
+{
+  "title": "Completion Rate (raw 0–1 values shown as-is)",
+  "description": "Percentage without intrinsicDomain → raw values preserved; % column auto-hidden (redundant)",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Team": "Alpha",
+          "completion_rate": 0.92
+        },
+        {
+          "Team": "Beta",
+          "completion_rate": 0.87
+        },
+        {
+          "Team": "Gamma",
+          "completion_rate": 0.78
+        },
+        {
+          "Team": "Delta",
+          "completion_rate": 0.65
+        },
+        {
+          "Team": "Epsilon",
+          "completion_rate": 0.54
+        }
+      ]
+    },
+    "semantic_types": {
+      "Team": "Category",
+      "completion_rate": "Percentage"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Team"
+        },
+        "x": {
+          "field": "completion_rate"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

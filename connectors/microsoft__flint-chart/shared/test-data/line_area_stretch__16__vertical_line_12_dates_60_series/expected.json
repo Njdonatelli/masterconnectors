@@ -1,0 +1,3815 @@
+{
+  "mark": "line",
+  "encoding": {
+    "y": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "x": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "legend": {
+        "symbolSize": 12,
+        "labelFontSize": 8,
+        "values": [
+          "Automotive",
+          "Banking",
+          "Construction",
+          "Defense",
+          "Energy",
+          "Fashion",
+          "Gaming",
+          "Healthcare",
+          "Insurance",
+          "Jewelry",
+          "Logistics",
+          "Manufacturing",
+          "Networking",
+          "Oil & Gas",
+          "Pharma",
+          "Real Estate",
+          "Retail",
+          "Software",
+          "Telecom",
+          "Utilities",
+          "Agriculture",
+          "Aerospace",
+          "Biotech",
+          "Chemicals",
+          "...36 items omitted"
+        ]
+      },
+      "sort": null,
+      "scale": {
+        "scheme": "tableau20"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 722,
+      "continuousHeight": 332
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 33
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2024-01-01",
+        "Series": "Automotive",
+        "Value": 303
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Automotive",
+        "Value": 303
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Automotive",
+        "Value": 308
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Automotive",
+        "Value": 305
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Automotive",
+        "Value": 304
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Automotive",
+        "Value": 311
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Automotive",
+        "Value": 314
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Automotive",
+        "Value": 319
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Automotive",
+        "Value": 317
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Automotive",
+        "Value": 310
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Automotive",
+        "Value": 308
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Automotive",
+        "Value": 313
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Banking",
+        "Value": 253
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Banking",
+        "Value": 254
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Banking",
+        "Value": 255
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Banking",
+        "Value": 258
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Banking",
+        "Value": 265
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Banking",
+        "Value": 270
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Banking",
+        "Value": 272
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Banking",
+        "Value": 280
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Banking",
+        "Value": 291
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Banking",
+        "Value": 299
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Banking",
+        "Value": 311
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Banking",
+        "Value": 312
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Construction",
+        "Value": 189
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Construction",
+        "Value": 190
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Construction",
+        "Value": 197
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Construction",
+        "Value": 198
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Construction",
+        "Value": 199
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Construction",
+        "Value": 201
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Construction",
+        "Value": 202
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Construction",
+        "Value": 201
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Construction",
+        "Value": 200
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Construction",
+        "Value": 207
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Construction",
+        "Value": 209
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Construction",
+        "Value": 210
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Defense",
+        "Value": 106
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Defense",
+        "Value": 110
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Defense",
+        "Value": 105
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Defense",
+        "Value": 105
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Defense",
+        "Value": 106
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Defense",
+        "Value": 107
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Defense",
+        "Value": 111
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Defense",
+        "Value": 117
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Defense",
+        "Value": 116
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Defense",
+        "Value": 120
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Defense",
+        "Value": 116
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Defense",
+        "Value": 107
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Energy",
+        "Value": 230
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Energy",
+        "Value": 235
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Energy",
+        "Value": 244
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Energy",
+        "Value": 254
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Energy",
+        "Value": 266
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Energy",
+        "Value": 267
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Energy",
+        "Value": 261
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Energy",
+        "Value": 264
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Energy",
+        "Value": 267
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Energy",
+        "Value": 267
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Energy",
+        "Value": 267
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Energy",
+        "Value": 273
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Fashion",
+        "Value": 197
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Fashion",
+        "Value": 194
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Fashion",
+        "Value": 199
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Fashion",
+        "Value": 195
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Fashion",
+        "Value": 188
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Fashion",
+        "Value": 178
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Fashion",
+        "Value": 167
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Fashion",
+        "Value": 159
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Fashion",
+        "Value": 153
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Fashion",
+        "Value": 143
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Fashion",
+        "Value": 131
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Fashion",
+        "Value": 129
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Gaming",
+        "Value": 260
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Gaming",
+        "Value": 263
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Gaming",
+        "Value": 273
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Gaming",
+        "Value": 274
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Gaming",
+        "Value": 268
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Gaming",
+        "Value": 270
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Gaming",
+        "Value": 278
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Gaming",
+        "Value": 278
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Gaming",
+        "Value": 279
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Gaming",
+        "Value": 285
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Gaming",
+        "Value": 291
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Gaming",
+        "Value": 302
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Healthcare",
+        "Value": 125
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Healthcare",
+        "Value": 124
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Healthcare",
+        "Value": 123
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Healthcare",
+        "Value": 124
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Healthcare",
+        "Value": 123
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Healthcare",
+        "Value": 116
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Healthcare",
+        "Value": 118
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Healthcare",
+        "Value": 123
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Healthcare",
+        "Value": 119
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Healthcare",
+        "Value": 123
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Healthcare",
+        "Value": 127
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Healthcare",
+        "Value": 128
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Insurance",
+        "Value": 202
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Insurance",
+        "Value": 209
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Insurance",
+        "Value": 212
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Insurance",
+        "Value": 215
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Insurance",
+        "Value": 221
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Insurance",
+        "Value": 227
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Insurance",
+        "Value": 238
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Insurance",
+        "Value": 245
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Insurance",
+        "Value": 257
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Insurance",
+        "Value": 259
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Insurance",
+        "Value": 265
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Insurance",
+        "Value": 272
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Jewelry",
+        "Value": 241
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Jewelry",
+        "Value": 237
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Jewelry",
+        "Value": 240
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Jewelry",
+        "Value": 243
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Jewelry",
+        "Value": 238
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Jewelry",
+        "Value": 227
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Jewelry",
+        "Value": 219
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Jewelry",
+        "Value": 208
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Jewelry",
+        "Value": 203
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Jewelry",
+        "Value": 201
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Jewelry",
+        "Value": 201
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Jewelry",
+        "Value": 198
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Logistics",
+        "Value": 202
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Logistics",
+        "Value": 201
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Logistics",
+        "Value": 197
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Logistics",
+        "Value": 199
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Logistics",
+        "Value": 200
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Logistics",
+        "Value": 208
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Logistics",
+        "Value": 206
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Logistics",
+        "Value": 204
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Logistics",
+        "Value": 198
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Logistics",
+        "Value": 188
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Logistics",
+        "Value": 178
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Logistics",
+        "Value": 165
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Manufacturing",
+        "Value": 219
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Manufacturing",
+        "Value": 226
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Manufacturing",
+        "Value": 226
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Manufacturing",
+        "Value": 229
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Manufacturing",
+        "Value": 229
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Manufacturing",
+        "Value": 223
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Manufacturing",
+        "Value": 224
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Manufacturing",
+        "Value": 226
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Manufacturing",
+        "Value": 225
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Manufacturing",
+        "Value": 221
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Manufacturing",
+        "Value": 223
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Manufacturing",
+        "Value": 229
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Networking",
+        "Value": 231
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Networking",
+        "Value": 231
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Networking",
+        "Value": 228
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Networking",
+        "Value": 231
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Networking",
+        "Value": 232
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Networking",
+        "Value": 239
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Networking",
+        "Value": 239
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Networking",
+        "Value": 240
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Networking",
+        "Value": 248
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Networking",
+        "Value": 255
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Networking",
+        "Value": 258
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Networking",
+        "Value": 261
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Oil & Gas",
+        "Value": 74
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Oil & Gas",
+        "Value": 77
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Oil & Gas",
+        "Value": 81
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Oil & Gas",
+        "Value": 86
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Oil & Gas",
+        "Value": 92
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Oil & Gas",
+        "Value": 91
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Oil & Gas",
+        "Value": 98
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Oil & Gas",
+        "Value": 104
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Oil & Gas",
+        "Value": 105
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Oil & Gas",
+        "Value": 110
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Oil & Gas",
+        "Value": 117
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Oil & Gas",
+        "Value": 122
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Pharma",
+        "Value": 133
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Pharma",
+        "Value": 137
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Pharma",
+        "Value": 144
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Pharma",
+        "Value": 142
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Pharma",
+        "Value": 134
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Pharma",
+        "Value": 129
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Pharma",
+        "Value": 120
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Pharma",
+        "Value": 121
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Pharma",
+        "Value": 125
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Pharma",
+        "Value": 124
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Pharma",
+        "Value": 127
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Pharma",
+        "Value": 124
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Real Estate",
+        "Value": 98
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Real Estate",
+        "Value": 103
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Real Estate",
+        "Value": 106
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Real Estate",
+        "Value": 114
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Real Estate",
+        "Value": 115
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Real Estate",
+        "Value": 111
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Real Estate",
+        "Value": 103
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Real Estate",
+        "Value": 104
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Real Estate",
+        "Value": 103
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Real Estate",
+        "Value": 106
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Real Estate",
+        "Value": 101
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Real Estate",
+        "Value": 91
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Retail",
+        "Value": 169
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Retail",
+        "Value": 170
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Retail",
+        "Value": 166
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Retail",
+        "Value": 157
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Retail",
+        "Value": 151
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Retail",
+        "Value": 152
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Retail",
+        "Value": 153
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Retail",
+        "Value": 156
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Retail",
+        "Value": 154
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Retail",
+        "Value": 160
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Retail",
+        "Value": 158
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Retail",
+        "Value": 152
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Software",
+        "Value": 190
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Software",
+        "Value": 189
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Software",
+        "Value": 191
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Software",
+        "Value": 189
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Software",
+        "Value": 187
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Software",
+        "Value": 180
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Software",
+        "Value": 174
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Software",
+        "Value": 176
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Software",
+        "Value": 175
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Software",
+        "Value": 174
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Software",
+        "Value": 176
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Software",
+        "Value": 184
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Telecom",
+        "Value": 72
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Telecom",
+        "Value": 73
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Telecom",
+        "Value": 78
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Telecom",
+        "Value": 82
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Telecom",
+        "Value": 88
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Telecom",
+        "Value": 88
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Telecom",
+        "Value": 83
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Telecom",
+        "Value": 74
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Telecom",
+        "Value": 65
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Telecom",
+        "Value": 55
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Telecom",
+        "Value": 48
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Telecom",
+        "Value": 45
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Utilities",
+        "Value": 135
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Utilities",
+        "Value": 140
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Utilities",
+        "Value": 144
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Utilities",
+        "Value": 151
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Utilities",
+        "Value": 152
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Utilities",
+        "Value": 159
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Utilities",
+        "Value": 164
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Utilities",
+        "Value": 162
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Utilities",
+        "Value": 162
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Utilities",
+        "Value": 166
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Utilities",
+        "Value": 166
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Utilities",
+        "Value": 162
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Agriculture",
+        "Value": 347
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Agriculture",
+        "Value": 351
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Agriculture",
+        "Value": 354
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Agriculture",
+        "Value": 362
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Agriculture",
+        "Value": 363
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Agriculture",
+        "Value": 366
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Agriculture",
+        "Value": 362
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Agriculture",
+        "Value": 360
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Agriculture",
+        "Value": 358
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Agriculture",
+        "Value": 359
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Agriculture",
+        "Value": 362
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Agriculture",
+        "Value": 369
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Aerospace",
+        "Value": 106
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Aerospace",
+        "Value": 110
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Aerospace",
+        "Value": 108
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Aerospace",
+        "Value": 99
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Aerospace",
+        "Value": 94
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Aerospace",
+        "Value": 98
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Aerospace",
+        "Value": 95
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Aerospace",
+        "Value": 96
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Aerospace",
+        "Value": 94
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Aerospace",
+        "Value": 100
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Aerospace",
+        "Value": 102
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Aerospace",
+        "Value": 109
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Biotech",
+        "Value": 234
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Biotech",
+        "Value": 227
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Biotech",
+        "Value": 218
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Biotech",
+        "Value": 212
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Biotech",
+        "Value": 205
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Biotech",
+        "Value": 196
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Biotech",
+        "Value": 194
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Biotech",
+        "Value": 198
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Biotech",
+        "Value": 206
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Biotech",
+        "Value": 216
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Biotech",
+        "Value": 223
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Biotech",
+        "Value": 230
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Chemicals",
+        "Value": 216
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Chemicals",
+        "Value": 216
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Chemicals",
+        "Value": 221
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Chemicals",
+        "Value": 224
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Chemicals",
+        "Value": 224
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Chemicals",
+        "Value": 228
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Chemicals",
+        "Value": 226
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Chemicals",
+        "Value": 226
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Chemicals",
+        "Value": 221
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Chemicals",
+        "Value": 220
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Chemicals",
+        "Value": 216
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Chemicals",
+        "Value": 206
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Consulting",
+        "Value": 213
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Consulting",
+        "Value": 217
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Consulting",
+        "Value": 225
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Consulting",
+        "Value": 227
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Consulting",
+        "Value": 225
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Consulting",
+        "Value": 217
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Consulting",
+        "Value": 211
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Consulting",
+        "Value": 213
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Consulting",
+        "Value": 208
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Consulting",
+        "Value": 208
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Consulting",
+        "Value": 214
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Consulting",
+        "Value": 223
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Education",
+        "Value": 242
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Education",
+        "Value": 240
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Education",
+        "Value": 233
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Education",
+        "Value": 222
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Education",
+        "Value": 212
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Education",
+        "Value": 198
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Education",
+        "Value": 186
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Education",
+        "Value": 174
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Education",
+        "Value": 162
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Education",
+        "Value": 160
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Education",
+        "Value": 152
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Education",
+        "Value": 151
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Entertainment",
+        "Value": 257
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Entertainment",
+        "Value": 251
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Entertainment",
+        "Value": 250
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Entertainment",
+        "Value": 250
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Entertainment",
+        "Value": 256
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Entertainment",
+        "Value": 256
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Entertainment",
+        "Value": 255
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Entertainment",
+        "Value": 256
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Entertainment",
+        "Value": 253
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Entertainment",
+        "Value": 249
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Entertainment",
+        "Value": 248
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Entertainment",
+        "Value": 247
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Fintech",
+        "Value": 277
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Fintech",
+        "Value": 283
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Fintech",
+        "Value": 289
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Fintech",
+        "Value": 292
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Fintech",
+        "Value": 300
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Fintech",
+        "Value": 308
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Fintech",
+        "Value": 306
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Fintech",
+        "Value": 299
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Fintech",
+        "Value": 300
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Fintech",
+        "Value": 306
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Fintech",
+        "Value": 303
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Fintech",
+        "Value": 306
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Forestry",
+        "Value": 75
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Forestry",
+        "Value": 68
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Forestry",
+        "Value": 63
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Forestry",
+        "Value": 63
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Forestry",
+        "Value": 66
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Forestry",
+        "Value": 72
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Forestry",
+        "Value": 74
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Forestry",
+        "Value": 76
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Forestry",
+        "Value": 72
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Forestry",
+        "Value": 72
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Forestry",
+        "Value": 74
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Forestry",
+        "Value": 70
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Hospitality",
+        "Value": 274
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Hospitality",
+        "Value": 278
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Hospitality",
+        "Value": 279
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Hospitality",
+        "Value": 279
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Hospitality",
+        "Value": 284
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Hospitality",
+        "Value": 286
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Hospitality",
+        "Value": 286
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Hospitality",
+        "Value": 287
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Hospitality",
+        "Value": 284
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Hospitality",
+        "Value": 275
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Hospitality",
+        "Value": 268
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Hospitality",
+        "Value": 263
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Legal",
+        "Value": 157
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Legal",
+        "Value": 157
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Legal",
+        "Value": 153
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Legal",
+        "Value": 148
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Legal",
+        "Value": 152
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Legal",
+        "Value": 157
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Legal",
+        "Value": 156
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Legal",
+        "Value": 159
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Legal",
+        "Value": 155
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Legal",
+        "Value": 153
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Legal",
+        "Value": 150
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Legal",
+        "Value": 152
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Media",
+        "Value": 156
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Media",
+        "Value": 153
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Media",
+        "Value": 149
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Media",
+        "Value": 146
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Media",
+        "Value": 146
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Media",
+        "Value": 147
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Media",
+        "Value": 152
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Media",
+        "Value": 157
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Media",
+        "Value": 153
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Media",
+        "Value": 148
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Media",
+        "Value": 145
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Media",
+        "Value": 147
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Mining",
+        "Value": 289
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Mining",
+        "Value": 295
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Mining",
+        "Value": 305
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Mining",
+        "Value": 317
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Mining",
+        "Value": 328
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Mining",
+        "Value": 337
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Mining",
+        "Value": 349
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Mining",
+        "Value": 361
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Mining",
+        "Value": 367
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Mining",
+        "Value": 364
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Mining",
+        "Value": 356
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Mining",
+        "Value": 351
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Packaging",
+        "Value": 231
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Packaging",
+        "Value": 235
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Packaging",
+        "Value": 231
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Packaging",
+        "Value": 222
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Packaging",
+        "Value": 217
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Packaging",
+        "Value": 215
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Packaging",
+        "Value": 214
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Packaging",
+        "Value": 212
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Packaging",
+        "Value": 218
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Packaging",
+        "Value": 217
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Packaging",
+        "Value": 214
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Packaging",
+        "Value": 215
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Publishing",
+        "Value": 342
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Publishing",
+        "Value": 345
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Publishing",
+        "Value": 346
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Publishing",
+        "Value": 349
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Publishing",
+        "Value": 353
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Publishing",
+        "Value": 351
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Publishing",
+        "Value": 354
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Publishing",
+        "Value": 364
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Publishing",
+        "Value": 368
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Publishing",
+        "Value": 365
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Publishing",
+        "Value": 366
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Publishing",
+        "Value": 361
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Semiconductors",
+        "Value": 143
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Semiconductors",
+        "Value": 149
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Semiconductors",
+        "Value": 146
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Semiconductors",
+        "Value": 143
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Semiconductors",
+        "Value": 136
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Semiconductors",
+        "Value": 125
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Semiconductors",
+        "Value": 116
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Semiconductors",
+        "Value": 116
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Semiconductors",
+        "Value": 121
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Semiconductors",
+        "Value": 129
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Semiconductors",
+        "Value": 138
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Semiconductors",
+        "Value": 151
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Shipping",
+        "Value": 318
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Shipping",
+        "Value": 312
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Shipping",
+        "Value": 312
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Shipping",
+        "Value": 314
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Shipping",
+        "Value": 322
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Shipping",
+        "Value": 321
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Shipping",
+        "Value": 317
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Shipping",
+        "Value": 318
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Shipping",
+        "Value": 315
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Shipping",
+        "Value": 310
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Shipping",
+        "Value": 304
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Shipping",
+        "Value": 302
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Sports",
+        "Value": 261
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Sports",
+        "Value": 258
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Sports",
+        "Value": 258
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Sports",
+        "Value": 251
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Sports",
+        "Value": 251
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Sports",
+        "Value": 257
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Sports",
+        "Value": 258
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Sports",
+        "Value": 260
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Sports",
+        "Value": 254
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Sports",
+        "Value": 245
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Sports",
+        "Value": 246
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Sports",
+        "Value": 249
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Textiles",
+        "Value": 143
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Textiles",
+        "Value": 147
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Textiles",
+        "Value": 151
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Textiles",
+        "Value": 151
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Textiles",
+        "Value": 147
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Textiles",
+        "Value": 151
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Textiles",
+        "Value": 158
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Textiles",
+        "Value": 165
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Textiles",
+        "Value": 177
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Textiles",
+        "Value": 187
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Textiles",
+        "Value": 191
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Textiles",
+        "Value": 193
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Waste Mgmt",
+        "Value": 88
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Waste Mgmt",
+        "Value": 86
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Waste Mgmt",
+        "Value": 82
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Waste Mgmt",
+        "Value": 87
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Waste Mgmt",
+        "Value": 95
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Waste Mgmt",
+        "Value": 98
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Waste Mgmt",
+        "Value": 105
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Waste Mgmt",
+        "Value": 102
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Waste Mgmt",
+        "Value": 97
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Waste Mgmt",
+        "Value": 95
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Waste Mgmt",
+        "Value": 94
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Waste Mgmt",
+        "Value": 100
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Advertising",
+        "Value": 128
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Advertising",
+        "Value": 123
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Advertising",
+        "Value": 118
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Advertising",
+        "Value": 118
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Advertising",
+        "Value": 114
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Advertising",
+        "Value": 105
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Advertising",
+        "Value": 94
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Advertising",
+        "Value": 87
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Advertising",
+        "Value": 85
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Advertising",
+        "Value": 77
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Advertising",
+        "Value": 76
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Advertising",
+        "Value": 73
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Architecture",
+        "Value": 220
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Architecture",
+        "Value": 226
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Architecture",
+        "Value": 225
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Architecture",
+        "Value": 227
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Architecture",
+        "Value": 234
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Architecture",
+        "Value": 239
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Architecture",
+        "Value": 242
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Architecture",
+        "Value": 246
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Architecture",
+        "Value": 256
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Architecture",
+        "Value": 267
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Architecture",
+        "Value": 279
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Architecture",
+        "Value": 286
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Brewing",
+        "Value": 138
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Brewing",
+        "Value": 136
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Brewing",
+        "Value": 132
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Brewing",
+        "Value": 132
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Brewing",
+        "Value": 137
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Brewing",
+        "Value": 143
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Brewing",
+        "Value": 154
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Brewing",
+        "Value": 161
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Brewing",
+        "Value": 169
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Brewing",
+        "Value": 178
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Brewing",
+        "Value": 189
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Brewing",
+        "Value": 192
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Ceramics",
+        "Value": 203
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Ceramics",
+        "Value": 198
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Ceramics",
+        "Value": 190
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Ceramics",
+        "Value": 181
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Ceramics",
+        "Value": 169
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Ceramics",
+        "Value": 163
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Ceramics",
+        "Value": 164
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Ceramics",
+        "Value": 169
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Ceramics",
+        "Value": 173
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Ceramics",
+        "Value": 175
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Ceramics",
+        "Value": 169
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Ceramics",
+        "Value": 168
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Dairy",
+        "Value": 167
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Dairy",
+        "Value": 174
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Dairy",
+        "Value": 177
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Dairy",
+        "Value": 183
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Dairy",
+        "Value": 191
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Dairy",
+        "Value": 190
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Dairy",
+        "Value": 194
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Dairy",
+        "Value": 192
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Dairy",
+        "Value": 190
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Dairy",
+        "Value": 185
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Dairy",
+        "Value": 177
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Dairy",
+        "Value": 174
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "E-commerce",
+        "Value": 329
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "E-commerce",
+        "Value": 326
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "E-commerce",
+        "Value": 324
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "E-commerce",
+        "Value": 323
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "E-commerce",
+        "Value": 317
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "E-commerce",
+        "Value": 307
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "E-commerce",
+        "Value": 299
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "E-commerce",
+        "Value": 298
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "E-commerce",
+        "Value": 296
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "E-commerce",
+        "Value": 288
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "E-commerce",
+        "Value": 289
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "E-commerce",
+        "Value": 285
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Fisheries",
+        "Value": 295
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Fisheries",
+        "Value": 294
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Fisheries",
+        "Value": 298
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Fisheries",
+        "Value": 298
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Fisheries",
+        "Value": 303
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Fisheries",
+        "Value": 307
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Fisheries",
+        "Value": 304
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Fisheries",
+        "Value": 303
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Fisheries",
+        "Value": 306
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Fisheries",
+        "Value": 307
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Fisheries",
+        "Value": 303
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Fisheries",
+        "Value": 301
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Furniture",
+        "Value": 334
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Furniture",
+        "Value": 330
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Furniture",
+        "Value": 332
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Furniture",
+        "Value": 331
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Furniture",
+        "Value": 336
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Furniture",
+        "Value": 346
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Furniture",
+        "Value": 360
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Furniture",
+        "Value": 367
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Furniture",
+        "Value": 377
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Furniture",
+        "Value": 383
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Furniture",
+        "Value": 383
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Furniture",
+        "Value": 378
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Genomics",
+        "Value": 316
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Genomics",
+        "Value": 314
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Genomics",
+        "Value": 316
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Genomics",
+        "Value": 325
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Genomics",
+        "Value": 328
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Genomics",
+        "Value": 333
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Genomics",
+        "Value": 337
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Genomics",
+        "Value": 340
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Genomics",
+        "Value": 340
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Genomics",
+        "Value": 333
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Genomics",
+        "Value": 321
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Genomics",
+        "Value": 318
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "HVAC",
+        "Value": 271
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "HVAC",
+        "Value": 270
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "HVAC",
+        "Value": 270
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "HVAC",
+        "Value": 273
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "HVAC",
+        "Value": 276
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "HVAC",
+        "Value": 282
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "HVAC",
+        "Value": 283
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "HVAC",
+        "Value": 287
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "HVAC",
+        "Value": 292
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "HVAC",
+        "Value": 291
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "HVAC",
+        "Value": 296
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "HVAC",
+        "Value": 299
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Irrigation",
+        "Value": 285
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Irrigation",
+        "Value": 288
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Irrigation",
+        "Value": 289
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Irrigation",
+        "Value": 284
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Irrigation",
+        "Value": 286
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Irrigation",
+        "Value": 295
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Irrigation",
+        "Value": 299
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Irrigation",
+        "Value": 304
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Irrigation",
+        "Value": 311
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Irrigation",
+        "Value": 322
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Irrigation",
+        "Value": 330
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Irrigation",
+        "Value": 337
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Journalism",
+        "Value": 159
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Journalism",
+        "Value": 163
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Journalism",
+        "Value": 161
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Journalism",
+        "Value": 155
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Journalism",
+        "Value": 154
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Journalism",
+        "Value": 148
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Journalism",
+        "Value": 140
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Journalism",
+        "Value": 140
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Journalism",
+        "Value": 140
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Journalism",
+        "Value": 142
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Journalism",
+        "Value": 144
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Journalism",
+        "Value": 141
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Knitwear",
+        "Value": 289
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Knitwear",
+        "Value": 291
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Knitwear",
+        "Value": 293
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Knitwear",
+        "Value": 289
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Knitwear",
+        "Value": 280
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Knitwear",
+        "Value": 279
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Knitwear",
+        "Value": 279
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Knitwear",
+        "Value": 271
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Knitwear",
+        "Value": 259
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Knitwear",
+        "Value": 251
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Knitwear",
+        "Value": 240
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Knitwear",
+        "Value": 226
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Lighting",
+        "Value": 238
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Lighting",
+        "Value": 245
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Lighting",
+        "Value": 253
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Lighting",
+        "Value": 258
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Lighting",
+        "Value": 268
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Lighting",
+        "Value": 278
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Lighting",
+        "Value": 288
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Lighting",
+        "Value": 290
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Lighting",
+        "Value": 288
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Lighting",
+        "Value": 291
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Lighting",
+        "Value": 300
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Lighting",
+        "Value": 307
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Marine",
+        "Value": 107
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Marine",
+        "Value": 107
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Marine",
+        "Value": 104
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Marine",
+        "Value": 103
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Marine",
+        "Value": 106
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Marine",
+        "Value": 109
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Marine",
+        "Value": 108
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Marine",
+        "Value": 106
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Marine",
+        "Value": 99
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Marine",
+        "Value": 90
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Marine",
+        "Value": 87
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Marine",
+        "Value": 87
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Nutrition",
+        "Value": 236
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Nutrition",
+        "Value": 229
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Nutrition",
+        "Value": 217
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Nutrition",
+        "Value": 204
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Nutrition",
+        "Value": 194
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Nutrition",
+        "Value": 181
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Nutrition",
+        "Value": 178
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Nutrition",
+        "Value": 183
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Nutrition",
+        "Value": 186
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Nutrition",
+        "Value": 194
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Nutrition",
+        "Value": 198
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Nutrition",
+        "Value": 197
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Optics",
+        "Value": 169
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Optics",
+        "Value": 169
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Optics",
+        "Value": 170
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Optics",
+        "Value": 168
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Optics",
+        "Value": 162
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Optics",
+        "Value": 163
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Optics",
+        "Value": 167
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Optics",
+        "Value": 172
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Optics",
+        "Value": 180
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Optics",
+        "Value": 188
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Optics",
+        "Value": 187
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Optics",
+        "Value": 194
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Plumbing",
+        "Value": 137
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Plumbing",
+        "Value": 142
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Plumbing",
+        "Value": 148
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Plumbing",
+        "Value": 158
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Plumbing",
+        "Value": 169
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Plumbing",
+        "Value": 177
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Plumbing",
+        "Value": 185
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Plumbing",
+        "Value": 194
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Plumbing",
+        "Value": 197
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Plumbing",
+        "Value": 203
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Plumbing",
+        "Value": 200
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Plumbing",
+        "Value": 192
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Quarrying",
+        "Value": 228
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Quarrying",
+        "Value": 222
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Quarrying",
+        "Value": 216
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Quarrying",
+        "Value": 205
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Quarrying",
+        "Value": 194
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Quarrying",
+        "Value": 182
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Quarrying",
+        "Value": 170
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Quarrying",
+        "Value": 161
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Quarrying",
+        "Value": 159
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Quarrying",
+        "Value": 158
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Quarrying",
+        "Value": 158
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Quarrying",
+        "Value": 158
+      },
+      {
+        "Date": "2024-01-01",
+        "Series": "Robotics",
+        "Value": 211
+      },
+      {
+        "Date": "2024-04-01",
+        "Series": "Robotics",
+        "Value": 214
+      },
+      {
+        "Date": "2024-07-01",
+        "Series": "Robotics",
+        "Value": 222
+      },
+      {
+        "Date": "2024-09-30",
+        "Series": "Robotics",
+        "Value": 220
+      },
+      {
+        "Date": "2024-12-31",
+        "Series": "Robotics",
+        "Value": 220
+      },
+      {
+        "Date": "2025-04-01",
+        "Series": "Robotics",
+        "Value": 217
+      },
+      {
+        "Date": "2025-07-01",
+        "Series": "Robotics",
+        "Value": 216
+      },
+      {
+        "Date": "2025-09-30",
+        "Series": "Robotics",
+        "Value": 212
+      },
+      {
+        "Date": "2025-12-31",
+        "Series": "Robotics",
+        "Value": 212
+      },
+      {
+        "Date": "2026-04-01",
+        "Series": "Robotics",
+        "Value": 213
+      },
+      {
+        "Date": "2026-07-01",
+        "Series": "Robotics",
+        "Value": 219
+      },
+      {
+        "Date": "2026-09-30",
+        "Series": "Robotics",
+        "Value": 230
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "36 of 60 values in 'Series' were omitted (showing top 24).",
+      "channel": "color",
+      "field": "Series"
+    }
+  ],
+  "_width": 722,
+  "_height": 332,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    }
+  ]
+}

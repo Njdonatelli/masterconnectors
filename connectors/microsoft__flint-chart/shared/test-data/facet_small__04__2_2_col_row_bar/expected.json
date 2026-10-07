@@ -1,0 +1,226 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "column": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null
+    },
+    "row": {
+      "field": "Row",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Row: Value"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 211,
+      "continuousHeight": 155
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerColumn": {
+      "labelLimit": 231
+    },
+    "headerRow": {
+      "labelLimit": 155
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "A",
+        "Value": 55,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 236,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 424,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "D",
+        "Value": 157,
+        "Col": "Electronics",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 276,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 363,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 371,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "D",
+        "Value": 227,
+        "Col": "Electronics",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 486,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 235,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 418,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "D",
+        "Value": 239,
+        "Col": "Clothing",
+        "Row": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 291,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 362,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 234,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      },
+      {
+        "Category": "D",
+        "Value": 430,
+        "Col": "Clothing",
+        "Row": "Clothing"
+      }
+    ]
+  },
+  "_width": 211,
+  "_height": 155,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

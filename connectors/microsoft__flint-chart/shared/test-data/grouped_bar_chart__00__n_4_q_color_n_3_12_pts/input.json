@@ -1,0 +1,97 @@
+{
+  "title": "N(4)×Q +color(N,3) (12 pts)",
+  "description": "Basic grouped — 4 cats × 3 groups",
+  "chartType": "Grouped Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Laptop",
+          "Value": 12,
+          "Segment": "USA"
+        },
+        {
+          "Category": "Laptop",
+          "Value": 467,
+          "Segment": "China"
+        },
+        {
+          "Category": "Laptop",
+          "Value": 685,
+          "Segment": "Japan"
+        },
+        {
+          "Category": "Phone",
+          "Value": 599,
+          "Segment": "USA"
+        },
+        {
+          "Category": "Phone",
+          "Value": 832,
+          "Segment": "China"
+        },
+        {
+          "Category": "Phone",
+          "Value": 691,
+          "Segment": "Japan"
+        },
+        {
+          "Category": "Tablet",
+          "Value": 122,
+          "Segment": "USA"
+        },
+        {
+          "Category": "Tablet",
+          "Value": 663,
+          "Segment": "China"
+        },
+        {
+          "Category": "Tablet",
+          "Value": 791,
+          "Segment": "Japan"
+        },
+        {
+          "Category": "Desktop",
+          "Value": 414,
+          "Segment": "USA"
+        },
+        {
+          "Category": "Desktop",
+          "Value": 60,
+          "Segment": "China"
+        },
+        {
+          "Category": "Desktop",
+          "Value": 827,
+          "Segment": "Japan"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Quantity",
+      "Segment": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Grouped Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "group": {
+          "field": "Segment"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

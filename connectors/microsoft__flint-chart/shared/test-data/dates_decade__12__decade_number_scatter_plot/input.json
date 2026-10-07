@@ -1,0 +1,65 @@
+{
+  "title": "Decade (number) → Scatter Plot",
+  "description": "Decades as integers: 1950, 1960, … (8 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": 1950,
+          "Value": 354
+        },
+        {
+          "Decade": 1960,
+          "Value": 359
+        },
+        {
+          "Decade": 1970,
+          "Value": 83
+        },
+        {
+          "Decade": 1980,
+          "Value": 412
+        },
+        {
+          "Decade": 1990,
+          "Value": 325
+        },
+        {
+          "Decade": 2000,
+          "Value": 336
+        },
+        {
+          "Decade": 2010,
+          "Value": 406
+        },
+        {
+          "Decade": 2020,
+          "Value": 317
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

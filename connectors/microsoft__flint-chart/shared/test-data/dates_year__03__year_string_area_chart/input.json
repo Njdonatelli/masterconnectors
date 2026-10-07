@@ -1,0 +1,81 @@
+{
+  "title": "Year (string) → Area Chart",
+  "description": "Years as 4-digit strings: \"2000\", \"2001\", … (12 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Year": "2000",
+          "Value": 476
+        },
+        {
+          "Year": "2001",
+          "Value": 134
+        },
+        {
+          "Year": "2002",
+          "Value": 110
+        },
+        {
+          "Year": "2003",
+          "Value": 223
+        },
+        {
+          "Year": "2004",
+          "Value": 145
+        },
+        {
+          "Year": "2005",
+          "Value": 263
+        },
+        {
+          "Year": "2006",
+          "Value": 117
+        },
+        {
+          "Year": "2007",
+          "Value": 192
+        },
+        {
+          "Year": "2008",
+          "Value": 57
+        },
+        {
+          "Year": "2009",
+          "Value": 404
+        },
+        {
+          "Year": "2010",
+          "Value": 59
+        },
+        {
+          "Year": "2011",
+          "Value": 204
+        }
+      ]
+    },
+    "semantic_types": {
+      "Year": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Year"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

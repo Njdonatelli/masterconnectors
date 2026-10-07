@@ -1,0 +1,2116 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Y",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null,
+      "columns": 10
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 65,
+      "continuousHeight": 93
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 85
+    },
+    "facet": {
+      "spacing": 7
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 11,
+        "Y": 22,
+        "Col": "Electronics"
+      },
+      {
+        "X": 14,
+        "Y": 73,
+        "Col": "Electronics"
+      },
+      {
+        "X": 22,
+        "Y": 88,
+        "Col": "Electronics"
+      },
+      {
+        "X": 28,
+        "Y": 28,
+        "Col": "Electronics"
+      },
+      {
+        "X": 79,
+        "Y": 13,
+        "Col": "Electronics"
+      },
+      {
+        "X": 94,
+        "Y": 78,
+        "Col": "Electronics"
+      },
+      {
+        "X": 18,
+        "Y": 98,
+        "Col": "Electronics"
+      },
+      {
+        "X": 60,
+        "Y": 23,
+        "Col": "Electronics"
+      },
+      {
+        "X": 25,
+        "Y": 11,
+        "Col": "Electronics"
+      },
+      {
+        "X": 84,
+        "Y": 97,
+        "Col": "Electronics"
+      },
+      {
+        "X": 23,
+        "Y": 54,
+        "Col": "Electronics"
+      },
+      {
+        "X": 33,
+        "Y": 55,
+        "Col": "Electronics"
+      },
+      {
+        "X": 88,
+        "Y": 58,
+        "Col": "Electronics"
+      },
+      {
+        "X": 68,
+        "Y": 77,
+        "Col": "Electronics"
+      },
+      {
+        "X": 29,
+        "Y": 32,
+        "Col": "Electronics"
+      },
+      {
+        "X": 39,
+        "Y": 66,
+        "Col": "Electronics"
+      },
+      {
+        "X": 51,
+        "Y": 78,
+        "Col": "Electronics"
+      },
+      {
+        "X": 68,
+        "Y": 13,
+        "Col": "Electronics"
+      },
+      {
+        "X": 16,
+        "Y": 18,
+        "Col": "Electronics"
+      },
+      {
+        "X": 41,
+        "Y": 38,
+        "Col": "Electronics"
+      },
+      {
+        "X": 46,
+        "Y": 37,
+        "Col": "Clothing"
+      },
+      {
+        "X": 26,
+        "Y": 20,
+        "Col": "Clothing"
+      },
+      {
+        "X": 66,
+        "Y": 61,
+        "Col": "Clothing"
+      },
+      {
+        "X": 78,
+        "Y": 10,
+        "Col": "Clothing"
+      },
+      {
+        "X": 82,
+        "Y": 79,
+        "Col": "Clothing"
+      },
+      {
+        "X": 29,
+        "Y": 58,
+        "Col": "Clothing"
+      },
+      {
+        "X": 41,
+        "Y": 69,
+        "Col": "Clothing"
+      },
+      {
+        "X": 46,
+        "Y": 66,
+        "Col": "Clothing"
+      },
+      {
+        "X": 96,
+        "Y": 87,
+        "Col": "Clothing"
+      },
+      {
+        "X": 89,
+        "Y": 81,
+        "Col": "Clothing"
+      },
+      {
+        "X": 96,
+        "Y": 45,
+        "Col": "Clothing"
+      },
+      {
+        "X": 73,
+        "Y": 16,
+        "Col": "Clothing"
+      },
+      {
+        "X": 66,
+        "Y": 70,
+        "Col": "Clothing"
+      },
+      {
+        "X": 33,
+        "Y": 14,
+        "Col": "Clothing"
+      },
+      {
+        "X": 14,
+        "Y": 95,
+        "Col": "Clothing"
+      },
+      {
+        "X": 48,
+        "Y": 79,
+        "Col": "Clothing"
+      },
+      {
+        "X": 54,
+        "Y": 89,
+        "Col": "Clothing"
+      },
+      {
+        "X": 28,
+        "Y": 32,
+        "Col": "Clothing"
+      },
+      {
+        "X": 29,
+        "Y": 24,
+        "Col": "Clothing"
+      },
+      {
+        "X": 76,
+        "Y": 13,
+        "Col": "Clothing"
+      },
+      {
+        "X": 99,
+        "Y": 19,
+        "Col": "Food"
+      },
+      {
+        "X": 68,
+        "Y": 71,
+        "Col": "Food"
+      },
+      {
+        "X": 63,
+        "Y": 13,
+        "Col": "Food"
+      },
+      {
+        "X": 85,
+        "Y": 78,
+        "Col": "Food"
+      },
+      {
+        "X": 37,
+        "Y": 13,
+        "Col": "Food"
+      },
+      {
+        "X": 45,
+        "Y": 57,
+        "Col": "Food"
+      },
+      {
+        "X": 70,
+        "Y": 79,
+        "Col": "Food"
+      },
+      {
+        "X": 13,
+        "Y": 66,
+        "Col": "Food"
+      },
+      {
+        "X": 21,
+        "Y": 82,
+        "Col": "Food"
+      },
+      {
+        "X": 44,
+        "Y": 49,
+        "Col": "Food"
+      },
+      {
+        "X": 13,
+        "Y": 78,
+        "Col": "Food"
+      },
+      {
+        "X": 70,
+        "Y": 10,
+        "Col": "Food"
+      },
+      {
+        "X": 99,
+        "Y": 75,
+        "Col": "Food"
+      },
+      {
+        "X": 94,
+        "Y": 10,
+        "Col": "Food"
+      },
+      {
+        "X": 39,
+        "Y": 57,
+        "Col": "Food"
+      },
+      {
+        "X": 93,
+        "Y": 58,
+        "Col": "Food"
+      },
+      {
+        "X": 56,
+        "Y": 86,
+        "Col": "Food"
+      },
+      {
+        "X": 94,
+        "Y": 54,
+        "Col": "Food"
+      },
+      {
+        "X": 87,
+        "Y": 81,
+        "Col": "Food"
+      },
+      {
+        "X": 85,
+        "Y": 72,
+        "Col": "Food"
+      },
+      {
+        "X": 44,
+        "Y": 32,
+        "Col": "Books"
+      },
+      {
+        "X": 91,
+        "Y": 100,
+        "Col": "Books"
+      },
+      {
+        "X": 97,
+        "Y": 53,
+        "Col": "Books"
+      },
+      {
+        "X": 28,
+        "Y": 21,
+        "Col": "Books"
+      },
+      {
+        "X": 41,
+        "Y": 21,
+        "Col": "Books"
+      },
+      {
+        "X": 98,
+        "Y": 40,
+        "Col": "Books"
+      },
+      {
+        "X": 63,
+        "Y": 49,
+        "Col": "Books"
+      },
+      {
+        "X": 95,
+        "Y": 49,
+        "Col": "Books"
+      },
+      {
+        "X": 25,
+        "Y": 95,
+        "Col": "Books"
+      },
+      {
+        "X": 94,
+        "Y": 18,
+        "Col": "Books"
+      },
+      {
+        "X": 76,
+        "Y": 99,
+        "Col": "Books"
+      },
+      {
+        "X": 59,
+        "Y": 77,
+        "Col": "Books"
+      },
+      {
+        "X": 35,
+        "Y": 82,
+        "Col": "Books"
+      },
+      {
+        "X": 56,
+        "Y": 94,
+        "Col": "Books"
+      },
+      {
+        "X": 11,
+        "Y": 60,
+        "Col": "Books"
+      },
+      {
+        "X": 73,
+        "Y": 45,
+        "Col": "Books"
+      },
+      {
+        "X": 97,
+        "Y": 90,
+        "Col": "Books"
+      },
+      {
+        "X": 41,
+        "Y": 71,
+        "Col": "Books"
+      },
+      {
+        "X": 87,
+        "Y": 35,
+        "Col": "Books"
+      },
+      {
+        "X": 77,
+        "Y": 82,
+        "Col": "Books"
+      },
+      {
+        "X": 50,
+        "Y": 85,
+        "Col": "Sports"
+      },
+      {
+        "X": 55,
+        "Y": 49,
+        "Col": "Sports"
+      },
+      {
+        "X": 92,
+        "Y": 17,
+        "Col": "Sports"
+      },
+      {
+        "X": 89,
+        "Y": 79,
+        "Col": "Sports"
+      },
+      {
+        "X": 71,
+        "Y": 84,
+        "Col": "Sports"
+      },
+      {
+        "X": 71,
+        "Y": 31,
+        "Col": "Sports"
+      },
+      {
+        "X": 93,
+        "Y": 12,
+        "Col": "Sports"
+      },
+      {
+        "X": 51,
+        "Y": 38,
+        "Col": "Sports"
+      },
+      {
+        "X": 30,
+        "Y": 80,
+        "Col": "Sports"
+      },
+      {
+        "X": 89,
+        "Y": 42,
+        "Col": "Sports"
+      },
+      {
+        "X": 76,
+        "Y": 50,
+        "Col": "Sports"
+      },
+      {
+        "X": 49,
+        "Y": 20,
+        "Col": "Sports"
+      },
+      {
+        "X": 81,
+        "Y": 13,
+        "Col": "Sports"
+      },
+      {
+        "X": 23,
+        "Y": 56,
+        "Col": "Sports"
+      },
+      {
+        "X": 47,
+        "Y": 98,
+        "Col": "Sports"
+      },
+      {
+        "X": 20,
+        "Y": 32,
+        "Col": "Sports"
+      },
+      {
+        "X": 20,
+        "Y": 68,
+        "Col": "Sports"
+      },
+      {
+        "X": 42,
+        "Y": 44,
+        "Col": "Sports"
+      },
+      {
+        "X": 76,
+        "Y": 27,
+        "Col": "Sports"
+      },
+      {
+        "X": 61,
+        "Y": 94,
+        "Col": "Sports"
+      },
+      {
+        "X": 43,
+        "Y": 61,
+        "Col": "Home"
+      },
+      {
+        "X": 35,
+        "Y": 72,
+        "Col": "Home"
+      },
+      {
+        "X": 55,
+        "Y": 46,
+        "Col": "Home"
+      },
+      {
+        "X": 27,
+        "Y": 35,
+        "Col": "Home"
+      },
+      {
+        "X": 61,
+        "Y": 69,
+        "Col": "Home"
+      },
+      {
+        "X": 38,
+        "Y": 47,
+        "Col": "Home"
+      },
+      {
+        "X": 54,
+        "Y": 46,
+        "Col": "Home"
+      },
+      {
+        "X": 92,
+        "Y": 15,
+        "Col": "Home"
+      },
+      {
+        "X": 76,
+        "Y": 28,
+        "Col": "Home"
+      },
+      {
+        "X": 98,
+        "Y": 86,
+        "Col": "Home"
+      },
+      {
+        "X": 75,
+        "Y": 11,
+        "Col": "Home"
+      },
+      {
+        "X": 80,
+        "Y": 84,
+        "Col": "Home"
+      },
+      {
+        "X": 25,
+        "Y": 20,
+        "Col": "Home"
+      },
+      {
+        "X": 69,
+        "Y": 41,
+        "Col": "Home"
+      },
+      {
+        "X": 66,
+        "Y": 59,
+        "Col": "Home"
+      },
+      {
+        "X": 56,
+        "Y": 92,
+        "Col": "Home"
+      },
+      {
+        "X": 71,
+        "Y": 18,
+        "Col": "Home"
+      },
+      {
+        "X": 91,
+        "Y": 24,
+        "Col": "Home"
+      },
+      {
+        "X": 47,
+        "Y": 35,
+        "Col": "Home"
+      },
+      {
+        "X": 79,
+        "Y": 61,
+        "Col": "Home"
+      },
+      {
+        "X": 85,
+        "Y": 17,
+        "Col": "Garden"
+      },
+      {
+        "X": 33,
+        "Y": 51,
+        "Col": "Garden"
+      },
+      {
+        "X": 16,
+        "Y": 27,
+        "Col": "Garden"
+      },
+      {
+        "X": 87,
+        "Y": 86,
+        "Col": "Garden"
+      },
+      {
+        "X": 34,
+        "Y": 88,
+        "Col": "Garden"
+      },
+      {
+        "X": 80,
+        "Y": 23,
+        "Col": "Garden"
+      },
+      {
+        "X": 22,
+        "Y": 34,
+        "Col": "Garden"
+      },
+      {
+        "X": 33,
+        "Y": 51,
+        "Col": "Garden"
+      },
+      {
+        "X": 93,
+        "Y": 47,
+        "Col": "Garden"
+      },
+      {
+        "X": 14,
+        "Y": 26,
+        "Col": "Garden"
+      },
+      {
+        "X": 38,
+        "Y": 23,
+        "Col": "Garden"
+      },
+      {
+        "X": 11,
+        "Y": 41,
+        "Col": "Garden"
+      },
+      {
+        "X": 97,
+        "Y": 17,
+        "Col": "Garden"
+      },
+      {
+        "X": 30,
+        "Y": 84,
+        "Col": "Garden"
+      },
+      {
+        "X": 51,
+        "Y": 87,
+        "Col": "Garden"
+      },
+      {
+        "X": 78,
+        "Y": 78,
+        "Col": "Garden"
+      },
+      {
+        "X": 28,
+        "Y": 32,
+        "Col": "Garden"
+      },
+      {
+        "X": 56,
+        "Y": 58,
+        "Col": "Garden"
+      },
+      {
+        "X": 73,
+        "Y": 83,
+        "Col": "Garden"
+      },
+      {
+        "X": 66,
+        "Y": 18,
+        "Col": "Garden"
+      },
+      {
+        "X": 42,
+        "Y": 75,
+        "Col": "Auto"
+      },
+      {
+        "X": 61,
+        "Y": 27,
+        "Col": "Auto"
+      },
+      {
+        "X": 56,
+        "Y": 52,
+        "Col": "Auto"
+      },
+      {
+        "X": 58,
+        "Y": 99,
+        "Col": "Auto"
+      },
+      {
+        "X": 92,
+        "Y": 21,
+        "Col": "Auto"
+      },
+      {
+        "X": 72,
+        "Y": 29,
+        "Col": "Auto"
+      },
+      {
+        "X": 38,
+        "Y": 62,
+        "Col": "Auto"
+      },
+      {
+        "X": 92,
+        "Y": 31,
+        "Col": "Auto"
+      },
+      {
+        "X": 51,
+        "Y": 79,
+        "Col": "Auto"
+      },
+      {
+        "X": 55,
+        "Y": 100,
+        "Col": "Auto"
+      },
+      {
+        "X": 83,
+        "Y": 62,
+        "Col": "Auto"
+      },
+      {
+        "X": 14,
+        "Y": 18,
+        "Col": "Auto"
+      },
+      {
+        "X": 49,
+        "Y": 35,
+        "Col": "Auto"
+      },
+      {
+        "X": 40,
+        "Y": 76,
+        "Col": "Auto"
+      },
+      {
+        "X": 54,
+        "Y": 81,
+        "Col": "Auto"
+      },
+      {
+        "X": 19,
+        "Y": 54,
+        "Col": "Auto"
+      },
+      {
+        "X": 67,
+        "Y": 98,
+        "Col": "Auto"
+      },
+      {
+        "X": 91,
+        "Y": 63,
+        "Col": "Auto"
+      },
+      {
+        "X": 19,
+        "Y": 42,
+        "Col": "Auto"
+      },
+      {
+        "X": 47,
+        "Y": 24,
+        "Col": "Auto"
+      },
+      {
+        "X": 15,
+        "Y": 50,
+        "Col": "Health"
+      },
+      {
+        "X": 49,
+        "Y": 21,
+        "Col": "Health"
+      },
+      {
+        "X": 16,
+        "Y": 68,
+        "Col": "Health"
+      },
+      {
+        "X": 34,
+        "Y": 23,
+        "Col": "Health"
+      },
+      {
+        "X": 12,
+        "Y": 58,
+        "Col": "Health"
+      },
+      {
+        "X": 78,
+        "Y": 70,
+        "Col": "Health"
+      },
+      {
+        "X": 38,
+        "Y": 44,
+        "Col": "Health"
+      },
+      {
+        "X": 23,
+        "Y": 61,
+        "Col": "Health"
+      },
+      {
+        "X": 42,
+        "Y": 84,
+        "Col": "Health"
+      },
+      {
+        "X": 13,
+        "Y": 42,
+        "Col": "Health"
+      },
+      {
+        "X": 99,
+        "Y": 81,
+        "Col": "Health"
+      },
+      {
+        "X": 67,
+        "Y": 93,
+        "Col": "Health"
+      },
+      {
+        "X": 75,
+        "Y": 21,
+        "Col": "Health"
+      },
+      {
+        "X": 43,
+        "Y": 24,
+        "Col": "Health"
+      },
+      {
+        "X": 41,
+        "Y": 12,
+        "Col": "Health"
+      },
+      {
+        "X": 83,
+        "Y": 48,
+        "Col": "Health"
+      },
+      {
+        "X": 81,
+        "Y": 94,
+        "Col": "Health"
+      },
+      {
+        "X": 50,
+        "Y": 70,
+        "Col": "Health"
+      },
+      {
+        "X": 82,
+        "Y": 38,
+        "Col": "Health"
+      },
+      {
+        "X": 79,
+        "Y": 26,
+        "Col": "Health"
+      },
+      {
+        "X": 86,
+        "Y": 51,
+        "Col": "Beauty"
+      },
+      {
+        "X": 77,
+        "Y": 56,
+        "Col": "Beauty"
+      },
+      {
+        "X": 57,
+        "Y": 21,
+        "Col": "Beauty"
+      },
+      {
+        "X": 88,
+        "Y": 17,
+        "Col": "Beauty"
+      },
+      {
+        "X": 100,
+        "Y": 11,
+        "Col": "Beauty"
+      },
+      {
+        "X": 93,
+        "Y": 94,
+        "Col": "Beauty"
+      },
+      {
+        "X": 14,
+        "Y": 76,
+        "Col": "Beauty"
+      },
+      {
+        "X": 22,
+        "Y": 77,
+        "Col": "Beauty"
+      },
+      {
+        "X": 89,
+        "Y": 16,
+        "Col": "Beauty"
+      },
+      {
+        "X": 76,
+        "Y": 98,
+        "Col": "Beauty"
+      },
+      {
+        "X": 99,
+        "Y": 17,
+        "Col": "Beauty"
+      },
+      {
+        "X": 68,
+        "Y": 80,
+        "Col": "Beauty"
+      },
+      {
+        "X": 73,
+        "Y": 58,
+        "Col": "Beauty"
+      },
+      {
+        "X": 90,
+        "Y": 97,
+        "Col": "Beauty"
+      },
+      {
+        "X": 25,
+        "Y": 28,
+        "Col": "Beauty"
+      },
+      {
+        "X": 71,
+        "Y": 49,
+        "Col": "Beauty"
+      },
+      {
+        "X": 81,
+        "Y": 33,
+        "Col": "Beauty"
+      },
+      {
+        "X": 83,
+        "Y": 59,
+        "Col": "Beauty"
+      },
+      {
+        "X": 97,
+        "Y": 80,
+        "Col": "Beauty"
+      },
+      {
+        "X": 14,
+        "Y": 81,
+        "Col": "Beauty"
+      },
+      {
+        "X": 90,
+        "Y": 59,
+        "Col": "Toys"
+      },
+      {
+        "X": 49,
+        "Y": 84,
+        "Col": "Toys"
+      },
+      {
+        "X": 82,
+        "Y": 69,
+        "Col": "Toys"
+      },
+      {
+        "X": 57,
+        "Y": 87,
+        "Col": "Toys"
+      },
+      {
+        "X": 66,
+        "Y": 58,
+        "Col": "Toys"
+      },
+      {
+        "X": 25,
+        "Y": 14,
+        "Col": "Toys"
+      },
+      {
+        "X": 79,
+        "Y": 48,
+        "Col": "Toys"
+      },
+      {
+        "X": 20,
+        "Y": 93,
+        "Col": "Toys"
+      },
+      {
+        "X": 91,
+        "Y": 56,
+        "Col": "Toys"
+      },
+      {
+        "X": 65,
+        "Y": 48,
+        "Col": "Toys"
+      },
+      {
+        "X": 85,
+        "Y": 66,
+        "Col": "Toys"
+      },
+      {
+        "X": 79,
+        "Y": 55,
+        "Col": "Toys"
+      },
+      {
+        "X": 89,
+        "Y": 60,
+        "Col": "Toys"
+      },
+      {
+        "X": 11,
+        "Y": 66,
+        "Col": "Toys"
+      },
+      {
+        "X": 12,
+        "Y": 72,
+        "Col": "Toys"
+      },
+      {
+        "X": 28,
+        "Y": 87,
+        "Col": "Toys"
+      },
+      {
+        "X": 80,
+        "Y": 94,
+        "Col": "Toys"
+      },
+      {
+        "X": 69,
+        "Y": 24,
+        "Col": "Toys"
+      },
+      {
+        "X": 92,
+        "Y": 27,
+        "Col": "Toys"
+      },
+      {
+        "X": 27,
+        "Y": 13,
+        "Col": "Toys"
+      },
+      {
+        "X": 64,
+        "Y": 45,
+        "Col": "Music"
+      },
+      {
+        "X": 83,
+        "Y": 71,
+        "Col": "Music"
+      },
+      {
+        "X": 37,
+        "Y": 44,
+        "Col": "Music"
+      },
+      {
+        "X": 40,
+        "Y": 95,
+        "Col": "Music"
+      },
+      {
+        "X": 16,
+        "Y": 98,
+        "Col": "Music"
+      },
+      {
+        "X": 55,
+        "Y": 85,
+        "Col": "Music"
+      },
+      {
+        "X": 35,
+        "Y": 27,
+        "Col": "Music"
+      },
+      {
+        "X": 42,
+        "Y": 43,
+        "Col": "Music"
+      },
+      {
+        "X": 55,
+        "Y": 98,
+        "Col": "Music"
+      },
+      {
+        "X": 31,
+        "Y": 15,
+        "Col": "Music"
+      },
+      {
+        "X": 80,
+        "Y": 27,
+        "Col": "Music"
+      },
+      {
+        "X": 29,
+        "Y": 61,
+        "Col": "Music"
+      },
+      {
+        "X": 11,
+        "Y": 87,
+        "Col": "Music"
+      },
+      {
+        "X": 97,
+        "Y": 84,
+        "Col": "Music"
+      },
+      {
+        "X": 69,
+        "Y": 68,
+        "Col": "Music"
+      },
+      {
+        "X": 90,
+        "Y": 65,
+        "Col": "Music"
+      },
+      {
+        "X": 92,
+        "Y": 95,
+        "Col": "Music"
+      },
+      {
+        "X": 79,
+        "Y": 92,
+        "Col": "Music"
+      },
+      {
+        "X": 41,
+        "Y": 39,
+        "Col": "Music"
+      },
+      {
+        "X": 35,
+        "Y": 91,
+        "Col": "Music"
+      },
+      {
+        "X": 87,
+        "Y": 39,
+        "Col": "Movies"
+      },
+      {
+        "X": 60,
+        "Y": 59,
+        "Col": "Movies"
+      },
+      {
+        "X": 11,
+        "Y": 13,
+        "Col": "Movies"
+      },
+      {
+        "X": 26,
+        "Y": 51,
+        "Col": "Movies"
+      },
+      {
+        "X": 92,
+        "Y": 66,
+        "Col": "Movies"
+      },
+      {
+        "X": 50,
+        "Y": 80,
+        "Col": "Movies"
+      },
+      {
+        "X": 23,
+        "Y": 86,
+        "Col": "Movies"
+      },
+      {
+        "X": 60,
+        "Y": 38,
+        "Col": "Movies"
+      },
+      {
+        "X": 98,
+        "Y": 45,
+        "Col": "Movies"
+      },
+      {
+        "X": 95,
+        "Y": 16,
+        "Col": "Movies"
+      },
+      {
+        "X": 29,
+        "Y": 35,
+        "Col": "Movies"
+      },
+      {
+        "X": 52,
+        "Y": 13,
+        "Col": "Movies"
+      },
+      {
+        "X": 61,
+        "Y": 88,
+        "Col": "Movies"
+      },
+      {
+        "X": 17,
+        "Y": 86,
+        "Col": "Movies"
+      },
+      {
+        "X": 98,
+        "Y": 33,
+        "Col": "Movies"
+      },
+      {
+        "X": 60,
+        "Y": 87,
+        "Col": "Movies"
+      },
+      {
+        "X": 93,
+        "Y": 98,
+        "Col": "Movies"
+      },
+      {
+        "X": 23,
+        "Y": 41,
+        "Col": "Movies"
+      },
+      {
+        "X": 28,
+        "Y": 24,
+        "Col": "Movies"
+      },
+      {
+        "X": 15,
+        "Y": 87,
+        "Col": "Movies"
+      },
+      {
+        "X": 61,
+        "Y": 50,
+        "Col": "Software"
+      },
+      {
+        "X": 37,
+        "Y": 13,
+        "Col": "Software"
+      },
+      {
+        "X": 16,
+        "Y": 38,
+        "Col": "Software"
+      },
+      {
+        "X": 58,
+        "Y": 19,
+        "Col": "Software"
+      },
+      {
+        "X": 24,
+        "Y": 100,
+        "Col": "Software"
+      },
+      {
+        "X": 23,
+        "Y": 97,
+        "Col": "Software"
+      },
+      {
+        "X": 68,
+        "Y": 62,
+        "Col": "Software"
+      },
+      {
+        "X": 34,
+        "Y": 73,
+        "Col": "Software"
+      },
+      {
+        "X": 56,
+        "Y": 21,
+        "Col": "Software"
+      },
+      {
+        "X": 79,
+        "Y": 34,
+        "Col": "Software"
+      },
+      {
+        "X": 58,
+        "Y": 86,
+        "Col": "Software"
+      },
+      {
+        "X": 90,
+        "Y": 55,
+        "Col": "Software"
+      },
+      {
+        "X": 53,
+        "Y": 75,
+        "Col": "Software"
+      },
+      {
+        "X": 39,
+        "Y": 45,
+        "Col": "Software"
+      },
+      {
+        "X": 39,
+        "Y": 53,
+        "Col": "Software"
+      },
+      {
+        "X": 47,
+        "Y": 49,
+        "Col": "Software"
+      },
+      {
+        "X": 25,
+        "Y": 77,
+        "Col": "Software"
+      },
+      {
+        "X": 90,
+        "Y": 16,
+        "Col": "Software"
+      },
+      {
+        "X": 91,
+        "Y": 14,
+        "Col": "Software"
+      },
+      {
+        "X": 64,
+        "Y": 83,
+        "Col": "Software"
+      },
+      {
+        "X": 19,
+        "Y": 53,
+        "Col": "Games"
+      },
+      {
+        "X": 61,
+        "Y": 99,
+        "Col": "Games"
+      },
+      {
+        "X": 61,
+        "Y": 57,
+        "Col": "Games"
+      },
+      {
+        "X": 48,
+        "Y": 28,
+        "Col": "Games"
+      },
+      {
+        "X": 22,
+        "Y": 64,
+        "Col": "Games"
+      },
+      {
+        "X": 21,
+        "Y": 77,
+        "Col": "Games"
+      },
+      {
+        "X": 12,
+        "Y": 15,
+        "Col": "Games"
+      },
+      {
+        "X": 45,
+        "Y": 24,
+        "Col": "Games"
+      },
+      {
+        "X": 96,
+        "Y": 78,
+        "Col": "Games"
+      },
+      {
+        "X": 31,
+        "Y": 28,
+        "Col": "Games"
+      },
+      {
+        "X": 30,
+        "Y": 78,
+        "Col": "Games"
+      },
+      {
+        "X": 26,
+        "Y": 15,
+        "Col": "Games"
+      },
+      {
+        "X": 53,
+        "Y": 45,
+        "Col": "Games"
+      },
+      {
+        "X": 47,
+        "Y": 82,
+        "Col": "Games"
+      },
+      {
+        "X": 71,
+        "Y": 47,
+        "Col": "Games"
+      },
+      {
+        "X": 11,
+        "Y": 18,
+        "Col": "Games"
+      },
+      {
+        "X": 55,
+        "Y": 16,
+        "Col": "Games"
+      },
+      {
+        "X": 47,
+        "Y": 53,
+        "Col": "Games"
+      },
+      {
+        "X": 19,
+        "Y": 63,
+        "Col": "Games"
+      },
+      {
+        "X": 56,
+        "Y": 93,
+        "Col": "Games"
+      },
+      {
+        "X": 99,
+        "Y": 90,
+        "Col": "Office"
+      },
+      {
+        "X": 52,
+        "Y": 96,
+        "Col": "Office"
+      },
+      {
+        "X": 38,
+        "Y": 65,
+        "Col": "Office"
+      },
+      {
+        "X": 84,
+        "Y": 90,
+        "Col": "Office"
+      },
+      {
+        "X": 22,
+        "Y": 80,
+        "Col": "Office"
+      },
+      {
+        "X": 37,
+        "Y": 20,
+        "Col": "Office"
+      },
+      {
+        "X": 56,
+        "Y": 62,
+        "Col": "Office"
+      },
+      {
+        "X": 78,
+        "Y": 33,
+        "Col": "Office"
+      },
+      {
+        "X": 13,
+        "Y": 66,
+        "Col": "Office"
+      },
+      {
+        "X": 43,
+        "Y": 84,
+        "Col": "Office"
+      },
+      {
+        "X": 46,
+        "Y": 45,
+        "Col": "Office"
+      },
+      {
+        "X": 39,
+        "Y": 60,
+        "Col": "Office"
+      },
+      {
+        "X": 48,
+        "Y": 25,
+        "Col": "Office"
+      },
+      {
+        "X": 89,
+        "Y": 69,
+        "Col": "Office"
+      },
+      {
+        "X": 62,
+        "Y": 80,
+        "Col": "Office"
+      },
+      {
+        "X": 94,
+        "Y": 12,
+        "Col": "Office"
+      },
+      {
+        "X": 31,
+        "Y": 15,
+        "Col": "Office"
+      },
+      {
+        "X": 56,
+        "Y": 95,
+        "Col": "Office"
+      },
+      {
+        "X": 59,
+        "Y": 67,
+        "Col": "Office"
+      },
+      {
+        "X": 46,
+        "Y": 15,
+        "Col": "Office"
+      },
+      {
+        "X": 89,
+        "Y": 12,
+        "Col": "Pet"
+      },
+      {
+        "X": 97,
+        "Y": 48,
+        "Col": "Pet"
+      },
+      {
+        "X": 73,
+        "Y": 86,
+        "Col": "Pet"
+      },
+      {
+        "X": 58,
+        "Y": 30,
+        "Col": "Pet"
+      },
+      {
+        "X": 23,
+        "Y": 79,
+        "Col": "Pet"
+      },
+      {
+        "X": 60,
+        "Y": 27,
+        "Col": "Pet"
+      },
+      {
+        "X": 49,
+        "Y": 14,
+        "Col": "Pet"
+      },
+      {
+        "X": 22,
+        "Y": 64,
+        "Col": "Pet"
+      },
+      {
+        "X": 93,
+        "Y": 23,
+        "Col": "Pet"
+      },
+      {
+        "X": 54,
+        "Y": 82,
+        "Col": "Pet"
+      },
+      {
+        "X": 55,
+        "Y": 60,
+        "Col": "Pet"
+      },
+      {
+        "X": 16,
+        "Y": 73,
+        "Col": "Pet"
+      },
+      {
+        "X": 70,
+        "Y": 79,
+        "Col": "Pet"
+      },
+      {
+        "X": 96,
+        "Y": 98,
+        "Col": "Pet"
+      },
+      {
+        "X": 32,
+        "Y": 16,
+        "Col": "Pet"
+      },
+      {
+        "X": 44,
+        "Y": 44,
+        "Col": "Pet"
+      },
+      {
+        "X": 58,
+        "Y": 47,
+        "Col": "Pet"
+      },
+      {
+        "X": 71,
+        "Y": 34,
+        "Col": "Pet"
+      },
+      {
+        "X": 24,
+        "Y": 83,
+        "Col": "Pet"
+      },
+      {
+        "X": 57,
+        "Y": 64,
+        "Col": "Pet"
+      },
+      {
+        "X": 41,
+        "Y": 17,
+        "Col": "Baby"
+      },
+      {
+        "X": 58,
+        "Y": 11,
+        "Col": "Baby"
+      },
+      {
+        "X": 34,
+        "Y": 52,
+        "Col": "Baby"
+      },
+      {
+        "X": 93,
+        "Y": 76,
+        "Col": "Baby"
+      },
+      {
+        "X": 74,
+        "Y": 69,
+        "Col": "Baby"
+      },
+      {
+        "X": 60,
+        "Y": 11,
+        "Col": "Baby"
+      },
+      {
+        "X": 93,
+        "Y": 32,
+        "Col": "Baby"
+      },
+      {
+        "X": 55,
+        "Y": 45,
+        "Col": "Baby"
+      },
+      {
+        "X": 84,
+        "Y": 85,
+        "Col": "Baby"
+      },
+      {
+        "X": 78,
+        "Y": 92,
+        "Col": "Baby"
+      },
+      {
+        "X": 61,
+        "Y": 12,
+        "Col": "Baby"
+      },
+      {
+        "X": 24,
+        "Y": 67,
+        "Col": "Baby"
+      },
+      {
+        "X": 23,
+        "Y": 23,
+        "Col": "Baby"
+      },
+      {
+        "X": 76,
+        "Y": 51,
+        "Col": "Baby"
+      },
+      {
+        "X": 55,
+        "Y": 27,
+        "Col": "Baby"
+      },
+      {
+        "X": 24,
+        "Y": 28,
+        "Col": "Baby"
+      },
+      {
+        "X": 24,
+        "Y": 65,
+        "Col": "Baby"
+      },
+      {
+        "X": 94,
+        "Y": 50,
+        "Col": "Baby"
+      },
+      {
+        "X": 32,
+        "Y": 94,
+        "Col": "Baby"
+      },
+      {
+        "X": 92,
+        "Y": 15,
+        "Col": "Baby"
+      },
+      {
+        "X": 79,
+        "Y": 47,
+        "Col": "Tools"
+      },
+      {
+        "X": 65,
+        "Y": 25,
+        "Col": "Tools"
+      },
+      {
+        "X": 83,
+        "Y": 81,
+        "Col": "Tools"
+      },
+      {
+        "X": 29,
+        "Y": 45,
+        "Col": "Tools"
+      },
+      {
+        "X": 28,
+        "Y": 37,
+        "Col": "Tools"
+      },
+      {
+        "X": 99,
+        "Y": 93,
+        "Col": "Tools"
+      },
+      {
+        "X": 82,
+        "Y": 47,
+        "Col": "Tools"
+      },
+      {
+        "X": 18,
+        "Y": 25,
+        "Col": "Tools"
+      },
+      {
+        "X": 70,
+        "Y": 33,
+        "Col": "Tools"
+      },
+      {
+        "X": 96,
+        "Y": 38,
+        "Col": "Tools"
+      },
+      {
+        "X": 72,
+        "Y": 32,
+        "Col": "Tools"
+      },
+      {
+        "X": 66,
+        "Y": 42,
+        "Col": "Tools"
+      },
+      {
+        "X": 25,
+        "Y": 62,
+        "Col": "Tools"
+      },
+      {
+        "X": 94,
+        "Y": 35,
+        "Col": "Tools"
+      },
+      {
+        "X": 19,
+        "Y": 66,
+        "Col": "Tools"
+      },
+      {
+        "X": 34,
+        "Y": 69,
+        "Col": "Tools"
+      },
+      {
+        "X": 31,
+        "Y": 33,
+        "Col": "Tools"
+      },
+      {
+        "X": 90,
+        "Y": 20,
+        "Col": "Tools"
+      },
+      {
+        "X": 44,
+        "Y": 96,
+        "Col": "Tools"
+      },
+      {
+        "X": 85,
+        "Y": 92,
+        "Col": "Tools"
+      },
+      {
+        "X": 89,
+        "Y": 25,
+        "Col": "Crafts"
+      },
+      {
+        "X": 81,
+        "Y": 93,
+        "Col": "Crafts"
+      },
+      {
+        "X": 18,
+        "Y": 36,
+        "Col": "Crafts"
+      },
+      {
+        "X": 53,
+        "Y": 70,
+        "Col": "Crafts"
+      },
+      {
+        "X": 46,
+        "Y": 38,
+        "Col": "Crafts"
+      },
+      {
+        "X": 41,
+        "Y": 74,
+        "Col": "Crafts"
+      },
+      {
+        "X": 42,
+        "Y": 49,
+        "Col": "Crafts"
+      },
+      {
+        "X": 94,
+        "Y": 66,
+        "Col": "Crafts"
+      },
+      {
+        "X": 87,
+        "Y": 90,
+        "Col": "Crafts"
+      },
+      {
+        "X": 98,
+        "Y": 27,
+        "Col": "Crafts"
+      },
+      {
+        "X": 12,
+        "Y": 65,
+        "Col": "Crafts"
+      },
+      {
+        "X": 19,
+        "Y": 26,
+        "Col": "Crafts"
+      },
+      {
+        "X": 100,
+        "Y": 25,
+        "Col": "Crafts"
+      },
+      {
+        "X": 73,
+        "Y": 82,
+        "Col": "Crafts"
+      },
+      {
+        "X": 40,
+        "Y": 40,
+        "Col": "Crafts"
+      },
+      {
+        "X": 22,
+        "Y": 32,
+        "Col": "Crafts"
+      },
+      {
+        "X": 60,
+        "Y": 87,
+        "Col": "Crafts"
+      },
+      {
+        "X": 33,
+        "Y": 54,
+        "Col": "Crafts"
+      },
+      {
+        "X": 85,
+        "Y": 29,
+        "Col": "Crafts"
+      },
+      {
+        "X": 77,
+        "Y": 87,
+        "Col": "Crafts"
+      }
+    ]
+  },
+  "_width": 65,
+  "_height": 93,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

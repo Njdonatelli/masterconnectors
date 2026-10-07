@@ -1,0 +1,193 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Week",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 25
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Week": "Wk 01",
+        "Value": 356
+      },
+      {
+        "Week": "Wk 02",
+        "Value": 231
+      },
+      {
+        "Week": "Wk 03",
+        "Value": 58
+      },
+      {
+        "Week": "Wk 04",
+        "Value": 371
+      },
+      {
+        "Week": "Wk 05",
+        "Value": 467
+      },
+      {
+        "Week": "Wk 06",
+        "Value": 532
+      },
+      {
+        "Week": "Wk 07",
+        "Value": 145
+      },
+      {
+        "Week": "Wk 08",
+        "Value": 459
+      },
+      {
+        "Week": "Wk 09",
+        "Value": 440
+      },
+      {
+        "Week": "Wk 10",
+        "Value": 67
+      },
+      {
+        "Week": "Wk 11",
+        "Value": 239
+      },
+      {
+        "Week": "Wk 12",
+        "Value": 176
+      },
+      {
+        "Week": "Wk 13",
+        "Value": 353
+      },
+      {
+        "Week": "Wk 14",
+        "Value": 233
+      },
+      {
+        "Week": "Wk 15",
+        "Value": 344
+      },
+      {
+        "Week": "Wk 16",
+        "Value": 143
+      },
+      {
+        "Week": "Wk 17",
+        "Value": 209
+      },
+      {
+        "Week": "Wk 18",
+        "Value": 122
+      },
+      {
+        "Week": "Wk 19",
+        "Value": 120
+      },
+      {
+        "Week": "Wk 20",
+        "Value": 390
+      },
+      {
+        "Week": "Wk 21",
+        "Value": 191
+      },
+      {
+        "Week": "Wk 22",
+        "Value": 53
+      },
+      {
+        "Week": "Wk 23",
+        "Value": 205
+      },
+      {
+        "Week": "Wk 24",
+        "Value": 83
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+<Page
+    x:Class="Gridex.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Background="Transparent">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Sidebar -->
+        <Grid Grid.Column="0" Padding="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- Branding (centered in available space) -->
+            <StackPanel Grid.Row="0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Spacing="8">
+                <Image Source="ms-appx:///Assets/gridex-icon-source.png"
+                       Width="80" Height="80"
+                       HorizontalAlignment="Center" />
+                <TextBlock Text="Gridex"
+                           FontSize="36"
+                           FontWeight="Light"
+                           HorizontalAlignment="Center"
+                           Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                <TextBlock Text="AI-Native Database IDE"
+                           FontSize="14"
+                           HorizontalAlignment="Center"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+
+            <!-- Bottom Actions (pinned to bottom like macOS) -->
+            <StackPanel Grid.Row="1" Spacing="4">
+                <Button HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="8,8"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="NewConnection_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon Glyph="&#xE710;" FontSize="14"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="New Connection"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Button>
+                <Button HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="8,8"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="ImportConnections_Click"
+                        ToolTipService.ToolTip="Import connections from TablePlus / DBeaver / DataGrip / Navicat">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon Glyph="&#xE8B5;" FontSize="14"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="Import Connections"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Button>
+                <Button HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="8,8"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="NewGroup_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon Glyph="&#xE8B7;" FontSize="14"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="New Group"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Button>
+                <Button HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="8,8"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="OpenMcp_Click"
+                        ToolTipService.ToolTip="MCP Server — let AI clients query your databases">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon Glyph="&#xE703;" FontSize="14"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="MCP Server"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Button>
+                <Button HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Padding="8,8"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="Settings_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <FontIcon Glyph="&#xE713;" FontSize="14"
+                                  Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                        <TextBlock Text="Settings"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <!-- Divider -->
+        <Border Grid.Column="1"
+                Width="1"
+                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+        <!-- Right Panel — Connections -->
+        <Grid Grid.Column="2" Padding="24,24,24,24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Search Row: SearchBox + Action Buttons (like macOS) -->
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <AutoSuggestBox x:Name="SearchBox"
+                                Grid.Column="0"
+                                PlaceholderText="Search connections..."
+                                QueryIcon="Find"
+                                VerticalAlignment="Center"
+                                TextChanged="SearchBox_TextChanged" />
+
+                <!-- + New Connection Button -->
+                <Button Grid.Column="1"
+                        Margin="8,0,0,0"
+                        Width="36" Height="36"
+                        Padding="0"
+                        ToolTipService.ToolTip="New Connection"
+                        Click="NewConnection_Click">
+                    <FontIcon Glyph="&#xE710;" FontSize="14" />
+                </Button>
+
+                <!-- Group Button -->
+                <Button Grid.Column="2"
+                        Margin="4,0,0,0"
+                        Width="36" Height="36"
+                        Padding="0"
+                        ToolTipService.ToolTip="New Group"
+                        Click="NewGroup_Click">
+                    <FontIcon Glyph="&#xE8B7;" FontSize="14" />
+                </Button>
+            </Grid>
+
+            <!-- Connection List -->
+            <ListView x:Name="ConnectionsListView"
+                      Grid.Row="1"
+                      Margin="0,16,0,0"
+                      IsItemClickEnabled="True"
+                      ItemClick="ConnectionItem_Click"
+                      SelectionMode="Single">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0,0,0,4" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <!-- Empty State -->
+            <StackPanel x:Name="EmptyState"
+                        Grid.Row="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Spacing="8"
+                        Visibility="Collapsed">
+                <FontIcon Glyph="&#xE774;" FontSize="48"
+                          Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                          HorizontalAlignment="Center" />
+                <TextBlock Text="No connections yet"
+                           FontSize="16"
+                           HorizontalAlignment="Center"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+                <TextBlock Text="Create your first database connection to get started"
+                           FontSize="12"
+                           HorizontalAlignment="Center"
+                           Foreground="{ThemeResource TextFillColorDisabledBrush}" />
+                <Button Content="Create Connection"
+                        Style="{StaticResource AccentButtonStyle}"
+                        HorizontalAlignment="Center"
+                        Margin="0,8,0,0"
+                        Click="NewConnection_Click" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Modal loading overlay shown while ConnectionItem_Click tests
+             the selected connection. Sits on top of every column and
+             intercepts clicks via IsHitTestVisible default true. -->
+        <Grid x:Name="ConnectingOverlay"
+              Grid.Column="0" Grid.ColumnSpan="3"
+              Background="#80000000"
+              Visibility="Collapsed">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Spacing="12" Padding="32"
+                        Background="{ThemeResource SolidBackgroundFillColorBaseBrush}"
+                        BorderBrush="{ThemeResource ControlStrokeColorDefaultBrush}"
+                        BorderThickness="1" CornerRadius="8">
+                <ProgressRing IsActive="True" Width="40" Height="40" />
+                <TextBlock x:Name="ConnectingText"
+                           Text="Connecting..."
+                           HorizontalAlignment="Center"
+                           FontSize="13" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

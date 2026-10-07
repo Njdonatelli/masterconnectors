@@ -1,0 +1,129 @@
+{
+  "title": "Hours (across days) → Area Chart",
+  "description": "Hourly data across 3 days: \"2020-01-01T00:00\", … (24 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "DateTime": "2020-01-01T08:00:00",
+          "Value": 313
+        },
+        {
+          "DateTime": "2020-01-01T09:00:00",
+          "Value": 162
+        },
+        {
+          "DateTime": "2020-01-01T10:00:00",
+          "Value": 92
+        },
+        {
+          "DateTime": "2020-01-01T11:00:00",
+          "Value": 230
+        },
+        {
+          "DateTime": "2020-01-01T12:00:00",
+          "Value": 341
+        },
+        {
+          "DateTime": "2020-01-01T13:00:00",
+          "Value": 368
+        },
+        {
+          "DateTime": "2020-01-01T14:00:00",
+          "Value": 161
+        },
+        {
+          "DateTime": "2020-01-01T15:00:00",
+          "Value": 371
+        },
+        {
+          "DateTime": "2020-01-02T08:00:00",
+          "Value": 90
+        },
+        {
+          "DateTime": "2020-01-02T09:00:00",
+          "Value": 341
+        },
+        {
+          "DateTime": "2020-01-02T10:00:00",
+          "Value": 170
+        },
+        {
+          "DateTime": "2020-01-02T11:00:00",
+          "Value": 420
+        },
+        {
+          "DateTime": "2020-01-02T12:00:00",
+          "Value": 119
+        },
+        {
+          "DateTime": "2020-01-02T13:00:00",
+          "Value": 506
+        },
+        {
+          "DateTime": "2020-01-02T14:00:00",
+          "Value": 389
+        },
+        {
+          "DateTime": "2020-01-02T15:00:00",
+          "Value": 288
+        },
+        {
+          "DateTime": "2020-01-03T08:00:00",
+          "Value": 72
+        },
+        {
+          "DateTime": "2020-01-03T09:00:00",
+          "Value": 64
+        },
+        {
+          "DateTime": "2020-01-03T10:00:00",
+          "Value": 318
+        },
+        {
+          "DateTime": "2020-01-03T11:00:00",
+          "Value": 307
+        },
+        {
+          "DateTime": "2020-01-03T12:00:00",
+          "Value": 427
+        },
+        {
+          "DateTime": "2020-01-03T13:00:00",
+          "Value": 351
+        },
+        {
+          "DateTime": "2020-01-03T14:00:00",
+          "Value": 348
+        },
+        {
+          "DateTime": "2020-01-03T15:00:00",
+          "Value": 441
+        }
+      ]
+    },
+    "semantic_types": {
+      "DateTime": "DateTime",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "DateTime"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

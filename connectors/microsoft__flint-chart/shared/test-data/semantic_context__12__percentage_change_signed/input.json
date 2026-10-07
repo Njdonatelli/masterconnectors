@@ -1,0 +1,90 @@
+{
+  "title": "Percentage Change (signed ±%)",
+  "description": "Semantic type \"PercentageChange\" uses percent format. Sign is always visible, making gains and losses instantly clear. WITHOUT this: raw decimals like 0.12 or -0.05 with no % symbol.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "stock": "AAPL",
+          "ytd_change": -0.298,
+          "market_cap_B": 2416
+        },
+        {
+          "stock": "GOOG",
+          "ytd_change": 0.193,
+          "market_cap_B": 2205
+        },
+        {
+          "stock": "MSFT",
+          "ytd_change": 0.029,
+          "market_cap_B": 2745
+        },
+        {
+          "stock": "AMZN",
+          "ytd_change": 0.233,
+          "market_cap_B": 233
+        },
+        {
+          "stock": "META",
+          "ytd_change": -0.135,
+          "market_cap_B": 796
+        },
+        {
+          "stock": "TSLA",
+          "ytd_change": 0.265,
+          "market_cap_B": 2899
+        },
+        {
+          "stock": "NVDA",
+          "ytd_change": 0.269,
+          "market_cap_B": 1562
+        },
+        {
+          "stock": "AMD",
+          "ytd_change": 0.342,
+          "market_cap_B": 1201
+        },
+        {
+          "stock": "NFLX",
+          "ytd_change": 0.094,
+          "market_cap_B": 1712
+        },
+        {
+          "stock": "DIS",
+          "ytd_change": 0.242,
+          "market_cap_B": 812
+        }
+      ]
+    },
+    "semantic_types": {
+      "stock": "Category",
+      "ytd_change": {
+        "semanticType": "PercentageChange",
+        "intrinsicDomain": [
+          -1,
+          1
+        ]
+      },
+      "market_cap_B": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "stock"
+        },
+        "y": {
+          "field": "ytd_change"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

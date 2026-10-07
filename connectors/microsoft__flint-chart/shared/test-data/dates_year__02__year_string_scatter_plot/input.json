@@ -1,0 +1,81 @@
+{
+  "title": "Year (string) → Scatter Plot",
+  "description": "Years as 4-digit strings: \"2000\", \"2001\", … (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Year": "2000",
+          "Value": 107
+        },
+        {
+          "Year": "2001",
+          "Value": 300
+        },
+        {
+          "Year": "2002",
+          "Value": 242
+        },
+        {
+          "Year": "2003",
+          "Value": 120
+        },
+        {
+          "Year": "2004",
+          "Value": 155
+        },
+        {
+          "Year": "2005",
+          "Value": 139
+        },
+        {
+          "Year": "2006",
+          "Value": 417
+        },
+        {
+          "Year": "2007",
+          "Value": 102
+        },
+        {
+          "Year": "2008",
+          "Value": 474
+        },
+        {
+          "Year": "2009",
+          "Value": 418
+        },
+        {
+          "Year": "2010",
+          "Value": 178
+        },
+        {
+          "Year": "2011",
+          "Value": 445
+        }
+      ]
+    },
+    "semantic_types": {
+      "Year": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Year"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

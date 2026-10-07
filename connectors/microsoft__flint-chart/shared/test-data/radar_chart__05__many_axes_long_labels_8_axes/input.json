@@ -1,0 +1,117 @@
+{
+  "title": "Many Axes + Long Labels (8 axes)",
+  "description": "8 axes with verbose labels, two groups",
+  "chartType": "Radar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "App": "Frontend",
+          "KPI": "Overall User Experience",
+          "Rating": 76
+        },
+        {
+          "App": "Backend",
+          "KPI": "Overall User Experience",
+          "Rating": 86
+        },
+        {
+          "App": "Frontend",
+          "KPI": "First Contentful Paint",
+          "Rating": 83
+        },
+        {
+          "App": "Backend",
+          "KPI": "First Contentful Paint",
+          "Rating": 100
+        },
+        {
+          "App": "Frontend",
+          "KPI": "Time to Interactive",
+          "Rating": 53
+        },
+        {
+          "App": "Backend",
+          "KPI": "Time to Interactive",
+          "Rating": 54
+        },
+        {
+          "App": "Frontend",
+          "KPI": "Cumulative Layout Shift",
+          "Rating": 75
+        },
+        {
+          "App": "Backend",
+          "KPI": "Cumulative Layout Shift",
+          "Rating": 68
+        },
+        {
+          "App": "Frontend",
+          "KPI": "Server Response Time",
+          "Rating": 92
+        },
+        {
+          "App": "Backend",
+          "KPI": "Server Response Time",
+          "Rating": 41
+        },
+        {
+          "App": "Frontend",
+          "KPI": "Error Rate per Minute",
+          "Rating": 62
+        },
+        {
+          "App": "Backend",
+          "KPI": "Error Rate per Minute",
+          "Rating": 98
+        },
+        {
+          "App": "Frontend",
+          "KPI": "Database Query Latency",
+          "Rating": 83
+        },
+        {
+          "App": "Backend",
+          "KPI": "Database Query Latency",
+          "Rating": 86
+        },
+        {
+          "App": "Frontend",
+          "KPI": "API Throughput",
+          "Rating": 72
+        },
+        {
+          "App": "Backend",
+          "KPI": "API Throughput",
+          "Rating": 84
+        }
+      ]
+    },
+    "semantic_types": {
+      "App": "Category",
+      "KPI": "Category",
+      "Rating": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Radar Chart",
+      "encodings": {
+        "x": {
+          "field": "KPI"
+        },
+        "y": {
+          "field": "Rating"
+        },
+        "color": {
+          "field": "App"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

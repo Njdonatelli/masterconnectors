@@ -1,0 +1,156 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "math_score",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "domainMax": 100,
+        "nice": true
+      },
+      "axis": {
+        "tickMinStep": 1,
+        "labelExpr": "datum.value === ceil(datum.value) ? format(datum.value, ',d') : ''"
+      }
+    },
+    "y": {
+      "field": "science_score",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "domainMax": 100,
+        "nice": true
+      },
+      "axis": {
+        "tickMinStep": 1,
+        "labelExpr": "datum.value === ceil(datum.value) ? format(datum.value, ',d') : ''"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 371,
+      "continuousHeight": 323
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "student": "Alice",
+        "math_score": 45,
+        "science_score": 90
+      },
+      {
+        "student": "Bob",
+        "math_score": 54,
+        "science_score": 47
+      },
+      {
+        "student": "Carol",
+        "math_score": 50,
+        "science_score": 40
+      },
+      {
+        "student": "Dave",
+        "math_score": 73,
+        "science_score": 76
+      },
+      {
+        "student": "Eve",
+        "math_score": 50,
+        "science_score": 33
+      },
+      {
+        "student": "Frank",
+        "math_score": 64,
+        "science_score": 73
+      },
+      {
+        "student": "Grace",
+        "math_score": 60,
+        "science_score": 94
+      },
+      {
+        "student": "Heidi",
+        "math_score": 100,
+        "science_score": 100
+      },
+      {
+        "student": "Ivan",
+        "math_score": 92,
+        "science_score": 84
+      },
+      {
+        "student": "Judy",
+        "math_score": 59,
+        "science_score": 66
+      }
+    ]
+  },
+  "_width": 371,
+  "_height": 323,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

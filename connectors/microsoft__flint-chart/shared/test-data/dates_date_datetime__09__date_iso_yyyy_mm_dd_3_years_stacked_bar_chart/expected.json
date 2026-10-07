@@ -1,0 +1,634 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 15
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2019-12-30T18:51:25.714Z",
+          "2022-12-30T05:08:34.285Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 629,
+      "continuousHeight": 226
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 23
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01-15",
+        "Value": 90,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 531,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-01-15",
+        "Value": 98,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-02-15",
+        "Value": 357,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-02-15",
+        "Value": 282,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-02-15",
+        "Value": 356,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-03-15",
+        "Value": 205,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-03-15",
+        "Value": 218,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-03-15",
+        "Value": 430,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-04-15",
+        "Value": 168,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-04-15",
+        "Value": 62,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-04-15",
+        "Value": 338,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-05-15",
+        "Value": 372,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-05-15",
+        "Value": 442,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-05-15",
+        "Value": 359,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-06-15",
+        "Value": 326,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-06-15",
+        "Value": 158,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-06-15",
+        "Value": 262,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-07-15",
+        "Value": 161,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-07-15",
+        "Value": 294,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-07-15",
+        "Value": 275,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-08-15",
+        "Value": 532,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-08-15",
+        "Value": 170,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-08-15",
+        "Value": 420,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-09-15",
+        "Value": 232,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-09-15",
+        "Value": 142,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-09-15",
+        "Value": 229,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-10-15",
+        "Value": 79,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-10-15",
+        "Value": 231,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-10-15",
+        "Value": 224,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-11-15",
+        "Value": 215,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-11-15",
+        "Value": 389,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-11-15",
+        "Value": 73,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2020-12-15",
+        "Value": 437,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2020-12-15",
+        "Value": 301,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2020-12-15",
+        "Value": 400,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-01-15",
+        "Value": 81,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-01-15",
+        "Value": 240,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-01-15",
+        "Value": 534,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-02-15",
+        "Value": 190,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-02-15",
+        "Value": 420,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-02-15",
+        "Value": 344,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-03-15",
+        "Value": 433,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-03-15",
+        "Value": 117,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-03-15",
+        "Value": 380,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-04-15",
+        "Value": 268,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-04-15",
+        "Value": 324,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-04-15",
+        "Value": 514,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-05-15",
+        "Value": 202,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-05-15",
+        "Value": 517,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-05-15",
+        "Value": 429,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-06-15",
+        "Value": 241,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-06-15",
+        "Value": 492,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-06-15",
+        "Value": 370,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-07-15",
+        "Value": 54,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-07-15",
+        "Value": 246,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-07-15",
+        "Value": 499,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-08-15",
+        "Value": 394,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-08-15",
+        "Value": 293,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-08-15",
+        "Value": 378,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-09-15",
+        "Value": 497,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-09-15",
+        "Value": 266,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-09-15",
+        "Value": 382,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-10-15",
+        "Value": 462,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-10-15",
+        "Value": 443,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-10-15",
+        "Value": 235,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-11-15",
+        "Value": 470,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-11-15",
+        "Value": 509,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-11-15",
+        "Value": 505,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2021-12-15",
+        "Value": 394,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2021-12-15",
+        "Value": 222,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2021-12-15",
+        "Value": 524,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-01-15",
+        "Value": 259,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-01-15",
+        "Value": 370,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-01-15",
+        "Value": 115,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-02-15",
+        "Value": 225,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-02-15",
+        "Value": 530,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-02-15",
+        "Value": 199,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-03-15",
+        "Value": 451,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-03-15",
+        "Value": 470,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-03-15",
+        "Value": 71,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-04-15",
+        "Value": 66,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-04-15",
+        "Value": 268,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-04-15",
+        "Value": 308,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-05-15",
+        "Value": 145,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-05-15",
+        "Value": 171,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-05-15",
+        "Value": 406,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-06-15",
+        "Value": 461,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-06-15",
+        "Value": 307,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-06-15",
+        "Value": 380,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-07-15",
+        "Value": 194,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-07-15",
+        "Value": 194,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-07-15",
+        "Value": 452,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-08-15",
+        "Value": 520,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-08-15",
+        "Value": 483,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-08-15",
+        "Value": 272,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-09-15",
+        "Value": 350,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-09-15",
+        "Value": 484,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-09-15",
+        "Value": 78,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-10-15",
+        "Value": 244,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-10-15",
+        "Value": 413,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-10-15",
+        "Value": 357,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-11-15",
+        "Value": 105,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-11-15",
+        "Value": 471,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-11-15",
+        "Value": 310,
+        "Category": "Gamma"
+      },
+      {
+        "Date": "2022-12-15",
+        "Value": 377,
+        "Category": "Alpha"
+      },
+      {
+        "Date": "2022-12-15",
+        "Value": 183,
+        "Category": "Beta"
+      },
+      {
+        "Date": "2022-12-15",
+        "Value": 477,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 629,
+  "_height": 226,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

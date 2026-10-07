@@ -1,0 +1,201 @@
+{
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "var_x",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "var_y",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "correlation",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "redblue",
+        "domainMid": 0,
+        "domain": [
+          -1,
+          1
+        ],
+        "nice": false
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "var_x": "GDP",
+        "var_y": "GDP",
+        "correlation": 1
+      },
+      {
+        "var_x": "GDP",
+        "var_y": "Unemployment",
+        "correlation": -0.89
+      },
+      {
+        "var_x": "GDP",
+        "var_y": "Inflation",
+        "correlation": -0.17
+      },
+      {
+        "var_x": "GDP",
+        "var_y": "Education",
+        "correlation": 0.63
+      },
+      {
+        "var_x": "GDP",
+        "var_y": "Health",
+        "correlation": -0.56
+      },
+      {
+        "var_x": "Unemployment",
+        "var_y": "GDP",
+        "correlation": -0.48
+      },
+      {
+        "var_x": "Unemployment",
+        "var_y": "Unemployment",
+        "correlation": 1
+      },
+      {
+        "var_x": "Unemployment",
+        "var_y": "Inflation",
+        "correlation": 0.43
+      },
+      {
+        "var_x": "Unemployment",
+        "var_y": "Education",
+        "correlation": 0.9
+      },
+      {
+        "var_x": "Unemployment",
+        "var_y": "Health",
+        "correlation": -0.57
+      },
+      {
+        "var_x": "Inflation",
+        "var_y": "GDP",
+        "correlation": 0.21
+      },
+      {
+        "var_x": "Inflation",
+        "var_y": "Unemployment",
+        "correlation": 0.46
+      },
+      {
+        "var_x": "Inflation",
+        "var_y": "Inflation",
+        "correlation": 1
+      },
+      {
+        "var_x": "Inflation",
+        "var_y": "Education",
+        "correlation": -0.69
+      },
+      {
+        "var_x": "Inflation",
+        "var_y": "Health",
+        "correlation": 0.71
+      },
+      {
+        "var_x": "Education",
+        "var_y": "GDP",
+        "correlation": -0.66
+      },
+      {
+        "var_x": "Education",
+        "var_y": "Unemployment",
+        "correlation": 0.07
+      },
+      {
+        "var_x": "Education",
+        "var_y": "Inflation",
+        "correlation": -0.17
+      },
+      {
+        "var_x": "Education",
+        "var_y": "Education",
+        "correlation": 1
+      },
+      {
+        "var_x": "Education",
+        "var_y": "Health",
+        "correlation": -0.59
+      },
+      {
+        "var_x": "Health",
+        "var_y": "GDP",
+        "correlation": -0.04
+      },
+      {
+        "var_x": "Health",
+        "var_y": "Unemployment",
+        "correlation": 0.34
+      },
+      {
+        "var_x": "Health",
+        "var_y": "Inflation",
+        "correlation": -0.84
+      },
+      {
+        "var_x": "Health",
+        "var_y": "Education",
+        "correlation": 0.5
+      },
+      {
+        "var_x": "Health",
+        "var_y": "Health",
+        "correlation": 1
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "showTextLabels",
+      "label": "Show labels",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "mark": "arc",
+  "encoding": {
+    "theta": {
+      "field": "Value",
+      "type": "quantitative"
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "width": 600,
+  "height": 600,
+  "config": {
+    "view": {
+      "continuousWidth": 600,
+      "continuousHeight": 600
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Dominant",
+        "Value": 5000
+      },
+      {
+        "Category": "Small-A",
+        "Value": 200
+      },
+      {
+        "Category": "Small-B",
+        "Value": 180
+      },
+      {
+        "Category": "Small-C",
+        "Value": 150
+      },
+      {
+        "Category": "Tiny-1",
+        "Value": 30
+      },
+      {
+        "Category": "Tiny-2",
+        "Value": 20
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Donut",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

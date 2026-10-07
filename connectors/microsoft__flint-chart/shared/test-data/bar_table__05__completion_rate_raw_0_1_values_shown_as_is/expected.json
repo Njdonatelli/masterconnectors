@@ -1,0 +1,290 @@
+{
+  "spacing": 8,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 214,
+      "height": 300,
+      "title": {
+        "text": "Team",
+        "anchor": "start",
+        "offset": 6,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "mean",
+              "field": "completion_rate",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "Team"
+          ]
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.842
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "Team",
+          "type": "nominal",
+          "sort": [
+            "Alpha",
+            "Beta",
+            "Gamma",
+            "Delta",
+            "Epsilon"
+          ],
+          "axis": {
+            "title": null,
+            "domain": false,
+            "ticks": false,
+            "labelFontSize": 13,
+            "labelAlign": "left",
+            "labelPadding": 62,
+            "labelLimit": 62
+          }
+        },
+        "x": {
+          "field": "__bt_val",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "nice": false
+          }
+        },
+        "color": {
+          "field": "__bt_val",
+          "type": "quantitative",
+          "legend": null,
+          "scale": {
+            "range": [
+              "#cdebd3",
+              "#41a25f"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 116,
+      "height": 300,
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "mean",
+              "field": "completion_rate",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "Team"
+          ]
+        }
+      ],
+      "title": {
+        "text": "completion_rate",
+        "anchor": "end",
+        "offset": 6,
+        "limit": 112,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "Team",
+          "type": "nominal",
+          "sort": [
+            "Alpha",
+            "Beta",
+            "Gamma",
+            "Delta",
+            "Epsilon"
+          ],
+          "axis": null
+        },
+        "x": {
+          "datum": 1,
+          "axis": null,
+          "scale": {
+            "type": "linear",
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "text": {
+          "field": "__bt_val",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#666"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "Team": "Alpha",
+        "completion_rate": 0.92,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Team": "Beta",
+        "completion_rate": 0.87,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Team": "Gamma",
+        "completion_rate": 0.78,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Team": "Delta",
+        "completion_rate": 0.65,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Team": "Epsilon",
+        "completion_rate": 0.54,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      }
+    ]
+  },
+  "height": {
+    "step": 32
+  },
+  "data": {
+    "values": [
+      {
+        "Team": "Alpha",
+        "completion_rate": 0.92
+      },
+      {
+        "Team": "Beta",
+        "completion_rate": 0.87
+      },
+      {
+        "Team": "Gamma",
+        "completion_rate": 0.78
+      },
+      {
+        "Team": "Delta",
+        "completion_rate": 0.65
+      },
+      {
+        "Team": "Epsilon",
+        "completion_rate": 0.54
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

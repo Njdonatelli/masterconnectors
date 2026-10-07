@@ -1,0 +1,141 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Timestamp",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 369,
+      "continuousHeight": 325
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 33
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Timestamp": "2000-01-01T08:00:00.000Z",
+        "Value": 148
+      },
+      {
+        "Timestamp": "2001-01-01T08:00:00.000Z",
+        "Value": 449
+      },
+      {
+        "Timestamp": "2002-01-01T08:00:00.000Z",
+        "Value": 84
+      },
+      {
+        "Timestamp": "2003-01-01T08:00:00.000Z",
+        "Value": 177
+      },
+      {
+        "Timestamp": "2004-01-01T08:00:00.000Z",
+        "Value": 104
+      },
+      {
+        "Timestamp": "2005-01-01T08:00:00.000Z",
+        "Value": 347
+      },
+      {
+        "Timestamp": "2006-01-01T08:00:00.000Z",
+        "Value": 171
+      },
+      {
+        "Timestamp": "2007-01-01T08:00:00.000Z",
+        "Value": 279
+      },
+      {
+        "Timestamp": "2008-01-01T08:00:00.000Z",
+        "Value": 511
+      },
+      {
+        "Timestamp": "2009-01-01T08:00:00.000Z",
+        "Value": 255
+      },
+      {
+        "Timestamp": "2010-01-01T08:00:00.000Z",
+        "Value": 520
+      },
+      {
+        "Timestamp": "2011-01-01T08:00:00.000Z",
+        "Value": 81
+      }
+    ]
+  },
+  "_width": 369,
+  "_height": 325,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

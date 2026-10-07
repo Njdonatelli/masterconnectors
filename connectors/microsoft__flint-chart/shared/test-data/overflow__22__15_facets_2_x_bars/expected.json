@@ -1,0 +1,269 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Type",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Panel",
+      "type": "nominal",
+      "sort": null,
+      "columns": 10
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 65,
+      "continuousHeight": 155
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 85
+    },
+    "facet": {
+      "spacing": 7
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Panel": "Panel01",
+        "Type": "Type1",
+        "Value": 159
+      },
+      {
+        "Panel": "Panel01",
+        "Type": "Type2",
+        "Value": 126
+      },
+      {
+        "Panel": "Panel02",
+        "Type": "Type1",
+        "Value": 249
+      },
+      {
+        "Panel": "Panel02",
+        "Type": "Type2",
+        "Value": 112
+      },
+      {
+        "Panel": "Panel03",
+        "Type": "Type1",
+        "Value": 164
+      },
+      {
+        "Panel": "Panel03",
+        "Type": "Type2",
+        "Value": 40
+      },
+      {
+        "Panel": "Panel04",
+        "Type": "Type1",
+        "Value": 120
+      },
+      {
+        "Panel": "Panel04",
+        "Type": "Type2",
+        "Value": 275
+      },
+      {
+        "Panel": "Panel05",
+        "Type": "Type1",
+        "Value": 219
+      },
+      {
+        "Panel": "Panel05",
+        "Type": "Type2",
+        "Value": 205
+      },
+      {
+        "Panel": "Panel06",
+        "Type": "Type1",
+        "Value": 98
+      },
+      {
+        "Panel": "Panel06",
+        "Type": "Type2",
+        "Value": 204
+      },
+      {
+        "Panel": "Panel07",
+        "Type": "Type1",
+        "Value": 99
+      },
+      {
+        "Panel": "Panel07",
+        "Type": "Type2",
+        "Value": 203
+      },
+      {
+        "Panel": "Panel08",
+        "Type": "Type1",
+        "Value": 119
+      },
+      {
+        "Panel": "Panel08",
+        "Type": "Type2",
+        "Value": 44
+      },
+      {
+        "Panel": "Panel09",
+        "Type": "Type1",
+        "Value": 103
+      },
+      {
+        "Panel": "Panel09",
+        "Type": "Type2",
+        "Value": 190
+      },
+      {
+        "Panel": "Panel10",
+        "Type": "Type1",
+        "Value": 279
+      },
+      {
+        "Panel": "Panel10",
+        "Type": "Type2",
+        "Value": 299
+      },
+      {
+        "Panel": "Panel11",
+        "Type": "Type1",
+        "Value": 222
+      },
+      {
+        "Panel": "Panel11",
+        "Type": "Type2",
+        "Value": 104
+      },
+      {
+        "Panel": "Panel12",
+        "Type": "Type1",
+        "Value": 58
+      },
+      {
+        "Panel": "Panel12",
+        "Type": "Type2",
+        "Value": 185
+      },
+      {
+        "Panel": "Panel13",
+        "Type": "Type1",
+        "Value": 41
+      },
+      {
+        "Panel": "Panel13",
+        "Type": "Type2",
+        "Value": 232
+      },
+      {
+        "Panel": "Panel14",
+        "Type": "Type1",
+        "Value": 247
+      },
+      {
+        "Panel": "Panel14",
+        "Type": "Type2",
+        "Value": 42
+      },
+      {
+        "Panel": "Panel15",
+        "Type": "Type1",
+        "Value": 132
+      },
+      {
+        "Panel": "Panel15",
+        "Type": "Type2",
+        "Value": 302
+      }
+    ]
+  },
+  "_width": 65,
+  "_height": 155,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

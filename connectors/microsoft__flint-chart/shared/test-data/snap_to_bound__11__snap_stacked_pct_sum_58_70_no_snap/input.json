@@ -1,0 +1,83 @@
+{
+  "title": "Snap: Stacked Pct sum≈58–70% → no snap",
+  "description": "Stacked bar with 2 series per quarter. Individual values range 28–38% (far from 100%, no individual snap). Stacked totals are 58–70% — also far from 100% (threshold = 25). No snap fires on either individual values or stacked totals. Axis data-fits.",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "quarter": "Q1",
+          "channel": "Channel A",
+          "coverage": 30
+        },
+        {
+          "quarter": "Q1",
+          "channel": "Channel B",
+          "coverage": 28
+        },
+        {
+          "quarter": "Q2",
+          "channel": "Channel A",
+          "coverage": 35
+        },
+        {
+          "quarter": "Q2",
+          "channel": "Channel B",
+          "coverage": 30
+        },
+        {
+          "quarter": "Q3",
+          "channel": "Channel A",
+          "coverage": 28
+        },
+        {
+          "quarter": "Q3",
+          "channel": "Channel B",
+          "coverage": 32
+        },
+        {
+          "quarter": "Q4",
+          "channel": "Channel A",
+          "coverage": 38
+        },
+        {
+          "quarter": "Q4",
+          "channel": "Channel B",
+          "coverage": 32
+        }
+      ]
+    },
+    "semantic_types": {
+      "quarter": "Category",
+      "channel": "Category",
+      "coverage": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "quarter"
+        },
+        "y": {
+          "field": "coverage"
+        },
+        "color": {
+          "field": "channel"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

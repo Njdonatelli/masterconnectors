@@ -1,0 +1,320 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "ColorVal",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "greens"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 389,
+      "continuousHeight": 368
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 37
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01-01",
+        "Value": 217,
+        "ColorVal": 8.3
+      },
+      {
+        "Date": "2020-02-06",
+        "Value": 224,
+        "ColorVal": 6.1
+      },
+      {
+        "Date": "2020-03-14",
+        "Value": 226,
+        "ColorVal": 4.5
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 235,
+        "ColorVal": 5.2
+      },
+      {
+        "Date": "2020-05-26",
+        "Value": 236,
+        "ColorVal": 5
+      },
+      {
+        "Date": "2020-07-01",
+        "Value": 234,
+        "ColorVal": 6.3
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 228,
+        "ColorVal": 0.3
+      },
+      {
+        "Date": "2020-09-12",
+        "Value": 219,
+        "ColorVal": 0.8
+      },
+      {
+        "Date": "2020-10-19",
+        "Value": 213,
+        "ColorVal": 1.2
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 208,
+        "ColorVal": 0.3
+      },
+      {
+        "Date": "2020-12-31",
+        "Value": 201,
+        "ColorVal": 9.9
+      },
+      {
+        "Date": "2021-02-05",
+        "Value": 200,
+        "ColorVal": 8.7
+      },
+      {
+        "Date": "2021-03-14",
+        "Value": 202,
+        "ColorVal": 7.4
+      },
+      {
+        "Date": "2021-04-19",
+        "Value": 210,
+        "ColorVal": 3.5
+      },
+      {
+        "Date": "2021-05-26",
+        "Value": 217,
+        "ColorVal": 2.8
+      },
+      {
+        "Date": "2021-07-01",
+        "Value": 216,
+        "ColorVal": 0.2
+      },
+      {
+        "Date": "2021-08-07",
+        "Value": 222,
+        "ColorVal": 3.2
+      },
+      {
+        "Date": "2021-09-12",
+        "Value": 230,
+        "ColorVal": 3.9
+      },
+      {
+        "Date": "2021-10-19",
+        "Value": 243,
+        "ColorVal": 1.1
+      },
+      {
+        "Date": "2021-11-24",
+        "Value": 261,
+        "ColorVal": 1.8
+      },
+      {
+        "Date": "2021-12-31",
+        "Value": 278,
+        "ColorVal": 1.3
+      },
+      {
+        "Date": "2022-02-05",
+        "Value": 285,
+        "ColorVal": 1.2
+      },
+      {
+        "Date": "2022-03-14",
+        "Value": 285,
+        "ColorVal": 4
+      },
+      {
+        "Date": "2022-04-19",
+        "Value": 284,
+        "ColorVal": 0.6
+      },
+      {
+        "Date": "2022-05-26",
+        "Value": 283,
+        "ColorVal": 0
+      },
+      {
+        "Date": "2022-07-01",
+        "Value": 286,
+        "ColorVal": 8.6
+      },
+      {
+        "Date": "2022-08-07",
+        "Value": 295,
+        "ColorVal": 8.2
+      },
+      {
+        "Date": "2022-09-12",
+        "Value": 297,
+        "ColorVal": 2.9
+      },
+      {
+        "Date": "2022-10-19",
+        "Value": 296,
+        "ColorVal": 9.5
+      },
+      {
+        "Date": "2022-11-24",
+        "Value": 302,
+        "ColorVal": 7.4
+      }
+    ]
+  },
+  "_width": 389,
+  "_height": 368,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

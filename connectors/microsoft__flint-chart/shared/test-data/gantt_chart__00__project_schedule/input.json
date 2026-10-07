@@ -1,0 +1,86 @@
+{
+  "title": "Project schedule",
+  "description": "One horizontal bar per task, spanning its start and end dates. Bars are coloured by project phase and tasks are ordered by start date, so the timeline reads top-to-bottom in chronological order. The interval lives on x/x2, so the time axis is not anchored at zero.",
+  "chartType": "Gantt Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "task": "Requirements",
+          "start": "2024-01-01",
+          "end": "2024-01-22",
+          "phase": "Plan"
+        },
+        {
+          "task": "Design",
+          "start": "2024-01-15",
+          "end": "2024-02-12",
+          "phase": "Plan"
+        },
+        {
+          "task": "Backend",
+          "start": "2024-02-05",
+          "end": "2024-04-01",
+          "phase": "Build"
+        },
+        {
+          "task": "Frontend",
+          "start": "2024-02-19",
+          "end": "2024-04-15",
+          "phase": "Build"
+        },
+        {
+          "task": "Integration",
+          "start": "2024-04-01",
+          "end": "2024-04-29",
+          "phase": "Build"
+        },
+        {
+          "task": "QA & Testing",
+          "start": "2024-04-15",
+          "end": "2024-05-20",
+          "phase": "Verify"
+        },
+        {
+          "task": "Beta",
+          "start": "2024-05-06",
+          "end": "2024-06-03",
+          "phase": "Verify"
+        },
+        {
+          "task": "Launch",
+          "start": "2024-06-03",
+          "end": "2024-06-17",
+          "phase": "Release"
+        }
+      ]
+    },
+    "semantic_types": {
+      "task": "Category",
+      "start": "Date",
+      "end": "Date",
+      "phase": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Gantt Chart",
+      "encodings": {
+        "y": {
+          "field": "task"
+        },
+        "x": {
+          "field": "start"
+        },
+        "x2": {
+          "field": "end"
+        },
+        "color": {
+          "field": "phase"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

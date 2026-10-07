@@ -1,0 +1,46 @@
+{
+  "name": "@keslr/express",
+  "version": "0.1.0",
+  "description": "Express middleware for Sign in with Keslr.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.10.0"
+  },
+  "keywords": [
+    "keslr",
+    "express",
+    "oidc",
+    "authentication",
+    "middleware"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keslr/keslr_connect.git",
+    "directory": "packages/express"
+  },
+  "dependencies": {
+    "@keslr/auth": "0.1.0"
+  },
+  "peerDependencies": {
+    "express": "^4.18.0 || ^5.0.0"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "test": "vitest run --dir ."
+  },
+  "sideEffects": false
+}

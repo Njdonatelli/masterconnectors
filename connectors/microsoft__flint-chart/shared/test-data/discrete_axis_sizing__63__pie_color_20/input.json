@@ -1,0 +1,113 @@
+{
+  "title": "Pie ▸ color ×20",
+  "description": "Pie chart with 20 slices",
+  "chartType": "Pie Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Slice": "Slice01",
+          "Share": 2
+        },
+        {
+          "Slice": "Slice02",
+          "Share": 31
+        },
+        {
+          "Slice": "Slice03",
+          "Share": 41
+        },
+        {
+          "Slice": "Slice04",
+          "Share": 98
+        },
+        {
+          "Slice": "Slice05",
+          "Share": 16
+        },
+        {
+          "Slice": "Slice06",
+          "Share": 44
+        },
+        {
+          "Slice": "Slice07",
+          "Share": 57
+        },
+        {
+          "Slice": "Slice08",
+          "Share": 30
+        },
+        {
+          "Slice": "Slice09",
+          "Share": 95
+        },
+        {
+          "Slice": "Slice10",
+          "Share": 5
+        },
+        {
+          "Slice": "Slice11",
+          "Share": 26
+        },
+        {
+          "Slice": "Slice12",
+          "Share": 13
+        },
+        {
+          "Slice": "Slice13",
+          "Share": 45
+        },
+        {
+          "Slice": "Slice14",
+          "Share": 86
+        },
+        {
+          "Slice": "Slice15",
+          "Share": 20
+        },
+        {
+          "Slice": "Slice16",
+          "Share": 55
+        },
+        {
+          "Slice": "Slice17",
+          "Share": 73
+        },
+        {
+          "Slice": "Slice18",
+          "Share": 55
+        },
+        {
+          "Slice": "Slice19",
+          "Share": 13
+        },
+        {
+          "Slice": "Slice20",
+          "Share": 27
+        }
+      ]
+    },
+    "semantic_types": {
+      "Slice": "Category",
+      "Share": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Pie Chart",
+      "encodings": {
+        "color": {
+          "field": "Slice"
+        },
+        "size": {
+          "field": "Share"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

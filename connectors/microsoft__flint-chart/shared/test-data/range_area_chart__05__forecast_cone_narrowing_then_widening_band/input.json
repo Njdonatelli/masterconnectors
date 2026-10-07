@@ -1,0 +1,99 @@
+{
+  "title": "Forecast cone: narrowing then widening band",
+  "description": "A forecast band that narrows to a calibration point then fans out — varying band width",
+  "chartType": "Range Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Weeks Ahead": 0,
+          "Forecast Low": 91.6,
+          "Forecast High": 108.4
+        },
+        {
+          "Weeks Ahead": 1,
+          "Forecast Low": 95.6,
+          "Forecast High": 109.2
+        },
+        {
+          "Weeks Ahead": 2,
+          "Forecast Low": 99.6,
+          "Forecast High": 110
+        },
+        {
+          "Weeks Ahead": 3,
+          "Forecast Low": 103.6,
+          "Forecast High": 110.8
+        },
+        {
+          "Weeks Ahead": 4,
+          "Forecast Low": 107.6,
+          "Forecast High": 111.6
+        },
+        {
+          "Weeks Ahead": 5,
+          "Forecast Low": 108.4,
+          "Forecast High": 115.6
+        },
+        {
+          "Weeks Ahead": 6,
+          "Forecast Low": 109.2,
+          "Forecast High": 119.6
+        },
+        {
+          "Weeks Ahead": 7,
+          "Forecast Low": 110,
+          "Forecast High": 123.6
+        },
+        {
+          "Weeks Ahead": 8,
+          "Forecast Low": 110.8,
+          "Forecast High": 127.6
+        },
+        {
+          "Weeks Ahead": 9,
+          "Forecast Low": 111.6,
+          "Forecast High": 131.6
+        },
+        {
+          "Weeks Ahead": 10,
+          "Forecast Low": 112.4,
+          "Forecast High": 135.6
+        },
+        {
+          "Weeks Ahead": 11,
+          "Forecast Low": 113.2,
+          "Forecast High": 139.6
+        },
+        {
+          "Weeks Ahead": 12,
+          "Forecast Low": 114,
+          "Forecast High": 143.6
+        }
+      ]
+    },
+    "semantic_types": {
+      "Weeks Ahead": "Quantity",
+      "Forecast Low": "Quantity",
+      "Forecast High": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Range Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Weeks Ahead"
+        },
+        "y": {
+          "field": "Forecast Low"
+        },
+        "y2": {
+          "field": "Forecast High"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

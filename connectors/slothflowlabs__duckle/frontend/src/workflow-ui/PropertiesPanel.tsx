@@ -1,0 +1,956 @@
+import { useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
+import type { Edge, Node } from '@xyflow/react';
+import { AlertTriangle, CheckCircle2, ChevronLeft, ChevronRight, MousePointer2, Workflow } from 'lucide-react';
+import { resolveUpstreamSchema, resolveUpstreamSampleRows, resolveOutputSchema, deriveSchemaFromEngine, diagnosticsFor } from '../schema-resolve';
+import { analyzeNodeSql } from '../tauri-bridge';
+import { setSqlContext } from './fields/sql-context';
+import { buildContextVars, builtinVars, substituteDeep } from '../run-resolve';
+import type { Column, DuckleNodeData } from '../pipeline-types';
+import type {
+    ConnectionPayload,
+    ContextPayload,
+    RepoItem,
+    RoutinePayload,
+} from '../repo-types';
+import SchemaEditor from './SchemaEditor';
+import FieldRenderer from './fields/FieldRenderer';
+import { FieldContext, type ActiveContext } from './fields/FieldContext';
+import { getManifest } from './fields/component-manifests';
+import { isFieldVisible } from './fields/visibility';
+import type { Field } from './fields/types';
+
+type TabId = 'basic' | 'schema' | 'preview' | 'advanced' | 'validation';
+
+// Universal Advanced-tab fields. The engine reads retryAttempts /
+// retryBackoffMs / memoryLimitMb directly off the node's properties;
+// the other two are descriptive for now (no runtime wiring yet but
+// surfaced so users can encode intent and avoid future churn).
+const ADVANCED_FIELDS: Field[] = [
+    {
+        key: 'cache',
+        label: 'Reuse this stage’s output',
+        kind: 'bool',
+        defaultValue: false,
+        description: 'Write this stage’s rows once and read them back on later runs, so a change further down the pipeline does not re-run it. The saved answer is used again only while this stage’s SQL, everything above it, and the size and modified time of any local file it reads are all unchanged. Off by default and per stage on purpose: a cache that decides for itself when it is still good and gets it wrong serves stale rows silently. Do not use it on a stage reading a database, whose contents can change without anything here changing. Delete .duckle/duckle_cache to clear it.',
+    },
+    {
+        key: 'retryAttempts',
+        label: 'Retry attempts',
+        kind: 'integer',
+        defaultValue: 1,
+        description: 'Total attempts on failure (1 = no retry). The executor sleeps the backoff (linearly scaled by attempt index) between attempts.',
+    },
+    {
+        key: 'retryBackoffMs',
+        label: 'Retry backoff (ms)',
+        kind: 'integer',
+        defaultValue: 0,
+        description: 'Sleep between retries; the Nth retry sleeps backoff * N milliseconds.',
+    },
+    {
+        key: 'memoryLimitMb',
+        label: 'Memory limit (MB)',
+        kind: 'integer',
+        defaultValue: 0,
+        description: "PRAGMA memory_limit for this stage only. 0 = no override. NOTE: setting a per-stage limit forces slower per-stage execution (disables batching). For a pipeline-wide cap, set the DUCKLE_MEMORY_LIMIT workspace variable (e.g. 4GB) instead.",
+    },
+    {
+        key: 'continueOnFailure',
+        label: 'Carry on if this step fails',
+        kind: 'bool',
+        defaultValue: false,
+        description: 'Treat a failure here as something to carry past rather than the end of the run. The engine has read this for every node since it was added and no panel offered it. NOTE: it also forces the slower per-stage execution path, because a stage that may fail on its own cannot be batched with its neighbours.',
+    },
+    {
+        key: 'contracts.allowPii',
+        label: 'Allow PII to reach this sink',
+        kind: 'bool',
+        defaultValue: false,
+        description: 'A column tagged PII reaching a sink refuses to compile, and the refusal tells you to set contracts.allowPii=true - which, until now, nothing in the interface could do. Prefer a qa.mask upstream; this is the deliberate exception when the destination is allowed to hold it.',
+    },
+    {
+        key: 'logRowCount',
+        label: 'Log row count',
+        kind: 'bool',
+        defaultValue: false,
+        description: "When the run finishes, add a line with this node's final row count to the run's messages and its log, beside any Log node output.",
+    },
+    {
+        key: 'sqlOverride',
+        label: 'Override stage SQL',
+        kind: 'textarea',
+        monospace: true,
+        rows: 6,
+        placeholder: 'SELECT * FROM input WHERE ...',
+        description: "Advanced (source and transform stages): replace this stage's generated SQL with your own SELECT. Reference the upstream as `input`, or `input1`, `input2`, ... for multi-input stages like joins (main input first). Leave empty to use the generated SQL. A source stage with no upstream runs this SQL verbatim.",
+    },
+];
+
+// Universal Materialize control, shown on the Basic tab of every node. The
+// engine reads `materialize` off the node's properties.
+const MATERIALIZE_FIELD: Field = {
+    key: 'materialize',
+    label: 'Materialize',
+    kind: 'select',
+    defaultValue: 'auto',
+    options: [
+        { label: 'Auto (view if one consumer, table if several)', value: 'auto' },
+        { label: 'View (lazy, may re-scan the source)', value: 'view' },
+        { label: 'Memory (read once, table held in RAM)', value: 'memory' },
+        { label: 'Disk (read once, streamed via a temp Parquet file)', value: 'disk' },
+        { label: 'DuckDB (read once, temp DuckDB file)', value: 'duckdb' },
+        { label: 'DuckDB file (persistent - query it later)', value: 'duckdbfile' },
+    ],
+    description: 'How this step is stored. Auto uses a view for a single consumer and a table when several steps read it. Memory and Disk both read an expensive source only once (e.g. when a downstream split would otherwise scan it twice): Memory holds the rows as a table (fast, RAM-buffered), Disk streams them through a temp Parquet file (minimal RAM, for huge intermediates). DuckDB writes the step into a DuckDB database file - temporary (swept at run end) or a persistent named .duckdb you can open and query for analytics later. View keeps it lazy even with several consumers.',
+};
+
+// Shown only when Materialize = "DuckDB file (persistent)": the .duckdb path the
+// step's rows are written to so they can be queried after the run.
+const MATERIALIZE_PATH_FIELD: Field = {
+    key: 'materializePath',
+    label: 'DuckDB file path',
+    kind: 'save-path',
+    placeholder: '${workspace}/analytics/intermediate.duckdb',
+    description: 'Absolute path (or ${workspace}-relative) to the .duckdb file this step is written into. The table is named after the node id.',
+};
+
+const KIND_LABEL: Record<string, string> = {
+    source: 'Source',
+    transform: 'Transform',
+    sink: 'Sink',
+};
+
+const KIND_COLOR: Record<string, string> = {
+    source: '#2eafff',
+    transform: '#3d8bff',
+    sink: '#ff6900',
+};
+
+type Props = {
+    selected: Node<DuckleNodeData> | null;
+    allNodes: Node<DuckleNodeData>[];
+    edges: Edge[];
+    repoItems: RepoItem[];
+    activeContextId?: string | null;
+    workspacePath?: string | null;
+    onUpdate: (id: string, patch: Partial<DuckleNodeData>) => void;
+    onOpenMapper?: (nodeId: string) => void;
+    focusNameRequest?: number;
+};
+
+export default function PropertiesPanel({
+    selected,
+    allNodes,
+    edges,
+    repoItems,
+    activeContextId,
+    workspacePath,
+    onUpdate,
+    onOpenMapper,
+    focusNameRequest,
+}: Props) {
+    const { t } = useTranslation();
+    const [tab, setTab] = useState<TabId>('basic');
+    // Keyed by the node they are for. As panel-wide flags, selecting another
+    // node while a detect ran - or after one failed - showed "Detecting..." or
+    // the first source's error on a node that had nothing to do with it.
+    const [autodetectingFor, setAutodetectingFor] = useState<string | null>(null);
+    const [detectError, setDetectError] = useState<{ nodeId: string; message: string } | null>(null);
+    const nameInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (focusNameRequest && nameInputRef.current) {
+            setTab('basic');
+            const el = nameInputRef.current;
+            setTimeout(() => {
+                el.focus();
+                el.select();
+            }, 50);
+        }
+    }, [focusNameRequest]);
+
+    // Every component opens on the Basic tab. Switching to Schema / Preview /
+    // Advanced / Validation is then the user's choice and stays put while this
+    // component is selected; selecting a different node resets back to Basic.
+    useEffect(() => {
+        setTab('basic');
+    }, [selected?.id]);
+
+    const upstreamSchema = useMemo<Column[]>(
+        () => resolveUpstreamSchema(selected?.id, allNodes, edges),
+        [selected, edges, allNodes],
+    );
+
+    // #159: the Schema tab for an upstream-derived transform must show the node's
+    // OWN output (post drop/rename/cast/...), not the raw input - otherwise a
+    // Rename node's Schema tab keeps showing the old names while the Preview and
+    // every downstream node already see the renamed ones. resolveOutputSchema is
+    // the same per-component derivation downstream nodes already rely on.
+    // #226: the per-component rules above cannot see a transform that adds
+    // several columns, removes one, or adds a column that is not text - and
+    // there are far more components than rules. Ask the engine what this node
+    // really produces, then re-render so the tab shows the answer rather than
+    // the guess. Reads nothing, so it is safe to do on every selection.
+    const [derivedTick, setDerivedTick] = useState(0);
+    useEffect(() => {
+        if (!selected) return;
+        let live = true;
+        void deriveSchemaFromEngine(selected.id, allNodes, edges, analyzeNodeSql).then(changed => {
+            if (live && changed) setDerivedTick(t => t + 1);
+        });
+        return () => {
+            live = false;
+        };
+    }, [selected, allNodes, edges]);
+
+    // #314: what a SQL field in this panel can be completed against. Published
+    // when the selection changes, so the field asks about the node the author
+    // is actually editing.
+    useEffect(() => {
+        if (!selected) {
+            setSqlContext(null);
+            return;
+        }
+        setSqlContext({
+            nodes: allNodes,
+            edges,
+            nodeId: selected.id,
+            inputs: edges
+                .filter(e => e.target === selected.id)
+                .map(e => [e.source, resolveOutputSchema(e.source, allNodes, edges)] as [string, Column[]])
+                .filter(([, cols]) => cols.length > 0),
+        });
+        return () => setSqlContext(null);
+    }, [selected, allNodes, edges, derivedTick]);
+
+    // #314: what DuckDB objected to about this node's SQL, if anything. Read
+    // from the same cache the columns come from, so it lands on the same
+    // re-render rather than a second round trip.
+    const diagnostics = useMemo(
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        () => (selected ? diagnosticsFor(selected.id) : []),
+        [selected, derivedTick],
+    );
+
+    const outputSchema = useMemo<Column[]>(
+        () => (selected ? resolveOutputSchema(selected.id, allNodes, edges) : []),
+        // derivedTick is a dependency on purpose: the engine's answer lands in
+        // a cache the resolver reads, so the memo has to be told it changed.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [selected, edges, allNodes, derivedTick],
+    );
+
+    const upstreamSampleRows = useMemo<Record<string, unknown>[]>(
+        () => resolveUpstreamSampleRows(selected?.id, allNodes, edges),
+        [selected, edges, allNodes],
+    );
+
+    const activeContext = useMemo<ActiveContext | undefined>(() => {
+        if (!activeContextId) return undefined;
+        const item = repoItems.find(r => r.id === activeContextId && r.type === 'context');
+        if (!item) return undefined;
+        const payload = item.payload as ContextPayload | undefined;
+        return { id: item.id, name: item.name, variables: payload?.variables ?? [] };
+    }, [activeContextId, repoItems]);
+
+    // Right panel collapse: a thin rail on the right edge with an expand button,
+    // so the canvas can use the full width. Persists per machine.
+    const [collapsed, setCollapsed] = useState(
+        () => localStorage.getItem('duckle.properties.collapsed') === '1',
+    );
+    const toggleCollapsed = () =>
+        setCollapsed(c => {
+            const next = !c;
+            try {
+                localStorage.setItem('duckle.properties.collapsed', next ? '1' : '0');
+            } catch {
+                /* localStorage unavailable - non-fatal */
+            }
+            return next;
+        });
+
+    // #102 item 4a: drag the panel's left edge to resize; width persists per machine.
+    const [panelWidth, setPanelWidth] = useState<number>(() => {
+        const saved = Number(localStorage.getItem('duckle.properties.width'));
+        return saved >= 280 && saved <= 720 ? saved : 352;
+    });
+    const widthRef = useRef(panelWidth);
+    const startResize = (e: ReactMouseEvent) => {
+        e.preventDefault();
+        const startX = e.clientX;
+        const startW = widthRef.current;
+        const onMove = (ev: MouseEvent) => {
+            // Dragging the left edge: moving left widens the panel.
+            const next = Math.max(280, Math.min(720, startW + (startX - ev.clientX)));
+            widthRef.current = next;
+            setPanelWidth(next);
+        };
+        const onUp = () => {
+            try {
+                localStorage.setItem('duckle.properties.width', String(widthRef.current));
+            } catch {
+                /* localStorage unavailable - non-fatal */
+            }
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onUp);
+        };
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup', onUp);
+    };
+
+    if (collapsed) {
+        return (
+            <aside className="properties properties-collapsed" data-tour="properties">
+                <button
+                    type="button"
+                    className="properties-collapse-toggle"
+                    onClick={toggleCollapsed}
+                    title={t('properties.expandPanel', { defaultValue: 'Expand panel' })}
+                    aria-label={t('properties.expandPanel', { defaultValue: 'Expand panel' })}
+                >
+                    <ChevronLeft size={16} />
+                </button>
+            </aside>
+        );
+    }
+
+    if (!selected) {
+        return (
+            <aside className="properties" data-tour="properties" style={{ width: panelWidth }}>
+                <div className="properties-resize-handle" onMouseDown={startResize} aria-hidden="true" />
+                <button
+                    type="button"
+                    className="properties-collapse-toggle properties-collapse-toggle-float"
+                    onClick={toggleCollapsed}
+                    title={t('properties.collapsePanel', { defaultValue: 'Collapse panel' })}
+                    aria-label={t('properties.collapsePanel', { defaultValue: 'Collapse panel' })}
+                >
+                    <ChevronRight size={16} />
+                </button>
+                <div className="properties-empty">
+                    <MousePointer2 size={32} strokeWidth={1.4} />
+                    <div className="properties-empty-title">{t('properties.nothingSelected')}</div>
+                    <div className="properties-empty-desc">
+                        {t('properties.nothingSelectedDesc')}
+                    </div>
+                </div>
+            </aside>
+        );
+    }
+
+    const kind = (selected.type ?? 'transform') as string;
+    const data = selected.data;
+    const props = data.properties ?? {};
+    const manifest = getManifest(data.componentId);
+    const declaredSchema = data.schema ?? [];
+
+    const TABS: { id: TabId; label: string }[] = [
+        { id: 'basic', label: t('properties.tabBasic') },
+        { id: 'schema', label: t('properties.tabSchema') },
+        { id: 'preview', label: t('properties.tabPreview') },
+        { id: 'advanced', label: t('properties.tabAdvanced') },
+        { id: 'validation', label: t('properties.tabValidation') },
+    ];
+
+    const setLabel = (label: string) => onUpdate(selected.id, { label });
+    // A dotted key writes a NESTED property, so a field can reach something the
+    // engine reads under a namespace. `contracts.allowPii` is the case that
+    // forced it: the engine refuses a run when a PII-tagged column reaches a
+    // sink and tells the operator to "set contracts.allowPii=true", which no
+    // panel could do - a flat key would have written the literal string
+    // "contracts.allowPii" and the engine reads props.contracts.allowPii.
+    //
+    // One level only, because that is what exists and a general path setter
+    // would be machinery for a case nobody has. No field key contained a dot
+    // before this, so nothing changes for any existing field.
+    // `undefined` is a field saying it has no value, so drop the key rather
+    // than storing it. A key present with an empty value is not the same
+    // thing to the engine, which reads an absent key as "use the default".
+    const withKey = (
+        obj: Record<string, unknown>,
+        key: string,
+        value: unknown,
+    ): Record<string, unknown> => {
+        if (value !== undefined) return { ...obj, [key]: value };
+        const { [key]: _dropped, ...rest } = obj;
+        return rest;
+    };
+    const setProperty = (key: string, value: unknown) => {
+        const dot = key.indexOf('.');
+        if (dot < 0) {
+            onUpdate(selected.id, { properties: withKey(props, key, value) });
+            return;
+        }
+        const [outer, inner] = [key.slice(0, dot), key.slice(dot + 1)];
+        const existing = (props[outer] ?? {}) as Record<string, unknown>;
+        onUpdate(selected.id, {
+            properties: { ...props, [outer]: withKey(existing, inner, value) },
+        });
+    };
+    // The read side of the same key, so a nested field shows the value it just
+    // wrote instead of reverting to its default on the next render.
+    const getProperty = (key: string): unknown => {
+        const dot = key.indexOf('.');
+        if (dot < 0) return props[key];
+        const outer = props[key.slice(0, dot)];
+        if (!outer || typeof outer !== 'object') return undefined;
+        return (outer as Record<string, unknown>)[key.slice(dot + 1)];
+    };
+    const setSchema = (columns: Column[]) => onUpdate(selected.id, { schema: columns });
+
+    const autodetecting = autodetectingFor !== null && autodetectingFor === selected?.id;
+    const detectErrorText = detectError?.nodeId === selected?.id ? detectError.message : null;
+
+    const runAutodetect = async () => {
+        if (!manifest?.autodetect) return;
+        const nodeId = selected.id;
+        setAutodetectingFor(nodeId);
+        setDetectError(null);
+        try {
+            // Resolve ${context} variables the same way the run path does, so a
+            // context-bound value (e.g. a Path set to ${DUCKLE_PATH}) is
+            // inspectable. Without this, autodetect sends the raw placeholder to
+            // the engine and fails with "No files found that match the pattern
+            // ${DUCKLE_PATH}" - the path's contents (including spaces) are
+            // irrelevant; it is the unsubstituted placeholder that breaks.
+            // ${ENV:...} secrets are resolved engine-side (the browser has no OS
+            // env access), mirroring the run path (issue #148).
+            const vars = { ...builtinVars(workspacePath), ...buildContextVars(repoItems) };
+            const resolvedProps = substituteDeep(data.properties ?? {}, vars) as Record<string, unknown>;
+            const result = await manifest.autodetect(resolvedProps);
+            onUpdate(selected.id, {
+                schema: result.columns,
+                sampleRows: result.sampleRows,
+            });
+            // The engine reached the source but returned no columns: flag it
+            // rather than leaving a silent (and previously fabricated) schema.
+            if (result.columns.length === 0) {
+                setDetectError({
+                    nodeId,
+                    message:
+                        'No columns detected. Check the connection details, or declare the schema manually below.',
+                });
+            }
+        } catch (err) {
+            // Surface the real reason (bad credentials, unreachable host,
+            // unsupported source) instead of writing a fabricated schema (#148).
+            setDetectError({ nodeId, message: err instanceof Error ? err.message : String(err) });
+        } finally {
+            setAutodetectingFor(current => (current === nodeId ? null : current));
+        }
+    };
+
+    return (
+        <aside className="properties" data-tour="properties" style={{ width: panelWidth }}>
+            <div className="properties-resize-handle" onMouseDown={startResize} aria-hidden="true" />
+            <button
+                type="button"
+                className="properties-collapse-toggle properties-collapse-toggle-float"
+                onClick={toggleCollapsed}
+                title={t('properties.collapsePanel', { defaultValue: 'Collapse panel' })}
+                aria-label={t('properties.collapsePanel', { defaultValue: 'Collapse panel' })}
+            >
+                <ChevronRight size={16} />
+            </button>
+            <div className="properties-header">
+                <div className="properties-kind-row">
+                    <span
+                        className="properties-kind-dot"
+                        style={{ background: KIND_COLOR[kind] ?? '#666' }}
+                        aria-hidden="true"
+                    />
+                    <span className="properties-kind">{KIND_LABEL[kind] ?? kind}</span>
+                    <span className="properties-id" title={selected.id}>#{selected.id}</span>
+                    {typeof data.alias === 'string' && data.alias.trim() ? (
+                        <span className="properties-id" title="SQL name (alias)">
+                            as {data.alias.trim()}
+                        </span>
+                    ) : null}
+                </div>
+                <input
+                    ref={nameInputRef}
+                    type="text"
+                    className="properties-name-input"
+                    value={data.label}
+                    onChange={e => setLabel(e.target.value)}
+                    placeholder={t('properties.componentName')}
+                    spellCheck={false}
+                />
+                {manifest ? (
+                    <div className="properties-manifest-row">
+                        <code className="properties-manifest-id">{manifest.id}</code>
+                        {manifest.description ? (
+                            <span className="properties-manifest-desc">{manifest.description}</span>
+                        ) : null}
+                    </div>
+                ) : null}
+            </div>
+
+            <div className="properties-tabs" role="tablist">
+                {TABS.map(t => (
+                    <button
+                        key={t.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={tab === t.id}
+                        className="properties-tab"
+                        onClick={() => setTab(t.id)}
+                    >
+                        {t.label}
+                    </button>
+                ))}
+            </div>
+
+            <FieldContext.Provider
+                value={{
+                    upstreamSchema,
+                    nodeSchema: declaredSchema,
+                    repoItems,
+                    workspacePath,
+                    activeContext,
+                    nodeProps: props,
+                    onPickConnection: (_payload: ConnectionPayload, connectionId: string) => {
+                        if (!selected) return;
+                        // Store the REFERENCE, never the credentials.
+                        //
+                        // This used to copy host, port, database, username and
+                        // password (plus accessKey, secretKey, accountKey, ...) onto
+                        // the node. Two things were wrong with that. Pipelines live in
+                        // git, so every pick wrote a plaintext credential into a file
+                        // meant to be shared, which is exactly what SECURITY.md tells
+                        // people not to do. And the copies were never used: at run time
+                        // `merge_generic_connection` fills these fields from the
+                        // connection and lets the connection WIN over anything inline,
+                        // so the values on the node only looked like per-node overrides.
+                        //
+                        // Salesforce already worked this way. Every kind does now, so
+                        // rotating a credential is one edit in the connection rather
+                        // than one per node that uses it.
+                        //
+                        // The editor still shows what the connection will supply: the
+                        // validator treats a ref as satisfying those fields, and each
+                        // field displays the connection's value as its placeholder.
+                        onUpdate(selected.id, {
+                            properties: {
+                                ...(selected.data.properties ?? {}),
+                                connectionRef: connectionId,
+                            },
+                        });
+                    },
+                    onPickRoutine: (payload: RoutinePayload, routineId: string) => {
+                        if (!selected) return;
+                        // One update carrying the ref AND the inlined code, so a
+                        // second update can't clobber routineRef off a stale base
+                        // (issue #78). Inline into the field the component reads:
+                        // code.sql / code.sqltemplate use `sql`, the other code.*
+                        // use `code`.
+                        const next = { ...(selected.data.properties ?? {}) };
+                        next.routineRef = routineId;
+                        const cid = selected.data.componentId;
+                        const codeKey =
+                            cid === 'code.sql' || cid === 'code.sqltemplate' ? 'sql' : 'code';
+                        if (payload.code) next[codeKey] = payload.code;
+                        if (payload.language) next.language = payload.language;
+                        onUpdate(selected.id, { properties: next });
+                    },
+                }}
+            >
+                <div className="properties-content">
+                    {tab === 'basic' ? (
+                        <div className="properties-section">
+                            <div style={{ marginBottom: 14 }}>
+                                <label
+                                    htmlFor="node-alias"
+                                    style={{ display: 'block', fontWeight: 600, marginBottom: 4 }}
+                                >
+                                    {t('properties.sqlName', { defaultValue: 'SQL name' })}{' '}
+                                    <span style={{ fontWeight: 400, opacity: 0.6 }}>
+                                        {t('properties.optional', { defaultValue: '(optional)' })}
+                                    </span>
+                                </label>
+                                <input
+                                    id="node-alias"
+                                    type="text"
+                                    value={typeof data.alias === 'string' ? data.alias : ''}
+                                    onChange={e =>
+                                        onUpdate(selected.id, {
+                                            alias: e.target.value.trim() ? e.target.value : undefined,
+                                        })
+                                    }
+                                    placeholder={selected.id}
+                                    spellCheck={false}
+                                    autoComplete="off"
+                                    style={{
+                                        width: '100%',
+                                        padding: '8px 10px',
+                                        borderRadius: 8,
+                                        border: '1px solid var(--border)',
+                                        background: 'var(--bg-1)',
+                                        color: 'inherit',
+                                        boxSizing: 'border-box',
+                                    }}
+                                />
+                                <p style={{ margin: '4px 0 0', fontSize: '0.8462rem', color: 'var(--text-3)' }}>
+                                    {t('properties.sqlNameHelp', {
+                                        defaultValue:
+                                            'Reference this node by this name in Raw / Pure SQL nodes. Defaults to the node id.',
+                                    })}
+                                </p>
+                            </div>
+                            {data.componentId === 'xf.map' && onOpenMapper ? (
+                                <button
+                                    type="button"
+                                    className="properties-mapper-button"
+                                    onClick={() => onOpenMapper(selected.id)}
+                                >
+                                    <Workflow size={14} />
+                                    {t('properties.openVisualMapper')}
+                                </button>
+                            ) : null}
+                            {/* #314: what DuckDB said about this node's SQL.
+                                Above the form rather than below it, because it
+                                is about the field the author is editing and a
+                                message under a long form is a message nobody
+                                sees. */}
+                            {diagnostics.length > 0 ? (
+                                <div className="properties-sql-diagnostics" role="status">
+                                    {diagnostics.map((d, i) => (
+                                        <div key={i} className="properties-sql-diagnostic">
+                                            <AlertTriangle size={13} aria-hidden />
+                                            <span>
+                                                {d.line && d.column ? (
+                                                    <code>{`${d.line}:${d.column}`}</code>
+                                                ) : null}{' '}
+                                                {d.message}
+                                                {d.candidates?.length ? (
+                                                    <em>
+                                                        {' '}
+                                                        did you mean {d.candidates.join(', ')}?
+                                                    </em>
+                                                ) : null}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : null}
+                            {manifest ? (
+                                manifest.sections.map(section => {
+                                    // visibleWhen (#166 follow-up): drop fields whose
+                                    // conditions don't match the current props, and skip
+                                    // the whole section when nothing remains so no
+                                    // orphan header renders.
+                                    const visibleFields = section.fields.filter(f =>
+                                        isFieldVisible(f, manifest, props),
+                                    );
+                                    if (visibleFields.length === 0) return null;
+                                    const fields = visibleFields.map(field => (
+                                        <FieldRenderer
+                                            key={field.key}
+                                            field={field}
+                                            value={
+                                                props[field.key] !== undefined
+                                                    ? props[field.key]
+                                                    : field.defaultValue
+                                            }
+                                            onChange={v => setProperty(field.key, v)}
+                                        />
+                                    ));
+                                    // Collapsible sections (e.g. Postgres advanced TLS, #161)
+                                    // render as a native disclosure so the common case stays
+                                    // clean. Open by default if any field already has a value.
+                                    if (section.collapsible) {
+                                        const hasValue = visibleFields.some(
+                                            f =>
+                                                props[f.key] !== undefined &&
+                                                props[f.key] !== '' &&
+                                                props[f.key] !== null,
+                                        );
+                                        return (
+                                            <details
+                                                className="form-section form-section-collapsible"
+                                                key={section.label}
+                                                open={hasValue || !section.defaultCollapsed}
+                                            >
+                                                <summary className="form-section-label form-section-summary">
+                                                    {section.label}
+                                                </summary>
+                                                {fields}
+                                            </details>
+                                        );
+                                    }
+                                    return (
+                                        <div className="form-section" key={section.label}>
+                                            <div className="form-section-label">{section.label}</div>
+                                            {fields}
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="properties-hint">
+                                    {t('properties.genericComponent')}
+                                </div>
+                            )}
+                            <div className="form-section">
+                                <div className="form-section-label">Materialization</div>
+                                <FieldRenderer
+                                    field={
+                                        // 'View' is meaningless on a terminal sink (it has no
+                                        // downstream consumer and compiles to a COPY/driver
+                                        // write), so hide that option for sink nodes only.
+                                        kind === 'sink'
+                                            ? {
+                                                  ...MATERIALIZE_FIELD,
+                                                  options: (MATERIALIZE_FIELD.options ?? []).filter(
+                                                      o => o.value !== 'view'
+                                                  ),
+                                              }
+                                            : MATERIALIZE_FIELD
+                                    }
+                                    value={
+                                        props[MATERIALIZE_FIELD.key] !== undefined
+                                            ? props[MATERIALIZE_FIELD.key]
+                                            : MATERIALIZE_FIELD.defaultValue
+                                    }
+                                    onChange={v => setProperty(MATERIALIZE_FIELD.key, v)}
+                                />
+                                {props[MATERIALIZE_FIELD.key] === 'duckdbfile' ? (
+                                    <FieldRenderer
+                                        field={MATERIALIZE_PATH_FIELD}
+                                        value={props[MATERIALIZE_PATH_FIELD.key]}
+                                        onChange={v => setProperty(MATERIALIZE_PATH_FIELD.key, v)}
+                                    />
+                                ) : null}
+                            </div>
+                        </div>
+                    ) : null}
+
+                    {tab === 'schema' ? (
+                        <div className="properties-section">
+                            {manifest?.schemaSource === 'upstream' ? (
+                                <div className="schema-source-banner">
+                                    {t('properties.schemaInherited')}
+                                </div>
+                            ) : null}
+                            {manifest?.schemaSource === 'autodetect' ? (
+                                <div className="schema-autodetect-row">
+                                    <button
+                                        type="button"
+                                        className="schema-autodetect-button"
+                                        onClick={runAutodetect}
+                                        disabled={autodetecting}
+                                    >
+                                        {autodetecting ? t('properties.detecting') : t('properties.autodetect')}
+                                    </button>
+                                    <span className="schema-autodetect-hint">
+                                        {t('properties.autodetectHelp')}
+                                    </span>
+                                </div>
+                            ) : null}
+                            {manifest?.schemaSource === 'autodetect' && detectErrorText ? (
+                                <div
+                                    className="schema-autodetect-error"
+                                    role="alert"
+                                    style={{
+                                        color: 'var(--color-error, #d64545)',
+                                        marginTop: 6,
+                                        fontSize: '0.85em',
+                                        whiteSpace: 'pre-wrap',
+                                    }}
+                                >
+                                    {detectErrorText}
+                                </div>
+                            ) : null}
+                            {manifest?.schemaSource === 'declared' ? (
+                                <div className="schema-source-banner schema-source-banner-declared">
+                                    {t('properties.declaredSchema')}
+                                </div>
+                            ) : null}
+                            <SchemaEditor
+                                columns={
+                                    manifest?.schemaSource === 'upstream'
+                                        ? outputSchema
+                                        : declaredSchema
+                                }
+                                onChange={setSchema}
+                                readOnly={manifest?.schemaSource === 'upstream'}
+                            />
+                        </div>
+                    ) : null}
+
+                    {tab === 'preview'
+                        ? (() => {
+                              // #207 / #206: a run stores this node's OWN preview
+                              // rows keyed by the engine's OUTPUT columns, so the
+                              // headers must come from outputSchema, not the raw
+                              // upstream input names - otherwise headers and row
+                              // keys mismatch and every cell renders empty (rename
+                              // shows the old names; geo.create hides geom). Pre-run
+                              // there are only upstream sample rows (input-keyed),
+                              // so keep upstreamSchema in that case.
+                              const hasOwnRows = !!(
+                                  data.sampleRows && data.sampleRows.length > 0
+                              );
+                              const previewSchema =
+                                  manifest?.schemaSource === 'upstream'
+                                      ? hasOwnRows
+                                          ? outputSchema
+                                          : upstreamSchema
+                                      : declaredSchema.length > 0
+                                        ? declaredSchema
+                                        : upstreamSchema;
+                              return (
+                                  <div className="properties-section">
+                                      <PreviewTab
+                                          schema={previewSchema}
+                                          rows={
+                                              hasOwnRows
+                                                  ? data.sampleRows!
+                                                  : upstreamSampleRows
+                                          }
+                                          inheritedRows={
+                                              !hasOwnRows && upstreamSampleRows.length > 0
+                                          }
+                                      />
+                                  </div>
+                              );
+                          })()
+                        : null}
+
+                    {tab === 'advanced' ? (
+                        <div className="properties-section">
+                            <div className="form-section">
+                                <div className="form-section-label">{t('properties.reliability')}</div>
+                                {ADVANCED_FIELDS.filter(
+                                    field =>
+                                        // The PII contract is only ever consulted
+                                        // at a sink (plan/mod.rs:1102 guards on
+                                        // `cid.starts_with("snk.")`), so offering
+                                        // it anywhere else would be a control that
+                                        // does nothing.
+                                        field.key !== 'contracts.allowPii' ||
+                                        (data.componentId ?? '').startsWith('snk.'),
+                                ).map(field => (
+                                    <FieldRenderer
+                                        key={field.key}
+                                        field={field}
+                                        value={
+                                            getProperty(field.key) !== undefined
+                                                ? getProperty(field.key)
+                                                : field.defaultValue
+                                        }
+                                        onChange={v => setProperty(field.key, v)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ) : null}
+
+                    {tab === 'validation' ? (
+                        <div className="properties-section">
+                            <div className="validation-summary validation-ok">
+                                <CheckCircle2 size={14} className="validation-icon" aria-hidden="true" />
+                                <span>{t('properties.noIssues')}</span>
+                            </div>
+                            <div className="properties-hint">
+                                {t('properties.noIssuesDesc')}
+                            </div>
+                        </div>
+                    ) : null}
+                </div>
+            </FieldContext.Provider>
+        </aside>
+    );
+}
+
+type PreviewProps = {
+    schema: Column[];
+    rows: Record<string, unknown>[];
+    inheritedRows?: boolean;
+};
+
+function PreviewTab({ schema, rows, inheritedRows }: PreviewProps) {
+    const { t } = useTranslation();
+    // When no formal schema resolved (e.g. a DB sink whose upstream schema
+    // is empty until the source is read), derive columns from the sample
+    // rows so the preview still renders from whatever data is available -
+    // instead of being hidden behind "No schema".
+    const effectiveSchema: Column[] =
+        schema.length > 0
+            ? schema
+            : (() => {
+                  const seen = new Set<string>();
+                  const out: Column[] = [];
+                  for (const r of rows) {
+                      for (const k of Object.keys(r)) {
+                          if (!seen.has(k)) {
+                              seen.add(k);
+                              out.push({ name: k, type: 'string', nullable: true });
+                          }
+                      }
+                  }
+                  return out;
+              })();
+
+    if (effectiveSchema.length === 0) {
+        return (
+            <div className="preview-empty">
+                <div className="preview-empty-title">{t('properties.noSchema')}</div>
+                <div className="preview-empty-desc">
+                    {t('properties.noSchemaDesc')}
+                </div>
+            </div>
+        );
+    }
+
+    if (rows.length === 0) {
+        return (
+            <div className="preview-empty">
+                <div className="preview-empty-title">{t('properties.noSample')}</div>
+                <div className="preview-empty-desc" dangerouslySetInnerHTML={{ __html: t('properties.noSampleDescHtml') }} />
+            </div>
+        );
+    }
+
+    const cols = effectiveSchema.map(c => c.name);
+    return (
+        <div className="preview-wrap">
+            <div className="preview-meta">
+                {rows.length} sample row{rows.length === 1 ? '' : 's'} · {cols.length} column
+                {cols.length === 1 ? '' : 's'}
+                {inheritedRows ? (
+                    <span className="preview-meta-tag"> · upstream sample</span>
+                ) : null}
+            </div>
+            <div className="preview-tablewrap">
+                <table className="preview-table">
+                    <thead>
+                        <tr>
+                            {effectiveSchema.map(c => (
+                                <th key={c.name}>
+                                    <div className="preview-th-name">{c.name}</div>
+                                    <div className="preview-th-type">{c.type}</div>
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows.map((r, i) => (
+                            <tr key={i}>
+                                {cols.map(name => (
+                                    <td key={name}>{formatCell(r[name])}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function formatCell(v: unknown): string {
+    if (v === null || v === undefined) return '∅';
+    if (typeof v === 'object') return JSON.stringify(v);
+    return String(v);
+}

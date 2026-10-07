@@ -1,0 +1,232 @@
+import express from 'express';
+import { getHostedAccountSession, markAccountOfferSeen, resetAccountOffers } from '../app-config.ts';
+import {
+  beginHostedOAuth,
+  createFailedHostedOAuthFlow,
+  createHostedBillingPortal,
+  createHostedCheckout,
+  exchangeHostedOAuthCode,
+  failHostedOAuth,
+  finishHostedOAuth,
+  fetchHostedAgentAllowance,
+  fetchHostedBillingPlans,
+  fetchHostedBillingStatus,
+  hostedAccountState,
+  hostedAccountAvatar,
+  hostedOAuthStatus,
+  noteHostedOAuthAppReturn,
+  noteHostedOAuthReturnIntent,
+  signOutHostedAccount,
+  type HostedOAuthProvider,
+  type HostedOAuthPurpose,
+} from '../hosted-account.ts';
+import { errorMessage, logger } from '../log.ts';
+import { oauthResultPage } from '../oauth-result-page.ts';
+import { processPrivateTokenMatches } from '../process-private-token.ts';
+import { currentWindowId } from '../folder.ts';
+import { stopAgentRuntime } from '../agent-contract.ts';
+import { stopOpenCodeRuntime } from '../opencode-runtime.ts';
+
+const log = logger('routes/account');
+const OAUTH_PROVIDERS = new Set<HostedOAuthProvider>(['google']);
+const OAUTH_PURPOSES = new Set<HostedOAuthPurpose>(['account']);
+const PRICE_ID = /^price_[A-Za-z0-9]+$/;
+const OAUTH_RETURN_TOKEN_HEADER = 'x-stashbase-oauth-return-token';
+
+interface AccountRouteOptions {
+  appReturnToken: string;
+}
+
+function oauthProvider(value: unknown): HostedOAuthProvider | null {
+  return typeof value === 'string' && OAUTH_PROVIDERS.has(value as HostedOAuthProvider)
+    ? value as HostedOAuthProvider
+    : null;
+}
+
+function oauthPurpose(value: unknown): HostedOAuthPurpose | null {
+  return typeof value === 'string' && OAUTH_PURPOSES.has(value as HostedOAuthPurpose)
+    ? value as HostedOAuthPurpose
+    : null;
+}
+
+function callbackOrigin(req: express.Request): string {
+  return new URL(`http://${req.get('host') ?? ''}`).origin;
+}
+
+export function mount(app: express.Express, { appReturnToken }: AccountRouteOptions): void {
+  app.get('/api/account', async (req, res) => {
+    const refresh = req.query.refresh === '1';
+    res.json(await hostedAccountState(refresh));
+  });
+
+  app.post('/api/account/offers/:offer/seen', async (req, res) => {
+    const offer = req.params.offer;
+    if (offer !== 'sign-in') return res.status(400).json({ error: 'Unknown offer.' });
+    try {
+      markAccountOfferSeen(offer);
+      res.json(await hostedAccountState());
+    } catch (error: unknown) {
+      res.status(500).json({ error: errorMessage(error) });
+    }
+  });
+
+  // Developer tools use this to see first-launch banners again.
+  app.delete('/api/account/offers', async (_req, res) => {
+    try {
+      resetAccountOffers();
+      res.json(await hostedAccountState());
+    } catch (error: unknown) {
+      res.status(500).json({ error: errorMessage(error) });
+    }
+  });
+
+  app.get('/api/account/avatar', async (_req, res) => {
+    try {
+      const avatar = await hostedAccountAvatar();
+      if (!avatar) return res.status(404).end();
+      res.setHeader('content-type', avatar.contentType);
+      res.setHeader('cache-control', 'private, no-store');
+      res.setHeader('x-content-type-options', 'nosniff');
+      res.end(Buffer.from(avatar.bytes));
+    } catch {
+      // Avatar display is optional. Fail closed to the renderer fallback
+      // without exposing provider URLs or upstream diagnostics.
+      res.status(404).end();
+    }
+  });
+
+  app.get('/api/account/agent-usage', async (_req, res) => {
+    try {
+      if (!getHostedAccountSession()) return res.status(401).json({ error: 'Sign in first.' });
+      res.json(await fetchHostedAgentAllowance());
+    } catch (error: unknown) {
+      res.status(502).json({ error: errorMessage(error) });
+    }
+  });
+
+  app.get('/api/account/billing/plans', async (_req, res) => {
+    try {
+      res.json({ plans: await fetchHostedBillingPlans() });
+    } catch (error: unknown) {
+      res.status(502).json({ error: errorMessage(error) });
+    }
+  });
+
+  app.get('/api/account/billing/status', async (_req, res) => {
+    try {
+      if (!getHostedAccountSession()) return res.status(401).json({ error: 'Sign in first.' });
+      res.json(await fetchHostedBillingStatus());
+    } catch (error: unknown) {
+      res.status(502).json({ error: errorMessage(error) });
+    }
+  });
+
+  app.post('/api/account/billing/checkout', async (req, res) => {
+    const priceId = req.body?.priceId;
+    if (typeof priceId !== 'string' || !PRICE_ID.test(priceId)) {
+      return res.status(400).json({ error: 'Choose a plan to subscribe to.' });
+    }
+    try {
+      if (!getHostedAccountSession()) return res.status(401).json({ error: 'Sign in first.' });
+      res.json(await createHostedCheckout(priceId));
+    } catch (error: unknown) {
+      res.status(502).json({ error: errorMessage(error) });
+    }
+  });
+
+  app.post('/api/account/billing/portal', async (_req, res) => {
+    try {
+      if (!getHostedAccountSession()) return res.status(401).json({ error: 'Sign in first.' });
+      res.json(await createHostedBillingPortal());
+    } catch (error: unknown) {
+      res.status(502).json({ error: errorMessage(error) });
+    }
+  });
+
+  app.post('/api/account/oauth/start', (req, res) => {
+    try {
+      const provider = oauthProvider(req.body?.provider ?? 'google');
+      if (!provider) return res.status(400).json({ error: 'Unsupported sign-in provider.' });
+      const purpose = oauthPurpose(req.body?.purpose ?? 'account');
+      if (!purpose) return res.status(400).json({ error: 'Unsupported sign-in purpose.' });
+      res.json(beginHostedOAuth(provider, callbackOrigin(req), currentWindowId(), purpose));
+    } catch (error: unknown) {
+      res.status(400).json({ error: errorMessage(error) });
+    }
+  });
+
+  app.get('/api/account/oauth/callback', async (req, res) => {
+    const flowId = typeof req.query.flow === 'string' ? req.query.flow : '';
+    const authCode = typeof req.query.code === 'string' ? req.query.code : '';
+    const providerError = typeof req.query.error_description === 'string'
+      ? req.query.error_description
+      : typeof req.query.error === 'string' ? req.query.error : '';
+    if (!flowId) {
+      const message = 'The sign-in request is missing or expired. Return to StashBase and try again.';
+      const failedFlowId = createFailedHostedOAuthFlow(message);
+      return res.status(400).type('html').send(oauthResultPage({
+        title: 'Sign-in failed',
+        message,
+        kind: 'error',
+        returnStatusUrl: `/api/account/oauth/status?flow=${encodeURIComponent(failedFlowId)}`,
+        returnIntentUrl: `/api/account/oauth/return-intent?flow=${encodeURIComponent(failedFlowId)}`,
+      }));
+    }
+    if (providerError) {
+      failHostedOAuth(flowId, providerError);
+      return res.status(400).type('html').send(oauthResultPage({
+        title: 'Sign-in failed', message: providerError, kind: 'error',
+        returnStatusUrl: `/api/account/oauth/status?flow=${encodeURIComponent(flowId)}`,
+        returnIntentUrl: `/api/account/oauth/return-intent?flow=${encodeURIComponent(flowId)}`,
+      }));
+    }
+    try {
+      await exchangeHostedOAuthCode(flowId, authCode);
+      finishHostedOAuth(flowId);
+      log.info('OAuth sign-in completed');
+      res.type('html').send(oauthResultPage({
+        title: 'Signed in to StashBase',
+        message: 'Your account is ready. This page will return you to the app automatically.',
+        autoReturn: true,
+        returnStatusUrl: `/api/account/oauth/status?flow=${encodeURIComponent(flowId)}`,
+        returnIntentUrl: `/api/account/oauth/return-intent?flow=${encodeURIComponent(flowId)}`,
+      }));
+    } catch (error: unknown) {
+      const message = errorMessage(error);
+      failHostedOAuth(flowId, message);
+      res.status(400).type('html').send(oauthResultPage({
+        title: 'Sign-in failed', message, kind: 'error',
+        returnStatusUrl: `/api/account/oauth/status?flow=${encodeURIComponent(flowId)}`,
+        returnIntentUrl: `/api/account/oauth/return-intent?flow=${encodeURIComponent(flowId)}`,
+      }));
+    }
+  });
+
+  app.get('/api/account/oauth/status', (req, res) => {
+    const flowId = typeof req.query.flow === 'string' ? req.query.flow : '';
+    if (!flowId) return res.status(400).json({ error: 'Missing sign-in flow.' });
+    res.json(hostedOAuthStatus(flowId));
+  });
+
+  app.post('/api/account/oauth/return-intent', (req, res) => {
+    const flowId = typeof req.query.flow === 'string' ? req.query.flow : '';
+    if (!flowId || !noteHostedOAuthReturnIntent(flowId)) {
+      return res.status(404).json({ error: 'Sign-in flow is unavailable.' });
+    }
+    res.json({ accepted: true });
+  });
+
+  app.post('/api/account/oauth/app-return', (req, res) => {
+    if (!processPrivateTokenMatches(req.header(OAUTH_RETURN_TOKEN_HEADER), appReturnToken)) {
+      return res.status(403).json({ error: 'forbidden' });
+    }
+    res.json(noteHostedOAuthAppReturn());
+  });
+
+  app.delete('/api/account', async (_req, res) => {
+    stopAgentRuntime('stashbase');
+    await stopOpenCodeRuntime();
+    await signOutHostedAccount();
+    res.json(await hostedAccountState());
+  });
+}

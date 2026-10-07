@@ -1,0 +1,403 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 460,
+      "continuousHeight": 295
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "Jan 2018",
+        "Value": 117
+      },
+      {
+        "Date": "Feb 2018",
+        "Value": 362
+      },
+      {
+        "Date": "Mar 2018",
+        "Value": 366
+      },
+      {
+        "Date": "Apr 2018",
+        "Value": 287
+      },
+      {
+        "Date": "May 2018",
+        "Value": 261
+      },
+      {
+        "Date": "Jun 2018",
+        "Value": 263
+      },
+      {
+        "Date": "Jul 2018",
+        "Value": 203
+      },
+      {
+        "Date": "Aug 2018",
+        "Value": 149
+      },
+      {
+        "Date": "Sep 2018",
+        "Value": 434
+      },
+      {
+        "Date": "Oct 2018",
+        "Value": 251
+      },
+      {
+        "Date": "Nov 2018",
+        "Value": 240
+      },
+      {
+        "Date": "Dec 2018",
+        "Value": 539
+      },
+      {
+        "Date": "Jan 2019",
+        "Value": 168
+      },
+      {
+        "Date": "Feb 2019",
+        "Value": 268
+      },
+      {
+        "Date": "Mar 2019",
+        "Value": 531
+      },
+      {
+        "Date": "Apr 2019",
+        "Value": 429
+      },
+      {
+        "Date": "May 2019",
+        "Value": 187
+      },
+      {
+        "Date": "Jun 2019",
+        "Value": 372
+      },
+      {
+        "Date": "Jul 2019",
+        "Value": 528
+      },
+      {
+        "Date": "Aug 2019",
+        "Value": 548
+      },
+      {
+        "Date": "Sep 2019",
+        "Value": 66
+      },
+      {
+        "Date": "Oct 2019",
+        "Value": 364
+      },
+      {
+        "Date": "Nov 2019",
+        "Value": 101
+      },
+      {
+        "Date": "Dec 2019",
+        "Value": 271
+      },
+      {
+        "Date": "Jan 2020",
+        "Value": 431
+      },
+      {
+        "Date": "Feb 2020",
+        "Value": 308
+      },
+      {
+        "Date": "Mar 2020",
+        "Value": 144
+      },
+      {
+        "Date": "Apr 2020",
+        "Value": 425
+      },
+      {
+        "Date": "May 2020",
+        "Value": 505
+      },
+      {
+        "Date": "Jun 2020",
+        "Value": 191
+      },
+      {
+        "Date": "Jul 2020",
+        "Value": 542
+      },
+      {
+        "Date": "Aug 2020",
+        "Value": 79
+      },
+      {
+        "Date": "Sep 2020",
+        "Value": 417
+      },
+      {
+        "Date": "Oct 2020",
+        "Value": 412
+      },
+      {
+        "Date": "Nov 2020",
+        "Value": 260
+      },
+      {
+        "Date": "Dec 2020",
+        "Value": 403
+      },
+      {
+        "Date": "Jan 2021",
+        "Value": 160
+      },
+      {
+        "Date": "Feb 2021",
+        "Value": 414
+      },
+      {
+        "Date": "Mar 2021",
+        "Value": 80
+      },
+      {
+        "Date": "Apr 2021",
+        "Value": 190
+      },
+      {
+        "Date": "May 2021",
+        "Value": 480
+      },
+      {
+        "Date": "Jun 2021",
+        "Value": 412
+      },
+      {
+        "Date": "Jul 2021",
+        "Value": 281
+      },
+      {
+        "Date": "Aug 2021",
+        "Value": 373
+      },
+      {
+        "Date": "Sep 2021",
+        "Value": 486
+      },
+      {
+        "Date": "Oct 2021",
+        "Value": 63
+      },
+      {
+        "Date": "Nov 2021",
+        "Value": 115
+      },
+      {
+        "Date": "Dec 2021",
+        "Value": 258
+      },
+      {
+        "Date": "Jan 2022",
+        "Value": 340
+      },
+      {
+        "Date": "Feb 2022",
+        "Value": 69
+      },
+      {
+        "Date": "Mar 2022",
+        "Value": 150
+      },
+      {
+        "Date": "Apr 2022",
+        "Value": 104
+      },
+      {
+        "Date": "May 2022",
+        "Value": 341
+      },
+      {
+        "Date": "Jun 2022",
+        "Value": 464
+      },
+      {
+        "Date": "Jul 2022",
+        "Value": 301
+      },
+      {
+        "Date": "Aug 2022",
+        "Value": 463
+      },
+      {
+        "Date": "Sep 2022",
+        "Value": 431
+      },
+      {
+        "Date": "Oct 2022",
+        "Value": 166
+      },
+      {
+        "Date": "Nov 2022",
+        "Value": 421
+      },
+      {
+        "Date": "Dec 2022",
+        "Value": 90
+      }
+    ]
+  },
+  "_width": 460,
+  "_height": 295,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "title": "Tiny decimal values",
+  "description": "Sub-1 measurements → ensure raw values shown, no spurious rounding",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Sensor": "A",
+          "Reading": 0.0023
+        },
+        {
+          "Sensor": "B",
+          "Reading": 0.0019
+        },
+        {
+          "Sensor": "C",
+          "Reading": 0.0017
+        },
+        {
+          "Sensor": "D",
+          "Reading": 0.0011
+        },
+        {
+          "Sensor": "E",
+          "Reading": 0.0008
+        },
+        {
+          "Sensor": "F",
+          "Reading": 0.0005
+        }
+      ]
+    },
+    "semantic_types": {
+      "Sensor": "Category",
+      "Reading": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Sensor"
+        },
+        "x": {
+          "field": "Reading"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

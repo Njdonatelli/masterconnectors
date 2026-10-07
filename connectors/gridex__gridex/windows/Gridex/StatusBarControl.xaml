@@ -1,0 +1,47 @@
+<UserControl
+    x:Class="Gridex.StatusBarControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex">
+
+    <Grid Padding="12,4"
+          Background="{ThemeResource LayerFillColorDefaultBrush}"
+          BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+          BorderThickness="0,1,0,0"
+          MinHeight="28">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Connection info -->
+        <TextBlock Grid.Column="0" x:Name="ConnectionText"
+                   FontSize="11" VerticalAlignment="Center"
+                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+        <Border Grid.Column="1" Width="1" Height="12" Margin="8,0"
+                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+        <!-- Schema -->
+        <TextBlock Grid.Column="2" x:Name="SchemaText"
+                   FontSize="11" VerticalAlignment="Center"
+                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+        <!-- Row count -->
+        <TextBlock Grid.Column="4" x:Name="RowCountText"
+                   FontSize="11" VerticalAlignment="Center"
+                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+        <Border Grid.Column="5" Width="1" Height="12" Margin="8,0"
+                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+
+        <!-- Query time -->
+        <TextBlock Grid.Column="5" x:Name="QueryTimeText"
+                   FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0"
+                   Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+    </Grid>
+</UserControl>

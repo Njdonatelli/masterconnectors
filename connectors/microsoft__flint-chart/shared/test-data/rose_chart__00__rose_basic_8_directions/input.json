@@ -1,0 +1,68 @@
+{
+  "title": "Rose (basic, 8 directions)",
+  "description": "Wind speed by compass direction — classic coxcomb",
+  "chartType": "Rose Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Direction": "N",
+          "Speed": 5
+        },
+        {
+          "Direction": "NE",
+          "Speed": 22
+        },
+        {
+          "Direction": "E",
+          "Speed": 9
+        },
+        {
+          "Direction": "SE",
+          "Speed": 18
+        },
+        {
+          "Direction": "S",
+          "Speed": 6
+        },
+        {
+          "Direction": "SW",
+          "Speed": 26
+        },
+        {
+          "Direction": "W",
+          "Speed": 24
+        },
+        {
+          "Direction": "NW",
+          "Speed": 24
+        }
+      ]
+    },
+    "semantic_types": {
+      "Direction": "Category",
+      "Speed": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Rose Chart",
+      "encodings": {
+        "x": {
+          "field": "Direction"
+        },
+        "y": {
+          "field": "Speed"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "alignment": "center"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

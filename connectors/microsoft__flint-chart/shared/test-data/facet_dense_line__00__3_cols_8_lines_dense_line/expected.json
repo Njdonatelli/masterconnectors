@@ -1,0 +1,8829 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "facet": {
+      "field": "Facet",
+      "type": "nominal",
+      "sort": null,
+      "columns": 3
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 240,
+      "continuousHeight": 209
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 260
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2008-01-01",
+        "Value": -0.978,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.694,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.695,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.78,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.748,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.086,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.725,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.179,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.97,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.14,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.806,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.634,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.297,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.198,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.693,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.161,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.218,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.555,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.564,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.158,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.039,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.036,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.135,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.222,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.267,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.401,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.502,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.027,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.202,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.334,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.102,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.845,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.132,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.099,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.029,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.056,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.388,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.949,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.095,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.052,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.709,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.141,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.449,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.396,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.748,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.52,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.423,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.18,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.588,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.952,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.815,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.649,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.768,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.739,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.942,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.78,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.751,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.438,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.783,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.58,
+        "Series": "Laptop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.029,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.336,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.617,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.292,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.402,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.135,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.205,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.948,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.74,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.503,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.98,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.598,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.829,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.311,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.293,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": -0.552,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.256,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.765,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.76,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.427,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.888,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.023,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.57,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.675,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.092,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.278,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.429,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.154,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.518,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.998,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.054,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.701,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.157,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.166,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.118,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.252,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.826,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.77,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.912,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.105,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.549,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.831,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.805,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.318,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.584,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.367,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.264,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": -0.449,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.54,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.744,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.01,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.219,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.165,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.935,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.578,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.711,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.349,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.704,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.188,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.196,
+        "Series": "Phone",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.227,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.153,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.601,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.979,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.254,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.495,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.888,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": 0.75,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.491,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.111,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.574,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.764,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.062,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.769,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.719,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.631,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.275,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.092,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.877,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.612,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.696,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.145,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.209,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.176,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.254,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.453,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.095,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.716,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.954,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.841,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.285,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.066,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.114,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.32,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.899,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.954,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.206,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.51,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.425,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.396,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.957,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.991,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.92,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.101,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.451,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.314,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.807,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.659,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.037,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.124,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.328,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.815,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.914,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.844,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.022,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.051,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.439,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.694,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.171,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.14,
+        "Series": "Tablet",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.332,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.56,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.045,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.312,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.391,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.305,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.141,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.019,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.648,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.592,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.535,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.324,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.102,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.172,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.638,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": -0.714,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.829,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.668,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.875,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.153,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.147,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.821,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.993,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.638,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.555,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.915,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.208,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.583,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.615,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.28,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.193,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.616,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.892,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.294,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.938,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.799,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.983,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.701,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.195,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.459,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.113,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.965,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.304,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.457,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.582,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.041,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.501,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.738,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.247,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.425,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.529,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.948,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.055,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.746,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.027,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.785,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.49,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.134,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.949,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.046,
+        "Series": "Desktop",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.788,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.232,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.089,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.38,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.557,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.747,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.527,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.907,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.367,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.781,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.666,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.539,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.386,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.462,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.697,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.626,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.016,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.574,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.267,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.976,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.022,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.618,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.263,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.135,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.214,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.199,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.214,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.931,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.03,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.295,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.953,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.126,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.59,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.801,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": -0.927,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.298,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.224,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.177,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.113,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.964,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.109,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.685,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.107,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.06,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.352,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.233,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.926,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": -0.198,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.172,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.265,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.393,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.647,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.776,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.928,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.922,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.415,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.65,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.209,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.18,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.355,
+        "Series": "Monitor",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.48,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.767,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.342,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.604,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.966,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.007,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.622,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.422,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.536,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.177,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.198,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.145,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.048,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.631,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.066,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": -0.63,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.473,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.274,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.09,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.368,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.144,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.14,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.191,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.179,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.07,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.935,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.931,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.266,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.366,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.626,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.24,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.366,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.551,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.225,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": -0.491,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.927,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.979,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.137,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.278,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.018,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.004,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.463,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.022,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.897,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.85,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.308,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.953,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": -0.543,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.632,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.216,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.993,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.795,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.132,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.791,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.793,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.103,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.724,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.311,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.212,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.862,
+        "Series": "Keyboard",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.868,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.862,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.787,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.659,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.182,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.974,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.483,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.757,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.147,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.131,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.266,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.896,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.884,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.834,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.903,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.46,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.914,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.412,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.221,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.212,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.708,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.902,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.367,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.184,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.301,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.911,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.935,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.767,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.373,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.243,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.622,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.298,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.992,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.757,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.404,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.74,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.179,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.264,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.248,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.688,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.846,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.212,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.349,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.904,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.748,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.191,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.39,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.347,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.085,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.527,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.827,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.368,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.312,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.535,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.918,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.219,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.778,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.233,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.462,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.662,
+        "Series": "Mouse",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.687,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.852,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.947,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.968,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.829,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.128,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.361,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.69,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.785,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.773,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.261,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.29,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.069,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.272,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.299,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": -0.359,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.339,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.805,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.141,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.025,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.284,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.084,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.87,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.547,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.646,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.019,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.396,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.172,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.692,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.551,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.312,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.388,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.986,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.28,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.39,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.315,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.907,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.24,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.723,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.86,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.466,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.84,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.159,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.728,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.598,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.183,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.863,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.41,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.601,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.226,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.708,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.53,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.022,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.272,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.794,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.343,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.018,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.239,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.132,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.378,
+        "Series": "Headphones",
+        "Facet": "Electronics"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.815,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.369,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.021,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.011,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.885,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.575,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.285,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.565,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.042,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.519,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.875,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.905,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.33,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.336,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.044,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.829,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.601,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.332,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.286,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.341,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.491,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.896,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.443,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.664,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.568,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.403,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.492,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.322,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.388,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.582,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.846,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.64,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.705,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.072,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.27,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.755,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.928,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.241,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.57,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.656,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.429,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.69,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.444,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.002,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.813,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.895,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.676,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.357,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.396,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.167,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.044,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.862,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.055,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.231,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.583,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.881,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.061,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.223,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.746,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.767,
+        "Series": "Laptop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.58,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.482,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.587,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.974,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.107,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.763,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.93,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.028,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.276,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.088,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": -0.526,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.415,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.369,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.324,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.687,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.834,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.387,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.797,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.262,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.233,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.36,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.58,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.336,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.346,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.914,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.881,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.652,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.171,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.303,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.8,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.499,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.62,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.744,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.9,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": -0.185,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.336,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.972,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.013,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.761,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.041,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.134,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.129,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.465,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.109,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.732,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.31,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.604,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": -0.075,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.235,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.196,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.35,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.023,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.09,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.043,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.658,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.852,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.959,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.584,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.836,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.063,
+        "Series": "Phone",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.046,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.977,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.282,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.782,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.152,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.951,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.619,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": 0.443,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.224,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.179,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.135,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.908,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.033,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.02,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.6,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.425,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.805,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.301,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.069,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.404,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.325,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.733,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.346,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.881,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.439,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.411,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.113,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.553,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.905,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.179,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.819,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.721,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.732,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.973,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": -0.491,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.347,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.486,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.04,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.505,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.493,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.276,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.335,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.391,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.361,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.837,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.139,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.703,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.858,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.805,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.299,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.734,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.159,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.009,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.883,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.946,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.693,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.435,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.266,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.846,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.253,
+        "Series": "Tablet",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.343,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.331,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.91,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.689,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.839,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.555,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.225,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.559,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.613,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.989,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.129,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.362,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.679,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.156,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.524,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.751,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.154,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.437,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.653,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.492,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.466,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.409,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.154,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.249,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.285,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.517,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.861,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.415,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.258,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.857,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.712,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.974,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.124,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.791,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.103,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.996,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.963,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.738,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.189,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.538,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.935,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.697,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.649,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.569,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.113,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.677,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.407,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": -0.631,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.819,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.362,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.473,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.778,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.798,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.833,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.601,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.895,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.688,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.122,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.928,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.11,
+        "Series": "Desktop",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.296,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.685,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.184,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.293,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.642,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.588,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.106,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": 0.179,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.392,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.26,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.756,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.388,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.507,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.71,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.434,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.371,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.111,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.128,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.784,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.067,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.593,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.293,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.825,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.297,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.244,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.245,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.684,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.341,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.982,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.759,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.484,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.379,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.011,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.455,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.193,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.096,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.741,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.869,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.08,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.825,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.669,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.289,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.624,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.543,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.186,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.78,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.339,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.827,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.877,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.697,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.088,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.199,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.05,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.471,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.826,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.093,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.154,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.294,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.755,
+        "Series": "Monitor",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.829,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.177,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.624,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.904,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.316,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.703,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.627,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": 0.574,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.706,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.625,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.317,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.601,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.634,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.439,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.423,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.41,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.87,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.771,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.163,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.931,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.15,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.799,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.459,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.845,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.417,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.214,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.681,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.307,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.877,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.64,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.893,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.615,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.606,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.805,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": -0.363,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.264,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.247,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.026,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.653,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.967,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.682,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.368,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.738,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.589,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.118,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.03,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 1,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.14,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.312,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.469,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.063,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.792,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.425,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.733,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.556,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.882,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.402,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.043,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.335,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.218,
+        "Series": "Keyboard",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.129,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.101,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.246,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.394,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.954,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.546,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.293,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.534,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.453,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.357,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": -0.666,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.28,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.797,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.978,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.155,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.831,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.834,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.156,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.943,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.041,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.875,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.962,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.659,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.348,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.948,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.098,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.067,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.103,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.549,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.151,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.727,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.376,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.452,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.661,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.534,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.902,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.249,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.889,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.944,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.033,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.513,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.629,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.476,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.395,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.449,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.122,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.414,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.672,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.979,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.324,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.47,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.898,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.098,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.38,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.362,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.813,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.714,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.297,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.381,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.481,
+        "Series": "Mouse",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.399,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.941,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.952,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.713,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.729,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.198,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.778,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": 0.157,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.599,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.702,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.647,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.677,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.474,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.712,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.525,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.574,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.201,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.785,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.706,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.066,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.647,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.472,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.086,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.556,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.604,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.275,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.714,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.666,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.44,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.768,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.569,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.712,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.147,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.635,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.723,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.307,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.98,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.406,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.879,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.219,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.142,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.311,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.733,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.147,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.264,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.478,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.348,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.072,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.508,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.626,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.313,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.436,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.925,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.534,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.798,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.349,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.58,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.404,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.271,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.68,
+        "Series": "Headphones",
+        "Facet": "Clothing"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.135,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.178,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.137,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.458,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.598,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.938,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.691,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.035,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.876,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.101,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.625,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.397,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.372,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.425,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.284,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.829,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.136,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.685,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.255,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.525,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.319,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.653,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.612,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.601,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.726,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.363,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.692,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.331,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.091,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.734,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.179,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.851,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.099,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.801,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.309,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.322,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.299,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.692,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.9,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.04,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.999,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.175,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.106,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.526,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.168,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.298,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.717,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": -0.208,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.266,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.079,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.7,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.385,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.645,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.595,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.426,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.698,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.887,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.017,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.491,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.268,
+        "Series": "Laptop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.831,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.646,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.899,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.769,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.656,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.991,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.996,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": 0.887,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.489,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.419,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.346,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.976,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.042,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.715,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.225,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.646,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.59,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.392,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.807,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.848,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": -0.973,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.392,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.936,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.157,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.183,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.16,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.936,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.959,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.134,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.465,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.845,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.979,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.964,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.252,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.622,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.071,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.101,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.847,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.847,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.521,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.862,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.32,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.045,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.19,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.514,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.835,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.928,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.512,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.442,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.067,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.241,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.219,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.818,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.071,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.596,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.644,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.258,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.389,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.407,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.653,
+        "Series": "Phone",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.158,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.575,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.659,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.291,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.044,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.772,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.819,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.286,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.283,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.968,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.854,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.507,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.649,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.784,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.342,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": -0.771,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.786,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.174,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.727,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.011,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.992,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.551,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.39,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.785,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.053,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.891,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.89,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.086,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.54,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.521,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.782,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.121,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.7,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.033,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.99,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.001,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.384,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.9,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.079,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.603,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.736,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.785,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.069,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.036,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.099,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.757,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.255,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.877,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.378,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.623,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.612,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.736,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.974,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.879,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.499,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.193,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.145,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.103,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.687,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.318,
+        "Series": "Tablet",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.898,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.039,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.506,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.244,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.862,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.616,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.798,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.769,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.316,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": 0.663,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.954,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.657,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.831,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.094,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.59,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.795,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.864,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.769,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.835,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.296,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.902,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.764,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.227,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.513,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.656,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.051,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.52,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.64,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.675,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.532,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.227,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.176,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.112,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.97,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.475,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.762,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.111,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.099,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.644,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.418,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.747,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": 0.221,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.215,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.113,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.888,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.47,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.34,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": -0.042,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.082,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.092,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.05,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.049,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.714,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.862,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.175,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.505,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": 0.547,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.739,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.457,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.265,
+        "Series": "Desktop",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.222,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": 0.302,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.27,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.032,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": 0.801,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.743,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.422,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.565,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.818,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.545,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": -0.977,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.148,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.464,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.492,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.934,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.023,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.767,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.008,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.429,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.182,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.112,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.735,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.594,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.879,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.344,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.585,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": -0.107,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": 0.797,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.796,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.37,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": -0.158,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.489,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.05,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.214,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": -0.155,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.709,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.535,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.199,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.716,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.698,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.489,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.091,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.414,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.934,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": 0.499,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.604,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.76,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.281,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.916,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.521,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.535,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.26,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.734,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.791,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.33,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.594,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.804,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.163,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.184,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.958,
+        "Series": "Monitor",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.428,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.583,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.867,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.007,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.874,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.014,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": -0.826,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.647,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.825,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.815,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.645,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": 0.267,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.717,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": 0.948,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.627,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.583,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.747,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.576,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.243,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.979,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.809,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.514,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": 0.011,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.411,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.07,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": 0.632,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.731,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.846,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": -0.796,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": -0.58,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.766,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": -0.772,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.932,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": -0.229,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.825,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.992,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.198,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.819,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.065,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.938,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": -0.811,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.594,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": 0.599,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.356,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.978,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": 0.177,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.261,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.489,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.014,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.378,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 1,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": 0.458,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.474,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.391,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.563,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": 0.201,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.944,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": 0.909,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.26,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.473,
+        "Series": "Keyboard",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 0.747,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.475,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": 0.562,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": -0.544,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.021,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": 0.661,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.377,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": -0.32,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": 0.629,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.403,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.641,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.445,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": -0.777,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.614,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": -0.773,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": -0.006,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": 0.533,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": 0.803,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": 0.121,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": 0.409,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.295,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": 0.794,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.923,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": 0.268,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": 0.526,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.396,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.523,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.007,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.874,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.057,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 1,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.77,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": 0.667,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.902,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": -0.975,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": -0.233,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": 0.625,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": 0.044,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": 0.125,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": 0.803,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.575,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.504,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.277,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": -0.136,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.742,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.265,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": -0.539,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.154,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": 0.238,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": 0.209,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": -0.294,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.324,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": -0.036,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": -0.63,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": -0.899,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.358,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.627,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.736,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": 0.956,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": -0.828,
+        "Series": "Mouse",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": -0.7,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-01-19",
+        "Value": -0.664,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-06",
+        "Value": -0.37,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-02-24",
+        "Value": 0.831,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-03-14",
+        "Value": -0.905,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-01",
+        "Value": -0.953,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-04-19",
+        "Value": 0.996,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-07",
+        "Value": 0.711,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-05-26",
+        "Value": -0.278,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-06-13",
+        "Value": -0.832,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-01",
+        "Value": 0.563,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-07-19",
+        "Value": -0.059,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-07",
+        "Value": 0.326,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-08-25",
+        "Value": -0.829,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-12",
+        "Value": 0.718,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-09-30",
+        "Value": 0.332,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-10-19",
+        "Value": -0.702,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-06",
+        "Value": -0.722,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-11-24",
+        "Value": -0.817,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-12",
+        "Value": -0.919,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2008-12-31",
+        "Value": 0.745,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-01-18",
+        "Value": -0.697,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-05",
+        "Value": -0.331,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-02-23",
+        "Value": -0.753,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-03-14",
+        "Value": -0.298,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-01",
+        "Value": -0.692,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-04-19",
+        "Value": 0.189,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-07",
+        "Value": -0.834,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-05-26",
+        "Value": 0.344,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-06-13",
+        "Value": 0.75,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-01",
+        "Value": 0.829,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-07-19",
+        "Value": 0.669,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-07",
+        "Value": -0.561,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-08-25",
+        "Value": 0.422,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-12",
+        "Value": 0.162,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-09-30",
+        "Value": 0.751,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-10-19",
+        "Value": -0.483,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-06",
+        "Value": -0.38,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-11-24",
+        "Value": -0.859,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-12",
+        "Value": -0.308,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2009-12-31",
+        "Value": 0.657,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-01-18",
+        "Value": -0.175,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-05",
+        "Value": -0.453,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-02-23",
+        "Value": 0.166,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-03-14",
+        "Value": -0.534,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-01",
+        "Value": -0.05,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-04-19",
+        "Value": 0.534,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-07",
+        "Value": 0.509,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-05-26",
+        "Value": -0.692,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-06-13",
+        "Value": -0.798,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-01",
+        "Value": 0.225,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-07-19",
+        "Value": -0.661,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-07",
+        "Value": 0.77,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-08-25",
+        "Value": 0.73,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-12",
+        "Value": 0.548,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-09-30",
+        "Value": -0.419,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-10-19",
+        "Value": -0.404,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-06",
+        "Value": -0.043,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-11-24",
+        "Value": -0.029,
+        "Series": "Headphones",
+        "Facet": "Food"
+      },
+      {
+        "Date": "2010-12-12",
+        "Value": 0.009,
+        "Series": "Headphones",
+        "Facet": "Food"
+      }
+    ]
+  },
+  "_width": 240,
+  "_height": 209,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

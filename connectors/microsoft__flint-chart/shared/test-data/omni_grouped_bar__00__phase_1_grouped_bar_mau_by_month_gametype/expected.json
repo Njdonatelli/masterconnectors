@@ -1,0 +1,430 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "period",
+      "type": "ordinal"
+    },
+    "y": {
+      "field": "totalUsers",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "gameType",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "xOffset": {
+      "field": "gameType",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 33,
+    "for": "position"
+  },
+  "data": {
+    "values": [
+      {
+        "period": "2025-01",
+        "gameType": "Console",
+        "totalUsers": 131581
+      },
+      {
+        "period": "2025-01",
+        "gameType": "Cross-platform",
+        "totalUsers": 114295
+      },
+      {
+        "period": "2025-01",
+        "gameType": "Mobile Casual",
+        "totalUsers": 217397
+      },
+      {
+        "period": "2025-01",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 104445
+      },
+      {
+        "period": "2025-01",
+        "gameType": "PC / Client",
+        "totalUsers": 123823
+      },
+      {
+        "period": "2025-01",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 32171
+      },
+      {
+        "period": "2025-02",
+        "gameType": "Console",
+        "totalUsers": 206747
+      },
+      {
+        "period": "2025-02",
+        "gameType": "Cross-platform",
+        "totalUsers": 219083
+      },
+      {
+        "period": "2025-02",
+        "gameType": "Mobile Casual",
+        "totalUsers": 362958
+      },
+      {
+        "period": "2025-02",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 180864
+      },
+      {
+        "period": "2025-02",
+        "gameType": "PC / Client",
+        "totalUsers": 225600
+      },
+      {
+        "period": "2025-02",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 62199
+      },
+      {
+        "period": "2025-03",
+        "gameType": "Console",
+        "totalUsers": 98895
+      },
+      {
+        "period": "2025-03",
+        "gameType": "Cross-platform",
+        "totalUsers": 131570
+      },
+      {
+        "period": "2025-03",
+        "gameType": "Mobile Casual",
+        "totalUsers": 259530
+      },
+      {
+        "period": "2025-03",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 101082
+      },
+      {
+        "period": "2025-03",
+        "gameType": "PC / Client",
+        "totalUsers": 115027
+      },
+      {
+        "period": "2025-03",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 30135
+      },
+      {
+        "period": "2025-04",
+        "gameType": "Console",
+        "totalUsers": 51104
+      },
+      {
+        "period": "2025-04",
+        "gameType": "Cross-platform",
+        "totalUsers": 100593
+      },
+      {
+        "period": "2025-04",
+        "gameType": "Mobile Casual",
+        "totalUsers": 206942
+      },
+      {
+        "period": "2025-04",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 98618
+      },
+      {
+        "period": "2025-04",
+        "gameType": "PC / Client",
+        "totalUsers": 101080
+      },
+      {
+        "period": "2025-04",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 28350
+      },
+      {
+        "period": "2025-05",
+        "gameType": "Console",
+        "totalUsers": 46699
+      },
+      {
+        "period": "2025-05",
+        "gameType": "Cross-platform",
+        "totalUsers": 139501
+      },
+      {
+        "period": "2025-05",
+        "gameType": "Mobile Casual",
+        "totalUsers": 202019
+      },
+      {
+        "period": "2025-05",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 93309
+      },
+      {
+        "period": "2025-05",
+        "gameType": "PC / Client",
+        "totalUsers": 120788
+      },
+      {
+        "period": "2025-05",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 24415
+      },
+      {
+        "period": "2025-06",
+        "gameType": "Console",
+        "totalUsers": 143029
+      },
+      {
+        "period": "2025-06",
+        "gameType": "Cross-platform",
+        "totalUsers": 244843
+      },
+      {
+        "period": "2025-06",
+        "gameType": "Mobile Casual",
+        "totalUsers": 310399
+      },
+      {
+        "period": "2025-06",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 216112
+      },
+      {
+        "period": "2025-06",
+        "gameType": "PC / Client",
+        "totalUsers": 283821
+      },
+      {
+        "period": "2025-06",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 62463
+      },
+      {
+        "period": "2025-07",
+        "gameType": "Console",
+        "totalUsers": 190586
+      },
+      {
+        "period": "2025-07",
+        "gameType": "Cross-platform",
+        "totalUsers": 306834
+      },
+      {
+        "period": "2025-07",
+        "gameType": "Mobile Casual",
+        "totalUsers": 380831
+      },
+      {
+        "period": "2025-07",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 332745
+      },
+      {
+        "period": "2025-07",
+        "gameType": "PC / Client",
+        "totalUsers": 394880
+      },
+      {
+        "period": "2025-07",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 97666
+      },
+      {
+        "period": "2025-08",
+        "gameType": "Console",
+        "totalUsers": 244023
+      },
+      {
+        "period": "2025-08",
+        "gameType": "Cross-platform",
+        "totalUsers": 311596
+      },
+      {
+        "period": "2025-08",
+        "gameType": "Mobile Casual",
+        "totalUsers": 416526
+      },
+      {
+        "period": "2025-08",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 326441
+      },
+      {
+        "period": "2025-08",
+        "gameType": "PC / Client",
+        "totalUsers": 431330
+      },
+      {
+        "period": "2025-08",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 111906
+      },
+      {
+        "period": "2025-09",
+        "gameType": "Console",
+        "totalUsers": 138179
+      },
+      {
+        "period": "2025-09",
+        "gameType": "Cross-platform",
+        "totalUsers": 235337
+      },
+      {
+        "period": "2025-09",
+        "gameType": "Mobile Casual",
+        "totalUsers": 327662
+      },
+      {
+        "period": "2025-09",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 263326
+      },
+      {
+        "period": "2025-09",
+        "gameType": "PC / Client",
+        "totalUsers": 303836
+      },
+      {
+        "period": "2025-09",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 71312
+      },
+      {
+        "period": "2025-10",
+        "gameType": "Console",
+        "totalUsers": 102477
+      },
+      {
+        "period": "2025-10",
+        "gameType": "Cross-platform",
+        "totalUsers": 200625
+      },
+      {
+        "period": "2025-10",
+        "gameType": "Mobile Casual",
+        "totalUsers": 299851
+      },
+      {
+        "period": "2025-10",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 260660
+      },
+      {
+        "period": "2025-10",
+        "gameType": "PC / Client",
+        "totalUsers": 258257
+      },
+      {
+        "period": "2025-10",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 50732
+      },
+      {
+        "period": "2025-11",
+        "gameType": "Console",
+        "totalUsers": 170756
+      },
+      {
+        "period": "2025-11",
+        "gameType": "Cross-platform",
+        "totalUsers": 297133
+      },
+      {
+        "period": "2025-11",
+        "gameType": "Mobile Casual",
+        "totalUsers": 312861
+      },
+      {
+        "period": "2025-11",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 295709
+      },
+      {
+        "period": "2025-11",
+        "gameType": "PC / Client",
+        "totalUsers": 314212
+      },
+      {
+        "period": "2025-11",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 75516
+      },
+      {
+        "period": "2025-12",
+        "gameType": "Console",
+        "totalUsers": 248835
+      },
+      {
+        "period": "2025-12",
+        "gameType": "Cross-platform",
+        "totalUsers": 352220
+      },
+      {
+        "period": "2025-12",
+        "gameType": "Mobile Casual",
+        "totalUsers": 426458
+      },
+      {
+        "period": "2025-12",
+        "gameType": "Mobile Midcore",
+        "totalUsers": 388990
+      },
+      {
+        "period": "2025-12",
+        "gameType": "PC / Client",
+        "totalUsers": 423282
+      },
+      {
+        "period": "2025-12",
+        "gameType": "Web / Mini-game",
+        "totalUsers": 121365
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

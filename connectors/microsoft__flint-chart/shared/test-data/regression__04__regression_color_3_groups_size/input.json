@@ -1,0 +1,581 @@
+{
+  "title": "Regression + Color (3 groups) + Size",
+  "description": "90 points — regression per tier with weight as size",
+  "chartType": "Regression",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "EngineSize": 83.8,
+          "Horsepower": 33,
+          "Tier": "Budget",
+          "Weight": 76
+        },
+        {
+          "EngineSize": 31.7,
+          "Horsepower": 19,
+          "Tier": "Budget",
+          "Weight": 199
+        },
+        {
+          "EngineSize": 76.7,
+          "Horsepower": 31,
+          "Tier": "Budget",
+          "Weight": 126
+        },
+        {
+          "EngineSize": 94,
+          "Horsepower": 34,
+          "Tier": "Budget",
+          "Weight": 76
+        },
+        {
+          "EngineSize": 32,
+          "Horsepower": 9,
+          "Tier": "Budget",
+          "Weight": 185
+        },
+        {
+          "EngineSize": 36.3,
+          "Horsepower": 13,
+          "Tier": "Budget",
+          "Weight": 130
+        },
+        {
+          "EngineSize": 84.9,
+          "Horsepower": 30,
+          "Tier": "Budget",
+          "Weight": 69
+        },
+        {
+          "EngineSize": 18.4,
+          "Horsepower": 10,
+          "Tier": "Budget",
+          "Weight": 132
+        },
+        {
+          "EngineSize": 31.6,
+          "Horsepower": 19,
+          "Tier": "Budget",
+          "Weight": 134
+        },
+        {
+          "EngineSize": 12,
+          "Horsepower": 11,
+          "Tier": "Budget",
+          "Weight": 147
+        },
+        {
+          "EngineSize": 66.2,
+          "Horsepower": 30,
+          "Tier": "Budget",
+          "Weight": 79
+        },
+        {
+          "EngineSize": 29.6,
+          "Horsepower": 13,
+          "Tier": "Budget",
+          "Weight": 80
+        },
+        {
+          "EngineSize": 11,
+          "Horsepower": 5,
+          "Tier": "Budget",
+          "Weight": 189
+        },
+        {
+          "EngineSize": 31.5,
+          "Horsepower": 19,
+          "Tier": "Budget",
+          "Weight": 116
+        },
+        {
+          "EngineSize": 21.3,
+          "Horsepower": 15,
+          "Tier": "Budget",
+          "Weight": 151
+        },
+        {
+          "EngineSize": 71.1,
+          "Horsepower": 21,
+          "Tier": "Budget",
+          "Weight": 134
+        },
+        {
+          "EngineSize": 78.9,
+          "Horsepower": 35,
+          "Tier": "Budget",
+          "Weight": 135
+        },
+        {
+          "EngineSize": 84.6,
+          "Horsepower": 31,
+          "Tier": "Budget",
+          "Weight": 153
+        },
+        {
+          "EngineSize": 12.4,
+          "Horsepower": 8,
+          "Tier": "Budget",
+          "Weight": 84
+        },
+        {
+          "EngineSize": 68.5,
+          "Horsepower": 22,
+          "Tier": "Budget",
+          "Weight": 104
+        },
+        {
+          "EngineSize": 60.2,
+          "Horsepower": 20,
+          "Tier": "Budget",
+          "Weight": 161
+        },
+        {
+          "EngineSize": 47.1,
+          "Horsepower": 16,
+          "Tier": "Budget",
+          "Weight": 108
+        },
+        {
+          "EngineSize": 36.9,
+          "Horsepower": 13,
+          "Tier": "Budget",
+          "Weight": 144
+        },
+        {
+          "EngineSize": 73,
+          "Horsepower": 29,
+          "Tier": "Budget",
+          "Weight": 176
+        },
+        {
+          "EngineSize": 64,
+          "Horsepower": 24,
+          "Tier": "Budget",
+          "Weight": 189
+        },
+        {
+          "EngineSize": 86.1,
+          "Horsepower": 29,
+          "Tier": "Budget",
+          "Weight": 59
+        },
+        {
+          "EngineSize": 81.8,
+          "Horsepower": 29,
+          "Tier": "Budget",
+          "Weight": 142
+        },
+        {
+          "EngineSize": 49.2,
+          "Horsepower": 23,
+          "Tier": "Budget",
+          "Weight": 83
+        },
+        {
+          "EngineSize": 74.3,
+          "Horsepower": 26,
+          "Tier": "Budget",
+          "Weight": 100
+        },
+        {
+          "EngineSize": 76,
+          "Horsepower": 23,
+          "Tier": "Budget",
+          "Weight": 108
+        },
+        {
+          "EngineSize": 42.4,
+          "Horsepower": 39,
+          "Tier": "Mid-Range",
+          "Weight": 82
+        },
+        {
+          "EngineSize": 44.5,
+          "Horsepower": 38,
+          "Tier": "Mid-Range",
+          "Weight": 153
+        },
+        {
+          "EngineSize": 61.3,
+          "Horsepower": 54,
+          "Tier": "Mid-Range",
+          "Weight": 192
+        },
+        {
+          "EngineSize": 83.2,
+          "Horsepower": 63,
+          "Tier": "Mid-Range",
+          "Weight": 60
+        },
+        {
+          "EngineSize": 51,
+          "Horsepower": 40,
+          "Tier": "Mid-Range",
+          "Weight": 75
+        },
+        {
+          "EngineSize": 66.5,
+          "Horsepower": 53,
+          "Tier": "Mid-Range",
+          "Weight": 185
+        },
+        {
+          "EngineSize": 80.4,
+          "Horsepower": 57,
+          "Tier": "Mid-Range",
+          "Weight": 175
+        },
+        {
+          "EngineSize": 50.5,
+          "Horsepower": 42,
+          "Tier": "Mid-Range",
+          "Weight": 72
+        },
+        {
+          "EngineSize": 39,
+          "Horsepower": 44,
+          "Tier": "Mid-Range",
+          "Weight": 108
+        },
+        {
+          "EngineSize": 74.8,
+          "Horsepower": 59,
+          "Tier": "Mid-Range",
+          "Weight": 186
+        },
+        {
+          "EngineSize": 10.6,
+          "Horsepower": 21,
+          "Tier": "Mid-Range",
+          "Weight": 189
+        },
+        {
+          "EngineSize": 51.9,
+          "Horsepower": 51,
+          "Tier": "Mid-Range",
+          "Weight": 90
+        },
+        {
+          "EngineSize": 38.8,
+          "Horsepower": 41,
+          "Tier": "Mid-Range",
+          "Weight": 150
+        },
+        {
+          "EngineSize": 26.3,
+          "Horsepower": 33,
+          "Tier": "Mid-Range",
+          "Weight": 59
+        },
+        {
+          "EngineSize": 68.7,
+          "Horsepower": 52,
+          "Tier": "Mid-Range",
+          "Weight": 70
+        },
+        {
+          "EngineSize": 60.1,
+          "Horsepower": 45,
+          "Tier": "Mid-Range",
+          "Weight": 133
+        },
+        {
+          "EngineSize": 27.6,
+          "Horsepower": 39,
+          "Tier": "Mid-Range",
+          "Weight": 91
+        },
+        {
+          "EngineSize": 76,
+          "Horsepower": 55,
+          "Tier": "Mid-Range",
+          "Weight": 76
+        },
+        {
+          "EngineSize": 73.4,
+          "Horsepower": 58,
+          "Tier": "Mid-Range",
+          "Weight": 190
+        },
+        {
+          "EngineSize": 37.8,
+          "Horsepower": 43,
+          "Tier": "Mid-Range",
+          "Weight": 151
+        },
+        {
+          "EngineSize": 91.4,
+          "Horsepower": 69,
+          "Tier": "Mid-Range",
+          "Weight": 96
+        },
+        {
+          "EngineSize": 41.5,
+          "Horsepower": 42,
+          "Tier": "Mid-Range",
+          "Weight": 136
+        },
+        {
+          "EngineSize": 40,
+          "Horsepower": 40,
+          "Tier": "Mid-Range",
+          "Weight": 109
+        },
+        {
+          "EngineSize": 71.8,
+          "Horsepower": 59,
+          "Tier": "Mid-Range",
+          "Weight": 77
+        },
+        {
+          "EngineSize": 43.1,
+          "Horsepower": 45,
+          "Tier": "Mid-Range",
+          "Weight": 87
+        },
+        {
+          "EngineSize": 33.6,
+          "Horsepower": 39,
+          "Tier": "Mid-Range",
+          "Weight": 111
+        },
+        {
+          "EngineSize": 87.5,
+          "Horsepower": 59,
+          "Tier": "Mid-Range",
+          "Weight": 154
+        },
+        {
+          "EngineSize": 85.9,
+          "Horsepower": 62,
+          "Tier": "Mid-Range",
+          "Weight": 80
+        },
+        {
+          "EngineSize": 60.5,
+          "Horsepower": 55,
+          "Tier": "Mid-Range",
+          "Weight": 114
+        },
+        {
+          "EngineSize": 55.9,
+          "Horsepower": 42,
+          "Tier": "Mid-Range",
+          "Weight": 103
+        },
+        {
+          "EngineSize": 14.8,
+          "Horsepower": 55,
+          "Tier": "Premium",
+          "Weight": 102
+        },
+        {
+          "EngineSize": 90.1,
+          "Horsepower": 117,
+          "Tier": "Premium",
+          "Weight": 178
+        },
+        {
+          "EngineSize": 35.8,
+          "Horsepower": 74,
+          "Tier": "Premium",
+          "Weight": 66
+        },
+        {
+          "EngineSize": 71,
+          "Horsepower": 95,
+          "Tier": "Premium",
+          "Weight": 95
+        },
+        {
+          "EngineSize": 89.6,
+          "Horsepower": 109,
+          "Tier": "Premium",
+          "Weight": 96
+        },
+        {
+          "EngineSize": 74.3,
+          "Horsepower": 103,
+          "Tier": "Premium",
+          "Weight": 83
+        },
+        {
+          "EngineSize": 13.7,
+          "Horsepower": 53,
+          "Tier": "Premium",
+          "Weight": 173
+        },
+        {
+          "EngineSize": 29.1,
+          "Horsepower": 61,
+          "Tier": "Premium",
+          "Weight": 182
+        },
+        {
+          "EngineSize": 92.6,
+          "Horsepower": 114,
+          "Tier": "Premium",
+          "Weight": 64
+        },
+        {
+          "EngineSize": 67.2,
+          "Horsepower": 93,
+          "Tier": "Premium",
+          "Weight": 137
+        },
+        {
+          "EngineSize": 93.1,
+          "Horsepower": 112,
+          "Tier": "Premium",
+          "Weight": 190
+        },
+        {
+          "EngineSize": 68.2,
+          "Horsepower": 89,
+          "Tier": "Premium",
+          "Weight": 138
+        },
+        {
+          "EngineSize": 46.1,
+          "Horsepower": 80,
+          "Tier": "Premium",
+          "Weight": 142
+        },
+        {
+          "EngineSize": 50.9,
+          "Horsepower": 78,
+          "Tier": "Premium",
+          "Weight": 161
+        },
+        {
+          "EngineSize": 53.1,
+          "Horsepower": 77,
+          "Tier": "Premium",
+          "Weight": 56
+        },
+        {
+          "EngineSize": 45.5,
+          "Horsepower": 76,
+          "Tier": "Premium",
+          "Weight": 123
+        },
+        {
+          "EngineSize": 19.6,
+          "Horsepower": 60,
+          "Tier": "Premium",
+          "Weight": 196
+        },
+        {
+          "EngineSize": 86,
+          "Horsepower": 112,
+          "Tier": "Premium",
+          "Weight": 68
+        },
+        {
+          "EngineSize": 65.4,
+          "Horsepower": 89,
+          "Tier": "Premium",
+          "Weight": 149
+        },
+        {
+          "EngineSize": 28,
+          "Horsepower": 59,
+          "Tier": "Premium",
+          "Weight": 171
+        },
+        {
+          "EngineSize": 12.3,
+          "Horsepower": 51,
+          "Tier": "Premium",
+          "Weight": 51
+        },
+        {
+          "EngineSize": 25.6,
+          "Horsepower": 63,
+          "Tier": "Premium",
+          "Weight": 179
+        },
+        {
+          "EngineSize": 43.5,
+          "Horsepower": 77,
+          "Tier": "Premium",
+          "Weight": 73
+        },
+        {
+          "EngineSize": 16.3,
+          "Horsepower": 54,
+          "Tier": "Premium",
+          "Weight": 145
+        },
+        {
+          "EngineSize": 54.9,
+          "Horsepower": 80,
+          "Tier": "Premium",
+          "Weight": 108
+        },
+        {
+          "EngineSize": 57.4,
+          "Horsepower": 91,
+          "Tier": "Premium",
+          "Weight": 120
+        },
+        {
+          "EngineSize": 74.2,
+          "Horsepower": 98,
+          "Tier": "Premium",
+          "Weight": 151
+        },
+        {
+          "EngineSize": 42.9,
+          "Horsepower": 80,
+          "Tier": "Premium",
+          "Weight": 72
+        },
+        {
+          "EngineSize": 12.9,
+          "Horsepower": 56,
+          "Tier": "Premium",
+          "Weight": 152
+        },
+        {
+          "EngineSize": 36.2,
+          "Horsepower": 64,
+          "Tier": "Premium",
+          "Weight": 189
+        }
+      ]
+    },
+    "semantic_types": {
+      "EngineSize": "Quantity",
+      "Horsepower": "Quantity",
+      "Tier": "Category",
+      "Weight": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Regression",
+      "encodings": {
+        "x": {
+          "field": "EngineSize"
+        },
+        "y": {
+          "field": "Horsepower"
+        },
+        "color": {
+          "field": "Tier"
+        },
+        "size": {
+          "field": "Weight"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

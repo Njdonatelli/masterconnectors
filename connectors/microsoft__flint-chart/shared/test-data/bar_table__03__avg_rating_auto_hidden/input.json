@@ -1,0 +1,57 @@
+{
+  "title": "Avg Rating (% auto-hidden)",
+  "description": "Score is intensive (aggRole≠additive) → template auto-suppresses the % column",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Product": "Alpha",
+          "Avg Rating": 4.7
+        },
+        {
+          "Product": "Beta",
+          "Avg Rating": 4.4
+        },
+        {
+          "Product": "Gamma",
+          "Avg Rating": 4.1
+        },
+        {
+          "Product": "Delta",
+          "Avg Rating": 3.9
+        },
+        {
+          "Product": "Epsilon",
+          "Avg Rating": 3.6
+        },
+        {
+          "Product": "Zeta",
+          "Avg Rating": 3.2
+        }
+      ]
+    },
+    "semantic_types": {
+      "Product": "Category",
+      "Avg Rating": "Score"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Product"
+        },
+        "x": {
+          "field": "Avg Rating"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

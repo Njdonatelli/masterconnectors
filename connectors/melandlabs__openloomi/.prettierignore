@@ -1,0 +1,31 @@
+# Ignore everything by default; explicitly opt directories back in below.
+*
+
+# Re-include only the directories the project actually owns and that
+# `pnpm format:check` should police. Every other subtree (upstream
+# dataset clones, vendored harnesses, vendored graders, historical
+# formatting debt) stays out of the check.
+!apps/web/src/
+!packages/
+!plugins/
+!skills/
+!benchmark/beam/
+!benchmark/continual-learning-bench/
+!benchmark/GDPval-AA v2/
+!benchmark/clbench/
+!benchmark/clbench_life/
+!benchmark/jobbench/
+!benchmark/jobbench-official/eval/
+!benchmark/locomo/
+!benchmark/longmemeval/
+!benchmark/swebench-official/
+
+# Even within the included subtrees, skip the vendored upstream
+# artifacts that this repo does not own.
+benchmark/GDPval-AA v2/grader/
+benchmark/GDPval-AA v2/harness/
+benchmark/GDPval-AA v2/leaderboard/
+benchmark/GDPval-AA v2/docs/
+benchmark/GDPval-AA v2/openloomi-runner/results/
+benchmark/jobbench-official/dataset/
+benchmark/SWE-Bench-CL/datasets/

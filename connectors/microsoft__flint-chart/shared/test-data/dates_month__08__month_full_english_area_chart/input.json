@@ -1,0 +1,81 @@
+{
+  "title": "Month (full English) → Area Chart",
+  "description": "Full month names: \"January\", \"February\", … (12 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": "January",
+          "Value": 498
+        },
+        {
+          "Month": "February",
+          "Value": 512
+        },
+        {
+          "Month": "March",
+          "Value": 251
+        },
+        {
+          "Month": "April",
+          "Value": 355
+        },
+        {
+          "Month": "May",
+          "Value": 333
+        },
+        {
+          "Month": "June",
+          "Value": 466
+        },
+        {
+          "Month": "July",
+          "Value": 236
+        },
+        {
+          "Month": "August",
+          "Value": 397
+        },
+        {
+          "Month": "September",
+          "Value": 173
+        },
+        {
+          "Month": "October",
+          "Value": 542
+        },
+        {
+          "Month": "November",
+          "Value": 196
+        },
+        {
+          "Month": "December",
+          "Value": 260
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,832 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "monotone",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+    },
+    "y": {
+      "field": "Rank",
+      "type": "ordinal",
+      "sort": "ascending",
+      "scale": {
+        "reverse": true
+      }
+    },
+    "color": {
+      "field": "Player",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau20"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 25
+  },
+  "data": {
+    "values": [
+      {
+        "Month": "Jan",
+        "Player": "Music",
+        "Rank": 1
+      },
+      {
+        "Month": "Jan",
+        "Player": "Books",
+        "Rank": 2
+      },
+      {
+        "Month": "Jan",
+        "Player": "Food",
+        "Rank": 3
+      },
+      {
+        "Month": "Jan",
+        "Player": "Auto",
+        "Rank": 4
+      },
+      {
+        "Month": "Jan",
+        "Player": "Beauty",
+        "Rank": 5
+      },
+      {
+        "Month": "Jan",
+        "Player": "Health",
+        "Rank": 6
+      },
+      {
+        "Month": "Jan",
+        "Player": "Garden",
+        "Rank": 7
+      },
+      {
+        "Month": "Jan",
+        "Player": "Clothing",
+        "Rank": 8
+      },
+      {
+        "Month": "Jan",
+        "Player": "Electronics",
+        "Rank": 9
+      },
+      {
+        "Month": "Jan",
+        "Player": "Toys",
+        "Rank": 10
+      },
+      {
+        "Month": "Jan",
+        "Player": "Sports",
+        "Rank": 11
+      },
+      {
+        "Month": "Jan",
+        "Player": "Home",
+        "Rank": 12
+      },
+      {
+        "Month": "Feb",
+        "Player": "Clothing",
+        "Rank": 1
+      },
+      {
+        "Month": "Feb",
+        "Player": "Electronics",
+        "Rank": 2
+      },
+      {
+        "Month": "Feb",
+        "Player": "Home",
+        "Rank": 3
+      },
+      {
+        "Month": "Feb",
+        "Player": "Health",
+        "Rank": 4
+      },
+      {
+        "Month": "Feb",
+        "Player": "Auto",
+        "Rank": 5
+      },
+      {
+        "Month": "Feb",
+        "Player": "Beauty",
+        "Rank": 6
+      },
+      {
+        "Month": "Feb",
+        "Player": "Books",
+        "Rank": 7
+      },
+      {
+        "Month": "Feb",
+        "Player": "Garden",
+        "Rank": 8
+      },
+      {
+        "Month": "Feb",
+        "Player": "Sports",
+        "Rank": 9
+      },
+      {
+        "Month": "Feb",
+        "Player": "Food",
+        "Rank": 10
+      },
+      {
+        "Month": "Feb",
+        "Player": "Toys",
+        "Rank": 11
+      },
+      {
+        "Month": "Feb",
+        "Player": "Music",
+        "Rank": 12
+      },
+      {
+        "Month": "Mar",
+        "Player": "Sports",
+        "Rank": 1
+      },
+      {
+        "Month": "Mar",
+        "Player": "Garden",
+        "Rank": 2
+      },
+      {
+        "Month": "Mar",
+        "Player": "Music",
+        "Rank": 3
+      },
+      {
+        "Month": "Mar",
+        "Player": "Toys",
+        "Rank": 4
+      },
+      {
+        "Month": "Mar",
+        "Player": "Health",
+        "Rank": 5
+      },
+      {
+        "Month": "Mar",
+        "Player": "Clothing",
+        "Rank": 6
+      },
+      {
+        "Month": "Mar",
+        "Player": "Food",
+        "Rank": 7
+      },
+      {
+        "Month": "Mar",
+        "Player": "Auto",
+        "Rank": 8
+      },
+      {
+        "Month": "Mar",
+        "Player": "Electronics",
+        "Rank": 9
+      },
+      {
+        "Month": "Mar",
+        "Player": "Books",
+        "Rank": 10
+      },
+      {
+        "Month": "Mar",
+        "Player": "Home",
+        "Rank": 11
+      },
+      {
+        "Month": "Mar",
+        "Player": "Beauty",
+        "Rank": 12
+      },
+      {
+        "Month": "Apr",
+        "Player": "Beauty",
+        "Rank": 1
+      },
+      {
+        "Month": "Apr",
+        "Player": "Auto",
+        "Rank": 2
+      },
+      {
+        "Month": "Apr",
+        "Player": "Food",
+        "Rank": 3
+      },
+      {
+        "Month": "Apr",
+        "Player": "Music",
+        "Rank": 4
+      },
+      {
+        "Month": "Apr",
+        "Player": "Health",
+        "Rank": 5
+      },
+      {
+        "Month": "Apr",
+        "Player": "Electronics",
+        "Rank": 6
+      },
+      {
+        "Month": "Apr",
+        "Player": "Clothing",
+        "Rank": 7
+      },
+      {
+        "Month": "Apr",
+        "Player": "Sports",
+        "Rank": 8
+      },
+      {
+        "Month": "Apr",
+        "Player": "Home",
+        "Rank": 9
+      },
+      {
+        "Month": "Apr",
+        "Player": "Books",
+        "Rank": 10
+      },
+      {
+        "Month": "Apr",
+        "Player": "Toys",
+        "Rank": 11
+      },
+      {
+        "Month": "Apr",
+        "Player": "Garden",
+        "Rank": 12
+      },
+      {
+        "Month": "May",
+        "Player": "Books",
+        "Rank": 1
+      },
+      {
+        "Month": "May",
+        "Player": "Music",
+        "Rank": 2
+      },
+      {
+        "Month": "May",
+        "Player": "Beauty",
+        "Rank": 3
+      },
+      {
+        "Month": "May",
+        "Player": "Electronics",
+        "Rank": 4
+      },
+      {
+        "Month": "May",
+        "Player": "Toys",
+        "Rank": 5
+      },
+      {
+        "Month": "May",
+        "Player": "Home",
+        "Rank": 6
+      },
+      {
+        "Month": "May",
+        "Player": "Health",
+        "Rank": 7
+      },
+      {
+        "Month": "May",
+        "Player": "Sports",
+        "Rank": 8
+      },
+      {
+        "Month": "May",
+        "Player": "Auto",
+        "Rank": 9
+      },
+      {
+        "Month": "May",
+        "Player": "Garden",
+        "Rank": 10
+      },
+      {
+        "Month": "May",
+        "Player": "Clothing",
+        "Rank": 11
+      },
+      {
+        "Month": "May",
+        "Player": "Food",
+        "Rank": 12
+      },
+      {
+        "Month": "Jun",
+        "Player": "Electronics",
+        "Rank": 1
+      },
+      {
+        "Month": "Jun",
+        "Player": "Clothing",
+        "Rank": 2
+      },
+      {
+        "Month": "Jun",
+        "Player": "Books",
+        "Rank": 3
+      },
+      {
+        "Month": "Jun",
+        "Player": "Sports",
+        "Rank": 4
+      },
+      {
+        "Month": "Jun",
+        "Player": "Beauty",
+        "Rank": 5
+      },
+      {
+        "Month": "Jun",
+        "Player": "Home",
+        "Rank": 6
+      },
+      {
+        "Month": "Jun",
+        "Player": "Food",
+        "Rank": 7
+      },
+      {
+        "Month": "Jun",
+        "Player": "Garden",
+        "Rank": 8
+      },
+      {
+        "Month": "Jun",
+        "Player": "Health",
+        "Rank": 9
+      },
+      {
+        "Month": "Jun",
+        "Player": "Auto",
+        "Rank": 10
+      },
+      {
+        "Month": "Jun",
+        "Player": "Music",
+        "Rank": 11
+      },
+      {
+        "Month": "Jun",
+        "Player": "Toys",
+        "Rank": 12
+      },
+      {
+        "Month": "Jul",
+        "Player": "Sports",
+        "Rank": 1
+      },
+      {
+        "Month": "Jul",
+        "Player": "Books",
+        "Rank": 2
+      },
+      {
+        "Month": "Jul",
+        "Player": "Music",
+        "Rank": 3
+      },
+      {
+        "Month": "Jul",
+        "Player": "Toys",
+        "Rank": 4
+      },
+      {
+        "Month": "Jul",
+        "Player": "Auto",
+        "Rank": 5
+      },
+      {
+        "Month": "Jul",
+        "Player": "Clothing",
+        "Rank": 6
+      },
+      {
+        "Month": "Jul",
+        "Player": "Food",
+        "Rank": 7
+      },
+      {
+        "Month": "Jul",
+        "Player": "Home",
+        "Rank": 8
+      },
+      {
+        "Month": "Jul",
+        "Player": "Health",
+        "Rank": 9
+      },
+      {
+        "Month": "Jul",
+        "Player": "Electronics",
+        "Rank": 10
+      },
+      {
+        "Month": "Jul",
+        "Player": "Beauty",
+        "Rank": 11
+      },
+      {
+        "Month": "Jul",
+        "Player": "Garden",
+        "Rank": 12
+      },
+      {
+        "Month": "Aug",
+        "Player": "Food",
+        "Rank": 1
+      },
+      {
+        "Month": "Aug",
+        "Player": "Music",
+        "Rank": 2
+      },
+      {
+        "Month": "Aug",
+        "Player": "Clothing",
+        "Rank": 3
+      },
+      {
+        "Month": "Aug",
+        "Player": "Garden",
+        "Rank": 4
+      },
+      {
+        "Month": "Aug",
+        "Player": "Beauty",
+        "Rank": 5
+      },
+      {
+        "Month": "Aug",
+        "Player": "Auto",
+        "Rank": 6
+      },
+      {
+        "Month": "Aug",
+        "Player": "Electronics",
+        "Rank": 7
+      },
+      {
+        "Month": "Aug",
+        "Player": "Toys",
+        "Rank": 8
+      },
+      {
+        "Month": "Aug",
+        "Player": "Home",
+        "Rank": 9
+      },
+      {
+        "Month": "Aug",
+        "Player": "Books",
+        "Rank": 10
+      },
+      {
+        "Month": "Aug",
+        "Player": "Health",
+        "Rank": 11
+      },
+      {
+        "Month": "Aug",
+        "Player": "Sports",
+        "Rank": 12
+      },
+      {
+        "Month": "Sep",
+        "Player": "Books",
+        "Rank": 1
+      },
+      {
+        "Month": "Sep",
+        "Player": "Clothing",
+        "Rank": 2
+      },
+      {
+        "Month": "Sep",
+        "Player": "Auto",
+        "Rank": 3
+      },
+      {
+        "Month": "Sep",
+        "Player": "Beauty",
+        "Rank": 4
+      },
+      {
+        "Month": "Sep",
+        "Player": "Electronics",
+        "Rank": 5
+      },
+      {
+        "Month": "Sep",
+        "Player": "Home",
+        "Rank": 6
+      },
+      {
+        "Month": "Sep",
+        "Player": "Garden",
+        "Rank": 7
+      },
+      {
+        "Month": "Sep",
+        "Player": "Sports",
+        "Rank": 8
+      },
+      {
+        "Month": "Sep",
+        "Player": "Food",
+        "Rank": 9
+      },
+      {
+        "Month": "Sep",
+        "Player": "Music",
+        "Rank": 10
+      },
+      {
+        "Month": "Sep",
+        "Player": "Toys",
+        "Rank": 11
+      },
+      {
+        "Month": "Sep",
+        "Player": "Health",
+        "Rank": 12
+      },
+      {
+        "Month": "Oct",
+        "Player": "Electronics",
+        "Rank": 1
+      },
+      {
+        "Month": "Oct",
+        "Player": "Beauty",
+        "Rank": 2
+      },
+      {
+        "Month": "Oct",
+        "Player": "Music",
+        "Rank": 3
+      },
+      {
+        "Month": "Oct",
+        "Player": "Clothing",
+        "Rank": 4
+      },
+      {
+        "Month": "Oct",
+        "Player": "Health",
+        "Rank": 5
+      },
+      {
+        "Month": "Oct",
+        "Player": "Food",
+        "Rank": 6
+      },
+      {
+        "Month": "Oct",
+        "Player": "Books",
+        "Rank": 7
+      },
+      {
+        "Month": "Oct",
+        "Player": "Sports",
+        "Rank": 8
+      },
+      {
+        "Month": "Oct",
+        "Player": "Home",
+        "Rank": 9
+      },
+      {
+        "Month": "Oct",
+        "Player": "Garden",
+        "Rank": 10
+      },
+      {
+        "Month": "Oct",
+        "Player": "Auto",
+        "Rank": 11
+      },
+      {
+        "Month": "Oct",
+        "Player": "Toys",
+        "Rank": 12
+      },
+      {
+        "Month": "Nov",
+        "Player": "Books",
+        "Rank": 1
+      },
+      {
+        "Month": "Nov",
+        "Player": "Auto",
+        "Rank": 2
+      },
+      {
+        "Month": "Nov",
+        "Player": "Toys",
+        "Rank": 3
+      },
+      {
+        "Month": "Nov",
+        "Player": "Garden",
+        "Rank": 4
+      },
+      {
+        "Month": "Nov",
+        "Player": "Sports",
+        "Rank": 5
+      },
+      {
+        "Month": "Nov",
+        "Player": "Beauty",
+        "Rank": 6
+      },
+      {
+        "Month": "Nov",
+        "Player": "Food",
+        "Rank": 7
+      },
+      {
+        "Month": "Nov",
+        "Player": "Health",
+        "Rank": 8
+      },
+      {
+        "Month": "Nov",
+        "Player": "Music",
+        "Rank": 9
+      },
+      {
+        "Month": "Nov",
+        "Player": "Clothing",
+        "Rank": 10
+      },
+      {
+        "Month": "Nov",
+        "Player": "Electronics",
+        "Rank": 11
+      },
+      {
+        "Month": "Nov",
+        "Player": "Home",
+        "Rank": 12
+      },
+      {
+        "Month": "Dec",
+        "Player": "Electronics",
+        "Rank": 1
+      },
+      {
+        "Month": "Dec",
+        "Player": "Garden",
+        "Rank": 2
+      },
+      {
+        "Month": "Dec",
+        "Player": "Clothing",
+        "Rank": 3
+      },
+      {
+        "Month": "Dec",
+        "Player": "Auto",
+        "Rank": 4
+      },
+      {
+        "Month": "Dec",
+        "Player": "Health",
+        "Rank": 5
+      },
+      {
+        "Month": "Dec",
+        "Player": "Beauty",
+        "Rank": 6
+      },
+      {
+        "Month": "Dec",
+        "Player": "Music",
+        "Rank": 7
+      },
+      {
+        "Month": "Dec",
+        "Player": "Home",
+        "Rank": 8
+      },
+      {
+        "Month": "Dec",
+        "Player": "Sports",
+        "Rank": 9
+      },
+      {
+        "Month": "Dec",
+        "Player": "Books",
+        "Rank": 10
+      },
+      {
+        "Month": "Dec",
+        "Player": "Food",
+        "Rank": 11
+      },
+      {
+        "Month": "Dec",
+        "Player": "Toys",
+        "Rank": 12
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

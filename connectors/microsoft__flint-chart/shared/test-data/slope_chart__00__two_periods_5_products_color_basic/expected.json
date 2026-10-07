@@ -1,0 +1,157 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Period",
+      "type": "nominal",
+      "sort": [
+        "2019",
+        "2024"
+      ],
+      "scale": {
+        "padding": 0.4
+      }
+    },
+    "y": {
+      "field": "Revenue",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true,
+        "padding": 12
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Product",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "width": {
+    "step": 224
+  },
+  "data": {
+    "values": [
+      {
+        "Period": "2019",
+        "Product": "Laptop",
+        "Revenue": 20
+      },
+      {
+        "Period": "2024",
+        "Product": "Laptop",
+        "Revenue": 62
+      },
+      {
+        "Period": "2019",
+        "Product": "Phone",
+        "Revenue": 56
+      },
+      {
+        "Period": "2024",
+        "Product": "Phone",
+        "Revenue": 42
+      },
+      {
+        "Period": "2019",
+        "Product": "Tablet",
+        "Revenue": 69
+      },
+      {
+        "Period": "2024",
+        "Product": "Tablet",
+        "Revenue": 35
+      },
+      {
+        "Period": "2019",
+        "Product": "Desktop",
+        "Revenue": 69
+      },
+      {
+        "Period": "2024",
+        "Product": "Desktop",
+        "Revenue": 66
+      },
+      {
+        "Period": "2019",
+        "Product": "Monitor",
+        "Revenue": 30
+      },
+      {
+        "Period": "2024",
+        "Product": "Monitor",
+        "Revenue": 54
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

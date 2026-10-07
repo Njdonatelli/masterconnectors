@@ -1,0 +1,316 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Panel",
+      "type": "nominal",
+      "sort": null,
+      "columns": 8
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 109,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 129
+    },
+    "facet": {
+      "spacing": 11
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Panel": "Engineering",
+        "Category": "Electronics",
+        "Value": 473
+      },
+      {
+        "Panel": "Engineering",
+        "Category": "Clothing",
+        "Value": 470
+      },
+      {
+        "Panel": "Engineering",
+        "Category": "Food",
+        "Value": 424
+      },
+      {
+        "Panel": "Engineering",
+        "Category": "Books",
+        "Value": 497
+      },
+      {
+        "Panel": "Engineering",
+        "Category": "Sports",
+        "Value": 47
+      },
+      {
+        "Panel": "Sales",
+        "Category": "Electronics",
+        "Value": 83
+      },
+      {
+        "Panel": "Sales",
+        "Category": "Clothing",
+        "Value": 241
+      },
+      {
+        "Panel": "Sales",
+        "Category": "Food",
+        "Value": 440
+      },
+      {
+        "Panel": "Sales",
+        "Category": "Books",
+        "Value": 74
+      },
+      {
+        "Panel": "Sales",
+        "Category": "Sports",
+        "Value": 364
+      },
+      {
+        "Panel": "Marketing",
+        "Category": "Electronics",
+        "Value": 237
+      },
+      {
+        "Panel": "Marketing",
+        "Category": "Clothing",
+        "Value": 16
+      },
+      {
+        "Panel": "Marketing",
+        "Category": "Food",
+        "Value": 194
+      },
+      {
+        "Panel": "Marketing",
+        "Category": "Books",
+        "Value": 188
+      },
+      {
+        "Panel": "Marketing",
+        "Category": "Sports",
+        "Value": 369
+      },
+      {
+        "Panel": "HR",
+        "Category": "Electronics",
+        "Value": 18
+      },
+      {
+        "Panel": "HR",
+        "Category": "Clothing",
+        "Value": 74
+      },
+      {
+        "Panel": "HR",
+        "Category": "Food",
+        "Value": 212
+      },
+      {
+        "Panel": "HR",
+        "Category": "Books",
+        "Value": 38
+      },
+      {
+        "Panel": "HR",
+        "Category": "Sports",
+        "Value": 459
+      },
+      {
+        "Panel": "Finance",
+        "Category": "Electronics",
+        "Value": 197
+      },
+      {
+        "Panel": "Finance",
+        "Category": "Clothing",
+        "Value": 168
+      },
+      {
+        "Panel": "Finance",
+        "Category": "Food",
+        "Value": 299
+      },
+      {
+        "Panel": "Finance",
+        "Category": "Books",
+        "Value": 218
+      },
+      {
+        "Panel": "Finance",
+        "Category": "Sports",
+        "Value": 82
+      },
+      {
+        "Panel": "Legal",
+        "Category": "Electronics",
+        "Value": 321
+      },
+      {
+        "Panel": "Legal",
+        "Category": "Clothing",
+        "Value": 153
+      },
+      {
+        "Panel": "Legal",
+        "Category": "Food",
+        "Value": 42
+      },
+      {
+        "Panel": "Legal",
+        "Category": "Books",
+        "Value": 432
+      },
+      {
+        "Panel": "Legal",
+        "Category": "Sports",
+        "Value": 406
+      },
+      {
+        "Panel": "Operations",
+        "Category": "Electronics",
+        "Value": 164
+      },
+      {
+        "Panel": "Operations",
+        "Category": "Clothing",
+        "Value": 69
+      },
+      {
+        "Panel": "Operations",
+        "Category": "Food",
+        "Value": 235
+      },
+      {
+        "Panel": "Operations",
+        "Category": "Books",
+        "Value": 439
+      },
+      {
+        "Panel": "Operations",
+        "Category": "Sports",
+        "Value": 377
+      },
+      {
+        "Panel": "Support",
+        "Category": "Electronics",
+        "Value": 307
+      },
+      {
+        "Panel": "Support",
+        "Category": "Clothing",
+        "Value": 449
+      },
+      {
+        "Panel": "Support",
+        "Category": "Food",
+        "Value": 299
+      },
+      {
+        "Panel": "Support",
+        "Category": "Books",
+        "Value": 314
+      },
+      {
+        "Panel": "Support",
+        "Category": "Sports",
+        "Value": 439
+      }
+    ]
+  },
+  "_width": 109,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

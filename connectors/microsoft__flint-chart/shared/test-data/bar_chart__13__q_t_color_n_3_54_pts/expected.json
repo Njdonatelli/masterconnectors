@@ -1,0 +1,385 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "EndDate",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2022-12-28T08:45:00.000Z",
+          "2023-12-19T15:15:00.000Z"
+        ]
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 210,
+      "continuousHeight": 550
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 1,
+        "EndDate": "2023-02-27",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 1,
+        "EndDate": "2023-11-02",
+        "Segment": "Phone"
+      },
+      {
+        "X": 1,
+        "EndDate": "2023-01-24",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 2,
+        "EndDate": "2023-04-06",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 2,
+        "EndDate": "2023-08-11",
+        "Segment": "Phone"
+      },
+      {
+        "X": 2,
+        "EndDate": "2023-12-13",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 3,
+        "EndDate": "2023-02-13",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 3,
+        "EndDate": "2023-09-22",
+        "Segment": "Phone"
+      },
+      {
+        "X": 3,
+        "EndDate": "2023-06-14",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 4,
+        "EndDate": "2023-06-04",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 4,
+        "EndDate": "2023-05-18",
+        "Segment": "Phone"
+      },
+      {
+        "X": 4,
+        "EndDate": "2023-03-01",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 5,
+        "EndDate": "2023-04-26",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 5,
+        "EndDate": "2023-02-27",
+        "Segment": "Phone"
+      },
+      {
+        "X": 5,
+        "EndDate": "2023-04-16",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 6,
+        "EndDate": "2023-12-16",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 6,
+        "EndDate": "2023-03-17",
+        "Segment": "Phone"
+      },
+      {
+        "X": 6,
+        "EndDate": "2023-08-27",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 7,
+        "EndDate": "2023-01-23",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 7,
+        "EndDate": "2023-05-11",
+        "Segment": "Phone"
+      },
+      {
+        "X": 7,
+        "EndDate": "2023-09-25",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 8,
+        "EndDate": "2023-09-10",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 8,
+        "EndDate": "2023-01-20",
+        "Segment": "Phone"
+      },
+      {
+        "X": 8,
+        "EndDate": "2023-10-02",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 9,
+        "EndDate": "2023-02-28",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 9,
+        "EndDate": "2023-11-03",
+        "Segment": "Phone"
+      },
+      {
+        "X": 9,
+        "EndDate": "2023-10-05",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 10,
+        "EndDate": "2023-12-14",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 10,
+        "EndDate": "2023-10-22",
+        "Segment": "Phone"
+      },
+      {
+        "X": 10,
+        "EndDate": "2023-03-11",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 11,
+        "EndDate": "2023-01-29",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 11,
+        "EndDate": "2023-07-17",
+        "Segment": "Phone"
+      },
+      {
+        "X": 11,
+        "EndDate": "2023-02-26",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 12,
+        "EndDate": "2023-04-13",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 12,
+        "EndDate": "2023-12-03",
+        "Segment": "Phone"
+      },
+      {
+        "X": 12,
+        "EndDate": "2023-07-11",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 13,
+        "EndDate": "2023-02-18",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 13,
+        "EndDate": "2023-07-17",
+        "Segment": "Phone"
+      },
+      {
+        "X": 13,
+        "EndDate": "2023-02-09",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 14,
+        "EndDate": "2023-05-12",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 14,
+        "EndDate": "2023-01-01",
+        "Segment": "Phone"
+      },
+      {
+        "X": 14,
+        "EndDate": "2023-08-27",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 15,
+        "EndDate": "2023-11-17",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 15,
+        "EndDate": "2023-03-29",
+        "Segment": "Phone"
+      },
+      {
+        "X": 15,
+        "EndDate": "2023-02-24",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 16,
+        "EndDate": "2023-09-08",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 16,
+        "EndDate": "2023-09-10",
+        "Segment": "Phone"
+      },
+      {
+        "X": 16,
+        "EndDate": "2023-06-15",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 17,
+        "EndDate": "2023-09-19",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 17,
+        "EndDate": "2023-11-05",
+        "Segment": "Phone"
+      },
+      {
+        "X": 17,
+        "EndDate": "2023-04-13",
+        "Segment": "Tablet"
+      },
+      {
+        "X": 18,
+        "EndDate": "2023-03-14",
+        "Segment": "Laptop"
+      },
+      {
+        "X": 18,
+        "EndDate": "2023-02-06",
+        "Segment": "Phone"
+      },
+      {
+        "X": 18,
+        "EndDate": "2023-08-03",
+        "Segment": "Tablet"
+      }
+    ]
+  },
+  "_width": 210,
+  "_height": 550,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    }
+  ]
+}

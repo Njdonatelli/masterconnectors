@@ -1,0 +1,1626 @@
+{
+  "spacing": 8,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 248,
+      "height": 300,
+      "title": {
+        "text": "created_month",
+        "anchor": "start",
+        "offset": 6,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.842
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "created_month",
+          "type": "nominal",
+          "sort": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "axis": {
+            "title": null,
+            "domain": false,
+            "ticks": false,
+            "labelFontSize": 13,
+            "labelAlign": "left",
+            "labelPadding": 60,
+            "labelLimit": 60
+          }
+        },
+        "x": {
+          "field": "views",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "nice": false
+          }
+        },
+        "color": {
+          "field": "channel_type",
+          "type": "nominal",
+          "sort": null,
+          "scale": {
+            "scheme": "tableau10"
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 84,
+      "height": 300,
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "views",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "created_month"
+          ]
+        }
+      ],
+      "title": {
+        "text": "views",
+        "anchor": "end",
+        "offset": 6,
+        "limit": 80,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "created_month",
+          "type": "nominal",
+          "sort": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ],
+          "axis": null
+        },
+        "x": {
+          "datum": 1,
+          "axis": null,
+          "scale": {
+            "type": "linear",
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "text": {
+          "field": "__bt_val",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#666"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "created_month": "Jan",
+        "channel_type": "Music",
+        "views": 14828870,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Games",
+        "views": 168815284,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Entertainment",
+        "views": 218483794,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Education",
+        "views": 497131397,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "People",
+        "views": 227385483,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Sports",
+        "views": 107817964,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Film",
+        "views": 36528204,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "News",
+        "views": 369530308,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Comedy",
+        "views": 135882401,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Music",
+        "views": 215516795,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Games",
+        "views": 130781811,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Entertainment",
+        "views": 489901566,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Education",
+        "views": 215618551,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "People",
+        "views": 340992195,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Sports",
+        "views": 495828822,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Film",
+        "views": 335019288,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "News",
+        "views": 109169975,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Comedy",
+        "views": 259780892,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Music",
+        "views": 77456516,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Games",
+        "views": 251660549,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Entertainment",
+        "views": 98846240,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Education",
+        "views": 248763526,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "People",
+        "views": 408588643,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Sports",
+        "views": 89317247,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Film",
+        "views": 94971444,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "News",
+        "views": 125055770,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Comedy",
+        "views": 252337597,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Music",
+        "views": 477999738,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Games",
+        "views": 181603177,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Entertainment",
+        "views": 144596772,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Education",
+        "views": 177952412,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "People",
+        "views": 286190486,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Sports",
+        "views": 443497091,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Film",
+        "views": 295604958,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "News",
+        "views": 172522789,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Comedy",
+        "views": 30517522,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Music",
+        "views": 347996387,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Games",
+        "views": 215269832,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Entertainment",
+        "views": 480066874,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Education",
+        "views": 423959838,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "People",
+        "views": 432992415,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Sports",
+        "views": 243526594,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Film",
+        "views": 391467278,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "News",
+        "views": 330550185,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Comedy",
+        "views": 496960623,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Music",
+        "views": 357189779,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Games",
+        "views": 228621068,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Entertainment",
+        "views": 374298331,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Education",
+        "views": 272049493,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "People",
+        "views": 275837287,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Sports",
+        "views": 437277950,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Film",
+        "views": 270499008,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "News",
+        "views": 216825580,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Comedy",
+        "views": 127520467,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Music",
+        "views": 176492232,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Games",
+        "views": 244942656,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Entertainment",
+        "views": 191225318,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Education",
+        "views": 363928803,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "People",
+        "views": 491398714,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Sports",
+        "views": 378190097,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Film",
+        "views": 180957971,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "News",
+        "views": 300626057,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Comedy",
+        "views": 62141567,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Music",
+        "views": 353324697,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Games",
+        "views": 268183115,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Entertainment",
+        "views": 293614634,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Education",
+        "views": 221160956,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "People",
+        "views": 492196141,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Sports",
+        "views": 280542225,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Film",
+        "views": 13179406,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "News",
+        "views": 446277486,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Comedy",
+        "views": 25705329,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Music",
+        "views": 469470778,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Games",
+        "views": 335361703,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Entertainment",
+        "views": 364141909,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Education",
+        "views": 73073995,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "People",
+        "views": 94631512,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Sports",
+        "views": 411817951,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Film",
+        "views": 364299768,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "News",
+        "views": 226205347,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Comedy",
+        "views": 273274257,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Music",
+        "views": 360436745,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Games",
+        "views": 300371686,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Entertainment",
+        "views": 286920835,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Education",
+        "views": 218480293,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "People",
+        "views": 438288839,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Sports",
+        "views": 260525329,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Film",
+        "views": 89203041,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "News",
+        "views": 175511338,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Comedy",
+        "views": 259055824,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Music",
+        "views": 391239993,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Games",
+        "views": 10569787,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Entertainment",
+        "views": 86408037,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Education",
+        "views": 199874283,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "People",
+        "views": 227080420,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Sports",
+        "views": 480622588,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Film",
+        "views": 263835429,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "News",
+        "views": 222064542,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Comedy",
+        "views": 178756975,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Music",
+        "views": 308477810,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Games",
+        "views": 26552925,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Entertainment",
+        "views": 215016364,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Education",
+        "views": 220033212,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "People",
+        "views": 38193326,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Sports",
+        "views": 355225859,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Film",
+        "views": 221018286,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "News",
+        "views": 94333561,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Comedy",
+        "views": 404166452,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      }
+    ]
+  },
+  "height": {
+    "step": 28
+  },
+  "data": {
+    "values": [
+      {
+        "created_month": "Jan",
+        "channel_type": "Music",
+        "views": 14828870
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Games",
+        "views": 168815284
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Entertainment",
+        "views": 218483794
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Education",
+        "views": 497131397
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "People",
+        "views": 227385483
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Sports",
+        "views": 107817964
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Film",
+        "views": 36528204
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "News",
+        "views": 369530308
+      },
+      {
+        "created_month": "Jan",
+        "channel_type": "Comedy",
+        "views": 135882401
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Music",
+        "views": 215516795
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Games",
+        "views": 130781811
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Entertainment",
+        "views": 489901566
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Education",
+        "views": 215618551
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "People",
+        "views": 340992195
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Sports",
+        "views": 495828822
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Film",
+        "views": 335019288
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "News",
+        "views": 109169975
+      },
+      {
+        "created_month": "Feb",
+        "channel_type": "Comedy",
+        "views": 259780892
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Music",
+        "views": 77456516
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Games",
+        "views": 251660549
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Entertainment",
+        "views": 98846240
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Education",
+        "views": 248763526
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "People",
+        "views": 408588643
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Sports",
+        "views": 89317247
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Film",
+        "views": 94971444
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "News",
+        "views": 125055770
+      },
+      {
+        "created_month": "Mar",
+        "channel_type": "Comedy",
+        "views": 252337597
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Music",
+        "views": 477999738
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Games",
+        "views": 181603177
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Entertainment",
+        "views": 144596772
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Education",
+        "views": 177952412
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "People",
+        "views": 286190486
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Sports",
+        "views": 443497091
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Film",
+        "views": 295604958
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "News",
+        "views": 172522789
+      },
+      {
+        "created_month": "Apr",
+        "channel_type": "Comedy",
+        "views": 30517522
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Music",
+        "views": 347996387
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Games",
+        "views": 215269832
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Entertainment",
+        "views": 480066874
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Education",
+        "views": 423959838
+      },
+      {
+        "created_month": "May",
+        "channel_type": "People",
+        "views": 432992415
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Sports",
+        "views": 243526594
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Film",
+        "views": 391467278
+      },
+      {
+        "created_month": "May",
+        "channel_type": "News",
+        "views": 330550185
+      },
+      {
+        "created_month": "May",
+        "channel_type": "Comedy",
+        "views": 496960623
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Music",
+        "views": 357189779
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Games",
+        "views": 228621068
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Entertainment",
+        "views": 374298331
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Education",
+        "views": 272049493
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "People",
+        "views": 275837287
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Sports",
+        "views": 437277950
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Film",
+        "views": 270499008
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "News",
+        "views": 216825580
+      },
+      {
+        "created_month": "Jun",
+        "channel_type": "Comedy",
+        "views": 127520467
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Music",
+        "views": 176492232
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Games",
+        "views": 244942656
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Entertainment",
+        "views": 191225318
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Education",
+        "views": 363928803
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "People",
+        "views": 491398714
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Sports",
+        "views": 378190097
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Film",
+        "views": 180957971
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "News",
+        "views": 300626057
+      },
+      {
+        "created_month": "Jul",
+        "channel_type": "Comedy",
+        "views": 62141567
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Music",
+        "views": 353324697
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Games",
+        "views": 268183115
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Entertainment",
+        "views": 293614634
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Education",
+        "views": 221160956
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "People",
+        "views": 492196141
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Sports",
+        "views": 280542225
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Film",
+        "views": 13179406
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "News",
+        "views": 446277486
+      },
+      {
+        "created_month": "Aug",
+        "channel_type": "Comedy",
+        "views": 25705329
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Music",
+        "views": 469470778
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Games",
+        "views": 335361703
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Entertainment",
+        "views": 364141909
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Education",
+        "views": 73073995
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "People",
+        "views": 94631512
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Sports",
+        "views": 411817951
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Film",
+        "views": 364299768
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "News",
+        "views": 226205347
+      },
+      {
+        "created_month": "Sep",
+        "channel_type": "Comedy",
+        "views": 273274257
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Music",
+        "views": 360436745
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Games",
+        "views": 300371686
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Entertainment",
+        "views": 286920835
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Education",
+        "views": 218480293
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "People",
+        "views": 438288839
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Sports",
+        "views": 260525329
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Film",
+        "views": 89203041
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "News",
+        "views": 175511338
+      },
+      {
+        "created_month": "Oct",
+        "channel_type": "Comedy",
+        "views": 259055824
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Music",
+        "views": 391239993
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Games",
+        "views": 10569787
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Entertainment",
+        "views": 86408037
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Education",
+        "views": 199874283
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "People",
+        "views": 227080420
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Sports",
+        "views": 480622588
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Film",
+        "views": 263835429
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "News",
+        "views": 222064542
+      },
+      {
+        "created_month": "Nov",
+        "channel_type": "Comedy",
+        "views": 178756975
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Music",
+        "views": 308477810
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Games",
+        "views": 26552925
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Entertainment",
+        "views": 215016364
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Education",
+        "views": 220033212
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "People",
+        "views": 38193326
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Sports",
+        "views": 355225859
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Film",
+        "views": 221018286
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "News",
+        "views": 94333561
+      },
+      {
+        "created_month": "Dec",
+        "channel_type": "Comedy",
+        "views": 404166452
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "title": "Weight Unit Suffix (kg)",
+  "description": "Enriched annotation { semanticType: \"Weight\", unit: \"kg\" } appends \" kg\" to axis labels. WITHOUT this: bare numbers with no unit context.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "athlete": "Chen",
+          "weight_kg": 55.1,
+          "height_cm": 178
+        },
+        {
+          "athlete": "Maria",
+          "weight_kg": 86.6,
+          "height_cm": 181
+        },
+        {
+          "athlete": "James",
+          "weight_kg": 85.9,
+          "height_cm": 164
+        },
+        {
+          "athlete": "Yuki",
+          "weight_kg": 80.2,
+          "height_cm": 160
+        },
+        {
+          "athlete": "Priya",
+          "weight_kg": 65.9,
+          "height_cm": 187
+        },
+        {
+          "athlete": "Lars",
+          "weight_kg": 78.4,
+          "height_cm": 192
+        },
+        {
+          "athlete": "Fatima",
+          "weight_kg": 97.7,
+          "height_cm": 194
+        },
+        {
+          "athlete": "Carlos",
+          "weight_kg": 95,
+          "height_cm": 195
+        },
+        {
+          "athlete": "Anna",
+          "weight_kg": 83.6,
+          "height_cm": 177
+        },
+        {
+          "athlete": "Kwame",
+          "weight_kg": 77.5,
+          "height_cm": 175
+        }
+      ]
+    },
+    "semantic_types": {
+      "athlete": "Category",
+      "weight_kg": {
+        "semanticType": "Weight",
+        "unit": "kg"
+      },
+      "height_cm": {
+        "semanticType": "Distance",
+        "unit": "cm"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "height_cm"
+        },
+        "y": {
+          "field": "weight_kg"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

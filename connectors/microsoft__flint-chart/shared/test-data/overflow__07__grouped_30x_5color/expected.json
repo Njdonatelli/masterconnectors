@@ -1,0 +1,718 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Product",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...6 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Product20",
+          "Product29",
+          "Product21",
+          "Product12",
+          "Product08",
+          "Product11",
+          "Product23",
+          "Product16",
+          "Product05",
+          "Product09",
+          "Product25",
+          "Product15",
+          "Product17",
+          "Product26",
+          "Product24",
+          "Product30",
+          "Product03",
+          "Product13",
+          "Product28",
+          "Product07",
+          "Product10",
+          "Product02",
+          "Product19",
+          "Product27",
+          "...6 items omitted"
+        ]
+      }
+    },
+    "y": {
+      "field": "Sales",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "xOffset": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 30,
+    "for": "position"
+  },
+  "data": {
+    "values": [
+      {
+        "Product": "Product02",
+        "Region": "Region1",
+        "Sales": 57
+      },
+      {
+        "Product": "Product02",
+        "Region": "Region2",
+        "Sales": 184
+      },
+      {
+        "Product": "Product02",
+        "Region": "Region3",
+        "Sales": 398
+      },
+      {
+        "Product": "Product02",
+        "Region": "Region4",
+        "Sales": 98
+      },
+      {
+        "Product": "Product02",
+        "Region": "Region5",
+        "Sales": 103
+      },
+      {
+        "Product": "Product03",
+        "Region": "Region1",
+        "Sales": 238
+      },
+      {
+        "Product": "Product03",
+        "Region": "Region2",
+        "Sales": 338
+      },
+      {
+        "Product": "Product03",
+        "Region": "Region3",
+        "Sales": 88
+      },
+      {
+        "Product": "Product03",
+        "Region": "Region4",
+        "Sales": 248
+      },
+      {
+        "Product": "Product03",
+        "Region": "Region5",
+        "Sales": 204
+      },
+      {
+        "Product": "Product05",
+        "Region": "Region1",
+        "Sales": 254
+      },
+      {
+        "Product": "Product05",
+        "Region": "Region2",
+        "Sales": 373
+      },
+      {
+        "Product": "Product05",
+        "Region": "Region3",
+        "Sales": 253
+      },
+      {
+        "Product": "Product05",
+        "Region": "Region4",
+        "Sales": 222
+      },
+      {
+        "Product": "Product05",
+        "Region": "Region5",
+        "Sales": 208
+      },
+      {
+        "Product": "Product07",
+        "Region": "Region1",
+        "Sales": 34
+      },
+      {
+        "Product": "Product07",
+        "Region": "Region2",
+        "Sales": 131
+      },
+      {
+        "Product": "Product07",
+        "Region": "Region3",
+        "Sales": 290
+      },
+      {
+        "Product": "Product07",
+        "Region": "Region4",
+        "Sales": 253
+      },
+      {
+        "Product": "Product07",
+        "Region": "Region5",
+        "Sales": 307
+      },
+      {
+        "Product": "Product08",
+        "Region": "Region1",
+        "Sales": 181
+      },
+      {
+        "Product": "Product08",
+        "Region": "Region2",
+        "Sales": 169
+      },
+      {
+        "Product": "Product08",
+        "Region": "Region3",
+        "Sales": 382
+      },
+      {
+        "Product": "Product08",
+        "Region": "Region4",
+        "Sales": 366
+      },
+      {
+        "Product": "Product08",
+        "Region": "Region5",
+        "Sales": 319
+      },
+      {
+        "Product": "Product09",
+        "Region": "Region1",
+        "Sales": 193
+      },
+      {
+        "Product": "Product09",
+        "Region": "Region2",
+        "Sales": 327
+      },
+      {
+        "Product": "Product09",
+        "Region": "Region3",
+        "Sales": 196
+      },
+      {
+        "Product": "Product09",
+        "Region": "Region4",
+        "Sales": 325
+      },
+      {
+        "Product": "Product09",
+        "Region": "Region5",
+        "Sales": 229
+      },
+      {
+        "Product": "Product10",
+        "Region": "Region1",
+        "Sales": 141
+      },
+      {
+        "Product": "Product10",
+        "Region": "Region2",
+        "Sales": 44
+      },
+      {
+        "Product": "Product10",
+        "Region": "Region3",
+        "Sales": 350
+      },
+      {
+        "Product": "Product10",
+        "Region": "Region4",
+        "Sales": 95
+      },
+      {
+        "Product": "Product10",
+        "Region": "Region5",
+        "Sales": 374
+      },
+      {
+        "Product": "Product11",
+        "Region": "Region1",
+        "Sales": 267
+      },
+      {
+        "Product": "Product11",
+        "Region": "Region2",
+        "Sales": 313
+      },
+      {
+        "Product": "Product11",
+        "Region": "Region3",
+        "Sales": 377
+      },
+      {
+        "Product": "Product11",
+        "Region": "Region4",
+        "Sales": 244
+      },
+      {
+        "Product": "Product11",
+        "Region": "Region5",
+        "Sales": 216
+      },
+      {
+        "Product": "Product12",
+        "Region": "Region1",
+        "Sales": 69
+      },
+      {
+        "Product": "Product12",
+        "Region": "Region2",
+        "Sales": 347
+      },
+      {
+        "Product": "Product12",
+        "Region": "Region3",
+        "Sales": 218
+      },
+      {
+        "Product": "Product12",
+        "Region": "Region4",
+        "Sales": 409
+      },
+      {
+        "Product": "Product12",
+        "Region": "Region5",
+        "Sales": 389
+      },
+      {
+        "Product": "Product13",
+        "Region": "Region1",
+        "Sales": 147
+      },
+      {
+        "Product": "Product13",
+        "Region": "Region2",
+        "Sales": 204
+      },
+      {
+        "Product": "Product13",
+        "Region": "Region3",
+        "Sales": 322
+      },
+      {
+        "Product": "Product13",
+        "Region": "Region4",
+        "Sales": 148
+      },
+      {
+        "Product": "Product13",
+        "Region": "Region5",
+        "Sales": 267
+      },
+      {
+        "Product": "Product15",
+        "Region": "Region1",
+        "Sales": 345
+      },
+      {
+        "Product": "Product15",
+        "Region": "Region2",
+        "Sales": 371
+      },
+      {
+        "Product": "Product15",
+        "Region": "Region3",
+        "Sales": 325
+      },
+      {
+        "Product": "Product15",
+        "Region": "Region4",
+        "Sales": 55
+      },
+      {
+        "Product": "Product15",
+        "Region": "Region5",
+        "Sales": 130
+      },
+      {
+        "Product": "Product16",
+        "Region": "Region1",
+        "Sales": 194
+      },
+      {
+        "Product": "Product16",
+        "Region": "Region2",
+        "Sales": 394
+      },
+      {
+        "Product": "Product16",
+        "Region": "Region3",
+        "Sales": 259
+      },
+      {
+        "Product": "Product16",
+        "Region": "Region4",
+        "Sales": 342
+      },
+      {
+        "Product": "Product16",
+        "Region": "Region5",
+        "Sales": 124
+      },
+      {
+        "Product": "Product17",
+        "Region": "Region1",
+        "Sales": 366
+      },
+      {
+        "Product": "Product17",
+        "Region": "Region2",
+        "Sales": 56
+      },
+      {
+        "Product": "Product17",
+        "Region": "Region3",
+        "Sales": 345
+      },
+      {
+        "Product": "Product17",
+        "Region": "Region4",
+        "Sales": 323
+      },
+      {
+        "Product": "Product17",
+        "Region": "Region5",
+        "Sales": 117
+      },
+      {
+        "Product": "Product19",
+        "Region": "Region1",
+        "Sales": 131
+      },
+      {
+        "Product": "Product19",
+        "Region": "Region2",
+        "Sales": 380
+      },
+      {
+        "Product": "Product19",
+        "Region": "Region3",
+        "Sales": 48
+      },
+      {
+        "Product": "Product19",
+        "Region": "Region4",
+        "Sales": 139
+      },
+      {
+        "Product": "Product19",
+        "Region": "Region5",
+        "Sales": 142
+      },
+      {
+        "Product": "Product20",
+        "Region": "Region1",
+        "Sales": 288
+      },
+      {
+        "Product": "Product20",
+        "Region": "Region2",
+        "Sales": 326
+      },
+      {
+        "Product": "Product20",
+        "Region": "Region3",
+        "Sales": 329
+      },
+      {
+        "Product": "Product20",
+        "Region": "Region4",
+        "Sales": 331
+      },
+      {
+        "Product": "Product20",
+        "Region": "Region5",
+        "Sales": 401
+      },
+      {
+        "Product": "Product21",
+        "Region": "Region1",
+        "Sales": 308
+      },
+      {
+        "Product": "Product21",
+        "Region": "Region2",
+        "Sales": 329
+      },
+      {
+        "Product": "Product21",
+        "Region": "Region3",
+        "Sales": 340
+      },
+      {
+        "Product": "Product21",
+        "Region": "Region4",
+        "Sales": 346
+      },
+      {
+        "Product": "Product21",
+        "Region": "Region5",
+        "Sales": 128
+      },
+      {
+        "Product": "Product23",
+        "Region": "Region1",
+        "Sales": 332
+      },
+      {
+        "Product": "Product23",
+        "Region": "Region2",
+        "Sales": 113
+      },
+      {
+        "Product": "Product23",
+        "Region": "Region3",
+        "Sales": 388
+      },
+      {
+        "Product": "Product23",
+        "Region": "Region4",
+        "Sales": 224
+      },
+      {
+        "Product": "Product23",
+        "Region": "Region5",
+        "Sales": 273
+      },
+      {
+        "Product": "Product24",
+        "Region": "Region1",
+        "Sales": 301
+      },
+      {
+        "Product": "Product24",
+        "Region": "Region2",
+        "Sales": 26
+      },
+      {
+        "Product": "Product24",
+        "Region": "Region3",
+        "Sales": 289
+      },
+      {
+        "Product": "Product24",
+        "Region": "Region4",
+        "Sales": 404
+      },
+      {
+        "Product": "Product24",
+        "Region": "Region5",
+        "Sales": 116
+      },
+      {
+        "Product": "Product25",
+        "Region": "Region1",
+        "Sales": 378
+      },
+      {
+        "Product": "Product25",
+        "Region": "Region2",
+        "Sales": 181
+      },
+      {
+        "Product": "Product25",
+        "Region": "Region3",
+        "Sales": 260
+      },
+      {
+        "Product": "Product25",
+        "Region": "Region4",
+        "Sales": 122
+      },
+      {
+        "Product": "Product25",
+        "Region": "Region5",
+        "Sales": 325
+      },
+      {
+        "Product": "Product26",
+        "Region": "Region1",
+        "Sales": 175
+      },
+      {
+        "Product": "Product26",
+        "Region": "Region2",
+        "Sales": 232
+      },
+      {
+        "Product": "Product26",
+        "Region": "Region3",
+        "Sales": 303
+      },
+      {
+        "Product": "Product26",
+        "Region": "Region4",
+        "Sales": 233
+      },
+      {
+        "Product": "Product26",
+        "Region": "Region5",
+        "Sales": 263
+      },
+      {
+        "Product": "Product27",
+        "Region": "Region1",
+        "Sales": 244
+      },
+      {
+        "Product": "Product27",
+        "Region": "Region2",
+        "Sales": 250
+      },
+      {
+        "Product": "Product27",
+        "Region": "Region3",
+        "Sales": 27
+      },
+      {
+        "Product": "Product27",
+        "Region": "Region4",
+        "Sales": 132
+      },
+      {
+        "Product": "Product27",
+        "Region": "Region5",
+        "Sales": 154
+      },
+      {
+        "Product": "Product28",
+        "Region": "Region1",
+        "Sales": 299
+      },
+      {
+        "Product": "Product28",
+        "Region": "Region2",
+        "Sales": 114
+      },
+      {
+        "Product": "Product28",
+        "Region": "Region3",
+        "Sales": 398
+      },
+      {
+        "Product": "Product28",
+        "Region": "Region4",
+        "Sales": 215
+      },
+      {
+        "Product": "Product28",
+        "Region": "Region5",
+        "Sales": 48
+      },
+      {
+        "Product": "Product29",
+        "Region": "Region1",
+        "Sales": 105
+      },
+      {
+        "Product": "Product29",
+        "Region": "Region2",
+        "Sales": 355
+      },
+      {
+        "Product": "Product29",
+        "Region": "Region3",
+        "Sales": 366
+      },
+      {
+        "Product": "Product29",
+        "Region": "Region4",
+        "Sales": 284
+      },
+      {
+        "Product": "Product29",
+        "Region": "Region5",
+        "Sales": 347
+      },
+      {
+        "Product": "Product30",
+        "Region": "Region1",
+        "Sales": 185
+      },
+      {
+        "Product": "Product30",
+        "Region": "Region2",
+        "Sales": 278
+      },
+      {
+        "Product": "Product30",
+        "Region": "Region3",
+        "Sales": 220
+      },
+      {
+        "Product": "Product30",
+        "Region": "Region4",
+        "Sales": 37
+      },
+      {
+        "Product": "Product30",
+        "Region": "Region5",
+        "Sales": 405
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "6 of 30 values in 'Product' were omitted (showing top 24).",
+      "channel": "x",
+      "field": "Product"
+    }
+  ],
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "title": "AgeGroup Binned Ordinal",
+  "description": "Semantic type \"AgeGroup\" is a binned ordinal — age ranges have inherent order (18-24 < 25-34 < ...). Uses ordinal encoding, not nominal. WITHOUT this: treated as unordered categories, alphabetical sorting.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "age_group": "18-24",
+          "population": 545409,
+          "avg_income": 69334
+        },
+        {
+          "age_group": "25-34",
+          "population": 522079,
+          "avg_income": 65802
+        },
+        {
+          "age_group": "35-44",
+          "population": 1615511,
+          "avg_income": 40045
+        },
+        {
+          "age_group": "45-54",
+          "population": 1452863,
+          "avg_income": 53991
+        },
+        {
+          "age_group": "55-64",
+          "population": 1777747,
+          "avg_income": 65807
+        },
+        {
+          "age_group": "65+",
+          "population": 1579054,
+          "avg_income": 87017
+        }
+      ]
+    },
+    "semantic_types": {
+      "age_group": {
+        "semanticType": "Range",
+        "sortOrder": [
+          "18-24",
+          "25-34",
+          "35-44",
+          "45-54",
+          "55-64",
+          "65+"
+        ]
+      },
+      "population": "Count",
+      "avg_income": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "age_group"
+        },
+        "y": {
+          "field": "population"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

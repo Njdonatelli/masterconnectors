@@ -1,0 +1,312 @@
+import AppKit
+import Combine
+import NativExtensionSDK
+import NativServerKit
+import SwiftUI
+import UniformTypeIdentifiers
+
+extension ControlPanelView {
+    var sidebar: some View {
+        VStack(spacing: 0) {
+            Color.clear
+                .frame(
+                    height: isFullScreen
+                        ? ControlPanelLayout.fullScreenTopClearance
+                        : 0
+                )
+
+            HStack(spacing: 6) {
+                Image(nsImage: NSApplication.shared.applicationIconImage)
+                    .resizable()
+                    .interpolation(.high)
+                    .frame(
+                        width: ControlPanelLayout.sidebarBrandIconSize,
+                        height: ControlPanelLayout.sidebarBrandIconSize
+                    )
+
+                Text("Nativ")
+                    .legacyTextStyle(.brandTitle)
+                    .foregroundStyle(.primary)
+                Spacer(minLength: 0)
+                Button("Search chats", systemImage: "magnifyingglass") { chatLibrarySearch.present() }
+                    .labelStyle(.iconOnly)
+                    .buttonStyle(.plain)
+                    .font(.system(size: 15))
+                    .frame(width: 28, height: 28)
+                    .contentShape(.rect)
+                    .help("Search all chats")
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(height: ControlPanelLayout.sidebarBrandHeight)
+            .padding(.horizontal, 16)
+            .padding(.bottom, ControlPanelLayout.sidebarBrandBottomClearance)
+
+            sidebarNavigation
+                .padding(.horizontal, 10)
+                .padding(.bottom, 16)
+
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 4) {
+                    if !pinnedSessions.isEmpty {
+                        pinnedChats
+                            .padding(.bottom, 8)
+                    }
+                    projectsSection
+                    sessionsSection
+                }
+                .padding(.horizontal, 10)
+                .padding(.bottom, 8)
+                // Animate the shared layout so sibling sections move with the fading rows.
+                .animation(.easeInOut(duration: 0.2), value: chromeState.sidebarProjectsCollapsed)
+                .animation(.easeInOut(duration: 0.2), value: chromeState.sidebarSessionsCollapsed)
+                .animation(.easeInOut(duration: 0.2), value: isSelectingRecents)
+            }
+            .frame(maxHeight: .infinity)
+
+            Rectangle()
+                .fill(Color(nsColor: .separatorColor))
+                .frame(height: sidebarSeparatorThickness)
+
+            HStack(spacing: 4) {
+                settingsButton
+                supportButton
+                serverToggleButton
+                issueReportMenu
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 5)
+        }
+        .navigationTitle("Nativ")
+        .alert(
+            "Delete chat?",
+            isPresented: Binding(
+                get: { pendingDeleteRecent != nil },
+                set: { if !$0 { pendingDeleteRecent = nil } }
+            ),
+            presenting: pendingDeleteRecent
+        ) { recent in
+            Button("Delete", role: .destructive) {
+                pendingDeleteRecent = nil
+                Task { await deleteRecentSession(recent) }
+            }
+            .keyboardShortcut(.defaultAction)
+            Button("Cancel", role: .cancel) {
+                pendingDeleteRecent = nil
+            }
+        } message: { recent in
+            if case .chat(let id) = recent.selection, chat.sessions.contains(where: { $0.id == id && $0.worktree != nil }) {
+                Text("“\(recent.title)” will be permanently deleted. Its worktree will be saved in Settings > Recently deleted worktrees before the checkout and branch are removed. Ignored files require confirmation and aren’t saved. The local project folder will be kept.")
+            } else if recent.scheduledTaskID != nil {
+                Text(
+                    "“\(recent.title)” will be permanently deleted. "
+                        + "The scheduled task and its run record will be kept."
+                )
+            } else {
+                Text("“\(recent.title)” will be permanently deleted.")
+            }
+        }
+        .alert(
+            "Delete \(selectedRecentIDs.count) items?",
+            isPresented: $isConfirmingBulkDelete
+        ) {
+            Button("Delete", role: .destructive) {
+                Task { await bulkDeleteSelected() }
+            }
+            .keyboardShortcut(.defaultAction)
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text(bulkDeleteDescription)
+        }
+        .alert(
+            "Remove project?",
+            isPresented: Binding(
+                get: { pendingDeleteProject != nil },
+                set: { if !$0 { pendingDeleteProject = nil } }
+            ),
+            presenting: pendingDeleteProject
+        ) { project in
+            Button("Keep Chats") {
+                pendingDeleteProject = nil
+                Task { await removeProject(project, disposition: .keepChats) }
+            }
+            .keyboardShortcut(.defaultAction)
+            Button("Delete Chats", role: .destructive) {
+                pendingDeleteProject = nil
+                Task { await removeProject(project, disposition: .deleteChats) }
+            }
+            Button("Cancel", role: .cancel) {
+                pendingDeleteProject = nil
+            }
+        } message: { project in
+            Text(
+                "“\(project.name)” will be removed from Nativ. Its local folder and files will not be deleted. Deleting its chats saves recoverable worktree snapshots before removing their checkouts and branches. Ignored files require confirmation and aren’t saved."
+            )
+        }
+        .alert(
+            "Project Error",
+            isPresented: Binding(
+                get: { projectErrorMessage != nil },
+                set: { if !$0 { projectErrorMessage = nil } }
+            )
+        ) {
+            Button("OK", role: .cancel) {
+                projectErrorMessage = nil
+            }
+        } message: {
+            Text(projectErrorMessage ?? "The project could not be updated.")
+        }
+        .alert("Couldn’t delete chat", isPresented: Binding(
+            get: { chatDeletionErrorMessage != nil },
+            set: { if !$0 { chatDeletionErrorMessage = nil } }
+        )) {
+            Button("OK", role: .cancel) { chatDeletionErrorMessage = nil }
+        } message: {
+            Text(chatDeletionErrorMessage ?? "The chat and its remaining worktree data have been kept. Try again.")
+        }
+    }
+
+    func resizableSidebar(width: CGFloat, maximumWidth: CGFloat) -> some View {
+        sidebar
+            .frame(width: width)
+            .background {
+                ControlPanelSidebarMaterial()
+                    .overlay {
+                        Color.nativMaterialOverlay(for: colorScheme)
+                            .allowsHitTesting(false)
+                    }
+                    .ignoresSafeArea(.container, edges: [.top, .bottom, .leading])
+            }
+            .overlay(alignment: .trailing) {
+                sidebarResizeHandle(width: width, maximumWidth: maximumWidth)
+            }
+            .zIndex(1)
+    }
+
+    func sidebarResizeHandle(width: CGFloat, maximumWidth: CGFloat) -> some View {
+        ZStack {
+            Color.clear
+
+            Rectangle()
+                .fill(Color(nsColor: .separatorColor))
+                .frame(width: sidebarSeparatorThickness)
+        }
+        .frame(width: 9)
+        .contentShape(Rectangle())
+        .offset(x: 4)
+        .onHover { isHovering in
+            (isHovering ? NSCursor.resizeLeftRight : NSCursor.arrow).set()
+        }
+        .gesture(
+            DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                .onChanged { value in
+                    if sidebarDragStartWidth == nil {
+                        sidebarDragStartWidth = width
+                    }
+
+                    let startWidth = sidebarDragStartWidth ?? width
+                    let proposedWidth = startWidth + value.translation.width
+                    sidebarWidth = min(
+                        max(proposedWidth, ControlPanelLayout.sidebarMinimumWidth),
+                        maximumWidth
+                    )
+                }
+                .onEnded { _ in
+                    sidebarDragStartWidth = nil
+                    NSCursor.arrow.set()
+                }
+        )
+    }
+
+    var sidebarSeparatorThickness: CGFloat {
+        1 / max(displayScale, 1)
+    }
+
+    var sidebarNavigation: some View {
+        VStack(spacing: 2) {
+            sidebarChatAction("New chat", systemImage: "square.and.pencil") {
+                createChatSession()
+            }
+            .help("Start a new chat")
+
+            ForEach(ControlPanelTab.allCases.filter { $0 != .chat }) { tab in
+                sidebarTabButton(tab)
+
+                if tab == .models {
+                    ForEach(contentState.extensionSidebarContributions) { contribution in
+                        extensionSidebarButton(contribution)
+                    }
+                }
+            }
+        }
+    }
+
+    func sidebarChatAction(
+        _ title: String,
+        systemImage: String,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            Label(title, systemImage: systemImage)
+                .labelStyle(SidebarNavigationLabelStyle())
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .sidebarRowSelectionStyle(isSelected: false, isNavigation: true)
+        }
+        .buttonStyle(.plain)
+    }
+
+    func sidebarTabButton(_ tab: ControlPanelTab) -> some View {
+        let selection = ControlPanelSidebarSelection.tab(tab)
+        return Button {
+            applySidebarSelection(selection)
+        } label: {
+            HStack(spacing: 8) {
+                Label(tab.rawValue, systemImage: tab.systemImage)
+                    .labelStyle(SidebarNavigationLabelStyle())
+                Spacer(minLength: 0)
+                if tab == .extensions, !isExtensionsBadgeDismissed {
+                    Circle()
+                        .fill(Color.accentColor)
+                        .frame(width: 8, height: 8)
+                        .accessibilityLabel("New extensions available")
+                }
+                if tab == .models {
+                    HStack(spacing: 6) {
+                        if chromeState.isModelLoading,
+                            let percentage = chromeState.modelLoadingPercentageText
+                        {
+                            Text(percentage)
+                                .font(.caption.monospacedDigit())
+                                .foregroundStyle(.secondary)
+                                .frame(width: 34, alignment: .trailing)
+                        }
+                        ModelsDownloadBadge(downloads: downloads)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .contentShape(.rect)
+            .sidebarRowSelectionStyle(isSelected: sidebarSelection == selection, isNavigation: true)
+        }
+        .buttonStyle(.plain)
+        .padding(.vertical, 1)
+    }
+
+    func extensionSidebarButton(
+        _ contribution: NativSidebarContribution
+    ) -> some View {
+        let selection = ControlPanelSidebarSelection.extensionPage(contribution.id)
+        return Button {
+            applySidebarSelection(selection)
+        } label: {
+            Label(contribution.title, systemImage: contribution.systemImage)
+                .labelStyle(SidebarNavigationLabelStyle())
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(.rect)
+                .sidebarRowSelectionStyle(isSelected: sidebarSelection == selection, isNavigation: true)
+        }
+        .buttonStyle(.plain)
+        .padding(.vertical, 1)
+    }
+
+}

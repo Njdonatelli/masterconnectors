@@ -1,0 +1,310 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "ordinal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+    },
+    "y": {
+      "field": "temperature",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "city",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "set2"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "month": "Jan",
+        "city": "Seattle",
+        "temperature": -1
+      },
+      {
+        "month": "Jan",
+        "city": "Miami",
+        "temperature": 20
+      },
+      {
+        "month": "Feb",
+        "city": "Seattle",
+        "temperature": 2
+      },
+      {
+        "month": "Feb",
+        "city": "Miami",
+        "temperature": 21
+      },
+      {
+        "month": "Mar",
+        "city": "Seattle",
+        "temperature": 6
+      },
+      {
+        "month": "Mar",
+        "city": "Miami",
+        "temperature": 23
+      },
+      {
+        "month": "Apr",
+        "city": "Seattle",
+        "temperature": 10
+      },
+      {
+        "month": "Apr",
+        "city": "Miami",
+        "temperature": 25
+      },
+      {
+        "month": "May",
+        "city": "Seattle",
+        "temperature": 14
+      },
+      {
+        "month": "May",
+        "city": "Miami",
+        "temperature": 27
+      },
+      {
+        "month": "Jun",
+        "city": "Seattle",
+        "temperature": 18
+      },
+      {
+        "month": "Jun",
+        "city": "Miami",
+        "temperature": 29
+      },
+      {
+        "month": "Jul",
+        "city": "Seattle",
+        "temperature": 22
+      },
+      {
+        "month": "Jul",
+        "city": "Miami",
+        "temperature": 30
+      },
+      {
+        "month": "Aug",
+        "city": "Seattle",
+        "temperature": 21
+      },
+      {
+        "month": "Aug",
+        "city": "Miami",
+        "temperature": 30
+      },
+      {
+        "month": "Sep",
+        "city": "Seattle",
+        "temperature": 17
+      },
+      {
+        "month": "Sep",
+        "city": "Miami",
+        "temperature": 29
+      },
+      {
+        "month": "Oct",
+        "city": "Seattle",
+        "temperature": 11
+      },
+      {
+        "month": "Oct",
+        "city": "Miami",
+        "temperature": 27
+      },
+      {
+        "month": "Nov",
+        "city": "Seattle",
+        "temperature": 5
+      },
+      {
+        "month": "Nov",
+        "city": "Miami",
+        "temperature": 24
+      },
+      {
+        "month": "Dec",
+        "city": "Seattle",
+        "temperature": 1
+      },
+      {
+        "month": "Dec",
+        "city": "Miami",
+        "temperature": 21
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

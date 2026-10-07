@@ -1,0 +1,132 @@
+.site-text-link,
+.landing-skill-link,
+.mcp-link,
+.doc-markdown a {
+  text-decoration-line: none;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+}
+
+.site-text-link:hover,
+.site-text-link:focus-visible,
+.landing-skill-link:hover,
+.landing-skill-link:focus-visible,
+.mcp-link:hover,
+.mcp-link:focus-visible,
+.doc-markdown a:hover,
+.doc-markdown a:focus-visible {
+  color: #005a9e !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: currentColor !important;
+}
+
+.site-nav-menu-item:hover,
+.site-nav-menu-item:focus-visible {
+  background: rgba(0, 0, 0, 0.055);
+  outline: none;
+}
+
+/* Shared site slider. The explicit class prevents embedded MCP App styles from
+   changing site controls when documentation examples load their stylesheet. */
+input[type='range'].site-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  min-width: 0;
+  height: 12px;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type='range'].site-range::-webkit-slider-runnable-track {
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--site-range-color, #0078d4) 0 var(--pct, 0%),
+    rgba(0, 0, 0, 0.16) var(--pct, 0%) 100%
+  );
+}
+
+input[type='range'].site-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  margin-top: -3.5px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--site-range-color, #0078d4);
+}
+
+input[type='range'].site-range::-moz-range-track {
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+input[type='range'].site-range::-moz-range-progress {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--site-range-color, #0078d4);
+}
+
+input[type='range'].site-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--site-range-color, #0078d4);
+}
+
+input[type='range'].site-range:focus-visible {
+  outline: 2px solid var(--site-range-color, #0078d4);
+  outline-offset: 3px;
+}
+
+@media (forced-colors: active) {
+  input[type='range'].site-range::-webkit-slider-runnable-track {
+    background: CanvasText;
+  }
+
+  input[type='range'].site-range::-webkit-slider-thumb,
+  input[type='range'].site-range::-moz-range-thumb {
+    background: Highlight;
+  }
+}
+
+@media (max-width: 640px) {
+  .site-nav-bar {
+    gap: 14px !important;
+    padding: 0 16px !important;
+    height: auto !important;
+    min-height: 48px;
+    flex-wrap: wrap;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+    overflow: hidden;
+  }
+
+  .site-nav-scroll {
+    order: 3;
+    flex: 0 0 100% !important;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .site-nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .site-nav-actions {
+    order: 2;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+}

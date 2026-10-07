@@ -1,0 +1,234 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "size": {
+      "field": "Size",
+      "type": "quantitative",
+      "scale": {
+        "type": "sqrt",
+        "zero": true,
+        "range": [
+          9,
+          361
+        ]
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "X": 25.4,
+        "Group": "Electronics",
+        "Size": 20.9
+      },
+      {
+        "X": 0.4,
+        "Group": "Clothing",
+        "Size": 91
+      },
+      {
+        "X": 10.4,
+        "Group": "Food",
+        "Size": 8.3
+      },
+      {
+        "X": 81.2,
+        "Group": "Books",
+        "Size": 39.2
+      },
+      {
+        "X": 59.1,
+        "Group": "Sports",
+        "Size": 52.4
+      },
+      {
+        "X": 99.3,
+        "Group": "Electronics",
+        "Size": 16.7
+      },
+      {
+        "X": 92.7,
+        "Group": "Clothing",
+        "Size": 49.9
+      },
+      {
+        "X": 17.2,
+        "Group": "Food",
+        "Size": 34
+      },
+      {
+        "X": 99.3,
+        "Group": "Books",
+        "Size": 92.6
+      },
+      {
+        "X": 89.8,
+        "Group": "Sports",
+        "Size": 55.5
+      },
+      {
+        "X": 41.9,
+        "Group": "Electronics",
+        "Size": 73.8
+      },
+      {
+        "X": 97.9,
+        "Group": "Clothing",
+        "Size": 13.7
+      },
+      {
+        "X": 71.6,
+        "Group": "Food",
+        "Size": 62.1
+      },
+      {
+        "X": 13.8,
+        "Group": "Books",
+        "Size": 21.3
+      },
+      {
+        "X": 50.5,
+        "Group": "Sports",
+        "Size": 66.6
+      },
+      {
+        "X": 86.2,
+        "Group": "Electronics",
+        "Size": 41.2
+      },
+      {
+        "X": 19.9,
+        "Group": "Clothing",
+        "Size": 54.3
+      },
+      {
+        "X": 24.1,
+        "Group": "Food",
+        "Size": 19.6
+      },
+      {
+        "X": 40.9,
+        "Group": "Books",
+        "Size": 61.4
+      },
+      {
+        "X": 0.4,
+        "Group": "Sports",
+        "Size": 7.6
+      },
+      {
+        "X": 5.4,
+        "Group": "Electronics",
+        "Size": 25.4
+      },
+      {
+        "X": 4.7,
+        "Group": "Clothing",
+        "Size": 52.8
+      },
+      {
+        "X": 56.7,
+        "Group": "Food",
+        "Size": 72.3
+      },
+      {
+        "X": 76.2,
+        "Group": "Books",
+        "Size": 28.8
+      },
+      {
+        "X": 21.1,
+        "Group": "Sports",
+        "Size": 63.5
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "row": {
+      "field": "Facet",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Facet: Value"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 155
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerRow": {
+      "labelLimit": 155
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 23
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Electronics",
+        "Value": 166,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 546,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Food",
+        "Value": 272,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Books",
+        "Value": 466,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Sports",
+        "Value": 385,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Home",
+        "Value": 94,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Garden",
+        "Value": 158,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Auto",
+        "Value": 538,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Health",
+        "Value": 425,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 271,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Toys",
+        "Value": 505,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Music",
+        "Value": 162,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Movies",
+        "Value": 480,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Software",
+        "Value": 375,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Games",
+        "Value": 463,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Office",
+        "Value": 178,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Pet",
+        "Value": 347,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Baby",
+        "Value": 426,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Tools",
+        "Value": 450,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 338,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 113,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 496,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Food",
+        "Value": 419,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Books",
+        "Value": 523,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Sports",
+        "Value": 319,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Home",
+        "Value": 312,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Garden",
+        "Value": 147,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Auto",
+        "Value": 168,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Health",
+        "Value": 151,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 454,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Toys",
+        "Value": 294,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Music",
+        "Value": 368,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Movies",
+        "Value": 472,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Software",
+        "Value": 310,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Games",
+        "Value": 206,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Office",
+        "Value": 223,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Pet",
+        "Value": 83,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Baby",
+        "Value": 173,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Tools",
+        "Value": 394,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 495,
+        "Facet": "Clothing"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 155,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

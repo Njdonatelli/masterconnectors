@@ -1,0 +1,521 @@
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import type {
+  SearchEngine,
+  SearchEngineOptions,
+  RawSearchResult,
+} from '../../../../src/types.js';
+import type { EngineEntry } from '../../../../src/search/core/engine-base.js';
+
+const verticalState: {
+  general: EngineEntry[];
+  news: EngineEntry[];
+  code: EngineEntry[];
+  docs: EngineEntry[];
+  papers: EngineEntry[];
+} = { general: [], news: [], code: [], docs: [], papers: [] };
+
+vi.mock('../../../../src/search/core/verticals/general.js', () => ({
+  getGeneralEngines: () => verticalState.general,
+  _resetGeneralEnginesForTest: () => {
+    verticalState.general = [];
+  },
+}));
+vi.mock('../../../../src/search/core/verticals/news.js', () => ({
+  getNewsEngines: () => verticalState.news,
+  _resetNewsEnginesForTest: () => {
+    verticalState.news = [];
+  },
+}));
+vi.mock('../../../../src/search/core/verticals/code.js', () => ({
+  getCodeEngines: () => verticalState.code,
+  _resetCodeEnginesForTest: () => {
+    verticalState.code = [];
+  },
+}));
+vi.mock('../../../../src/search/core/verticals/docs.js', () => ({
+  getDocsEngines: () => verticalState.docs,
+  _resetDocsEnginesForTest: () => {
+    verticalState.docs = [];
+  },
+}));
+vi.mock('../../../../src/search/core/verticals/papers.js', () => ({
+  getPapersEngines: () => verticalState.papers,
+  _resetPapersEnginesForTest: () => {
+    verticalState.papers = [];
+  },
+}));
+
+const { runV1Search } = await import('../../../../src/search/core/orchestrator.js');
+
+function makeResult(
+  engineName: string,
+  url: string,
+  title: string,
+  snippet: string,
+): RawSearchResult {
+  return { title, url, snippet, relevance_score: 1, engine: engineName };
+}
+
+type EngineQualityTier = 'high' | 'medium' | 'low';
+
+function makeEntry(
+  name: string,
+  results: RawSearchResult[],
+  extra: { weight?: number; quality?: EngineQualityTier } = {},
+): EngineEntry & { quality?: EngineQualityTier } {
+  const engine: SearchEngine = {
+    name,
+    search: vi.fn(async (_q: string, _opts?: SearchEngineOptions) => results),
+  };
+  return {
+    engine,
+    ...(extra.weight !== undefined ? { weight: extra.weight } : {}),
+    ...(extra.quality !== undefined ? { quality: extra.quality } : {}),
+  };
+}
+
+beforeEach(() => {
+  verticalState.general = [];
+  verticalState.news = [];
+  verticalState.code = [];
+  verticalState.docs = [];
+  verticalState.papers = [];
+});
+
+describe('runV1Search — brand-collision rank (sub-ticket 2.1)', () => {
+  it('demotes a brand-domain hit below the canonical docs hit', async () => {
+    // Single engine, brand-domain at rank 1 (higher RRF base), canonical at rank 2.
+    const engine = makeEntry('bing', [
+      makeResult(
+        'bing',
+        'https://www.next.co.uk/women',
+        "Women's Clothing | Next Official Site",
+        "Shop women's clothing, dresses, tops and shoes at Next.",
+      ),
+      makeResult(
+        'bing',
+        'https://nextjs.org/docs/app/api-reference/functions/server-actions',
+        'Next.js 15 — Server Actions | App Router',
+        'Server Actions caching rules, revalidation, and form behaviour in the App Router.',
+      ),
+    ]);
+    verticalState.general = [engine];
+
+    const out = await runV1Search({
+      query: 'next.js 15 app router server actions caching rules',
+    });
+
+    expect(out.results.length).toBeGreaterThanOrEqual(2);
+    const canonicalIdx = out.results.findIndex((r) => r.url.startsWith('https://nextjs.org/'));
+    const brandIdx = out.results.findIndex((r) => r.url.startsWith('https://www.next.co.uk/'));
+    expect(canonicalIdx).toBeGreaterThanOrEqual(0);
+    expect(brandIdx).toBeGreaterThanOrEqual(0);
+    expect(canonicalIdx).toBeLessThan(brandIdx);
+  });
+
+  it('keeps canonical docs at relevance_score 1.0 after normalisation', async () => {
+    const engine = makeEntry('bing', [
+      makeResult(
+        'bing',
+        'https://nextjs.org/docs/app',
+        'Next.js 15 App Router',
+        'Server actions caching guide.',
+      ),
+      makeResult(
+        'bing',
+        'https://www.next.co.uk/',
+        'Next Clothing',
+        'Fashion store homepage.',
+      ),
+    ]);
+    verticalState.general = [engine];
+
+    const out = await runV1Search({
+      query: 'next.js 15 server actions caching',
+    });
+    const canonical = out.results.find((r) => r.url.startsWith('https://nextjs.org/'));
+    expect(canonical).toBeDefined();
+    expect(canonical!.relevance_score).toBeCloseTo(1, 5);
+  });
+
+  it('drops MDN HTML-element drift below pgvector-relevant sources on code queries', async () => {
+    const engine = makeEntry('bing', [
+      makeResult(
+        'bing',
+        'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/search',
+        'HTML <search> element',
+        'The <search> element semantically represents a search section.',
+      ),
+      makeResult(
+        'bing',
+        'https://jkatz.github.io/post/postgres/pgvector-hnsw-performance/',
+        'pgvector HNSW performance tuning',
+        'Tuning ef_search for pgvector HNSW indexes.',
+      ),
+    ]);
+    verticalState.code = [engine];
+
+    const out = await runV1Search({
+      query: 'pgvector HNSW ef_search tuning',
+      category: 'code',
+    });
+
+    const mdnIdx = out.results.findIndex((r) => r.url.includes('developer.mozilla.org'));
+    const pgvectorIdx = out.results.findIndex((r) => r.url.includes('jkatz.github.io'));
+    expect(pgvectorIdx).toBeGreaterThanOrEqual(0);
+    expect(mdnIdx === -1 || pgvectorIdx < mdnIdx).toBe(true);
+  });
+
+  // Tier-based RRF weighting. Previously every engine contributed equal RRF
+  // weight. With tier metadata, a high-tier engine's top hit should outrank a
+  // low-tier engine's top hit even when they're at the same rank position.
+  it('tier-based RRF: high-tier rank-1 outranks low-tier rank-1 on disjoint URLs', async () => {
+    // Both engines emit exactly one result at rank 1 with disjoint URLs.
+    // With tier weights high=1.0, low=0.5:
+    //   high: 1.0 / (60+1) ≈ 0.01639
+    //   low:  0.5 / (60+1) ≈ 0.00820
+    // So the high-tier URL must come first regardless of arrival order.
+    const lowEngine = makeEntry(
+      'low-quality',
+      [makeResult('low-quality', 'https://low.test/top', 'low result', 'unrelated body')],
+      { quality: 'low' },
+    );
+    const highEngine = makeEntry(
+      'high-quality',
+      [makeResult('high-quality', 'https://high.test/top', 'high result', 'unrelated body')],
+      { quality: 'high' },
+    );
+    // Arrival order: low first, then high. Without tier weighting the low-tier
+    // URL would tie or win on engine-arrival order.
+    verticalState.general = [lowEngine, highEngine];
+
+    const out = await runV1Search({ query: 'opaque query without lexical signal' });
+    expect(out.results.length).toBeGreaterThanOrEqual(2);
+    const highIdx = out.results.findIndex((r) => r.url === 'https://high.test/top');
+    const lowIdx = out.results.findIndex((r) => r.url === 'https://low.test/top');
+    expect(highIdx).toBeGreaterThanOrEqual(0);
+    expect(lowIdx).toBeGreaterThanOrEqual(0);
+    expect(highIdx).toBeLessThan(lowIdx);
+  });
+
+  it('tier-based RRF: same URL from two tiers does NOT alter dedup, only ranking', async () => {
+    // When both engines emit the same URL, the URL should appear exactly once
+    // (dedup unaffected) and the merged score should reflect both engines'
+    // tier-weighted contributions.
+    const sharedUrl = 'https://shared.test/x';
+    const highEngine = makeEntry(
+      'a',
+      [makeResult('a', sharedUrl, 'shared title', 'shared snippet')],
+      { quality: 'high' },
+    );
+    const lowEngine = makeEntry(
+      'b',
+      [makeResult('b', sharedUrl, 'shared title', 'shared snippet')],
+      { quality: 'low' },
+    );
+    verticalState.general = [highEngine, lowEngine];
+
+    const out = await runV1Search({ query: 'shared exact phrase' });
+    const occurrences = out.results.filter((r) => r.url === sharedUrl);
+    expect(occurrences.length).toBe(1);
+  });
+
+  it('tier-based RRF: explicit weight overrides numeric weight when quality is present', async () => {
+    // Legacy entries use `weight`. New entries from S11b will use `quality`.
+    // When BOTH are present, `quality` wins (forward-compat with S11b).
+    const heavyButLowTier = makeEntry(
+      'a',
+      [makeResult('a', 'https://a.test/top', 'a title', 'unrelated snippet body')],
+      { weight: 5.0, quality: 'low' },
+    );
+    const lightButHighTier = makeEntry(
+      'b',
+      [makeResult('b', 'https://b.test/top', 'b title', 'unrelated snippet body')],
+      { weight: 0.1, quality: 'high' },
+    );
+    verticalState.general = [heavyButLowTier, lightButHighTier];
+
+    const out = await runV1Search({ query: 'totally generic query no signal' });
+    // The high-tier engine wins despite the lower numeric weight because the
+    // tier metadata takes precedence over `weight`.
+    expect(out.results[0].url).toBe('https://b.test/top');
+  });
+
+  // S11c sub-area 2 — cross-engine canonical URL dedup. The merge step must
+  // canonicalize URLs BEFORE RRF fusion, so two engines emitting different
+  // variants of the same page (utm, AMP, mobile, trailing slash, protocol)
+  // contribute to a single RRF row rather than splitting the signal.
+  describe('canonical URL dedup at merge time', () => {
+    it('merges utm-tagged and untagged variants into one result', async () => {
+      const engineA = makeEntry('a', [
+        makeResult('a', 'https://foo.com/x?utm_source=newsletter', 'page x', 'body of x'),
+      ]);
+      const engineB = makeEntry('b', [
+        makeResult('b', 'https://foo.com/x', 'page x', 'body of x'),
+      ]);
+      verticalState.general = [engineA, engineB];
+
+      const out = await runV1Search({ query: 'foo bar baz some content' });
+      const matches = out.results.filter((r) => r.url.includes('foo.com/x'));
+      expect(matches.length).toBe(1);
+    });
+
+    it('merges AMP and non-AMP variants', async () => {
+      const engineA = makeEntry('a', [
+        makeResult('a', 'https://foo.com/amp/x', 'page x', 'body'),
+      ]);
+      const engineB = makeEntry('b', [
+        makeResult('b', 'https://foo.com/x', 'page x', 'body'),
+      ]);
+      verticalState.general = [engineA, engineB];
+
+      const out = await runV1Search({ query: 'foo bar baz some content' });
+      const matches = out.results.filter((r) => /foo\.com\/(amp\/)?x$/.test(r.url));
+      expect(matches.length).toBe(1);
+    });
+
+    it('merges mobile-subdomain and root variants', async () => {
+      const engineA = makeEntry('a', [
+        makeResult('a', 'https://m.foo.com/x', 'page x', 'body'),
+      ]);
+      const engineB = makeEntry('b', [
+        makeResult('b', 'https://foo.com/x', 'page x', 'body'),
+      ]);
+      verticalState.general = [engineA, engineB];
+
+      const out = await runV1Search({ query: 'foo bar baz some content' });
+      const matches = out.results.filter((r) => /foo\.com\/x/.test(r.url));
+      expect(matches.length).toBe(1);
+    });
+
+    it('merges http-trailing-slash and https variants', async () => {
+      const engineA = makeEntry('a', [
+        makeResult('a', 'http://foo.com/x', 'page x', 'body'),
+      ]);
+      const engineB = makeEntry('b', [
+        makeResult('b', 'https://foo.com/x/', 'page x', 'body'),
+      ]);
+      verticalState.general = [engineA, engineB];
+
+      const out = await runV1Search({ query: 'foo bar baz some content' });
+      const matches = out.results.filter((r) => /foo\.com\/x/.test(r.url));
+      expect(matches.length).toBe(1);
+    });
+
+    it('does NOT merge different paths under the same host', async () => {
+      const engineA = makeEntry('a', [
+        makeResult('a', 'https://foo.com/x', 'page x', 'body'),
+      ]);
+      const engineB = makeEntry('b', [
+        makeResult('b', 'https://foo.com/y', 'page y', 'body'),
+      ]);
+      verticalState.general = [engineA, engineB];
+
+      const out = await runV1Search({ query: 'foo bar baz some content' });
+      const x = out.results.filter((r) => r.url.endsWith('/x'));
+      const y = out.results.filter((r) => r.url.endsWith('/y'));
+      expect(x.length).toBe(1);
+      expect(y.length).toBe(1);
+    });
+
+    it('canonical dedup increases engine_consensus for the merged URL', async () => {
+      // Two engines, two URL variants that canonicalize to the same form.
+      // The merged result's evidence_score.components.engine_consensus must
+      // reflect both engines contributing, not split across two rows.
+      const engineA = makeEntry('a', [
+        makeResult('a', 'https://foo.com/x?utm_source=a', 'page', 'body'),
+      ]);
+      const engineB = makeEntry('b', [
+        makeResult('b', 'https://www.foo.com/x', 'page', 'body'),
+      ]);
+      verticalState.general = [engineA, engineB];
+
+      const out = await runV1Search({ query: 'foo bar baz some content' });
+      const merged = out.results.find((r) => /foo\.com\/x/.test(r.url));
+      expect(merged).toBeDefined();
+      expect(merged!.evidence_score?.components.engine_consensus).toBe(2);
+    });
+  });
+
+  it('emits _score_breakdown only when include_engine_outcomes is true', async () => {
+    const engine = makeEntry('bing', [
+      makeResult(
+        'bing',
+        'https://nextjs.org/docs/app',
+        'Next.js docs',
+        'Server actions caching.',
+      ),
+    ]);
+    verticalState.general = [engine];
+
+    const withFlag = await runV1Search({
+      query: 'next.js server actions',
+      includeScoreBreakdown: true,
+    });
+    expect(withFlag.results[0]._score_breakdown).toBeDefined();
+    expect(withFlag.results[0]._score_breakdown).toMatchObject({
+      base: expect.any(Number),
+      domain_quality: expect.any(Number),
+      lexical_alignment: expect.any(Number),
+      final: expect.any(Number),
+    });
+
+    const withoutFlag = await runV1Search({ query: 'next.js server actions' });
+    expect(withoutFlag.results[0]._score_breakdown).toBeUndefined();
+  });
+});
+
+// Gate (d): the orchestrator max-normalisation (relevance_score / maxFinal)
+// stretches the top result to 1.0 BY CONSTRUCTION. On a degraded pool whose top
+// pre-normalised score is below an absolute confidence floor, that stretch
+// manufactures a ~1.0 evidence score on a low-confidence junk survivor (the
+// live incident). The guard skips the stretch in exactly that case; every other
+// case (healthy pool, or a confident-degraded top) still normalises.
+function emptyEntry(name: string) {
+  return makeEntry(name, []);
+}
+
+describe('runV1Search — degraded-pool normalisation guard (gate d)', () => {
+  it('does NOT stretch a degraded pool with a weak zero-lexical top to 1.0', async () => {
+    // 3 engines dispatched, 2 empty -> primaryHealthy 1 < ceil(3/2)=2 = degraded.
+    // The lone survivor's single result shares NO token with the query (zero
+    // lexical) so its pre-normalised final is far below the confidence floor.
+    // The guard must leave it un-stretched (< 1.0), NOT normalise it to 1.0.
+    const survivor = makeEntry('bing', [
+      makeResult('bing', 'https://junk.example/jp', 'driving school reservation', 'lessons and pricing'),
+    ]);
+    verticalState.general = [survivor, emptyEntry('ddg'), emptyEntry('wikipedia')];
+
+    const out = await runV1Search({ query: 'kubernetes ingress controller', maxResults: 10 });
+    expect(out.results.length).toBeGreaterThanOrEqual(1);
+    const junk = out.results.find((r) => r.url === 'https://junk.example/jp')!;
+    // Without the guard, max-normalisation makes the single result exactly 1.0.
+    expect(junk.relevance_score).toBeLessThan(1);
+  });
+
+  it('STILL normalises a degraded pool whose top is confident (lexically strong)', async () => {
+    // Same degraded shape (1 of 3 healthy), but the survivor's result is
+    // lexically strong (shares every query token) so its pre-normalised final
+    // clears the confidence floor. The stretch-to-1.0 must still apply.
+    const survivor = makeEntry('bing', [
+      makeResult(
+        'bing',
+        'https://kubernetes.io/docs/ingress',
+        'kubernetes ingress controller setup',
+        'configure a kubernetes ingress controller',
+      ),
+    ]);
+    verticalState.general = [survivor, emptyEntry('ddg'), emptyEntry('wikipedia')];
+
+    const out = await runV1Search({ query: 'kubernetes ingress controller', maxResults: 10 });
+    const top = out.results.find((r) => r.url === 'https://kubernetes.io/docs/ingress')!;
+    expect(top.relevance_score).toBeCloseTo(1, 5);
+  });
+
+  it('MUST-STILL-NORMALISE: a HEALTHY low-score pool is normalised to 1.0', async () => {
+    // A single healthy engine (primaryHealthy 1 of 1 -> NOT degraded) returning
+    // a low-lexical result must still normalise the top to 1.0 — the guard is
+    // gated on pool degradation, never a query-wide low-score condition.
+    const engine = makeEntry('bing', [
+      makeResult('bing', 'https://only.example/x', 'unrelated homepage', 'nothing matching'),
+    ]);
+    verticalState.general = [engine];
+
+    const out = await runV1Search({ query: 'kubernetes ingress controller', maxResults: 10 });
+    expect(out.results[0].relevance_score).toBeCloseTo(1, 5);
+  });
+});
+
+describe('rare-term ranking', () => {
+  it('ranks the exact sqlite-vec doc above the generic sqlite.org homepage', async () => {
+    verticalState.general = [
+      makeEntry('e1', [
+        makeResult('e1', 'https://sqlite.org/', 'SQLite Home Page', 'small fast self-contained database'),
+        makeResult('e1', 'https://sqlite.org/download.html', 'SQLite Download', 'precompiled binaries'),
+        makeResult('e1', 'https://alexgarcia.xyz/sqlite-vec/', 'sqlite-vec: vec0 virtual tables', 'knn query syntax for vec0 virtual tables'),
+      ], { quality: 'high' }),
+    ];
+    const out = await runV1Search({ query: 'sqlite-vec vec0 virtual table knn query syntax', category: 'general' });
+    const urls = out.results.map((r) => r.url);
+    const docIdx = urls.indexOf('https://alexgarcia.xyz/sqlite-vec/');
+    const homeIdx = urls.indexOf('https://sqlite.org/');
+    // Encodes WHY: an exact compound-token match must outrank the generic
+    // high-authority homepage that merely shares the "sqlite" prefix.
+    expect(docIdx).toBeGreaterThanOrEqual(0);
+    expect(docIdx).toBeLessThan(homeIdx);
+    expect(out.results.slice(0, 2).map((r) => r.url)).toContain('https://alexgarcia.xyz/sqlite-vec/');
+  });
+
+  it('ranks the RRF concept page above the "reciprocal" dictionary page', async () => {
+    verticalState.general = [
+      makeEntry('e1', [
+        makeResult('e1', 'https://en.wikipedia.org/wiki/Multiplicative_inverse', 'Reciprocal (mathematics)', 'the reciprocal of a number x is 1/x'),
+        makeResult('e1', 'https://example.com/rrf', 'Reciprocal Rank Fusion explained', 'how reciprocal rank fusion combines result rankings'),
+      ], { quality: 'high' }),
+    ];
+    const out = await runV1Search({ query: 'reciprocal rank fusion explained', category: 'general' });
+    expect(out.results[0].url).toBe('https://example.com/rrf');
+  });
+});
+
+describe('error-token atomicity + dictionary demotion', () => {
+  it('demotes a dictionary definition below the issue/doc that carries the error token', async () => {
+    // On an error-code query the dictionary entry for the plain-English word
+    // in the code string is never the answer — the issue tracker / docs page
+    // is. WHY: an error code is a literal atom; a definition of "permission"
+    // does not help debug EACCES. The dictionary result must score strictly
+    // below the code/issue result.
+    verticalState.general = [
+      makeEntry('e1', [
+        makeResult(
+          'e1',
+          'https://www.merriam-webster.com/dictionary/permission',
+          'Permission definition',
+          'the act of permitting; formal consent.',
+        ),
+        makeResult(
+          'e1',
+          'https://github.com/nodejs/node/issues/9111',
+          'EACCES: permission denied when listening on port',
+          'Node throws EACCES: permission denied on listen for privileged ports.',
+        ),
+      ], { quality: 'high' }),
+    ];
+
+    const out = await runV1Search({ query: 'EACCES permission denied listen', category: 'general' });
+    const dictIdx = out.results.findIndex((r) => r.url.includes('merriam-webster.com'));
+    const codeIdx = out.results.findIndex((r) => r.url.includes('github.com'));
+    expect(codeIdx).toBeGreaterThanOrEqual(0);
+    expect(dictIdx).toBeGreaterThanOrEqual(0);
+    const dictScore = out.results[dictIdx].relevance_score;
+    const codeScore = out.results[codeIdx].relevance_score;
+    expect(dictScore).toBeLessThan(codeScore);
+  });
+
+  it('wraps an all-caps error token in quotes in the dispatched engineQuery', async () => {
+    // Substring lexical matching on an unquoted error string lets glossary
+    // junk rank; quoting forces engines to treat the code as one atom.
+    const entry = makeEntry('bing', [
+      makeResult('bing', 'https://example.com/x', 'x', 'body'),
+    ]);
+    verticalState.general = [entry];
+
+    await runV1Search({ query: 'ERR_PNPM_OUTDATED_LOCKFILE ci install', category: 'general' });
+    const spy = entry.engine.search as ReturnType<typeof vi.fn>;
+    expect(spy).toHaveBeenCalled();
+    const dispatchedQuery = spy.mock.calls[0][0] as string;
+    expect(dispatchedQuery).toContain('"ERR_PNPM_OUTDATED_LOCKFILE"');
+  });
+
+  it('keeps an all-caps code with digits atomic in the engineQuery', async () => {
+    const entry = makeEntry('bing', [
+      makeResult('bing', 'https://example.com/x', 'x', 'body'),
+    ]);
+    verticalState.general = [entry];
+
+    await runV1Search({ query: 'SQLSTATE 23505 unique violation', category: 'general' });
+    const spy = entry.engine.search as ReturnType<typeof vi.fn>;
+    const dispatchedQuery = spy.mock.calls[0][0] as string;
+    expect(dispatchedQuery).toContain('"SQLSTATE"');
+  });
+});

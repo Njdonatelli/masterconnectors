@@ -1,0 +1,148 @@
+{
+  "mark": "arc",
+  "encoding": {
+    "color": {
+      "field": "Slice",
+      "type": "nominal",
+      "legend": {
+        "symbolSize": 12,
+        "labelFontSize": 8
+      },
+      "sort": null,
+      "scale": {
+        "scheme": "tableau20"
+      }
+    },
+    "theta": {
+      "field": "Share",
+      "type": "quantitative"
+    }
+  },
+  "width": 600,
+  "height": 600,
+  "config": {
+    "view": {
+      "continuousWidth": 600,
+      "continuousHeight": 600
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Slice": "Slice01",
+        "Share": 2
+      },
+      {
+        "Slice": "Slice02",
+        "Share": 31
+      },
+      {
+        "Slice": "Slice03",
+        "Share": 41
+      },
+      {
+        "Slice": "Slice04",
+        "Share": 98
+      },
+      {
+        "Slice": "Slice05",
+        "Share": 16
+      },
+      {
+        "Slice": "Slice06",
+        "Share": 44
+      },
+      {
+        "Slice": "Slice07",
+        "Share": 57
+      },
+      {
+        "Slice": "Slice08",
+        "Share": 30
+      },
+      {
+        "Slice": "Slice09",
+        "Share": 95
+      },
+      {
+        "Slice": "Slice10",
+        "Share": 5
+      },
+      {
+        "Slice": "Slice11",
+        "Share": 26
+      },
+      {
+        "Slice": "Slice12",
+        "Share": 13
+      },
+      {
+        "Slice": "Slice13",
+        "Share": 45
+      },
+      {
+        "Slice": "Slice14",
+        "Share": 86
+      },
+      {
+        "Slice": "Slice15",
+        "Share": 20
+      },
+      {
+        "Slice": "Slice16",
+        "Share": 55
+      },
+      {
+        "Slice": "Slice17",
+        "Share": 73
+      },
+      {
+        "Slice": "Slice18",
+        "Share": 55
+      },
+      {
+        "Slice": "Slice19",
+        "Share": 13
+      },
+      {
+        "Slice": "Slice20",
+        "Share": 27
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Donut",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

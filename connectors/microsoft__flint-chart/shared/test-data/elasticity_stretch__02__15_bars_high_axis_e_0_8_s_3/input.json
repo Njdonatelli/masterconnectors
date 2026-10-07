@@ -1,0 +1,95 @@
+{
+  "title": "15 bars — high axis (e=0.8, s=3)",
+  "description": "15 x-categories, aggressive axis stretch",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "USA",
+          "Value": 215
+        },
+        {
+          "Category": "China",
+          "Value": 228
+        },
+        {
+          "Category": "Japan",
+          "Value": 105
+        },
+        {
+          "Category": "Germany",
+          "Value": 219
+        },
+        {
+          "Category": "UK",
+          "Value": 183
+        },
+        {
+          "Category": "France",
+          "Value": 463
+        },
+        {
+          "Category": "India",
+          "Value": 13
+        },
+        {
+          "Category": "Brazil",
+          "Value": 337
+        },
+        {
+          "Category": "Canada",
+          "Value": 33
+        },
+        {
+          "Category": "Australia",
+          "Value": 497
+        },
+        {
+          "Category": "South Korea",
+          "Value": 406
+        },
+        {
+          "Category": "Mexico",
+          "Value": 294
+        },
+        {
+          "Category": "Italy",
+          "Value": 479
+        },
+        {
+          "Category": "Spain",
+          "Value": 311
+        },
+        {
+          "Category": "Russia",
+          "Value": 444
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true,
+      "elasticity": 0.8,
+      "maxStretch": 3
+    }
+  }
+}

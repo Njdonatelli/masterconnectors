@@ -1,0 +1,71 @@
+import { useContext, useMemo } from 'react';
+import { Code2 } from 'lucide-react';
+import type { Field } from './types';
+import { FieldContext } from './FieldContext';
+import type { RoutinePayload } from '../../repo-types';
+
+type Props = {
+    field: Field;
+    value: string | undefined;
+    onChange: (v: string) => void;
+};
+
+export function RoutineRefField({ field, value, onChange }: Props) {
+    const { repoItems, onPickRoutine } = useContext(FieldContext);
+
+    const routines = useMemo(() => {
+        const items = repoItems.filter(i => i.type === 'routine');
+        if (!field.accepts || field.accepts.length === 0) return items;
+        const allowed = new Set(field.accepts);
+        return items.filter(i => {
+            const payload = i.payload as RoutinePayload | undefined;
+            return !payload?.language || allowed.has(payload.language);
+        });
+    }, [repoItems, field.accepts]);
+
+    if (routines.length === 0) {
+        return (
+            <div className="field-ref-empty">
+                <Code2 size={12} />
+                <span>
+                    No saved routines{field.accepts ? ' in compatible languages' : ''}. Create one
+                    in the <b>Routines</b> folder.
+                </span>
+            </div>
+        );
+    }
+
+    const handleChange = (id: string) => {
+        const item = id ? routines.find(r => r.id === id) : undefined;
+        const payload = item?.payload as RoutinePayload | undefined;
+        // When a routine is picked, route through onPickRoutine so the ref AND
+        // the inlined code land in a SINGLE properties update. Calling onChange
+        // (sets routineRef) and onPickRoutine separately made each spread a
+        // stale properties base, so the second clobbered the first and the
+        // selection never stuck (issue #78). Fall back to onChange only when
+        // clearing the selection or the routine payload isn't loaded.
+        if (id && payload && onPickRoutine) {
+            onPickRoutine(payload, id);
+        } else {
+            onChange(id);
+        }
+    };
+
+    return (
+        <select
+            className="field-input field-select"
+            value={value ?? ''}
+            onChange={e => handleChange(e.target.value)}
+        >
+            <option value="">- pick a saved routine -</option>
+            {routines.map(r => {
+                const payload = r.payload as RoutinePayload | undefined;
+                return (
+                    <option key={r.id} value={r.id}>
+                        {r.name} {payload?.language ? '· ' + payload.language : ''}
+                    </option>
+                );
+            })}
+        </select>
+    );
+}

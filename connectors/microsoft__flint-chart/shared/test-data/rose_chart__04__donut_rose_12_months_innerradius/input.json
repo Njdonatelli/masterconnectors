@@ -1,0 +1,84 @@
+{
+  "title": "Donut Rose (12 months, innerRadius)",
+  "description": "Monthly rainfall with inner radius — donut style rose",
+  "chartType": "Rose Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": "Jan",
+          "Rainfall": 32
+        },
+        {
+          "Month": "Feb",
+          "Rainfall": 34
+        },
+        {
+          "Month": "Mar",
+          "Rainfall": 120
+        },
+        {
+          "Month": "Apr",
+          "Rainfall": 54
+        },
+        {
+          "Month": "May",
+          "Rainfall": 110
+        },
+        {
+          "Month": "Jun",
+          "Rainfall": 155
+        },
+        {
+          "Month": "Jul",
+          "Rainfall": 88
+        },
+        {
+          "Month": "Aug",
+          "Rainfall": 65
+        },
+        {
+          "Month": "Sep",
+          "Rainfall": 31
+        },
+        {
+          "Month": "Oct",
+          "Rainfall": 95
+        },
+        {
+          "Month": "Nov",
+          "Rainfall": 147
+        },
+        {
+          "Month": "Dec",
+          "Rainfall": 163
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Rainfall": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Rose Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Rainfall"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "innerRadius": 40
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

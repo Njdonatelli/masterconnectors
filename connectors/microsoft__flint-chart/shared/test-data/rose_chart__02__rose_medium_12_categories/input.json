@@ -1,0 +1,81 @@
+{
+  "title": "Rose (medium, 12 categories)",
+  "description": "12 categories — tests angular spacing with more slices",
+  "chartType": "Rose Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Electronics",
+          "Value": 77
+        },
+        {
+          "Category": "Clothing",
+          "Value": 82
+        },
+        {
+          "Category": "Food",
+          "Value": 93
+        },
+        {
+          "Category": "Books",
+          "Value": 72
+        },
+        {
+          "Category": "Sports",
+          "Value": 70
+        },
+        {
+          "Category": "Home",
+          "Value": 96
+        },
+        {
+          "Category": "Garden",
+          "Value": 82
+        },
+        {
+          "Category": "Auto",
+          "Value": 26
+        },
+        {
+          "Category": "Health",
+          "Value": 98
+        },
+        {
+          "Category": "Beauty",
+          "Value": 15
+        },
+        {
+          "Category": "Toys",
+          "Value": 23
+        },
+        {
+          "Category": "Music",
+          "Value": 55
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Rose Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

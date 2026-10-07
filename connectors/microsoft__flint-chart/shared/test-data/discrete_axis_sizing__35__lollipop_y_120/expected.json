@@ -1,0 +1,614 @@
+{
+  "encoding": {},
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "field": "GDP",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 80
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "field": "GDP",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 7
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 7
+  },
+  "data": {
+    "values": [
+      {
+        "Country": "Country001",
+        "GDP": 3908
+      },
+      {
+        "Country": "Country002",
+        "GDP": 4615
+      },
+      {
+        "Country": "Country003",
+        "GDP": 1456
+      },
+      {
+        "Country": "Country004",
+        "GDP": 1399
+      },
+      {
+        "Country": "Country005",
+        "GDP": 4206
+      },
+      {
+        "Country": "Country006",
+        "GDP": 4061
+      },
+      {
+        "Country": "Country007",
+        "GDP": 2640
+      },
+      {
+        "Country": "Country008",
+        "GDP": 3533
+      },
+      {
+        "Country": "Country009",
+        "GDP": 3565
+      },
+      {
+        "Country": "Country010",
+        "GDP": 4100
+      },
+      {
+        "Country": "Country011",
+        "GDP": 4257
+      },
+      {
+        "Country": "Country012",
+        "GDP": 2118
+      },
+      {
+        "Country": "Country013",
+        "GDP": 2824
+      },
+      {
+        "Country": "Country014",
+        "GDP": 188
+      },
+      {
+        "Country": "Country015",
+        "GDP": 2645
+      },
+      {
+        "Country": "Country016",
+        "GDP": 816
+      },
+      {
+        "Country": "Country017",
+        "GDP": 2979
+      },
+      {
+        "Country": "Country018",
+        "GDP": 1581
+      },
+      {
+        "Country": "Country019",
+        "GDP": 1105
+      },
+      {
+        "Country": "Country020",
+        "GDP": 1760
+      },
+      {
+        "Country": "Country021",
+        "GDP": 1913
+      },
+      {
+        "Country": "Country022",
+        "GDP": 386
+      },
+      {
+        "Country": "Country023",
+        "GDP": 3356
+      },
+      {
+        "Country": "Country024",
+        "GDP": 2065
+      },
+      {
+        "Country": "Country025",
+        "GDP": 2591
+      },
+      {
+        "Country": "Country026",
+        "GDP": 3783
+      },
+      {
+        "Country": "Country027",
+        "GDP": 4536
+      },
+      {
+        "Country": "Country028",
+        "GDP": 808
+      },
+      {
+        "Country": "Country029",
+        "GDP": 4432
+      },
+      {
+        "Country": "Country030",
+        "GDP": 1109
+      },
+      {
+        "Country": "Country031",
+        "GDP": 4018
+      },
+      {
+        "Country": "Country032",
+        "GDP": 1503
+      },
+      {
+        "Country": "Country033",
+        "GDP": 3716
+      },
+      {
+        "Country": "Country034",
+        "GDP": 3002
+      },
+      {
+        "Country": "Country035",
+        "GDP": 3856
+      },
+      {
+        "Country": "Country036",
+        "GDP": 554
+      },
+      {
+        "Country": "Country037",
+        "GDP": 745
+      },
+      {
+        "Country": "Country038",
+        "GDP": 989
+      },
+      {
+        "Country": "Country039",
+        "GDP": 3665
+      },
+      {
+        "Country": "Country040",
+        "GDP": 874
+      },
+      {
+        "Country": "Country041",
+        "GDP": 1501
+      },
+      {
+        "Country": "Country042",
+        "GDP": 3947
+      },
+      {
+        "Country": "Country043",
+        "GDP": 1558
+      },
+      {
+        "Country": "Country044",
+        "GDP": 1105
+      },
+      {
+        "Country": "Country045",
+        "GDP": 3689
+      },
+      {
+        "Country": "Country046",
+        "GDP": 4921
+      },
+      {
+        "Country": "Country047",
+        "GDP": 2634
+      },
+      {
+        "Country": "Country048",
+        "GDP": 3449
+      },
+      {
+        "Country": "Country049",
+        "GDP": 3327
+      },
+      {
+        "Country": "Country050",
+        "GDP": 3008
+      },
+      {
+        "Country": "Country051",
+        "GDP": 1031
+      },
+      {
+        "Country": "Country052",
+        "GDP": 876
+      },
+      {
+        "Country": "Country053",
+        "GDP": 650
+      },
+      {
+        "Country": "Country054",
+        "GDP": 4050
+      },
+      {
+        "Country": "Country055",
+        "GDP": 724
+      },
+      {
+        "Country": "Country056",
+        "GDP": 2461
+      },
+      {
+        "Country": "Country057",
+        "GDP": 2575
+      },
+      {
+        "Country": "Country058",
+        "GDP": 3943
+      },
+      {
+        "Country": "Country059",
+        "GDP": 4115
+      },
+      {
+        "Country": "Country060",
+        "GDP": 3753
+      },
+      {
+        "Country": "Country061",
+        "GDP": 1320
+      },
+      {
+        "Country": "Country062",
+        "GDP": 1893
+      },
+      {
+        "Country": "Country063",
+        "GDP": 3802
+      },
+      {
+        "Country": "Country064",
+        "GDP": 227
+      },
+      {
+        "Country": "Country065",
+        "GDP": 2734
+      },
+      {
+        "Country": "Country066",
+        "GDP": 1702
+      },
+      {
+        "Country": "Country067",
+        "GDP": 2492
+      },
+      {
+        "Country": "Country068",
+        "GDP": 660
+      },
+      {
+        "Country": "Country069",
+        "GDP": 551
+      },
+      {
+        "Country": "Country070",
+        "GDP": 1589
+      },
+      {
+        "Country": "Country071",
+        "GDP": 108
+      },
+      {
+        "Country": "Country072",
+        "GDP": 4749
+      },
+      {
+        "Country": "Country073",
+        "GDP": 1487
+      },
+      {
+        "Country": "Country074",
+        "GDP": 4744
+      },
+      {
+        "Country": "Country075",
+        "GDP": 2804
+      },
+      {
+        "Country": "Country076",
+        "GDP": 1451
+      },
+      {
+        "Country": "Country077",
+        "GDP": 438
+      },
+      {
+        "Country": "Country078",
+        "GDP": 3394
+      },
+      {
+        "Country": "Country079",
+        "GDP": 1066
+      },
+      {
+        "Country": "Country080",
+        "GDP": 4830
+      },
+      {
+        "Country": "Country081",
+        "GDP": 2389
+      },
+      {
+        "Country": "Country082",
+        "GDP": 2380
+      },
+      {
+        "Country": "Country083",
+        "GDP": 4739
+      },
+      {
+        "Country": "Country084",
+        "GDP": 518
+      },
+      {
+        "Country": "Country085",
+        "GDP": 1549
+      },
+      {
+        "Country": "Country086",
+        "GDP": 2518
+      },
+      {
+        "Country": "Country087",
+        "GDP": 3184
+      },
+      {
+        "Country": "Country088",
+        "GDP": 397
+      },
+      {
+        "Country": "Country089",
+        "GDP": 3595
+      },
+      {
+        "Country": "Country090",
+        "GDP": 3936
+      },
+      {
+        "Country": "Country091",
+        "GDP": 4101
+      },
+      {
+        "Country": "Country092",
+        "GDP": 228
+      },
+      {
+        "Country": "Country093",
+        "GDP": 4858
+      },
+      {
+        "Country": "Country094",
+        "GDP": 2347
+      },
+      {
+        "Country": "Country095",
+        "GDP": 2669
+      },
+      {
+        "Country": "Country096",
+        "GDP": 4338
+      },
+      {
+        "Country": "Country097",
+        "GDP": 2444
+      },
+      {
+        "Country": "Country098",
+        "GDP": 3270
+      },
+      {
+        "Country": "Country099",
+        "GDP": 3504
+      },
+      {
+        "Country": "Country100",
+        "GDP": 1066
+      },
+      {
+        "Country": "Country101",
+        "GDP": 458
+      },
+      {
+        "Country": "Country102",
+        "GDP": 4879
+      },
+      {
+        "Country": "Country103",
+        "GDP": 3325
+      },
+      {
+        "Country": "Country104",
+        "GDP": 3549
+      },
+      {
+        "Country": "Country105",
+        "GDP": 4144
+      },
+      {
+        "Country": "Country106",
+        "GDP": 4891
+      },
+      {
+        "Country": "Country107",
+        "GDP": 4920
+      },
+      {
+        "Country": "Country108",
+        "GDP": 4715
+      },
+      {
+        "Country": "Country109",
+        "GDP": 868
+      },
+      {
+        "Country": "Country110",
+        "GDP": 1623
+      },
+      {
+        "Country": "Country111",
+        "GDP": 563
+      },
+      {
+        "Country": "Country112",
+        "GDP": 3409
+      },
+      {
+        "Country": "Country113",
+        "GDP": 2540
+      },
+      {
+        "Country": "Country114",
+        "GDP": 2252
+      },
+      {
+        "Country": "Country115",
+        "GDP": 1820
+      },
+      {
+        "Country": "Country116",
+        "GDP": 4681
+      },
+      {
+        "Country": "Country117",
+        "GDP": 3995
+      },
+      {
+        "Country": "Country118",
+        "GDP": 4098
+      },
+      {
+        "Country": "Country119",
+        "GDP": 4079
+      },
+      {
+        "Country": "Country120",
+        "GDP": 483
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "dotSize",
+      "label": "Dot Size",
+      "type": "continuous",
+      "min": 20,
+      "max": 300,
+      "step": 10,
+      "defaultValue": 80,
+      "applicable": true,
+      "value": 80
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

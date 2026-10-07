@@ -1,0 +1,270 @@
+{
+  "encoding": {
+    "theta": {
+      "field": "Product",
+      "type": "nominal",
+      "sort": null,
+      "stack": true
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "stroke": "white",
+        "padAngle": 0.02
+      },
+      "encoding": {
+        "radius": {
+          "field": "Sales",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt"
+          },
+          "stack": true
+        },
+        "color": {
+          "field": "Region",
+          "type": "nominal",
+          "sort": [
+            "North",
+            "East",
+            "South",
+            "West"
+          ],
+          "scale": {
+            "scheme": "tableau10"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radiusOffset": 15,
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "Product",
+          "type": "nominal"
+        },
+        "radius": {
+          "field": "Sales",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt"
+          }
+        }
+      },
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "Sales",
+              "as": "Sales"
+            }
+          ],
+          "groupby": [
+            "Product"
+          ]
+        }
+      ]
+    }
+  ],
+  "width": 285,
+  "height": 285,
+  "config": {
+    "view": {
+      "continuousWidth": 285,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Product": "Laptop",
+        "Sales": 597,
+        "Region": "North"
+      },
+      {
+        "Product": "Laptop",
+        "Sales": 458,
+        "Region": "South"
+      },
+      {
+        "Product": "Laptop",
+        "Sales": 272,
+        "Region": "East"
+      },
+      {
+        "Product": "Laptop",
+        "Sales": 242,
+        "Region": "West"
+      },
+      {
+        "Product": "Phone",
+        "Sales": 252,
+        "Region": "North"
+      },
+      {
+        "Product": "Phone",
+        "Sales": 480,
+        "Region": "South"
+      },
+      {
+        "Product": "Phone",
+        "Sales": 216,
+        "Region": "East"
+      },
+      {
+        "Product": "Phone",
+        "Sales": 659,
+        "Region": "West"
+      },
+      {
+        "Product": "Tablet",
+        "Sales": 207,
+        "Region": "North"
+      },
+      {
+        "Product": "Tablet",
+        "Sales": 978,
+        "Region": "South"
+      },
+      {
+        "Product": "Tablet",
+        "Sales": 929,
+        "Region": "East"
+      },
+      {
+        "Product": "Tablet",
+        "Sales": 943,
+        "Region": "West"
+      },
+      {
+        "Product": "Desktop",
+        "Sales": 376,
+        "Region": "North"
+      },
+      {
+        "Product": "Desktop",
+        "Sales": 437,
+        "Region": "South"
+      },
+      {
+        "Product": "Desktop",
+        "Sales": 783,
+        "Region": "East"
+      },
+      {
+        "Product": "Desktop",
+        "Sales": 826,
+        "Region": "West"
+      },
+      {
+        "Product": "Monitor",
+        "Sales": 587,
+        "Region": "North"
+      },
+      {
+        "Product": "Monitor",
+        "Sales": 212,
+        "Region": "South"
+      },
+      {
+        "Product": "Monitor",
+        "Sales": 800,
+        "Region": "East"
+      },
+      {
+        "Product": "Monitor",
+        "Sales": 601,
+        "Region": "West"
+      },
+      {
+        "Product": "Keyboard",
+        "Sales": 811,
+        "Region": "North"
+      },
+      {
+        "Product": "Keyboard",
+        "Sales": 279,
+        "Region": "South"
+      },
+      {
+        "Product": "Keyboard",
+        "Sales": 750,
+        "Region": "East"
+      },
+      {
+        "Product": "Keyboard",
+        "Sales": 901,
+        "Region": "West"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Inner Radius",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "padAngle",
+      "label": "Gap",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.1,
+      "step": 0.005,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "alignment",
+      "label": "Alignment",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (default)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

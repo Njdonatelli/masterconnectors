@@ -1,0 +1,654 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Y",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "row": {
+      "field": "Row",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Row: Y"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 142,
+      "continuousHeight": 70
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerRow": {
+      "labelFontSize": 9,
+      "labelLimit": 70
+    },
+    "facet": {
+      "spacing": 7
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 11,
+        "Y": 88,
+        "Row": "Electronics"
+      },
+      {
+        "X": 19,
+        "Y": 94,
+        "Row": "Electronics"
+      },
+      {
+        "X": 62,
+        "Y": 81,
+        "Row": "Electronics"
+      },
+      {
+        "X": 58,
+        "Y": 33,
+        "Row": "Electronics"
+      },
+      {
+        "X": 80,
+        "Y": 22,
+        "Row": "Electronics"
+      },
+      {
+        "X": 12,
+        "Y": 32,
+        "Row": "Electronics"
+      },
+      {
+        "X": 34,
+        "Y": 35,
+        "Row": "Electronics"
+      },
+      {
+        "X": 45,
+        "Y": 84,
+        "Row": "Electronics"
+      },
+      {
+        "X": 83,
+        "Y": 47,
+        "Row": "Electronics"
+      },
+      {
+        "X": 93,
+        "Y": 77,
+        "Row": "Electronics"
+      },
+      {
+        "X": 63,
+        "Y": 93,
+        "Row": "Electronics"
+      },
+      {
+        "X": 39,
+        "Y": 93,
+        "Row": "Electronics"
+      },
+      {
+        "X": 88,
+        "Y": 49,
+        "Row": "Electronics"
+      },
+      {
+        "X": 53,
+        "Y": 77,
+        "Row": "Electronics"
+      },
+      {
+        "X": 79,
+        "Y": 60,
+        "Row": "Electronics"
+      },
+      {
+        "X": 39,
+        "Y": 25,
+        "Row": "Clothing"
+      },
+      {
+        "X": 98,
+        "Y": 14,
+        "Row": "Clothing"
+      },
+      {
+        "X": 31,
+        "Y": 49,
+        "Row": "Clothing"
+      },
+      {
+        "X": 75,
+        "Y": 18,
+        "Row": "Clothing"
+      },
+      {
+        "X": 13,
+        "Y": 83,
+        "Row": "Clothing"
+      },
+      {
+        "X": 22,
+        "Y": 69,
+        "Row": "Clothing"
+      },
+      {
+        "X": 83,
+        "Y": 42,
+        "Row": "Clothing"
+      },
+      {
+        "X": 83,
+        "Y": 91,
+        "Row": "Clothing"
+      },
+      {
+        "X": 54,
+        "Y": 100,
+        "Row": "Clothing"
+      },
+      {
+        "X": 57,
+        "Y": 76,
+        "Row": "Clothing"
+      },
+      {
+        "X": 48,
+        "Y": 34,
+        "Row": "Clothing"
+      },
+      {
+        "X": 82,
+        "Y": 29,
+        "Row": "Clothing"
+      },
+      {
+        "X": 44,
+        "Y": 67,
+        "Row": "Clothing"
+      },
+      {
+        "X": 11,
+        "Y": 85,
+        "Row": "Clothing"
+      },
+      {
+        "X": 97,
+        "Y": 16,
+        "Row": "Clothing"
+      },
+      {
+        "X": 45,
+        "Y": 13,
+        "Row": "Food"
+      },
+      {
+        "X": 48,
+        "Y": 26,
+        "Row": "Food"
+      },
+      {
+        "X": 70,
+        "Y": 22,
+        "Row": "Food"
+      },
+      {
+        "X": 55,
+        "Y": 97,
+        "Row": "Food"
+      },
+      {
+        "X": 20,
+        "Y": 28,
+        "Row": "Food"
+      },
+      {
+        "X": 43,
+        "Y": 83,
+        "Row": "Food"
+      },
+      {
+        "X": 88,
+        "Y": 64,
+        "Row": "Food"
+      },
+      {
+        "X": 89,
+        "Y": 12,
+        "Row": "Food"
+      },
+      {
+        "X": 84,
+        "Y": 33,
+        "Row": "Food"
+      },
+      {
+        "X": 40,
+        "Y": 96,
+        "Row": "Food"
+      },
+      {
+        "X": 48,
+        "Y": 39,
+        "Row": "Food"
+      },
+      {
+        "X": 47,
+        "Y": 98,
+        "Row": "Food"
+      },
+      {
+        "X": 88,
+        "Y": 94,
+        "Row": "Food"
+      },
+      {
+        "X": 46,
+        "Y": 26,
+        "Row": "Food"
+      },
+      {
+        "X": 40,
+        "Y": 75,
+        "Row": "Food"
+      },
+      {
+        "X": 28,
+        "Y": 67,
+        "Row": "Books"
+      },
+      {
+        "X": 36,
+        "Y": 76,
+        "Row": "Books"
+      },
+      {
+        "X": 94,
+        "Y": 67,
+        "Row": "Books"
+      },
+      {
+        "X": 98,
+        "Y": 25,
+        "Row": "Books"
+      },
+      {
+        "X": 44,
+        "Y": 12,
+        "Row": "Books"
+      },
+      {
+        "X": 21,
+        "Y": 34,
+        "Row": "Books"
+      },
+      {
+        "X": 33,
+        "Y": 19,
+        "Row": "Books"
+      },
+      {
+        "X": 100,
+        "Y": 22,
+        "Row": "Books"
+      },
+      {
+        "X": 41,
+        "Y": 48,
+        "Row": "Books"
+      },
+      {
+        "X": 67,
+        "Y": 68,
+        "Row": "Books"
+      },
+      {
+        "X": 47,
+        "Y": 25,
+        "Row": "Books"
+      },
+      {
+        "X": 33,
+        "Y": 43,
+        "Row": "Books"
+      },
+      {
+        "X": 27,
+        "Y": 83,
+        "Row": "Books"
+      },
+      {
+        "X": 46,
+        "Y": 28,
+        "Row": "Books"
+      },
+      {
+        "X": 18,
+        "Y": 56,
+        "Row": "Books"
+      },
+      {
+        "X": 35,
+        "Y": 84,
+        "Row": "Sports"
+      },
+      {
+        "X": 70,
+        "Y": 71,
+        "Row": "Sports"
+      },
+      {
+        "X": 88,
+        "Y": 20,
+        "Row": "Sports"
+      },
+      {
+        "X": 14,
+        "Y": 47,
+        "Row": "Sports"
+      },
+      {
+        "X": 31,
+        "Y": 42,
+        "Row": "Sports"
+      },
+      {
+        "X": 81,
+        "Y": 52,
+        "Row": "Sports"
+      },
+      {
+        "X": 87,
+        "Y": 36,
+        "Row": "Sports"
+      },
+      {
+        "X": 87,
+        "Y": 27,
+        "Row": "Sports"
+      },
+      {
+        "X": 26,
+        "Y": 49,
+        "Row": "Sports"
+      },
+      {
+        "X": 22,
+        "Y": 23,
+        "Row": "Sports"
+      },
+      {
+        "X": 73,
+        "Y": 52,
+        "Row": "Sports"
+      },
+      {
+        "X": 25,
+        "Y": 27,
+        "Row": "Sports"
+      },
+      {
+        "X": 62,
+        "Y": 93,
+        "Row": "Sports"
+      },
+      {
+        "X": 50,
+        "Y": 88,
+        "Row": "Sports"
+      },
+      {
+        "X": 42,
+        "Y": 51,
+        "Row": "Sports"
+      },
+      {
+        "X": 56,
+        "Y": 48,
+        "Row": "Home"
+      },
+      {
+        "X": 22,
+        "Y": 37,
+        "Row": "Home"
+      },
+      {
+        "X": 50,
+        "Y": 64,
+        "Row": "Home"
+      },
+      {
+        "X": 97,
+        "Y": 53,
+        "Row": "Home"
+      },
+      {
+        "X": 33,
+        "Y": 24,
+        "Row": "Home"
+      },
+      {
+        "X": 20,
+        "Y": 71,
+        "Row": "Home"
+      },
+      {
+        "X": 22,
+        "Y": 62,
+        "Row": "Home"
+      },
+      {
+        "X": 73,
+        "Y": 77,
+        "Row": "Home"
+      },
+      {
+        "X": 65,
+        "Y": 72,
+        "Row": "Home"
+      },
+      {
+        "X": 80,
+        "Y": 83,
+        "Row": "Home"
+      },
+      {
+        "X": 50,
+        "Y": 23,
+        "Row": "Home"
+      },
+      {
+        "X": 76,
+        "Y": 43,
+        "Row": "Home"
+      },
+      {
+        "X": 92,
+        "Y": 83,
+        "Row": "Home"
+      },
+      {
+        "X": 54,
+        "Y": 31,
+        "Row": "Home"
+      },
+      {
+        "X": 82,
+        "Y": 86,
+        "Row": "Home"
+      },
+      {
+        "X": 52,
+        "Y": 25,
+        "Row": "Garden"
+      },
+      {
+        "X": 41,
+        "Y": 49,
+        "Row": "Garden"
+      },
+      {
+        "X": 97,
+        "Y": 32,
+        "Row": "Garden"
+      },
+      {
+        "X": 23,
+        "Y": 65,
+        "Row": "Garden"
+      },
+      {
+        "X": 91,
+        "Y": 85,
+        "Row": "Garden"
+      },
+      {
+        "X": 42,
+        "Y": 81,
+        "Row": "Garden"
+      },
+      {
+        "X": 35,
+        "Y": 89,
+        "Row": "Garden"
+      },
+      {
+        "X": 46,
+        "Y": 39,
+        "Row": "Garden"
+      },
+      {
+        "X": 57,
+        "Y": 86,
+        "Row": "Garden"
+      },
+      {
+        "X": 37,
+        "Y": 64,
+        "Row": "Garden"
+      },
+      {
+        "X": 66,
+        "Y": 82,
+        "Row": "Garden"
+      },
+      {
+        "X": 35,
+        "Y": 32,
+        "Row": "Garden"
+      },
+      {
+        "X": 19,
+        "Y": 85,
+        "Row": "Garden"
+      },
+      {
+        "X": 34,
+        "Y": 24,
+        "Row": "Garden"
+      },
+      {
+        "X": 55,
+        "Y": 42,
+        "Row": "Garden"
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "1 of 8 values in 'Row' were omitted (showing top 7).",
+      "channel": "row",
+      "field": "Row"
+    }
+  ],
+  "_width": 142,
+  "_height": 70,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "title": "KPI: Multi-tile (Numeric quantities)",
+  "description": "Four tiles, plain numeric values with default `toLocaleString`.",
+  "chartType": "KPI Card",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Metric": "Active Users",
+          "Value": 12402
+        },
+        {
+          "Metric": "New Signups",
+          "Value": 1182
+        },
+        {
+          "Metric": "Churn",
+          "Value": 214
+        },
+        {
+          "Metric": "Power Users",
+          "Value": 876
+        }
+      ]
+    },
+    "semantic_types": {
+      "Metric": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "KPI Card",
+      "encodings": {
+        "metric": {
+          "field": "Metric"
+        },
+        "value": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "layout": "horizontal"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

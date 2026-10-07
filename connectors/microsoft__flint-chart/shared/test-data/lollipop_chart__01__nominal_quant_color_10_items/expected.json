@@ -1,0 +1,195 @@
+{
+  "encoding": {},
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "Product",
+          "type": "nominal",
+          "sort": null
+        },
+        "y": {
+          "field": "Sales",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y2": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 80
+      },
+      "encoding": {
+        "x": {
+          "field": "Product",
+          "type": "nominal",
+          "sort": null
+        },
+        "y": {
+          "field": "Sales",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "color": {
+          "field": "Region",
+          "type": "nominal",
+          "sort": [
+            "East",
+            "West"
+          ],
+          "scale": {
+            "scheme": "tableau10"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Product": "Laptop",
+        "Sales": 771,
+        "Region": "West"
+      },
+      {
+        "Product": "Phone",
+        "Sales": 691,
+        "Region": "West"
+      },
+      {
+        "Product": "Tablet",
+        "Sales": 818,
+        "Region": "West"
+      },
+      {
+        "Product": "Desktop",
+        "Sales": 747,
+        "Region": "East"
+      },
+      {
+        "Product": "Monitor",
+        "Sales": 252,
+        "Region": "West"
+      },
+      {
+        "Product": "Keyboard",
+        "Sales": 619,
+        "Region": "West"
+      },
+      {
+        "Product": "Mouse",
+        "Sales": 336,
+        "Region": "East"
+      },
+      {
+        "Product": "Headphones",
+        "Sales": 773,
+        "Region": "West"
+      },
+      {
+        "Product": "Speaker",
+        "Sales": 942,
+        "Region": "West"
+      },
+      {
+        "Product": "Camera",
+        "Sales": 575,
+        "Region": "West"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "dotSize",
+      "label": "Dot Size",
+      "type": "continuous",
+      "min": 20,
+      "max": 300,
+      "step": 10,
+      "defaultValue": 80,
+      "applicable": true,
+      "value": 80
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

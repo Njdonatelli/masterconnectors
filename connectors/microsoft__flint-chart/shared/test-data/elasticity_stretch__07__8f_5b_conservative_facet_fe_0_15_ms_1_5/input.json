@@ -1,0 +1,240 @@
+{
+  "title": "8F × 5B — conservative facet (fe=0.15, ms=1.5)",
+  "description": "8 column facets, 5 bars, conservative unified stretch",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Panel": "Engineering",
+          "Category": "Electronics",
+          "Value": 497
+        },
+        {
+          "Panel": "Engineering",
+          "Category": "Clothing",
+          "Value": 412
+        },
+        {
+          "Panel": "Engineering",
+          "Category": "Food",
+          "Value": 497
+        },
+        {
+          "Panel": "Engineering",
+          "Category": "Books",
+          "Value": 195
+        },
+        {
+          "Panel": "Engineering",
+          "Category": "Sports",
+          "Value": 436
+        },
+        {
+          "Panel": "Sales",
+          "Category": "Electronics",
+          "Value": 97
+        },
+        {
+          "Panel": "Sales",
+          "Category": "Clothing",
+          "Value": 434
+        },
+        {
+          "Panel": "Sales",
+          "Category": "Food",
+          "Value": 78
+        },
+        {
+          "Panel": "Sales",
+          "Category": "Books",
+          "Value": 381
+        },
+        {
+          "Panel": "Sales",
+          "Category": "Sports",
+          "Value": 507
+        },
+        {
+          "Panel": "Marketing",
+          "Category": "Electronics",
+          "Value": 27
+        },
+        {
+          "Panel": "Marketing",
+          "Category": "Clothing",
+          "Value": 466
+        },
+        {
+          "Panel": "Marketing",
+          "Category": "Food",
+          "Value": 16
+        },
+        {
+          "Panel": "Marketing",
+          "Category": "Books",
+          "Value": 448
+        },
+        {
+          "Panel": "Marketing",
+          "Category": "Sports",
+          "Value": 509
+        },
+        {
+          "Panel": "HR",
+          "Category": "Electronics",
+          "Value": 406
+        },
+        {
+          "Panel": "HR",
+          "Category": "Clothing",
+          "Value": 235
+        },
+        {
+          "Panel": "HR",
+          "Category": "Food",
+          "Value": 407
+        },
+        {
+          "Panel": "HR",
+          "Category": "Books",
+          "Value": 382
+        },
+        {
+          "Panel": "HR",
+          "Category": "Sports",
+          "Value": 54
+        },
+        {
+          "Panel": "Finance",
+          "Category": "Electronics",
+          "Value": 401
+        },
+        {
+          "Panel": "Finance",
+          "Category": "Clothing",
+          "Value": 218
+        },
+        {
+          "Panel": "Finance",
+          "Category": "Food",
+          "Value": 63
+        },
+        {
+          "Panel": "Finance",
+          "Category": "Books",
+          "Value": 455
+        },
+        {
+          "Panel": "Finance",
+          "Category": "Sports",
+          "Value": 446
+        },
+        {
+          "Panel": "Legal",
+          "Category": "Electronics",
+          "Value": 156
+        },
+        {
+          "Panel": "Legal",
+          "Category": "Clothing",
+          "Value": 262
+        },
+        {
+          "Panel": "Legal",
+          "Category": "Food",
+          "Value": 89
+        },
+        {
+          "Panel": "Legal",
+          "Category": "Books",
+          "Value": 240
+        },
+        {
+          "Panel": "Legal",
+          "Category": "Sports",
+          "Value": 219
+        },
+        {
+          "Panel": "Operations",
+          "Category": "Electronics",
+          "Value": 23
+        },
+        {
+          "Panel": "Operations",
+          "Category": "Clothing",
+          "Value": 454
+        },
+        {
+          "Panel": "Operations",
+          "Category": "Food",
+          "Value": 470
+        },
+        {
+          "Panel": "Operations",
+          "Category": "Books",
+          "Value": 175
+        },
+        {
+          "Panel": "Operations",
+          "Category": "Sports",
+          "Value": 317
+        },
+        {
+          "Panel": "Support",
+          "Category": "Electronics",
+          "Value": 80
+        },
+        {
+          "Panel": "Support",
+          "Category": "Clothing",
+          "Value": 355
+        },
+        {
+          "Panel": "Support",
+          "Category": "Food",
+          "Value": 309
+        },
+        {
+          "Panel": "Support",
+          "Category": "Books",
+          "Value": 19
+        },
+        {
+          "Panel": "Support",
+          "Category": "Sports",
+          "Value": 207
+        }
+      ]
+    },
+    "semantic_types": {
+      "Panel": "Category",
+      "Category": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "column": {
+          "field": "Panel"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true,
+      "elasticity": 0.5,
+      "maxStretch": 1.5,
+      "facetElasticity": 0.15
+    }
+  }
+}

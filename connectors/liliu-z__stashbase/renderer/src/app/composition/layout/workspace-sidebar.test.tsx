@@ -1,0 +1,246 @@
+import { cleanup, render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { afterEach, describe, expect, it, vi } from 'vite-plus/test';
+
+import { Providers } from '@/app/providers';
+import { App } from '@/app/shell';
+import { appDependencies } from '@/test/fakes/app';
+import { accountPort, SIGNED_IN_ACCOUNT, SIGNED_OUT_ACCOUNT } from '@/test/fakes/settings';
+import { filesApi, workspaceAdapters } from '@/test/fakes/workspace';
+
+afterEach(cleanup);
+
+/** A lazily mounted surface is allowed this long to arrive. */
+const LAZY = { timeout: 10_000 };
+/** And a test that waits for one has to outlive that wait: Vitest bounds a
+ *  test at five seconds by default, which no `LAZY` wait can ever reach. The
+ *  headroom above ten is for the slowest runner under coverage instrumentation,
+ *  where this file's work costs about ten times what it does locally. */
+const LAZY_TEST_MS = 20_000;
+
+describe('account row', () => {
+  it('sits at the foot of the sidebar and starts the browser sign-in in one click', async () => {
+    const account = accountPort();
+    const openExternal = vi.fn(async () => true);
+    const base = appDependencies();
+    render(
+      <Providers>
+        <App
+          dependencies={appDependencies({
+            documents: { ...base.documents, openExternal },
+            settings: { ...base.settings, accountApi: account },
+          })}
+        />
+      </Providers>,
+    );
+
+    // The row is the action alone; the free-credits offer lives in
+    // Settings → Agents, not in the sidebar's label.
+    const signIn = await screen.findByRole('button', { name: 'Sign in' });
+    await userEvent.setup().click(signIn);
+
+    await waitFor(() => expect(account.startSignIn).toHaveBeenCalledOnce());
+    expect(openExternal).toHaveBeenCalledWith('https://accounts.example/sign-in');
+    expect(await screen.findByRole('button', { name: 'Waiting for browser…' })).not.toBeNull();
+    await userEvent.setup().click(screen.getByRole('button', { name: 'Stop waiting' }));
+    await userEvent.setup().click(await screen.findByRole('button', { name: 'Sign in' }));
+    await waitFor(() => expect(account.startSignIn).toHaveBeenCalledTimes(2));
+  });
+
+  it(
+    'recovers account loading and shares the browser wait with Settings across reopening',
+    async () => {
+      const account = accountPort(SIGNED_OUT_ACCOUNT, {
+        load: vi
+          .fn()
+          .mockRejectedValueOnce(new Error('Disconnected'))
+          .mockResolvedValue(SIGNED_OUT_ACCOUNT),
+      });
+      const base = appDependencies();
+      render(
+        <Providers>
+          <App
+            dependencies={appDependencies({ settings: { ...base.settings, accountApi: account } })}
+          />
+        </Providers>,
+      );
+      const user = userEvent.setup();
+      await user.click(await screen.findByRole('button', { name: 'Retry account' }));
+      await user.click(await screen.findByRole('button', { name: 'Sign in' }));
+      await screen.findByRole('button', { name: 'Waiting for browser…' });
+      await user.click(screen.getByRole('button', { name: 'Settings' }));
+      await user.click(await screen.findByRole('button', { name: 'Agents' }, LAZY));
+      let dialog = within(screen.getByRole('dialog', { name: 'Settings' }));
+      expect(
+        dialog.getByRole<HTMLButtonElement>('button', { name: 'Waiting for browser…' }).disabled,
+      ).toBe(true);
+      expect(dialog.queryByRole('button', { name: 'Sign in' })).toBeNull();
+      await user.keyboard('{Escape}');
+      await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+      await user.click(screen.getByRole('button', { name: 'Settings' }));
+      dialog = within(await screen.findByRole('dialog', { name: 'Settings' }));
+      await user.click(dialog.getByRole('button', { name: 'Agents' }));
+      await user.click(await dialog.findByRole('button', { name: 'Stop waiting' }));
+      await user.keyboard('{Escape}');
+      await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
+      expect(screen.getByRole<HTMLButtonElement>('button', { name: 'Sign in' }).disabled).toBe(
+        false,
+      );
+      expect(account.startSignIn).toHaveBeenCalledOnce();
+    },
+    LAZY_TEST_MS,
+  );
+
+  it('names the signed-in person and offers credits, plans, and sign-out from a menu', async () => {
+    const account = accountPort(SIGNED_IN_ACCOUNT);
+    const base = appDependencies();
+    render(
+      <Providers>
+        <App
+          dependencies={appDependencies({
+            settings: { ...base.settings, accountApi: account },
+          })}
+        />
+      </Providers>,
+    );
+    const user = userEvent.setup();
+
+    await user.click(await screen.findByRole('button', { name: 'Account: Ada Lovelace' }));
+    const menu = await screen.findByRole('menu');
+    // The menu opens with the person as the initials disc — never a
+    // provider picture — beside the name and email.
+    expect(within(menu).getByText('AL')).not.toBeNull();
+    expect(within(menu).getByText('ada@example.com')).not.toBeNull();
+    expect(within(menu).getByText('Agent credits')).not.toBeNull();
+    expect(await within(menu).findByText('100%')).not.toBeNull();
+    expect(within(menu).getAllByRole('menuitem')).toHaveLength(3);
+    expect(within(menu).getByRole('menuitem', { name: 'Settings' })).not.toBeNull();
+    expect(within(menu).getByRole('menuitem', { name: 'Sign out' })).not.toBeNull();
+
+    // Plans and billing lands on the subscription, beside the credits.
+    await user.click(within(menu).getByRole('menuitem', { name: 'Plans and billing' }));
+    const dialog = within(await screen.findByRole('dialog', { name: 'Settings' }));
+    expect(await dialog.findByText(/Have a promotion code\?/)).not.toBeNull();
+    await user.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: 'Settings' })).toBeNull());
+
+    await user.click(screen.getByRole('button', { name: 'Account: Ada Lovelace' }));
+    await user.click(
+      within(await screen.findByRole('menu')).getByRole('menuitem', { name: 'Sign out' }),
+    );
+    await waitFor(() => expect(account.signOut).toHaveBeenCalledOnce());
+    expect(await screen.findByRole('button', { name: 'Sign in' })).not.toBeNull();
+  });
+});
+
+describe('account banners', () => {
+  it('offers sign-in once while signed out and remembers Not now', async () => {
+    const account = accountPort({ ...SIGNED_OUT_ACCOUNT, offers: ['sign-in'] });
+    const base = appDependencies();
+    render(
+      <Providers>
+        <App
+          dependencies={appDependencies({ settings: { ...base.settings, accountApi: account } })}
+        />
+      </Providers>,
+    );
+    const user = userEvent.setup();
+
+    expect(
+      await screen.findByText('Sign in for free Default Agent credits, valid for 7 days.'),
+    ).not.toBeNull();
+    await user.click(screen.getByRole('button', { name: 'Not now' }));
+    await waitFor(() =>
+      expect(account.markOfferSeen).toHaveBeenCalledWith('sign-in', expect.anything()),
+    );
+    expect(
+      screen.queryByText('Sign in for free Default Agent credits, valid for 7 days.'),
+    ).toBeNull();
+  });
+});
+
+describe('titlebar band', () => {
+  it(
+    'steps the document history, or the open Chats while Chats shows, and starts a draft from the New tab',
+    async () => {
+      const files = filesApi({
+        createEntry: vi.fn(async (_folder, _kind, parent, name) => ({
+          path: parent ? `${parent}/${name}` : name,
+        })),
+      });
+      const adapters = workspaceAdapters({ files });
+      render(
+        <Providers>
+          <App
+            dependencies={appDependencies({
+              workspace: { adapters, revealLabel: 'Show in file manager' },
+            })}
+          />
+        </Providers>,
+      );
+
+      // The strip's plus, the way into a New tab and from there a draft, sits
+      // on the card's title row rather than in the sidebar band: a draft is a
+      // document, and the card is where documents show.
+      const plus = await screen.findByRole('button', { name: 'New tab' });
+      expect(plus.closest('header')).not.toBeNull(); // dom-contract: the title row is the window's one header
+      const back = await screen.findByRole<HTMLButtonElement>('button', { name: 'Back' });
+      expect(back.disabled).toBe(true);
+      expect(screen.getByRole<HTMLButtonElement>('button', { name: 'Forward' }).disabled).toBe(
+        true,
+      );
+      expect(screen.queryByRole('button', { name: 'Previous chat' })).toBeNull();
+      expect(screen.queryByRole('button', { name: 'Next chat' })).toBeNull();
+
+      // In Chats mode the band's slot steps the open Chats instead, and the
+      // Documents strip leaves the column with its mode.
+      const user = userEvent.setup();
+      await user.click(screen.getByRole('tab', { name: 'Search' }));
+      await user.click(screen.getByRole('tab', { name: 'Chats' }));
+      expect(await screen.findByRole('button', { name: 'Previous chat' })).not.toBeNull();
+      expect(screen.getByRole('button', { name: 'Next chat' })).not.toBeNull();
+      expect(screen.queryByRole('button', { name: 'Back' })).toBeNull();
+      expect(screen.queryByRole('tab', { name: 'Files' })).toBeNull();
+      // The strip leaves the title row with the documents, plus and all.
+      await waitFor(
+        () => expect(screen.queryByRole('button', { name: 'New tab' })).toBeNull(),
+        LAZY,
+      );
+      // Documents comes back to the panel it left on, Search, not to Files.
+      await user.click(screen.getByRole('tab', { name: 'Documents' }));
+      expect(await screen.findByRole('button', { name: 'Back' })).not.toBeNull();
+      expect(screen.getByRole('tab', { name: 'Search' }).getAttribute('aria-selected')).toBe(
+        'true',
+      );
+      await user.click(screen.getByRole('tab', { name: 'Files' }));
+
+      // Collapsing the sidebar leaves the strip's plus where it was, and hands
+      // the one pair of history arrows to the titlebar rather than doubling
+      // them.
+      const plusAgain = await screen.findByRole('button', { name: 'New tab' });
+      await user.click(screen.getByRole('button', { name: 'Hide files sidebar' }));
+      await waitFor(() => expect(screen.getAllByRole('button', { name: 'Back' })).toHaveLength(1));
+      expect(screen.getByRole('button', { name: 'New tab' })).toBe(plusAgain);
+
+      // The plus seats the New tab, selected, with its page in the document
+      // slot. Create new draft makes Untitled.md at the root while nothing is
+      // selected and opens it at once as a kept tab, which takes the New tab
+      // away.
+      await user.click(plusAgain);
+      expect(screen.getByRole('tab', { name: 'New tab' }).getAttribute('aria-selected')).toBe(
+        'true',
+      );
+      await user.click(screen.getByRole('button', { name: 'Create new draft' }));
+      expect(await screen.findByRole('tab', { name: 'Untitled.md' }, LAZY)).not.toBeNull();
+      expect(screen.queryByRole('tab', { name: 'New tab' })).toBeNull();
+      expect(files.createEntry).toHaveBeenCalledWith(
+        expect.any(String),
+        'file',
+        '',
+        'Untitled.md',
+        expect.any(AbortSignal),
+      );
+    },
+    LAZY_TEST_MS,
+  );
+});

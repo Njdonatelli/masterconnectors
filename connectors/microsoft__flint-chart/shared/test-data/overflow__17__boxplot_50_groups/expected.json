@@ -1,0 +1,2092 @@
+{
+  "mark": {
+    "type": "boxplot",
+    "size": 10
+  },
+  "encoding": {
+    "x": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 205
+    },
+    "axisX": {
+      "labelLimit": 60,
+      "labelFontSize": 9,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 14
+  },
+  "data": {
+    "values": [
+      {
+        "Group": "Group01",
+        "Score": 25
+      },
+      {
+        "Group": "Group01",
+        "Score": 95
+      },
+      {
+        "Group": "Group01",
+        "Score": 93
+      },
+      {
+        "Group": "Group01",
+        "Score": 53
+      },
+      {
+        "Group": "Group01",
+        "Score": 43
+      },
+      {
+        "Group": "Group01",
+        "Score": 56
+      },
+      {
+        "Group": "Group01",
+        "Score": 55
+      },
+      {
+        "Group": "Group01",
+        "Score": 13
+      },
+      {
+        "Group": "Group01",
+        "Score": 6
+      },
+      {
+        "Group": "Group01",
+        "Score": 66
+      },
+      {
+        "Group": "Group02",
+        "Score": 80
+      },
+      {
+        "Group": "Group02",
+        "Score": 99
+      },
+      {
+        "Group": "Group02",
+        "Score": 84
+      },
+      {
+        "Group": "Group02",
+        "Score": 94
+      },
+      {
+        "Group": "Group02",
+        "Score": 75
+      },
+      {
+        "Group": "Group02",
+        "Score": 64
+      },
+      {
+        "Group": "Group02",
+        "Score": 65
+      },
+      {
+        "Group": "Group02",
+        "Score": 38
+      },
+      {
+        "Group": "Group02",
+        "Score": 22
+      },
+      {
+        "Group": "Group02",
+        "Score": 59
+      },
+      {
+        "Group": "Group03",
+        "Score": 29
+      },
+      {
+        "Group": "Group03",
+        "Score": 75
+      },
+      {
+        "Group": "Group03",
+        "Score": 44
+      },
+      {
+        "Group": "Group03",
+        "Score": 36
+      },
+      {
+        "Group": "Group03",
+        "Score": 91
+      },
+      {
+        "Group": "Group03",
+        "Score": 10
+      },
+      {
+        "Group": "Group03",
+        "Score": 78
+      },
+      {
+        "Group": "Group03",
+        "Score": 46
+      },
+      {
+        "Group": "Group03",
+        "Score": 53
+      },
+      {
+        "Group": "Group03",
+        "Score": 38
+      },
+      {
+        "Group": "Group04",
+        "Score": 77
+      },
+      {
+        "Group": "Group04",
+        "Score": 34
+      },
+      {
+        "Group": "Group04",
+        "Score": 96
+      },
+      {
+        "Group": "Group04",
+        "Score": 90
+      },
+      {
+        "Group": "Group04",
+        "Score": 25
+      },
+      {
+        "Group": "Group04",
+        "Score": 42
+      },
+      {
+        "Group": "Group04",
+        "Score": 52
+      },
+      {
+        "Group": "Group04",
+        "Score": 35
+      },
+      {
+        "Group": "Group04",
+        "Score": 8
+      },
+      {
+        "Group": "Group04",
+        "Score": 26
+      },
+      {
+        "Group": "Group05",
+        "Score": 28
+      },
+      {
+        "Group": "Group05",
+        "Score": 55
+      },
+      {
+        "Group": "Group05",
+        "Score": 62
+      },
+      {
+        "Group": "Group05",
+        "Score": 27
+      },
+      {
+        "Group": "Group05",
+        "Score": 89
+      },
+      {
+        "Group": "Group05",
+        "Score": 99
+      },
+      {
+        "Group": "Group05",
+        "Score": 42
+      },
+      {
+        "Group": "Group05",
+        "Score": 89
+      },
+      {
+        "Group": "Group05",
+        "Score": 63
+      },
+      {
+        "Group": "Group05",
+        "Score": 56
+      },
+      {
+        "Group": "Group06",
+        "Score": 83
+      },
+      {
+        "Group": "Group06",
+        "Score": 7
+      },
+      {
+        "Group": "Group06",
+        "Score": 45
+      },
+      {
+        "Group": "Group06",
+        "Score": 11
+      },
+      {
+        "Group": "Group06",
+        "Score": 17
+      },
+      {
+        "Group": "Group06",
+        "Score": 0
+      },
+      {
+        "Group": "Group06",
+        "Score": 51
+      },
+      {
+        "Group": "Group06",
+        "Score": 67
+      },
+      {
+        "Group": "Group06",
+        "Score": 84
+      },
+      {
+        "Group": "Group06",
+        "Score": 72
+      },
+      {
+        "Group": "Group07",
+        "Score": 21
+      },
+      {
+        "Group": "Group07",
+        "Score": 91
+      },
+      {
+        "Group": "Group07",
+        "Score": 13
+      },
+      {
+        "Group": "Group07",
+        "Score": 69
+      },
+      {
+        "Group": "Group07",
+        "Score": 21
+      },
+      {
+        "Group": "Group07",
+        "Score": 83
+      },
+      {
+        "Group": "Group07",
+        "Score": 77
+      },
+      {
+        "Group": "Group07",
+        "Score": 81
+      },
+      {
+        "Group": "Group07",
+        "Score": 93
+      },
+      {
+        "Group": "Group07",
+        "Score": 35
+      },
+      {
+        "Group": "Group08",
+        "Score": 50
+      },
+      {
+        "Group": "Group08",
+        "Score": 84
+      },
+      {
+        "Group": "Group08",
+        "Score": 93
+      },
+      {
+        "Group": "Group08",
+        "Score": 30
+      },
+      {
+        "Group": "Group08",
+        "Score": 94
+      },
+      {
+        "Group": "Group08",
+        "Score": 22
+      },
+      {
+        "Group": "Group08",
+        "Score": 42
+      },
+      {
+        "Group": "Group08",
+        "Score": 26
+      },
+      {
+        "Group": "Group08",
+        "Score": 5
+      },
+      {
+        "Group": "Group08",
+        "Score": 98
+      },
+      {
+        "Group": "Group09",
+        "Score": 82
+      },
+      {
+        "Group": "Group09",
+        "Score": 36
+      },
+      {
+        "Group": "Group09",
+        "Score": 89
+      },
+      {
+        "Group": "Group09",
+        "Score": 41
+      },
+      {
+        "Group": "Group09",
+        "Score": 10
+      },
+      {
+        "Group": "Group09",
+        "Score": 50
+      },
+      {
+        "Group": "Group09",
+        "Score": 34
+      },
+      {
+        "Group": "Group09",
+        "Score": 23
+      },
+      {
+        "Group": "Group09",
+        "Score": 46
+      },
+      {
+        "Group": "Group09",
+        "Score": 70
+      },
+      {
+        "Group": "Group10",
+        "Score": 52
+      },
+      {
+        "Group": "Group10",
+        "Score": 74
+      },
+      {
+        "Group": "Group10",
+        "Score": 0
+      },
+      {
+        "Group": "Group10",
+        "Score": 82
+      },
+      {
+        "Group": "Group10",
+        "Score": 75
+      },
+      {
+        "Group": "Group10",
+        "Score": 66
+      },
+      {
+        "Group": "Group10",
+        "Score": 25
+      },
+      {
+        "Group": "Group10",
+        "Score": 67
+      },
+      {
+        "Group": "Group10",
+        "Score": 88
+      },
+      {
+        "Group": "Group10",
+        "Score": 60
+      },
+      {
+        "Group": "Group11",
+        "Score": 49
+      },
+      {
+        "Group": "Group11",
+        "Score": 96
+      },
+      {
+        "Group": "Group11",
+        "Score": 26
+      },
+      {
+        "Group": "Group11",
+        "Score": 93
+      },
+      {
+        "Group": "Group11",
+        "Score": 69
+      },
+      {
+        "Group": "Group11",
+        "Score": 37
+      },
+      {
+        "Group": "Group11",
+        "Score": 2
+      },
+      {
+        "Group": "Group11",
+        "Score": 67
+      },
+      {
+        "Group": "Group11",
+        "Score": 50
+      },
+      {
+        "Group": "Group11",
+        "Score": 27
+      },
+      {
+        "Group": "Group12",
+        "Score": 93
+      },
+      {
+        "Group": "Group12",
+        "Score": 28
+      },
+      {
+        "Group": "Group12",
+        "Score": 17
+      },
+      {
+        "Group": "Group12",
+        "Score": 2
+      },
+      {
+        "Group": "Group12",
+        "Score": 99
+      },
+      {
+        "Group": "Group12",
+        "Score": 58
+      },
+      {
+        "Group": "Group12",
+        "Score": 39
+      },
+      {
+        "Group": "Group12",
+        "Score": 12
+      },
+      {
+        "Group": "Group12",
+        "Score": 48
+      },
+      {
+        "Group": "Group12",
+        "Score": 8
+      },
+      {
+        "Group": "Group13",
+        "Score": 2
+      },
+      {
+        "Group": "Group13",
+        "Score": 28
+      },
+      {
+        "Group": "Group13",
+        "Score": 59
+      },
+      {
+        "Group": "Group13",
+        "Score": 8
+      },
+      {
+        "Group": "Group13",
+        "Score": 5
+      },
+      {
+        "Group": "Group13",
+        "Score": 86
+      },
+      {
+        "Group": "Group13",
+        "Score": 24
+      },
+      {
+        "Group": "Group13",
+        "Score": 36
+      },
+      {
+        "Group": "Group13",
+        "Score": 3
+      },
+      {
+        "Group": "Group13",
+        "Score": 50
+      },
+      {
+        "Group": "Group14",
+        "Score": 78
+      },
+      {
+        "Group": "Group14",
+        "Score": 77
+      },
+      {
+        "Group": "Group14",
+        "Score": 79
+      },
+      {
+        "Group": "Group14",
+        "Score": 68
+      },
+      {
+        "Group": "Group14",
+        "Score": 43
+      },
+      {
+        "Group": "Group14",
+        "Score": 66
+      },
+      {
+        "Group": "Group14",
+        "Score": 50
+      },
+      {
+        "Group": "Group14",
+        "Score": 33
+      },
+      {
+        "Group": "Group14",
+        "Score": 51
+      },
+      {
+        "Group": "Group14",
+        "Score": 45
+      },
+      {
+        "Group": "Group15",
+        "Score": 85
+      },
+      {
+        "Group": "Group15",
+        "Score": 25
+      },
+      {
+        "Group": "Group15",
+        "Score": 8
+      },
+      {
+        "Group": "Group15",
+        "Score": 17
+      },
+      {
+        "Group": "Group15",
+        "Score": 21
+      },
+      {
+        "Group": "Group15",
+        "Score": 33
+      },
+      {
+        "Group": "Group15",
+        "Score": 48
+      },
+      {
+        "Group": "Group15",
+        "Score": 13
+      },
+      {
+        "Group": "Group15",
+        "Score": 51
+      },
+      {
+        "Group": "Group15",
+        "Score": 81
+      },
+      {
+        "Group": "Group16",
+        "Score": 31
+      },
+      {
+        "Group": "Group16",
+        "Score": 72
+      },
+      {
+        "Group": "Group16",
+        "Score": 80
+      },
+      {
+        "Group": "Group16",
+        "Score": 43
+      },
+      {
+        "Group": "Group16",
+        "Score": 7
+      },
+      {
+        "Group": "Group16",
+        "Score": 20
+      },
+      {
+        "Group": "Group16",
+        "Score": 25
+      },
+      {
+        "Group": "Group16",
+        "Score": 62
+      },
+      {
+        "Group": "Group16",
+        "Score": 81
+      },
+      {
+        "Group": "Group16",
+        "Score": 0
+      },
+      {
+        "Group": "Group17",
+        "Score": 7
+      },
+      {
+        "Group": "Group17",
+        "Score": 55
+      },
+      {
+        "Group": "Group17",
+        "Score": 38
+      },
+      {
+        "Group": "Group17",
+        "Score": 41
+      },
+      {
+        "Group": "Group17",
+        "Score": 45
+      },
+      {
+        "Group": "Group17",
+        "Score": 1
+      },
+      {
+        "Group": "Group17",
+        "Score": 97
+      },
+      {
+        "Group": "Group17",
+        "Score": 86
+      },
+      {
+        "Group": "Group17",
+        "Score": 90
+      },
+      {
+        "Group": "Group17",
+        "Score": 78
+      },
+      {
+        "Group": "Group18",
+        "Score": 89
+      },
+      {
+        "Group": "Group18",
+        "Score": 33
+      },
+      {
+        "Group": "Group18",
+        "Score": 55
+      },
+      {
+        "Group": "Group18",
+        "Score": 13
+      },
+      {
+        "Group": "Group18",
+        "Score": 72
+      },
+      {
+        "Group": "Group18",
+        "Score": 34
+      },
+      {
+        "Group": "Group18",
+        "Score": 86
+      },
+      {
+        "Group": "Group18",
+        "Score": 36
+      },
+      {
+        "Group": "Group18",
+        "Score": 69
+      },
+      {
+        "Group": "Group18",
+        "Score": 28
+      },
+      {
+        "Group": "Group19",
+        "Score": 67
+      },
+      {
+        "Group": "Group19",
+        "Score": 48
+      },
+      {
+        "Group": "Group19",
+        "Score": 56
+      },
+      {
+        "Group": "Group19",
+        "Score": 69
+      },
+      {
+        "Group": "Group19",
+        "Score": 24
+      },
+      {
+        "Group": "Group19",
+        "Score": 3
+      },
+      {
+        "Group": "Group19",
+        "Score": 19
+      },
+      {
+        "Group": "Group19",
+        "Score": 96
+      },
+      {
+        "Group": "Group19",
+        "Score": 78
+      },
+      {
+        "Group": "Group19",
+        "Score": 7
+      },
+      {
+        "Group": "Group20",
+        "Score": 1
+      },
+      {
+        "Group": "Group20",
+        "Score": 90
+      },
+      {
+        "Group": "Group20",
+        "Score": 16
+      },
+      {
+        "Group": "Group20",
+        "Score": 68
+      },
+      {
+        "Group": "Group20",
+        "Score": 52
+      },
+      {
+        "Group": "Group20",
+        "Score": 14
+      },
+      {
+        "Group": "Group20",
+        "Score": 49
+      },
+      {
+        "Group": "Group20",
+        "Score": 6
+      },
+      {
+        "Group": "Group20",
+        "Score": 88
+      },
+      {
+        "Group": "Group20",
+        "Score": 92
+      },
+      {
+        "Group": "Group21",
+        "Score": 23
+      },
+      {
+        "Group": "Group21",
+        "Score": 57
+      },
+      {
+        "Group": "Group21",
+        "Score": 1
+      },
+      {
+        "Group": "Group21",
+        "Score": 90
+      },
+      {
+        "Group": "Group21",
+        "Score": 64
+      },
+      {
+        "Group": "Group21",
+        "Score": 28
+      },
+      {
+        "Group": "Group21",
+        "Score": 97
+      },
+      {
+        "Group": "Group21",
+        "Score": 69
+      },
+      {
+        "Group": "Group21",
+        "Score": 31
+      },
+      {
+        "Group": "Group21",
+        "Score": 55
+      },
+      {
+        "Group": "Group22",
+        "Score": 58
+      },
+      {
+        "Group": "Group22",
+        "Score": 20
+      },
+      {
+        "Group": "Group22",
+        "Score": 28
+      },
+      {
+        "Group": "Group22",
+        "Score": 77
+      },
+      {
+        "Group": "Group22",
+        "Score": 59
+      },
+      {
+        "Group": "Group22",
+        "Score": 5
+      },
+      {
+        "Group": "Group22",
+        "Score": 89
+      },
+      {
+        "Group": "Group22",
+        "Score": 28
+      },
+      {
+        "Group": "Group22",
+        "Score": 57
+      },
+      {
+        "Group": "Group22",
+        "Score": 4
+      },
+      {
+        "Group": "Group23",
+        "Score": 70
+      },
+      {
+        "Group": "Group23",
+        "Score": 58
+      },
+      {
+        "Group": "Group23",
+        "Score": 52
+      },
+      {
+        "Group": "Group23",
+        "Score": 14
+      },
+      {
+        "Group": "Group23",
+        "Score": 31
+      },
+      {
+        "Group": "Group23",
+        "Score": 45
+      },
+      {
+        "Group": "Group23",
+        "Score": 43
+      },
+      {
+        "Group": "Group23",
+        "Score": 61
+      },
+      {
+        "Group": "Group23",
+        "Score": 26
+      },
+      {
+        "Group": "Group23",
+        "Score": 10
+      },
+      {
+        "Group": "Group24",
+        "Score": 31
+      },
+      {
+        "Group": "Group24",
+        "Score": 96
+      },
+      {
+        "Group": "Group24",
+        "Score": 85
+      },
+      {
+        "Group": "Group24",
+        "Score": 92
+      },
+      {
+        "Group": "Group24",
+        "Score": 80
+      },
+      {
+        "Group": "Group24",
+        "Score": 67
+      },
+      {
+        "Group": "Group24",
+        "Score": 84
+      },
+      {
+        "Group": "Group24",
+        "Score": 61
+      },
+      {
+        "Group": "Group24",
+        "Score": 58
+      },
+      {
+        "Group": "Group24",
+        "Score": 31
+      },
+      {
+        "Group": "Group25",
+        "Score": 86
+      },
+      {
+        "Group": "Group25",
+        "Score": 52
+      },
+      {
+        "Group": "Group25",
+        "Score": 31
+      },
+      {
+        "Group": "Group25",
+        "Score": 39
+      },
+      {
+        "Group": "Group25",
+        "Score": 25
+      },
+      {
+        "Group": "Group25",
+        "Score": 4
+      },
+      {
+        "Group": "Group25",
+        "Score": 35
+      },
+      {
+        "Group": "Group25",
+        "Score": 6
+      },
+      {
+        "Group": "Group25",
+        "Score": 28
+      },
+      {
+        "Group": "Group25",
+        "Score": 48
+      },
+      {
+        "Group": "Group26",
+        "Score": 57
+      },
+      {
+        "Group": "Group26",
+        "Score": 72
+      },
+      {
+        "Group": "Group26",
+        "Score": 48
+      },
+      {
+        "Group": "Group26",
+        "Score": 75
+      },
+      {
+        "Group": "Group26",
+        "Score": 15
+      },
+      {
+        "Group": "Group26",
+        "Score": 54
+      },
+      {
+        "Group": "Group26",
+        "Score": 11
+      },
+      {
+        "Group": "Group26",
+        "Score": 69
+      },
+      {
+        "Group": "Group26",
+        "Score": 72
+      },
+      {
+        "Group": "Group26",
+        "Score": 48
+      },
+      {
+        "Group": "Group27",
+        "Score": 79
+      },
+      {
+        "Group": "Group27",
+        "Score": 47
+      },
+      {
+        "Group": "Group27",
+        "Score": 81
+      },
+      {
+        "Group": "Group27",
+        "Score": 87
+      },
+      {
+        "Group": "Group27",
+        "Score": 32
+      },
+      {
+        "Group": "Group27",
+        "Score": 77
+      },
+      {
+        "Group": "Group27",
+        "Score": 35
+      },
+      {
+        "Group": "Group27",
+        "Score": 9
+      },
+      {
+        "Group": "Group27",
+        "Score": 42
+      },
+      {
+        "Group": "Group27",
+        "Score": 82
+      },
+      {
+        "Group": "Group28",
+        "Score": 6
+      },
+      {
+        "Group": "Group28",
+        "Score": 7
+      },
+      {
+        "Group": "Group28",
+        "Score": 95
+      },
+      {
+        "Group": "Group28",
+        "Score": 37
+      },
+      {
+        "Group": "Group28",
+        "Score": 63
+      },
+      {
+        "Group": "Group28",
+        "Score": 19
+      },
+      {
+        "Group": "Group28",
+        "Score": 84
+      },
+      {
+        "Group": "Group28",
+        "Score": 50
+      },
+      {
+        "Group": "Group28",
+        "Score": 67
+      },
+      {
+        "Group": "Group28",
+        "Score": 70
+      },
+      {
+        "Group": "Group29",
+        "Score": 19
+      },
+      {
+        "Group": "Group29",
+        "Score": 58
+      },
+      {
+        "Group": "Group29",
+        "Score": 55
+      },
+      {
+        "Group": "Group29",
+        "Score": 56
+      },
+      {
+        "Group": "Group29",
+        "Score": 7
+      },
+      {
+        "Group": "Group29",
+        "Score": 4
+      },
+      {
+        "Group": "Group29",
+        "Score": 79
+      },
+      {
+        "Group": "Group29",
+        "Score": 39
+      },
+      {
+        "Group": "Group29",
+        "Score": 66
+      },
+      {
+        "Group": "Group29",
+        "Score": 71
+      },
+      {
+        "Group": "Group30",
+        "Score": 36
+      },
+      {
+        "Group": "Group30",
+        "Score": 62
+      },
+      {
+        "Group": "Group30",
+        "Score": 58
+      },
+      {
+        "Group": "Group30",
+        "Score": 23
+      },
+      {
+        "Group": "Group30",
+        "Score": 20
+      },
+      {
+        "Group": "Group30",
+        "Score": 73
+      },
+      {
+        "Group": "Group30",
+        "Score": 28
+      },
+      {
+        "Group": "Group30",
+        "Score": 90
+      },
+      {
+        "Group": "Group30",
+        "Score": 3
+      },
+      {
+        "Group": "Group30",
+        "Score": 75
+      },
+      {
+        "Group": "Group31",
+        "Score": 74
+      },
+      {
+        "Group": "Group31",
+        "Score": 28
+      },
+      {
+        "Group": "Group31",
+        "Score": 22
+      },
+      {
+        "Group": "Group31",
+        "Score": 34
+      },
+      {
+        "Group": "Group31",
+        "Score": 8
+      },
+      {
+        "Group": "Group31",
+        "Score": 72
+      },
+      {
+        "Group": "Group31",
+        "Score": 57
+      },
+      {
+        "Group": "Group31",
+        "Score": 95
+      },
+      {
+        "Group": "Group31",
+        "Score": 99
+      },
+      {
+        "Group": "Group31",
+        "Score": 8
+      },
+      {
+        "Group": "Group32",
+        "Score": 99
+      },
+      {
+        "Group": "Group32",
+        "Score": 45
+      },
+      {
+        "Group": "Group32",
+        "Score": 98
+      },
+      {
+        "Group": "Group32",
+        "Score": 35
+      },
+      {
+        "Group": "Group32",
+        "Score": 53
+      },
+      {
+        "Group": "Group32",
+        "Score": 24
+      },
+      {
+        "Group": "Group32",
+        "Score": 74
+      },
+      {
+        "Group": "Group32",
+        "Score": 89
+      },
+      {
+        "Group": "Group32",
+        "Score": 34
+      },
+      {
+        "Group": "Group32",
+        "Score": 82
+      },
+      {
+        "Group": "Group33",
+        "Score": 94
+      },
+      {
+        "Group": "Group33",
+        "Score": 77
+      },
+      {
+        "Group": "Group33",
+        "Score": 53
+      },
+      {
+        "Group": "Group33",
+        "Score": 13
+      },
+      {
+        "Group": "Group33",
+        "Score": 38
+      },
+      {
+        "Group": "Group33",
+        "Score": 24
+      },
+      {
+        "Group": "Group33",
+        "Score": 31
+      },
+      {
+        "Group": "Group33",
+        "Score": 61
+      },
+      {
+        "Group": "Group33",
+        "Score": 50
+      },
+      {
+        "Group": "Group33",
+        "Score": 58
+      },
+      {
+        "Group": "Group34",
+        "Score": 32
+      },
+      {
+        "Group": "Group34",
+        "Score": 69
+      },
+      {
+        "Group": "Group34",
+        "Score": 78
+      },
+      {
+        "Group": "Group34",
+        "Score": 53
+      },
+      {
+        "Group": "Group34",
+        "Score": 71
+      },
+      {
+        "Group": "Group34",
+        "Score": 48
+      },
+      {
+        "Group": "Group34",
+        "Score": 22
+      },
+      {
+        "Group": "Group34",
+        "Score": 79
+      },
+      {
+        "Group": "Group34",
+        "Score": 57
+      },
+      {
+        "Group": "Group34",
+        "Score": 79
+      },
+      {
+        "Group": "Group35",
+        "Score": 7
+      },
+      {
+        "Group": "Group35",
+        "Score": 54
+      },
+      {
+        "Group": "Group35",
+        "Score": 45
+      },
+      {
+        "Group": "Group35",
+        "Score": 99
+      },
+      {
+        "Group": "Group35",
+        "Score": 53
+      },
+      {
+        "Group": "Group35",
+        "Score": 77
+      },
+      {
+        "Group": "Group35",
+        "Score": 15
+      },
+      {
+        "Group": "Group35",
+        "Score": 73
+      },
+      {
+        "Group": "Group35",
+        "Score": 93
+      },
+      {
+        "Group": "Group35",
+        "Score": 12
+      },
+      {
+        "Group": "Group36",
+        "Score": 28
+      },
+      {
+        "Group": "Group36",
+        "Score": 0
+      },
+      {
+        "Group": "Group36",
+        "Score": 45
+      },
+      {
+        "Group": "Group36",
+        "Score": 74
+      },
+      {
+        "Group": "Group36",
+        "Score": 25
+      },
+      {
+        "Group": "Group36",
+        "Score": 92
+      },
+      {
+        "Group": "Group36",
+        "Score": 13
+      },
+      {
+        "Group": "Group36",
+        "Score": 34
+      },
+      {
+        "Group": "Group36",
+        "Score": 89
+      },
+      {
+        "Group": "Group36",
+        "Score": 62
+      },
+      {
+        "Group": "Group37",
+        "Score": 25
+      },
+      {
+        "Group": "Group37",
+        "Score": 71
+      },
+      {
+        "Group": "Group37",
+        "Score": 43
+      },
+      {
+        "Group": "Group37",
+        "Score": 97
+      },
+      {
+        "Group": "Group37",
+        "Score": 41
+      },
+      {
+        "Group": "Group37",
+        "Score": 29
+      },
+      {
+        "Group": "Group37",
+        "Score": 81
+      },
+      {
+        "Group": "Group37",
+        "Score": 15
+      },
+      {
+        "Group": "Group37",
+        "Score": 17
+      },
+      {
+        "Group": "Group37",
+        "Score": 3
+      },
+      {
+        "Group": "Group38",
+        "Score": 70
+      },
+      {
+        "Group": "Group38",
+        "Score": 8
+      },
+      {
+        "Group": "Group38",
+        "Score": 11
+      },
+      {
+        "Group": "Group38",
+        "Score": 24
+      },
+      {
+        "Group": "Group38",
+        "Score": 30
+      },
+      {
+        "Group": "Group38",
+        "Score": 4
+      },
+      {
+        "Group": "Group38",
+        "Score": 21
+      },
+      {
+        "Group": "Group38",
+        "Score": 6
+      },
+      {
+        "Group": "Group38",
+        "Score": 3
+      },
+      {
+        "Group": "Group38",
+        "Score": 67
+      },
+      {
+        "Group": "Group39",
+        "Score": 69
+      },
+      {
+        "Group": "Group39",
+        "Score": 70
+      },
+      {
+        "Group": "Group39",
+        "Score": 13
+      },
+      {
+        "Group": "Group39",
+        "Score": 35
+      },
+      {
+        "Group": "Group39",
+        "Score": 85
+      },
+      {
+        "Group": "Group39",
+        "Score": 72
+      },
+      {
+        "Group": "Group39",
+        "Score": 40
+      },
+      {
+        "Group": "Group39",
+        "Score": 81
+      },
+      {
+        "Group": "Group39",
+        "Score": 12
+      },
+      {
+        "Group": "Group39",
+        "Score": 27
+      },
+      {
+        "Group": "Group40",
+        "Score": 31
+      },
+      {
+        "Group": "Group40",
+        "Score": 60
+      },
+      {
+        "Group": "Group40",
+        "Score": 98
+      },
+      {
+        "Group": "Group40",
+        "Score": 56
+      },
+      {
+        "Group": "Group40",
+        "Score": 76
+      },
+      {
+        "Group": "Group40",
+        "Score": 50
+      },
+      {
+        "Group": "Group40",
+        "Score": 21
+      },
+      {
+        "Group": "Group40",
+        "Score": 38
+      },
+      {
+        "Group": "Group40",
+        "Score": 73
+      },
+      {
+        "Group": "Group40",
+        "Score": 62
+      },
+      {
+        "Group": "Group41",
+        "Score": 75
+      },
+      {
+        "Group": "Group41",
+        "Score": 28
+      },
+      {
+        "Group": "Group41",
+        "Score": 10
+      },
+      {
+        "Group": "Group41",
+        "Score": 30
+      },
+      {
+        "Group": "Group41",
+        "Score": 76
+      },
+      {
+        "Group": "Group41",
+        "Score": 47
+      },
+      {
+        "Group": "Group41",
+        "Score": 1
+      },
+      {
+        "Group": "Group41",
+        "Score": 59
+      },
+      {
+        "Group": "Group41",
+        "Score": 75
+      },
+      {
+        "Group": "Group41",
+        "Score": 83
+      },
+      {
+        "Group": "Group42",
+        "Score": 8
+      },
+      {
+        "Group": "Group42",
+        "Score": 8
+      },
+      {
+        "Group": "Group42",
+        "Score": 50
+      },
+      {
+        "Group": "Group42",
+        "Score": 38
+      },
+      {
+        "Group": "Group42",
+        "Score": 76
+      },
+      {
+        "Group": "Group42",
+        "Score": 50
+      },
+      {
+        "Group": "Group42",
+        "Score": 28
+      },
+      {
+        "Group": "Group42",
+        "Score": 66
+      },
+      {
+        "Group": "Group42",
+        "Score": 91
+      },
+      {
+        "Group": "Group42",
+        "Score": 83
+      },
+      {
+        "Group": "Group43",
+        "Score": 99
+      },
+      {
+        "Group": "Group43",
+        "Score": 65
+      },
+      {
+        "Group": "Group43",
+        "Score": 34
+      },
+      {
+        "Group": "Group43",
+        "Score": 28
+      },
+      {
+        "Group": "Group43",
+        "Score": 53
+      },
+      {
+        "Group": "Group43",
+        "Score": 74
+      },
+      {
+        "Group": "Group43",
+        "Score": 42
+      },
+      {
+        "Group": "Group43",
+        "Score": 18
+      },
+      {
+        "Group": "Group43",
+        "Score": 28
+      },
+      {
+        "Group": "Group43",
+        "Score": 63
+      },
+      {
+        "Group": "Group44",
+        "Score": 47
+      },
+      {
+        "Group": "Group44",
+        "Score": 19
+      },
+      {
+        "Group": "Group44",
+        "Score": 48
+      },
+      {
+        "Group": "Group44",
+        "Score": 43
+      },
+      {
+        "Group": "Group44",
+        "Score": 14
+      },
+      {
+        "Group": "Group44",
+        "Score": 63
+      },
+      {
+        "Group": "Group44",
+        "Score": 25
+      },
+      {
+        "Group": "Group44",
+        "Score": 88
+      },
+      {
+        "Group": "Group44",
+        "Score": 62
+      },
+      {
+        "Group": "Group44",
+        "Score": 13
+      },
+      {
+        "Group": "Group45",
+        "Score": 5
+      },
+      {
+        "Group": "Group45",
+        "Score": 83
+      },
+      {
+        "Group": "Group45",
+        "Score": 32
+      },
+      {
+        "Group": "Group45",
+        "Score": 43
+      },
+      {
+        "Group": "Group45",
+        "Score": 81
+      },
+      {
+        "Group": "Group45",
+        "Score": 77
+      },
+      {
+        "Group": "Group45",
+        "Score": 73
+      },
+      {
+        "Group": "Group45",
+        "Score": 33
+      },
+      {
+        "Group": "Group45",
+        "Score": 36
+      },
+      {
+        "Group": "Group45",
+        "Score": 97
+      },
+      {
+        "Group": "Group46",
+        "Score": 11
+      },
+      {
+        "Group": "Group46",
+        "Score": 13
+      },
+      {
+        "Group": "Group46",
+        "Score": 65
+      },
+      {
+        "Group": "Group46",
+        "Score": 70
+      },
+      {
+        "Group": "Group46",
+        "Score": 46
+      },
+      {
+        "Group": "Group46",
+        "Score": 21
+      },
+      {
+        "Group": "Group46",
+        "Score": 10
+      },
+      {
+        "Group": "Group46",
+        "Score": 32
+      },
+      {
+        "Group": "Group46",
+        "Score": 45
+      },
+      {
+        "Group": "Group46",
+        "Score": 4
+      },
+      {
+        "Group": "Group47",
+        "Score": 56
+      },
+      {
+        "Group": "Group47",
+        "Score": 66
+      },
+      {
+        "Group": "Group47",
+        "Score": 34
+      },
+      {
+        "Group": "Group47",
+        "Score": 99
+      },
+      {
+        "Group": "Group47",
+        "Score": 72
+      },
+      {
+        "Group": "Group47",
+        "Score": 4
+      },
+      {
+        "Group": "Group47",
+        "Score": 36
+      },
+      {
+        "Group": "Group47",
+        "Score": 93
+      },
+      {
+        "Group": "Group47",
+        "Score": 6
+      },
+      {
+        "Group": "Group47",
+        "Score": 91
+      },
+      {
+        "Group": "Group48",
+        "Score": 10
+      },
+      {
+        "Group": "Group48",
+        "Score": 88
+      },
+      {
+        "Group": "Group48",
+        "Score": 70
+      },
+      {
+        "Group": "Group48",
+        "Score": 21
+      },
+      {
+        "Group": "Group48",
+        "Score": 100
+      },
+      {
+        "Group": "Group48",
+        "Score": 90
+      },
+      {
+        "Group": "Group48",
+        "Score": 83
+      },
+      {
+        "Group": "Group48",
+        "Score": 95
+      },
+      {
+        "Group": "Group48",
+        "Score": 50
+      },
+      {
+        "Group": "Group48",
+        "Score": 86
+      },
+      {
+        "Group": "Group49",
+        "Score": 28
+      },
+      {
+        "Group": "Group49",
+        "Score": 8
+      },
+      {
+        "Group": "Group49",
+        "Score": 62
+      },
+      {
+        "Group": "Group49",
+        "Score": 42
+      },
+      {
+        "Group": "Group49",
+        "Score": 79
+      },
+      {
+        "Group": "Group49",
+        "Score": 29
+      },
+      {
+        "Group": "Group49",
+        "Score": 2
+      },
+      {
+        "Group": "Group49",
+        "Score": 98
+      },
+      {
+        "Group": "Group49",
+        "Score": 3
+      },
+      {
+        "Group": "Group49",
+        "Score": 47
+      },
+      {
+        "Group": "Group50",
+        "Score": 66
+      },
+      {
+        "Group": "Group50",
+        "Score": 49
+      },
+      {
+        "Group": "Group50",
+        "Score": 70
+      },
+      {
+        "Group": "Group50",
+        "Score": 65
+      },
+      {
+        "Group": "Group50",
+        "Score": 52
+      },
+      {
+        "Group": "Group50",
+        "Score": 60
+      },
+      {
+        "Group": "Group50",
+        "Score": 89
+      },
+      {
+        "Group": "Group50",
+        "Score": 4
+      },
+      {
+        "Group": "Group50",
+        "Score": 59
+      },
+      {
+        "Group": "Group50",
+        "Score": 0
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 205,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

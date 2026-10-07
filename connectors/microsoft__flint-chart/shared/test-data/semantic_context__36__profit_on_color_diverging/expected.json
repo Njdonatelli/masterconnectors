@@ -1,0 +1,138 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "product",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "revenue",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "profit",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "redblue",
+        "domainMid": 0
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "product": "Product A",
+        "revenue": 114483,
+        "profit": 100698
+      },
+      {
+        "product": "Product B",
+        "revenue": 347649,
+        "profit": 22110
+      },
+      {
+        "product": "Product C",
+        "revenue": 485773,
+        "profit": 949
+      },
+      {
+        "product": "Product D",
+        "revenue": 156062,
+        "profit": 25230
+      },
+      {
+        "product": "Product E",
+        "revenue": 137999,
+        "profit": -14350
+      },
+      {
+        "product": "Product F",
+        "revenue": 270594,
+        "profit": -802
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

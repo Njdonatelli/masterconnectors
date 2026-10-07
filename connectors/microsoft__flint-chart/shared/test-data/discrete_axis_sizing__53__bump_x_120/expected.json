@@ -1,0 +1,3103 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "monotone",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Week",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Rank",
+      "type": "quantitative",
+      "scale": {
+        "reverse": true,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Team",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 134
+    },
+    "axisX": {
+      "labelLimit": 40,
+      "labelFontSize": 6,
+      "labelAngle": -90,
+      "labelAlign": "right",
+      "labelBaseline": "middle"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 13
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "Week": "Week001",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week001",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week001",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week001",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week001",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week002",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week002",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week002",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week002",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week002",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week003",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week003",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week003",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week003",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week003",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week004",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week004",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week004",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week004",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week004",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week005",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week005",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week005",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week005",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week005",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week006",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week006",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week006",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week006",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week006",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week007",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week007",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week007",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week007",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week007",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week008",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week008",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week008",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week008",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week008",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week009",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week009",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week009",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week009",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week009",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week010",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week010",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week010",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week010",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week010",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week011",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week011",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week011",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week011",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week011",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week012",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week012",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week012",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week012",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week012",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week013",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week013",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week013",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week013",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week013",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week014",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week014",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week014",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week014",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week014",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week015",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week015",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week015",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week015",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week015",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week016",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week016",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week016",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week016",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week016",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week017",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week017",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week017",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week017",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week017",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week018",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week018",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week018",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week018",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week018",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week019",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week019",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week019",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week019",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week019",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week020",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week020",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week020",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week020",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week020",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week021",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week021",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week021",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week021",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week021",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week022",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week022",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week022",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week022",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week022",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week023",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week023",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week023",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week023",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week023",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week024",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week024",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week024",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week024",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week024",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week025",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week025",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week025",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week025",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week025",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week026",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week026",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week026",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week026",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week026",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week027",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week027",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week027",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week027",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week027",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week028",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week028",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week028",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week028",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week028",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week029",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week029",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week029",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week029",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week029",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week030",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week030",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week030",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week030",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week030",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week031",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week031",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week031",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week031",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week031",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week032",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week032",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week032",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week032",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week032",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week033",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week033",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week033",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week033",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week033",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week034",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week034",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week034",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week034",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week034",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week035",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week035",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week035",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week035",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week035",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week036",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week036",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week036",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week036",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week036",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week037",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week037",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week037",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week037",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week037",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week038",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week038",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week038",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week038",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week038",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week039",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week039",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week039",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week039",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week039",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week040",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week040",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week040",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week040",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week040",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week041",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week041",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week041",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week041",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week041",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week042",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week042",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week042",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week042",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week042",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week043",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week043",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week043",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week043",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week043",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week044",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week044",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week044",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week044",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week044",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week045",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week045",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week045",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week045",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week045",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week046",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week046",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week046",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week046",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week046",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week047",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week047",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week047",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week047",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week047",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week048",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week048",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week048",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week048",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week048",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week049",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week049",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week049",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week049",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week049",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week050",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week050",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week050",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week050",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week050",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week051",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week051",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week051",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week051",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week051",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week052",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week052",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week052",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week052",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week052",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week053",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week053",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week053",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week053",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week053",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week054",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week054",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week054",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week054",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week054",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week055",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week055",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week055",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week055",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week055",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week056",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week056",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week056",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week056",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week056",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week057",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week057",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week057",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week057",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week057",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week058",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week058",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week058",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week058",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week058",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week059",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week059",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week059",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week059",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week059",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week060",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week060",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week060",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week060",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week060",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week061",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week061",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week061",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week061",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week061",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week062",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week062",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week062",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week062",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week062",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week063",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week063",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week063",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week063",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week063",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week064",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week064",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week064",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week064",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week064",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week065",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week065",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week065",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week065",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week065",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week066",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week066",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week066",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week066",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week066",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week067",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week067",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week067",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week067",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week067",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week068",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week068",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week068",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week068",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week068",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week069",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week069",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week069",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week069",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week069",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week070",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week070",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week070",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week070",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week070",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week071",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week071",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week071",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week071",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week071",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week072",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week072",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week072",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week072",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week072",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week073",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week073",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week073",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week073",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week073",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week074",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week074",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week074",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week074",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week074",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week075",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week075",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week075",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week075",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week075",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week076",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week076",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week076",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week076",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week076",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week077",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week077",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week077",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week077",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week077",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week078",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week078",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week078",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week078",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week078",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week079",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week079",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week079",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week079",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week079",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week080",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week080",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week080",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week080",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week080",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week081",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week081",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week081",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week081",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week081",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week082",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week082",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week082",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week082",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week082",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week083",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week083",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week083",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week083",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week083",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week084",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week084",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week084",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week084",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week084",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week085",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week085",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week085",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week085",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week085",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week086",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week086",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week086",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week086",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week086",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week087",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week087",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week087",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week087",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week087",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week088",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week088",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week088",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week088",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week088",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week089",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week089",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week089",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week089",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week089",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week090",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week090",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week090",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week090",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week090",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week091",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week091",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week091",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week091",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week091",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week092",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week092",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week092",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week092",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week092",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week093",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week093",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week093",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week093",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week093",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week094",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week094",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week094",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week094",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week094",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week095",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week095",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week095",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week095",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week095",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week096",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week096",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week096",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week096",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week096",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week097",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week097",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week097",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week097",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week097",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week098",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week098",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week098",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week098",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week098",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week099",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week099",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week099",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week099",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week099",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week100",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week100",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week100",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week100",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week100",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week101",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week101",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week101",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week101",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week101",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week102",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week102",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week102",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week102",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week102",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week103",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week103",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week103",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week103",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week103",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week104",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week104",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week104",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week104",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week104",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week105",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week105",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week105",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week105",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week105",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week106",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week106",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week106",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week106",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week106",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week107",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week107",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week107",
+        "Team": "Team3",
+        "Rank": 1
+      },
+      {
+        "Week": "Week107",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week107",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week108",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week108",
+        "Team": "Team2",
+        "Rank": 3
+      },
+      {
+        "Week": "Week108",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week108",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week108",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week109",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week109",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week109",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week109",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week109",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week110",
+        "Team": "Team1",
+        "Rank": 2
+      },
+      {
+        "Week": "Week110",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week110",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week110",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week110",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week111",
+        "Team": "Team1",
+        "Rank": 5
+      },
+      {
+        "Week": "Week111",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week111",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week111",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week111",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week112",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week112",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week112",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week112",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week112",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week113",
+        "Team": "Team1",
+        "Rank": 1
+      },
+      {
+        "Week": "Week113",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week113",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week113",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week113",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week114",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week114",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week114",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week114",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week114",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week115",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week115",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week115",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week115",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week115",
+        "Team": "Team5",
+        "Rank": 3
+      },
+      {
+        "Week": "Week116",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week116",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week116",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week116",
+        "Team": "Team4",
+        "Rank": 3
+      },
+      {
+        "Week": "Week116",
+        "Team": "Team5",
+        "Rank": 2
+      },
+      {
+        "Week": "Week117",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week117",
+        "Team": "Team2",
+        "Rank": 2
+      },
+      {
+        "Week": "Week117",
+        "Team": "Team3",
+        "Rank": 3
+      },
+      {
+        "Week": "Week117",
+        "Team": "Team4",
+        "Rank": 4
+      },
+      {
+        "Week": "Week117",
+        "Team": "Team5",
+        "Rank": 1
+      },
+      {
+        "Week": "Week118",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week118",
+        "Team": "Team2",
+        "Rank": 4
+      },
+      {
+        "Week": "Week118",
+        "Team": "Team3",
+        "Rank": 2
+      },
+      {
+        "Week": "Week118",
+        "Team": "Team4",
+        "Rank": 5
+      },
+      {
+        "Week": "Week118",
+        "Team": "Team5",
+        "Rank": 5
+      },
+      {
+        "Week": "Week119",
+        "Team": "Team1",
+        "Rank": 4
+      },
+      {
+        "Week": "Week119",
+        "Team": "Team2",
+        "Rank": 1
+      },
+      {
+        "Week": "Week119",
+        "Team": "Team3",
+        "Rank": 4
+      },
+      {
+        "Week": "Week119",
+        "Team": "Team4",
+        "Rank": 2
+      },
+      {
+        "Week": "Week119",
+        "Team": "Team5",
+        "Rank": 4
+      },
+      {
+        "Week": "Week120",
+        "Team": "Team1",
+        "Rank": 3
+      },
+      {
+        "Week": "Week120",
+        "Team": "Team2",
+        "Rank": 5
+      },
+      {
+        "Week": "Week120",
+        "Team": "Team3",
+        "Rank": 5
+      },
+      {
+        "Week": "Week120",
+        "Team": "Team4",
+        "Rank": 1
+      },
+      {
+        "Week": "Week120",
+        "Team": "Team5",
+        "Rank": 3
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 134,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

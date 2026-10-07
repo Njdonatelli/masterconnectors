@@ -1,0 +1,80 @@
+{
+  "title": "Rating Domain [1–5] & Integer Ticks",
+  "description": "Enriched annotation { semanticType: \"Rating\", intrinsicDomain: [1,5] } pins the axis to 1–5 with integer-only ticks. WITHOUT this: axis auto-scales to data range (e.g., 2.3–4.7) and shows fractional tick marks like 2.5, 3.5.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "product": "Widget A",
+          "rating": 2,
+          "reviews": 73
+        },
+        {
+          "product": "Widget B",
+          "rating": 2.5,
+          "reviews": 165
+        },
+        {
+          "product": "Widget C",
+          "rating": 2.1,
+          "reviews": 431
+        },
+        {
+          "product": "Widget D",
+          "rating": 3.7,
+          "reviews": 144
+        },
+        {
+          "product": "Widget E",
+          "rating": 2.9,
+          "reviews": 486
+        },
+        {
+          "product": "Widget F",
+          "rating": 3.5,
+          "reviews": 498
+        },
+        {
+          "product": "Widget G",
+          "rating": 4.8,
+          "reviews": 334
+        },
+        {
+          "product": "Widget H",
+          "rating": 2.3,
+          "reviews": 396
+        }
+      ]
+    },
+    "semantic_types": {
+      "product": "Category",
+      "rating": {
+        "semanticType": "Score",
+        "intrinsicDomain": [
+          1,
+          5
+        ]
+      },
+      "reviews": "Count"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "reviews"
+        },
+        "y": {
+          "field": "rating"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

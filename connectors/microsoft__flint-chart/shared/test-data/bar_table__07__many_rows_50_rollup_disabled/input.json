@@ -1,0 +1,236 @@
+{
+  "title": "Many rows (50, rollup disabled)",
+  "description": "maxRows=0 → render all 50 rows; tests row density at scale",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Employee": "James Thompson",
+          "Sales": 185
+        },
+        {
+          "Employee": "Dorothy Torres",
+          "Sales": 6914
+        },
+        {
+          "Employee": "Barbara Johnson",
+          "Sales": 10243
+        },
+        {
+          "Employee": "Steven Brown",
+          "Sales": 11056
+        },
+        {
+          "Employee": "Karen Sanchez",
+          "Sales": 3525
+        },
+        {
+          "Employee": "Matthew Garcia",
+          "Sales": 507
+        },
+        {
+          "Employee": "Susan Moore",
+          "Sales": 9263
+        },
+        {
+          "Employee": "Nancy Martin",
+          "Sales": 1156
+        },
+        {
+          "Employee": "John Flores",
+          "Sales": 5865
+        },
+        {
+          "Employee": "Christopher Walker",
+          "Sales": 7730
+        },
+        {
+          "Employee": "Karen Lopez",
+          "Sales": 7341
+        },
+        {
+          "Employee": "Jessica Walker",
+          "Sales": 1894
+        },
+        {
+          "Employee": "Michael Flores",
+          "Sales": 4270
+        },
+        {
+          "Employee": "Nancy Taylor",
+          "Sales": 5213
+        },
+        {
+          "Employee": "Jennifer Thomas",
+          "Sales": 7260
+        },
+        {
+          "Employee": "Karen King",
+          "Sales": 6070
+        },
+        {
+          "Employee": "Daniel Garcia",
+          "Sales": 997
+        },
+        {
+          "Employee": "Patricia Anderson",
+          "Sales": 12072
+        },
+        {
+          "Employee": "John White",
+          "Sales": 6398
+        },
+        {
+          "Employee": "Andrew Brown",
+          "Sales": 9215
+        },
+        {
+          "Employee": "Kimberly Allen",
+          "Sales": 6037
+        },
+        {
+          "Employee": "Elizabeth Williams",
+          "Sales": 3417
+        },
+        {
+          "Employee": "Michael Davis",
+          "Sales": 4657
+        },
+        {
+          "Employee": "Kimberly Ramirez",
+          "Sales": 9301
+        },
+        {
+          "Employee": "Sandra Hernandez",
+          "Sales": 2088
+        },
+        {
+          "Employee": "Jennifer Scott",
+          "Sales": 11839
+        },
+        {
+          "Employee": "Daniel Anderson",
+          "Sales": 7253
+        },
+        {
+          "Employee": "Elizabeth Hill",
+          "Sales": 5048
+        },
+        {
+          "Employee": "Charles Williams",
+          "Sales": 1821
+        },
+        {
+          "Employee": "Susan Harris",
+          "Sales": 4687
+        },
+        {
+          "Employee": "Richard Smith",
+          "Sales": 5880
+        },
+        {
+          "Employee": "Andrew Smith",
+          "Sales": 10156
+        },
+        {
+          "Employee": "Emily Martin",
+          "Sales": 6937
+        },
+        {
+          "Employee": "Christopher Johnson",
+          "Sales": 1843
+        },
+        {
+          "Employee": "Jennifer Davis",
+          "Sales": 1281
+        },
+        {
+          "Employee": "Andrew Clark",
+          "Sales": 4479
+        },
+        {
+          "Employee": "Lisa Davis",
+          "Sales": 921
+        },
+        {
+          "Employee": "Joseph Perez",
+          "Sales": 7026
+        },
+        {
+          "Employee": "William Jones",
+          "Sales": 10336
+        },
+        {
+          "Employee": "Karen Hill",
+          "Sales": 1214
+        },
+        {
+          "Employee": "Thomas Allen",
+          "Sales": 6800
+        },
+        {
+          "Employee": "Elizabeth Hernandez",
+          "Sales": 1759
+        },
+        {
+          "Employee": "Elizabeth Thomas",
+          "Sales": 10880
+        },
+        {
+          "Employee": "Christopher Lewis",
+          "Sales": 9705
+        },
+        {
+          "Employee": "Kenneth Moore",
+          "Sales": 2865
+        },
+        {
+          "Employee": "John Thompson",
+          "Sales": 958
+        },
+        {
+          "Employee": "Richard Flores",
+          "Sales": 1972
+        },
+        {
+          "Employee": "Nancy Nguyen",
+          "Sales": 2485
+        },
+        {
+          "Employee": "Paul White",
+          "Sales": 10820
+        },
+        {
+          "Employee": "Thomas Wilson",
+          "Sales": 8476
+        }
+      ]
+    },
+    "semantic_types": {
+      "Employee": "Name",
+      "Sales": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Employee"
+        },
+        "x": {
+          "field": "Sales"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "maxRows": 0
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

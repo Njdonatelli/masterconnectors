@@ -1,0 +1,63 @@
+{
+  "title": "Snap: Pct 84–96% → snap max 100",
+  "description": "Completion data reaches 96%. Since 96 is within 25 (threshold = 25% of 100) of 100, the upper bound snaps to 100%. Lower end (84%) is far from 0 → no snap. Shows domainMax=100 while the lower end auto-fits.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "dept": "Engineering",
+          "completion": 62
+        },
+        {
+          "dept": "Marketing",
+          "completion": 61
+        },
+        {
+          "dept": "Sales",
+          "completion": 88
+        },
+        {
+          "dept": "Support",
+          "completion": 77
+        },
+        {
+          "dept": "Design",
+          "completion": 76
+        },
+        {
+          "dept": "Legal",
+          "completion": 66
+        }
+      ]
+    },
+    "semantic_types": {
+      "dept": "Category",
+      "completion": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "dept"
+        },
+        "y": {
+          "field": "completion"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

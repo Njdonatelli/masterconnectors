@@ -1,0 +1,103 @@
+{
+  "title": "Score on Color (Conditional Diverging)",
+  "description": "Score with intrinsicDomain [0, 100] on color. Domain midpoint = 50. Data spans both sides → diverging color scheme centered at 50. Below-50 = one hue, above-50 = another. WITHOUT this: sequential palette, no midpoint.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "student": "Alice",
+          "exam_score": 22,
+          "study_hours": 12
+        },
+        {
+          "student": "Bob",
+          "exam_score": 81,
+          "study_hours": 27
+        },
+        {
+          "student": "Carol",
+          "exam_score": 91,
+          "study_hours": 21
+        },
+        {
+          "student": "Dave",
+          "exam_score": 95,
+          "study_hours": 26
+        },
+        {
+          "student": "Eve",
+          "exam_score": 42,
+          "study_hours": 28
+        },
+        {
+          "student": "Frank",
+          "exam_score": 42,
+          "study_hours": 17
+        },
+        {
+          "student": "Grace",
+          "exam_score": 28,
+          "study_hours": 18
+        },
+        {
+          "student": "Heidi",
+          "exam_score": 82,
+          "study_hours": 16
+        },
+        {
+          "student": "Ivan",
+          "exam_score": 63,
+          "study_hours": 6
+        },
+        {
+          "student": "Judy",
+          "exam_score": 95,
+          "study_hours": 11
+        },
+        {
+          "student": "Karl",
+          "exam_score": 85,
+          "study_hours": 22
+        },
+        {
+          "student": "Laura",
+          "exam_score": 28,
+          "study_hours": 13
+        }
+      ]
+    },
+    "semantic_types": {
+      "student": "Category",
+      "exam_score": {
+        "semanticType": "Score",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      },
+      "study_hours": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "study_hours"
+        },
+        "y": {
+          "field": "student"
+        },
+        "color": {
+          "field": "exam_score"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

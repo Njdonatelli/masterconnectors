@@ -1,0 +1,97 @@
+{
+  "title": "Faceted Radar by Region",
+  "description": "One radar per region via column facet",
+  "chartType": "Radar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Region": "North",
+          "Metric": "Sales",
+          "Value": 80
+        },
+        {
+          "Region": "North",
+          "Metric": "Profit",
+          "Value": 65
+        },
+        {
+          "Region": "North",
+          "Metric": "Growth",
+          "Value": 90
+        },
+        {
+          "Region": "North",
+          "Metric": "Retention",
+          "Value": 70
+        },
+        {
+          "Region": "South",
+          "Metric": "Sales",
+          "Value": 60
+        },
+        {
+          "Region": "South",
+          "Metric": "Profit",
+          "Value": 85
+        },
+        {
+          "Region": "South",
+          "Metric": "Growth",
+          "Value": 50
+        },
+        {
+          "Region": "South",
+          "Metric": "Retention",
+          "Value": 75
+        },
+        {
+          "Region": "East",
+          "Metric": "Sales",
+          "Value": 70
+        },
+        {
+          "Region": "East",
+          "Metric": "Profit",
+          "Value": 72
+        },
+        {
+          "Region": "East",
+          "Metric": "Growth",
+          "Value": 68
+        },
+        {
+          "Region": "East",
+          "Metric": "Retention",
+          "Value": 88
+        }
+      ]
+    },
+    "semantic_types": {
+      "Region": "Category",
+      "Metric": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Radar Chart",
+      "encodings": {
+        "x": {
+          "field": "Metric"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "column": {
+          "field": "Region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

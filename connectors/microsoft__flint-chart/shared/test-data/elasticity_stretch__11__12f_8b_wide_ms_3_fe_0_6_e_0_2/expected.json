@@ -1,0 +1,599 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Panel",
+      "type": "nominal",
+      "sort": null,
+      "columns": 12
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 86,
+      "continuousHeight": 173
+    },
+    "axisX": {
+      "labelLimit": 60,
+      "labelFontSize": 9,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 106
+    },
+    "facet": {
+      "spacing": 9
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 10
+  },
+  "data": {
+    "values": [
+      {
+        "Panel": "Apple",
+        "Category": "Electronics",
+        "Value": 54
+      },
+      {
+        "Panel": "Apple",
+        "Category": "Clothing",
+        "Value": 494
+      },
+      {
+        "Panel": "Apple",
+        "Category": "Food",
+        "Value": 266
+      },
+      {
+        "Panel": "Apple",
+        "Category": "Books",
+        "Value": 12
+      },
+      {
+        "Panel": "Apple",
+        "Category": "Sports",
+        "Value": 413
+      },
+      {
+        "Panel": "Apple",
+        "Category": "Home",
+        "Value": 165
+      },
+      {
+        "Panel": "Apple",
+        "Category": "Garden",
+        "Value": 47
+      },
+      {
+        "Panel": "Apple",
+        "Category": "Auto",
+        "Value": 294
+      },
+      {
+        "Panel": "Google",
+        "Category": "Electronics",
+        "Value": 142
+      },
+      {
+        "Panel": "Google",
+        "Category": "Clothing",
+        "Value": 149
+      },
+      {
+        "Panel": "Google",
+        "Category": "Food",
+        "Value": 388
+      },
+      {
+        "Panel": "Google",
+        "Category": "Books",
+        "Value": 148
+      },
+      {
+        "Panel": "Google",
+        "Category": "Sports",
+        "Value": 466
+      },
+      {
+        "Panel": "Google",
+        "Category": "Home",
+        "Value": 127
+      },
+      {
+        "Panel": "Google",
+        "Category": "Garden",
+        "Value": 18
+      },
+      {
+        "Panel": "Google",
+        "Category": "Auto",
+        "Value": 181
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Electronics",
+        "Value": 438
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Clothing",
+        "Value": 91
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Food",
+        "Value": 210
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Books",
+        "Value": 188
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Sports",
+        "Value": 429
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Home",
+        "Value": 237
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Garden",
+        "Value": 186
+      },
+      {
+        "Panel": "Microsoft",
+        "Category": "Auto",
+        "Value": 291
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Electronics",
+        "Value": 224
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Clothing",
+        "Value": 47
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Food",
+        "Value": 409
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Books",
+        "Value": 390
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Sports",
+        "Value": 248
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Home",
+        "Value": 222
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Garden",
+        "Value": 374
+      },
+      {
+        "Panel": "Amazon",
+        "Category": "Auto",
+        "Value": 477
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Electronics",
+        "Value": 195
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Clothing",
+        "Value": 267
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Food",
+        "Value": 196
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Books",
+        "Value": 313
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Sports",
+        "Value": 146
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Home",
+        "Value": 385
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Garden",
+        "Value": 344
+      },
+      {
+        "Panel": "Meta",
+        "Category": "Auto",
+        "Value": 58
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Electronics",
+        "Value": 463
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Clothing",
+        "Value": 159
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Food",
+        "Value": 182
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Books",
+        "Value": 238
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Sports",
+        "Value": 261
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Home",
+        "Value": 126
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Garden",
+        "Value": 502
+      },
+      {
+        "Panel": "Tesla",
+        "Category": "Auto",
+        "Value": 17
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Electronics",
+        "Value": 176
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Clothing",
+        "Value": 181
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Food",
+        "Value": 233
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Books",
+        "Value": 30
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Sports",
+        "Value": 495
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Home",
+        "Value": 507
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Garden",
+        "Value": 57
+      },
+      {
+        "Panel": "Netflix",
+        "Category": "Auto",
+        "Value": 298
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Electronics",
+        "Value": 239
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Clothing",
+        "Value": 189
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Food",
+        "Value": 391
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Books",
+        "Value": 190
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Sports",
+        "Value": 309
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Home",
+        "Value": 305
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Garden",
+        "Value": 176
+      },
+      {
+        "Panel": "Adobe",
+        "Category": "Auto",
+        "Value": 420
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Electronics",
+        "Value": 114
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Clothing",
+        "Value": 358
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Food",
+        "Value": 222
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Books",
+        "Value": 65
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Sports",
+        "Value": 473
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Home",
+        "Value": 486
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Garden",
+        "Value": 85
+      },
+      {
+        "Panel": "Intel",
+        "Category": "Auto",
+        "Value": 53
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Electronics",
+        "Value": 330
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Clothing",
+        "Value": 105
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Food",
+        "Value": 338
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Books",
+        "Value": 96
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Sports",
+        "Value": 155
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Home",
+        "Value": 184
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Garden",
+        "Value": 112
+      },
+      {
+        "Panel": "Nvidia",
+        "Category": "Auto",
+        "Value": 147
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Electronics",
+        "Value": 374
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Clothing",
+        "Value": 252
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Food",
+        "Value": 275
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Books",
+        "Value": 78
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Sports",
+        "Value": 114
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Home",
+        "Value": 84
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Garden",
+        "Value": 403
+      },
+      {
+        "Panel": "Samsung",
+        "Category": "Auto",
+        "Value": 453
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Electronics",
+        "Value": 361
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Clothing",
+        "Value": 142
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Food",
+        "Value": 372
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Books",
+        "Value": 416
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Sports",
+        "Value": 472
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Home",
+        "Value": 105
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Garden",
+        "Value": 50
+      },
+      {
+        "Panel": "IBM",
+        "Category": "Auto",
+        "Value": 377
+      }
+    ]
+  },
+  "_width": 86,
+  "_height": 173,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

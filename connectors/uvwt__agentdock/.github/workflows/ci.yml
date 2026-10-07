@@ -1,0 +1,176 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  go:
+    name: Go check (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Format check
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          unformatted="$(git ls-files '*.go' | while IFS= read -r file; do gofmt -l "$file"; done)"
+          if [ -n "$unformatted" ]; then
+            printf 'Unformatted Go files:\n%s\n' "$unformatted"
+            exit 1
+          fi
+
+      - name: Test
+        run: go test ./... -count=1 -timeout=3m
+
+      - name: Check Windows test tree cleanliness
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          untracked="$(git ls-files --others --exclude-standard)"
+          if [ -n "$untracked" ]; then
+            printf 'Unexpected files created by tests:\n%s\n' "$untracked"
+            exit 1
+          fi
+
+      - name: ACP prompt and steering race regression
+        if: runner.os == 'Linux'
+        timeout-minutes: 2
+        shell: bash
+        run: |
+          go test -race ./internal/acp \
+            -run 'Test(StartPromptWaitsForPromptDispatchBeforeSteering|ClaudeSteeringFallbackCancelsOldRunAndStartsObservableTurn|CodexSteeringFallbackCancelsOldRunAndStartsObservableTurn)$' \
+            -count=20 \
+            -timeout=90s
+
+      - name: Race
+        if: runner.os == 'Linux'
+        run: go test -race ./... -count=1 -timeout=3m
+
+      - name: Vet
+        if: runner.os == 'Linux'
+        run: go vet ./...
+
+      - name: Build
+        run: go build ./cmd/agentdock
+
+      - name: Check Linux scripts
+        if: runner.os == 'Linux'
+        run: make test-scripts
+
+      - name: Test macOS scripts
+        if: runner.os == 'macOS'
+        run: make test-scripts-macos
+
+      - name: Test Windows PowerShell DPAPI round trip
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Stop'
+          Add-Type -AssemblyName System.Security
+
+          $plainText = 'agentdock-dpapi-roundtrip'
+          $entropy = [Text.Encoding]::UTF8.GetBytes('agentdock.startup.v1')
+          $protectedBytes = [System.Security.Cryptography.ProtectedData]::Protect(
+            [Text.Encoding]::UTF8.GetBytes($plainText),
+            $entropy,
+            [System.Security.Cryptography.DataProtectionScope]::CurrentUser
+          )
+          $unprotectedBytes = [System.Security.Cryptography.ProtectedData]::Unprotect(
+            $protectedBytes,
+            $entropy,
+            [System.Security.Cryptography.DataProtectionScope]::CurrentUser
+          )
+          $actual = [Text.Encoding]::UTF8.GetString($unprotectedBytes)
+
+          if ($actual -ne $plainText) {
+            throw "DPAPI round trip mismatch. Expected '$plainText', got '$actual'."
+          }
+
+
+  browser-integration:
+    name: Native browser integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Install Xvfb
+        shell: bash
+        run: |
+          if command -v xvfb-run >/dev/null 2>&1 && command -v xauth >/dev/null 2>&1; then
+            exit 0
+          fi
+          sudo apt-get -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::Retries=3 install -y --no-install-recommends xvfb xauth
+
+      - name: Browser integration race
+        shell: bash
+        run: |
+          browser_path="$(command -v google-chrome-stable || command -v google-chrome || command -v chromium-browser || command -v chromium || true)"
+          test -n "$browser_path"
+          xvfb-run -a env AGENTDOCK_BROWSER_EXECUTABLE_PATH="$browser_path" go test -race -tags browser_integration ./internal/tool/browser ./internal/app -count=1 -timeout=3m
+
+
+  container:
+    name: Container check
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Detect container-relevant changes
+        id: changes
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [[ "$EVENT_NAME" != "pull_request" ]]; then
+            echo 'relevant=true' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed_paths="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" -- Dockerfile .dockerignore docker-entrypoint.sh docker-compose.yml core-skills cmd internal packaging/docker packaging/build-core-skill-bundle.py scripts/test/test-docker-images.sh go.mod go.sum .github/workflows/ci.yml)"
+          if [[ -n "$changed_paths" ]]; then
+            printf 'Container validation required by:\n%s\n' "$changed_paths"
+            echo 'relevant=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'No container-relevant changes detected.'
+            echo 'relevant=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build and verify images
+        if: steps.changes.outputs.relevant == 'true'
+        run: ./scripts/test/test-docker-images.sh

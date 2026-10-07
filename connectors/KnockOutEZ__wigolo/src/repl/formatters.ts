@@ -1,0 +1,422 @@
+import chalk from 'chalk';
+import type {
+  SearchOutput,
+  FetchOutput,
+  CrawlOutput,
+  MapOutput,
+  ExtractOutput,
+  CacheOutput,
+  FindSimilarOutput,
+  ResearchOutput,
+  AgentOutput,
+  DiffOutput,
+  WatchJobOutput,
+  TableData,
+  MetadataData,
+} from '../types.js';
+
+
+const SNIPPET_MAX_LENGTH = 200;
+
+export function stripAnsi(str: string): string {
+  return str.replace(/\u001b\[[0-9;]*m/g, '');
+}
+
+function truncate(text: string, max: number): string {
+  if (text.length <= max) return text;
+  return text.slice(0, max - 3) + '...';
+}
+
+function domainFromUrl(url: string): string {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
+}
+
+function pathFromUrl(url: string, baseUrl?: string): string {
+  try {
+    const u = new URL(url);
+    if (baseUrl) {
+      const base = new URL(baseUrl);
+      if (u.hostname === base.hostname) {
+        return u.pathname;
+      }
+    }
+    return u.pathname;
+  } catch {
+    return url;
+  }
+}
+
+export function formatSearchResults(output: SearchOutput): string {
+  const lines: string[] = [];
+
+  const header = `Search: ${chalk.cyan(`"${output.query}"`)} (${output.results.length} results, ${output.total_time_ms}ms, engines: ${output.engines_used.join(', ')})`;
+  lines.push(header);
+
+  if (output.warning) {
+    lines.push('');
+    lines.push(chalk.yellow(`  Warning: ${output.warning}`));
+  }
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.results.length === 0) {
+    lines.push('');
+    lines.push(chalk.dim('  No results found'));
+    return lines.join('\n');
+  }
+
+  for (let i = 0; i < output.results.length; i++) {
+    const r = output.results[i];
+    const domain = domainFromUrl(r.url);
+    const score = r.relevance_score.toFixed(2);
+    lines.push('');
+    lines.push(`  ${chalk.bold(`[${i + 1}]`)} ${chalk.white(r.title)} ${chalk.dim(`- ${domain}`)} ${chalk.green(`(score: ${score})`)}`);
+    lines.push(`      ${chalk.dim(truncate(r.snippet, SNIPPET_MAX_LENGTH))}`);
+  }
+
+  return lines.join('\n');
+}
+
+export function formatFetchResult(output: FetchOutput): string {
+  const lines: string[] = [];
+
+  lines.push(`Fetch: ${chalk.cyan(output.url)}`);
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  lines.push('');
+
+  const markdownLines = output.markdown.split('\n');
+  const preview = markdownLines.slice(0, 3).join('\n');
+  const indented = preview.split('\n').map(l => `  ${l}`).join('\n');
+  lines.push(indented);
+
+  lines.push('');
+  lines.push(chalk.dim(`  [cached: ${output.cached}, ${output.markdown.length} chars]`));
+
+  return lines.join('\n');
+}
+
+export function formatCrawlResult(output: CrawlOutput, seedUrl: string): string {
+  const lines: string[] = [];
+
+  lines.push(`Crawl: ${chalk.cyan(seedUrl)} (${output.crawled} pages crawled, ${output.total_found} found)`);
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.pages.length === 0) {
+    lines.push('');
+    lines.push(chalk.dim('  No pages crawled'));
+    return lines.join('\n');
+  }
+
+  for (let i = 0; i < output.pages.length; i++) {
+    const p = output.pages[i];
+    const path = pathFromUrl(p.url, seedUrl);
+    lines.push(`  ${chalk.bold(`[${i + 1}]`)} ${chalk.white(path)} ${chalk.dim(`(depth: ${p.depth}, ${p.markdown.length} chars)`)}`);
+  }
+
+  return lines.join('\n');
+}
+
+export function formatMapResult(output: MapOutput, seedUrl: string): string {
+  const lines: string[] = [];
+
+  lines.push(`Map: ${chalk.cyan(seedUrl)} (${output.urls.length} URLs found, sitemap: ${output.sitemap_found ? 'yes' : 'no'})`);
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.urls.length === 0) {
+    lines.push('');
+    lines.push(chalk.dim('  No URLs found'));
+    return lines.join('\n');
+  }
+
+  for (let i = 0; i < output.urls.length; i++) {
+    const path = pathFromUrl(output.urls[i], seedUrl);
+    lines.push(`  ${chalk.bold(`[${i + 1}]`)} ${chalk.white(path)}`);
+  }
+
+  return lines.join('\n');
+}
+
+export function formatExtractResult(output: ExtractOutput): string {
+  const lines: string[] = [];
+
+  const sourceLabel = output.source_url ? ` ${chalk.cyan(output.source_url)}` : '';
+  lines.push(`Extract:${sourceLabel} (mode: ${chalk.yellow(output.mode)})`);
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  lines.push('');
+
+  if (output.mode === 'tables' && Array.isArray(output.data)) {
+    for (const table of output.data as TableData[]) {
+      if (table.headers.length === 0) continue;
+      const headerRow = '  | ' + table.headers.join(' | ') + ' |';
+      const sepRow = '  | ' + table.headers.map(h => '-'.repeat(Math.max(h.length, 4))).join(' | ') + ' |';
+      lines.push(headerRow);
+      lines.push(sepRow);
+      for (const row of table.rows) {
+        const cells = table.headers.map(h => row[h] ?? '');
+        lines.push('  | ' + cells.join(' | ') + '|');
+      }
+    }
+  } else if (output.mode === 'selector') {
+    if (Array.isArray(output.data)) {
+      for (const item of output.data) {
+        lines.push(`  ${item}`);
+      }
+    } else {
+      lines.push(`  ${String(output.data)}`);
+    }
+  } else if (output.mode === 'metadata') {
+    const meta = output.data as MetadataData;
+    if (meta.title) lines.push(`  ${chalk.bold('Title:')} ${meta.title}`);
+    if (meta.description) lines.push(`  ${chalk.bold('Description:')} ${meta.description}`);
+    if (meta.author) lines.push(`  ${chalk.bold('Author:')} ${meta.author}`);
+    if (meta.date) lines.push(`  ${chalk.bold('Date:')} ${meta.date}`);
+    if (meta.keywords && meta.keywords.length > 0) {
+      lines.push(`  ${chalk.bold('Keywords:')} ${meta.keywords.join(', ')}`);
+    }
+  } else if (output.mode === 'schema') {
+    const data = output.data as Record<string, unknown>;
+    for (const [key, value] of Object.entries(data)) {
+      lines.push(`  ${chalk.bold(key + ':')} ${String(value)}`);
+    }
+  }
+
+  return lines.join('\n');
+}
+
+export function formatCacheResult(output: CacheOutput): string {
+  const lines: string[] = [];
+
+  if (output.error) {
+    lines.push(chalk.red(`Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.stats) {
+    lines.push('Cache Statistics:');
+    lines.push(`  ${chalk.bold('Total URLs:')}  ${output.stats.total_urls}`);
+    lines.push(`  ${chalk.bold('Total Size:')}  ${output.stats.total_size_mb.toFixed(2)} MB`);
+    lines.push(`  ${chalk.bold('Oldest:')}      ${output.stats.oldest}`);
+    lines.push(`  ${chalk.bold('Newest:')}      ${output.stats.newest}`);
+    return lines.join('\n');
+  }
+
+  if (output.cleared !== undefined) {
+    lines.push(`${chalk.green(String(output.cleared))} cache entries cleared`);
+    return lines.join('\n');
+  }
+
+  if (output.results) {
+    if (output.results.length === 0) {
+      lines.push(chalk.dim('No cached results found'));
+      return lines.join('\n');
+    }
+    for (let i = 0; i < output.results.length; i++) {
+      const r = output.results[i];
+      lines.push(`  ${chalk.bold(`[${i + 1}]`)} ${chalk.cyan(r.url)}`);
+      lines.push(`      ${chalk.white(r.title)} ${chalk.dim(`(cached ${r.fetched_at})`)}`);
+    }
+    return lines.join('\n');
+  }
+
+  return chalk.dim('No output');
+}
+
+export function formatFindSimilarResult(output: FindSimilarOutput): string {
+  const lines: string[] = [];
+
+  lines.push(`Find Similar: method=${chalk.yellow(output.method)}, cache=${output.cache_hits}, web=${output.search_hits}, embedding=${output.embedding_available ? 'yes' : 'no'} (${output.total_time_ms}ms)`);
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.results.length === 0) {
+    lines.push('');
+    lines.push(chalk.dim('  No similar results found'));
+    return lines.join('\n');
+  }
+
+  for (let i = 0; i < output.results.length; i++) {
+    const r = output.results[i];
+    const domain = domainFromUrl(r.url);
+    const score = r.relevance_score.toFixed(2);
+    lines.push('');
+    lines.push(`  ${chalk.bold(`[${i + 1}]`)} ${chalk.white(r.title)} ${chalk.dim(`- ${domain}`)} ${chalk.green(`(score: ${score}, ${r.source})`)}`);
+  }
+
+  return lines.join('\n');
+}
+
+export function formatResearchResult(output: ResearchOutput): string {
+  const lines: string[] = [];
+
+  lines.push(`Research: depth=${chalk.yellow(output.depth)}, ${output.sources.length} sources, ${output.citations.length} citations (${output.total_time_ms}ms)`);
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.sub_queries.length > 0) {
+    lines.push('');
+    lines.push(chalk.bold('  Sub-queries:'));
+    for (const sq of output.sub_queries) {
+      lines.push(`    - ${sq}`);
+    }
+  }
+
+  if (output.report) {
+    lines.push('');
+    const preview = output.report.split('\n').slice(0, 10).map(l => `  ${l}`).join('\n');
+    lines.push(preview);
+    if (output.report.split('\n').length > 10) {
+      lines.push(chalk.dim(`  ... (${output.report.length} chars total)`));
+    }
+  }
+
+  return lines.join('\n');
+}
+
+export function formatAgentResult(output: AgentOutput): string {
+  const lines: string[] = [];
+
+  lines.push(`Agent: ${output.pages_fetched} pages fetched, ${output.steps.length} steps (${output.total_time_ms}ms)`);
+
+  if (output.error) {
+    lines.push('');
+    lines.push(chalk.red(`  Error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.steps.length > 0) {
+    lines.push('');
+    lines.push(chalk.bold('  Steps:'));
+    for (const step of output.steps) {
+      lines.push(`    ${chalk.yellow(step.action)} ${chalk.dim(`(${step.time_ms}ms)`)} ${step.detail}`);
+    }
+  }
+
+  if (output.result) {
+    lines.push('');
+    const text = typeof output.result === 'string' ? output.result : JSON.stringify(output.result, null, 2);
+    const preview = text.split('\n').slice(0, 10).map(l => `  ${l}`).join('\n');
+    lines.push(preview);
+    if (text.split('\n').length > 10) {
+      lines.push(chalk.dim(`  ... (${text.length} chars total)`));
+    }
+  }
+
+  return lines.join('\n');
+}
+
+export function formatDiffResult(output: DiffOutput & { error?: string }): string {
+  const lines: string[] = [];
+
+  if (output.error) {
+    lines.push(chalk.red(`Diff error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  lines.push(`Diff: ${output.changed ? chalk.yellow('changed') : chalk.green('unchanged')}${output.truncated ? chalk.dim(' (truncated)') : ''}`);
+
+  if (output.notice) {
+    lines.push(chalk.dim(`  ${output.notice}`));
+  }
+
+  if (output.summary) {
+    const s = output.summary;
+    lines.push('');
+    lines.push(`  ${chalk.green(`+${s.added_lines}`)} ${chalk.red(`-${s.removed_lines}`)} ${chalk.yellow(`~${s.modified_lines}`)} (${s.total_changed_chars} chars)`);
+  } else if (output.unified_diff) {
+    lines.push('');
+    const preview = output.unified_diff.split('\n').slice(0, 40).map(l => `  ${l}`).join('\n');
+    lines.push(preview);
+  } else if (output.hunks && output.hunks.length > 0) {
+    lines.push('');
+    for (const h of output.hunks) {
+      const title = h.section_title ? `${chalk.bold(h.section_title)} ` : '';
+      lines.push(`  ${title}${chalk.dim(`[${h.change_type}]`)}`);
+    }
+  }
+
+  return lines.join('\n');
+}
+
+export function formatWatchResult(output: WatchJobOutput & { error?: string }): string {
+  const lines: string[] = [];
+
+  if (output.error) {
+    lines.push(chalk.red(`Watch error: ${output.error}`));
+    return lines.join('\n');
+  }
+
+  if (output.jobs.length === 0) {
+    lines.push(chalk.dim('No watch jobs'));
+  } else {
+    lines.push(`Watch: ${output.jobs.length} job${output.jobs.length === 1 ? '' : 's'}`);
+    for (const job of output.jobs) {
+      const status = job.status === 'active' ? chalk.green(job.status) : chalk.yellow(job.status);
+      lines.push(`  ${chalk.bold(job.id)} ${chalk.cyan(job.url)} ${chalk.dim(`(every ${job.interval_seconds}s, `)}${status}${chalk.dim(')')}`);
+    }
+  }
+
+  if (output.changes_since_last && output.changes_since_last.length > 0) {
+    lines.push('');
+    for (const c of output.changes_since_last) {
+      lines.push(`  ${c.changed ? chalk.yellow('changed') : chalk.green('unchanged')} ${chalk.cyan(c.url)}`);
+    }
+  }
+
+  if (output.notice) {
+    lines.push('');
+    lines.push(chalk.dim(`  Note: ${output.notice}`));
+  }
+
+  return lines.join('\n');
+}
+
+export function formatJson(data: unknown): string {
+  return JSON.stringify(data, null, 2);
+}
+
+/**
+ * Compact single-line JSON for NDJSON output: one command result per line so a
+ * piped shell session emits a newline-delimited JSON stream. `formatJson` stays
+ * the pretty one-shot form; this never inserts newlines within a document.
+ */
+export function formatJsonLine(data: unknown): string {
+  return JSON.stringify(data);
+}

@@ -1,0 +1,185 @@
+#!/usr/bin/env bash
+# mentionsverbcheck.sh — §A8.4 gate: --mentions=SYM's docs= counted
+# markdown SECTIONS while the rows printed FILES — a doc with several backtick mentions of SYM under
+# different headings inflated docs= (main.cpp uniques g.mentions' section NodeIds, one per enclosing
+# Section, then prints each one's FILE path) and repeated the same p= across rows, both wrong: the
+# attribute name says "docs" but the number was sections, and a reader summing rows double(triple)-
+# counted one file.
+#
+# THE FIX: rows collapse to one per FILE, carrying mentions="N" (that file's own section-mention count).
+# The root's docs= now names what it prints (the row count, distinct files) and sections= keeps the old
+# section-node tally so nothing measured is lost. V2-2: NO l= — the doc edge is stored at file granularity
+# (graph.h keeps the doc FILE node, line always 1), so an emitted l= read as a locator while carrying zero
+# information; a row must not carry a fake locator.
+#
+# Fixture: pkg/alpha.py defines widget_pipeline_process. multi.md backtick-mentions it THREE times: once
+# in body prose under no specific heading (attributes to the file-level Section — every ripwire markdown
+# file gets one, spanning the whole file) and twice more directly ON a heading's own line ("## `sym`
+# details" — a heading span covers only its own line, so a backtick THERE binds a DIFFERENT enclosing
+# Section than body prose below it). That is 3 distinct (def, enclosing-Section) edges in ONE file — the
+# exact shape that inflated docs=3x pre-fix. single.md mentions it once, for a plain 1x control.
+#
+# Usage:  bash test/mentionsverbcheck.sh   |   RIPWIRE_BIN=asan/ripwire bash test/mentionsverbcheck.sh
+#         RIPWIRE_BIN=build_base/ripwire bash test/mentionsverbcheck.sh    # must FAIL (pre-fix binary)
+# 7) THE BACKTICK RULE'S RESIDUE (lane honesty-cuts-066): docs= counts only a clean one-line backtick span, so prose, a
+#    code block or a span broken across lines never counted, and nothing said so (--mentions=escapeXml read docs="2"
+#    while three more files named it). unbackticked_docs=N counts the markdown files that name it only that way,
+#    present only when non-zero, defined in the same document; the two fixture docs above name it only in backticks.
+#    The MCP `mentions` twin carries it as "unbackticked_docs" with "unbackticked_docs_ceiling":true beside it.
+#
+# Exits non-zero on any failure. Self-contained (own temp dir). Does NOT edit test/regression.sh.
+
+set -u
+ROOT="$( cd "$( dirname "$0" )/.." && pwd )"
+BIN="${1:-${RIPWIRE_BIN:-$ROOT/build/ripwire}}"
+[ "${BIN#/}" = "$BIN" ] && BIN="$ROOT/$BIN"
+fail=0
+ok(){ printf '  PASS  %s\n' "$*" || { fail=1; printf '  FAIL  could not write the PASS line for: %s\n' "$*"; }; return 0; }
+no(){ printf '  FAIL  %s\n' "$*"; fail=1; }
+
+[ -x "$BIN" ] || { echo "no ripwire binary at $BIN — build first"; exit 2; }
+echo "mentionsverbcheck: BIN=$BIN"
+
+WORK="$( mktemp -d )"; trap 'rm -rf "$WORK"' EXIT
+FIX="$WORK/fix"; mkdir -p "$FIX/pkg"
+
+cat > "$FIX/pkg/alpha.py" <<'EOF'
+def widget_pipeline_process(records):
+    return records
+EOF
+cat > "$FIX/multi.md" <<'EOF'
+# Overview
+
+Body prose mentioning `widget_pipeline_process` once, under no specific heading.
+
+## `widget_pipeline_process` details
+
+More prose here, unrelated to any specific backtick.
+
+## Another note about `widget_pipeline_process`
+
+Final prose.
+EOF
+cat > "$FIX/single.md" <<'EOF'
+# Single doc
+
+Just one mention of `widget_pipeline_process` here.
+EOF
+
+# L1 (2026-09-19): the CLI default legend is compact; arm 3 reads the FULL legend's prose and arm 4 counts real <doc p= rows
+# (the compact legend spells row shapes inside its comment), so this document asks for the full legend.
+OUT="$( "$BIN" "$FIX" --mentions=widget_pipeline_process --no-cache --legend=full 2>/dev/null )"
+[ -n "$OUT" ] || { echo "no output — binary or fixture broken"; exit 2; }
+
+# ── 1) exactly ONE row per file — no duplicate p= (the 3x-overcount bug's most visible symptom) ────────
+n_multi_rows="$( printf '%s' "$OUT" | grep -oE '<doc p="[^"]*multi\.md"' | wc -l | tr -d ' ' )"
+[ "$n_multi_rows" = 1 ] \
+    && ok "multi.md collapses to exactly one <doc> row (was 3 duplicate rows, pre-fix)" \
+    || no "expected exactly 1 row for multi.md, got $n_multi_rows"
+n_single_rows="$( printf '%s' "$OUT" | grep -oE '<doc p="[^"]*single\.md"' | wc -l | tr -d ' ' )"
+[ "$n_single_rows" = 1 ] \
+    && ok "single.md is exactly one <doc> row" \
+    || no "expected exactly 1 row for single.md, got $n_single_rows"
+
+# ── 2) each row carries the right per-file mentions= (its own section-mention count) ────────────────────
+multiRow="$( printf '%s' "$OUT" | grep -oE '<doc p="[^"]*multi\.md"[^/]*/>' )"
+singleRow="$( printf '%s' "$OUT" | grep -oE '<doc p="[^"]*single\.md"[^/]*/>' )"
+printf '%s' "$multiRow" | grep -q 'mentions="3"' \
+    && ok "multi.md row carries mentions=\"3\" (3 distinct section mentions collapsed into it)" \
+    || no "multi.md row missing mentions=\"3\": $multiRow"
+printf '%s' "$singleRow" | grep -q 'mentions="1"' \
+    && ok "single.md row carries mentions=\"1\"" \
+    || no "single.md row missing mentions=\"1\": $singleRow"
+
+# ── 3) V2-2: NO row carries l= — the stored doc edge has no real line, and a fake locator (always 1)
+# ──         is worse than none. The legend must say why the locator is absent.
+printf '%s' "$multiRow"  | grep -qE ' l="' && no "multi.md row still carries the fake l=" || ok "multi.md row carries no l= (V2-2)"
+printf '%s' "$singleRow" | grep -qE ' l="' && no "single.md row still carries the fake l=" || ok "single.md row carries no l= (V2-2)"
+if printf '%s' "$OUT" | grep -q "No line locator"; then ok "legend explains the absent locator"; else no "legend does not explain the absent locator"; fi
+
+# ── 4) root docs= is the ROW COUNT (distinct files, 2), not the section tally ────────────────────────────
+rowCount="$( printf '%s' "$OUT" | grep -o '<doc p=' | wc -l | tr -d ' ' )"
+docsAttr="$( printf '%s' "$OUT" | grep -oE '<mentions[^>]*>' | grep -oE ' docs="[0-9]+"' | grep -oE '"[0-9]+"' | tr -d '"' )"
+{ [ "$docsAttr" = "2" ] && [ "$rowCount" = "2" ] && [ "$docsAttr" = "$rowCount" ]; } \
+    && ok "root docs=\"$docsAttr\" == the $rowCount emitted rows (distinct files)" \
+    || no "docs=\"$docsAttr\" should equal the row count (got $rowCount rows)"
+
+# ── 5) root sections= keeps the OLD section-node tally (nothing measured is lost) ────────────────────────
+sectionsAttr="$( printf '%s' "$OUT" | grep -oE '<mentions[^>]*>' | grep -oE ' sections="[0-9]+"' | grep -oE '"[0-9]+"' | tr -d '"' )"
+[ "$sectionsAttr" = "4" ] \
+    && ok "root sections=\"4\" == the pre-collapse section-mention tally (3 + 1)" \
+    || no "root sections= wrong (got '$sectionsAttr', expected 4)"
+
+# ── 6) xml well-formed + determinism ─────────────────────────────────────────────────────────────────────
+if command -v xmllint >/dev/null 2>&1; then
+    if printf '%s' "$OUT" | xmllint --noout - 2>/dev/null; then ok "xml well-formed"; else no "xml malformed"; fi
+else
+    printf '  SKIP  xml well-formed (no xmllint)\n'
+fi
+OUT2="$( "$BIN" "$FIX" --mentions=widget_pipeline_process --no-cache --legend=full 2>/dev/null )"
+if [ "$OUT" = "$OUT2" ]; then ok "deterministic (byte-identical run-to-run)"; else no "non-deterministic output"; fi
+
+# -- 7) the markdown the backtick rule leaves out is counted ----------------------------------------------------
+if printf '%s' "$OUT" | grep -q 'unbackticked_docs'; then no "backtick-only docs carry unbackticked_docs (should be absent)"
+else ok "every fixture doc names it in backticks: no unbackticked_docs= (0 B)"; fi
+cat > "$FIX/prose.md" <<'MD'
+# Prose
+
+The widget_pipeline_process step runs first.
+MD
+cat > "$FIX/broken.md" <<'MD'
+# Broken span
+
+A span that opens `here and
+closes` before `widget_pipeline_process` on the next line.
+MD
+cat > "$FIX/namesake.md" <<'MD'
+# Not a mention
+
+widget_pipeline_process_v2 is a different name.
+MD
+OUT7="$( "$BIN" "$FIX" --mentions=widget_pipeline_process --no-cache 2>/dev/null )"
+ROOT7="$( printf '%s' "$OUT7" | grep -oE '<mentions [^>]*>' | head -1 )"
+printf '%s' "$ROOT7" | grep -q ' docs="2"' && printf '%s' "$ROOT7" | grep -q ' unbackticked_docs="2"' \
+    && ok "docs=\"2\" unchanged, unbackticked_docs=\"2\" (prose.md, broken.md; namesake.md is another word)" \
+    || no "want docs=\"2\" unbackticked_docs=\"2\": $ROOT7"
+printf '%s' "$OUT7" | grep -qE '<!-- unbackticked_docs=N: ' \
+    && ok "the same document defines unbackticked_docs=" || no "unbackticked_docs= rides with no reading"
+# the MCP twin carries the same count, marked a ceiling in JSON (the "_floor":true precedent, the other direction)
+MCP7="$( printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize"}' \
+    '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"mentions","arguments":{"path":"'"$FIX"'","symbol":"widget_pipeline_process"}}}' \
+    | "$BIN" --mcp 2>/dev/null | tail -1 )"
+MCP7V="$( printf '%s' "$MCP7" | python3 -c '
+import sys, json
+try:
+    r = json.loads( sys.stdin.read() )
+    body = json.loads( r["result"]["content"][0]["text"] )
+    ok = body.get( "docs" ) == 2 and body.get( "unbackticked_docs" ) == 2 and body.get( "unbackticked_docs_ceiling" ) is True
+    print( "OK" if ok else "GOT:" + json.dumps( body )[ :300 ] )
+except Exception as e:
+    print( "GOT:unparseable %s" % e )
+' )"
+[ "$MCP7V" = OK ] && ok "MCP mentions: docs=2, unbackticked_docs=2 with unbackticked_docs_ceiling=true" \
+    || no "MCP mentions twin: $MCP7V"
+
+# 8) 0.6.6 review: an indexed markdown file that cannot be read back at answer time was silently counted as "no
+#    unbackticked mention". It is now counted and disclosed: unbackticked_unread=N (present only when non-zero, defined
+#    in the same document). The index comes from a cache (an isolated HOME), then one file loses its read permission.
+UR="$WORK/unread"; mkdir -p "$UR" "$WORK/urhome"
+printf 'int widget_pipeline_process( int x ) { return x; }\n' >"$UR/a.c"
+printf '# Prose\n\nThe widget_pipeline_process step runs first.\n' >"$UR/prose.md"
+printf '# Other\n\nnothing here\n' >"$UR/other.md"
+UR0="$( HOME="$WORK/urhome" "$BIN" "$UR" --mentions=widget_pipeline_process 2>/dev/null )"
+printf '%s' "$UR0" | grep -q 'unbackticked_unread' && no "every doc readable, yet unbackticked_unread= is present" || ok "every doc readable: no unbackticked_unread= (0 B)"
+chmod 000 "$UR/prose.md"
+if [ -r "$UR/prose.md" ]; then ok "unbackticked_unread: skipped (this user reads a mode-000 file, e.g. root)"
+else
+    UR1="$( HOME="$WORK/urhome" "$BIN" "$UR" --mentions=widget_pipeline_process 2>/dev/null )"
+    UR1ROOT="$( printf '%s' "$UR1" | grep -oE '<mentions [^>]*>' | head -1 )"
+    printf '%s' "$UR1ROOT" | grep -q ' unbackticked_unread="1"' && printf '%s' "$UR1" | grep -q '<!-- unbackticked_unread=N: ' \
+        && ok "an indexed doc unreadable at answer time is disclosed: unbackticked_unread=\"1\", defined" \
+        || no "an unreadable indexed doc is not disclosed: $UR1ROOT"
+fi
+chmod 644 "$UR/prose.md"
+
+[ "$fail" -eq 0 ] && echo "ALL PASS" || { echo "SOME CHECKS FAILED"; exit 1; }

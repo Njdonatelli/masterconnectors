@@ -1,0 +1,65 @@
+{
+  "title": "Decade (XXXXs) → Area Chart",
+  "description": "Decades as strings with \"s\": \"1950s\", \"1960s\", … (8 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": "1950s",
+          "Value": 377
+        },
+        {
+          "Decade": "1960s",
+          "Value": 90
+        },
+        {
+          "Decade": "1970s",
+          "Value": 379
+        },
+        {
+          "Decade": "1980s",
+          "Value": 101
+        },
+        {
+          "Decade": "1990s",
+          "Value": 279
+        },
+        {
+          "Decade": "2000s",
+          "Value": 191
+        },
+        {
+          "Decade": "2010s",
+          "Value": 282
+        },
+        {
+          "Decade": "2020s",
+          "Value": 246
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,144 @@
+name: Release Windows
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        description: Release tag to attach the Windows assets to, for example v0.9.0
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to attach the Windows assets to, for example v0.9.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release-ci-gate:
+    permissions:
+      actions: read
+      contents: read
+    uses: ./.github/workflows/release-ci-gate.yml
+    with:
+      tag: ${{ startsWith(inputs.tag, 'v') && inputs.tag || format('v{0}', inputs.tag) }}
+
+  windows-installer:
+    needs: release-ci-gate
+    runs-on: windows-latest
+    env:
+      RELEASE_TAG: ${{ startsWith(inputs.tag, 'v') && inputs.tag || format('v{0}', inputs.tag) }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.RELEASE_TAG }}
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.5.1
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - uses: voidzero-dev/setup-vp@1b32467adbe183473499fd9d5d372c3ed9641754 # v1.18.0
+        with:
+          version: '0.3.0'
+          node-manager: false
+          run-install: false
+          cache: false
+
+      - name: Validate release tag
+        shell: pwsh
+        run: |
+          $version = node -p "require('./package.json').version"
+          $expected = "v$version"
+          if ($env:RELEASE_TAG -ne $expected) {
+            Write-Error "release tag $env:RELEASE_TAG does not match package.json version $expected"
+            exit 1
+          }
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - uses: ./.github/actions/prepare-native-components
+
+      - name: Build PDF/OCR download component
+        run: pnpm build:extractor-component
+
+      - name: Build Windows installer
+        env:
+          CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
+          STASHBASE_SKIP_SIDECAR_BUILD: '1'
+        run: pnpm dist:win
+
+      - name: Verify optional Windows signature
+        env:
+          CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
+        shell: pwsh
+        run: |
+          $hasCertificate = -not [string]::IsNullOrWhiteSpace($env:CSC_LINK)
+          $hasPassword = -not [string]::IsNullOrWhiteSpace($env:CSC_KEY_PASSWORD)
+          if (-not $hasCertificate -and -not $hasPassword) {
+            Write-Host "No Windows signing certificate configured; publishing unsigned NSIS artifacts."
+            exit 0
+          }
+          if (-not $hasCertificate -or -not $hasPassword) {
+            Write-Error "Windows signing requires both WIN_CSC_LINK and WIN_CSC_KEY_PASSWORD"
+            exit 1
+          }
+          $installers = @(Get-ChildItem -Path release.nosync -File -Filter '*.exe')
+          if ($installers.Count -eq 0) {
+            Write-Error "Missing signed NSIS installer"
+            exit 1
+          }
+          foreach ($installer in $installers) {
+            $signature = Get-AuthenticodeSignature $installer.FullName
+            if ($signature.Status -ne 'Valid') {
+              Write-Error "Invalid Authenticode signature for $($installer.Name): $($signature.Status)"
+              exit 1
+            }
+          }
+          $appUpdate = Get-ChildItem -Path release.nosync -Recurse -File -Filter 'app-update.yml' | Select-Object -First 1
+          if (-not $appUpdate) {
+            Write-Error "Packaged updater config is missing"
+            exit 1
+          }
+          if (-not (Select-String -Path $appUpdate.FullName -Pattern '^publisherName:' -Quiet)) {
+            Write-Error "Packaged updater config is missing publisherName signature verification"
+            exit 1
+          }
+
+      - name: Smoke packaged Windows server
+        run: node scripts/smoke-packaged-server.mjs
+
+      - name: Upload Windows assets to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: pwsh
+        run: |
+          $artifacts = Get-ChildItem -Path release.nosync -File |
+            Where-Object { $_.Name -match '(\.(exe|blockmap)$|^latest.*\.ya?ml$|^stashbase-extract-.*\.(tar\.gz|json)$)' -and $_.Length -gt 0 }
+
+          if (-not ($artifacts | Where-Object { $_.Name -eq 'latest.yml' })) {
+            Write-Error "Missing latest.yml Windows update metadata"
+            exit 1
+          }
+          if (-not ($artifacts | Where-Object { $_.Extension -eq '.exe' })) {
+            Write-Error "Missing NSIS installer"
+            exit 1
+          }
+          if (-not ($artifacts | Where-Object { $_.Extension -eq '.blockmap' })) {
+            Write-Error "Missing Windows blockmap"
+            exit 1
+          }
+
+          $artifactPaths = @($artifacts | ForEach-Object { $_.FullName })
+          node scripts/upload-release-assets.mjs @artifactPaths
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

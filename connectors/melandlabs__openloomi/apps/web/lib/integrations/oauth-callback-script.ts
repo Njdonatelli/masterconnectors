@@ -1,0 +1,1 @@
+export * from "@melandlabs/integrations-runtime/oauth-callback-script";

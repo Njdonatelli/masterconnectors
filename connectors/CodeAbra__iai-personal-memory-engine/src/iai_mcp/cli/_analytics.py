@@ -1,0 +1,769 @@
+"""Analytics, query, build, and migrate commands for the iai-mcp CLI."""
+
+from __future__ import annotations
+
+import argparse
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def cmd_health(args: argparse.Namespace) -> int:
+    from iai_mcp import cli as _cli
+    from datetime import datetime as _dt
+
+    from iai_mcp.tz import load_user_tz, to_local
+
+    tz = load_user_tz()
+
+    def _render_event(e: dict) -> None:
+        ts_raw = e.get("ts")
+        if isinstance(ts_raw, str):
+            ts_raw = _dt.fromisoformat(ts_raw.replace("Z", "+00:00"))
+        local = to_local(ts_raw, tz) if ts_raw is not None else None
+        severity = e.get("severity") or "?"
+        ts_str = local.isoformat() if local is not None else str(ts_raw)
+        print(f"llm_health: {severity} at {ts_str} ({tz.key})")
+        print(f"  data: {e.get('data', {})}")
+
+    resp = _cli._send_jsonrpc_request("events_query", {"kind": "llm_health", "limit": 1})
+    if isinstance(resp, dict) and "result" in resp:
+        payload = resp["result"]
+        if isinstance(payload, dict) and "events" in payload:
+            events = payload["events"]
+            if not events:
+                print("llm_health: no events recorded")
+                return 0
+            _render_event(events[0])
+            return 0
+
+    from iai_mcp.events import query_events
+    from iai_mcp.hippo import HippoLockHeldError
+    from iai_mcp.store import MemoryStore
+
+    try:
+        store = MemoryStore()
+        events = query_events(store, kind="llm_health", limit=1)
+    except HippoLockHeldError:
+        print("daemon holds store lock; retry when daemon is idle")
+        return 0
+
+    if not events:
+        print("llm_health: no events recorded")
+        return 0
+    _render_event(events[0])
+    return 0
+
+
+def cmd_build_native(args: argparse.Namespace) -> int:
+    from iai_mcp import cli as _cli
+    import shutil
+    from pathlib import Path
+
+    if shutil.which("cargo") is None:
+        print(
+            "cargo not found on PATH.\n"
+            "Install Rust: https://rustup.rs/",
+            file=_cli.sys.stderr,
+        )
+        return 1
+
+    repo_root = Path(__file__).resolve().parents[3]
+    native_dir = repo_root / "rust" / "iai_mcp_native"
+    if not native_dir.exists():
+        print(
+            f"Rust source not found at {native_dir}.\n"
+            "Are you running from an installed wheel? "
+            "build-native requires the repo checkout.",
+            file=_cli.sys.stderr,
+        )
+        return 1
+
+    cmd = [
+        _cli.sys.executable, "-m", "maturin", "develop", "--release",
+        "--manifest-path", str(native_dir / "Cargo.toml"),
+    ]
+    result = _cli.subprocess.run(cmd, cwd=str(repo_root))
+    if result.returncode != 0:
+        print(
+            "\nbuild-native failed (see cargo output above).\n"
+            "Common fix: rustup update",
+            file=_cli.sys.stderr,
+        )
+        return result.returncode
+    print("iai_mcp_native built successfully. Restart the daemon or MCP server.")
+    return 0
+
+
+def cmd_migrate(args: argparse.Namespace) -> int:
+    from iai_mcp import cli as _cli
+    from iai_mcp.store import MemoryStore
+    if bool(getattr(args, "reembed_from_text", False)) and bool(
+        getattr(args, "reembed_to_configured_provider", False)
+    ):
+        print(
+            "error: --reembed-from-text and --reembed-to-configured-provider "
+            "are mutually exclusive; run one migration at a time",
+            file=_cli.sys.stderr,
+        )
+        return 2
+    store = MemoryStore()
+    verbose = bool(getattr(args, "verbose", False))
+
+    def _progress(i: int, n: int) -> None:
+        if verbose:
+            print(f"[{i + 1}/{n}] migrating...")
+
+    # --reembed-from-text owns --resume / --rollback when combined with it:
+    # resume continues the reembed from its last committed window, rollback
+    # discards the reembed checkpoint. Checked before the schema-migration
+    # resume/rollback so the two machines never cross wires.
+    if bool(getattr(args, "reembed_from_text", False)):
+        from iai_mcp.migrate import migrate_reembed_from_text
+        from iai_mcp.migrate._reembed_from_text import _clear_resume_cursor
+        if bool(getattr(args, "rollback", False)):
+            _clear_resume_cursor(store)
+            print("reembed checkpoint cleared")
+            return 0
+        dry_run = bool(getattr(args, "dry_run", False))
+        batch_size = int(getattr(args, "reembed_batch_size", 256))
+        resume = bool(getattr(args, "resume", False))
+        result = migrate_reembed_from_text(
+            store, dry_run=dry_run, batch_size=batch_size, resume=resume
+        )
+        prefix = "[dry-run] would re-embed" if dry_run else "re-embedded"
+        print(
+            f"{prefix} {result['reembedded']} records; "
+            f"skipped={result['skipped']} total={result['total']}"
+        )
+        return 0
+
+    if bool(getattr(args, "reembed_to_configured_provider", False)):
+        from iai_mcp.embed import Embedder
+        from iai_mcp.migrate import migrate_reembed_to_current_dim
+
+        target = Embedder()
+        dry_run = bool(getattr(args, "dry_run", False))
+        batch_size = int(getattr(args, "reembed_batch_size", 256))
+        result = migrate_reembed_to_current_dim(
+            store,
+            target,
+            dry_run=dry_run,
+            progress=_progress,
+            force=True,
+            batch_size=batch_size,
+        )
+        prefix = "[dry-run] would re-embed" if dry_run else "re-embedded"
+        count = result.get("would_update", result.get("updated", 0))
+        print(
+            f"{prefix} {count} records from {result['source_dim']}d to "
+            f"{result['target_dim']}d with {target.model_key}"
+        )
+        if result.get("restart_required"):
+            print(
+                "restart IAE before recall so the vector indexes reopen at the new dimension"
+            )
+        return 0
+
+    if bool(getattr(args, "rollback", False)):
+        from iai_mcp import migrate
+        return migrate._rollback(store.db, store)
+    if bool(getattr(args, "resume", False)):
+        from iai_mcp import migrate
+        from iai_mcp.embed import Embedder
+        target = Embedder()
+        return migrate._resume(store.db, store, target)
+
+    if bool(getattr(args, "rederive_timestamps", False)):
+        from iai_mcp.migrate import migrate_rederive_collapsed_timestamps
+        dry_run = bool(getattr(args, "dry_run", False))
+        result = migrate_rederive_collapsed_timestamps(store, dry_run=dry_run)
+        prefix = "[dry-run] would update" if dry_run else "updated"
+        print(
+            f"{prefix} {result['records_updated']} records; "
+            f"skipped_no_transcript={result['skipped_no_transcript']} "
+            f"skipped_no_match={result['skipped_no_match']}"
+        )
+        return 0
+
+    if bool(getattr(args, "dedupe_episodic", False)):
+        from iai_mcp.migrate import migrate_dedupe_episodic_captures
+        dry_run = bool(getattr(args, "dry_run", False))
+        result = migrate_dedupe_episodic_captures(store, dry_run=dry_run)
+        prefix = "[dry-run] would tombstone" if dry_run else "tombstoned"
+        print(
+            f"{prefix} {result['tombstoned']} duplicate records "
+            f"across {result['groups']} group(s)"
+        )
+        return 0
+
+    if bool(getattr(args, "salvage_torn_permanent_failed", False)):
+        from iai_mcp.migrate import migrate_salvage_torn_permanent_failed
+        dry_run = bool(getattr(args, "dry_run", False))
+        result = migrate_salvage_torn_permanent_failed(dry_run=dry_run)
+        prefix = "[dry-run] would salvage" if dry_run else "salvaged"
+        print(
+            f"{prefix} {result['records_salvaged']} record(s) from "
+            f"{result['files_salvaged']} file(s); "
+            f"dropped {result['bytes_dropped']} torn bytes"
+        )
+        return 0
+
+    from_v = int(getattr(args, "from_", 1))
+    to_v = int(getattr(args, "to", 2))
+    dry_run = bool(getattr(args, "dry_run", False))
+
+    if from_v == 1 and to_v == 2:
+        from iai_mcp.migrate import migrate_v1_to_v2
+        result = migrate_v1_to_v2(store, dry_run=dry_run, progress=_progress)
+        prefix = "would migrate" if dry_run else "migrated"
+        print(
+            f"{prefix} {result['records_migrated']} records in "
+            f"{result['duration_sec']:.2f}s "
+            f"({result['previous_model']} -> {result['new_model']})"
+        )
+        return 0
+
+    if from_v == 2 and to_v == 3:
+        from iai_mcp.migrate import migrate_encryption_v2_to_v3
+        result = migrate_encryption_v2_to_v3(
+            store, dry_run=dry_run, progress=_progress
+        )
+        prefix = "would encrypt" if dry_run else "encrypted"
+        print(
+            f"{prefix} {result['records_migrated']} records + "
+            f"{result['events_migrated']} events in "
+            f"{result['duration_sec']:.2f}s "
+            f"(AES-256-GCM, iai:enc:v1:)"
+        )
+        return 0
+
+    if from_v == 3 and to_v == 4:
+        from iai_mcp.migrate import migrate_hd_vector_to_structure_hv_v3_to_v4
+        result = migrate_hd_vector_to_structure_hv_v3_to_v4(
+            store, dry_run=dry_run, progress=_progress
+        )
+        prefix = "would rename" if dry_run else "renamed"
+        print(
+            f"{prefix} {result['updated']} records' "
+            f"hd_vector_json->structure_hv column in "
+            f"{result['duration_ms'] / 1000:.2f}s "
+            f"(schema v3->v4, TEM factorization, D=10000 BSC packed)"
+        )
+        return 0
+
+    print(
+        f"unsupported migration --from={from_v} --to={to_v}; "
+        f"supported: 1->2 (schema), 2->3 (encryption), "
+        f"3->4 (TEM factorization)",
+        file=_cli.sys.stderr,
+    )
+    return 2
+
+
+def cmd_migrate_to_lilli(args: argparse.Namespace) -> int:
+    """Copy a SQLite Hippo store verbatim into a fresh lilli store, then verify.
+
+    Writes only to the explicit --dst root and NEVER swaps the live store.  The
+    migrator opens the source read-only; the verifier confirms byte-equality
+    across per-table counts, ciphertext/decrypt parity, recall, and temporal
+    recall.  Returns non-zero on any RED dimension so the operator never proceeds
+    to a cutover on a failed verify.
+    """
+    import sys as _sys
+    from pathlib import Path
+
+    from iai_mcp.crypto import CryptoKey
+    from iai_mcp.migrate import (
+        migrate_sqlite_to_lilli,
+        normalize_prune_cutoff,
+        verify_store_equality,
+    )
+
+    if bool(getattr(args, "swap", False)):
+        return cmd_migrate_to_lilli_swap(args)
+    if getattr(args, "dst", None) is None:
+        print(
+            "error: --dst is required unless --swap is given",
+            file=_sys.stderr,
+        )
+        return 2
+
+    src = str(getattr(args, "src"))
+    dst = str(getattr(args, "dst"))
+    batch = int(getattr(args, "batch", 500))
+    prune_before = getattr(args, "prune_telemetry_before", None)
+    verbose = bool(getattr(args, "verbose", False))
+
+    # Fail loud on an unparseable cutoff before any migration work begins --
+    # rejecting it only inside migrate_sqlite_to_lilli would still let a
+    # long copy of earlier tables run first.
+    if prune_before is not None:
+        try:
+            prune_before = normalize_prune_cutoff(prune_before)
+        except ValueError as exc:
+            print(f"error: {exc}", file=_sys.stderr)
+            return 1
+
+    src_root = Path(src).resolve().parent.parent
+
+    try:
+        report = migrate_sqlite_to_lilli(
+            src, dst, batch=batch, prune_telemetry_before=prune_before
+        )
+    except ValueError as exc:
+        print(f"error: {exc}", file=_sys.stderr)
+        return 1
+    print(
+        f"copied {sum(report.rows_copied.values())} rows "
+        f"({', '.join(f'{t}={n}' for t, n in report.rows_copied.items())}) "
+        f"in {report.elapsed_sec:.1f}s; peak RSS {report.peak_rss_mb:.0f} MB; "
+        f"max vec_label {report.max_vec_label}"
+    )
+
+    key = CryptoKey(store_root=src_root).get_or_create()
+    rep = verify_store_equality(src, dst, key, src_root=src_root)
+    for name, dim in rep.dimensions.items():
+        status = "ok" if dim.ok else "FAIL"
+        if not dim.ok or verbose:
+            print(f"  [{status}] {name}: {dim.reason}")
+    if rep.ok:
+        print("verify: GREEN -- all dimensions match")
+        return 0
+    print("verify: RED -- store equality NOT proven; do NOT cut over", file=_sys.stderr)
+    return 1
+
+
+def cmd_migrate_to_lilli_swap(args: argparse.Namespace) -> int:
+    """Preview or perform the in-place swap of a verified native copy into the
+    live store root.
+
+    Dry-run (the default) reports the detected format, the resolved store
+    root, the backup directory an apply would create, and any blockers --
+    without writing anything. Apply requires --yes in addition to --apply;
+    the source argument stays required, so no invocation defaults to the
+    live store by accident.
+    """
+    import sys as _sys
+    from pathlib import Path as _Path
+
+    from iai_mcp.migrate import swap_migrated_store
+    from iai_mcp.migrate._to_lilli_swap import MARKER_FILE_NAME
+
+    src = str(getattr(args, "src"))
+    dst = getattr(args, "dst", None)
+    batch = int(getattr(args, "batch", 500))
+    apply_flag = bool(getattr(args, "apply", False))
+    confirm_flag = bool(getattr(args, "yes", False))
+
+    if apply_flag and not confirm_flag:
+        print(
+            "error: --apply requires --yes to confirm -- this replaces the "
+            "live store's hippo/ directory in place. Preview first with "
+            "--swap (no --apply), then re-run with --swap --apply --yes.",
+            file=_sys.stderr,
+        )
+        return 2
+
+    apply_mode = apply_flag and confirm_flag
+    try:
+        summary = swap_migrated_store(src, apply=apply_mode, dst_root=dst, batch=batch)
+    except OSError as exc:
+        # Reached only by a genuine mid-mutation failure (e.g. the second
+        # rename): lock-acquisition and post-success cleanup failures are
+        # both handled without raising. A raw traceback here would leave
+        # the operator with no pointer to the readable three-way state
+        # (backup + staging tree + marker) the swap's own crash safety
+        # left behind -- point at it explicitly instead.
+        live_root = _Path(src).resolve().parent.parent
+        print(
+            f"error: the swap failed mid-mutation ({exc}). The store at "
+            f"{live_root} may be in a three-way state -- check for a marker "
+            f"at {live_root / MARKER_FILE_NAME}, a dated hippo.sqlite-backup-* "
+            "directory, and a .migrate-staging-* directory there, then "
+            "recover manually before retrying.",
+            file=_sys.stderr,
+        )
+        return 1
+
+    mode_str = summary.get("mode", "dry-run")
+    print(f"iai-mcp migrate-to-lilli --swap [{mode_str}]")
+    print(f"  detected format:   {summary.get('source_format')}")
+    print(f"  live store root:   {summary.get('live_root')}")
+
+    if summary.get("source_format") == "lilli":
+        print("  already native -- nothing to swap")
+        return 0
+
+    print(f"  backup directory:  {summary.get('backup_dir')}")
+    if summary.get("staging_root"):
+        print(f"  staging root:      {summary.get('staging_root')}")
+
+    blockers = summary.get("blockers") or []
+    if blockers:
+        print(f"  blockers ({len(blockers)}):")
+        for blocker in blockers:
+            print(f"    - {blocker}")
+
+    if summary.get("verify_ok") is False:
+        print("  verify:            RED -- store equality NOT proven")
+    elif summary.get("verify_ok") is True:
+        print("  verify:            GREEN -- all dimensions match")
+
+    rows = summary.get("rows_copied")
+    if rows:
+        print(
+            f"  rows copied:       {sum(rows.values())} "
+            f"({', '.join(f'{t}={n}' for t, n in rows.items())})"
+        )
+
+    if summary.get("swapped"):
+        print(
+            "  swapped -- the live store now runs on the native engine; "
+            f"the previous store is kept at {summary.get('backup_dir')}"
+        )
+        return 0
+
+    if not apply_mode:
+        if blockers:
+            print()
+            print("  (preview only -- resolve the blockers above before applying)")
+        else:
+            print()
+            print("  Run with --apply --yes to execute.")
+        return 0
+
+    return 1
+
+
+def cmd_deferred_unlock_dead_pids(args: argparse.Namespace) -> int:
+    """Unlock `.processing-<pid>.jsonl` files in the deferred-captures dir whose owner
+    PID is dead or differs from the live daemon's PID. Renames each back to `.jsonl`
+    so the next drain tick claims it. Idempotent; collision-safe."""
+    import json as _json
+    import sys as _sys
+
+    from iai_mcp.migrate import migrate_unlock_dead_pid_processing_files
+    from iai_mcp.migrate._dead_pid_unlock import _read_live_daemon_pid
+
+    dry_run = bool(getattr(args, "dry_run", False))
+    force = bool(getattr(args, "force", False))
+    emit_json = bool(getattr(args, "json", False))
+
+    if not dry_run and not force:
+        live_pid = _read_live_daemon_pid()
+        if live_pid is not None:
+            print(
+                f"a live daemon is running (pid {live_pid}); stop it first "
+                f"(`iai-mcp daemon stop`) to avoid racing the drain, or pass --force "
+                f"if you understand the risk. Use --dry-run to preview safely.",
+                file=_sys.stderr,
+            )
+            return 2
+
+    result = migrate_unlock_dead_pid_processing_files(dry_run=dry_run)
+    if emit_json:
+        print(_json.dumps(result, indent=2, sort_keys=True))
+        return 0
+    prefix = "[dry-run] would unlock" if dry_run else "unlocked"
+    print(
+        f"{prefix} {result['files_unlocked']} file(s) "
+        f"(scanned {result['files_scanned']}; "
+        f"skipped_live_current_daemon={result['skipped_live_current_daemon']}; "
+        f"collision_safe_renames={result['collision_safe_renames']}; "
+        f"live_daemon_pid={result['live_daemon_pid']})"
+    )
+    return 0
+
+
+def cmd_bank_recall(args: argparse.Namespace) -> int:
+    import json as _json
+
+    from iai_mcp.memory_bank import bank_recall_substring
+
+    include_processed = not getattr(args, "recent_only", False)
+    include_recent = not getattr(args, "processed_only", False)
+
+    result = bank_recall_substring(
+        args.query,
+        limit=args.limit,
+        include_processed=include_processed,
+        include_recent=include_recent,
+    )
+    print(_json.dumps(result, ensure_ascii=False))
+    return 0
+
+
+def cmd_topology(args: argparse.Namespace) -> int:  # noqa: ARG001 -- argparse contract
+    from iai_mcp import cli as _cli
+
+    def _fmt(v) -> str:
+        if v is None:
+            return "insufficient_data"
+        if isinstance(v, float):
+            return f"{v:.4f}"
+        return str(v)
+
+    def _render(d: dict) -> None:
+        print(f"C: {_fmt(d.get('C'))}")
+        print(f"L: {_fmt(d.get('L'))}")
+        print(f"sigma: {_fmt(d.get('sigma'))}")
+        print(f"communities: {_fmt(d.get('community_count'))}")
+        print(f"rich_club_ratio: {_fmt(d.get('rich_club_ratio'))}")
+        print(f"N: {_fmt(d.get('N'))}")
+        print(f"regime: {_fmt(d.get('regime'))}")
+
+    resp = _cli._send_jsonrpc_request("topology", {})
+    if isinstance(resp, dict):
+        result = resp.get("result")
+        if isinstance(result, dict):
+            _render(result)
+            return 0
+
+    from iai_mcp.hippo import HippoLockHeldError
+    from iai_mcp.retrieve import build_runtime_graph
+    from iai_mcp.sigma import compute_topology_snapshot
+    from iai_mcp.store import MemoryStore
+
+    try:
+        store = MemoryStore()
+        graph, _assignment, _rich_club = build_runtime_graph(store)
+        snap = compute_topology_snapshot(graph)
+    except HippoLockHeldError:
+        _render({})
+        return 0
+
+    _render(snap)
+    return 0
+
+
+def _aggregate_trajectory_from_events(
+    events: list[dict],
+) -> dict[str, list[tuple]]:
+    from iai_mcp.trajectory import METRIC_NAMES
+
+    out: dict[str, list[tuple]] = {m: [] for m in METRIC_NAMES}
+    for e in events:
+        data = e.get("data") or {}
+        m = data.get("metric")
+        v = data.get("value")
+        if m in METRIC_NAMES and v is not None:
+            try:
+                out[m].append((e.get("ts"), float(v)))
+            except (TypeError, ValueError):
+                continue
+    return out
+
+
+def _render_trajectory(data: dict, metric_names: list) -> None:
+    if not any(data.get(m) for m in metric_names):
+        print("no trajectory data recorded")
+        return
+    for metric in metric_names:
+        points = data.get(metric, [])
+        if not points:
+            print(f"{metric.upper()}: (no data)")
+            continue
+        values = [v for _, v in points]
+        n = len(values)
+        mean = sum(values) / n
+        print(
+            f"{metric.upper()}: n={n} mean={mean:.3f} "
+            f"min={min(values):.3f} max={max(values):.3f}"
+        )
+
+
+def cmd_trajectory(args: argparse.Namespace) -> int:
+    from iai_mcp import cli as _cli
+    from datetime import datetime, timedelta, timezone
+
+    from iai_mcp.trajectory import METRIC_NAMES
+
+    weeks = getattr(args, "since", None)
+    since = None
+    since_iso = None
+    if weeks is not None:
+        since = datetime.now(timezone.utc) - timedelta(weeks=int(weeks))
+        since_iso = since.isoformat()
+
+    socket_params: dict = {"kind": "trajectory_metric", "limit": 1000}
+    if since_iso:
+        socket_params["since"] = since_iso
+    resp = _cli._send_jsonrpc_request("events_query", socket_params)
+    if isinstance(resp, dict) and "result" in resp:
+        payload = resp["result"]
+        if isinstance(payload, dict) and "events" in payload:
+            data = _aggregate_trajectory_from_events(payload["events"])
+            _render_trajectory(data, METRIC_NAMES)
+            return 0
+
+    from iai_mcp.hippo import HippoLockHeldError
+    from iai_mcp.store import MemoryStore
+    from iai_mcp.trajectory import aggregate_trajectory
+
+    try:
+        store = MemoryStore()
+        data = aggregate_trajectory(store, since=since)
+    except HippoLockHeldError:
+        print("daemon holds store lock; retry when daemon is idle")
+        return 0
+
+    _render_trajectory(data, METRIC_NAMES)
+    return 0
+
+
+def _redact_shield_data(data: dict) -> str:
+    matched = data.get("matched") or []
+    tier = data.get("tier", "-")
+    record_id = data.get("record_id", "-")
+    action = data.get("action", "-")
+    return (
+        f"tier={tier} action={action} "
+        f"matched_count={len(matched)} record_id={record_id}"
+    )
+
+
+def _format_audit_event(event: dict, tz) -> str:
+    from datetime import datetime as _dt
+
+    from iai_mcp.tz import to_local
+
+    ts = event.get("ts")
+    if isinstance(ts, str):
+        try:
+            ts = _dt.fromisoformat(ts.replace("Z", "+00:00"))
+        except (ValueError, TypeError):
+            ts = None
+    try:
+        local_ts = to_local(ts, tz) if ts is not None else None
+    except (ValueError, TypeError, OSError):
+        local_ts = None
+    ts_str = local_ts.isoformat() if local_ts is not None else str(event.get("ts"))
+
+    kind = event.get("kind", "?")
+    sev = event.get("severity") or "-"
+    data = event.get("data") or {}
+    if kind in ("shield_rejection", "shield_flag", "shield_log"):
+        data_str = _redact_shield_data(data)
+    else:
+        data_str = str(data)[:200]
+    return f"[{ts_str}] {kind:32s} [{sev:8s}] {data_str}"
+
+
+def cmd_audit(args: argparse.Namespace) -> int:
+    from iai_mcp import cli as _cli
+    from datetime import datetime, timedelta, timezone
+
+    from iai_mcp.tz import load_user_tz
+
+    tz = load_user_tz()
+
+    since_raw = getattr(args, "since", None)
+    since = None
+    since_iso = None
+    if since_raw is not None:
+        since = datetime.now(timezone.utc) - timedelta(weeks=int(since_raw))
+        since_iso = since.isoformat()
+
+    sub = getattr(args, "audit_sub", None)
+
+    if sub == "drift":
+        resp = _cli._send_jsonrpc_request("detect_drift", {})
+        if isinstance(resp, dict) and "result" in resp:
+            payload = resp["result"]
+            if isinstance(payload, dict) and "alerts" in payload:
+                alerts = payload["alerts"]
+                if not alerts:
+                    print("drift: no anomaly detected (knob movement stable)")
+                else:
+                    for a in alerts:
+                        print(
+                            f"drift: knob movement rising across "
+                            f"{a.get('cycles')} tuning cycles; "
+                            f"first={a['first_value']:.3f} "
+                            f"last={a['last_value']:.3f}"
+                        )
+                return 0
+
+        from iai_mcp.hippo import HippoLockHeldError
+        from iai_mcp.s5 import detect_drift_anomaly
+        from iai_mcp.store import MemoryStore
+
+        try:
+            store = MemoryStore()
+            alerts, _c, _p = detect_drift_anomaly(store)
+        except HippoLockHeldError:
+            print("daemon holds store lock; retry when daemon is idle")
+            return 0
+
+        if not alerts:
+            print("drift: no anomaly detected (knob movement stable)")
+        else:
+            for a in alerts:
+                print(
+                    f"drift: knob movement rising across "
+                    f"{a.get('cycles')} tuning cycles; "
+                    f"first={a['first_value']:.3f} "
+                    f"last={a['last_value']:.3f}"
+                )
+        return 0
+
+    SHIELD_KINDS = ("shield_rejection", "shield_flag", "shield_log")
+    IDENTITY_KINDS = (
+        "s5_invariant_update",
+        "s5_invariant_proposal",
+        "s5_cooldown_block",
+        "s5_drift_alert",
+        "identity_cross_lingual_warning",
+        "identity_write_rejected",
+    )
+
+    if sub == "shield":
+        audit_kinds = list(SHIELD_KINDS)
+        empty_msg = "audit shield: no events recorded"
+    elif sub == "identity":
+        audit_kinds = list(IDENTITY_KINDS)
+        empty_msg = "audit identity: no events recorded"
+    else:
+        from iai_mcp.s5 import AUDIT_EVENT_KINDS
+        audit_kinds = list(AUDIT_EVENT_KINDS)
+        empty_msg = "No identity events recorded"
+
+    severity = getattr(args, "severity", None)
+
+    socket_params: dict = {"kinds": audit_kinds}
+    if since_iso:
+        socket_params["since"] = since_iso
+    resp = _cli._send_jsonrpc_request("audit_query", socket_params)
+    if isinstance(resp, dict) and "result" in resp:
+        payload = resp["result"]
+        if isinstance(payload, dict) and "events" in payload:
+            events = payload["events"]
+            if severity:
+                events = [e for e in events if e.get("severity") == severity]
+            if not events:
+                print(empty_msg)
+                return 0
+            for e in events:
+                print(_format_audit_event(e, tz))
+            return 0
+
+    from iai_mcp.hippo import HippoLockHeldError
+    from iai_mcp.s5 import audit_identity_events
+    from iai_mcp.store import MemoryStore
+
+    try:
+        store = MemoryStore()
+        events = audit_identity_events(store, since=since, kinds=tuple(audit_kinds))
+    except HippoLockHeldError:
+        print("daemon holds store lock; retry when daemon is idle")
+        return 0
+
+    if severity:
+        events = [e for e in events if e.get("severity") == severity]
+    if not events:
+        print(empty_msg)
+        return 0
+    for e in events:
+        print(_format_audit_event(e, tz))
+    return 0

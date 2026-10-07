@@ -1,0 +1,81 @@
+{
+  "title": "Year (string) → Line Chart",
+  "description": "Years as 4-digit strings: \"2000\", \"2001\", … (12 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Year": "2000",
+          "Value": 213
+        },
+        {
+          "Year": "2001",
+          "Value": 185
+        },
+        {
+          "Year": "2002",
+          "Value": 308
+        },
+        {
+          "Year": "2003",
+          "Value": 496
+        },
+        {
+          "Year": "2004",
+          "Value": 443
+        },
+        {
+          "Year": "2005",
+          "Value": 426
+        },
+        {
+          "Year": "2006",
+          "Value": 271
+        },
+        {
+          "Year": "2007",
+          "Value": 189
+        },
+        {
+          "Year": "2008",
+          "Value": 197
+        },
+        {
+          "Year": "2009",
+          "Value": 193
+        },
+        {
+          "Year": "2010",
+          "Value": 342
+        },
+        {
+          "Year": "2011",
+          "Value": 436
+        }
+      ]
+    },
+    "semantic_types": {
+      "Year": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Year"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

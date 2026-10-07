@@ -1,0 +1,262 @@
+{
+  "title": "3 Columns — Scatter",
+  "description": "3 column facets with scatter plots.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "X": 11,
+          "Y": 98,
+          "Col": "Electronics"
+        },
+        {
+          "X": 53,
+          "Y": 85,
+          "Col": "Electronics"
+        },
+        {
+          "X": 87,
+          "Y": 97,
+          "Col": "Electronics"
+        },
+        {
+          "X": 55,
+          "Y": 38,
+          "Col": "Electronics"
+        },
+        {
+          "X": 85,
+          "Y": 61,
+          "Col": "Electronics"
+        },
+        {
+          "X": 63,
+          "Y": 84,
+          "Col": "Electronics"
+        },
+        {
+          "X": 99,
+          "Y": 57,
+          "Col": "Electronics"
+        },
+        {
+          "X": 29,
+          "Y": 25,
+          "Col": "Electronics"
+        },
+        {
+          "X": 15,
+          "Y": 32,
+          "Col": "Electronics"
+        },
+        {
+          "X": 53,
+          "Y": 35,
+          "Col": "Electronics"
+        },
+        {
+          "X": 46,
+          "Y": 83,
+          "Col": "Electronics"
+        },
+        {
+          "X": 42,
+          "Y": 51,
+          "Col": "Electronics"
+        },
+        {
+          "X": 32,
+          "Y": 86,
+          "Col": "Electronics"
+        },
+        {
+          "X": 50,
+          "Y": 42,
+          "Col": "Electronics"
+        },
+        {
+          "X": 65,
+          "Y": 22,
+          "Col": "Electronics"
+        },
+        {
+          "X": 37,
+          "Y": 46,
+          "Col": "Clothing"
+        },
+        {
+          "X": 29,
+          "Y": 10,
+          "Col": "Clothing"
+        },
+        {
+          "X": 13,
+          "Y": 29,
+          "Col": "Clothing"
+        },
+        {
+          "X": 82,
+          "Y": 50,
+          "Col": "Clothing"
+        },
+        {
+          "X": 31,
+          "Y": 79,
+          "Col": "Clothing"
+        },
+        {
+          "X": 72,
+          "Y": 14,
+          "Col": "Clothing"
+        },
+        {
+          "X": 92,
+          "Y": 80,
+          "Col": "Clothing"
+        },
+        {
+          "X": 53,
+          "Y": 37,
+          "Col": "Clothing"
+        },
+        {
+          "X": 63,
+          "Y": 58,
+          "Col": "Clothing"
+        },
+        {
+          "X": 57,
+          "Y": 22,
+          "Col": "Clothing"
+        },
+        {
+          "X": 60,
+          "Y": 78,
+          "Col": "Clothing"
+        },
+        {
+          "X": 61,
+          "Y": 25,
+          "Col": "Clothing"
+        },
+        {
+          "X": 53,
+          "Y": 98,
+          "Col": "Clothing"
+        },
+        {
+          "X": 38,
+          "Y": 18,
+          "Col": "Clothing"
+        },
+        {
+          "X": 96,
+          "Y": 76,
+          "Col": "Clothing"
+        },
+        {
+          "X": 54,
+          "Y": 94,
+          "Col": "Food"
+        },
+        {
+          "X": 16,
+          "Y": 24,
+          "Col": "Food"
+        },
+        {
+          "X": 96,
+          "Y": 34,
+          "Col": "Food"
+        },
+        {
+          "X": 68,
+          "Y": 97,
+          "Col": "Food"
+        },
+        {
+          "X": 34,
+          "Y": 62,
+          "Col": "Food"
+        },
+        {
+          "X": 41,
+          "Y": 42,
+          "Col": "Food"
+        },
+        {
+          "X": 80,
+          "Y": 55,
+          "Col": "Food"
+        },
+        {
+          "X": 30,
+          "Y": 82,
+          "Col": "Food"
+        },
+        {
+          "X": 21,
+          "Y": 24,
+          "Col": "Food"
+        },
+        {
+          "X": 62,
+          "Y": 11,
+          "Col": "Food"
+        },
+        {
+          "X": 29,
+          "Y": 61,
+          "Col": "Food"
+        },
+        {
+          "X": 15,
+          "Y": 85,
+          "Col": "Food"
+        },
+        {
+          "X": 79,
+          "Y": 17,
+          "Col": "Food"
+        },
+        {
+          "X": 29,
+          "Y": 30,
+          "Col": "Food"
+        },
+        {
+          "X": 41,
+          "Y": 26,
+          "Col": "Food"
+        }
+      ]
+    },
+    "semantic_types": {
+      "X": "Value",
+      "Y": "Value",
+      "Col": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "X"
+        },
+        "y": {
+          "field": "Y"
+        },
+        "column": {
+          "field": "Col"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "title": "Count Integer Format (,d)",
+  "description": "Semantic type \"Count\" uses integer format \",d\" — comma grouping with integer-only ticks (no fractional counts). Count is additive: sub-counts sum to total. WITHOUT this: fractional ticks (1,500.5?) and no commas.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "category": "Electronics",
+          "item_count": 783
+        },
+        {
+          "category": "Clothing",
+          "item_count": 9764
+        },
+        {
+          "category": "Food",
+          "item_count": 1030
+        },
+        {
+          "category": "Books",
+          "item_count": 3627
+        },
+        {
+          "category": "Toys",
+          "item_count": 959
+        },
+        {
+          "category": "Sports",
+          "item_count": 3007
+        }
+      ]
+    },
+    "semantic_types": {
+      "category": "Category",
+      "item_count": "Count"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "category"
+        },
+        "y": {
+          "field": "item_count"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

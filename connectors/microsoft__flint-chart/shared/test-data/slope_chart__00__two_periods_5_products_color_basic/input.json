@@ -1,0 +1,84 @@
+{
+  "title": "Two periods × 5 products + Color (basic)",
+  "description": "5 products, value change from 2019 → 2024 — minimum useful slopegraph",
+  "chartType": "Slope Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Period": "2019",
+          "Product": "Laptop",
+          "Revenue": 20
+        },
+        {
+          "Period": "2024",
+          "Product": "Laptop",
+          "Revenue": 62
+        },
+        {
+          "Period": "2019",
+          "Product": "Phone",
+          "Revenue": 56
+        },
+        {
+          "Period": "2024",
+          "Product": "Phone",
+          "Revenue": 42
+        },
+        {
+          "Period": "2019",
+          "Product": "Tablet",
+          "Revenue": 69
+        },
+        {
+          "Period": "2024",
+          "Product": "Tablet",
+          "Revenue": 35
+        },
+        {
+          "Period": "2019",
+          "Product": "Desktop",
+          "Revenue": 69
+        },
+        {
+          "Period": "2024",
+          "Product": "Desktop",
+          "Revenue": 66
+        },
+        {
+          "Period": "2019",
+          "Product": "Monitor",
+          "Revenue": 30
+        },
+        {
+          "Period": "2024",
+          "Product": "Monitor",
+          "Revenue": 54
+        }
+      ]
+    },
+    "semantic_types": {
+      "Period": "Category",
+      "Revenue": "Quantity",
+      "Product": "Product"
+    },
+    "chart_spec": {
+      "chartType": "Slope Chart",
+      "encodings": {
+        "x": {
+          "field": "Period"
+        },
+        "y": {
+          "field": "Revenue"
+        },
+        "color": {
+          "field": "Product"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

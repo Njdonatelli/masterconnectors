@@ -1,0 +1,303 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Sales",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 205
+    },
+    "axisX": {
+      "labelLimit": 60,
+      "labelFontSize": 9,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 14
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Cat01",
+        "Sales": 13
+      },
+      {
+        "Category": "Cat02",
+        "Sales": 112
+      },
+      {
+        "Category": "Cat03",
+        "Sales": 63
+      },
+      {
+        "Category": "Cat04",
+        "Sales": 196
+      },
+      {
+        "Category": "Cat05",
+        "Sales": 490
+      },
+      {
+        "Category": "Cat06",
+        "Sales": 76
+      },
+      {
+        "Category": "Cat07",
+        "Sales": 287
+      },
+      {
+        "Category": "Cat08",
+        "Sales": 249
+      },
+      {
+        "Category": "Cat09",
+        "Sales": 417
+      },
+      {
+        "Category": "Cat10",
+        "Sales": 138
+      },
+      {
+        "Category": "Cat11",
+        "Sales": 501
+      },
+      {
+        "Category": "Cat12",
+        "Sales": 303
+      },
+      {
+        "Category": "Cat13",
+        "Sales": 340
+      },
+      {
+        "Category": "Cat14",
+        "Sales": 441
+      },
+      {
+        "Category": "Cat15",
+        "Sales": 280
+      },
+      {
+        "Category": "Cat16",
+        "Sales": 299
+      },
+      {
+        "Category": "Cat17",
+        "Sales": 252
+      },
+      {
+        "Category": "Cat18",
+        "Sales": 501
+      },
+      {
+        "Category": "Cat19",
+        "Sales": 467
+      },
+      {
+        "Category": "Cat20",
+        "Sales": 478
+      },
+      {
+        "Category": "Cat21",
+        "Sales": 203
+      },
+      {
+        "Category": "Cat22",
+        "Sales": 321
+      },
+      {
+        "Category": "Cat23",
+        "Sales": 327
+      },
+      {
+        "Category": "Cat24",
+        "Sales": 485
+      },
+      {
+        "Category": "Cat25",
+        "Sales": 246
+      },
+      {
+        "Category": "Cat26",
+        "Sales": 222
+      },
+      {
+        "Category": "Cat27",
+        "Sales": 238
+      },
+      {
+        "Category": "Cat28",
+        "Sales": 58
+      },
+      {
+        "Category": "Cat29",
+        "Sales": 126
+      },
+      {
+        "Category": "Cat30",
+        "Sales": 423
+      },
+      {
+        "Category": "Cat31",
+        "Sales": 170
+      },
+      {
+        "Category": "Cat32",
+        "Sales": 124
+      },
+      {
+        "Category": "Cat33",
+        "Sales": 473
+      },
+      {
+        "Category": "Cat34",
+        "Sales": 450
+      },
+      {
+        "Category": "Cat35",
+        "Sales": 478
+      },
+      {
+        "Category": "Cat36",
+        "Sales": 29
+      },
+      {
+        "Category": "Cat37",
+        "Sales": 290
+      },
+      {
+        "Category": "Cat38",
+        "Sales": 375
+      },
+      {
+        "Category": "Cat39",
+        "Sales": 28
+      },
+      {
+        "Category": "Cat40",
+        "Sales": 444
+      },
+      {
+        "Category": "Cat41",
+        "Sales": 485
+      },
+      {
+        "Category": "Cat42",
+        "Sales": 231
+      },
+      {
+        "Category": "Cat43",
+        "Sales": 264
+      },
+      {
+        "Category": "Cat44",
+        "Sales": 189
+      },
+      {
+        "Category": "Cat45",
+        "Sales": 125
+      },
+      {
+        "Category": "Cat46",
+        "Sales": 248
+      },
+      {
+        "Category": "Cat47",
+        "Sales": 400
+      },
+      {
+        "Category": "Cat48",
+        "Sales": 219
+      },
+      {
+        "Category": "Cat49",
+        "Sales": 458
+      },
+      {
+        "Category": "Cat50",
+        "Sales": 56
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 205,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

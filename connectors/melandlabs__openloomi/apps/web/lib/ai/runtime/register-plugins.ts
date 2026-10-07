@@ -1,0 +1,26 @@
+/**
+ * Plugin Registration
+ *
+ * Registers agent plugins. This module is loaded separately to avoid
+ * circular dependency issues during module initialization.
+ */
+
+import { getAgentRegistry } from "@melandlabs/ai/agent";
+import {
+  claudePlugin,
+  codexPlugin,
+  hermesPlugin,
+  openclawPlugin,
+  opencodePlugin,
+} from "@/lib/ai/extensions";
+
+// Register built-in Agent plugins
+// This must be called AFTER all modules are loaded to avoid circular deps
+export function registerPlugins() {
+  const registry = getAgentRegistry();
+  registry.register(claudePlugin);
+  registry.register(codexPlugin);
+  registry.register(opencodePlugin);
+  registry.register(hermesPlugin);
+  registry.register(openclawPlugin);
+}

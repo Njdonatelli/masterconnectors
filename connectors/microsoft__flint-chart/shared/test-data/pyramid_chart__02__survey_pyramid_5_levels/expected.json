@@ -1,0 +1,168 @@
+{
+  "spacing": 0,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "Satisfaction Level",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "scale": {
+            "reverse": true,
+            "domain": [
+              0,
+              331
+            ]
+          },
+          "stack": null,
+          "field": "Count",
+          "type": "quantitative"
+        },
+        "opacity": {
+          "value": 0.9
+        },
+        "color": {
+          "value": "#4e79a7"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "Response",
+            "equal": "Agree"
+          }
+        }
+      ],
+      "title": "Agree",
+      "width": 246,
+      "height": 300
+    },
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "axis": null,
+          "field": "Satisfaction Level",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "stack": null,
+          "field": "Count",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              331
+            ]
+          }
+        },
+        "opacity": {
+          "value": 0.9
+        },
+        "color": {
+          "value": "#e15759"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "Response",
+            "equal": "Disagree"
+          }
+        }
+      ],
+      "title": "Disagree",
+      "width": 246,
+      "height": 300
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Satisfaction Level": "Very Low",
+        "Response": "Agree",
+        "Count": 146
+      },
+      {
+        "Satisfaction Level": "Very Low",
+        "Response": "Disagree",
+        "Count": 87
+      },
+      {
+        "Satisfaction Level": "Low",
+        "Response": "Agree",
+        "Count": 328
+      },
+      {
+        "Satisfaction Level": "Low",
+        "Response": "Disagree",
+        "Count": 250
+      },
+      {
+        "Satisfaction Level": "Medium",
+        "Response": "Agree",
+        "Count": 331
+      },
+      {
+        "Satisfaction Level": "Medium",
+        "Response": "Disagree",
+        "Count": 39
+      },
+      {
+        "Satisfaction Level": "High",
+        "Response": "Agree",
+        "Count": 218
+      },
+      {
+        "Satisfaction Level": "High",
+        "Response": "Disagree",
+        "Count": 213
+      },
+      {
+        "Satisfaction Level": "Very High",
+        "Response": "Agree",
+        "Count": 61
+      },
+      {
+        "Satisfaction Level": "Very High",
+        "Response": "Disagree",
+        "Count": 247
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": []
+}

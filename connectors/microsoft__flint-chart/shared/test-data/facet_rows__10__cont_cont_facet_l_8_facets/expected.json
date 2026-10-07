@@ -1,0 +1,920 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Y",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "row": {
+      "field": "Facet",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Facet: Y"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 128,
+      "continuousHeight": 60
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerRow": {
+      "labelFontSize": 9,
+      "labelLimit": 60
+    },
+    "facet": {
+      "spacing": 6
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 49,
+        "Y": 23,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 43,
+        "Y": 33,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 73,
+        "Y": 14,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 11,
+        "Y": 34,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 87,
+        "Y": 95,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 49,
+        "Y": 87,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 98,
+        "Y": 85,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 29,
+        "Y": 52,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 36,
+        "Y": 27,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 33,
+        "Y": 94,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 28,
+        "Y": 72,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 64,
+        "Y": 87,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 75,
+        "Y": 29,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 83,
+        "Y": 94,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 70,
+        "Y": 83,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 20,
+        "Y": 19,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 18,
+        "Y": 48,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 56,
+        "Y": 66,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 72,
+        "Y": 64,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 35,
+        "Y": 55,
+        "Facet": "Electronics"
+      },
+      {
+        "X": 53,
+        "Y": 82,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 55,
+        "Y": 64,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 88,
+        "Y": 69,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 33,
+        "Y": 15,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 28,
+        "Y": 87,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 99,
+        "Y": 32,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 13,
+        "Y": 62,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 54,
+        "Y": 38,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 76,
+        "Y": 46,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 83,
+        "Y": 89,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 80,
+        "Y": 16,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 95,
+        "Y": 12,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 45,
+        "Y": 61,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 69,
+        "Y": 73,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 74,
+        "Y": 41,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 74,
+        "Y": 59,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 34,
+        "Y": 98,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 91,
+        "Y": 96,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 76,
+        "Y": 77,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 32,
+        "Y": 93,
+        "Facet": "Clothing"
+      },
+      {
+        "X": 43,
+        "Y": 23,
+        "Facet": "Food"
+      },
+      {
+        "X": 46,
+        "Y": 23,
+        "Facet": "Food"
+      },
+      {
+        "X": 39,
+        "Y": 56,
+        "Facet": "Food"
+      },
+      {
+        "X": 97,
+        "Y": 13,
+        "Facet": "Food"
+      },
+      {
+        "X": 60,
+        "Y": 74,
+        "Facet": "Food"
+      },
+      {
+        "X": 86,
+        "Y": 23,
+        "Facet": "Food"
+      },
+      {
+        "X": 52,
+        "Y": 32,
+        "Facet": "Food"
+      },
+      {
+        "X": 93,
+        "Y": 72,
+        "Facet": "Food"
+      },
+      {
+        "X": 58,
+        "Y": 24,
+        "Facet": "Food"
+      },
+      {
+        "X": 82,
+        "Y": 32,
+        "Facet": "Food"
+      },
+      {
+        "X": 68,
+        "Y": 25,
+        "Facet": "Food"
+      },
+      {
+        "X": 11,
+        "Y": 93,
+        "Facet": "Food"
+      },
+      {
+        "X": 34,
+        "Y": 50,
+        "Facet": "Food"
+      },
+      {
+        "X": 90,
+        "Y": 21,
+        "Facet": "Food"
+      },
+      {
+        "X": 23,
+        "Y": 74,
+        "Facet": "Food"
+      },
+      {
+        "X": 37,
+        "Y": 17,
+        "Facet": "Food"
+      },
+      {
+        "X": 71,
+        "Y": 27,
+        "Facet": "Food"
+      },
+      {
+        "X": 64,
+        "Y": 57,
+        "Facet": "Food"
+      },
+      {
+        "X": 80,
+        "Y": 48,
+        "Facet": "Food"
+      },
+      {
+        "X": 70,
+        "Y": 99,
+        "Facet": "Food"
+      },
+      {
+        "X": 16,
+        "Y": 65,
+        "Facet": "Books"
+      },
+      {
+        "X": 45,
+        "Y": 82,
+        "Facet": "Books"
+      },
+      {
+        "X": 71,
+        "Y": 47,
+        "Facet": "Books"
+      },
+      {
+        "X": 30,
+        "Y": 46,
+        "Facet": "Books"
+      },
+      {
+        "X": 90,
+        "Y": 37,
+        "Facet": "Books"
+      },
+      {
+        "X": 84,
+        "Y": 34,
+        "Facet": "Books"
+      },
+      {
+        "X": 62,
+        "Y": 78,
+        "Facet": "Books"
+      },
+      {
+        "X": 59,
+        "Y": 98,
+        "Facet": "Books"
+      },
+      {
+        "X": 37,
+        "Y": 64,
+        "Facet": "Books"
+      },
+      {
+        "X": 54,
+        "Y": 87,
+        "Facet": "Books"
+      },
+      {
+        "X": 70,
+        "Y": 65,
+        "Facet": "Books"
+      },
+      {
+        "X": 96,
+        "Y": 87,
+        "Facet": "Books"
+      },
+      {
+        "X": 22,
+        "Y": 31,
+        "Facet": "Books"
+      },
+      {
+        "X": 51,
+        "Y": 32,
+        "Facet": "Books"
+      },
+      {
+        "X": 50,
+        "Y": 80,
+        "Facet": "Books"
+      },
+      {
+        "X": 17,
+        "Y": 95,
+        "Facet": "Books"
+      },
+      {
+        "X": 40,
+        "Y": 81,
+        "Facet": "Books"
+      },
+      {
+        "X": 76,
+        "Y": 43,
+        "Facet": "Books"
+      },
+      {
+        "X": 84,
+        "Y": 99,
+        "Facet": "Books"
+      },
+      {
+        "X": 97,
+        "Y": 31,
+        "Facet": "Books"
+      },
+      {
+        "X": 45,
+        "Y": 13,
+        "Facet": "Sports"
+      },
+      {
+        "X": 18,
+        "Y": 38,
+        "Facet": "Sports"
+      },
+      {
+        "X": 80,
+        "Y": 19,
+        "Facet": "Sports"
+      },
+      {
+        "X": 37,
+        "Y": 70,
+        "Facet": "Sports"
+      },
+      {
+        "X": 24,
+        "Y": 30,
+        "Facet": "Sports"
+      },
+      {
+        "X": 90,
+        "Y": 11,
+        "Facet": "Sports"
+      },
+      {
+        "X": 17,
+        "Y": 28,
+        "Facet": "Sports"
+      },
+      {
+        "X": 57,
+        "Y": 20,
+        "Facet": "Sports"
+      },
+      {
+        "X": 88,
+        "Y": 34,
+        "Facet": "Sports"
+      },
+      {
+        "X": 57,
+        "Y": 99,
+        "Facet": "Sports"
+      },
+      {
+        "X": 39,
+        "Y": 16,
+        "Facet": "Sports"
+      },
+      {
+        "X": 12,
+        "Y": 36,
+        "Facet": "Sports"
+      },
+      {
+        "X": 96,
+        "Y": 32,
+        "Facet": "Sports"
+      },
+      {
+        "X": 19,
+        "Y": 54,
+        "Facet": "Sports"
+      },
+      {
+        "X": 82,
+        "Y": 24,
+        "Facet": "Sports"
+      },
+      {
+        "X": 91,
+        "Y": 74,
+        "Facet": "Sports"
+      },
+      {
+        "X": 50,
+        "Y": 25,
+        "Facet": "Sports"
+      },
+      {
+        "X": 29,
+        "Y": 74,
+        "Facet": "Sports"
+      },
+      {
+        "X": 87,
+        "Y": 92,
+        "Facet": "Sports"
+      },
+      {
+        "X": 90,
+        "Y": 61,
+        "Facet": "Sports"
+      },
+      {
+        "X": 29,
+        "Y": 33,
+        "Facet": "Home"
+      },
+      {
+        "X": 42,
+        "Y": 51,
+        "Facet": "Home"
+      },
+      {
+        "X": 18,
+        "Y": 79,
+        "Facet": "Home"
+      },
+      {
+        "X": 90,
+        "Y": 53,
+        "Facet": "Home"
+      },
+      {
+        "X": 91,
+        "Y": 68,
+        "Facet": "Home"
+      },
+      {
+        "X": 73,
+        "Y": 93,
+        "Facet": "Home"
+      },
+      {
+        "X": 78,
+        "Y": 77,
+        "Facet": "Home"
+      },
+      {
+        "X": 31,
+        "Y": 62,
+        "Facet": "Home"
+      },
+      {
+        "X": 20,
+        "Y": 51,
+        "Facet": "Home"
+      },
+      {
+        "X": 43,
+        "Y": 92,
+        "Facet": "Home"
+      },
+      {
+        "X": 25,
+        "Y": 54,
+        "Facet": "Home"
+      },
+      {
+        "X": 72,
+        "Y": 65,
+        "Facet": "Home"
+      },
+      {
+        "X": 79,
+        "Y": 19,
+        "Facet": "Home"
+      },
+      {
+        "X": 49,
+        "Y": 95,
+        "Facet": "Home"
+      },
+      {
+        "X": 39,
+        "Y": 77,
+        "Facet": "Home"
+      },
+      {
+        "X": 67,
+        "Y": 60,
+        "Facet": "Home"
+      },
+      {
+        "X": 87,
+        "Y": 43,
+        "Facet": "Home"
+      },
+      {
+        "X": 30,
+        "Y": 53,
+        "Facet": "Home"
+      },
+      {
+        "X": 41,
+        "Y": 80,
+        "Facet": "Home"
+      },
+      {
+        "X": 100,
+        "Y": 18,
+        "Facet": "Home"
+      },
+      {
+        "X": 68,
+        "Y": 63,
+        "Facet": "Garden"
+      },
+      {
+        "X": 73,
+        "Y": 76,
+        "Facet": "Garden"
+      },
+      {
+        "X": 13,
+        "Y": 53,
+        "Facet": "Garden"
+      },
+      {
+        "X": 52,
+        "Y": 86,
+        "Facet": "Garden"
+      },
+      {
+        "X": 96,
+        "Y": 40,
+        "Facet": "Garden"
+      },
+      {
+        "X": 98,
+        "Y": 39,
+        "Facet": "Garden"
+      },
+      {
+        "X": 73,
+        "Y": 21,
+        "Facet": "Garden"
+      },
+      {
+        "X": 55,
+        "Y": 22,
+        "Facet": "Garden"
+      },
+      {
+        "X": 46,
+        "Y": 93,
+        "Facet": "Garden"
+      },
+      {
+        "X": 12,
+        "Y": 93,
+        "Facet": "Garden"
+      },
+      {
+        "X": 54,
+        "Y": 52,
+        "Facet": "Garden"
+      },
+      {
+        "X": 87,
+        "Y": 76,
+        "Facet": "Garden"
+      },
+      {
+        "X": 89,
+        "Y": 42,
+        "Facet": "Garden"
+      },
+      {
+        "X": 55,
+        "Y": 75,
+        "Facet": "Garden"
+      },
+      {
+        "X": 16,
+        "Y": 49,
+        "Facet": "Garden"
+      },
+      {
+        "X": 66,
+        "Y": 92,
+        "Facet": "Garden"
+      },
+      {
+        "X": 66,
+        "Y": 17,
+        "Facet": "Garden"
+      },
+      {
+        "X": 87,
+        "Y": 83,
+        "Facet": "Garden"
+      },
+      {
+        "X": 61,
+        "Y": 85,
+        "Facet": "Garden"
+      },
+      {
+        "X": 92,
+        "Y": 65,
+        "Facet": "Garden"
+      },
+      {
+        "X": 21,
+        "Y": 92,
+        "Facet": "Auto"
+      },
+      {
+        "X": 14,
+        "Y": 89,
+        "Facet": "Auto"
+      },
+      {
+        "X": 86,
+        "Y": 54,
+        "Facet": "Auto"
+      },
+      {
+        "X": 61,
+        "Y": 59,
+        "Facet": "Auto"
+      },
+      {
+        "X": 14,
+        "Y": 18,
+        "Facet": "Auto"
+      },
+      {
+        "X": 98,
+        "Y": 63,
+        "Facet": "Auto"
+      },
+      {
+        "X": 24,
+        "Y": 83,
+        "Facet": "Auto"
+      },
+      {
+        "X": 62,
+        "Y": 58,
+        "Facet": "Auto"
+      },
+      {
+        "X": 33,
+        "Y": 75,
+        "Facet": "Auto"
+      },
+      {
+        "X": 29,
+        "Y": 50,
+        "Facet": "Auto"
+      },
+      {
+        "X": 58,
+        "Y": 61,
+        "Facet": "Auto"
+      },
+      {
+        "X": 39,
+        "Y": 20,
+        "Facet": "Auto"
+      },
+      {
+        "X": 26,
+        "Y": 39,
+        "Facet": "Auto"
+      },
+      {
+        "X": 50,
+        "Y": 81,
+        "Facet": "Auto"
+      },
+      {
+        "X": 51,
+        "Y": 74,
+        "Facet": "Auto"
+      },
+      {
+        "X": 17,
+        "Y": 75,
+        "Facet": "Auto"
+      },
+      {
+        "X": 11,
+        "Y": 27,
+        "Facet": "Auto"
+      },
+      {
+        "X": 54,
+        "Y": 92,
+        "Facet": "Auto"
+      },
+      {
+        "X": 14,
+        "Y": 91,
+        "Facet": "Auto"
+      },
+      {
+        "X": 18,
+        "Y": 86,
+        "Facet": "Auto"
+      }
+    ]
+  },
+  "_width": 128,
+  "_height": 60,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

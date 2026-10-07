@@ -1,0 +1,214 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Timestamp",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 390,
+      "continuousHeight": 308
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 31
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Timestamp": "2000-01-01T08:00:00.000Z",
+        "Value": 53
+      },
+      {
+        "Timestamp": "2001-01-01T08:00:00.000Z",
+        "Value": 481
+      },
+      {
+        "Timestamp": "2002-01-01T08:00:00.000Z",
+        "Value": 107
+      },
+      {
+        "Timestamp": "2003-01-01T08:00:00.000Z",
+        "Value": 263
+      },
+      {
+        "Timestamp": "2004-01-01T08:00:00.000Z",
+        "Value": 258
+      },
+      {
+        "Timestamp": "2005-01-01T08:00:00.000Z",
+        "Value": 67
+      },
+      {
+        "Timestamp": "2006-01-01T08:00:00.000Z",
+        "Value": 529
+      },
+      {
+        "Timestamp": "2007-01-01T08:00:00.000Z",
+        "Value": 222
+      },
+      {
+        "Timestamp": "2008-01-01T08:00:00.000Z",
+        "Value": 101
+      },
+      {
+        "Timestamp": "2009-01-01T08:00:00.000Z",
+        "Value": 229
+      },
+      {
+        "Timestamp": "2010-01-01T08:00:00.000Z",
+        "Value": 440
+      },
+      {
+        "Timestamp": "2011-01-01T08:00:00.000Z",
+        "Value": 446
+      }
+    ]
+  },
+  "_width": 390,
+  "_height": 308,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

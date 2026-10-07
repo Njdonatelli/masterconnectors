@@ -1,0 +1,73 @@
+{
+  "title": "Q×N(10) (10 pts)",
+  "description": "Horizontal — 10 bars",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "X": 1,
+          "Group": "Speaker"
+        },
+        {
+          "X": 2,
+          "Group": "Speaker"
+        },
+        {
+          "X": 3,
+          "Group": "Monitor"
+        },
+        {
+          "X": 4,
+          "Group": "Phone"
+        },
+        {
+          "X": 5,
+          "Group": "Monitor"
+        },
+        {
+          "X": 6,
+          "Group": "Camera"
+        },
+        {
+          "X": 7,
+          "Group": "Desktop"
+        },
+        {
+          "X": 8,
+          "Group": "Desktop"
+        },
+        {
+          "X": 9,
+          "Group": "Phone"
+        },
+        {
+          "X": 10,
+          "Group": "Speaker"
+        }
+      ]
+    },
+    "semantic_types": {
+      "X": "Quantity",
+      "Group": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "X"
+        },
+        "y": {
+          "field": "Group"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

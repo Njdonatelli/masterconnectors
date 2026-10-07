@@ -1,0 +1,1309 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Daily Return %",
+      "groupby": [
+        "Asset"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        -26.012761322591516,
+        31.912761322591514
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Daily Return %",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Asset",
+      "type": "nominal",
+      "legend": null
+    },
+    "facet": {
+      "field": "Asset",
+      "type": "nominal",
+      "sort": null,
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      },
+      "columns": 3
+    }
+  },
+  "width": 167,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 167,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 3.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 3.3
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.3
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 2.8
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.8
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 2.8
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.8
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -2.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.8
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 2.3
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.3
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.3
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.3
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -2.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 2.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -3.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.4
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -1.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.7
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.6
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.5
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.2
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 0.1
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": 1.9
+      },
+      {
+        "Asset": "Bonds",
+        "Daily Return %": -0.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.8
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -9.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -8.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -7.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 6.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 5.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -5.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -7.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -6.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.8
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 2.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 0
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -5.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -2.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -4.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 3.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 3.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 5.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -9.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 5.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 2.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 0.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 1.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 6.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -2.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 12.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -10.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -5.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 0.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -6.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 6.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 1.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 6.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 5.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 2.8
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -5.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -4.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 7.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 0.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 2.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 5.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 2.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 2.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 4.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 1.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 2.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -5.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 5.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 1.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -5.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 3.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -10.8
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -1.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 0.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -4.4
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 0.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -7.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 6.2
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -2.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 1.8
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.8
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -6.7
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 1.3
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -0.6
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -3.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -4.9
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": -5.5
+      },
+      {
+        "Asset": "Equities",
+        "Daily Return %": 5.9
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 1.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -11
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 1.6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.9
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 2.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -10.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -5.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -7.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -7.9
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -10.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -14.6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 0.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -6.6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 0.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -4.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -4.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 14
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -20.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 4.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 27
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 15.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 6.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 24.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -8.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -1.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 6.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 0.9
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 1.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -13.6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 8.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -17.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 2.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -14.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -5.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 10.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 4.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -3.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -7.6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 7.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 7.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 4.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 0.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 2.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 1.9
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -2.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 2.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -5.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 15.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 5.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -2.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 1.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 9.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 0.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -11.9
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -13
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 0.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -11.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -13.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -7.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -3.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 13.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 17.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 2.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 0.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -2.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 5.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 3.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -9.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 7.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -0.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -3.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -2.2
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -1.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -2.4
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -10.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -0.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 9.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 13.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -21.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 19.5
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -1.8
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 20.7
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 6.3
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": -1.6
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 8.1
+      },
+      {
+        "Asset": "Crypto",
+        "Daily Return %": 2.2
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

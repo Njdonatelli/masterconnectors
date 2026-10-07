@@ -1,0 +1,223 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 205
+    },
+    "axisX": {
+      "labelLimit": 60,
+      "labelFontSize": 9,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 14
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Alice",
+        "Value": 501
+      },
+      {
+        "Category": "Bob",
+        "Value": 29
+      },
+      {
+        "Category": "Charlie",
+        "Value": 27
+      },
+      {
+        "Category": "Diana",
+        "Value": 386
+      },
+      {
+        "Category": "Eve",
+        "Value": 227
+      },
+      {
+        "Category": "Frank",
+        "Value": 505
+      },
+      {
+        "Category": "Grace",
+        "Value": 130
+      },
+      {
+        "Category": "Hank",
+        "Value": 436
+      },
+      {
+        "Category": "Ivy",
+        "Value": 393
+      },
+      {
+        "Category": "Jack",
+        "Value": 199
+      },
+      {
+        "Category": "Kate",
+        "Value": 467
+      },
+      {
+        "Category": "Leo",
+        "Value": 254
+      },
+      {
+        "Category": "Mona",
+        "Value": 353
+      },
+      {
+        "Category": "Nick",
+        "Value": 239
+      },
+      {
+        "Category": "Olivia",
+        "Value": 352
+      },
+      {
+        "Category": "Pat",
+        "Value": 491
+      },
+      {
+        "Category": "Quinn",
+        "Value": 18
+      },
+      {
+        "Category": "Ray",
+        "Value": 342
+      },
+      {
+        "Category": "Sara",
+        "Value": 390
+      },
+      {
+        "Category": "Tom",
+        "Value": 271
+      },
+      {
+        "Category": "Uma",
+        "Value": 78
+      },
+      {
+        "Category": "Vic",
+        "Value": 344
+      },
+      {
+        "Category": "Wendy",
+        "Value": 345
+      },
+      {
+        "Category": "Xander",
+        "Value": 34
+      },
+      {
+        "Category": "Yara",
+        "Value": 500
+      },
+      {
+        "Category": "Zoe",
+        "Value": 393
+      },
+      {
+        "Category": "Aaron",
+        "Value": 235
+      },
+      {
+        "Category": "Beth",
+        "Value": 473
+      },
+      {
+        "Category": "Carl",
+        "Value": 85
+      },
+      {
+        "Category": "Dana",
+        "Value": 293
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 205,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
+    sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  border-bottom: 1px solid #e0e4e8;
+  padding: 14px 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+header h1 {
+  margin: 0 0 6px 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a1f24;
+}
+
+#summary {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.controls input,
+.controls select {
+  font-size: 0.85rem;
+  padding: 5px 8px;
+  border: 1px solid #d0d4d8;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.controls input { flex: 1 1 240px; min-width: 220px; }
+.controls select { min-width: 130px; }
+
+main#wall {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  grid-auto-rows: min-content;
+  align-items: start;
+  gap: 14px;
+  padding: 18px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e0e4e8;
+  border-radius: 6px;
+  padding: 12px 14px 8px 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.card.errored {
+  border-color: #f0c0c0;
+  background: #fff7f7;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.meta .chartType { color: #4a6fbb; font-weight: 600; }
+
+.card h2 {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #222;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chart {
+  width: 100%;
+  background: #fafbfc;
+  border-radius: 4px;
+  padding: 6px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart canvas,
+.chart svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart .vega-embed,
+.chart .vega-embed > .chart-wrapper {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+}
+
+details.spec {
+  border-top: 1px solid #eef0f3;
+  padding-top: 6px;
+  font-size: 0.75rem;
+}
+
+details.spec summary {
+  cursor: pointer;
+  color: #4a6fbb;
+  user-select: none;
+  outline: none;
+}
+
+details.spec pre {
+  margin: 6px 0 0 0;
+  padding: 8px;
+  background: #f6f8fa;
+  border-radius: 4px;
+  max-height: 280px;
+  overflow: auto;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  white-space: pre;
+}
+
+pre.error, pre.render-error {
+  margin: 0;
+  padding: 10px;
+  background: #fbecec;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  color: #8b2c2c;
+  white-space: pre-wrap;
+  overflow: auto;
+  max-height: 240px;
+}

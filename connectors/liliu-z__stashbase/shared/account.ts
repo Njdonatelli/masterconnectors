@@ -1,0 +1,76 @@
+/**
+ * The signed-in StashBase account used by the hosted Agent runtime.
+ *
+ * An account is optional throughout the product — the project works
+ * anonymously — so every consumer has to be able to render "no account"
+ * without treating it as an error.
+ */
+
+/** Public Agent allowance intentionally exposes only the user-facing weekly
+ * percentage and token detail. Picodollar accounting stays server-side. */
+export interface HostedAgentAllowance {
+  profile: string;
+  remainingPercent: number;
+  inputTokens: number;
+  outputTokens: number;
+  cacheReadTokens: number;
+  windowStartedAt: string | null;
+  windowEndsAt: string | null;
+}
+
+/** One purchasable tier from the hosted Stripe catalog. Amounts are minor
+ * currency units, as Stripe reports them. */
+export interface HostedBillingPlan {
+  priceId: string;
+  planKey: string;
+  name: string;
+  amount: number;
+  currency: string;
+  interval: 'month' | 'year';
+  available: boolean;
+}
+
+/** The hosted API's subscription rights for the signed-in account. A paid
+ * plan is in effect only while `paidThrough` is in the future. */
+export interface HostedBillingStatus {
+  plan: HostedBillingPlan | null;
+  status: string;
+  paidThrough: string | null;
+  cancelAtPeriodEnd: boolean;
+  canManage: boolean;
+}
+
+/** A Stripe-hosted page (Checkout or Customer Portal) for the browser. */
+export interface HostedBillingRedirect {
+  url: string;
+}
+
+/** One-time banners about the account. Each is shown until the reader takes it
+ * up or declines it, then never again on this installation. */
+export type HostedAccountOffer = 'sign-in';
+
+export interface HostedAccountState {
+  signedIn: boolean;
+  /** Offers this installation has not shown to completion yet. */
+  offers: HostedAccountOffer[];
+  email?: string;
+  displayName?: string;
+  /** Same-origin renderer endpoint; the provider URL remains Node-only. */
+  avatarUrl?: string;
+}
+
+export type HostedOAuthProvider = 'google';
+export type HostedOAuthPurpose = 'account';
+
+export interface HostedOAuthStart {
+  flowId: string;
+  provider: HostedOAuthProvider;
+  purpose: HostedOAuthPurpose;
+  url: string;
+}
+
+export interface HostedOAuthStatus {
+  state: 'pending' | 'complete' | 'error';
+  error?: string;
+  appReturned?: boolean;
+}

@@ -1,0 +1,94 @@
+{
+  "title": "Population Log Scale (≥10,000× span)",
+  "description": "Semantic type \"Population\" applies log scale when data spans ≥ 4 orders of magnitude (500 to 10M = 20,000×). Only triggers for allow-listed types. WITHOUT this: linear scale compresses small values into an invisible band.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "place": "Hamlet A",
+          "population": 500,
+          "area_km2": 1
+        },
+        {
+          "place": "Hamlet B",
+          "population": 1200,
+          "area_km2": 3
+        },
+        {
+          "place": "Village A",
+          "population": 3500,
+          "area_km2": 10
+        },
+        {
+          "place": "Village B",
+          "population": 8000,
+          "area_km2": 18
+        },
+        {
+          "place": "Small Town",
+          "population": 22000,
+          "area_km2": 40
+        },
+        {
+          "place": "Town",
+          "population": 65000,
+          "area_km2": 80
+        },
+        {
+          "place": "Small City",
+          "population": 180000,
+          "area_km2": 150
+        },
+        {
+          "place": "City",
+          "population": 520000,
+          "area_km2": 300
+        },
+        {
+          "place": "Large City",
+          "population": 1400000,
+          "area_km2": 550
+        },
+        {
+          "place": "Metro A",
+          "population": 3200000,
+          "area_km2": 900
+        },
+        {
+          "place": "Metro B",
+          "population": 5800000,
+          "area_km2": 1400
+        },
+        {
+          "place": "Megacity",
+          "population": 10000000,
+          "area_km2": 2500
+        }
+      ]
+    },
+    "semantic_types": {
+      "place": "Category",
+      "population": "Population",
+      "area_km2": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "area_km2"
+        },
+        "y": {
+          "field": "population"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

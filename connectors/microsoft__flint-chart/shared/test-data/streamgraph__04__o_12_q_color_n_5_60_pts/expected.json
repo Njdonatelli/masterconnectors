@@ -1,0 +1,407 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Stage",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "stack": "center",
+      "axis": null,
+      "scale": {
+        "zero": true
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Stage": "Stage 1",
+        "Value": 131,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 2",
+        "Value": 141,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 3",
+        "Value": 161,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 4",
+        "Value": 176,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 5",
+        "Value": 192,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 6",
+        "Value": 212,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 7",
+        "Value": 242,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 8",
+        "Value": 278,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 9",
+        "Value": 310,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 10",
+        "Value": 342,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 11",
+        "Value": 363,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 12",
+        "Value": 377,
+        "Series": "Electronics"
+      },
+      {
+        "Stage": "Stage 1",
+        "Value": 51,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 2",
+        "Value": 65,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 3",
+        "Value": 74,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 4",
+        "Value": 81,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 5",
+        "Value": 87,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 6",
+        "Value": 109,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 7",
+        "Value": 137,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 8",
+        "Value": 171,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 9",
+        "Value": 200,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 10",
+        "Value": 234,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 11",
+        "Value": 242,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 12",
+        "Value": 240,
+        "Series": "Clothing"
+      },
+      {
+        "Stage": "Stage 1",
+        "Value": 164,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 2",
+        "Value": 169,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 3",
+        "Value": 167,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 4",
+        "Value": 155,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 5",
+        "Value": 159,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 6",
+        "Value": 153,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 7",
+        "Value": 162,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 8",
+        "Value": 164,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 9",
+        "Value": 172,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 10",
+        "Value": 192,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 11",
+        "Value": 222,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 12",
+        "Value": 257,
+        "Series": "Food"
+      },
+      {
+        "Stage": "Stage 1",
+        "Value": 77,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 2",
+        "Value": 84,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 3",
+        "Value": 99,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 4",
+        "Value": 110,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 5",
+        "Value": 130,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 6",
+        "Value": 150,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 7",
+        "Value": 156,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 8",
+        "Value": 169,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 9",
+        "Value": 180,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 10",
+        "Value": 191,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 11",
+        "Value": 201,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 12",
+        "Value": 209,
+        "Series": "Books"
+      },
+      {
+        "Stage": "Stage 1",
+        "Value": 123,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 2",
+        "Value": 114,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 3",
+        "Value": 115,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 4",
+        "Value": 111,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 5",
+        "Value": 105,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 6",
+        "Value": 104,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 7",
+        "Value": 105,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 8",
+        "Value": 107,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 9",
+        "Value": 99,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 10",
+        "Value": 88,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 11",
+        "Value": 88,
+        "Series": "Sports"
+      },
+      {
+        "Stage": "Stage 12",
+        "Value": 101,
+        "Series": "Sports"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

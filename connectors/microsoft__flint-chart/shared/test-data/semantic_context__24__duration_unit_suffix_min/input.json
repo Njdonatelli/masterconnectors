@@ -1,0 +1,68 @@
+{
+  "title": "Duration Unit Suffix (min)",
+  "description": "Semantic type \"Duration\" with unit \"min\" appends \" min\" to axis labels. Duration is additive (total makes sense) with meaningful zero. WITHOUT this: bare numbers with no time unit context.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "task": "Setup",
+          "duration_min": 7
+        },
+        {
+          "task": "Build",
+          "duration_min": 117
+        },
+        {
+          "task": "Test",
+          "duration_min": 93
+        },
+        {
+          "task": "Review",
+          "duration_min": 15
+        },
+        {
+          "task": "Deploy",
+          "duration_min": 57
+        },
+        {
+          "task": "Cleanup",
+          "duration_min": 76
+        },
+        {
+          "task": "Backup",
+          "duration_min": 81
+        },
+        {
+          "task": "Sync",
+          "duration_min": 102
+        }
+      ]
+    },
+    "semantic_types": {
+      "task": "Category",
+      "duration_min": {
+        "semanticType": "Duration",
+        "unit": "min"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "task"
+        },
+        "y": {
+          "field": "duration_min"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "title": "Many Metrics (12 axes)",
+  "description": "12 axes with 3 groups — tests label crowding",
+  "chartType": "Radar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Division": "Americas",
+          "Factor": "Revenue",
+          "Score": 88
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Revenue",
+          "Score": 65
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Revenue",
+          "Score": 33
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Profit Margin",
+          "Score": 85
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Profit Margin",
+          "Score": 39
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Profit Margin",
+          "Score": 40
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Customer Retention",
+          "Score": 70
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Customer Retention",
+          "Score": 61
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Customer Retention",
+          "Score": 61
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Brand Awareness",
+          "Score": 89
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Brand Awareness",
+          "Score": 83
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Brand Awareness",
+          "Score": 77
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Market Penetration",
+          "Score": 52
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Market Penetration",
+          "Score": 31
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Market Penetration",
+          "Score": 84
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Product Quality",
+          "Score": 99
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Product Quality",
+          "Score": 75
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Product Quality",
+          "Score": 68
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Employee Engagement",
+          "Score": 98
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Employee Engagement",
+          "Score": 42
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Employee Engagement",
+          "Score": 91
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Innovation Index",
+          "Score": 57
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Innovation Index",
+          "Score": 60
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Innovation Index",
+          "Score": 39
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Supply Chain Efficiency",
+          "Score": 41
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Supply Chain Efficiency",
+          "Score": 45
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Supply Chain Efficiency",
+          "Score": 85
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Digital Transformation",
+          "Score": 70
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Digital Transformation",
+          "Score": 90
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Digital Transformation",
+          "Score": 62
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Sustainability Rating",
+          "Score": 62
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Sustainability Rating",
+          "Score": 70
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Sustainability Rating",
+          "Score": 49
+        },
+        {
+          "Division": "Americas",
+          "Factor": "Compliance Score",
+          "Score": 34
+        },
+        {
+          "Division": "EMEA",
+          "Factor": "Compliance Score",
+          "Score": 39
+        },
+        {
+          "Division": "APAC",
+          "Factor": "Compliance Score",
+          "Score": 72
+        }
+      ]
+    },
+    "semantic_types": {
+      "Division": "Category",
+      "Factor": "Category",
+      "Score": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Radar Chart",
+      "encodings": {
+        "x": {
+          "field": "Factor"
+        },
+        "y": {
+          "field": "Score"
+        },
+        "color": {
+          "field": "Division"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

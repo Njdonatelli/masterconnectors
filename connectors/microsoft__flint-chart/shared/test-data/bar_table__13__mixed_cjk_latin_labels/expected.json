@@ -1,0 +1,279 @@
+{
+  "spacing": 8,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 180,
+      "height": 300,
+      "title": {
+        "text": "项目",
+        "anchor": "start",
+        "offset": 6,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.842
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "项目",
+          "type": "nominal",
+          "sort": [
+            "人工智能 AI Platform",
+            "云计算 Cloud Services",
+            "数据分析 Analytics",
+            "物联网 IoT Solutions",
+            "网络安全 Security",
+            "区块链 Blockchain Lab"
+          ],
+          "axis": {
+            "title": null,
+            "domain": false,
+            "ticks": false,
+            "labelFontSize": 13,
+            "labelAlign": "left",
+            "labelPadding": 162,
+            "labelLimit": 162
+          }
+        },
+        "x": {
+          "field": "收入",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "nice": false
+          }
+        },
+        "color": {
+          "field": "收入",
+          "type": "quantitative",
+          "legend": null,
+          "scale": {
+            "range": [
+              "#cdebd3",
+              "#41a25f"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 62,
+      "height": 300,
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "收入",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "项目"
+          ]
+        }
+      ],
+      "title": {
+        "text": "收入",
+        "anchor": "end",
+        "offset": 6,
+        "limit": 58,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "项目",
+          "type": "nominal",
+          "sort": [
+            "人工智能 AI Platform",
+            "云计算 Cloud Services",
+            "数据分析 Analytics",
+            "物联网 IoT Solutions",
+            "网络安全 Security",
+            "区块链 Blockchain Lab"
+          ],
+          "axis": null
+        },
+        "x": {
+          "datum": 1,
+          "axis": null,
+          "scale": {
+            "type": "linear",
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "text": {
+          "field": "__bt_val",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#666"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "项目": "人工智能 AI Platform",
+        "收入": 5420000,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "项目": "云计算 Cloud Services",
+        "收入": 3180000,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "项目": "数据分析 Analytics",
+        "收入": 2650000,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "项目": "物联网 IoT Solutions",
+        "收入": 1840000,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "项目": "网络安全 Security",
+        "收入": 1220000,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "项目": "区块链 Blockchain Lab",
+        "收入": 480000,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      }
+    ]
+  },
+  "height": {
+    "step": 32
+  },
+  "data": {
+    "values": [
+      {
+        "项目": "人工智能 AI Platform",
+        "收入": 5420000
+      },
+      {
+        "项目": "云计算 Cloud Services",
+        "收入": 3180000
+      },
+      {
+        "项目": "数据分析 Analytics",
+        "收入": 2650000
+      },
+      {
+        "项目": "物联网 IoT Solutions",
+        "收入": 1840000
+      },
+      {
+        "项目": "网络安全 Security",
+        "收入": 1220000
+      },
+      {
+        "项目": "区块链 Blockchain Lab",
+        "收入": 480000
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

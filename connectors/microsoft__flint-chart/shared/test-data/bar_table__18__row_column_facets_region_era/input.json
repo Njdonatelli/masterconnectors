@@ -1,0 +1,116 @@
+{
+  "title": "Row + column facets (region × era)",
+  "description": "Two-dimensional faceting with percent totals computed per region/era panel",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Era": "Historic",
+          "Region": "US",
+          "Agency": "US National",
+          "Missions": 160
+        },
+        {
+          "Era": "Historic",
+          "Region": "US",
+          "Agency": "US Commercial",
+          "Missions": 195
+        },
+        {
+          "Era": "Historic",
+          "Region": "US",
+          "Agency": "US Defense",
+          "Missions": 230
+        },
+        {
+          "Era": "Historic",
+          "Region": "EU",
+          "Agency": "EU National",
+          "Missions": 120
+        },
+        {
+          "Era": "Historic",
+          "Region": "EU",
+          "Agency": "EU Commercial",
+          "Missions": 155
+        },
+        {
+          "Era": "Historic",
+          "Region": "EU",
+          "Agency": "EU Defense",
+          "Missions": 190
+        },
+        {
+          "Era": "Recent",
+          "Region": "US",
+          "Agency": "US National",
+          "Missions": 110
+        },
+        {
+          "Era": "Recent",
+          "Region": "US",
+          "Agency": "US Commercial",
+          "Missions": 145
+        },
+        {
+          "Era": "Recent",
+          "Region": "US",
+          "Agency": "US Defense",
+          "Missions": 180
+        },
+        {
+          "Era": "Recent",
+          "Region": "EU",
+          "Agency": "EU National",
+          "Missions": 70
+        },
+        {
+          "Era": "Recent",
+          "Region": "EU",
+          "Agency": "EU Commercial",
+          "Missions": 105
+        },
+        {
+          "Era": "Recent",
+          "Region": "EU",
+          "Agency": "EU Defense",
+          "Missions": 140
+        }
+      ]
+    },
+    "semantic_types": {
+      "Era": "Category",
+      "Region": "Region",
+      "Agency": "Category",
+      "Missions": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Agency"
+        },
+        "x": {
+          "field": "Missions"
+        },
+        "column": {
+          "field": "Region"
+        },
+        "row": {
+          "field": "Era"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "showPercent": true
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,544 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 16
+  },
+  "encoding": {
+    "x": {
+      "field": "DateTime",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2020-01-15T09:59:00.000Z",
+          "2020-01-15T10:59:00.000Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 558,
+      "continuousHeight": 232
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 23
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "DateTime": "2020-01-15T10:00:00",
+        "Value": 217,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:00:00",
+        "Value": 356,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:00:00",
+        "Value": 274,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:02:00",
+        "Value": 313,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:02:00",
+        "Value": 239,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:02:00",
+        "Value": 186,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:04:00",
+        "Value": 390,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:04:00",
+        "Value": 384,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:04:00",
+        "Value": 63,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:06:00",
+        "Value": 518,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:06:00",
+        "Value": 241,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:06:00",
+        "Value": 353,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:08:00",
+        "Value": 436,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:08:00",
+        "Value": 215,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:08:00",
+        "Value": 548,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:10:00",
+        "Value": 413,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:10:00",
+        "Value": 477,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:10:00",
+        "Value": 371,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:12:00",
+        "Value": 483,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:12:00",
+        "Value": 271,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:12:00",
+        "Value": 522,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:14:00",
+        "Value": 286,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:14:00",
+        "Value": 427,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:14:00",
+        "Value": 117,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:16:00",
+        "Value": 79,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:16:00",
+        "Value": 487,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:16:00",
+        "Value": 382,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:18:00",
+        "Value": 337,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:18:00",
+        "Value": 402,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:18:00",
+        "Value": 480,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:20:00",
+        "Value": 466,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:20:00",
+        "Value": 108,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:20:00",
+        "Value": 209,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:22:00",
+        "Value": 199,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:22:00",
+        "Value": 263,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:22:00",
+        "Value": 376,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:24:00",
+        "Value": 496,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:24:00",
+        "Value": 482,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:24:00",
+        "Value": 331,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:26:00",
+        "Value": 371,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:26:00",
+        "Value": 436,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:26:00",
+        "Value": 354,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:28:00",
+        "Value": 423,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:28:00",
+        "Value": 423,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:28:00",
+        "Value": 426,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:30:00",
+        "Value": 98,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:30:00",
+        "Value": 230,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:30:00",
+        "Value": 503,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:32:00",
+        "Value": 195,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:32:00",
+        "Value": 278,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:32:00",
+        "Value": 228,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:34:00",
+        "Value": 524,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:34:00",
+        "Value": 80,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:34:00",
+        "Value": 150,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:36:00",
+        "Value": 451,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:36:00",
+        "Value": 509,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:36:00",
+        "Value": 481,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:38:00",
+        "Value": 540,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:38:00",
+        "Value": 509,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:38:00",
+        "Value": 304,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:40:00",
+        "Value": 334,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:40:00",
+        "Value": 70,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:40:00",
+        "Value": 447,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:42:00",
+        "Value": 61,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:42:00",
+        "Value": 102,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:42:00",
+        "Value": 189,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:44:00",
+        "Value": 117,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:44:00",
+        "Value": 280,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:44:00",
+        "Value": 387,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:46:00",
+        "Value": 458,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:46:00",
+        "Value": 175,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:46:00",
+        "Value": 424,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:48:00",
+        "Value": 302,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:48:00",
+        "Value": 68,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:48:00",
+        "Value": 545,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:50:00",
+        "Value": 136,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:50:00",
+        "Value": 128,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:50:00",
+        "Value": 102,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:52:00",
+        "Value": 87,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:52:00",
+        "Value": 228,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:52:00",
+        "Value": 424,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:54:00",
+        "Value": 152,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:54:00",
+        "Value": 358,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:54:00",
+        "Value": 66,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:56:00",
+        "Value": 245,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:56:00",
+        "Value": 434,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:56:00",
+        "Value": 318,
+        "Category": "Gamma"
+      },
+      {
+        "DateTime": "2020-01-15T10:58:00",
+        "Value": 195,
+        "Category": "Alpha"
+      },
+      {
+        "DateTime": "2020-01-15T10:58:00",
+        "Value": 338,
+        "Category": "Beta"
+      },
+      {
+        "DateTime": "2020-01-15T10:58:00",
+        "Value": 417,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 558,
+  "_height": 232,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

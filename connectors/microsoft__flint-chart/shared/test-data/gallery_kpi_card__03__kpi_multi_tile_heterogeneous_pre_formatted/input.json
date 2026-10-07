@@ -1,0 +1,52 @@
+{
+  "title": "KPI: Multi-tile (heterogeneous, pre-formatted)",
+  "description": "Per-tile units handled by the agent formatting each `Value` upstream. Template renders verbatim.",
+  "chartType": "KPI Card",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Metric": "Revenue",
+          "Value": "$1.23M"
+        },
+        {
+          "Metric": "Orders",
+          "Value": "5,682"
+        },
+        {
+          "Metric": "Avg Cart",
+          "Value": "$217.45"
+        },
+        {
+          "Metric": "Refunds",
+          "Value": "312"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Metric": "Category",
+      "Value": "Category"
+    },
+    "chart_spec": {
+      "chartType": "KPI Card",
+      "encodings": {
+        "metric": {
+          "field": "Metric"
+        },
+        "value": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "layout": "horizontal"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

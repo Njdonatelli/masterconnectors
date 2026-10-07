@@ -1,0 +1,194 @@
+import type { AgentConfig } from "@melandlabs/ai/agent";
+
+import { DEFAULT_AI_MODEL } from "@/lib/env/constants";
+import { createLogger } from "@/lib/utils/logger";
+import { buildAgentCliSearchPath } from "../cli-process";
+
+import { prepareClaudeCodeTempDirectory } from "./runtime-preflight";
+
+const logger = createLogger("ClaudeAgent");
+
+/**
+ * Custom API mode means OpenLoomi owns endpoint/model/auth configuration
+ * instead of letting Claude Code read defaults from the user's Claude settings.
+ */
+export function isUsingCustomApi(config: AgentConfig): boolean {
+  return !!config.baseUrl;
+}
+
+/**
+ * Build extended PATH that includes common package manager bin locations.
+ */
+export function getExtendedPath(): string {
+  return buildAgentCliSearchPath();
+}
+
+/**
+ * Build environment variables for the Claude Code SDK query.
+ */
+export async function buildClaudeEnvConfig(
+  config: AgentConfig,
+): Promise<Record<string, string>> {
+  const env: Record<string, string | undefined> = { ...process.env };
+
+  // Remove the marker used by Claude Code parent sessions. Without this, a
+  // nested OpenLoomi-launched Claude Code process can refuse to start.
+  env.CLAUDECODE = undefined;
+  // Packaged apps often run with a shorter PATH than an interactive shell, so
+  // include common Node/package-manager locations before spawning Claude Code.
+  env.PATH = getExtendedPath();
+
+  // A modelConfig apiKey must win over ambient shell variables and over
+  // ~/.claude/settings.json, so prefer ANTHROPIC_AUTH_TOKEN and clear API_KEY.
+  if (config.apiKey) {
+    env.ANTHROPIC_AUTH_TOKEN = config.apiKey;
+    env.ANTHROPIC_API_KEY = undefined;
+
+    if (config.baseUrl) {
+      env.ANTHROPIC_BASE_URL = config.baseUrl;
+    } else {
+      env.ANTHROPIC_BASE_URL = undefined;
+      logger.info(
+        "[ClaudeAgent] Using custom API key with default Anthropic base URL",
+      );
+    }
+  } else {
+    const envKey = env.ANTHROPIC_AUTH_TOKEN || env.ANTHROPIC_API_KEY;
+    if (envKey) {
+      logger.info(
+        "[ClaudeAgent] Using API config from environment: key present",
+      );
+    } else {
+      logger.warn(
+        "[ClaudeAgent] No API key configured in modelConfig or environment variables",
+      );
+      logger.warn(
+        "[ClaudeAgent] Set ANTHROPIC_API_KEY or ANTHROPIC_AUTH_TOKEN in environment, or provide apiKey in modelConfig",
+      );
+    }
+  }
+
+  // Set all Claude model aliases to the same configured model. This matters
+  // for custom providers where model names do not match Anthropic defaults.
+  if (config.model) {
+    env.ANTHROPIC_MODEL = config.model;
+    env.ANTHROPIC_DEFAULT_SONNET_MODEL = config.model;
+    env.ANTHROPIC_DEFAULT_HAIKU_MODEL = config.model;
+    env.ANTHROPIC_DEFAULT_OPUS_MODEL = config.model;
+  } else if (config.apiKey) {
+    // No LLM_MODEL env-var fallback: prefer DEFAULT_AI_MODEL aliases over
+    // leaving the SDK with no model at all.
+    env.ANTHROPIC_MODEL = DEFAULT_AI_MODEL;
+    env.ANTHROPIC_DEFAULT_SONNET_MODEL = DEFAULT_AI_MODEL;
+    env.ANTHROPIC_DEFAULT_HAIKU_MODEL = DEFAULT_AI_MODEL;
+    env.ANTHROPIC_DEFAULT_OPUS_MODEL = DEFAULT_AI_MODEL;
+  } else {
+    env.ANTHROPIC_MODEL = DEFAULT_AI_MODEL;
+    env.ANTHROPIC_DEFAULT_SONNET_MODEL = DEFAULT_AI_MODEL;
+    env.ANTHROPIC_DEFAULT_HAIKU_MODEL = DEFAULT_AI_MODEL;
+    env.ANTHROPIC_DEFAULT_OPUS_MODEL = DEFAULT_AI_MODEL;
+  }
+
+  // Claude Code reads extended-thinking budget from the environment, while the
+  // OpenLoomi config stores the simpler UI-level thinkingLevel enum.
+  if (config.thinkingLevel === "disabled") {
+    env.ANTHROPIC_THINKING_BUDGET = undefined;
+  } else if (config.thinkingLevel === "low") {
+    env.ANTHROPIC_THINKING_BUDGET = "2048";
+  } else if (config.thinkingLevel === "adaptive") {
+    env.ANTHROPIC_THINKING_BUDGET = "32000";
+  }
+
+  // Third-party Claude-compatible endpoints can be sensitive to telemetry or
+  // auxiliary calls, so reduce non-essential traffic when baseUrl is custom.
+  if (isUsingCustomApi(config)) {
+    env.CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC = "1";
+  }
+
+  // Non-Windows dev/packaged environments may run with elevated permissions.
+  // This marker prevents Claude Code from stopping on its root/sudo guard.
+  if (process.platform !== "win32") {
+    env.IS_SANDBOX = "1";
+  }
+
+  // The SDK type is Record<string, string>; keep undefined values out instead
+  // of passing environment entries that mean "delete this variable".
+  const filteredEnv: Record<string, string> = {};
+  for (const [key, value] of Object.entries(env)) {
+    if (value !== undefined) {
+      filteredEnv[key] = value;
+    }
+  }
+
+  // Ensure the Claude Code temp directory exists (and is private) before the
+  // SDK spawns the child. If the configured override is unusable, the helper
+  // removes the key so the runtime falls back to the OS temp directory.
+  const tempDirectoryError = await prepareClaudeCodeTempDirectory(env);
+  if (tempDirectoryError) {
+    logger.warn(
+      `[ClaudeAgent] Ignoring unusable CLAUDE_CODE_TMPDIR and falling back to the system temp directory: ${tempDirectoryError.message}`,
+    );
+    // Keep filteredEnv in sync with the deletion so the process.env mirror
+    // below does not re-introduce a stale key.
+    // biome-ignore lint/performance/noDelete: filteredEnv is typed as Record<string, string> and cannot hold undefined values.
+    delete filteredEnv.CLAUDE_CODE_TMPDIR;
+  }
+
+  // The SDK spawns Claude Code as a child process. Updating process.env here
+  // preserves the old behavior where the child inherited these critical vars.
+  if (filteredEnv.ANTHROPIC_BASE_URL) {
+    process.env.ANTHROPIC_BASE_URL = filteredEnv.ANTHROPIC_BASE_URL;
+  }
+  if (filteredEnv.ANTHROPIC_AUTH_TOKEN) {
+    process.env.ANTHROPIC_AUTH_TOKEN = filteredEnv.ANTHROPIC_AUTH_TOKEN;
+  }
+  if (filteredEnv.ANTHROPIC_MODEL) {
+    process.env.ANTHROPIC_MODEL = filteredEnv.ANTHROPIC_MODEL;
+  }
+  if (filteredEnv.ANTHROPIC_THINKING_BUDGET !== undefined) {
+    process.env.ANTHROPIC_THINKING_BUDGET =
+      filteredEnv.ANTHROPIC_THINKING_BUDGET;
+  }
+  if (!filteredEnv.CLAUDECODE) {
+    process.env.CLAUDECODE = undefined;
+  }
+  if (!filteredEnv.CLAUDE_CODE_TMPDIR) {
+    // biome-ignore lint/performance/noDelete: the SDK may read this key from the parent process before spawning its child, so an unusable override must be removed rather than assigned undefined.
+    delete process.env.CLAUDE_CODE_TMPDIR;
+  } else {
+    process.env.CLAUDE_CODE_TMPDIR = filteredEnv.CLAUDE_CODE_TMPDIR;
+  }
+
+  return filteredEnv;
+}
+
+export function buildClaudeSettingsConfig(
+  config: AgentConfig,
+  options?: { skipWebFetchPreflight?: boolean },
+): string | undefined {
+  // Claude settings are only needed for custom API mode. For default Anthropic
+  // usage, letting Claude Code use its normal config path is less intrusive.
+  if (!isUsingCustomApi(config)) {
+    return undefined;
+  }
+
+  // Passing settings directly to the SDK keeps OpenLoomi's selected endpoint,
+  // token, model, and thinking budget ahead of user-level Claude settings.
+  const customSettings = {
+    env: {
+      ANTHROPIC_BASE_URL: config.baseUrl || "",
+      ANTHROPIC_AUTH_TOKEN: config.apiKey || "",
+      ANTHROPIC_MODEL: config.model || "",
+      ...(config.thinkingLevel === "disabled"
+        ? { ANTHROPIC_THINKING_BUDGET: "" }
+        : config.thinkingLevel === "low"
+          ? { ANTHROPIC_THINKING_BUDGET: "2048" }
+          : config.thinkingLevel === "adaptive"
+            ? { ANTHROPIC_THINKING_BUDGET: "32000" }
+            : {}),
+    },
+    ...(options?.skipWebFetchPreflight ? { skipWebFetchPreflight: true } : {}),
+  };
+
+  return JSON.stringify(customSettings);
+}

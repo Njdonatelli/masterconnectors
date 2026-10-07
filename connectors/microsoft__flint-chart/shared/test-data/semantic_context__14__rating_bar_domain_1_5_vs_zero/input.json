@@ -1,0 +1,63 @@
+{
+  "title": "Rating Bar — Domain [1,5] vs Zero",
+  "description": "Bar chart of ratings with intrinsicDomain [1,5]. The semantic domain should prevent zero-extension — bars span [1,5] not [0,5]. WITHOUT this: bar chart forces zero, wasting 20% of space on impossible values.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "restaurant": "Sakura Sushi",
+          "avg_rating": 2.5
+        },
+        {
+          "restaurant": "Bella Pasta",
+          "avg_rating": 4.6
+        },
+        {
+          "restaurant": "Taco Loco",
+          "avg_rating": 3.8
+        },
+        {
+          "restaurant": "Zen Noodle",
+          "avg_rating": 4.3
+        },
+        {
+          "restaurant": "Burger Joint",
+          "avg_rating": 4.6
+        },
+        {
+          "restaurant": "Le Bistro",
+          "avg_rating": 4.1
+        }
+      ]
+    },
+    "semantic_types": {
+      "restaurant": "Category",
+      "avg_rating": {
+        "semanticType": "Score",
+        "intrinsicDomain": [
+          1,
+          5
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "restaurant"
+        },
+        "y": {
+          "field": "avg_rating"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

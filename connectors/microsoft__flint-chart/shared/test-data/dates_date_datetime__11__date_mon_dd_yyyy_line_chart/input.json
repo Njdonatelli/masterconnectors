@@ -1,0 +1,81 @@
+{
+  "title": "Date (Mon DD YYYY) → Line Chart",
+  "description": "Natural date: \"Jan 15 2020\", \"Feb 15 2020\", … (12 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 15 2020",
+          "Value": 218
+        },
+        {
+          "Date": "Feb 15 2020",
+          "Value": 111
+        },
+        {
+          "Date": "Mar 15 2020",
+          "Value": 282
+        },
+        {
+          "Date": "Apr 15 2020",
+          "Value": 168
+        },
+        {
+          "Date": "May 15 2020",
+          "Value": 119
+        },
+        {
+          "Date": "Jun 15 2020",
+          "Value": 379
+        },
+        {
+          "Date": "Jul 15 2020",
+          "Value": 128
+        },
+        {
+          "Date": "Aug 15 2020",
+          "Value": 159
+        },
+        {
+          "Date": "Sep 15 2020",
+          "Value": 158
+        },
+        {
+          "Date": "Oct 15 2020",
+          "Value": 207
+        },
+        {
+          "Date": "Nov 15 2020",
+          "Value": 429
+        },
+        {
+          "Date": "Dec 15 2020",
+          "Value": 211
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

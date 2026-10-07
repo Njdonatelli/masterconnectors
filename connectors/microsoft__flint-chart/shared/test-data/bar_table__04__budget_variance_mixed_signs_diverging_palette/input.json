@@ -1,0 +1,57 @@
+{
+  "title": "Budget Variance (mixed signs → diverging palette)",
+  "description": "Profit (signed-additive, diverging:conditional) → palette anchored at 0; % auto-hidden",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Department": "Engineering",
+          "Variance": 120
+        },
+        {
+          "Department": "Sales",
+          "Variance": -45
+        },
+        {
+          "Department": "Marketing",
+          "Variance": -80
+        },
+        {
+          "Department": "Operations",
+          "Variance": 35
+        },
+        {
+          "Department": "HR",
+          "Variance": -20
+        },
+        {
+          "Department": "Finance",
+          "Variance": 15
+        }
+      ]
+    },
+    "semantic_types": {
+      "Department": "Category",
+      "Variance": "Profit"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Department"
+        },
+        "x": {
+          "field": "Variance"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

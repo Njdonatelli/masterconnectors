@@ -1,0 +1,301 @@
+{
+  "mark": {
+    "type": "area",
+    "opacity": 0.5,
+    "line": {
+      "strokeWidth": 1
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Min °C",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y2": {
+      "field": "Max °C"
+    },
+    "facet": {
+      "field": "City",
+      "type": "nominal",
+      "sort": null,
+      "columns": 3
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 260,
+      "continuousHeight": 323
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 280
+    },
+    "facet": {
+      "spacing": 26
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2024-01-01",
+        "City": "Oslo",
+        "Min °C": -0.7,
+        "Max °C": 10.5
+      },
+      {
+        "Date": "2024-01-02",
+        "City": "Oslo",
+        "Min °C": 3,
+        "Max °C": 9.5
+      },
+      {
+        "Date": "2024-01-03",
+        "City": "Oslo",
+        "Min °C": 3.9,
+        "Max °C": 10.4
+      },
+      {
+        "Date": "2024-01-04",
+        "City": "Oslo",
+        "Min °C": 4.1,
+        "Max °C": 13.8
+      },
+      {
+        "Date": "2024-01-05",
+        "City": "Oslo",
+        "Min °C": 2.7,
+        "Max °C": 11.1
+      },
+      {
+        "Date": "2024-01-06",
+        "City": "Oslo",
+        "Min °C": 2.9,
+        "Max °C": 9.1
+      },
+      {
+        "Date": "2024-01-07",
+        "City": "Oslo",
+        "Min °C": 0.8,
+        "Max °C": 8
+      },
+      {
+        "Date": "2024-01-08",
+        "City": "Oslo",
+        "Min °C": -3.1,
+        "Max °C": 8.2
+      },
+      {
+        "Date": "2024-01-09",
+        "City": "Oslo",
+        "Min °C": -2.8,
+        "Max °C": 5.6
+      },
+      {
+        "Date": "2024-01-10",
+        "City": "Oslo",
+        "Min °C": -3.9,
+        "Max °C": 3.1
+      },
+      {
+        "Date": "2024-01-01",
+        "City": "Cairo",
+        "Min °C": 20.7,
+        "Max °C": 29.4
+      },
+      {
+        "Date": "2024-01-02",
+        "City": "Cairo",
+        "Min °C": 22.9,
+        "Max °C": 31.8
+      },
+      {
+        "Date": "2024-01-03",
+        "City": "Cairo",
+        "Min °C": 27.2,
+        "Max °C": 33.2
+      },
+      {
+        "Date": "2024-01-04",
+        "City": "Cairo",
+        "Min °C": 25.8,
+        "Max °C": 35.2
+      },
+      {
+        "Date": "2024-01-05",
+        "City": "Cairo",
+        "Min °C": 25.1,
+        "Max °C": 34.6
+      },
+      {
+        "Date": "2024-01-06",
+        "City": "Cairo",
+        "Min °C": 23.4,
+        "Max °C": 32.7
+      },
+      {
+        "Date": "2024-01-07",
+        "City": "Cairo",
+        "Min °C": 22.8,
+        "Max °C": 29.6
+      },
+      {
+        "Date": "2024-01-08",
+        "City": "Cairo",
+        "Min °C": 20.2,
+        "Max °C": 28.6
+      },
+      {
+        "Date": "2024-01-09",
+        "City": "Cairo",
+        "Min °C": 19.8,
+        "Max °C": 28
+      },
+      {
+        "Date": "2024-01-10",
+        "City": "Cairo",
+        "Min °C": 18.3,
+        "Max °C": 26.3
+      },
+      {
+        "Date": "2024-01-01",
+        "City": "Tokyo",
+        "Min °C": 9.5,
+        "Max °C": 21.1
+      },
+      {
+        "Date": "2024-01-02",
+        "City": "Tokyo",
+        "Min °C": 13.4,
+        "Max °C": 22.7
+      },
+      {
+        "Date": "2024-01-03",
+        "City": "Tokyo",
+        "Min °C": 14.8,
+        "Max °C": 24.1
+      },
+      {
+        "Date": "2024-01-04",
+        "City": "Tokyo",
+        "Min °C": 16.2,
+        "Max °C": 25.3
+      },
+      {
+        "Date": "2024-01-05",
+        "City": "Tokyo",
+        "Min °C": 13.6,
+        "Max °C": 23.7
+      },
+      {
+        "Date": "2024-01-06",
+        "City": "Tokyo",
+        "Min °C": 13.1,
+        "Max °C": 22.8
+      },
+      {
+        "Date": "2024-01-07",
+        "City": "Tokyo",
+        "Min °C": 10.3,
+        "Max °C": 22.2
+      },
+      {
+        "Date": "2024-01-08",
+        "City": "Tokyo",
+        "Min °C": 12.3,
+        "Max °C": 18.6
+      },
+      {
+        "Date": "2024-01-09",
+        "City": "Tokyo",
+        "Min °C": 9,
+        "Max °C": 15.4
+      },
+      {
+        "Date": "2024-01-10",
+        "City": "Tokyo",
+        "Min °C": 8.8,
+        "Max °C": 15.9
+      }
+    ]
+  },
+  "_width": 260,
+  "_height": 323,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.5,
+      "applicable": true,
+      "value": 0.5
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

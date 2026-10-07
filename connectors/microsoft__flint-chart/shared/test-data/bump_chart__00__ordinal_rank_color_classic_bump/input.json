@@ -1,0 +1,187 @@
+{
+  "title": "Ordinal × Rank + Color (classic bump)",
+  "description": "6 rounds × 5 teams — rank changes over rounds",
+  "chartType": "Bump Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Round": "Round 1",
+          "Team": "Team C",
+          "Rank": 1
+        },
+        {
+          "Round": "Round 1",
+          "Team": "Team D",
+          "Rank": 2
+        },
+        {
+          "Round": "Round 1",
+          "Team": "Team E",
+          "Rank": 3
+        },
+        {
+          "Round": "Round 1",
+          "Team": "Team B",
+          "Rank": 4
+        },
+        {
+          "Round": "Round 1",
+          "Team": "Team A",
+          "Rank": 5
+        },
+        {
+          "Round": "Round 2",
+          "Team": "Team C",
+          "Rank": 1
+        },
+        {
+          "Round": "Round 2",
+          "Team": "Team E",
+          "Rank": 2
+        },
+        {
+          "Round": "Round 2",
+          "Team": "Team B",
+          "Rank": 3
+        },
+        {
+          "Round": "Round 2",
+          "Team": "Team A",
+          "Rank": 4
+        },
+        {
+          "Round": "Round 2",
+          "Team": "Team D",
+          "Rank": 5
+        },
+        {
+          "Round": "Round 3",
+          "Team": "Team E",
+          "Rank": 1
+        },
+        {
+          "Round": "Round 3",
+          "Team": "Team A",
+          "Rank": 2
+        },
+        {
+          "Round": "Round 3",
+          "Team": "Team D",
+          "Rank": 3
+        },
+        {
+          "Round": "Round 3",
+          "Team": "Team C",
+          "Rank": 4
+        },
+        {
+          "Round": "Round 3",
+          "Team": "Team B",
+          "Rank": 5
+        },
+        {
+          "Round": "Round 4",
+          "Team": "Team A",
+          "Rank": 1
+        },
+        {
+          "Round": "Round 4",
+          "Team": "Team D",
+          "Rank": 2
+        },
+        {
+          "Round": "Round 4",
+          "Team": "Team E",
+          "Rank": 3
+        },
+        {
+          "Round": "Round 4",
+          "Team": "Team B",
+          "Rank": 4
+        },
+        {
+          "Round": "Round 4",
+          "Team": "Team C",
+          "Rank": 5
+        },
+        {
+          "Round": "Round 5",
+          "Team": "Team A",
+          "Rank": 1
+        },
+        {
+          "Round": "Round 5",
+          "Team": "Team C",
+          "Rank": 2
+        },
+        {
+          "Round": "Round 5",
+          "Team": "Team D",
+          "Rank": 3
+        },
+        {
+          "Round": "Round 5",
+          "Team": "Team B",
+          "Rank": 4
+        },
+        {
+          "Round": "Round 5",
+          "Team": "Team E",
+          "Rank": 5
+        },
+        {
+          "Round": "Round 6",
+          "Team": "Team A",
+          "Rank": 1
+        },
+        {
+          "Round": "Round 6",
+          "Team": "Team B",
+          "Rank": 2
+        },
+        {
+          "Round": "Round 6",
+          "Team": "Team E",
+          "Rank": 3
+        },
+        {
+          "Round": "Round 6",
+          "Team": "Team C",
+          "Rank": 4
+        },
+        {
+          "Round": "Round 6",
+          "Team": "Team D",
+          "Rank": 5
+        }
+      ]
+    },
+    "semantic_types": {
+      "Round": "Category",
+      "Rank": "Rank",
+      "Team": "Team"
+    },
+    "chart_spec": {
+      "chartType": "Bump Chart",
+      "encodings": {
+        "x": {
+          "field": "Round"
+        },
+        "y": {
+          "field": "Rank"
+        },
+        "color": {
+          "field": "Team"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

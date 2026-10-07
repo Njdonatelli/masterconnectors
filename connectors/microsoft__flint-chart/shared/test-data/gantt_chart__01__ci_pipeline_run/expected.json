@@ -1,0 +1,168 @@
+{
+  "mark": {
+    "type": "bar",
+    "cornerRadius": 2,
+    "height": {
+      "band": 0.7
+    }
+  },
+  "encoding": {
+    "y": {
+      "field": "stage",
+      "type": "nominal",
+      "sort": {
+        "field": "start",
+        "op": "min",
+        "order": "ascending"
+      },
+      "axis": {
+        "title": null
+      }
+    },
+    "x": {
+      "field": "start",
+      "type": "quantitative",
+      "axis": {
+        "title": null,
+        "format": ",.12~g"
+      },
+      "scale": {
+        "zero": false
+      }
+    },
+    "x2": {
+      "field": "end"
+    },
+    "color": {
+      "field": "group",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 449,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "height": {
+    "step": 36
+  },
+  "data": {
+    "values": [
+      {
+        "stage": "Checkout",
+        "start": 0,
+        "end": 8,
+        "group": "Setup"
+      },
+      {
+        "stage": "Install deps",
+        "start": 8,
+        "end": 72,
+        "group": "Setup"
+      },
+      {
+        "stage": "Lint",
+        "start": 72,
+        "end": 110,
+        "group": "Check"
+      },
+      {
+        "stage": "Type check",
+        "start": 72,
+        "end": 128,
+        "group": "Check"
+      },
+      {
+        "stage": "Unit tests",
+        "start": 128,
+        "end": 205,
+        "group": "Test"
+      },
+      {
+        "stage": "Integration tests",
+        "start": 205,
+        "end": 320,
+        "group": "Test"
+      },
+      {
+        "stage": "Build",
+        "start": 320,
+        "end": 372,
+        "group": "Build"
+      },
+      {
+        "stage": "Bundle",
+        "start": 372,
+        "end": 410,
+        "group": "Build"
+      },
+      {
+        "stage": "Docker image",
+        "start": 410,
+        "end": 465,
+        "group": "Package"
+      },
+      {
+        "stage": "Deploy staging",
+        "start": 465,
+        "end": 500,
+        "group": "Deploy"
+      }
+    ]
+  },
+  "_width": 449,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

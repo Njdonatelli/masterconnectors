@@ -1,0 +1,100 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+dist/
+dist-deploy/
+build/
+*.tsbuildinfo
+.tsup/
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Experiment outputs (source, inputs, and manifests stay tracked)
+experiments/*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Editor / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Examples build artifacts
+examples/**/dist/
+examples/**/node_modules/
+examples/**/.vite/
+
+# Agents build artifacts
+agents/**/dist/
+agents/**/node_modules/
+
+# Lockfile policy: keep ONLY the root lockfile. Workspace members (and
+# example/agent dirs) are governed by the root lock; nested lockfiles are
+# redundant for `npm ci` at the root and drift out of sync. Packages are still
+# published separately via `npm publish` (which reads package.json, not locks).
+examples/**/package-lock.json
+agents/**/package-lock.json
+packages/*/package-lock.json
+site/package-lock.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.eggs/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+
+# Local-only: reference copy of Data Formulator UI used during port
+df-reference/
+
+# Local-only WIP planning docs
+docs/HANDOFF.md
+docs/flint-spinout-plan.md
+
+# Local-only maintainer runbooks
+maintainer-notes/
+
+# Local-only working decision sessions (design docs, not shipped)
+design-docs/
+
+# Loops: internal development/method notes and work artifacts — kept local,
+# not published (not polished for a public audience).
+loops/
+
+# Generated eval-results data for the flint-py results viewer (8.5MB+, contains
+# run-specific paths/tracebacks). Regenerate locally via tools/build_results_page.py.
+packages/flint-py/tools/viewer/results.js
+
+# Theme audit renders and bundled audit scripts
+audit-out/
+scripts/.*.mjs
+
+# Third-party theme research artifacts. Keep provenance and findings tracked;
+# source PDFs/images remain local and are reproducible from the manifest.
+theme-evidence/*

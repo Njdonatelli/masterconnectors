@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>flint-py — gallery results</title>
+<link rel="stylesheet" href="styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<script src="results.js"></script>
+</head>
+<body>
+<header>
+  <h1>flint-py — Python-compiled gallery</h1>
+  <div id="summary"></div>
+  <div class="controls">
+    <input id="search" type="search" placeholder="Filter by title, chart type, page, or slug…" />
+    <select id="chartFilter"><option value="">All chart types</option></select>
+    <select id="sectionFilter"><option value="">All sections</option></select>
+    <select id="statusFilter">
+      <option value="">All statuses</option>
+      <option value="ok">Compiled</option>
+      <option value="py_error">Errored</option>
+    </select>
+  </div>
+</header>
+<main id="wall"></main>
+
+<script>
+(function () {
+  const records = Array.isArray(window.FLINT_RESULTS) ? window.FLINT_RESULTS : [];
+
+  const wall    = document.getElementById('wall');
+  const search  = document.getElementById('search');
+  const chartF  = document.getElementById('chartFilter');
+  const sectF   = document.getElementById('sectionFilter');
+  const statF   = document.getElementById('statusFilter');
+  const summary = document.getElementById('summary');
+
+  // Stats
+  let ok = 0, err = 0;
+  for (const r of records) (r.status === 'ok' ? ok++ : err++);
+  summary.textContent = `${records.length} fixtures — ${ok} compiled, ${err} errored`;
+
+  // Populate filter selects from the data
+  function fillFilter(sel, values) {
+    for (const v of [...new Set(values)].filter(Boolean).sort()) {
+      const opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      sel.appendChild(opt);
+    }
+  }
+  fillFilter(chartF, records.map(r => r.chartType));
+  fillFilter(sectF, records.map(r => r.section));
+
+  // IntersectionObserver — only render a chart when its card scrolls into view.
+  // Vega-embed is heavy; rendering 650+ charts at once is too slow.
+  const renderQueue = new WeakSet();
+  const io = new IntersectionObserver(entries => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const node = e.target;
+      io.unobserve(node);
+      if (renderQueue.has(node)) continue;
+      renderQueue.add(node);
+      const raw = JSON.parse(node.dataset.spec);
+      // Strip Flint's internal hints — they're not part of the public
+      // Vega-Lite schema, and `width`/`height` are already set on the
+      // spec when Flint intends to override Vega-Lite's defaults.
+      const spec = { ...raw };
+      delete spec._width;
+      delete spec._height;
+      delete spec._warnings;
+      delete spec._options;
+      const chartHost = node.querySelector('.chart');
+      vegaEmbed(chartHost, spec, {
+        actions: false,
+        renderer: 'svg',
+      }).then(() => {
+        // Once the real SVG is in place, drop the placeholder
+        // aspect-ratio so the chart's own intrinsic ratio governs.
+        chartHost.style.aspectRatio = '';
+      }).catch(err => {
+        chartHost.innerHTML =
+          `<pre class="render-error">vega-embed error:\n${(err && err.message) || err}</pre>`;
+        chartHost.style.aspectRatio = '';
+      });
+    }
+  }, { root: null, rootMargin: '300px 0px' });
+
+  function makeCard(rec) {
+    const card = document.createElement('article');
+    card.className = 'card ' + (rec.status === 'ok' ? '' : 'errored');
+
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.innerHTML = `
+      <span class="chartType">${rec.chartType || '—'}</span>
+      <span class="section">${rec.section}/${rec.page}</span>
+    `;
+    card.appendChild(meta);
+
+    const h2 = document.createElement('h2');
+    h2.title = rec.slug;
+    h2.textContent = rec.title;
+    card.appendChild(h2);
+
+    if (rec.status === 'ok') {
+      const chart = document.createElement('div');
+      chart.className = 'chart';
+      // Reserve space with the chart's natural aspect ratio so the page
+      // doesn't reflow as lazy-rendered charts pop in.
+      const s = rec.spec || {};
+      const w = s.width || s._width || 320;
+      const h = s.height || s._height || 240;
+      chart.style.aspectRatio = `${w} / ${h}`;
+      card.appendChild(chart);
+      card.dataset.spec = JSON.stringify(rec.spec);
+
+      const details = document.createElement('details');
+      details.className = 'spec';
+      const summaryEl = document.createElement('summary');
+      summaryEl.textContent = 'Vega-Lite spec';
+      details.appendChild(summaryEl);
+      const pre = document.createElement('pre');
+      pre.textContent = JSON.stringify(rec.spec, null, 2);
+      details.appendChild(pre);
+      card.appendChild(details);
+    } else {
+      const err = document.createElement('pre');
+      err.className = 'error';
+      err.textContent = rec.error || '(no error message)';
+      card.appendChild(err);
+    }
+
+    return card;
+  }
+
+  function render() {
+    const q = (search.value || '').toLowerCase().trim();
+    const cf = chartF.value;
+    const sf = sectF.value;
+    const tf = statF.value;
+
+    // Clear & re-observe to free up memory / re-trigger lazy render.
+    wall.innerHTML = '';
+
+    let shown = 0;
+    for (const rec of records) {
+      if (cf && rec.chartType !== cf) continue;
+      if (sf && rec.section !== sf) continue;
+      if (tf && rec.status !== tf) continue;
+      if (q) {
+        const blob = (rec.title + ' ' + rec.chartType + ' ' + rec.slug
+                      + ' ' + rec.page + ' ' + rec.section).toLowerCase();
+        if (!blob.includes(q)) continue;
+      }
+      const card = makeCard(rec);
+      wall.appendChild(card);
+      if (rec.status === 'ok') io.observe(card);
+      shown++;
+    }
+    summary.textContent =
+      `${shown} / ${records.length} shown — ${ok} compiled, ${err} errored overall`;
+  }
+
+  search.addEventListener('input', render);
+  chartF.addEventListener('change', render);
+  sectF.addEventListener('change', render);
+  statF.addEventListener('change', render);
+  render();
+})();
+</script>
+</body>
+</html>

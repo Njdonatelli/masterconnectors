@@ -1,0 +1,193 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Quarter",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 25
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Quarter": "Q1 2018",
+        "Value": 148
+      },
+      {
+        "Quarter": "Q2 2018",
+        "Value": 199
+      },
+      {
+        "Quarter": "Q3 2018",
+        "Value": 122
+      },
+      {
+        "Quarter": "Q4 2018",
+        "Value": 309
+      },
+      {
+        "Quarter": "Q1 2019",
+        "Value": 339
+      },
+      {
+        "Quarter": "Q2 2019",
+        "Value": 296
+      },
+      {
+        "Quarter": "Q3 2019",
+        "Value": 363
+      },
+      {
+        "Quarter": "Q4 2019",
+        "Value": 99
+      },
+      {
+        "Quarter": "Q1 2020",
+        "Value": 68
+      },
+      {
+        "Quarter": "Q2 2020",
+        "Value": 502
+      },
+      {
+        "Quarter": "Q3 2020",
+        "Value": 518
+      },
+      {
+        "Quarter": "Q4 2020",
+        "Value": 342
+      },
+      {
+        "Quarter": "Q1 2021",
+        "Value": 436
+      },
+      {
+        "Quarter": "Q2 2021",
+        "Value": 501
+      },
+      {
+        "Quarter": "Q3 2021",
+        "Value": 381
+      },
+      {
+        "Quarter": "Q4 2021",
+        "Value": 316
+      },
+      {
+        "Quarter": "Q1 2022",
+        "Value": 199
+      },
+      {
+        "Quarter": "Q2 2022",
+        "Value": 218
+      },
+      {
+        "Quarter": "Q3 2022",
+        "Value": 538
+      },
+      {
+        "Quarter": "Q4 2022",
+        "Value": 197
+      },
+      {
+        "Quarter": "Q1 2023",
+        "Value": 493
+      },
+      {
+        "Quarter": "Q2 2023",
+        "Value": 351
+      },
+      {
+        "Quarter": "Q3 2023",
+        "Value": 146
+      },
+      {
+        "Quarter": "Q4 2023",
+        "Value": 81
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

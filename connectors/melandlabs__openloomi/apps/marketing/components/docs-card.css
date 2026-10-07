@@ -1,0 +1,178 @@
+/* Doc card groups — used by the docs landing page */
+.docs-card-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-top: 1.5rem;
+}
+
+.docs-card-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.docs-card-group-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.docs-card-group-heading {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-foreground-secondary);
+  letter-spacing: -0.01em;
+}
+
+.docs-card-group-blurb {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font-size: 0.95rem;
+}
+
+/* Doc card grid layout - ensures equal column widths */
+.docs-card-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(280px, 1fr)
+  ); /* All columns equal width */
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Responsive layout adjustments */
+@media (min-width: 640px) {
+  .docs-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .docs-card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Card link styles */
+.docs-card-link {
+  display: block;
+  text-decoration: none;
+  height: 100%; /* Ensures link fills entire card height */
+}
+
+/* Card base styles - ensures equal heights */
+.docs-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-card);
+  background-color: var(--color-background-card);
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+  height: 100%; /* Key: all cards equal height */
+  display: flex;
+  flex-direction: column; /* Uses flex to ensure content fills correctly */
+}
+
+/* Card hover effect */
+.docs-card:hover {
+  border-color: var(--color-primary-300);
+  box-shadow: 0 16px 32px rgba(19, 64, 143, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Card decorative element */
+.docs-card-decoration {
+  position: absolute;
+  right: -3rem;
+  top: -3rem;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background-color: color-mix(in srgb, var(--color-surfaceBlue) 80%, white);
+  transition:
+    opacity 160ms ease,
+    background-color 160ms ease;
+}
+
+.docs-card:hover .docs-card-decoration {
+  background-color: var(--color-surfaceBlue);
+  opacity: 0.8;
+}
+
+/* Card content container - fills available space */
+.docs-card-content {
+  position: relative;
+  flex: 1; /* Fills card remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card title */
+.docs-card-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-foreground-secondary);
+  transition: color 160ms ease;
+}
+
+.docs-card:hover .docs-card-title {
+  color: var(--color-primary-700);
+}
+
+/* Card description - ensures content doesn't expand card */
+.docs-card-description {
+  margin: 0 0 1rem 0;
+  color: var(--color-foreground-muted);
+  flex: 1; /* Allows description text area to expand */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limits max 3 lines of text */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Learn more link - stays at bottom */
+.docs-card-learn-more {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary-700);
+  opacity: 0;
+  transition: opacity 160ms ease;
+  margin-top: auto; /* Pushes to container bottom */
+}
+
+.docs-card:hover .docs-card-learn-more {
+  opacity: 1;
+}
+
+.docs-card-learn-more span {
+  margin-right: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Arrow icon */
+.docs-card-arrow {
+  width: 1rem;
+  height: 1rem;
+}
+
+.blogs-container {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.blog-card {
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+}

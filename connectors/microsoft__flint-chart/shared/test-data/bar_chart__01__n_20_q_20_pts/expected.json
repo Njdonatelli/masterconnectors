@@ -1,0 +1,180 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 263
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 26
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 23
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Laptop",
+        "Value": 897
+      },
+      {
+        "Category": "Phone",
+        "Value": 707
+      },
+      {
+        "Category": "Tablet",
+        "Value": 888
+      },
+      {
+        "Category": "Desktop",
+        "Value": 930
+      },
+      {
+        "Category": "Monitor",
+        "Value": 475
+      },
+      {
+        "Category": "Keyboard",
+        "Value": 357
+      },
+      {
+        "Category": "Mouse",
+        "Value": 942
+      },
+      {
+        "Category": "Headphones",
+        "Value": 106
+      },
+      {
+        "Category": "Speaker",
+        "Value": 463
+      },
+      {
+        "Category": "Camera",
+        "Value": 353
+      },
+      {
+        "Category": "TV",
+        "Value": 970
+      },
+      {
+        "Category": "Router",
+        "Value": 124
+      },
+      {
+        "Category": "Printer",
+        "Value": 772
+      },
+      {
+        "Category": "Scanner",
+        "Value": 348
+      },
+      {
+        "Category": "SSD",
+        "Value": 687
+      },
+      {
+        "Category": "HDD",
+        "Value": 751
+      },
+      {
+        "Category": "RAM",
+        "Value": 680
+      },
+      {
+        "Category": "GPU",
+        "Value": 899
+      },
+      {
+        "Category": "CPU",
+        "Value": 53
+      },
+      {
+        "Category": "Motherboard",
+        "Value": 621
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 263,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

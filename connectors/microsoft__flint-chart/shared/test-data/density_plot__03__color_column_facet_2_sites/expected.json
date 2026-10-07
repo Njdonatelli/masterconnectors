@@ -1,0 +1,2096 @@
+{
+  "mark": "area",
+  "transform": [
+    {
+      "density": "Reading",
+      "groupby": [
+        "Batch"
+      ]
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Reading",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "density",
+      "type": "quantitative",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Batch",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "facet": {
+      "field": "Site",
+      "type": "nominal",
+      "sort": null,
+      "columns": 2
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 211,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 231
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Reading": 29,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 31,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 32,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 42,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 19,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 56,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 42,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 27,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 28,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 19,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 30,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 27,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 32,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 18,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 32,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 42,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 18,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 25,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 15,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 20,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 25,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 8,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 14,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 22,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 30,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 29,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 28,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 22,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 19,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 18,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 25,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 19,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 52,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 29,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 28,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 20,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 21,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 12,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 42,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 27,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 27,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 21,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 29,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 24,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 56,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 22,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 42,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 18,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 52,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 32,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 31,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 27,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 52,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 29,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 50,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 58,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 52,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 30,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 32,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Morning",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Evening",
+        "Site": "Lab A"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 75,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 28,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 82,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 42,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 86,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 37,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 74,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 77,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 78,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 66,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 68,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 71,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 67,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 75,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 76,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 83,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 35,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 70,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 56,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 73,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 68,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 50,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 57,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 68,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 66,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 66,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 66,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 77,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 78,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 76,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 56,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 75,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 31,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 50,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 50,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 50,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 56,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 58,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 50,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 57,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 52,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 65,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 73,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 71,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 66,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 66,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 67,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 67,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 71,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 57,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 65,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 63,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 40,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 70,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 65,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 68,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 36,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 71,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 72,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 38,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 87,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 57,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 85,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 69,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 57,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 25,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 28,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 65,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 23,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 70,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 69,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 72,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 34,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 68,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 73,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 47,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 57,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 46,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 76,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 26,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 58,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 50,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 53,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 48,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 43,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 66,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 54,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 70,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 56,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 45,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 64,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 69,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 65,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 55,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 49,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 41,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 61,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 62,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 56,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 44,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 39,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 51,
+        "Batch": "Evening",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 60,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 33,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 79,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      },
+      {
+        "Reading": 59,
+        "Batch": "Morning",
+        "Site": "Lab B"
+      }
+    ]
+  },
+  "_width": 211,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

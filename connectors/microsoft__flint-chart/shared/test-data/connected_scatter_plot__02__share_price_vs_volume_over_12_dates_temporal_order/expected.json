@@ -1,0 +1,159 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Trade Volume",
+      "type": "quantitative",
+      "scale": {
+        "nice": true,
+        "padding": 10,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Share Price",
+      "type": "quantitative",
+      "scale": {
+        "nice": true,
+        "padding": 10,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "order": {
+      "field": "Date",
+      "type": "temporal"
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 530,
+      "continuousHeight": 381
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 38
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2023-01-03",
+        "Trade Volume": 58,
+        "Share Price": 142
+      },
+      {
+        "Date": "2023-02-01",
+        "Trade Volume": 47,
+        "Share Price": 151
+      },
+      {
+        "Date": "2023-03-01",
+        "Trade Volume": 63,
+        "Share Price": 148
+      },
+      {
+        "Date": "2023-04-03",
+        "Trade Volume": 41,
+        "Share Price": 165
+      },
+      {
+        "Date": "2023-05-01",
+        "Trade Volume": 38,
+        "Share Price": 172
+      },
+      {
+        "Date": "2023-06-01",
+        "Trade Volume": 52,
+        "Share Price": 180
+      },
+      {
+        "Date": "2023-07-03",
+        "Trade Volume": 35,
+        "Share Price": 193
+      },
+      {
+        "Date": "2023-08-01",
+        "Trade Volume": 44,
+        "Share Price": 188
+      },
+      {
+        "Date": "2023-09-01",
+        "Trade Volume": 71,
+        "Share Price": 171
+      },
+      {
+        "Date": "2023-10-02",
+        "Trade Volume": 66,
+        "Share Price": 170
+      },
+      {
+        "Date": "2023-11-01",
+        "Trade Volume": 49,
+        "Share Price": 189
+      },
+      {
+        "Date": "2023-12-01",
+        "Trade Volume": 40,
+        "Share Price": 192
+      }
+    ]
+  },
+  "_width": 530,
+  "_height": 381,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": true
+    }
+  ]
+}

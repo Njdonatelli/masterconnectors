@@ -1,0 +1,18 @@
+# --- Internal-only files (per CLAUDE.md "Public vs Internal" policy) ---
+# These six paths must never be committed to the public repo. They
+# carry positioning notes, decision logs, session state, methodology,
+# and raw research artifacts that are valuable internally but not
+# part of the published list.
+PROJECT.md
+progress.md
+Task.md
+CLAUDE.md
+docs/
+research/
+
+# --- Claude Code local agent settings ---
+# Per-developer overrides; not part of the shared project config.
+.claude/settings.json
+
+# --- OS / editor cruft ---
+.DS_Store

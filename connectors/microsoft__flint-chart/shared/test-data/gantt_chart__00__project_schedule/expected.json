@@ -1,0 +1,151 @@
+{
+  "mark": {
+    "type": "bar",
+    "cornerRadius": 2,
+    "height": {
+      "band": 0.7
+    }
+  },
+  "encoding": {
+    "y": {
+      "field": "task",
+      "type": "nominal",
+      "sort": {
+        "field": "start",
+        "op": "min",
+        "order": "ascending"
+      },
+      "axis": {
+        "title": null
+      }
+    },
+    "x": {
+      "field": "start",
+      "type": "temporal",
+      "axis": {
+        "title": null
+      }
+    },
+    "x2": {
+      "field": "end"
+    },
+    "color": {
+      "field": "phase",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 455,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "height": {
+    "step": 37
+  },
+  "data": {
+    "values": [
+      {
+        "task": "Requirements",
+        "start": "2024-01-01",
+        "end": "2024-01-22",
+        "phase": "Plan"
+      },
+      {
+        "task": "Design",
+        "start": "2024-01-15",
+        "end": "2024-02-12",
+        "phase": "Plan"
+      },
+      {
+        "task": "Backend",
+        "start": "2024-02-05",
+        "end": "2024-04-01",
+        "phase": "Build"
+      },
+      {
+        "task": "Frontend",
+        "start": "2024-02-19",
+        "end": "2024-04-15",
+        "phase": "Build"
+      },
+      {
+        "task": "Integration",
+        "start": "2024-04-01",
+        "end": "2024-04-29",
+        "phase": "Build"
+      },
+      {
+        "task": "QA & Testing",
+        "start": "2024-04-15",
+        "end": "2024-05-20",
+        "phase": "Verify"
+      },
+      {
+        "task": "Beta",
+        "start": "2024-05-06",
+        "end": "2024-06-03",
+        "phase": "Verify"
+      },
+      {
+        "task": "Launch",
+        "start": "2024-06-03",
+        "end": "2024-06-17",
+        "phase": "Release"
+      }
+    ]
+  },
+  "_width": 455,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

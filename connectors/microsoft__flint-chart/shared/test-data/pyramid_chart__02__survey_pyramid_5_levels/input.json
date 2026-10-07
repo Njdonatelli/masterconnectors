@@ -1,0 +1,87 @@
+{
+  "title": "Survey pyramid (5 levels)",
+  "description": "Satisfaction levels — Agree vs Disagree",
+  "chartType": "Pyramid Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Satisfaction Level": "Very Low",
+          "Response": "Agree",
+          "Count": 146
+        },
+        {
+          "Satisfaction Level": "Very Low",
+          "Response": "Disagree",
+          "Count": 87
+        },
+        {
+          "Satisfaction Level": "Low",
+          "Response": "Agree",
+          "Count": 328
+        },
+        {
+          "Satisfaction Level": "Low",
+          "Response": "Disagree",
+          "Count": 250
+        },
+        {
+          "Satisfaction Level": "Medium",
+          "Response": "Agree",
+          "Count": 331
+        },
+        {
+          "Satisfaction Level": "Medium",
+          "Response": "Disagree",
+          "Count": 39
+        },
+        {
+          "Satisfaction Level": "High",
+          "Response": "Agree",
+          "Count": 218
+        },
+        {
+          "Satisfaction Level": "High",
+          "Response": "Disagree",
+          "Count": 213
+        },
+        {
+          "Satisfaction Level": "Very High",
+          "Response": "Agree",
+          "Count": 61
+        },
+        {
+          "Satisfaction Level": "Very High",
+          "Response": "Disagree",
+          "Count": 247
+        }
+      ]
+    },
+    "semantic_types": {
+      "Satisfaction Level": "Category",
+      "Count": "Count",
+      "Response": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Pyramid Chart",
+      "encodings": {
+        "y": {
+          "field": "Satisfaction Level"
+        },
+        "x": {
+          "field": "Count"
+        },
+        "color": {
+          "field": "Response"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

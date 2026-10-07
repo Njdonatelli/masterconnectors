@@ -1,0 +1,1663 @@
+import Foundation
+import NativServerKit
+import Security
+
+enum ServerAPICredentialPersistenceError: Error {
+    case keychain(OSStatus)
+    case invalidKeychainData
+}
+
+protocol ServerAPICredentialStoring {
+    func load() throws -> String?
+    func save(_ token: String?) throws
+}
+
+struct ServerAPIKeychain: ServerAPICredentialStoring {
+    let service: String
+    let account: String
+
+    init(
+        service: String = "dev.local.Nativ.server-api-key",
+        account: String = "nativ-server"
+    ) {
+        self.service = service
+        self.account = account
+    }
+
+    func load() throws -> String? {
+        var query = baseQuery
+        query[kSecReturnData as String] = true
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        if status == errSecItemNotFound {
+            return nil
+        }
+        guard status == errSecSuccess else {
+            throw ServerAPICredentialPersistenceError.keychain(status)
+        }
+        guard let data = item as? Data,
+            let token = String(data: data, encoding: .utf8)
+        else {
+            throw ServerAPICredentialPersistenceError.invalidKeychainData
+        }
+        return ServerAPIAuthentication.normalizedToken(token)
+    }
+
+    func save(_ token: String?) throws {
+        guard let token = ServerAPIAuthentication.normalizedToken(token) else {
+            let status = SecItemDelete(baseQuery as CFDictionary)
+            guard status == errSecSuccess || status == errSecItemNotFound else {
+                throw ServerAPICredentialPersistenceError.keychain(status)
+            }
+            return
+        }
+
+        let attributes: [String: Any] = [
+            kSecValueData as String: Data(token.utf8),
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+        ]
+        let updateStatus = SecItemUpdate(
+            baseQuery as CFDictionary,
+            attributes as CFDictionary
+        )
+        if updateStatus == errSecSuccess {
+            return
+        }
+        guard updateStatus == errSecItemNotFound else {
+            throw ServerAPICredentialPersistenceError.keychain(updateStatus)
+        }
+
+        var item = baseQuery
+        attributes.forEach { item[$0.key] = $0.value }
+        let addStatus = SecItemAdd(item as CFDictionary, nil)
+        guard addStatus == errSecSuccess else {
+            throw ServerAPICredentialPersistenceError.keychain(addStatus)
+        }
+    }
+
+    private var baseQuery: [String: Any] {
+        [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+            kSecUseDataProtectionKeychain as String: true,
+        ]
+    }
+}
+
+protocol HuggingFaceCredentialStoring {
+    func load() throws -> String?
+    func save(_ token: String?) throws
+}
+
+struct HuggingFaceCredentialKeychain: HuggingFaceCredentialStoring {
+    let service: String
+    let account: String
+
+    init(
+        service: String = "dev.local.Nativ.huggingface-token",
+        account: String = "nativ-huggingface"
+    ) {
+        self.service = service
+        self.account = account
+    }
+
+    func load() throws -> String? {
+        var query = baseQuery
+        query[kSecReturnData as String] = true
+        query[kSecMatchLimit as String] = kSecMatchLimitOne
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        if status == errSecItemNotFound {
+            return nil
+        }
+        guard status == errSecSuccess else {
+            throw ServerAPICredentialPersistenceError.keychain(status)
+        }
+        guard let data = item as? Data,
+            let token = String(data: data, encoding: .utf8)
+        else {
+            throw ServerAPICredentialPersistenceError.invalidKeychainData
+        }
+        return HuggingFaceAuthentication.normalizedToken(token)
+    }
+
+    func save(_ token: String?) throws {
+        guard let token = HuggingFaceAuthentication.normalizedToken(token) else {
+            let status = SecItemDelete(baseQuery as CFDictionary)
+            guard status == errSecSuccess || status == errSecItemNotFound else {
+                throw ServerAPICredentialPersistenceError.keychain(status)
+            }
+            return
+        }
+
+        let attributes: [String: Any] = [
+            kSecValueData as String: Data(token.utf8),
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+        ]
+        let updateStatus = SecItemUpdate(
+            baseQuery as CFDictionary,
+            attributes as CFDictionary
+        )
+        if updateStatus == errSecSuccess {
+            return
+        }
+        guard updateStatus == errSecItemNotFound else {
+            throw ServerAPICredentialPersistenceError.keychain(updateStatus)
+        }
+
+        var item = baseQuery
+        attributes.forEach { item[$0.key] = $0.value }
+        let addStatus = SecItemAdd(item as CFDictionary, nil)
+        guard addStatus == errSecSuccess else {
+            throw ServerAPICredentialPersistenceError.keychain(addStatus)
+        }
+    }
+
+    private var baseQuery: [String: Any] {
+        [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account,
+            kSecUseDataProtectionKeychain as String: true,
+        ]
+    }
+}
+
+struct ServerAPITokenInfo: Equatable, Sendable {
+    let maskedValue: String
+    let characterCount: Int
+}
+
+enum ServerAPIAuthentication {
+    static func normalizedToken(_ token: String?) -> String? {
+        guard let trimmed = token?.trimmingCharacters(in: .whitespacesAndNewlines),
+            !trimmed.isEmpty
+        else {
+            return nil
+        }
+        return trimmed
+    }
+
+    static func tokenInfo(_ token: String?) -> ServerAPITokenInfo? {
+        guard let token = normalizedToken(token) else {
+            return nil
+        }
+
+        let prefix = token.hasPrefix("nativ_") ? "nativ_" : ""
+        let suffix = token.count > 8 ? String(token.suffix(4)) : ""
+        return ServerAPITokenInfo(
+            maskedValue: "\(prefix)••••••••\(suffix)",
+            characterCount: token.count
+        )
+    }
+
+    static func generateToken() -> String {
+        var bytes = [UInt8](repeating: 0, count: 32)
+        guard SecRandomCopyBytes(kSecRandomDefault, bytes.count, &bytes) == errSecSuccess else {
+            return "nativ_\(UUID().uuidString.replacingOccurrences(of: "-", with: "").lowercased())"
+        }
+
+        let token = Data(bytes)
+            .base64EncodedString()
+            .replacingOccurrences(of: "+", with: "-")
+            .replacingOccurrences(of: "/", with: "_")
+            .replacingOccurrences(of: "=", with: "")
+        return "nativ_\(token)"
+    }
+}
+
+enum ModelPreloadSlot: String, CaseIterable, Identifiable, Sendable {
+    case language
+    case imageGeneration
+    case textToSpeech
+    case speechToText
+    case embeddings
+
+    var id: Self { self }
+
+    var displayName: String {
+        switch self {
+        case .language:
+            "Language"
+        case .imageGeneration:
+            "Image Generation"
+        case .textToSpeech:
+            "Text-to-Speech"
+        case .speechToText:
+            "Speech-to-Text"
+        case .embeddings:
+            "Embeddings"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .language:
+            "text.bubble"
+        case .imageGeneration:
+            "photo"
+        case .textToSpeech:
+            "speaker.wave.2"
+        case .speechToText:
+            "waveform"
+        case .embeddings:
+            "square.stack.3d.up"
+        }
+    }
+}
+
+struct ModelPreloadMemoryWarning: Equatable, Identifiable, Sendable {
+    var id: String {
+        "\(candidateSlot.rawValue):\(candidateModelID)"
+    }
+
+    let candidateModelID: String
+    let candidateSlot: ModelPreloadSlot
+    let existingSlots: [ModelPreloadSlot]
+    let estimatedWorkingSetBytes: UInt64
+    let memoryBudgetBytes: UInt64
+    let totalMemoryBytes: UInt64
+
+    var message: String {
+        let candidateName =
+            candidateModelID.split(separator: "/").last.map(String.init)
+            ?? candidateModelID
+        let estimated = Self.byteCount(estimatedWorkingSetBytes)
+        let budget = Self.byteCount(memoryBudgetBytes)
+        let total = Self.byteCount(totalMemoryBytes)
+        let existingKinds = Self.joinedList(existingSlots.map(\.displayName))
+        let existingDescription =
+            existingSlots.count == 1
+            ? "the selected \(existingKinds) model"
+            : "the selected \(existingKinds) models"
+
+        let selectionDescription =
+            "Loading \(candidateName) for \(candidateSlot.displayName) alongside "
+            + "\(existingDescription) is estimated to require \(estimated)."
+        let budgetDescription =
+            "That exceeds this Mac’s \(budget) usable unified-memory budget "
+            + "(\(total) total), which reserves memory for KV cache and runtime headroom."
+        return "\(selectionDescription) \(budgetDescription)"
+    }
+
+    static func evaluate(
+        candidateModelID: String,
+        candidateSlot: ModelPreloadSlot,
+        currentSelections: [ModelPreloadSlot: String],
+        workingSetBytesByModelID: [String: UInt64],
+        memoryBudgetBytes: UInt64,
+        totalMemoryBytes: UInt64
+    ) -> Self? {
+        guard currentSelections[candidateSlot] != candidateModelID,
+            workingSetBytesByModelID[candidateModelID] != nil
+        else {
+            return nil
+        }
+
+        let existingSlots = ModelPreloadSlot.allCases.filter {
+            $0 != candidateSlot && currentSelections[$0] != nil
+        }
+        guard !existingSlots.isEmpty else {
+            return nil
+        }
+
+        var modelIDs = Set(
+            existingSlots.compactMap {
+                currentSelections[$0]
+            })
+        modelIDs.insert(candidateModelID)
+
+        let estimatedWorkingSetBytes = modelIDs.reduce(UInt64(0)) { total, modelID in
+            guard let modelBytes = workingSetBytesByModelID[modelID] else {
+                return total
+            }
+            let sum = total.addingReportingOverflow(modelBytes)
+            return sum.overflow ? UInt64.max : sum.partialValue
+        }
+        guard estimatedWorkingSetBytes > memoryBudgetBytes else {
+            return nil
+        }
+
+        return Self(
+            candidateModelID: candidateModelID,
+            candidateSlot: candidateSlot,
+            existingSlots: existingSlots,
+            estimatedWorkingSetBytes: estimatedWorkingSetBytes,
+            memoryBudgetBytes: memoryBudgetBytes,
+            totalMemoryBytes: totalMemoryBytes
+        )
+    }
+
+    private static func byteCount(_ bytes: UInt64) -> String {
+        ByteCountFormatter.string(
+            fromByteCount: Int64(clamping: bytes),
+            countStyle: .memory
+        )
+    }
+
+    private static func joinedList(_ values: [String]) -> String {
+        switch values.count {
+        case 0:
+            ""
+        case 1:
+            values[0]
+        case 2:
+            values.joined(separator: " and ")
+        default:
+            values.dropLast().joined(separator: ", ") + ", and " + (values.last ?? "")
+        }
+    }
+}
+
+struct ModelConfigProfile: Codable, Equatable {
+    var thinkingEnabled: Bool
+    var thinkingBudgetEnabled: Bool
+    var thinkingBudget: Int
+    var speculativeDecodingEnabled: Bool
+    var draftModelID: String
+    var draftKind: String
+
+    init(
+        thinkingEnabled: Bool = false,
+        thinkingBudgetEnabled: Bool = false,
+        thinkingBudget: Int = 512,
+        speculativeDecodingEnabled: Bool = false,
+        draftModelID: String = "",
+        draftKind: String = "auto"
+    ) {
+        self.thinkingEnabled = thinkingEnabled
+        self.thinkingBudgetEnabled = thinkingBudgetEnabled
+        self.thinkingBudget = thinkingBudget
+        self.speculativeDecodingEnabled = speculativeDecodingEnabled
+        self.draftModelID = draftModelID
+        self.draftKind = draftKind
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case thinkingEnabled, thinkingBudgetEnabled, thinkingBudget
+        case speculativeDecodingEnabled, draftModelID, draftKind
+    }
+
+    init(from decoder: Decoder) throws {
+        let defaults = ModelConfigProfile()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        thinkingEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .thinkingEnabled)
+            ?? defaults.thinkingEnabled
+        thinkingBudgetEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .thinkingBudgetEnabled)
+            ?? defaults.thinkingBudgetEnabled
+        thinkingBudget =
+            try container.decodeIfPresent(Int.self, forKey: .thinkingBudget)
+            ?? defaults.thinkingBudget
+        speculativeDecodingEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .speculativeDecodingEnabled)
+            ?? defaults.speculativeDecodingEnabled
+        draftModelID =
+            try container.decodeIfPresent(String.self, forKey: .draftModelID)
+            ?? defaults.draftModelID
+        draftKind =
+            try container.decodeIfPresent(String.self, forKey: .draftKind) ?? defaults.draftKind
+    }
+}
+
+struct NativPersonalization: Codable, Equatable {
+    enum ConversationStyle: String, CaseIterable, Codable, Identifiable {
+        case `default`, concise, friendly, professional, detailed
+
+        var id: Self { self }
+
+        var title: String { rawValue.capitalized }
+
+        var description: String {
+            switch self {
+            case .default: "Natural and balanced"
+            case .concise: "Short and direct"
+            case .friendly: "Warm and conversational"
+            case .professional: "Polished and precise"
+            case .detailed: "Thorough explanations"
+            }
+        }
+
+        var pickerLabel: String {
+            self == .default ? title : description
+        }
+
+        var systemPrompt: String {
+            let instructions: String
+            switch self {
+            case .default:
+                return ""
+            case .concise:
+                instructions = """
+                    Lead with the answer and use the fewest words needed to make it useful and clear. \
+                    Prioritize essential facts, decisions, and next steps. Omit conversational filler, \
+                    repeated conclusions, and examples that add little value. Preserve necessary context, \
+                    qualifications, and uncertainty; brevity must not make the answer misleading or incomplete.
+                    """
+            case .friendly:
+                instructions = """
+                    Use a warm, relaxed, conversational tone with clear, everyday language. Be attentive \
+                    to the user's situation and explain unfamiliar ideas in an approachable way. Show \
+                    encouragement when useful, without flattery, exaggerated enthusiasm, or forced intimacy. \
+                    Keep the conversation focused, and adopt a calm, serious tone when the subject calls for it.
+                    """
+            case .professional:
+                instructions = """
+                    Use a composed, professional tone with precise language and clear organization. \
+                    Present the main point first, then the supporting details needed to understand or act \
+                    on it. Distinguish facts, assumptions, and recommendations. Avoid slang, casual banter, \
+                    and inflated business language. Remain approachable, and use technical terms only when \
+                    they suit the audience.
+                    """
+            case .detailed:
+                instructions = """
+                    Give thorough, well-organized explanations that help the user understand the topic. \
+                    Start with the main answer, then develop relevant context, important distinctions, \
+                    and practical implications. Explain unfamiliar concepts and use concrete examples \
+                    when they improve understanding. Match depth to the question's complexity, and avoid \
+                    repetition, tangents, or padding merely to make the response longer.
+                    """
+            }
+            return instructions + "\nTreat this as the default communication style. Follow the user's explicit requests for tone, length, and format when they differ. Maintain accuracy and clearly express uncertainty in every style."
+        }
+    }
+
+    enum EmojiUsage: String, CaseIterable, Codable, Identifiable {
+        case none, `default`, more
+
+        var id: Self { self }
+        var title: String { rawValue.capitalized }
+
+        var description: String {
+            switch self {
+            case .none: "No added emojis"
+            case .default: "Model default"
+            case .more: "More expressive"
+            }
+        }
+
+        var pickerLabel: String {
+            self == .default ? title : description
+        }
+
+        var systemPrompt: String {
+            switch self {
+            case .none:
+                """
+                Write without emojis, emoticons, or decorative symbols. Use words for tone and emphasis. \
+                Include emojis only when the user explicitly requests them or when quoting or explaining \
+                them.
+                """
+            case .default:
+                ""
+            case .more:
+                """
+                Use emojis to highlight points and make conversations warmer and engaging. Use them in every message. \
+                to the conversation. Keep them selective and relevant; avoid repeated symbols, emoji chains, \
+                or decorating every paragraph. Keep technical content and serious or sensitive discussions \
+                restrained. Follow the user's explicit requests about emoji use.
+                """
+            }
+        }
+    }
+
+    enum MarkdownUsage: String, CaseIterable, Codable, Identifiable {
+        case minimal, `default`, structured
+
+        var id: Self { self }
+        var title: String { rawValue.capitalized }
+
+        var description: String {
+            switch self {
+            case .minimal: "Mostly plain text"
+            case .default: "Model default"
+            case .structured: "More headings and lists"
+            }
+        }
+
+        var pickerLabel: String {
+            self == .default ? title : description
+        }
+
+        var systemPrompt: String {
+            switch self {
+            case .minimal:
+                """
+                Write in plain-text paragraphs separated by blank lines. Do not add headings, bold, \
+                italics, tables, or bullet lists. Explain steps in sentences. Use fenced code blocks for \
+                code. Follow the user’s explicit formatting requests.
+                """
+            case .default:
+                ""
+            case .structured:
+                """
+                For multi-point answers, start with a short ## heading. Use bullet lists for related \
+                points or numbered lists for steps, and bold the key takeaway. Keep one-sentence answers \
+                unformatted. Follow explicit user format requests.
+                """
+            }
+        }
+    }
+
+    struct Profile: Codable, Equatable {
+        static let maximumFieldLength = 200
+
+        var preferredName: String
+        var occupation: String
+        var conversationStyle: ConversationStyle
+        var emojiUsage: EmojiUsage
+        var markdownUsage: MarkdownUsage
+        var aboutYou: String
+
+        init(
+            preferredName: String = "", occupation: String = "",
+            conversationStyle: ConversationStyle = .default, aboutYou: String = "",
+            emojiUsage: EmojiUsage = .default, markdownUsage: MarkdownUsage = .default
+        ) {
+            self.preferredName = preferredName
+            self.occupation = occupation
+            self.conversationStyle = conversationStyle
+            self.emojiUsage = emojiUsage
+            self.markdownUsage = markdownUsage
+            self.aboutYou = aboutYou
+            limitFieldLengths()
+        }
+
+        mutating func limitFieldLengths() {
+            preferredName = String(preferredName.prefix(Self.maximumFieldLength))
+            occupation = String(occupation.prefix(Self.maximumFieldLength))
+            aboutYou = String(aboutYou.prefix(Self.maximumFieldLength))
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case preferredName, occupation, conversationStyle, aboutYou, emojiUsage, markdownUsage
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            preferredName = try container.decodeIfPresent(String.self, forKey: .preferredName) ?? ""
+            occupation = try container.decodeIfPresent(String.self, forKey: .occupation) ?? ""
+            let style = try container.decodeIfPresent(String.self, forKey: .conversationStyle) ?? "default"
+            conversationStyle = ConversationStyle(rawValue: style) ?? .default
+            let emoji = try container.decodeIfPresent(String.self, forKey: .emojiUsage) ?? "default"
+            emojiUsage = EmojiUsage(rawValue: emoji) ?? .default
+            let markdown = try container.decodeIfPresent(String.self, forKey: .markdownUsage) ?? "default"
+            markdownUsage = MarkdownUsage(rawValue: markdown) ?? .default
+            aboutYou = try container.decodeIfPresent(String.self, forKey: .aboutYou) ?? ""
+            limitFieldLengths()
+        }
+    }
+
+    var profile = Profile()
+
+    var systemPrompt: String {
+        let fields = [
+            ("Preferred name", profile.preferredName),
+            ("Occupation", profile.occupation),
+            ("About the user", profile.aboutYou),
+        ]
+        let profileLines = fields.compactMap { label, value -> String? in
+            let value = value.trimmingCharacters(in: .whitespacesAndNewlines)
+            return value.isEmpty ? nil : "\(label): \(value)"
+        }
+        var sections: [String] = []
+        if !profileLines.isEmpty {
+            sections.append("User profile:\n" + profileLines.joined(separator: "\n"))
+        }
+        if !profile.conversationStyle.systemPrompt.isEmpty {
+            sections.append("Conversation style:\n" + profile.conversationStyle.systemPrompt)
+        }
+        if !profile.emojiUsage.systemPrompt.isEmpty {
+            sections.append("Emoji usage:\n" + profile.emojiUsage.systemPrompt)
+        }
+        if !profile.markdownUsage.systemPrompt.isEmpty {
+            sections.append("Markdown usage:\n" + profile.markdownUsage.systemPrompt)
+        }
+        return sections.joined(separator: "\n\n")
+    }
+}
+
+struct NativSettings: Codable, Equatable {
+    /// Default hub cache location, resolved from the environment.
+    /// See `HuggingFaceCache.defaultHubPath`.
+    static var defaultModelSearchPath: String {
+        HuggingFaceCache.defaultHubPath()
+    }
+
+    static let defaultServerHost = "127.0.0.1"
+
+    static let serverSupportsEmbeddingModelArgument = false
+
+    var modelSearchPath: String
+    var externalModelCache: ExternalModelCacheReference?
+    var additionalModelSearchPaths: [String]
+    var pinnedModelIDs: [String]
+    var languageModelID: String?
+    var mcpServers: [MCPServerConfig]
+    var customTools: [CustomTool]
+    var disabledToolNames: [String]
+    var fileReadRootPath: String?
+    var fileWriteRootPath: String?
+    var projectToolsEnabled: Bool
+    var skills: [NativSkill]
+    var imageGenerationModelID: String?
+    var textToSpeechModelID: String?
+    var speechToTextModelID: String?
+    var embeddingModelID: String?
+    var serverAPIKey: String?
+    var huggingFaceToken: String?
+    var serverHost: String
+    var serverPort: Int
+    var maxTokens: Int
+    var maxKVSize: Int
+    var compactionEnabled: Bool
+    var compactionThresholdPercent: Int
+    var systemPrompt: String
+    var personalization: NativPersonalization
+    var temperature: Double
+    var topK: Int
+    var topP: Double
+    var minP: Double
+    var repetitionPenaltyEnabled: Bool
+    var repetitionPenalty: Double
+    var kvQuantizationEnabled: Bool
+    var kvBits: Double
+    var kvGroupSize: Int
+    var quantizedKVStart: Int
+    var turboQuantEnabled: Bool
+    var thinkingEnabled: Bool
+    var thinkingBudgetEnabled: Bool
+    var thinkingBudget: Int
+    var thinkingStartToken: String
+    var thinkingEndToken: String
+    var speculativeDecodingEnabled: Bool
+    var draftModelID: String
+    var draftKind: String
+    var draftBlockSize: Int
+    var structuredOutputEnabled: Bool
+    var structuredOutputName: String
+    var structuredOutputSchema: String
+    var prefixCachingEnabled: Bool
+    var prefixCacheBlocks: Int
+    var prefixCacheBlockSize: Int
+    /// Set once the Up-arrow recall has been used, which retires its hint.
+    var hasUsedPromptRecall: Bool
+    var chatFontScale: Double
+    var sidebarPinnedCollapsed: Bool
+    var sidebarProjectsCollapsed: Bool
+    var sidebarSessionsCollapsed: Bool
+    var modelConfigs: [String: ModelConfigProfile]
+
+    init(
+        modelSearchPath: String = Self.defaultModelSearchPath,
+        externalModelCache: ExternalModelCacheReference? = nil,
+        additionalModelSearchPaths: [String] = [],
+        pinnedModelIDs: [String] = [],
+        languageModelID: String? = nil,
+        mcpServers: [MCPServerConfig] = [],
+        customTools: [CustomTool] = [],
+        disabledToolNames: [String] = [],
+        fileReadRootPath: String? = nil,
+        fileWriteRootPath: String? = nil,
+        projectToolsEnabled: Bool = true,
+        skills: [NativSkill] = [],
+        imageGenerationModelID: String? = nil,
+        textToSpeechModelID: String? = nil,
+        speechToTextModelID: String? = nil,
+        embeddingModelID: String? = nil,
+        serverAPIKey: String? = nil,
+        huggingFaceToken: String? = nil,
+        serverHost: String = Self.defaultServerHost,
+        serverPort: Int = 8080,
+        maxTokens: Int = 2048,
+        maxKVSize: Int = 0,
+        compactionEnabled: Bool = true,
+        compactionThresholdPercent: Int = 75,
+        systemPrompt: String = "",
+        personalization: NativPersonalization = NativPersonalization(),
+        temperature: Double = 0,
+        topK: Int = 0,
+        topP: Double = 1,
+        minP: Double = 0,
+        repetitionPenaltyEnabled: Bool = false,
+        repetitionPenalty: Double = 1.1,
+        kvQuantizationEnabled: Bool = false,
+        kvBits: Double = 8,
+        kvGroupSize: Int = 64,
+        quantizedKVStart: Int = 0,
+        turboQuantEnabled: Bool = false,
+        thinkingEnabled: Bool = false,
+        thinkingBudgetEnabled: Bool = false,
+        thinkingBudget: Int = 512,
+        thinkingStartToken: String = "<think>",
+        thinkingEndToken: String = "</think>",
+        speculativeDecodingEnabled: Bool = false,
+        draftModelID: String = "",
+        draftKind: String = "auto",
+        draftBlockSize: Int = 0,
+        structuredOutputEnabled: Bool = false,
+        structuredOutputName: String = "Response",
+        structuredOutputSchema: String = Self.defaultStructuredOutputSchema,
+        prefixCachingEnabled: Bool = false,
+        prefixCacheBlocks: Int = 2048,
+        prefixCacheBlockSize: Int = 16,
+        hasUsedPromptRecall: Bool = false,
+        chatFontScale: Double = Self.defaultChatFontScale,
+        sidebarPinnedCollapsed: Bool = false,
+        sidebarProjectsCollapsed: Bool = false,
+        sidebarSessionsCollapsed: Bool = false,
+        modelConfigs: [String: ModelConfigProfile] = [:]
+    ) {
+        self.modelSearchPath = modelSearchPath
+        self.externalModelCache = externalModelCache
+        self.additionalModelSearchPaths = additionalModelSearchPaths
+        self.pinnedModelIDs = pinnedModelIDs
+        self.languageModelID = languageModelID
+        self.mcpServers = mcpServers
+        self.customTools = customTools
+        self.disabledToolNames = disabledToolNames
+        self.fileReadRootPath = fileReadRootPath
+        self.fileWriteRootPath = fileWriteRootPath
+        self.projectToolsEnabled = projectToolsEnabled
+        self.skills = skills
+        self.imageGenerationModelID = imageGenerationModelID
+        self.textToSpeechModelID = textToSpeechModelID
+        self.speechToTextModelID = speechToTextModelID
+        self.embeddingModelID = embeddingModelID
+        self.serverAPIKey = serverAPIKey
+        self.huggingFaceToken = huggingFaceToken
+        self.serverHost = serverHost
+        self.serverPort = serverPort
+        self.maxTokens = maxTokens
+        self.maxKVSize = maxKVSize
+        self.compactionEnabled = compactionEnabled
+        self.compactionThresholdPercent = compactionThresholdPercent
+        self.systemPrompt = systemPrompt
+        self.personalization = personalization
+        self.temperature = temperature
+        self.topK = topK
+        self.topP = topP
+        self.minP = minP
+        self.repetitionPenaltyEnabled = repetitionPenaltyEnabled
+        self.repetitionPenalty = repetitionPenalty
+        self.kvQuantizationEnabled = kvQuantizationEnabled
+        self.kvBits = kvBits
+        self.kvGroupSize = kvGroupSize
+        self.quantizedKVStart = quantizedKVStart
+        self.turboQuantEnabled = turboQuantEnabled
+        self.thinkingEnabled = thinkingEnabled
+        self.thinkingBudgetEnabled = thinkingBudgetEnabled
+        self.thinkingBudget = thinkingBudget
+        self.thinkingStartToken = thinkingStartToken
+        self.thinkingEndToken = thinkingEndToken
+        self.speculativeDecodingEnabled = speculativeDecodingEnabled
+        self.draftModelID = draftModelID
+        self.draftKind = draftKind
+        self.draftBlockSize = draftBlockSize
+        self.structuredOutputEnabled = structuredOutputEnabled
+        self.structuredOutputName = structuredOutputName
+        self.structuredOutputSchema = structuredOutputSchema
+        self.prefixCachingEnabled = prefixCachingEnabled
+        self.prefixCacheBlocks = prefixCacheBlocks
+        self.prefixCacheBlockSize = prefixCacheBlockSize
+        self.hasUsedPromptRecall = hasUsedPromptRecall
+        self.chatFontScale = chatFontScale
+        self.sidebarPinnedCollapsed = sidebarPinnedCollapsed
+        self.sidebarProjectsCollapsed = sidebarProjectsCollapsed
+        self.sidebarSessionsCollapsed = sidebarSessionsCollapsed
+        self.modelConfigs = modelConfigs
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case modelSearchPath
+        case externalModelCache
+        case additionalModelSearchPaths
+        case pinnedModelIDs
+        case languageModelID
+        case mcpServers
+        case customTools
+        case disabledToolNames
+        case fileReadRootPath
+        case fileWriteRootPath
+        case projectToolsEnabled
+        case skills
+        case imageGenerationModelID
+        case textToSpeechModelID
+        case speechToTextModelID
+        case embeddingModelID
+        case serverAPIKey
+        case huggingFaceToken
+        case serverHost
+        case serverPort
+        case selectedModelID
+        case maxTokens
+        case maxKVSize
+        case compactionEnabled
+        case compactionThresholdPercent
+        case systemPrompt
+        case personalization
+        case temperature
+        case topK
+        case topP
+        case minP
+        case repetitionPenaltyEnabled
+        case repetitionPenalty
+        case kvQuantizationEnabled
+        case kvBits
+        case kvGroupSize
+        case quantizedKVStart
+        case turboQuantEnabled
+        case thinkingEnabled
+        case thinkingBudgetEnabled
+        case thinkingBudget
+        case thinkingStartToken
+        case thinkingEndToken
+        case speculativeDecodingEnabled
+        case draftModelID
+        case draftKind
+        case draftBlockSize
+        case structuredOutputEnabled
+        case structuredOutputName
+        case structuredOutputSchema
+        case prefixCachingEnabled
+        case prefixCacheBlocks
+        case prefixCacheBlockSize
+        case hasUsedPromptRecall
+        case chatFontScale
+        case sidebarPinnedCollapsed
+        case sidebarProjectsCollapsed
+        case sidebarSessionsCollapsed
+        case modelConfigs
+    }
+
+    init(from decoder: Decoder) throws {
+        let defaults = Self()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let legacySelectedModelID = try container.decodeIfPresent(
+            String.self, forKey: .selectedModelID)
+        let storedModelSearchPath = try container.decodeIfPresent(
+            String.self, forKey: .modelSearchPath)
+        modelSearchPath = HuggingFaceCache.resolvedSearchPath(stored: storedModelSearchPath)
+        externalModelCache = try container.decodeIfPresent(
+            ExternalModelCacheReference.self,
+            forKey: .externalModelCache
+        )
+        additionalModelSearchPaths =
+            try container.decodeIfPresent([String].self, forKey: .additionalModelSearchPaths)
+            ?? defaults.additionalModelSearchPaths
+        pinnedModelIDs =
+            try container.decodeIfPresent([String].self, forKey: .pinnedModelIDs)
+            ?? defaults.pinnedModelIDs
+        languageModelID =
+            try container.decodeIfPresent(String.self, forKey: .languageModelID)
+            ?? legacySelectedModelID ?? defaults.languageModelID
+        mcpServers =
+            try container.decodeIfPresent([MCPServerConfig].self, forKey: .mcpServers)
+            ?? defaults.mcpServers
+        customTools =
+            try container.decodeIfPresent([CustomTool].self, forKey: .customTools)
+            ?? defaults.customTools
+        disabledToolNames =
+            try container.decodeIfPresent([String].self, forKey: .disabledToolNames)
+            ?? defaults.disabledToolNames
+        fileReadRootPath =
+            try container.decodeIfPresent(String.self, forKey: .fileReadRootPath)
+            ?? defaults.fileReadRootPath
+        fileWriteRootPath =
+            try container.decodeIfPresent(String.self, forKey: .fileWriteRootPath)
+            ?? defaults.fileWriteRootPath
+        projectToolsEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .projectToolsEnabled)
+            ?? defaults.projectToolsEnabled
+        skills =
+            try container.decodeIfPresent([NativSkill].self, forKey: .skills) ?? defaults.skills
+        imageGenerationModelID =
+            try container.decodeIfPresent(String.self, forKey: .imageGenerationModelID)
+            ?? defaults.imageGenerationModelID
+        textToSpeechModelID =
+            try container.decodeIfPresent(String.self, forKey: .textToSpeechModelID)
+            ?? defaults.textToSpeechModelID
+        speechToTextModelID =
+            try container.decodeIfPresent(String.self, forKey: .speechToTextModelID)
+            ?? defaults.speechToTextModelID
+        embeddingModelID =
+            try container.decodeIfPresent(String.self, forKey: .embeddingModelID)
+            ?? defaults.embeddingModelID
+        serverAPIKey =
+            try container.decodeIfPresent(String.self, forKey: .serverAPIKey)
+            ?? defaults.serverAPIKey
+        huggingFaceToken =
+            try container.decodeIfPresent(String.self, forKey: .huggingFaceToken)
+            ?? defaults.huggingFaceToken
+        serverHost =
+            try container.decodeIfPresent(String.self, forKey: .serverHost) ?? defaults.serverHost
+        serverPort =
+            try container.decodeIfPresent(Int.self, forKey: .serverPort) ?? defaults.serverPort
+        maxTokens =
+            try container.decodeIfPresent(Int.self, forKey: .maxTokens) ?? defaults.maxTokens
+        maxKVSize =
+            try container.decodeIfPresent(Int.self, forKey: .maxKVSize) ?? defaults.maxKVSize
+        compactionEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .compactionEnabled)
+            ?? defaults.compactionEnabled
+        compactionThresholdPercent =
+            try container.decodeIfPresent(Int.self, forKey: .compactionThresholdPercent)
+            ?? defaults.compactionThresholdPercent
+        systemPrompt =
+            try container.decodeIfPresent(String.self, forKey: .systemPrompt)
+            ?? defaults.systemPrompt
+        personalization = try container.decodeIfPresent(NativPersonalization.self, forKey: .personalization)
+            ?? defaults.personalization
+        temperature =
+            try container.decodeIfPresent(Double.self, forKey: .temperature) ?? defaults.temperature
+        topK = try container.decodeIfPresent(Int.self, forKey: .topK) ?? defaults.topK
+        topP = try container.decodeIfPresent(Double.self, forKey: .topP) ?? defaults.topP
+        minP = try container.decodeIfPresent(Double.self, forKey: .minP) ?? defaults.minP
+        repetitionPenaltyEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .repetitionPenaltyEnabled)
+            ?? defaults.repetitionPenaltyEnabled
+        repetitionPenalty =
+            try container.decodeIfPresent(Double.self, forKey: .repetitionPenalty)
+            ?? defaults.repetitionPenalty
+        kvQuantizationEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .kvQuantizationEnabled)
+            ?? defaults.kvQuantizationEnabled
+        kvBits = try container.decodeIfPresent(Double.self, forKey: .kvBits) ?? defaults.kvBits
+        kvGroupSize =
+            try container.decodeIfPresent(Int.self, forKey: .kvGroupSize) ?? defaults.kvGroupSize
+        quantizedKVStart =
+            try container.decodeIfPresent(Int.self, forKey: .quantizedKVStart)
+            ?? defaults.quantizedKVStart
+        turboQuantEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .turboQuantEnabled)
+            ?? defaults.turboQuantEnabled
+        thinkingEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .thinkingEnabled)
+            ?? defaults.thinkingEnabled
+        thinkingBudgetEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .thinkingBudgetEnabled)
+            ?? defaults.thinkingBudgetEnabled
+        thinkingBudget =
+            try container.decodeIfPresent(Int.self, forKey: .thinkingBudget)
+            ?? defaults.thinkingBudget
+        thinkingStartToken =
+            try container.decodeIfPresent(String.self, forKey: .thinkingStartToken)
+            ?? defaults.thinkingStartToken
+        thinkingEndToken =
+            try container.decodeIfPresent(String.self, forKey: .thinkingEndToken)
+            ?? defaults.thinkingEndToken
+        speculativeDecodingEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .speculativeDecodingEnabled)
+            ?? defaults.speculativeDecodingEnabled
+        draftModelID =
+            try container.decodeIfPresent(String.self, forKey: .draftModelID)
+            ?? defaults.draftModelID
+        draftKind =
+            try container.decodeIfPresent(String.self, forKey: .draftKind) ?? defaults.draftKind
+        draftBlockSize =
+            try container.decodeIfPresent(Int.self, forKey: .draftBlockSize)
+            ?? defaults.draftBlockSize
+        structuredOutputEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .structuredOutputEnabled)
+            ?? defaults.structuredOutputEnabled
+        structuredOutputName =
+            try container.decodeIfPresent(String.self, forKey: .structuredOutputName)
+            ?? defaults.structuredOutputName
+        structuredOutputSchema =
+            try container.decodeIfPresent(String.self, forKey: .structuredOutputSchema)
+            ?? defaults.structuredOutputSchema
+        prefixCachingEnabled =
+            try container.decodeIfPresent(Bool.self, forKey: .prefixCachingEnabled)
+            ?? defaults.prefixCachingEnabled
+        prefixCacheBlocks =
+            try container.decodeIfPresent(Int.self, forKey: .prefixCacheBlocks)
+            ?? defaults.prefixCacheBlocks
+        prefixCacheBlockSize =
+            try container.decodeIfPresent(Int.self, forKey: .prefixCacheBlockSize)
+            ?? defaults.prefixCacheBlockSize
+        hasUsedPromptRecall =
+            try container.decodeIfPresent(Bool.self, forKey: .hasUsedPromptRecall)
+            ?? defaults.hasUsedPromptRecall
+        chatFontScale =
+            try container.decodeIfPresent(Double.self, forKey: .chatFontScale)
+            ?? defaults.chatFontScale
+        sidebarPinnedCollapsed =
+            try container.decodeIfPresent(Bool.self, forKey: .sidebarPinnedCollapsed)
+            ?? defaults.sidebarPinnedCollapsed
+        sidebarProjectsCollapsed =
+            try container.decodeIfPresent(Bool.self, forKey: .sidebarProjectsCollapsed)
+            ?? defaults.sidebarProjectsCollapsed
+        sidebarSessionsCollapsed =
+            try container.decodeIfPresent(Bool.self, forKey: .sidebarSessionsCollapsed)
+            ?? defaults.sidebarSessionsCollapsed
+        modelConfigs =
+            try container.decodeIfPresent([String: ModelConfigProfile].self, forKey: .modelConfigs)
+            ?? defaults.modelConfigs
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(modelSearchPath, forKey: .modelSearchPath)
+        try container.encodeIfPresent(externalModelCache, forKey: .externalModelCache)
+        try container.encode(additionalModelSearchPaths, forKey: .additionalModelSearchPaths)
+        try container.encode(pinnedModelIDs, forKey: .pinnedModelIDs)
+        try container.encodeIfPresent(languageModelID, forKey: .languageModelID)
+        try container.encode(mcpServers, forKey: .mcpServers)
+        try container.encode(customTools, forKey: .customTools)
+        try container.encode(disabledToolNames, forKey: .disabledToolNames)
+        try container.encodeIfPresent(fileReadRootPath, forKey: .fileReadRootPath)
+        try container.encodeIfPresent(fileWriteRootPath, forKey: .fileWriteRootPath)
+        try container.encode(projectToolsEnabled, forKey: .projectToolsEnabled)
+        try container.encode(skills, forKey: .skills)
+        try container.encodeIfPresent(imageGenerationModelID, forKey: .imageGenerationModelID)
+        try container.encodeIfPresent(textToSpeechModelID, forKey: .textToSpeechModelID)
+        try container.encodeIfPresent(speechToTextModelID, forKey: .speechToTextModelID)
+        try container.encodeIfPresent(embeddingModelID, forKey: .embeddingModelID)
+        try container.encode(serverHost, forKey: .serverHost)
+        try container.encode(serverPort, forKey: .serverPort)
+        try container.encode(maxTokens, forKey: .maxTokens)
+        try container.encode(maxKVSize, forKey: .maxKVSize)
+        try container.encode(compactionEnabled, forKey: .compactionEnabled)
+        try container.encode(compactionThresholdPercent, forKey: .compactionThresholdPercent)
+        try container.encode(systemPrompt, forKey: .systemPrompt)
+        try container.encode(personalization, forKey: .personalization)
+        try container.encode(temperature, forKey: .temperature)
+        try container.encode(topK, forKey: .topK)
+        try container.encode(topP, forKey: .topP)
+        try container.encode(minP, forKey: .minP)
+        try container.encode(repetitionPenaltyEnabled, forKey: .repetitionPenaltyEnabled)
+        try container.encode(repetitionPenalty, forKey: .repetitionPenalty)
+        try container.encode(kvQuantizationEnabled, forKey: .kvQuantizationEnabled)
+        try container.encode(kvBits, forKey: .kvBits)
+        try container.encode(kvGroupSize, forKey: .kvGroupSize)
+        try container.encode(quantizedKVStart, forKey: .quantizedKVStart)
+        try container.encode(turboQuantEnabled, forKey: .turboQuantEnabled)
+        try container.encode(thinkingEnabled, forKey: .thinkingEnabled)
+        try container.encode(thinkingBudgetEnabled, forKey: .thinkingBudgetEnabled)
+        try container.encode(thinkingBudget, forKey: .thinkingBudget)
+        try container.encode(thinkingStartToken, forKey: .thinkingStartToken)
+        try container.encode(thinkingEndToken, forKey: .thinkingEndToken)
+        try container.encode(speculativeDecodingEnabled, forKey: .speculativeDecodingEnabled)
+        try container.encode(draftModelID, forKey: .draftModelID)
+        try container.encode(draftKind, forKey: .draftKind)
+        try container.encode(draftBlockSize, forKey: .draftBlockSize)
+        try container.encode(structuredOutputEnabled, forKey: .structuredOutputEnabled)
+        try container.encode(structuredOutputName, forKey: .structuredOutputName)
+        try container.encode(structuredOutputSchema, forKey: .structuredOutputSchema)
+        try container.encode(prefixCachingEnabled, forKey: .prefixCachingEnabled)
+        try container.encode(prefixCacheBlocks, forKey: .prefixCacheBlocks)
+        try container.encode(prefixCacheBlockSize, forKey: .prefixCacheBlockSize)
+        try container.encode(hasUsedPromptRecall, forKey: .hasUsedPromptRecall)
+        try container.encode(chatFontScale, forKey: .chatFontScale)
+        try container.encode(sidebarPinnedCollapsed, forKey: .sidebarPinnedCollapsed)
+        try container.encode(sidebarProjectsCollapsed, forKey: .sidebarProjectsCollapsed)
+        try container.encode(sidebarSessionsCollapsed, forKey: .sidebarSessionsCollapsed)
+        try container.encode(modelConfigs, forKey: .modelConfigs)
+    }
+
+    var currentModelProfile: ModelConfigProfile {
+        ModelConfigProfile(
+            thinkingEnabled: thinkingEnabled,
+            thinkingBudgetEnabled: thinkingBudgetEnabled,
+            thinkingBudget: thinkingBudget,
+            speculativeDecodingEnabled: speculativeDecodingEnabled,
+            draftModelID: draftModelID,
+            draftKind: draftKind
+        )
+    }
+
+    func modelProfile(for modelID: String) -> ModelConfigProfile? {
+        modelConfigs[modelID]
+    }
+
+    mutating func rememberProfile(forModel modelID: String) {
+        guard !modelID.isEmpty else {
+            return
+        }
+        modelConfigs[modelID] = currentModelProfile
+    }
+
+    mutating func applyProfile(_ profile: ModelConfigProfile) {
+        thinkingEnabled = profile.thinkingEnabled
+        thinkingBudgetEnabled = profile.thinkingBudgetEnabled
+        thinkingBudget = profile.thinkingBudget
+        speculativeDecodingEnabled = profile.speculativeDecodingEnabled
+        draftModelID = profile.draftModelID
+        draftKind = profile.draftKind
+    }
+
+    static func load(
+        from url: URL = storageURL,
+        credentialStore: ServerAPICredentialStoring = ServerAPIKeychain(),
+        huggingFaceStore: HuggingFaceCredentialStoring = HuggingFaceCredentialKeychain()
+    ) -> Self {
+        let storedSettings: Self
+        if let data = try? Data(contentsOf: url),
+            let decoded = try? PropertyListDecoder().decode(Self.self, from: data)
+        {
+            storedSettings = decoded
+        } else {
+            storedSettings = Self()
+        }
+
+        var settings = storedSettings
+        let legacyToken = ServerAPIAuthentication.normalizedToken(
+            storedSettings.serverAPIKey
+        )
+
+        do {
+            if let keychainToken = try credentialStore.load() {
+                settings.serverAPIKey = keychainToken
+                if storedSettings.serverAPIKey != nil {
+                    try? settings.writePropertyList(to: url)
+                }
+            } else if let legacyToken {
+                try credentialStore.save(legacyToken)
+                settings.serverAPIKey = legacyToken
+                try? settings.writePropertyList(to: url)
+            } else {
+                settings.serverAPIKey = nil
+                if storedSettings.serverAPIKey != nil {
+                    try? settings.writePropertyList(to: url)
+                }
+            }
+        } catch {
+            // Keep the legacy value until it can be migrated without data loss.
+            settings.serverAPIKey = legacyToken
+        }
+
+        let legacyHuggingFaceToken = HuggingFaceAuthentication.normalizedToken(
+            storedSettings.huggingFaceToken
+        )
+
+        do {
+            if let keychainToken = try huggingFaceStore.load() {
+                settings.huggingFaceToken = keychainToken
+                if storedSettings.huggingFaceToken != nil {
+                    try? settings.writePropertyList(to: url)
+                }
+            } else if let legacyHuggingFaceToken {
+                try huggingFaceStore.save(legacyHuggingFaceToken)
+                guard try huggingFaceStore.load() == legacyHuggingFaceToken else {
+                    throw ServerAPICredentialPersistenceError.invalidKeychainData
+                }
+                settings.huggingFaceToken = legacyHuggingFaceToken
+                try? settings.writePropertyList(to: url)
+            } else {
+                settings.huggingFaceToken = nil
+                if storedSettings.huggingFaceToken != nil {
+                    try? settings.writePropertyList(to: url)
+                }
+            }
+        } catch {
+            // Keep the legacy value until it can be migrated without data loss.
+            settings.huggingFaceToken = legacyHuggingFaceToken
+        }
+
+        if MCPServerCatalog.bundled.migrateConfigurations(in: &settings.mcpServers) {
+            try? settings.writePropertyList(to: url)
+        }
+
+        return settings
+    }
+
+    func save(
+        to url: URL = storageURL,
+        credentialStore: ServerAPICredentialStoring = ServerAPIKeychain(),
+        huggingFaceStore: HuggingFaceCredentialStoring = HuggingFaceCredentialKeychain()
+    ) {
+        let settings = normalized()
+        try? settings.writePropertyList(to: url)
+        try? credentialStore.save(settings.serverAPIKey)
+        try? huggingFaceStore.save(settings.huggingFaceToken)
+    }
+
+    private func writePropertyList(to url: URL) throws {
+        try FileManager.default.createDirectory(
+            at: url.deletingLastPathComponent(),
+            withIntermediateDirectories: true
+        )
+        let data = try PropertyListEncoder().encode(normalized())
+        try data.write(to: url, options: .atomic)
+    }
+
+    func normalized() -> Self {
+        var settings = self
+        let trimmedPath = settings.modelSearchPath.trimmingCharacters(in: .whitespacesAndNewlines)
+        settings.modelSearchPath = trimmedPath.isEmpty ? Self.defaultModelSearchPath : trimmedPath
+        var seenAdditionalPaths = Set<String>()
+        settings.additionalModelSearchPaths = settings.additionalModelSearchPaths
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty && seenAdditionalPaths.insert($0).inserted }
+        var seenPinnedModelIDs = Set<String>()
+        settings.pinnedModelIDs = settings.pinnedModelIDs
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty && seenPinnedModelIDs.insert($0).inserted }
+        let trimmedFileReadRoot =
+            settings.fileReadRootPath?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        settings.fileReadRootPath =
+            trimmedFileReadRoot.isEmpty
+            ? nil
+            : NSString(string: trimmedFileReadRoot).expandingTildeInPath
+        let trimmedFileWriteRoot =
+            settings.fileWriteRootPath?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        settings.fileWriteRootPath =
+            trimmedFileWriteRoot.isEmpty
+            ? nil
+            : NSString(string: trimmedFileWriteRoot).expandingTildeInPath
+        if settings.disabledToolNames.contains("read_file"),
+            !settings.disabledToolNames.contains("search_files")
+        {
+            settings.disabledToolNames.append("search_files")
+        }
+        settings.languageModelID = Self.normalizedModelID(settings.languageModelID)
+        settings.imageGenerationModelID = Self.normalizedModelID(settings.imageGenerationModelID)
+        if let imageModelID = settings.imageGenerationModelID,
+            MLXImageModelResolver.isKnownImageEditOnlyModelID(imageModelID)
+        {
+            settings.imageGenerationModelID = nil
+        }
+        settings.textToSpeechModelID = Self.normalizedModelID(settings.textToSpeechModelID)
+        settings.speechToTextModelID = Self.normalizedModelID(settings.speechToTextModelID)
+        settings.embeddingModelID = Self.normalizedModelID(settings.embeddingModelID)
+        settings.serverAPIKey = ServerAPIAuthentication.normalizedToken(settings.serverAPIKey)
+        settings.huggingFaceToken = HuggingFaceAuthentication.normalizedToken(
+            settings.huggingFaceToken)
+        settings.serverHost = Self.normalizedServerHost(settings.serverHost)
+        settings.serverPort = min(max(settings.serverPort, 1), 65_535)
+        settings.maxTokens = min(max(settings.maxTokens, 1), 262_144)
+        settings.maxKVSize = min(max(settings.maxKVSize, 0), 1_048_576)
+        settings.compactionThresholdPercent = min(max(settings.compactionThresholdPercent, 20), 90)
+        settings.systemPrompt = settings.systemPrompt.trimmingCharacters(
+            in: .whitespacesAndNewlines)
+        settings.temperature = min(max(settings.temperature, 0), 2)
+        settings.topK = min(max(settings.topK, 0), 10_000)
+        settings.topP = min(max(settings.topP, 0), 1)
+        settings.minP = min(max(settings.minP, 0), 1)
+        settings.repetitionPenalty = min(max(settings.repetitionPenalty, 0), 4)
+        settings.kvBits = min(max(settings.kvBits, 2), 16)
+        settings.kvGroupSize = min(max(settings.kvGroupSize, 1), 1024)
+        settings.quantizedKVStart = min(max(settings.quantizedKVStart, 0), 1_048_576)
+        settings.thinkingBudget = min(max(settings.thinkingBudget, 1), 262_144)
+        settings.thinkingStartToken = Self.nonEmpty(
+            settings.thinkingStartToken, fallback: "<think>")
+        settings.thinkingEndToken = Self.nonEmpty(settings.thinkingEndToken, fallback: "</think>")
+        settings.draftModelID = settings.draftModelID.trimmingCharacters(
+            in: .whitespacesAndNewlines)
+        if !["auto", "dflash", "eagle3", "mtp"].contains(settings.draftKind) {
+            settings.draftKind = "auto"
+        }
+        settings.draftBlockSize = min(max(settings.draftBlockSize, 0), 1024)
+        settings.structuredOutputName = Self.nonEmpty(
+            settings.structuredOutputName, fallback: "Response")
+        settings.prefixCacheBlocks = min(max(settings.prefixCacheBlocks, 1), 1_048_576)
+        settings.prefixCacheBlockSize = min(max(settings.prefixCacheBlockSize, 1), 4096)
+        settings.chatFontScale = min(
+            max(settings.chatFontScale, Self.minChatFontScale), Self.maxChatFontScale)
+        return settings
+    }
+
+    static let chatFontScaleSteps: [Double] = [0.85, 1.0, 1.15, 1.3, 1.5]
+    static let defaultChatFontScale: Double = 1.0
+    static let minChatFontScale: Double = 0.85
+    static let maxChatFontScale: Double = 1.5
+
+    mutating func stepChatFontScale(by delta: Int) {
+        let steps = Self.chatFontScaleSteps
+        let current =
+            steps.enumerated().min {
+                abs($0.element - chatFontScale) < abs($1.element - chatFontScale)
+            }?.offset ?? 0
+        chatFontScale = steps[min(max(current + delta, 0), steps.count - 1)]
+    }
+
+    mutating func resetChatFontScale() {
+        chatFontScale = Self.defaultChatFontScale
+    }
+
+    var allSidebarSectionsCollapsed: Bool {
+        sidebarPinnedCollapsed && sidebarProjectsCollapsed
+            && sidebarSessionsCollapsed
+    }
+
+    mutating func setAllSidebarSectionsCollapsed(_ collapsed: Bool) {
+        sidebarPinnedCollapsed = collapsed
+        sidebarProjectsCollapsed = collapsed
+        sidebarSessionsCollapsed = collapsed
+    }
+
+    var speculativeDecodingActive: Bool {
+        speculativeDecodingEnabled
+            && !draftModelID.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    func isToolEnabled(_ toolName: String) -> Bool {
+        !disabledToolNames.contains(toolName)
+    }
+
+    mutating func setToolEnabled(_ enabled: Bool, toolName: String) {
+        disabledToolNames.removeAll { $0 == toolName }
+        if !enabled {
+            disabledToolNames.append(toolName)
+        }
+    }
+
+    func hasSameLaunchConfiguration(as other: Self) -> Bool {
+        let lhs = normalized()
+        let rhs = other.normalized()
+        let lhsSpeculativeDecodingActive = lhs.speculativeDecodingActive
+        let rhsSpeculativeDecodingActive = rhs.speculativeDecodingActive
+        return lhs.modelSearchPath == rhs.modelSearchPath
+            && lhs.externalModelCache?.volumeIdentifier == rhs.externalModelCache?.volumeIdentifier
+            && lhs.languageModelID == rhs.languageModelID
+            && lhs.mcpServers == rhs.mcpServers
+            && lhs.disabledToolNames == rhs.disabledToolNames
+            && lhs.skills == rhs.skills
+            && lhs.imageGenerationModelID == rhs.imageGenerationModelID
+            && lhs.textToSpeechModelID == rhs.textToSpeechModelID
+            && lhs.speechToTextModelID == rhs.speechToTextModelID
+            && lhs.embeddingModelID == rhs.embeddingModelID
+            && lhs.serverAPIKey == rhs.serverAPIKey
+            && lhs.huggingFaceToken == rhs.huggingFaceToken
+            && lhs.serverHost == rhs.serverHost
+            && lhs.serverPort == rhs.serverPort
+            && lhs.maxTokens == rhs.maxTokens
+            && lhs.maxKVSize == rhs.maxKVSize
+            && lhs.kvQuantizationEnabled == rhs.kvQuantizationEnabled
+            && (!lhs.kvQuantizationEnabled
+                || (lhs.kvBits == rhs.kvBits
+                    && lhs.kvGroupSize == rhs.kvGroupSize
+                    && lhs.quantizedKVStart == rhs.quantizedKVStart
+                    && lhs.turboQuantEnabled == rhs.turboQuantEnabled))
+            && lhsSpeculativeDecodingActive == rhsSpeculativeDecodingActive
+            && (!lhsSpeculativeDecodingActive
+                || (lhs.draftModelID == rhs.draftModelID
+                    && lhs.draftKind == rhs.draftKind
+                    && lhs.draftBlockSize == rhs.draftBlockSize))
+            && lhs.prefixCachingEnabled == rhs.prefixCachingEnabled
+            && (!lhs.prefixCachingEnabled
+                || (lhs.prefixCacheBlocks == rhs.prefixCacheBlocks
+                    && lhs.prefixCacheBlockSize == rhs.prefixCacheBlockSize))
+    }
+
+    var serverBaseURL: URL {
+        let settings = normalized()
+        let host = Self.urlHost(Self.loopbackHost(settings.serverHost))
+        return URL(string: "http://\(host):\(settings.serverPort)")!
+    }
+
+    var launchEnvironment: [String: String] {
+        let settings = normalized()
+        var environment = [
+            "HF_HUB_CACHE": settings.expandedModelSearchPath
+        ]
+
+        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            environment["NATIV_APP_VERSION"] = appVersion
+        }
+        environment["APC_ENABLED"] = settings.prefixCachingEnabled ? "1" : "0"
+        if let serverAPIKey = settings.serverAPIKey {
+            environment["MLX_VLM_SERVER_API_KEY"] = serverAPIKey
+        }
+        if let huggingFaceToken = settings.huggingFaceToken {
+            environment[HuggingFaceAuthentication.environmentVariableName] = huggingFaceToken
+        }
+        if settings.prefixCachingEnabled {
+            environment["APC_NUM_BLOCKS"] = "\(settings.prefixCacheBlocks)"
+            environment["APC_BLOCK_SIZE"] = "\(settings.prefixCacheBlockSize)"
+        }
+        if let modelConfigsJSON = encodedModelConfigs {
+            environment["NATIV_MODEL_CONFIGS"] = modelConfigsJSON
+        }
+        return environment
+    }
+
+    var encodedModelConfigs: String? {
+        guard !modelConfigs.isEmpty else {
+            return nil
+        }
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys]
+        guard let data = try? encoder.encode(modelConfigs) else {
+            return nil
+        }
+        return String(decoding: data, as: UTF8.self)
+    }
+
+    var launchArguments: [String] {
+        let settings = normalized()
+        var arguments = [
+            "--host", settings.serverHost,
+            "--port", "\(settings.serverPort)",
+            "--max-tokens", "\(settings.maxTokens)",
+        ]
+
+        if let languageModelID = settings.languageModelID {
+            arguments.append(contentsOf: ["--model", languageModelID])
+        }
+        if let imageGenerationModelID = settings.imageGenerationModelID {
+            arguments.append(contentsOf: ["--image-model", imageGenerationModelID])
+        }
+        if let textToSpeechModelID = settings.textToSpeechModelID {
+            arguments.append(contentsOf: ["--tts-model", textToSpeechModelID])
+        }
+        if let speechToTextModelID = settings.speechToTextModelID {
+            arguments.append(contentsOf: ["--stt-model", speechToTextModelID])
+        }
+        if Self.serverSupportsEmbeddingModelArgument,
+            let embeddingModelID = settings.embeddingModelID
+        {
+            arguments.append(contentsOf: ["--embedding-model", embeddingModelID])
+        }
+
+        if settings.maxKVSize > 0 {
+            arguments.append(contentsOf: ["--max-kv-size", "\(settings.maxKVSize)"])
+        }
+
+        if settings.kvQuantizationEnabled {
+            arguments.append(contentsOf: ["--kv-bits", Self.numberString(settings.kvBits)])
+            arguments.append(contentsOf: [
+                "--kv-quant-scheme", settings.turboQuantEnabled ? "turboquant" : "uniform",
+                "--kv-group-size", "\(settings.kvGroupSize)",
+                "--quantized-kv-start", "\(settings.quantizedKVStart)",
+            ])
+        }
+
+        if settings.speculativeDecodingActive {
+            arguments.append(contentsOf: ["--draft-model", settings.draftModelID])
+            if settings.draftKind != "auto" {
+                arguments.append(contentsOf: ["--draft-kind", settings.draftKind])
+            }
+            if settings.draftBlockSize > 0 {
+                arguments.append(contentsOf: ["--draft-block-size", "\(settings.draftBlockSize)"])
+            }
+        }
+
+        return arguments
+    }
+
+    func modelID(for slot: ModelPreloadSlot) -> String? {
+        switch slot {
+        case .language:
+            languageModelID
+        case .imageGeneration:
+            imageGenerationModelID
+        case .textToSpeech:
+            textToSpeechModelID
+        case .speechToText:
+            speechToTextModelID
+        case .embeddings:
+            embeddingModelID
+        }
+    }
+
+    mutating func setModelID(_ modelID: String?, for slot: ModelPreloadSlot) {
+        switch slot {
+        case .language:
+            languageModelID = modelID
+        case .imageGeneration:
+            imageGenerationModelID = modelID
+        case .textToSpeech:
+            textToSpeechModelID = modelID
+        case .speechToText:
+            speechToTextModelID = modelID
+        case .embeddings:
+            embeddingModelID = modelID
+        }
+    }
+
+    var structuredOutputValidationError: String? {
+        guard structuredOutputEnabled else {
+            return nil
+        }
+        guard let data = structuredOutputSchema.data(using: .utf8) else {
+            return "Schema must be valid UTF-8 JSON."
+        }
+        do {
+            let value = try JSONSerialization.jsonObject(with: data)
+            guard value is [String: Any] else {
+                return "Schema must be a JSON object."
+            }
+            return nil
+        } catch {
+            return "Schema is not valid JSON."
+        }
+    }
+
+    var chatResponseFormat: MLXChatResponseFormat? {
+        let settings = normalized()
+        guard settings.structuredOutputEnabled,
+            settings.structuredOutputValidationError == nil,
+            let data = settings.structuredOutputSchema.data(using: .utf8),
+            let schema = try? MLXJSONValue(jsonData: data)
+        else {
+            return nil
+        }
+        return MLXChatResponseFormat(
+            name: settings.structuredOutputName,
+            schema: schema,
+            strict: true
+        )
+    }
+
+    var expandedModelSearchPath: String {
+        NSString(string: modelSearchPath).expandingTildeInPath
+    }
+
+    mutating func useExternalModelCache(_ resolved: ExternalModelCacheReference.Resolved) {
+        modelSearchPath = resolved.url.path
+        externalModelCache = resolved.reference
+    }
+
+    mutating func restoreDefaultModelCache(to path: String = Self.defaultModelSearchPath) {
+        modelSearchPath = path
+        externalModelCache = nil
+    }
+
+    mutating func clearModelSelections() {
+        for slot in ModelPreloadSlot.allCases {
+            setModelID(nil, for: slot)
+        }
+        draftModelID = ""
+    }
+
+    var localModelSearchPaths: LocalModelSearchPaths {
+        LocalModelSearchPaths(
+            primary: modelSearchPath,
+            additional: additionalModelSearchPaths
+        )
+    }
+
+    /// All directories to search for a locally-available model: the primary model
+    /// folder, any user-added folders, and the Hugging Face hub cache. Consolidated
+    /// here so callers don't each re-derive the roots (and each miss custom folders).
+    var modelSearchRoots: [String] {
+        var roots = localModelSearchPaths.all
+        if let hubCache = ProcessInfo.processInfo.environment["HF_HUB_CACHE"], !hubCache.isEmpty {
+            roots.append(hubCache)
+        }
+        roots.append(NSString(string: "~/.cache/huggingface/hub").expandingTildeInPath)
+        var seen = Set<String>()
+        return roots.filter { seen.insert($0).inserted }
+    }
+
+    private static func normalizedModelID(_ value: String?) -> String? {
+        let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed?.isEmpty == false ? trimmed : nil
+    }
+
+    private static func normalizedServerHost(_ value: String) -> String {
+        var host = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        if host.hasPrefix("["), host.hasSuffix("]") {
+            host.removeFirst()
+            host.removeLast()
+        }
+        guard !host.isEmpty else {
+            return defaultServerHost
+        }
+
+        let candidate = "http://\(urlHost(host)):8080"
+        guard let components = URLComponents(string: candidate),
+            components.host != nil,
+            components.port == 8080,
+            components.path.isEmpty,
+            components.user == nil,
+            components.password == nil,
+            components.query == nil,
+            components.fragment == nil
+        else {
+            return defaultServerHost
+        }
+        return host
+    }
+
+    private static func urlHost(_ host: String) -> String {
+        guard host.contains(":") else {
+            return host
+        }
+        return "[\(host.replacingOccurrences(of: "%", with: "%25"))]"
+    }
+
+    private static func loopbackHost(_ host: String) -> String {
+        switch host {
+        case "0.0.0.0": return "127.0.0.1"
+        case "::", "0:0:0:0:0:0:0:0": return "::1"
+        default: return host
+        }
+    }
+
+    private static func nonEmpty(_ value: String, fallback: String) -> String {
+        let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? fallback : trimmed
+    }
+
+    private static func numberString(_ value: Double) -> String {
+        value.rounded() == value ? String(Int(value)) : String(value)
+    }
+
+    static let defaultStructuredOutputSchema = """
+        {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": true
+        }
+        """
+
+    private static var storageURL: URL {
+        let applicationSupport = FileManager.default.urls(
+            for: .applicationSupportDirectory, in: .userDomainMask
+        ).first
+        let baseURL = applicationSupport ?? FileManager.default.homeDirectoryForCurrentUser
+        return
+            baseURL
+            .appendingPathComponent("Nativ", isDirectory: true)
+            .appendingPathComponent("Settings.plist")
+    }
+}

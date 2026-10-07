@@ -1,0 +1,197 @@
+{
+  "title": "Cont × Disc-S — facet L (8 facets)",
+  "description": "Bar chart: 4 categories × 8 facets",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Electronics",
+          "Value": 394,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 442,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Food",
+          "Value": 286,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Books",
+          "Value": 254,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 130,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 252,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Food",
+          "Value": 413,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Books",
+          "Value": 511,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 245,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 90,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Food",
+          "Value": 392,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Books",
+          "Value": 186,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 109,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 170,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Food",
+          "Value": 470,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Books",
+          "Value": 372,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 333,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 408,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Food",
+          "Value": 65,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Books",
+          "Value": 325,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 432,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 484,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Food",
+          "Value": 267,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Books",
+          "Value": 499,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 519,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 260,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Food",
+          "Value": 259,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Books",
+          "Value": 352,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 400,
+          "Facet": "Auto"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 342,
+          "Facet": "Auto"
+        },
+        {
+          "Category": "Food",
+          "Value": 127,
+          "Facet": "Auto"
+        },
+        {
+          "Category": "Books",
+          "Value": 519,
+          "Facet": "Auto"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Amount",
+      "Facet": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "row": {
+          "field": "Facet"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

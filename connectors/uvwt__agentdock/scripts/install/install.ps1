@@ -1,0 +1,2035 @@
+[CmdletBinding()]
+param(
+    [string] $OfflineArchive = '',
+    [string] $OfflineChecksumFile = '',
+    [string] $OfflineCloudflaredBinary = '',
+    [string] $InstallDir = (Join-Path ([Environment]::GetFolderPath('LocalApplicationData')) 'AgentDock\bin'),
+    [switch] $RegisterStartup,
+    [ValidateSet('legacy', 'preserve', 'enabled', 'disabled')]
+    [string] $StartupMode = 'legacy',
+    [switch] $ConfigurePublicAccess,
+    [int] $Port = 8765,
+    [string] $AuthToken = '',
+    [ValidateSet('auto', 'none', 'quick', 'named')]
+    [string] $TunnelMode = 'auto',
+    [string] $ServerUrl = '',
+    [string] $TunnelToken = '',
+    [string] $TunnelTokenFile = '',
+    [switch] $DeleteTunnelTokenFile,
+    [string] $ResultFile = '',
+    [ValidateSet('script', 'setup')]
+    [string] $InstallChannel = 'script',
+    [string] $OAuthPassword = '',
+    [string] $OAuthTokenSecret = '',
+    [string] $StartupValueName = 'AgentDock',
+    [string] $CloudflaredStartupValueName = 'AgentDockCloudflared',
+    [string] $TrayStartupValueName = 'AgentDockTray',
+    [ValidateSet('standard', 'elevated')]
+    [string] $CorePrivilegeMode = 'standard'
+)
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+$ProgressPreference = 'SilentlyContinue'
+[int] $coreHealthTimeoutSeconds = 60
+$defaultReleaseBaseUrl = 'https://download.nexusdock.co/latest'
+$installedVersion = ''
+
+function Invoke-SetupRuntimeProcess {
+    param(
+        [string] $FilePath,
+        [string] $Arguments = '',
+        [switch] $WaitForExit
+    )
+
+    if ($InstallChannel -ne 'setup') {
+        throw 'The Setup runtime launcher is only valid for InstallChannel=setup.'
+    }
+    if (-not (Test-Path -LiteralPath $setupRuntimeLauncherPath -PathType Leaf)) {
+        throw "Setup runtime launcher was not found: $setupRuntimeLauncherPath"
+    }
+
+    # Inno Setup 6.7+ enables ProcessRedirectionTrustPolicy on its process tree.
+    # Task Scheduler creates the long-lived runtime from a clean user process context
+    # while Setup keeps RedirectionGuard enabled for install-time filesystem work.
+    & $setupRuntimeLauncherPath `
+        -FilePath $FilePath `
+        -AgentDockBinary $sourceBinary `
+        -HiddenHostBinary $destinationTrayBinary `
+        -Arguments $Arguments `
+        -WaitForExit:$WaitForExit
+}
+
+function Get-AgentDockArchitecture {
+    $architecture = $env:PROCESSOR_ARCHITECTURE
+    if ($env:PROCESSOR_ARCHITEW6432) {
+        $architecture = $env:PROCESSOR_ARCHITEW6432
+    }
+    if ([string]::IsNullOrWhiteSpace($architecture)) {
+        $architecture = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
+    }
+
+    switch ($architecture.ToUpperInvariant()) {
+        'AMD64' { return 'amd64' }
+        'X64' { return 'amd64' }
+        'ARM64' { return 'arm64' }
+        default { throw "Unsupported Windows architecture: $architecture" }
+    }
+}
+
+function Get-ReleaseBaseUrl {
+    $customBaseUrl = [Environment]::GetEnvironmentVariable('AGENTDOCK_RELEASE_BASE_URL')
+    if (-not [string]::IsNullOrWhiteSpace($customBaseUrl)) {
+        return $customBaseUrl.TrimEnd('/')
+    }
+    return $defaultReleaseBaseUrl
+}
+
+function Get-Sha256Hex {
+    param([string] $Path)
+
+    $sha256 = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        $stream = [IO.File]::OpenRead($Path)
+        try {
+            $hash = $sha256.ComputeHash($stream)
+        } finally {
+            $stream.Dispose()
+        }
+    } finally {
+        $sha256.Dispose()
+    }
+    return [BitConverter]::ToString($hash).Replace('-', '').ToLowerInvariant()
+}
+
+function Add-UserPath {
+    param([string] $Directory)
+
+    $currentPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+    $pathParts = @($currentPath -split ';' | Where-Object { $_ })
+    if ($pathParts -notcontains $Directory) {
+        $updatedPath = (@($pathParts) + $Directory) -join ';'
+        [Environment]::SetEnvironmentVariable('Path', $updatedPath, 'User')
+    }
+    if (($env:Path -split ';') -notcontains $Directory) {
+        $env:Path = "$env:Path;$Directory"
+    }
+}
+
+function New-AgentDockSecret {
+    param([int] $ByteCount = 32)
+
+    $bytes = New-Object byte[] $ByteCount
+    $generator = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+    try {
+        $generator.GetBytes($bytes)
+    } finally {
+        $generator.Dispose()
+    }
+    return -join ($bytes | ForEach-Object { $_.ToString('x2') })
+}
+
+function New-AgentDockToken {
+    return New-AgentDockSecret -ByteCount 32
+}
+
+function Write-ProtectedText {
+    param(
+        [string] $Path,
+        [string] $Value,
+        [string] $Entropy
+    )
+
+    $protectedBytes = [System.Security.Cryptography.ProtectedData]::Protect(
+        [Text.Encoding]::UTF8.GetBytes($Value),
+        [Text.Encoding]::UTF8.GetBytes($Entropy),
+        [System.Security.Cryptography.DataProtectionScope]::CurrentUser
+    )
+    [IO.File]::WriteAllText($Path, [Convert]::ToBase64String($protectedBytes), $Utf8NoBom)
+}
+
+function Read-ProtectedText {
+    param(
+        [string] $Path,
+        [string] $Entropy
+    )
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        return ''
+    }
+    for ($attempt = 0; $attempt -lt 3; $attempt++) {
+        try {
+            $protectedBytes = [Convert]::FromBase64String([IO.File]::ReadAllText($Path).Trim())
+            $plainBytes = [System.Security.Cryptography.ProtectedData]::Unprotect(
+                $protectedBytes,
+                [Text.Encoding]::UTF8.GetBytes($Entropy),
+                [System.Security.Cryptography.DataProtectionScope]::CurrentUser
+            )
+            $value = [Text.Encoding]::UTF8.GetString($plainBytes)
+            if (-not [string]::IsNullOrWhiteSpace($value)) {
+                return $value
+            }
+        } catch {
+            # Retry below before treating the DPAPI value as unreadable.
+        }
+        if ($attempt -lt 2) {
+            Start-Sleep -Milliseconds 50
+        }
+    }
+    return ''
+}
+
+function Backup-UnreadableProtectedText {
+    param([string] $Path)
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        return
+    }
+    $data = [IO.File]::ReadAllBytes($Path)
+    if ($data.Length -eq 0) {
+        return
+    }
+    $stamp = [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssfffffffZ', [Globalization.CultureInfo]::InvariantCulture)
+    $backupPath = $Path + '.unreadable-' + $stamp + '-' + [Guid]::NewGuid().ToString('N') + '.bak'
+    [IO.File]::WriteAllBytes($backupPath, $data)
+
+    $directory = Split-Path -Parent $Path
+    $pattern = (Split-Path -Leaf $Path) + '.unreadable-*.bak'
+    $backups = @(Get-ChildItem -LiteralPath $directory -Filter $pattern -File | Sort-Object Name)
+    while ($backups.Count -gt 3) {
+        Remove-Item -LiteralPath $backups[0].FullName -Force
+        $backups = @($backups | Select-Object -Skip 1)
+    }
+}
+
+function Read-TextFile {
+    param([string] $Path)
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        return ''
+    }
+    return [IO.File]::ReadAllText($Path).Trim()
+}
+
+function Write-TextFile {
+    param(
+        [string] $Path,
+        [string] $Value
+    )
+
+    [IO.File]::WriteAllText($Path, $Value, $Utf8NoBom)
+}
+
+function Initialize-OAuthCredentials {
+    param(
+        [string] $PasswordPath,
+        [string] $TokenSecretPath,
+        [string] $RequestedPassword,
+        [string] $RequestedTokenSecret
+    )
+
+    $existingPassword = Read-ProtectedText -Path $PasswordPath -Entropy 'agentdock.oauth.password.v1'
+    $password = $RequestedPassword
+    if ([string]::IsNullOrWhiteSpace($password)) {
+        $password = [Environment]::GetEnvironmentVariable('AGENTDOCK_OAUTH_PASSWORD')
+    }
+    if ([string]::IsNullOrWhiteSpace($password)) {
+        $password = $existingPassword
+    }
+    if ([string]::IsNullOrWhiteSpace($password)) {
+        $password = New-AgentDockSecret -ByteCount 12
+    }
+    if ($password.Length -lt 12) {
+        throw 'OAuth password must contain at least 12 characters.'
+    }
+    if (-not [string]::Equals($password, $existingPassword, [StringComparison]::Ordinal)) {
+        if ([string]::IsNullOrWhiteSpace($existingPassword)) {
+            Backup-UnreadableProtectedText -Path $PasswordPath
+        }
+        Write-ProtectedText -Path $PasswordPath -Value $password -Entropy 'agentdock.oauth.password.v1'
+    }
+
+    $existingTokenSecret = Read-ProtectedText -Path $TokenSecretPath -Entropy 'agentdock.oauth.secret.v1'
+    $tokenSecret = $RequestedTokenSecret
+    if ([string]::IsNullOrWhiteSpace($tokenSecret)) {
+        $tokenSecret = [Environment]::GetEnvironmentVariable('AGENTDOCK_OAUTH_TOKEN_SECRET')
+    }
+    if ([string]::IsNullOrWhiteSpace($tokenSecret)) {
+        $tokenSecret = $existingTokenSecret
+    }
+    if ([string]::IsNullOrWhiteSpace($tokenSecret)) {
+        $tokenSecret = New-AgentDockSecret -ByteCount 32
+    }
+    if ([Text.Encoding]::UTF8.GetByteCount($tokenSecret) -lt 32) {
+        throw 'OAuth token secret must contain at least 32 bytes.'
+    }
+    if (-not [string]::Equals($tokenSecret, $existingTokenSecret, [StringComparison]::Ordinal)) {
+        if ([string]::IsNullOrWhiteSpace($existingTokenSecret)) {
+            Backup-UnreadableProtectedText -Path $TokenSecretPath
+        }
+        Write-ProtectedText -Path $TokenSecretPath -Value $tokenSecret -Entropy 'agentdock.oauth.secret.v1'
+    }
+
+    return [pscustomobject]@{
+        Password = $password
+        TokenSecret = $tokenSecret
+    }
+}
+
+function ConvertTo-InstallResultValue {
+    param(
+        [string] $Value,
+        [int] $MaxLength = 0
+    )
+
+    if ([string]::IsNullOrEmpty($Value)) {
+        return ''
+    }
+    $normalized = $Value.Replace("`r", ' ').Replace("`n", ' ')
+    if (($MaxLength -gt 0) -and ($normalized.Length -gt $MaxLength)) {
+        return $normalized.Substring(0, $MaxLength)
+    }
+    return $normalized
+}
+
+function Write-InstallResult {
+    param(
+        [string] $Path,
+        [bool] $Success,
+        [string] $Message,
+        [string] $InstalledVersion,
+        [string] $LocalMCPUrl,
+        [string] $PublicMCPUrl,
+        [string] $BearerToken,
+        [string] $OAuthLoginPassword,
+        [string] $HealthStatus,
+        [string] $PrivilegeMode,
+        [string] $ErrorCode = '',
+        [System.Management.Automation.ErrorRecord] $ErrorRecord = $null,
+        [string] $WarningCode = '',
+        [string] $WarningMessage = ''
+    )
+
+    if ([string]::IsNullOrWhiteSpace($Path)) {
+        return
+    }
+    $parent = Split-Path -Parent $Path
+    if (-not [string]::IsNullOrWhiteSpace($parent)) {
+        New-Item -ItemType Directory -Path $parent -Force | Out-Null
+    }
+
+    $errorType = ''
+    $errorId = ''
+    $errorCategory = ''
+    $errorScript = ''
+    $errorLine = 0
+    $errorColumn = 0
+    $errorStack = ''
+    if ($null -ne $ErrorRecord) {
+        if ($null -ne $ErrorRecord.Exception) {
+            $errorType = $ErrorRecord.Exception.GetType().FullName
+        }
+        $errorId = [string] $ErrorRecord.FullyQualifiedErrorId
+        $errorCategory = [string] $ErrorRecord.CategoryInfo.Category
+        if ($null -ne $ErrorRecord.InvocationInfo) {
+            $errorScript = [string] $ErrorRecord.InvocationInfo.ScriptName
+            $errorLine = $ErrorRecord.InvocationInfo.ScriptLineNumber
+            $errorColumn = $ErrorRecord.InvocationInfo.OffsetInLine
+        }
+        $errorStack = [string] $ErrorRecord.ScriptStackTrace
+    }
+
+    $safeMessage = ConvertTo-InstallResultValue -Value $Message
+    $safeWarningMessage = ConvertTo-InstallResultValue -Value $WarningMessage
+    $safeErrorType = ConvertTo-InstallResultValue -Value $errorType
+    $safeErrorId = ConvertTo-InstallResultValue -Value $errorId
+    $safeErrorCategory = ConvertTo-InstallResultValue -Value $errorCategory
+    $safeErrorScript = ConvertTo-InstallResultValue -Value $errorScript
+    $safeErrorStack = ConvertTo-InstallResultValue -Value $errorStack -MaxLength 2048
+    $lines = @(
+        '[AgentDock]',
+        "Success=$($Success.ToString().ToLowerInvariant())",
+        "Code=$ErrorCode",
+        "Message=$safeMessage",
+        "ErrorType=$safeErrorType",
+        "ErrorId=$safeErrorId",
+        "ErrorCategory=$safeErrorCategory",
+        "ErrorScript=$safeErrorScript",
+        "ErrorLine=$errorLine",
+        "ErrorColumn=$errorColumn",
+        "ErrorStack=$safeErrorStack",
+        "WarningCode=$WarningCode",
+        "WarningMessage=$safeWarningMessage",
+        "Version=$InstalledVersion",
+        "LocalMCPUrl=$LocalMCPUrl",
+        "PublicMCPUrl=$PublicMCPUrl",
+        "BearerToken=$BearerToken",
+        "OAuthPassword=$OAuthLoginPassword",
+        "Health=$HealthStatus",
+        "PrivilegeMode=$PrivilegeMode"
+    )
+    # Windows INI APIs read BOM-prefixed UTF-16 reliably, including localized errors.
+    [IO.File]::WriteAllLines($Path, $lines, [Text.Encoding]::Unicode)
+}
+
+function Get-InstallerEngineFailureMessage {
+    param(
+        [string] $RuntimeRoot,
+        [string] $FallbackMessage,
+        [DateTime] $NotBeforeUtc = [DateTime]::MinValue
+    )
+
+    $engineResultPath = Join-Path $RuntimeRoot 'install\result.json'
+    if (-not (Test-Path -LiteralPath $engineResultPath -PathType Leaf)) {
+        return $FallbackMessage
+    }
+
+    try {
+        $engineResultInfo = Get-Item -LiteralPath $engineResultPath -ErrorAction Stop
+        if ($NotBeforeUtc -ne [DateTime]::MinValue -and
+            $engineResultInfo.LastWriteTimeUtc -lt $NotBeforeUtc) {
+            return $FallbackMessage
+        }
+
+        # Engine results are UTF-8 JSON. Read failure text from the structured file instead of
+        # letting Windows PowerShell 5.1 reinterpret native UTF-8 stderr through an OEM code page.
+        $engineResultText = [IO.File]::ReadAllText($engineResultPath, [Text.Encoding]::UTF8)
+        $engineResult = $engineResultText | ConvertFrom-Json
+        if ($null -ne $engineResult.failure -and
+            -not [string]::IsNullOrWhiteSpace([string] $engineResult.failure.message)) {
+            return [string] $engineResult.failure.message
+        }
+    } catch {
+        Write-Warning "Unable to read Installer Engine failure result: $($_.Exception.Message)"
+    }
+    return $FallbackMessage
+}
+
+function Enter-InstallerTransactionLease {
+    param(
+        [string] $RuntimeRoot,
+        [int] $TimeoutMilliseconds = 5000
+    )
+
+    $lockPath = Join-Path $RuntimeRoot 'install\transaction.lock'
+    $lockDirectory = Split-Path -Parent $lockPath
+    New-Item -ItemType Directory -Path $lockDirectory -Force | Out-Null
+    $deadline = [DateTime]::UtcNow.AddMilliseconds($TimeoutMilliseconds)
+    do {
+        try {
+            # Match Go processlock on Windows: an open handle with FileShare.None is the lease.
+            return [IO.File]::Open(
+                $lockPath,
+                [IO.FileMode]::OpenOrCreate,
+                [IO.FileAccess]::ReadWrite,
+                [IO.FileShare]::None
+            )
+        } catch [IO.IOException] {
+            if ([DateTime]::UtcNow -ge $deadline) {
+                throw "Timed out taking over the Installer transaction lease: $lockPath"
+            }
+            Start-Sleep -Milliseconds 25
+        }
+    } while ($true)
+}
+
+function Exit-InstallerTransactionLease {
+    param([IO.FileStream] $Lease)
+
+    if ($null -ne $Lease) {
+        $Lease.Dispose()
+    }
+}
+
+function Get-ProcessesByPath {
+    param(
+        [string] $ProcessName,
+        [string] $BinaryPath
+    )
+
+    $normalizedBinaryPath = [IO.Path]::GetFullPath($BinaryPath)
+    $matchingProcessIds = @()
+
+    # Win32_Process exposes ExecutablePath reliably in installer contexts where
+    # Get-Process.Path may be empty even for a process owned by the current user.
+    try {
+        $matchingProcessIds = @(Get-CimInstance Win32_Process -Filter "Name = '$ProcessName.exe'" -ErrorAction Stop |
+            Where-Object {
+                $_.ExecutablePath -and
+                [string]::Equals(
+                    [IO.Path]::GetFullPath($_.ExecutablePath),
+                    $normalizedBinaryPath,
+                    [StringComparison]::OrdinalIgnoreCase
+                )
+            } |
+            Select-Object -ExpandProperty ProcessId)
+    } catch {
+        $matchingProcessIds = @()
+    }
+
+    if ($matchingProcessIds.Count -eq 0) {
+        $matchingProcessIds = @(Get-Process -Name $ProcessName -ErrorAction SilentlyContinue | Where-Object {
+            try {
+                [string]::Equals(
+                    [IO.Path]::GetFullPath($_.Path),
+                    $normalizedBinaryPath,
+                    [StringComparison]::OrdinalIgnoreCase
+                )
+            } catch {
+                $false
+            }
+        } | Select-Object -ExpandProperty Id)
+    }
+
+    return @($matchingProcessIds | Sort-Object -Unique | ForEach-Object {
+        [pscustomobject]@{ Id = [int] $_ }
+    })
+}
+
+function Get-AgentDockProcesses {
+    param([string] $BinaryPath)
+    $processName = [IO.Path]::GetFileNameWithoutExtension($BinaryPath)
+    if ([string]::IsNullOrWhiteSpace($processName)) {
+        throw "Unable to resolve AgentDock process name from path: $BinaryPath"
+    }
+    return @(Get-ProcessesByPath -ProcessName $processName -BinaryPath $BinaryPath)
+}
+
+function Get-AgentDockTrayProcesses {
+    param([string] $BinaryPath)
+    return @(Get-ProcessesByPath -ProcessName 'agentdock-tray' -BinaryPath $BinaryPath)
+}
+
+function Test-AgentDockTaskEligible {
+    param(
+        [string] $AgentDockValueName,
+        [string] $TrayValueName
+    )
+
+    return $AgentDockValueName -eq 'AgentDock' -and
+        $TrayValueName -eq 'AgentDockTray'
+}
+
+function Get-AgentDockTaskState {
+    param(
+        [string] $AgentDockValueName,
+        [string] $TrayValueName,
+        [string] $RuntimeRoot,
+        [string] $StableCorePath,
+        [string] $StableTrayPath,
+        [string] $LegacyLauncherPath
+    )
+
+    $state = [pscustomobject]@{
+        Eligible = $false
+        Exists = $false
+        Conflicting = $false
+        Legacy = $false
+        WasEnabled = $false
+        WasRunning = $false
+        SchedulerAvailable = $true
+        SchedulerError = ''
+    }
+    $state.Eligible = Test-AgentDockTaskEligible `
+        -AgentDockValueName $AgentDockValueName `
+        -TrayValueName $TrayValueName
+    if (-not $state.Eligible) {
+        return $state
+    }
+
+    try {
+        $task = Get-ScheduledTask -TaskName 'AgentDock' -TaskPath '\' -ErrorAction SilentlyContinue
+    } catch {
+        # fresh standard installs do not require Task Scheduler. Record capability failure instead of
+        # letting ScheduledTasks/WMI/COM terminate the installer before it can write diagnostics.
+        $state.SchedulerAvailable = $false
+        $state.SchedulerError = $_.Exception.Message
+        return $state
+    }
+    if ($null -eq $task) {
+        return $state
+    }
+    $owned = $false
+    $normalizedRoot = [IO.Path]::GetFullPath($RuntimeRoot).TrimEnd('\')
+    $normalizedCore = [IO.Path]::GetFullPath($StableCorePath)
+    $normalizedTray = [IO.Path]::GetFullPath($StableTrayPath)
+    $normalizedLegacyLauncher = [IO.Path]::GetFullPath($LegacyLauncherPath)
+    foreach ($action in @($task.Actions)) {
+        $executePath = [string] $action.Execute
+        $arguments = [string] $action.Arguments
+        try {
+            if (-not [string]::IsNullOrWhiteSpace($executePath)) {
+                $normalizedExecute = [IO.Path]::GetFullPath($executePath)
+                if ([string]::Equals($normalizedExecute, $normalizedCore, [StringComparison]::OrdinalIgnoreCase) -or
+                    [string]::Equals($normalizedExecute, $normalizedTray, [StringComparison]::OrdinalIgnoreCase)) {
+                    $owned = $true
+                    break
+                }
+            }
+        } catch {
+        }
+        if (-not [string]::IsNullOrWhiteSpace($arguments) -and
+            $arguments.IndexOf($normalizedLegacyLauncher, [StringComparison]::OrdinalIgnoreCase) -ge 0) {
+            $owned = $true
+            $state.Legacy = $true
+            break
+        }
+        if (-not [string]::IsNullOrWhiteSpace($arguments) -and
+            $arguments.IndexOf($normalizedRoot, [StringComparison]::OrdinalIgnoreCase) -ge 0) {
+            $owned = $true
+            break
+        }
+    }
+    if (-not $owned) {
+        $state.Conflicting = $true
+        return $state
+    }
+    $state.Exists = $true
+    $state.WasEnabled = $task.State -ne 'Disabled'
+    $state.WasRunning = $task.State -eq 'Running'
+    return $state
+}
+
+function Get-CurrentTaskUser {
+    $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+    return [pscustomobject]@{
+        Sid = $identity.User.Value
+        Name = $identity.Name
+    }
+}
+
+function Get-InteractiveDesktopUser {
+    try {
+        $userName = (Get-CimInstance Win32_ComputerSystem -ErrorAction Stop).UserName
+        if ([string]::IsNullOrWhiteSpace($userName)) {
+            return $null
+        }
+        $sid = (New-Object Security.Principal.NTAccount($userName)).Translate(
+            [Security.Principal.SecurityIdentifier]
+        ).Value
+        return [pscustomobject]@{
+            Sid = $sid
+            Name = $userName
+        }
+    } catch {
+        return $null
+    }
+}
+
+function Start-ElevatedAgentDockTaskAction {
+    param(
+        [ValidateSet('prepare-elevated', 'prepare-standard', 'restore', 'remove')]
+        [string] $Action,
+        [string] $BackupDirectory,
+        [string] $AdminLauncherPath,
+        [string] $LauncherPath,
+        [string] $RuntimeRoot,
+        [pscustomobject] $TaskUser
+    )
+
+    $arguments = "--task-admin $Action"
+    if (-not [string]::IsNullOrWhiteSpace($BackupDirectory)) {
+        $arguments += " --backup-directory `"$BackupDirectory`""
+    }
+    if (-not [string]::IsNullOrWhiteSpace($LauncherPath)) {
+        $arguments += " --launcher-path `"$LauncherPath`""
+    }
+    if (-not [string]::IsNullOrWhiteSpace($RuntimeRoot)) {
+        $arguments += " --runtime-root `"$RuntimeRoot`""
+    }
+    if ($null -ne $TaskUser) {
+        $arguments += " --user-sid `"$($TaskUser.Sid)`" --user-name `"$($TaskUser.Name)`""
+    }
+
+    try {
+        $process = Start-Process `
+            -FilePath $AdminLauncherPath `
+            -ArgumentList $arguments `
+            -Verb RunAs `
+            -WindowStyle Hidden `
+            -Wait `
+            -PassThru
+    } catch {
+        # Windows or enterprise policy can reject RunAs before the UAC helper starts.
+        # The main install flow decides whether that pre-start failure is safe to downgrade.
+        return [pscustomobject]@{
+            Started = $false
+            ErrorMessage = $_.Exception.Message
+        }
+    }
+    $succeeded = $process.ExitCode -eq 0
+    return [pscustomobject]@{
+        Started = $true
+        Succeeded = $succeeded
+        ExitCode = $process.ExitCode
+        ErrorMessage = $(if ($succeeded) { '' } else { "AgentDock administrator task action failed with exit code $($process.ExitCode)." })
+    }
+}
+
+function Enable-AgentDockTask {
+    Enable-ScheduledTask -TaskName 'AgentDock' -TaskPath '\' -ErrorAction Stop | Out-Null
+}
+
+function Start-AgentDockTask {
+    param(
+        [Parameter(Mandatory = $true)][string] $AgentDockBinary,
+        [string] $ExpectedUserSid = ''
+    )
+
+    if (-not (Test-Path -LiteralPath $AgentDockBinary -PathType Leaf)) {
+        throw "AgentDock native task launcher was not found: $AgentDockBinary"
+    }
+    $arguments = @('service', 'task-start', '--task-name', 'AgentDock')
+    if (-not [string]::IsNullOrWhiteSpace($ExpectedUserSid)) {
+        $arguments += @('--expected-user-sid', $ExpectedUserSid)
+    }
+    & $AgentDockBinary @arguments | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "AgentDock native task-start failed with exit code $LASTEXITCODE."
+    }
+}
+
+function Stop-ProcessesForUpgrade {
+    param(
+        [string] $ProcessName,
+        [string] $BinaryPath
+    )
+
+    $processWasRunning = $false
+    $deadline = [DateTime]::UtcNow.AddSeconds(15)
+    do {
+        $runningProcesses = @(Get-ProcessesByPath -ProcessName $ProcessName -BinaryPath $BinaryPath)
+        if ($runningProcesses.Count -gt 0) {
+            $processWasRunning = $true
+        }
+        foreach ($process in $runningProcesses) {
+            Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+        }
+        if ($runningProcesses.Count -eq 0) {
+            break
+        }
+        Start-Sleep -Milliseconds 250
+    } while ([DateTime]::UtcNow -lt $deadline)
+
+    $remainingProcesses = @(Get-ProcessesByPath -ProcessName $ProcessName -BinaryPath $BinaryPath)
+    if ($remainingProcesses.Count -gt 0) {
+        throw "Unable to stop $ProcessName at $BinaryPath."
+    }
+    return $processWasRunning
+}
+
+function Stop-AgentDockForUpgrade {
+    param([string] $BinaryPath)
+    $processName = [IO.Path]::GetFileNameWithoutExtension($BinaryPath)
+    if ([string]::IsNullOrWhiteSpace($processName)) {
+        throw "Unable to resolve AgentDock process name from path: $BinaryPath"
+    }
+    return Stop-ProcessesForUpgrade -ProcessName $processName -BinaryPath $BinaryPath
+}
+
+function Stop-AgentDockTrayForUpgrade {
+    param([string] $BinaryPath)
+    return Stop-ProcessesForUpgrade -ProcessName 'agentdock-tray' -BinaryPath $BinaryPath
+}
+
+function Start-HiddenPowerShellScript {
+    param([string] $ScriptPath)
+
+    if (-not (Test-Path -LiteralPath $ScriptPath -PathType Leaf)) {
+        throw "Launcher was not found: $ScriptPath"
+    }
+    $arguments = "-NoLogo -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$ScriptPath`""
+    if ($InstallChannel -eq 'setup') {
+        Invoke-SetupRuntimeProcess -FilePath (Join-Path $PSHOME 'powershell.exe') -Arguments $arguments
+        return
+    }
+    Start-Process -FilePath 'powershell.exe' -ArgumentList $arguments -WindowStyle Hidden | Out-Null
+}
+
+function Start-AgentDockLauncher {
+    param([string] $LauncherPath)
+    Start-HiddenPowerShellScript -ScriptPath $LauncherPath
+}
+
+function Start-AgentDockTray {
+    param([string] $BinaryPath)
+
+    if (-not (Test-Path -LiteralPath $BinaryPath -PathType Leaf)) {
+        throw "AgentDock tray was not found: $BinaryPath"
+    }
+    if ($InstallChannel -eq 'setup') {
+        Invoke-SetupRuntimeProcess -FilePath $BinaryPath -Arguments '--background'
+        return
+    }
+    Start-Process -FilePath $BinaryPath -ArgumentList '--background' -WindowStyle Hidden | Out-Null
+}
+
+function Wait-AgentDockHealth {
+    param(
+        [int] $HealthPort,
+        [string] $ExpectedVersion = ''
+    )
+
+    if ([string]::IsNullOrWhiteSpace($ExpectedVersion)) {
+        throw 'AgentDock health check requires an expected version.'
+    }
+
+    $healthUrl = "http://127.0.0.1:$HealthPort/healthz"
+    $deadline = [DateTime]::UtcNow.AddSeconds($coreHealthTimeoutSeconds)
+    $expectedNormalized = $ExpectedVersion.Trim().TrimStart('v')
+    $successes = 0
+    do {
+        Start-Sleep -Milliseconds 500
+        try {
+            $response = Invoke-WebRequest -UseBasicParsing -Uri $healthUrl -TimeoutSec 2
+            if ($response.StatusCode -eq 200) {
+                $health = $response.Content | ConvertFrom-Json
+                $actualVersion = ([string] $health.version).Trim().TrimStart('v')
+                $versionMatches =
+                    [string]::IsNullOrWhiteSpace($expectedNormalized) -or
+                    $actualVersion -eq $expectedNormalized
+                if ($health.ok -eq $true -and $versionMatches) {
+                    $successes++
+                    if ($successes -ge 2) {
+                        return
+                    }
+                } else {
+                    $successes = 0
+                }
+            }
+        } catch {
+            $successes = 0
+        }
+    } while ([DateTime]::UtcNow -lt $deadline)
+    throw "AgentDock health check failed at $healthUrl for expected version $ExpectedVersion"
+}
+
+function Backup-FileState {
+    param(
+        [string] $Path,
+        [string] $Name,
+        [string] $BackupDirectory
+    )
+
+    if (Test-Path -LiteralPath $Path) {
+        if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+            throw "Managed runtime path must be a regular file: $Path"
+        }
+        Copy-Item -LiteralPath $Path -Destination (Join-Path $BackupDirectory $Name) -Force
+        New-Item -ItemType File -Path (Join-Path $BackupDirectory "$Name.present") -Force | Out-Null
+    }
+}
+
+function Restore-FileState {
+    param(
+        [string] $Path,
+        [string] $Name,
+        [string] $BackupDirectory
+    )
+
+    $marker = Join-Path $BackupDirectory "$Name.present"
+    $backup = Join-Path $BackupDirectory $Name
+    if (Test-Path -LiteralPath $marker -PathType Leaf) {
+        New-Item -ItemType Directory -Path (Split-Path -Parent $Path) -Force | Out-Null
+        Copy-Item -LiteralPath $backup -Destination $Path -Force
+        return
+    }
+    Remove-Item -LiteralPath $Path -Force -ErrorAction SilentlyContinue
+}
+
+function Get-RunValue {
+    param(
+        [string] $RegistryPath,
+        [string] $Name
+    )
+
+    if (-not (Test-Path -LiteralPath $RegistryPath)) {
+        return $null
+    }
+    try {
+        return Get-ItemPropertyValue -LiteralPath $RegistryPath -Name $Name -ErrorAction Stop
+    } catch {
+        return $null
+    }
+}
+
+function Set-RunValue {
+    param(
+        [string] $RegistryPath,
+        [string] $Name,
+        [string] $Value
+    )
+
+    try {
+        # The standard Run key usually exists; recreating it with -Force can fail in restricted environments.
+        if (-not (Test-Path -LiteralPath $RegistryPath -ErrorAction Stop)) {
+            New-Item -Path $RegistryPath -ErrorAction Stop | Out-Null
+        }
+    } catch {
+        throw "Unable to prepare current-user startup registry key '$RegistryPath' for value '$Name': $($_.Exception.Message)"
+    }
+
+    try {
+        New-ItemProperty `
+            -Path $RegistryPath `
+            -Name $Name `
+            -Value $Value `
+            -PropertyType String `
+            -Force `
+            -ErrorAction Stop | Out-Null
+    } catch {
+        throw "Unable to write current-user startup registry value '$Name' at '$RegistryPath': $($_.Exception.Message)"
+    }
+}
+
+$effectivePrivilegeMode = $CorePrivilegeMode
+$installWarningCode = ''
+$installWarningMessage = ''
+$installErrorCode = ''
+$resolvedTunnelMode = 'none'
+$existingInstallDetected = $false
+$taskUser = $null
+$taskState = [pscustomobject]@{
+    Eligible = $false
+    Exists = $false
+    Legacy = $false
+    WasEnabled = $false
+    WasRunning = $false
+    SchedulerAvailable = $false
+    SchedulerError = ''
+}
+
+# Initialize the result file before parameter, architecture, user, or ScheduledTasks probing.
+# Inno Setup can therefore always show a concrete PowerShell failure instead of a bare exit code.
+Write-InstallResult `
+    -Path $ResultFile `
+    -Success $false `
+    -Message 'AgentDock installation is initializing.' `
+    -InstalledVersion $installedVersion `
+    -LocalMCPUrl "http://127.0.0.1:$Port/mcp" `
+    -PublicMCPUrl '' `
+    -BearerToken '' `
+    -OAuthLoginPassword '' `
+    -HealthStatus 'initializing' `
+    -PrivilegeMode $effectivePrivilegeMode
+
+try {
+    $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+    Add-Type -AssemblyName System.Security
+    $setupRuntimeLauncherPath = Join-Path $PSScriptRoot 'launch-windows-process.ps1'
+
+    if ($Port -lt 1 -or $Port -gt 65535) {
+        throw 'Port must be between 1 and 65535.'
+    }
+    if ([string]::IsNullOrWhiteSpace($InstallDir)) {
+        throw 'InstallDir is required.'
+    }
+    $userHome = [Environment]::GetFolderPath('UserProfile')
+    if ([string]::IsNullOrWhiteSpace($userHome)) {
+        throw 'Unable to resolve the current user profile directory.'
+    }
+    $architecture = Get-AgentDockArchitecture
+} catch {
+    Write-InstallResult `
+        -Path $ResultFile `
+        -Success $false `
+        -Message $_.Exception.Message `
+        -InstalledVersion $installedVersion `
+        -LocalMCPUrl "http://127.0.0.1:$Port/mcp" `
+        -PublicMCPUrl '' `
+        -BearerToken '' `
+        -OAuthLoginPassword '' `
+        -HealthStatus 'failed' `
+        -PrivilegeMode $effectivePrivilegeMode `
+        -ErrorCode 'install-validation-failed' `
+        -ErrorRecord $_
+    throw
+}
+
+$assetName = "agentdock_windows_$architecture.zip"
+$releaseBaseUrl = ''
+$tempRoot = Join-Path ([IO.Path]::GetTempPath()) ("agentdock-install-" + [Guid]::NewGuid().ToString('N'))
+$archivePath = Join-Path $tempRoot $assetName
+$checksumPath = "$archivePath.sha256"
+$destinationBinary = Join-Path $InstallDir 'agentdock.exe'
+$destinationTrayBinary = Join-Path $InstallDir 'agentdock-tray.exe'
+$destinationTrayIcon = Join-Path $InstallDir 'agentdock.ico'
+$binaryBackup = Join-Path $tempRoot 'agentdock.exe.previous'
+$trayBackup = Join-Path $tempRoot 'agentdock-tray.exe.previous'
+$trayIconBackup = Join-Path $tempRoot 'agentdock.ico.previous'
+$runtimeDir = Split-Path -Parent $InstallDir
+$versionsDir = Join-Path $runtimeDir 'versions'
+$activeVersionPath = Join-Path $runtimeDir 'active-version.json'
+$legacyManagerPath = Join-Path $runtimeDir 'installer\manage-windows.ps1'
+$launcherPath = Join-Path $runtimeDir 'start-agentdock.ps1'
+$tokenPath = Join-Path $runtimeDir 'auth-token.dpapi'
+$oauthPasswordPath = Join-Path $runtimeDir 'oauth-password.dpapi'
+$oauthTokenSecretPath = Join-Path $runtimeDir 'oauth-token-secret.dpapi'
+$credentialOwnerSidPath = Join-Path $runtimeDir 'credential-owner-sid.txt'
+$controlPanelSettingsPath = Join-Path $runtimeDir 'control-panel-settings.json'
+$runtimeManifestPath = Join-Path $runtimeDir 'runtime.json'
+$runtimeAgentDockHome = [Environment]::GetEnvironmentVariable('AGENTDOCK_HOME', 'Process')
+$runtimeAgentDockDefaultDir = [Environment]::GetEnvironmentVariable('AGENTDOCK_DEFAULT_DIR', 'Process')
+if (([string]::IsNullOrWhiteSpace($runtimeAgentDockHome) -or [string]::IsNullOrWhiteSpace($runtimeAgentDockDefaultDir)) -and
+    (Test-Path -LiteralPath $runtimeManifestPath -PathType Leaf)) {
+    try {
+        $existingRuntimeManifest = Get-Content -LiteralPath $runtimeManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        if ([string]::IsNullOrWhiteSpace($runtimeAgentDockHome) -and
+            $null -ne $existingRuntimeManifest.PSObject.Properties['agentdock_home']) {
+            $runtimeAgentDockHome = [string] $existingRuntimeManifest.agentdock_home
+        }
+        if ([string]::IsNullOrWhiteSpace($runtimeAgentDockDefaultDir) -and
+            $null -ne $existingRuntimeManifest.PSObject.Properties['agentdock_default_dir']) {
+            $runtimeAgentDockDefaultDir = [string] $existingRuntimeManifest.agentdock_default_dir
+        }
+    } catch {
+        # Runtime manifest validation later reports malformed state. Do not make path recovery
+        # depend on a best-effort compatibility read here.
+    }
+}
+if ([string]::IsNullOrWhiteSpace($runtimeAgentDockHome)) {
+    $runtimeAgentDockHome = Join-Path $userHome '.agentdock'
+}
+if ([string]::IsNullOrWhiteSpace($runtimeAgentDockDefaultDir)) {
+    $runtimeAgentDockDefaultDir = Join-Path $userHome 'AgentDock'
+}
+if (-not [IO.Path]::IsPathRooted($runtimeAgentDockHome) -or -not [IO.Path]::IsPathRooted($runtimeAgentDockDefaultDir)) {
+    throw 'AGENTDOCK_HOME and AGENTDOCK_DEFAULT_DIR must resolve to absolute paths.'
+}
+$runtimeAgentDockHome = [IO.Path]::GetFullPath($runtimeAgentDockHome)
+$runtimeAgentDockDefaultDir = [IO.Path]::GetFullPath($runtimeAgentDockDefaultDir)
+$desktopVersionPath = Join-Path $runtimeDir 'desktop-version.txt'
+$runtimeBackupDir = Join-Path $tempRoot 'runtime-backup'
+$runKey = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run'
+$runValueName = $StartupValueName
+$trayRunValueName = $TrayStartupValueName
+$processWasRunning = $false
+$trayProcessWasRunning = $false
+$agentDockStopAttempted = $false
+$trayStopAttempted = $false
+$rollbackStateCaptured = $false
+$engineCommitted = $false
+$enginePrepared = $false
+$engineTransactionId = ''
+$installerTransactionLease = $null
+$stableFilesMayBeReplaced = $false
+$startupRegistrationChanged = $false
+$trayStartupRegistrationChanged = $false
+$previousRunValue = $null
+$previousTrayRunValue = $null
+$taskBackupDirectory = Join-Path $tempRoot 'scheduled-task-backup'
+$taskTransactionStarted = $false
+$taskTransactionCommitted = $false
+$taskRestored = $false
+$generationLayoutDetected = $false
+$generationBootstrapDirectory = ''
+$legacyBootstrapPrepared = $false
+$legacyBootstrapVersion = ''
+
+$managedRuntimeFiles = @(
+    # Migration cleanup only: current payload no longer publishes or executes this compatibility script.
+    @{ Path = $legacyManagerPath; Name = 'legacy-manage-windows.ps1' },
+    @{ Path = $launcherPath; Name = 'start-agentdock.ps1' },
+    @{ Path = $tokenPath; Name = 'auth-token.dpapi' },
+    @{ Path = $oauthPasswordPath; Name = 'oauth-password.dpapi' },
+    @{ Path = $oauthTokenSecretPath; Name = 'oauth-token-secret.dpapi' },
+    @{ Path = $credentialOwnerSidPath; Name = 'credential-owner-sid.txt' },
+    @{ Path = $controlPanelSettingsPath; Name = 'control-panel-settings.json' },
+    @{ Path = $runtimeManifestPath; Name = 'runtime.json' },
+    @{ Path = $desktopVersionPath; Name = 'desktop-version.txt' },
+    @{ Path = $activeVersionPath; Name = 'active-version.json' },
+    @{ Path = (Join-Path $runtimeDir 'update\transaction.json'); Name = 'update-transaction.json' },
+    @{ Path = (Join-Path $runtimeDir 'update\result.json'); Name = 'update-result.json' }
+)
+
+$previousConsoleOutputEncoding = $null
+try {
+    # AgentDock CLI structured stdout is UTF-8. Windows PowerShell 5.1 otherwise
+    # decodes native stdout with the active OEM code page, which can corrupt JSON paths.
+    $previousConsoleOutputEncoding = [Console]::OutputEncoding
+    [Console]::OutputEncoding = $Utf8NoBom
+
+    $existingInstallDetected =
+        (Test-Path -LiteralPath $destinationBinary -PathType Leaf) -or
+        (Test-Path -LiteralPath $runtimeManifestPath -PathType Leaf) -or
+        (Test-Path -LiteralPath $launcherPath -PathType Leaf)
+    $taskUser = Get-CurrentTaskUser
+    $taskState = Get-AgentDockTaskState `
+        -AgentDockValueName $runValueName `
+        -TrayValueName $trayRunValueName `
+        -RuntimeRoot $runtimeDir `
+        -StableCorePath $destinationBinary `
+        -StableTrayPath $destinationTrayBinary `
+        -LegacyLauncherPath $launcherPath
+    if ($effectivePrivilegeMode -eq 'elevated' -and -not $taskState.Eligible) {
+        throw 'Elevated AgentDock mode requires the default Windows startup names.'
+    }
+    if ($effectivePrivilegeMode -eq 'elevated' -and $taskState.Conflicting) {
+        throw 'The AgentDock scheduled task belongs to another installation root. Remove or repair that installation before enabling elevated mode here.'
+    }
+
+    $existingPrivilegeMode = ''
+    if (Test-Path -LiteralPath $runtimeManifestPath -PathType Leaf) {
+        try {
+            $existingManifest = Get-Content -LiteralPath $runtimeManifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            $existingPrivilegeMode = [string] $existingManifest.privilege_mode
+        } catch {
+            $existingPrivilegeMode = ''
+        }
+    }
+    if (-not $taskState.SchedulerAvailable -and
+        ($effectivePrivilegeMode -eq 'elevated' -or $existingPrivilegeMode -eq 'elevated')) {
+        $installErrorCode = 'task-scheduler-unavailable'
+        throw "Windows Task Scheduler is required to preserve administrator-enhanced AgentDock mode: $($taskState.SchedulerError)"
+    }
+
+    # Cloudflare parameters remain only as a legacy script/silent-install compatibility shim.
+    # The base Installer never reads existing Tunnel mode and never pulls cloudflared back
+    # into the install transaction because an older Quick/Named configuration exists.
+    $legacyTunnelCompatibilityRequested =
+        $PSBoundParameters.ContainsKey('TunnelMode') -or
+        [bool] $ConfigurePublicAccess -or
+        $PSBoundParameters.ContainsKey('ServerUrl') -or
+        $PSBoundParameters.ContainsKey('TunnelToken') -or
+        $PSBoundParameters.ContainsKey('TunnelTokenFile') -or
+        $PSBoundParameters.ContainsKey('OfflineCloudflaredBinary')
+    $resolvedTunnelMode = ''
+    if ($legacyTunnelCompatibilityRequested) {
+        if ($TunnelMode -ne 'auto') {
+            $resolvedTunnelMode = $TunnelMode.ToLowerInvariant()
+        } else {
+            $environmentMode = [Environment]::GetEnvironmentVariable('AGENTDOCK_TUNNEL_MODE')
+            if (-not [string]::IsNullOrWhiteSpace($environmentMode)) {
+                $environmentMode = $environmentMode.Trim().ToLowerInvariant()
+                if (@('none', 'quick', 'named') -notcontains $environmentMode) {
+                    throw "AGENTDOCK_TUNNEL_MODE must be none, quick, or named: $environmentMode"
+                }
+                $resolvedTunnelMode = $environmentMode
+            } elseif ($ConfigurePublicAccess) {
+                if (-not [string]::IsNullOrWhiteSpace($ServerUrl) -or
+                    -not [string]::IsNullOrWhiteSpace($TunnelToken) -or
+                    -not [string]::IsNullOrWhiteSpace($TunnelTokenFile)) {
+                    $resolvedTunnelMode = 'named'
+                } else {
+                    $resolvedTunnelMode = 'quick'
+                }
+            } else {
+                $resolvedTunnelMode = 'none'
+            }
+        }
+    }
+    if (@('quick', 'named') -contains $resolvedTunnelMode) {
+        $RegisterStartup = $true
+    }
+
+    # Setup must stay in the signed-in desktop user's context so HKCU,
+    # current-user DPAPI, and per-user Skill state remain on the right account.
+    if ($InstallChannel -eq 'setup') {
+        $interactiveUser = Get-InteractiveDesktopUser
+        if ($null -ne $interactiveUser -and
+            -not [string]::Equals(
+                $interactiveUser.Sid,
+                $taskUser.Sid,
+                [StringComparison]::OrdinalIgnoreCase
+            )) {
+            $installErrorCode = 'setup-elevated-context'
+            throw "AgentDock Setup is running as $($taskUser.Name), but the signed-in desktop user is $($interactiveUser.Name). Start Setup normally under the signed-in account; it requests administrator approval only for scheduled-task operations."
+        }
+    }
+
+    $credentialOwnerSid = Read-TextFile -Path $credentialOwnerSidPath
+    if (-not [string]::IsNullOrWhiteSpace($credentialOwnerSid) -and
+        -not [string]::Equals($credentialOwnerSid, $taskUser.Sid, [StringComparison]::OrdinalIgnoreCase)) {
+        $installErrorCode = 'credential-user-mismatch'
+        throw 'AgentDock credentials belong to a different Windows user. Run Setup from the original user account or perform a clean reinstall.'
+    }
+
+    New-Item -ItemType Directory -Path $tempRoot -Force | Out-Null
+    New-Item -ItemType Directory -Path $runtimeBackupDir -Force | Out-Null
+    foreach ($item in $managedRuntimeFiles) {
+        Backup-FileState -Path $item.Path -Name $item.Name -BackupDirectory $runtimeBackupDir
+    }
+    $previousRunValue = Get-RunValue -RegistryPath $runKey -Name $runValueName
+    $previousTrayRunValue = Get-RunValue -RegistryPath $runKey -Name $trayRunValueName
+    $rollbackStateCaptured = $true
+
+    # Setup has opinionated defaults for fresh installs but must preserve the two independent
+    # startup toggles on upgrades. Script callers keep the historical RegisterStartup behavior.
+    $coreStartupEnabled = [bool] $RegisterStartup
+    $trayStartupEnabled = [bool] $RegisterStartup
+    switch ($StartupMode) {
+        'enabled' {
+            $coreStartupEnabled = $true
+            $trayStartupEnabled = $true
+        }
+        'disabled' {
+            $coreStartupEnabled = $false
+            $trayStartupEnabled = $false
+        }
+        'preserve' {
+            if ($existingInstallDetected) {
+                $useTaskStartupState =
+                    $existingPrivilegeMode -eq 'elevated' -or
+                    ([string]::IsNullOrWhiteSpace($existingPrivilegeMode) -and $taskState.Exists)
+                if ($useTaskStartupState) {
+                    $coreStartupEnabled = $taskState.Exists -and $taskState.WasEnabled
+                } else {
+                    $coreStartupEnabled = $null -ne $previousRunValue
+                }
+                # Legacy elevated installs had one combined startup choice and no separate Tray value.
+                # Migration keeps the old behavior by enabling Tray when the legacy task was enabled.
+                $trayStartupEnabled = ($null -ne $previousTrayRunValue) -or ($taskState.Legacy -and $taskState.WasEnabled)
+            } else {
+                $coreStartupEnabled = $true
+                $trayStartupEnabled = $true
+            }
+        }
+    }
+    if (@('quick', 'named') -contains $resolvedTunnelMode) {
+        $coreStartupEnabled = $true
+        $trayStartupEnabled = $true
+    }
+
+    if (-not [string]::IsNullOrWhiteSpace($OfflineArchive)) {
+        if (-not (Test-Path -LiteralPath $OfflineArchive -PathType Leaf)) {
+            throw "Offline AgentDock archive was not found: $OfflineArchive"
+        }
+        if ([string]::IsNullOrWhiteSpace($OfflineChecksumFile) -or
+            -not (Test-Path -LiteralPath $OfflineChecksumFile -PathType Leaf)) {
+            throw "Offline AgentDock checksum file was not found: $OfflineChecksumFile"
+        }
+        Write-Host "Using bundled AgentDock payload: $OfflineArchive"
+        Copy-Item -LiteralPath $OfflineArchive -Destination $archivePath -Force
+        Copy-Item -LiteralPath $OfflineChecksumFile -Destination $checksumPath -Force
+    } else {
+        $releaseBaseUrl = Get-ReleaseBaseUrl
+        Invoke-WebRequest -UseBasicParsing -Uri "$releaseBaseUrl/$assetName" -OutFile $archivePath
+        Invoke-WebRequest -UseBasicParsing -Uri "$releaseBaseUrl/$assetName.sha256" -OutFile $checksumPath
+    }
+
+    $expectedHash = ((Get-Content -LiteralPath $checksumPath -Raw).Trim() -split '\s+')[0].ToLowerInvariant()
+    $actualHash = Get-Sha256Hex -Path $archivePath
+    if ($actualHash -ne $expectedHash) {
+        throw "SHA-256 mismatch for $assetName. Expected $expectedHash, got $actualHash."
+    }
+
+    $extractDir = Join-Path $tempRoot 'extract'
+    Expand-Archive -LiteralPath $archivePath -DestinationPath $extractDir -Force
+    $sourceBinary = Join-Path $extractDir 'agentdock.exe'
+    if (-not (Test-Path -LiteralPath $sourceBinary -PathType Leaf)) {
+        throw "Release archive does not contain agentdock.exe: $assetName"
+    }
+    $sourceTrayBinary = Join-Path $extractDir 'control-panel\agentdock-tray.exe'
+    if (-not (Test-Path -LiteralPath $sourceTrayBinary -PathType Leaf)) {
+        # Backward compatibility for older release archives that only carried the flat Tray executable.
+        $sourceTrayBinary = Join-Path $extractDir 'agentdock-tray.exe'
+    }
+    $sourceTrayIcon = Join-Path $extractDir 'agentdock.ico'
+    $sourceArbiter = Join-Path $extractDir 'agentdock-arbiter.exe'
+    $sourceCoreShim = Join-Path $extractDir 'agentdock-shim.exe'
+    $sourceTrayShim = Join-Path $extractDir 'agentdock-tray-shim.exe'
+    if (-not (Test-Path -LiteralPath $sourceTrayBinary -PathType Leaf)) {
+        throw "Release archive does not contain agentdock-tray.exe: $assetName"
+    }
+    if (-not (Test-Path -LiteralPath $sourceTrayIcon -PathType Leaf)) {
+        throw "Release archive does not contain agentdock.ico: $assetName"
+    }
+    foreach ($generationFile in @($sourceArbiter, $sourceCoreShim, $sourceTrayShim)) {
+        if (-not (Test-Path -LiteralPath $generationFile -PathType Leaf)) {
+            throw "Release archive does not contain generation update component: $generationFile"
+        }
+    }
+    $coreSkillBundle = Join-Path $extractDir 'share\agentdock\core-skills'
+    $coreSkillManifest = Join-Path $coreSkillBundle 'manifest.json'
+    if (-not (Test-Path -LiteralPath $coreSkillBundle -PathType Container) -or
+        -not (Test-Path -LiteralPath $coreSkillManifest -PathType Leaf)) {
+        throw "Release archive does not contain a valid core Skill Bundle: $assetName"
+    }
+    $sourceWSLHelperDir = Join-Path $extractDir 'wsl-helper'
+    $sourceWSLHelperManifestPath = Join-Path $sourceWSLHelperDir 'manifest.json'
+    $sourceWSLHelperAMD64 = Join-Path $sourceWSLHelperDir 'agentdock-wsl-helper-linux-amd64'
+    $sourceWSLHelperARM64 = Join-Path $sourceWSLHelperDir 'agentdock-wsl-helper-linux-arm64'
+    if (-not (Test-Path -LiteralPath $sourceWSLHelperDir -PathType Container) -or
+        -not (Test-Path -LiteralPath $sourceWSLHelperManifestPath -PathType Leaf) -or
+        -not (Test-Path -LiteralPath $sourceWSLHelperAMD64 -PathType Leaf) -or
+        -not (Test-Path -LiteralPath $sourceWSLHelperARM64 -PathType Leaf)) {
+        throw "Release archive does not contain a valid WSL helper payload: $assetName"
+    }
+    try {
+        $wslHelperManifest = Get-Content -LiteralPath $sourceWSLHelperManifestPath -Raw | ConvertFrom-Json
+        if ([string] $wslHelperManifest.protocol_version -ne '1') {
+            throw 'WSL helper manifest protocol_version must be 1.'
+        }
+        $helperChecks = @(
+            @{
+                Architecture = 'amd64'
+                ExpectedName = 'agentdock-wsl-helper-linux-amd64'
+                Path = $sourceWSLHelperAMD64
+                Entry = $wslHelperManifest.helpers.amd64
+            },
+            @{
+                Architecture = 'arm64'
+                ExpectedName = 'agentdock-wsl-helper-linux-arm64'
+                Path = $sourceWSLHelperARM64
+                Entry = $wslHelperManifest.helpers.arm64
+            }
+        )
+        foreach ($helperCheck in $helperChecks) {
+            if ([string] $helperCheck.Entry.file -ne [string] $helperCheck.ExpectedName) {
+                throw "WSL helper manifest file mismatch for $($helperCheck.Architecture)."
+            }
+            $expectedHelperHash = ([string] $helperCheck.Entry.sha256).Trim().ToLowerInvariant()
+            $actualHelperHash = Get-Sha256Hex -Path $helperCheck.Path
+            if ($expectedHelperHash -notmatch '^[0-9a-f]{64}$' -or $actualHelperHash -ne $expectedHelperHash) {
+                throw "WSL helper SHA-256 mismatch for $($helperCheck.Architecture)."
+            }
+        }
+    } catch {
+        throw "Release archive contains an invalid WSL helper manifest: $($_.Exception.Message)"
+    }
+
+    # Validate the unpacked payload before stopping processes or touching an existing scheduled task.
+    # This catches architecture/runtime incompatibility while the previous installation is still intact.
+    $preflightVersionOutput = @(& $sourceBinary version --json 2>&1)
+    if ($LASTEXITCODE -ne 0) {
+        throw "AgentDock payload preflight failed with exit code $LASTEXITCODE."
+    }
+    try {
+        $preflightVersionInfo = ($preflightVersionOutput | Out-String) | ConvertFrom-Json
+    } catch {
+        throw "AgentDock payload preflight returned invalid version metadata: $($_.Exception.Message)"
+    }
+    if ($null -eq $preflightVersionInfo -or [string]::IsNullOrWhiteSpace([string] $preflightVersionInfo.version)) {
+        throw 'AgentDock payload preflight did not return a version.'
+    }
+
+    $payloadVersion = 'v' + ([string] $preflightVersionInfo.version).TrimStart('v')
+    $installedVersion = $payloadVersion
+    $engineReadyOutput = & $sourceBinary install --engine-ready 2>$null
+    if ($LASTEXITCODE -ne 0 -or ("$engineReadyOutput" -notlike '*agentdock-installer-engine*')) {
+        throw 'Release archive does not contain an Installer Engine capable AgentDock binary.'
+    }
+    $generationBootstrapDirectory = Join-Path $versionsDir $payloadVersion
+
+    # The authoritative generation pointer and self-update transaction state are evaluated
+    # by the Installer Engine's inspect command. Setup no longer parses active-version.json
+    # itself; it only consumes the structured verdict and performs the required recovery
+    # action (running the stable binary to trigger self-update recovery) when unresolved.
+    $existingActiveVersion = ''
+    $pointerState = 'missing'
+    $inspectJson = (& $sourceBinary install inspect --state-root $runtimeDir 2>$null | Out-String).Trim()
+    if ($LASTEXITCODE -ne 0) {
+        throw 'AgentDock install inspect failed before reading the existing generation state.'
+    }
+    try {
+        $installInspection = $inspectJson | ConvertFrom-Json
+    } catch {
+        throw "AgentDock install inspect returned invalid JSON: $($_.Exception.Message)"
+    }
+    $pointerState = [string] $installInspection.pointer_state
+    if ($pointerState -eq 'invalid') {
+        throw 'active-version.json has an unsupported schema.'
+    }
+    if ($pointerState -ne 'missing' -and $pointerState -ne 'committed') {
+        # Setup must never repair or replace a generation while an update trial is unresolved.
+        # Running the stable CUI entry is also the crash-recovery trigger: a live Arbiter leaves
+        # the state in trial and Setup stops safely; an abandoned trial is rolled back first.
+        # Fresh installer trials use install/transaction.json. The shim only recovers
+        # update/transaction.json, so an installer trial is not a committed generation layout.
+        if (-not [bool] $installInspection.pending_update_transaction) {
+            Write-Host 'Incomplete installer generation pointer; Setup will let the Installer Engine recover.'
+        } else {
+            if (-not (Test-Path -LiteralPath $destinationBinary -PathType Leaf)) {
+                throw "AgentDock generation state is '$pointerState', but the stable recovery entry is missing: $destinationBinary"
+            }
+            Write-Host "Resolving pending AgentDock generation transaction before Setup continues..."
+            $recoveryOutput = @(& $destinationBinary version --json 2>&1)
+            $recoveryExitCode = $LASTEXITCODE
+            if ($recoveryExitCode -ne 0) {
+                $recoveryText = (($recoveryOutput | Out-String).Trim())
+                throw "AgentDock generation recovery failed with exit code $recoveryExitCode. $recoveryText"
+            }
+            # Re-inspect after the recovery action; Setup must not touch the generation until the pointer converges to committed.
+            $reinspectJson = (& $sourceBinary install inspect --state-root $runtimeDir 2>$null | Out-String).Trim()
+            if ($LASTEXITCODE -ne 0) {
+                throw 'AgentDock install inspect failed after generation recovery.'
+            }
+            try {
+                $installInspection = $reinspectJson | ConvertFrom-Json
+            } catch {
+                throw "AgentDock install inspect returned invalid JSON: $($_.Exception.Message)"
+            }
+            $pointerState = [string] $installInspection.pointer_state
+            if ($pointerState -ne 'committed') {
+                throw "AgentDock generation transaction is still '$pointerState'; Setup will not modify an unresolved generation."
+            }
+        }
+    }
+    if ($pointerState -eq 'committed') {
+        $existingActiveVersion = 'v' + ([string] $installInspection.pointer_active_version).TrimStart('v')
+        $generationLayoutDetected = $true
+    }
+
+    if ($generationLayoutDetected) {
+        $existingGenerationDirectory = Join-Path $versionsDir $existingActiveVersion
+        $existingGenerationCore = Join-Path $existingGenerationDirectory 'agentdock-core.exe'
+        $existingGenerationTray = Join-Path $existingGenerationDirectory 'agentdock-tray.exe'
+        # A crash during one-time legacy migration can commit the source pointer before stable
+        # Core/Tray have been replaced by shims. Probe both exact paths so retry never misses
+        # a still-running legacy process just because active-version.json already exists.
+        $processWasRunning =
+            (@(Get-AgentDockProcesses -BinaryPath $existingGenerationCore).Count -gt 0) -or
+            (@(Get-AgentDockProcesses -BinaryPath $destinationBinary).Count -gt 0)
+        $trayProcessWasRunning =
+            (@(Get-AgentDockTrayProcesses -BinaryPath $existingGenerationTray).Count -gt 0) -or
+            (@(Get-AgentDockTrayProcesses -BinaryPath $destinationTrayBinary).Count -gt 0)
+    }
+
+    # Setup upgrades and fresh installs share one Installer transaction. Do not pre-commit
+    # the target generation through Update Engine before Task/Registry/runtime adapter work.
+
+    New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
+    if (-not $generationLayoutDetected) {
+        $processWasRunning = @(Get-AgentDockProcesses -BinaryPath $destinationBinary).Count -gt 0
+    }
+
+    # One-time pre-generation migration must establish a real known-good source before
+    # the old stable binaries are replaced by shims. Until this command commits the source
+    # pointer the legacy binaries remain authoritative; after it commits, a new shim can
+    # always route back to the copied source generation even if Setup is interrupted.
+    # pointer_state comes from the engine's inspect; a legacy layout is only possible when the pointer is missing entirely.
+    if (-not $generationLayoutDetected -and $existingInstallDetected -and
+        $pointerState -eq 'missing') {
+        if (-not (Test-Path -LiteralPath $destinationBinary -PathType Leaf) -or
+            -not (Test-Path -LiteralPath $destinationTrayBinary -PathType Leaf)) {
+            throw 'Existing legacy AgentDock installation is incomplete; Core and Tray are required for generation migration.'
+        }
+        $legacyVersionOutput = @(& $destinationBinary version --json 2>&1)
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Unable to read the existing legacy AgentDock version before generation migration.'
+        }
+        try {
+            $legacyVersionInfo = ($legacyVersionOutput | Out-String) | ConvertFrom-Json
+            if ($null -eq $legacyVersionInfo -or [string]::IsNullOrWhiteSpace([string] $legacyVersionInfo.version)) {
+                throw 'legacy version metadata is empty'
+            }
+            $legacyBootstrapVersion = 'v' + ([string] $legacyVersionInfo.version).TrimStart('v')
+        } catch {
+            throw "Existing legacy AgentDock returned invalid version metadata: $($_.Exception.Message)"
+        }
+        $legacyBootstrapJson = (& $sourceBinary install prepare-windows-legacy `
+            --install-root $runtimeDir `
+            --legacy-version $legacyBootstrapVersion `
+            --legacy-core $destinationBinary `
+            --legacy-tray $destinationTrayBinary `
+            --payload-dir $extractDir 2>$null | Out-String).Trim()
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Installer Engine could not establish the legacy known-good generation.'
+        }
+        try {
+            $legacyBootstrapResult = $legacyBootstrapJson | ConvertFrom-Json
+        } catch {
+            throw "Installer Engine returned invalid legacy migration JSON: $($_.Exception.Message)"
+        }
+        if (-not [string]::Equals([string] $legacyBootstrapResult.version, $legacyBootstrapVersion, [StringComparison]::OrdinalIgnoreCase)) {
+            throw 'Installer Engine legacy migration returned a different source version.'
+        }
+        $legacyBootstrapPrepared = $true
+    }
+    if ($effectivePrivilegeMode -eq 'elevated' -or $taskState.Exists) {
+        $taskAction = if ($effectivePrivilegeMode -eq 'elevated') { 'prepare-elevated' } else { 'prepare-standard' }
+        $taskActionResult = Start-ElevatedAgentDockTaskAction `
+            -Action $taskAction `
+            -BackupDirectory $taskBackupDirectory `
+            -AdminLauncherPath $sourceTrayBinary `
+            -LauncherPath $destinationTrayBinary `
+            -RuntimeRoot $runtimeDir `
+            -TaskUser $taskUser
+        if (-not $taskActionResult.Started) {
+            if ($effectivePrivilegeMode -eq 'elevated' -and -not $taskState.Exists) {
+                # No scheduled-task state changed because RunAs never started. A fresh install can
+                # therefore continue safely without administrator-enhanced core mode.
+                $effectivePrivilegeMode = 'standard'
+                $installWarningCode = 'elevated-mode-fallback'
+                $installWarningMessage = 'Windows did not start the administrator approval request. AgentDock continued in standard user mode.'
+                Write-Warning "$installWarningMessage Details: $($taskActionResult.ErrorMessage)"
+            } else {
+                throw "Administrator approval for AgentDock was not completed: $($taskActionResult.ErrorMessage)"
+            }
+        } else {
+            # Once the elevated helper actually started, task state may have changed even if the helper
+            # later reports failure. Mark the transaction before checking its exit status so rollback runs.
+            $taskTransactionStarted = $true
+            if (-not $taskActionResult.Succeeded) {
+                throw $taskActionResult.ErrorMessage
+            }
+            Write-Host "Prepared AgentDock scheduled task transaction: $taskAction"
+        }
+    }
+    $agentDockStopAttempted = $true
+    if ($generationLayoutDetected) {
+        [void] (Stop-AgentDockForUpgrade -BinaryPath $existingGenerationCore)
+        # Also stop a legacy stable Core left by a crash between source-pointer commit and shim install.
+        [void] (Stop-AgentDockForUpgrade -BinaryPath $destinationBinary)
+    } else {
+        [void] (Stop-AgentDockForUpgrade -BinaryPath $destinationBinary)
+    }
+
+    # Stable entries remain the rollback boundary for both legacy bootstrap and same-version repair.
+    # Preserve them before replacement even when active-version.json already exists.
+    if (Test-Path -LiteralPath $destinationBinary -PathType Leaf) {
+        Copy-Item -LiteralPath $destinationBinary -Destination $binaryBackup -Force
+    }
+    if (Test-Path -LiteralPath $destinationTrayBinary -PathType Leaf) {
+        Copy-Item -LiteralPath $destinationTrayBinary -Destination $trayBackup -Force
+    }
+
+    if (-not $generationLayoutDetected) {
+        $trayProcessWasRunning = @(Get-AgentDockTrayProcesses -BinaryPath $destinationTrayBinary).Count -gt 0
+    }
+
+    $trayStopAttempted = $true
+    if ($generationLayoutDetected) {
+        [void] (Stop-AgentDockTrayForUpgrade -BinaryPath $existingGenerationTray)
+        [void] (Stop-AgentDockTrayForUpgrade -BinaryPath $destinationTrayBinary)
+    } else {
+        [void] (Stop-AgentDockTrayForUpgrade -BinaryPath $destinationTrayBinary)
+    }
+    if (Test-Path -LiteralPath $destinationTrayIcon -PathType Leaf) {
+        Copy-Item -LiteralPath $destinationTrayIcon -Destination $trayIconBackup -Force
+    }
+
+    if ($legacyBootstrapPrepared) {
+        # Core/Tray were observed and stopped through their legacy stable paths above. From this
+        # point onward the prepared source generation is the known-good generation boundary.
+        $existingActiveVersion = $legacyBootstrapVersion
+        $existingGenerationDirectory = Join-Path $versionsDir $existingActiveVersion
+        $existingGenerationCore = Join-Path $existingGenerationDirectory 'agentdock-core.exe'
+        $existingGenerationTray = Join-Path $existingGenerationDirectory 'agentdock-tray.exe'
+        $generationLayoutDetected = $true
+    }
+
+    # Installer Engine exclusively publishes generations, stable shim/icon, and runtime manifest.
+    # PowerShell only keeps old stable-file backups so an outer Task/Registry adapter failure can
+    # restore the previous installation without writing the stable payload a second time.
+
+    Add-UserPath -Directory $InstallDir
+
+    $agentDockHome = Join-Path $userHome '.agentdock'
+    $workspace = Join-Path $userHome 'AgentDock'
+    foreach ($directory in @($agentDockHome, $workspace)) {
+        New-Item -ItemType Directory -Path $directory -Force | Out-Null
+    }
+
+    $publicUrl = ''
+    $engineCommitted = $false
+    $enginePrepared = $false
+    $engineTransactionId = ''
+    $anyStartupEnabled = $coreStartupEnabled -or $trayStartupEnabled
+    if ($anyStartupEnabled) {
+        New-Item -ItemType Directory -Path $runtimeDir -Force | Out-Null
+
+        $existingAuthToken = Read-ProtectedText -Path $tokenPath -Entropy 'agentdock.startup.v1'
+        if ([string]::IsNullOrWhiteSpace($AuthToken)) {
+            $AuthToken = $existingAuthToken
+        }
+        if ([string]::IsNullOrWhiteSpace($AuthToken)) {
+            $AuthToken = New-AgentDockToken
+        }
+        if (-not [string]::Equals($AuthToken, $existingAuthToken, [StringComparison]::Ordinal)) {
+            if ([string]::IsNullOrWhiteSpace($existingAuthToken)) {
+                Backup-UnreadableProtectedText -Path $tokenPath
+            }
+            Write-ProtectedText -Path $tokenPath -Value $AuthToken -Entropy 'agentdock.startup.v1'
+        }
+
+        $oauthCredentials = Initialize-OAuthCredentials `
+            -PasswordPath $oauthPasswordPath `
+            -TokenSecretPath $oauthTokenSecretPath `
+            -RequestedPassword $OAuthPassword `
+            -RequestedTokenSecret $OAuthTokenSecret
+        $OAuthPassword = $oauthCredentials.Password
+        $OAuthTokenSecret = $oauthCredentials.TokenSecret
+        Write-TextFile -Path $credentialOwnerSidPath -Value $taskUser.Sid
+
+        $escapedBinaryPath = $destinationBinary.Replace("'", "''")
+        $escapedRuntimeDir = $runtimeDir.Replace("'", "''")
+        # Keep the compatibility launcher only for legacy updates and rollback. New startup entries use the WinExe tray proxy.
+        $launcher = @"
+`$ErrorActionPreference = 'Stop'
+& '$escapedBinaryPath' service launch-core --runtime-root '$escapedRuntimeDir'
+exit `$LASTEXITCODE
+"@
+        [IO.File]::WriteAllText($launcherPath, $launcher, $Utf8NoBom)
+    }
+
+    if ($coreStartupEnabled) {
+        if ($effectivePrivilegeMode -eq 'elevated') {
+            Remove-ItemProperty -LiteralPath $runKey -Name $runValueName -ErrorAction SilentlyContinue
+            Enable-AgentDockTask
+        } else {
+            $startupCommand = "`"$destinationTrayBinary`" --start-core --runtime-root `"$runtimeDir`""
+            Set-RunValue -RegistryPath $runKey -Name $runValueName -Value $startupCommand
+        }
+    } else {
+        Remove-ItemProperty -LiteralPath $runKey -Name $runValueName -ErrorAction SilentlyContinue
+    }
+    $startupRegistrationChanged = $true
+
+    if ($trayStartupEnabled) {
+        $trayStartupCommand = "`"$destinationTrayBinary`" --background"
+        Set-RunValue -RegistryPath $runKey -Name $trayRunValueName -Value $trayStartupCommand
+    } else {
+        Remove-ItemProperty -LiteralPath $runKey -Name $trayRunValueName -ErrorAction SilentlyContinue
+    }
+    $trayStartupRegistrationChanged = $true
+
+    # HKCU/Task (if any) are already written. Engine owns runtime.json/skills/start.
+        # committed is written only after this script finishes adapter work and calls install commit.
+        # A fresh or different-version generation is published here from --payload-dir; PowerShell does not pre-commit it.
+        New-Item -ItemType Directory -Path $runtimeDir -Force | Out-Null
+        $engineArgs = @(
+            'install',
+            '--install-root', $runtimeDir,
+            '--payload-dir', $extractDir,
+            '--host', '127.0.0.1',
+            '--port', "$Port",
+            '--privilege-mode', $effectivePrivilegeMode,
+            '--agentdock-home', $runtimeAgentDockHome,
+            '--agentdock-default-dir', $runtimeAgentDockDefaultDir,
+            '--startup-value-name', $runValueName,
+            '--tray-startup-value-name', $trayRunValueName,
+            '--channel', $InstallChannel,
+            '--defer-commit'
+        )
+        if ($effectivePrivilegeMode -eq 'elevated') {
+            $engineArgs += @('--task-name', 'AgentDock')
+        }
+        if ((-not $coreStartupEnabled) -or ($InstallChannel -eq 'setup')) {
+            # Setup always leaves Core activation to the Windows adapter below so fresh, repair,
+            # and upgrade launches all happen outside the Inno RedirectionGuard process tree.
+            $engineArgs += @('--no-start', '--skip-health')
+        }
+        if (-not [string]::IsNullOrWhiteSpace($payloadVersion)) {
+            $engineArgs += @('--version', $payloadVersion)
+        }
+        if (-not [string]::IsNullOrWhiteSpace($coreSkillBundle)) {
+            $engineArgs += @('--skill-bundle', $coreSkillBundle)
+        }
+        # Engine may replace stable shim/icon before returning an error; mark this before invocation so catch can restore them.
+        $stableFilesMayBeReplaced = $true
+        $engineInvocationStartedAt = [DateTime]::UtcNow
+        $engineJson = (& $sourceBinary @engineArgs 2>$null | Out-String).Trim()
+        if ($LASTEXITCODE -ne 0) {
+            $engineFailureMessage = Get-InstallerEngineFailureMessage `
+                -RuntimeRoot $runtimeDir `
+                -FallbackMessage 'Installer Engine failed to write the runtime generation and manifest.' `
+                -NotBeforeUtc $engineInvocationStartedAt
+            throw $engineFailureMessage
+        }
+        # Engine already left a trial. Catch must abandon even if the JSON handshake is unreadable.
+        $enginePrepared = $true
+        try {
+            $engineResult = $engineJson | ConvertFrom-Json
+        } catch {
+            throw "Installer Engine returned invalid JSON: $($_.Exception.Message)"
+        }
+        $engineTransactionId = [string] $engineResult.transaction_id
+        if ([string]::IsNullOrWhiteSpace($engineTransactionId)) {
+            throw 'Installer Engine did not return a transaction id.'
+        }
+        if ($InstallChannel -eq 'setup') {
+            # Engine releases its process lock before returning. Setup takes over the same exclusive
+            # file lease so stable shims can route a live Installer trial during activation/health.
+            $installerTransactionLease = Enter-InstallerTransactionLease -RuntimeRoot $runtimeDir
+        }
+
+    $mustRestartExistingProcess = (-not $coreStartupEnabled) -and $processWasRunning
+
+    $localMCPUrl = "http://127.0.0.1:$Port/mcp"
+    Write-Host 'Core Skills were installed by the Installer Engine.'
+
+    # Immediate activation is a separate phase; only a fresh standard install may defer activation,
+    # because an upgrade must still be able to roll back to its prior runtime.
+    $healthStatus = 'not-started'
+    $engineOwnsActivation = $InstallChannel -ne 'setup'
+    try {
+        if ($InstallChannel -eq 'setup' -and -not $taskState.SchedulerAvailable -and
+            ($coreStartupEnabled -or $trayStartupEnabled -or $mustRestartExistingProcess -or $trayProcessWasRunning)) {
+            throw "Windows Task Scheduler is unavailable for immediate Setup activation: $($taskState.SchedulerError)"
+        }
+
+        if ($engineOwnsActivation -and $coreStartupEnabled) {
+            $healthStatus = 'healthy'
+        } elseif ($coreStartupEnabled) {
+            if ($effectivePrivilegeMode -eq 'elevated') {
+                Start-AgentDockTask -AgentDockBinary $destinationBinary -ExpectedUserSid $taskUser.Sid
+            } elseif ($InstallChannel -eq 'setup') {
+                Invoke-SetupRuntimeProcess `
+                    -FilePath $destinationBinary `
+                    -Arguments "service start --runtime-root `"$runtimeDir`"" `
+                    -WaitForExit
+            } else {
+                & $destinationBinary service start --runtime-root $runtimeDir
+                if ($LASTEXITCODE -ne 0) {
+                    throw "AgentDock native service start failed with exit code $LASTEXITCODE."
+                }
+            }
+            Wait-AgentDockHealth -HealthPort $Port -ExpectedVersion $payloadVersion
+            $healthStatus = 'healthy'
+
+        } elseif ($mustRestartExistingProcess) {
+            if ($InstallChannel -eq 'setup') {
+                Invoke-SetupRuntimeProcess `
+                    -FilePath $destinationBinary `
+                    -Arguments "service start --runtime-root `"$runtimeDir`"" `
+                    -WaitForExit
+            } else {
+                & $destinationBinary service start --runtime-root $runtimeDir
+                if ($LASTEXITCODE -ne 0) {
+                    throw "AgentDock native service restart failed with exit code $LASTEXITCODE."
+                }
+            }
+            Wait-AgentDockHealth -HealthPort $Port -ExpectedVersion $payloadVersion
+            $healthStatus = 'healthy'
+        }
+
+        if ($trayStartupEnabled -or $trayProcessWasRunning) {
+            Start-AgentDockTray -BinaryPath $destinationTrayBinary
+        }
+    } catch {
+        if ($existingInstallDetected -or $effectivePrivilegeMode -ne 'standard') {
+            throw
+        }
+
+        $healthStatus = 'deferred'
+        $activationWarningMessage = 'AgentDock was installed and startup was configured, but immediate runtime activation or verification did not complete. Start AgentDock from the Start menu or sign in again to retry.'
+        if ([string]::IsNullOrWhiteSpace($installWarningMessage)) {
+            $installWarningMessage = $activationWarningMessage
+        } else {
+            $installWarningMessage = ($installWarningMessage + ' ' + $activationWarningMessage).Trim()
+        }
+        if ([string]::IsNullOrWhiteSpace($installWarningCode)) {
+            $installWarningCode = 'runtime-launch-deferred'
+        } else {
+            $installWarningCode = "$installWarningCode,runtime-launch-deferred"
+        }
+        Write-Warning "$activationWarningMessage Details: $($_.Exception.Message)"
+    }
+
+    if (Test-Path -LiteralPath $legacyManagerPath -PathType Leaf) {
+        Remove-Item -LiteralPath $legacyManagerPath -Force
+    }
+
+    if ($enginePrepared -and (-not $engineCommitted -or $healthStatus -eq 'healthy')) {
+        if ($null -ne $installerTransactionLease) {
+            Exit-InstallerTransactionLease -Lease $installerTransactionLease
+            $installerTransactionLease = $null
+        }
+        $commitArgs = @(
+            'install', 'commit',
+            '--install-root', $runtimeDir,
+            '--runtime-root', $runtimeDir,
+            '--transaction-id', $engineTransactionId
+        )
+        if ($healthStatus -eq 'healthy') {
+            $commitArgs += '--healthy'
+        }
+        & $sourceBinary @commitArgs 1>$null
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Installer Engine failed to commit the install transaction.'
+        }
+        $engineCommitted = $true
+    }
+
+    # Legacy Cloudflare parameters are forwarded to the component/tunnel CLI only after
+    # Core commit succeeds. Compatibility failure may warn but must not roll back base install.
+    if ($legacyTunnelCompatibilityRequested -and -not [string]::IsNullOrWhiteSpace($resolvedTunnelMode)) {
+        $compatibilityTokenFile = ''
+        try {
+            if (-not [string]::IsNullOrWhiteSpace($OfflineCloudflaredBinary)) {
+                if (-not (Test-Path -LiteralPath $OfflineCloudflaredBinary -PathType Leaf)) {
+                    throw "Legacy OfflineCloudflaredBinary was not found: $OfflineCloudflaredBinary"
+                }
+                $componentArgs = @('component', '__import-legacy', 'cloudflared', '--runtime-root', $runtimeDir, '--source', $OfflineCloudflaredBinary, '--json')
+                & $destinationBinary @componentArgs 1>$null
+                if ($LASTEXITCODE -ne 0) { throw "cloudflared legacy component import failed with exit code $LASTEXITCODE." }
+            } elseif (@('quick', 'named') -contains $resolvedTunnelMode) {
+                $componentArgs = @('component', 'install', 'cloudflared', '--runtime-root', $runtimeDir, '--json')
+                & $destinationBinary @componentArgs 1>$null
+                if ($LASTEXITCODE -ne 0) { throw "cloudflared component install failed with exit code $LASTEXITCODE." }
+            }
+
+            $tunnelArgs = @('tunnel', 'configure', '--runtime-root', $runtimeDir, '--mode', $resolvedTunnelMode)
+            if ($resolvedTunnelMode -eq 'named') {
+                $compatibilityServerUrl = $ServerUrl
+                if ([string]::IsNullOrWhiteSpace($compatibilityServerUrl)) { $compatibilityServerUrl = [Environment]::GetEnvironmentVariable('AGENTDOCK_SERVER_URL') }
+                if (-not [string]::IsNullOrWhiteSpace($compatibilityServerUrl)) { $tunnelArgs += @('--server-url', $compatibilityServerUrl) }
+                if (-not [string]::IsNullOrWhiteSpace($TunnelTokenFile)) {
+                    $compatibilityTokenFile = $TunnelTokenFile
+                } elseif (-not [string]::IsNullOrWhiteSpace($TunnelToken)) {
+                    $compatibilityTokenFile = Join-Path $tempRoot 'legacy-tunnel-token.txt'
+                    [IO.File]::WriteAllText($compatibilityTokenFile, $TunnelToken, $Utf8NoBom)
+                }
+                if (-not [string]::IsNullOrWhiteSpace($compatibilityTokenFile)) { $tunnelArgs += @('--token-file', $compatibilityTokenFile) }
+            }
+            & $destinationBinary @tunnelArgs 1>$null
+            if ($LASTEXITCODE -ne 0) { throw "Tunnel compatibility configure failed with exit code $LASTEXITCODE." }
+            if ($DeleteTunnelTokenFile -and -not [string]::IsNullOrWhiteSpace($TunnelTokenFile)) {
+                Remove-Item -LiteralPath $TunnelTokenFile -Force -ErrorAction SilentlyContinue
+            }
+        } catch {
+            $tunnelWarningMessage = 'AgentDock was installed successfully, but the legacy Cloudflare Tunnel compatibility request could not be completed. Open Settings > Advanced Connection to install or repair Cloudflare Tunnel.'
+            if ([string]::IsNullOrWhiteSpace($installWarningMessage)) { $installWarningMessage = $tunnelWarningMessage } else { $installWarningMessage = ($installWarningMessage + ' ' + $tunnelWarningMessage).Trim() }
+            if ([string]::IsNullOrWhiteSpace($installWarningCode)) { $installWarningCode = 'legacy-tunnel-migration-deferred' } else { $installWarningCode = "$installWarningCode,legacy-tunnel-migration-deferred" }
+            Write-Warning "$tunnelWarningMessage Details: $($_.Exception.Message)"
+        } finally {
+            $temporaryCompatibilityToken = Join-Path $tempRoot 'legacy-tunnel-token.txt'
+            if (-not [string]::IsNullOrWhiteSpace($compatibilityTokenFile) -and [string]::Equals($compatibilityTokenFile, $temporaryCompatibilityToken, [StringComparison]::OrdinalIgnoreCase)) {
+                Remove-Item -LiteralPath $compatibilityTokenFile -Force -ErrorAction SilentlyContinue
+            }
+        }
+    }
+    $taskTransactionCommitted = $taskTransactionStarted
+    $publicMCPUrl = ''
+    if (-not [string]::IsNullOrWhiteSpace($publicUrl)) {
+        $publicMCPUrl = "$publicUrl/mcp"
+    }
+    Write-InstallResult `
+        -Path $ResultFile `
+        -Success $true `
+        -Message 'AgentDock installation completed.' `
+        -InstalledVersion $installedVersion `
+        -LocalMCPUrl $localMCPUrl `
+        -PublicMCPUrl $publicMCPUrl `
+        -BearerToken $AuthToken `
+        -OAuthLoginPassword $OAuthPassword `
+        -HealthStatus $healthStatus `
+        -PrivilegeMode $effectivePrivilegeMode `
+        -WarningCode $installWarningCode `
+        -WarningMessage $installWarningMessage
+
+    Write-Host "AgentDock installed: $destinationBinary"
+    Write-Host "Local MCP address: $localMCPUrl"
+    Write-Host 'Open a new terminal if the updated user PATH is not visible yet.'
+    if ($anyStartupEnabled) {
+        Write-Host "Bearer Token: $AuthToken"
+    }
+    if ($legacyTunnelCompatibilityRequested -and @('quick', 'named') -contains $resolvedTunnelMode) {
+        Write-Host ''
+        Write-Host 'Legacy Cloudflare Tunnel parameters were handed off to the AgentDock component/tunnel lifecycle.'
+        Write-Host 'Open Settings > Advanced Connection to view component and Tunnel status.'
+    }
+} catch {
+    $installError = $_
+    if ($null -ne $installerTransactionLease) {
+        Exit-InstallerTransactionLease -Lease $installerTransactionLease
+        $installerTransactionLease = $null
+    }
+    $taskRollbackError = $null
+    $rollbackError = $null
+    $taskRecoveryPath = ''
+    try {
+        if ($effectivePrivilegeMode -eq 'elevated') {
+            # Stop the long-lived task owner before touching either stable shims or generation files.
+            Stop-ScheduledTask -TaskName 'AgentDock' -TaskPath '\' -ErrorAction SilentlyContinue
+            Start-Sleep -Milliseconds 500
+        }
+        if ($generationLayoutDetected -or $enginePrepared) {
+            # Target Core runs as agentdock-core.exe after both bootstrap and Update Engine.
+            # Setup runtime hosts and elevated task hosts execute stable shims, so both layers
+            # must be quiesced before rollback restores the stable entry files.
+            $rollbackGenerationTray = Join-Path $generationBootstrapDirectory 'agentdock-tray.exe'
+            $rollbackGenerationCore = Join-Path $generationBootstrapDirectory 'agentdock-core.exe'
+            [void] (Stop-AgentDockTrayForUpgrade -BinaryPath $rollbackGenerationTray)
+            [void] (Stop-AgentDockForUpgrade -BinaryPath $rollbackGenerationCore)
+            [void] (Stop-AgentDockTrayForUpgrade -BinaryPath $destinationTrayBinary)
+            [void] (Stop-AgentDockForUpgrade -BinaryPath $destinationBinary)
+        } else {
+            if ($trayStopAttempted -or $stableFilesMayBeReplaced -or $trayStartupRegistrationChanged) {
+                [void] (Stop-AgentDockTrayForUpgrade -BinaryPath $destinationTrayBinary)
+            }
+            if ($agentDockStopAttempted -or $stableFilesMayBeReplaced -or $startupRegistrationChanged) {
+                [void] (Stop-AgentDockForUpgrade -BinaryPath $destinationBinary)
+            }
+        }
+
+        if ($stableFilesMayBeReplaced) {
+            $trayBackupExists = Test-Path -LiteralPath $trayBackup -PathType Leaf
+            if ($trayBackupExists) {
+                Copy-Item -LiteralPath $trayBackup -Destination $destinationTrayBinary -Force
+            } else {
+                Remove-Item -LiteralPath $destinationTrayBinary -Force -ErrorAction SilentlyContinue
+            }
+            $trayIconBackupExists = Test-Path -LiteralPath $trayIconBackup -PathType Leaf
+            if ($trayIconBackupExists) {
+                Copy-Item -LiteralPath $trayIconBackup -Destination $destinationTrayIcon -Force
+            } else {
+                Remove-Item -LiteralPath $destinationTrayIcon -Force -ErrorAction SilentlyContinue
+            }
+            $binaryBackupExists = Test-Path -LiteralPath $binaryBackup -PathType Leaf
+            if ($binaryBackupExists) {
+                Copy-Item -LiteralPath $binaryBackup -Destination $destinationBinary -Force
+            } else {
+                Remove-Item -LiteralPath $destinationBinary -Force -ErrorAction SilentlyContinue
+            }
+        }
+
+        if ($rollbackStateCaptured) {
+            foreach ($item in $managedRuntimeFiles) {
+                Restore-FileState -Path $item.Path -Name $item.Name -BackupDirectory $runtimeBackupDir
+            }
+
+            if ($null -ne $previousRunValue) {
+                Set-RunValue -RegistryPath $runKey -Name $runValueName -Value $previousRunValue
+            } else {
+                Remove-ItemProperty -LiteralPath $runKey -Name $runValueName -ErrorAction SilentlyContinue
+            }
+            if ($null -ne $previousTrayRunValue) {
+                Set-RunValue -RegistryPath $runKey -Name $trayRunValueName -Value $previousTrayRunValue
+            } else {
+                Remove-ItemProperty -LiteralPath $runKey -Name $trayRunValueName -ErrorAction SilentlyContinue
+            }
+        }
+
+        if ($taskTransactionStarted -and -not $taskTransactionCommitted) {
+            try {
+                $restoreTaskActionResult = Start-ElevatedAgentDockTaskAction `
+                    -Action restore `
+                    -BackupDirectory $taskBackupDirectory `
+                    -AdminLauncherPath $sourceTrayBinary `
+                    -LauncherPath '' `
+                    -TaskUser $taskUser
+                if (-not $restoreTaskActionResult.Started) {
+                    throw "Administrator approval for AgentDock rollback was not completed: $($restoreTaskActionResult.ErrorMessage)"
+                }
+                if (-not $restoreTaskActionResult.Succeeded) {
+                    throw $restoreTaskActionResult.ErrorMessage
+                }
+                $taskRestored = $true
+            } catch {
+                $taskRollbackError = $_
+                try {
+                    # Preserve the original task definition when automatic restore fails so temp cleanup does not destroy manual recovery material.
+                    $taskRecoveryPath = Join-Path `
+                        (Join-Path $runtimeDir 'logs\installer') `
+                        ('scheduled-task-recovery-' + [Guid]::NewGuid().ToString('N'))
+                    New-Item -ItemType Directory -Path $taskRecoveryPath -Force | Out-Null
+                    $taskBackupStatePath = Join-Path $taskBackupDirectory 'state.json'
+                    if (-not (Test-Path -LiteralPath $taskBackupStatePath -PathType Leaf)) {
+                        throw "AgentDock scheduled-task backup state is missing: $taskBackupStatePath"
+                    }
+                    Copy-Item -LiteralPath $taskBackupStatePath -Destination $taskRecoveryPath -Force
+                    $taskBackupXmlPath = Join-Path $taskBackupDirectory 'task.xml'
+                    if (Test-Path -LiteralPath $taskBackupXmlPath -PathType Leaf) {
+                        Copy-Item -LiteralPath $taskBackupXmlPath -Destination $taskRecoveryPath -Force
+                    }
+                    Write-Warning "AgentDock scheduled-task recovery files were preserved at: $taskRecoveryPath"
+                } catch {
+                    Write-Warning "AgentDock could not preserve scheduled-task recovery files: $($_.Exception.Message)"
+                    $taskRecoveryPath = ''
+                }
+                Write-Warning "AgentDock scheduled-task rollback failed: $($taskRollbackError.Exception.Message)"
+            }
+        }
+
+        $taskWillRestartAgentDock = $false
+        if ($taskRestored -and $taskState.WasRunning) {
+            Start-AgentDockTask -AgentDockBinary $sourceBinary -ExpectedUserSid $taskUser.Sid
+            $taskWillRestartAgentDock = $true
+        }
+        if ($processWasRunning -and -not $taskWillRestartAgentDock) {
+            if (Test-Path -LiteralPath $destinationBinary -PathType Leaf) {
+                # The Engine transaction has restored the committed source generation. Wait for the
+                # source Core to become healthy before confirming the outer adapter rollback.
+                if ($InstallChannel -eq 'setup') {
+                    Invoke-SetupRuntimeProcess `
+                        -FilePath $destinationBinary `
+                        -Arguments "service start --runtime-root `"$runtimeDir`"" `
+                        -WaitForExit
+                } else {
+                    & $destinationBinary service start --runtime-root $runtimeDir
+                    if ($LASTEXITCODE -ne 0) {
+                        throw "AgentDock rollback service start failed with exit code $LASTEXITCODE."
+                    }
+                }
+                Wait-AgentDockHealth -HealthPort $Port -ExpectedVersion $existingActiveVersion
+            } elseif (Test-Path -LiteralPath $launcherPath -PathType Leaf) {
+                Start-AgentDockLauncher -LauncherPath $launcherPath
+            }
+        } elseif ($taskWillRestartAgentDock) {
+            Wait-AgentDockHealth -HealthPort $Port -ExpectedVersion $existingActiveVersion
+        }
+        if ($trayProcessWasRunning -and (Test-Path -LiteralPath $destinationTrayBinary -PathType Leaf)) {
+            Start-AgentDockTray -BinaryPath $destinationTrayBinary
+        }
+    } catch {
+        $rollbackError = $_
+        Write-Warning "AgentDock rollback failed: $($_.Exception.Message)"
+    }
+
+    if (($enginePrepared -or $engineCommitted) -and (Test-Path -LiteralPath $sourceBinary -PathType Leaf)) {
+        $abandonArgs = @(
+            'install', 'abandon',
+            '--install-root', $runtimeDir,
+            '--runtime-root', $runtimeDir
+        )
+        if (-not [string]::IsNullOrWhiteSpace($engineTransactionId)) {
+            $abandonArgs += @('--transaction-id', $engineTransactionId)
+        }
+        if ($null -ne $rollbackError -or $null -ne $taskRollbackError) {
+            $abandonArgs += '--rollback-failed'
+        }
+        & $sourceBinary @abandonArgs 1>$null
+        if ($LASTEXITCODE -ne 0 -and $null -eq $rollbackError) {
+            try {
+                throw "Installer Engine could not record rollback state (exit $LASTEXITCODE)."
+            } catch {
+                $rollbackError = $_
+            }
+        }
+    }
+
+    $resultErrorCode = $installErrorCode
+    $resultMessage = $installError.Exception.Message
+    $resultErrorRecord = $installError
+    if ($null -ne $taskRollbackError) {
+        $resultErrorCode = 'elevated-task-rollback-failed'
+        $resultMessage = "AgentDock installation failed and the previous administrator-enhanced task could not be restored automatically. Original error: $($installError.Exception.Message) Rollback error: $($taskRollbackError.Exception.Message)"
+        if (-not [string]::IsNullOrWhiteSpace($taskRecoveryPath)) {
+            $resultMessage += " Recovery files: $taskRecoveryPath"
+        }
+        $resultErrorRecord = $taskRollbackError
+    } elseif ($null -ne $rollbackError) {
+        $resultErrorCode = 'rollback-failed'
+        $resultMessage = "AgentDock installation failed and rollback did not complete. Original error: $($installError.Exception.Message) Rollback error: $($rollbackError.Exception.Message)"
+        $resultErrorRecord = $rollbackError
+    }
+
+    Write-InstallResult `
+        -Path $ResultFile `
+        -Success $false `
+        -Message $resultMessage `
+        -InstalledVersion $installedVersion `
+        -LocalMCPUrl "http://127.0.0.1:$Port/mcp" `
+        -PublicMCPUrl '' `
+        -BearerToken '' `
+        -OAuthLoginPassword '' `
+        -HealthStatus 'failed' `
+        -PrivilegeMode $effectivePrivilegeMode `
+        -ErrorCode $resultErrorCode `
+        -ErrorRecord $resultErrorRecord
+    throw $installError
+} finally {
+    if ($null -ne $previousConsoleOutputEncoding) {
+        [Console]::OutputEncoding = $previousConsoleOutputEncoding
+    }
+    if ($null -ne $installerTransactionLease) {
+        Exit-InstallerTransactionLease -Lease $installerTransactionLease
+        $installerTransactionLease = $null
+    }
+    if ($DeleteTunnelTokenFile -and -not [string]::IsNullOrWhiteSpace($TunnelTokenFile)) {
+        Remove-Item -LiteralPath $TunnelTokenFile -Force -ErrorAction SilentlyContinue
+    }
+    Remove-Item -LiteralPath $tempRoot -Recurse -Force -ErrorAction SilentlyContinue
+}

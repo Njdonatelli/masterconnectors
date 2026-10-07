@@ -1,0 +1,74 @@
+{
+  "title": "Longitude Hard Domain [-180°, 180°]",
+  "description": "Semantic type \"Longitude\" pins axis to [-180, 180] with clamp=true (hard physical domain). Shows where cities fall in global E-W context. WITHOUT this: axis scales to data range (-118 to 151), no global frame.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "city": "Tokyo",
+          "longitude": 139.69,
+          "population_M": 13.96
+        },
+        {
+          "city": "Delhi",
+          "longitude": 77.21,
+          "population_M": 32.94
+        },
+        {
+          "city": "London",
+          "longitude": -0.12,
+          "population_M": 9
+        },
+        {
+          "city": "New York",
+          "longitude": -74.01,
+          "population_M": 8.34
+        },
+        {
+          "city": "São Paulo",
+          "longitude": -46.63,
+          "population_M": 12.33
+        },
+        {
+          "city": "Sydney",
+          "longitude": 151.21,
+          "population_M": 5.31
+        },
+        {
+          "city": "Cairo",
+          "longitude": 31.24,
+          "population_M": 21.32
+        },
+        {
+          "city": "Los Angeles",
+          "longitude": -118.24,
+          "population_M": 3.9
+        }
+      ]
+    },
+    "semantic_types": {
+      "city": "City",
+      "longitude": "Longitude",
+      "population_M": "Count"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "longitude"
+        },
+        "y": {
+          "field": "population_M"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

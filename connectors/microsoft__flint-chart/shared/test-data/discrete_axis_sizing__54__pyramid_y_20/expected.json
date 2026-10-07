@@ -1,0 +1,318 @@
+{
+  "spacing": 0,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "AgeGroup",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "scale": {
+            "reverse": true,
+            "domain": [
+              0,
+              49175
+            ]
+          },
+          "stack": null,
+          "field": "Population",
+          "type": "quantitative"
+        },
+        "opacity": {
+          "value": 0.9
+        },
+        "color": {
+          "value": "#4e79a7"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "Gender",
+            "equal": "Male"
+          }
+        }
+      ],
+      "title": "Male",
+      "width": 246,
+      "height": 402
+    },
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "axis": null,
+          "field": "AgeGroup",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "stack": null,
+          "field": "Population",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              49175
+            ]
+          }
+        },
+        "opacity": {
+          "value": 0.9
+        },
+        "color": {
+          "value": "#e15759"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "Gender",
+            "equal": "Female"
+          }
+        }
+      ],
+      "title": "Female",
+      "width": 246,
+      "height": 402
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 283,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 28
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 20
+  },
+  "data": {
+    "values": [
+      {
+        "AgeGroup": "Age01",
+        "Gender": "Male",
+        "Population": 1460
+      },
+      {
+        "AgeGroup": "Age01",
+        "Gender": "Female",
+        "Population": 42422
+      },
+      {
+        "AgeGroup": "Age02",
+        "Gender": "Male",
+        "Population": 36593
+      },
+      {
+        "AgeGroup": "Age02",
+        "Gender": "Female",
+        "Population": 19628
+      },
+      {
+        "AgeGroup": "Age03",
+        "Gender": "Male",
+        "Population": 16714
+      },
+      {
+        "AgeGroup": "Age03",
+        "Gender": "Female",
+        "Population": 37800
+      },
+      {
+        "AgeGroup": "Age04",
+        "Gender": "Male",
+        "Population": 23223
+      },
+      {
+        "AgeGroup": "Age04",
+        "Gender": "Female",
+        "Population": 32245
+      },
+      {
+        "AgeGroup": "Age05",
+        "Gender": "Male",
+        "Population": 8629
+      },
+      {
+        "AgeGroup": "Age05",
+        "Gender": "Female",
+        "Population": 31942
+      },
+      {
+        "AgeGroup": "Age06",
+        "Gender": "Male",
+        "Population": 10922
+      },
+      {
+        "AgeGroup": "Age06",
+        "Gender": "Female",
+        "Population": 15683
+      },
+      {
+        "AgeGroup": "Age07",
+        "Gender": "Male",
+        "Population": 8762
+      },
+      {
+        "AgeGroup": "Age07",
+        "Gender": "Female",
+        "Population": 24840
+      },
+      {
+        "AgeGroup": "Age08",
+        "Gender": "Male",
+        "Population": 8544
+      },
+      {
+        "AgeGroup": "Age08",
+        "Gender": "Female",
+        "Population": 32371
+      },
+      {
+        "AgeGroup": "Age09",
+        "Gender": "Male",
+        "Population": 19584
+      },
+      {
+        "AgeGroup": "Age09",
+        "Gender": "Female",
+        "Population": 12653
+      },
+      {
+        "AgeGroup": "Age10",
+        "Gender": "Male",
+        "Population": 5840
+      },
+      {
+        "AgeGroup": "Age10",
+        "Gender": "Female",
+        "Population": 11324
+      },
+      {
+        "AgeGroup": "Age11",
+        "Gender": "Male",
+        "Population": 49175
+      },
+      {
+        "AgeGroup": "Age11",
+        "Gender": "Female",
+        "Population": 7235
+      },
+      {
+        "AgeGroup": "Age12",
+        "Gender": "Male",
+        "Population": 38827
+      },
+      {
+        "AgeGroup": "Age12",
+        "Gender": "Female",
+        "Population": 26666
+      },
+      {
+        "AgeGroup": "Age13",
+        "Gender": "Male",
+        "Population": 20613
+      },
+      {
+        "AgeGroup": "Age13",
+        "Gender": "Female",
+        "Population": 16412
+      },
+      {
+        "AgeGroup": "Age14",
+        "Gender": "Male",
+        "Population": 18536
+      },
+      {
+        "AgeGroup": "Age14",
+        "Gender": "Female",
+        "Population": 35435
+      },
+      {
+        "AgeGroup": "Age15",
+        "Gender": "Male",
+        "Population": 10762
+      },
+      {
+        "AgeGroup": "Age15",
+        "Gender": "Female",
+        "Population": 22007
+      },
+      {
+        "AgeGroup": "Age16",
+        "Gender": "Male",
+        "Population": 19865
+      },
+      {
+        "AgeGroup": "Age16",
+        "Gender": "Female",
+        "Population": 32245
+      },
+      {
+        "AgeGroup": "Age17",
+        "Gender": "Male",
+        "Population": 47236
+      },
+      {
+        "AgeGroup": "Age17",
+        "Gender": "Female",
+        "Population": 47913
+      },
+      {
+        "AgeGroup": "Age18",
+        "Gender": "Male",
+        "Population": 15615
+      },
+      {
+        "AgeGroup": "Age18",
+        "Gender": "Female",
+        "Population": 44172
+      },
+      {
+        "AgeGroup": "Age19",
+        "Gender": "Male",
+        "Population": 9148
+      },
+      {
+        "AgeGroup": "Age19",
+        "Gender": "Female",
+        "Population": 34937
+      },
+      {
+        "AgeGroup": "Age20",
+        "Gender": "Male",
+        "Population": 12998
+      },
+      {
+        "AgeGroup": "Age20",
+        "Gender": "Female",
+        "Population": 20914
+      }
+    ]
+  },
+  "_width": 283,
+  "_height": 300,
+  "_options": []
+}

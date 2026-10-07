@@ -1,0 +1,156 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "region",
+      "type": "nominal",
+      "sort": [
+        "North",
+        "East",
+        "South",
+        "West"
+      ]
+    },
+    "y": {
+      "field": "overlap_pct",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "source",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 37
+  },
+  "data": {
+    "values": [
+      {
+        "region": "East",
+        "source": "Source X",
+        "overlap_pct": 55
+      },
+      {
+        "region": "East",
+        "source": "Source Y",
+        "overlap_pct": 48
+      },
+      {
+        "region": "East",
+        "source": "Source Z",
+        "overlap_pct": 42
+      },
+      {
+        "region": "West",
+        "source": "Source X",
+        "overlap_pct": 60
+      },
+      {
+        "region": "West",
+        "source": "Source Y",
+        "overlap_pct": 50
+      },
+      {
+        "region": "West",
+        "source": "Source Z",
+        "overlap_pct": 45
+      },
+      {
+        "region": "North",
+        "source": "Source X",
+        "overlap_pct": 45
+      },
+      {
+        "region": "North",
+        "source": "Source Y",
+        "overlap_pct": 52
+      },
+      {
+        "region": "North",
+        "source": "Source Z",
+        "overlap_pct": 43
+      },
+      {
+        "region": "South",
+        "source": "Source X",
+        "overlap_pct": 58
+      },
+      {
+        "region": "South",
+        "source": "Source Y",
+        "overlap_pct": 55
+      },
+      {
+        "region": "South",
+        "source": "Source Z",
+        "overlap_pct": 47
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

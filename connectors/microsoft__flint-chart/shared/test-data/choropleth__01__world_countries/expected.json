@@ -1,0 +1,296 @@
+{
+  "mark": {
+    "type": "geoshape",
+    "stroke": "white",
+    "strokeWidth": 0.4
+  },
+  "encoding": {
+    "color": {
+      "field": "value",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "blues"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "country",
+        "type": "nominal"
+      },
+      {
+        "field": "value",
+        "type": "quantitative"
+      }
+    ]
+  },
+  "width": 600,
+  "height": 350,
+  "data": {
+    "url": "https://vega.github.io/vega-lite/data/world-110m.json",
+    "format": {
+      "type": "topojson",
+      "feature": "countries"
+    }
+  },
+  "projection": {
+    "type": "equalEarth"
+  },
+  "transform": [
+    {
+      "lookup": "id",
+      "from": {
+        "data": {
+          "values": [
+            {
+              "country": "China",
+              "value": 1410,
+              "__geo_id": 156
+            },
+            {
+              "country": "India",
+              "value": 1428,
+              "__geo_id": 356
+            },
+            {
+              "country": "United States",
+              "value": 339,
+              "__geo_id": 840
+            },
+            {
+              "country": "Indonesia",
+              "value": 277,
+              "__geo_id": 360
+            },
+            {
+              "country": "Pakistan",
+              "value": 240,
+              "__geo_id": 586
+            },
+            {
+              "country": "Nigeria",
+              "value": 223,
+              "__geo_id": 566
+            },
+            {
+              "country": "Brazil",
+              "value": 216,
+              "__geo_id": 76
+            },
+            {
+              "country": "Bangladesh",
+              "value": 173,
+              "__geo_id": 50
+            },
+            {
+              "country": "Russia",
+              "value": 144,
+              "__geo_id": 643
+            },
+            {
+              "country": "Mexico",
+              "value": 128,
+              "__geo_id": 484
+            },
+            {
+              "country": "Ethiopia",
+              "value": 126,
+              "__geo_id": 231
+            },
+            {
+              "country": "Japan",
+              "value": 124,
+              "__geo_id": 392
+            },
+            {
+              "country": "Philippines",
+              "value": 117,
+              "__geo_id": 608
+            },
+            {
+              "country": "Egypt",
+              "value": 112,
+              "__geo_id": 818
+            },
+            {
+              "country": "DR Congo",
+              "value": 102,
+              "__geo_id": 180
+            },
+            {
+              "country": "Vietnam",
+              "value": 98,
+              "__geo_id": 704
+            },
+            {
+              "country": "Iran",
+              "value": 89,
+              "__geo_id": 364
+            },
+            {
+              "country": "Turkey",
+              "value": 85,
+              "__geo_id": 792
+            },
+            {
+              "country": "Germany",
+              "value": 84,
+              "__geo_id": 276
+            },
+            {
+              "country": "Thailand",
+              "value": 71,
+              "__geo_id": 764
+            },
+            {
+              "country": "United Kingdom",
+              "value": 67,
+              "__geo_id": 826
+            },
+            {
+              "country": "France",
+              "value": 68,
+              "__geo_id": 250
+            },
+            {
+              "country": "South Africa",
+              "value": 60,
+              "__geo_id": 710
+            },
+            {
+              "country": "Italy",
+              "value": 59,
+              "__geo_id": 380
+            },
+            {
+              "country": "Kenya",
+              "value": 55,
+              "__geo_id": 404
+            },
+            {
+              "country": "Colombia",
+              "value": 52,
+              "__geo_id": 170
+            },
+            {
+              "country": "Spain",
+              "value": 47,
+              "__geo_id": 724
+            },
+            {
+              "country": "Argentina",
+              "value": 46,
+              "__geo_id": 32
+            },
+            {
+              "country": "Algeria",
+              "value": 45,
+              "__geo_id": 12
+            },
+            {
+              "country": "Canada",
+              "value": 39,
+              "__geo_id": 124
+            },
+            {
+              "country": "Poland",
+              "value": 38,
+              "__geo_id": 616
+            },
+            {
+              "country": "Ukraine",
+              "value": 37,
+              "__geo_id": 804
+            },
+            {
+              "country": "Saudi Arabia",
+              "value": 37,
+              "__geo_id": 682
+            },
+            {
+              "country": "Morocco",
+              "value": 37,
+              "__geo_id": 504
+            },
+            {
+              "country": "Peru",
+              "value": 34,
+              "__geo_id": 604
+            },
+            {
+              "country": "Australia",
+              "value": 26,
+              "__geo_id": 36
+            },
+            {
+              "country": "Kazakhstan",
+              "value": 19,
+              "__geo_id": 398
+            },
+            {
+              "country": "Chile",
+              "value": 19,
+              "__geo_id": 152
+            },
+            {
+              "country": "Sweden",
+              "value": 10,
+              "__geo_id": 752
+            },
+            {
+              "country": "Norway",
+              "value": 5.5,
+              "__geo_id": 578
+            }
+          ]
+        },
+        "key": "__geo_id",
+        "fields": [
+          "value",
+          "country"
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 600,
+      "continuousHeight": 350
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "region",
+      "label": "Region",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto-detect"
+        },
+        {
+          "value": "us",
+          "label": "United States"
+        },
+        {
+          "value": "world",
+          "label": "World"
+        }
+      ],
+      "defaultValue": "auto",
+      "applicable": true,
+      "value": "world"
+    }
+  ]
+}

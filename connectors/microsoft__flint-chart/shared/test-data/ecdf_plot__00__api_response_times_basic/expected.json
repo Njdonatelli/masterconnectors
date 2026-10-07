@@ -1,0 +1,496 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Response Time (ms)",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Response Time (ms)",
+          "order": "ascending"
+        }
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Response Time (ms)",
+          "as": "__ecdf_total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Response Time (ms)",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Response Time (ms)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Response Time (ms)": 170
+      },
+      {
+        "Response Time (ms)": 303
+      },
+      {
+        "Response Time (ms)": 174
+      },
+      {
+        "Response Time (ms)": 274
+      },
+      {
+        "Response Time (ms)": 224
+      },
+      {
+        "Response Time (ms)": 98
+      },
+      {
+        "Response Time (ms)": 186
+      },
+      {
+        "Response Time (ms)": 255
+      },
+      {
+        "Response Time (ms)": 316
+      },
+      {
+        "Response Time (ms)": 280
+      },
+      {
+        "Response Time (ms)": 303
+      },
+      {
+        "Response Time (ms)": 229
+      },
+      {
+        "Response Time (ms)": 157
+      },
+      {
+        "Response Time (ms)": 188
+      },
+      {
+        "Response Time (ms)": 196
+      },
+      {
+        "Response Time (ms)": 214
+      },
+      {
+        "Response Time (ms)": 318
+      },
+      {
+        "Response Time (ms)": 215
+      },
+      {
+        "Response Time (ms)": 250
+      },
+      {
+        "Response Time (ms)": 177
+      },
+      {
+        "Response Time (ms)": 201
+      },
+      {
+        "Response Time (ms)": 189
+      },
+      {
+        "Response Time (ms)": 258
+      },
+      {
+        "Response Time (ms)": 307
+      },
+      {
+        "Response Time (ms)": 269
+      },
+      {
+        "Response Time (ms)": 226
+      },
+      {
+        "Response Time (ms)": 160
+      },
+      {
+        "Response Time (ms)": 321
+      },
+      {
+        "Response Time (ms)": 228
+      },
+      {
+        "Response Time (ms)": 231
+      },
+      {
+        "Response Time (ms)": 204
+      },
+      {
+        "Response Time (ms)": 240
+      },
+      {
+        "Response Time (ms)": 118
+      },
+      {
+        "Response Time (ms)": 235
+      },
+      {
+        "Response Time (ms)": 193
+      },
+      {
+        "Response Time (ms)": 163
+      },
+      {
+        "Response Time (ms)": 98
+      },
+      {
+        "Response Time (ms)": 237
+      },
+      {
+        "Response Time (ms)": 280
+      },
+      {
+        "Response Time (ms)": 268
+      },
+      {
+        "Response Time (ms)": 215
+      },
+      {
+        "Response Time (ms)": 333
+      },
+      {
+        "Response Time (ms)": 242
+      },
+      {
+        "Response Time (ms)": 253
+      },
+      {
+        "Response Time (ms)": 138
+      },
+      {
+        "Response Time (ms)": 229
+      },
+      {
+        "Response Time (ms)": 300
+      },
+      {
+        "Response Time (ms)": 201
+      },
+      {
+        "Response Time (ms)": 202
+      },
+      {
+        "Response Time (ms)": 223
+      },
+      {
+        "Response Time (ms)": 268
+      },
+      {
+        "Response Time (ms)": 238
+      },
+      {
+        "Response Time (ms)": 342
+      },
+      {
+        "Response Time (ms)": 227
+      },
+      {
+        "Response Time (ms)": 172
+      },
+      {
+        "Response Time (ms)": 175
+      },
+      {
+        "Response Time (ms)": 318
+      },
+      {
+        "Response Time (ms)": 177
+      },
+      {
+        "Response Time (ms)": 142
+      },
+      {
+        "Response Time (ms)": 171
+      },
+      {
+        "Response Time (ms)": 271
+      },
+      {
+        "Response Time (ms)": 218
+      },
+      {
+        "Response Time (ms)": 197
+      },
+      {
+        "Response Time (ms)": 207
+      },
+      {
+        "Response Time (ms)": 272
+      },
+      {
+        "Response Time (ms)": 266
+      },
+      {
+        "Response Time (ms)": 228
+      },
+      {
+        "Response Time (ms)": 161
+      },
+      {
+        "Response Time (ms)": 238
+      },
+      {
+        "Response Time (ms)": 281
+      },
+      {
+        "Response Time (ms)": 237
+      },
+      {
+        "Response Time (ms)": 184
+      },
+      {
+        "Response Time (ms)": 289
+      },
+      {
+        "Response Time (ms)": 261
+      },
+      {
+        "Response Time (ms)": 180
+      },
+      {
+        "Response Time (ms)": 181
+      },
+      {
+        "Response Time (ms)": 122
+      },
+      {
+        "Response Time (ms)": 246
+      },
+      {
+        "Response Time (ms)": 195
+      },
+      {
+        "Response Time (ms)": 149
+      },
+      {
+        "Response Time (ms)": 213
+      },
+      {
+        "Response Time (ms)": 267
+      },
+      {
+        "Response Time (ms)": 291
+      },
+      {
+        "Response Time (ms)": 328
+      },
+      {
+        "Response Time (ms)": 182
+      },
+      {
+        "Response Time (ms)": 296
+      },
+      {
+        "Response Time (ms)": 301
+      },
+      {
+        "Response Time (ms)": 164
+      },
+      {
+        "Response Time (ms)": 221
+      },
+      {
+        "Response Time (ms)": 246
+      },
+      {
+        "Response Time (ms)": 236
+      },
+      {
+        "Response Time (ms)": 237
+      },
+      {
+        "Response Time (ms)": 241
+      },
+      {
+        "Response Time (ms)": 224
+      },
+      {
+        "Response Time (ms)": 232
+      },
+      {
+        "Response Time (ms)": 255
+      },
+      {
+        "Response Time (ms)": 180
+      },
+      {
+        "Response Time (ms)": 277
+      },
+      {
+        "Response Time (ms)": 249
+      },
+      {
+        "Response Time (ms)": 209
+      },
+      {
+        "Response Time (ms)": 277
+      },
+      {
+        "Response Time (ms)": 281
+      },
+      {
+        "Response Time (ms)": 315
+      },
+      {
+        "Response Time (ms)": 307
+      },
+      {
+        "Response Time (ms)": 338
+      },
+      {
+        "Response Time (ms)": 225
+      },
+      {
+        "Response Time (ms)": 253
+      },
+      {
+        "Response Time (ms)": 227
+      },
+      {
+        "Response Time (ms)": 390
+      },
+      {
+        "Response Time (ms)": 214
+      },
+      {
+        "Response Time (ms)": 251
+      },
+      {
+        "Response Time (ms)": 269
+      },
+      {
+        "Response Time (ms)": 258
+      },
+      {
+        "Response Time (ms)": 286
+      },
+      {
+        "Response Time (ms)": 180
+      },
+      {
+        "Response Time (ms)": 250
+      },
+      {
+        "Response Time (ms)": 274
+      },
+      {
+        "Response Time (ms)": 214
+      },
+      {
+        "Response Time (ms)": 324
+      },
+      {
+        "Response Time (ms)": 196
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

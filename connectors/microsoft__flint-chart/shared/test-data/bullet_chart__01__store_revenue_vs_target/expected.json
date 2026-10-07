@@ -1,0 +1,424 @@
+{
+  "encoding": {
+    "y": {
+      "field": "store",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "title": null
+      }
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "store": "Seattle",
+            "__lo": 0,
+            "__hi": 135
+          },
+          {
+            "store": "Portland",
+            "__lo": 0,
+            "__hi": 105
+          },
+          {
+            "store": "Denver",
+            "__lo": 0,
+            "__hi": 117.5
+          },
+          {
+            "store": "Austin",
+            "__lo": 0,
+            "__hi": 180
+          },
+          {
+            "store": "Chicago",
+            "__lo": 0,
+            "__hi": 140
+          },
+          {
+            "store": "Boston",
+            "__lo": 0,
+            "__hi": 87.5
+          },
+          {
+            "store": "Atlanta",
+            "__lo": 0,
+            "__hi": 125
+          },
+          {
+            "store": "Miami",
+            "__lo": 0,
+            "__hi": 120
+          },
+          {
+            "store": "Phoenix",
+            "__lo": 0,
+            "__hi": 75
+          },
+          {
+            "store": "Dallas",
+            "__lo": 0,
+            "__hi": 162.5
+          },
+          {
+            "store": "Detroit",
+            "__lo": 0,
+            "__hi": 80
+          },
+          {
+            "store": "Newark",
+            "__lo": 0,
+            "__hi": 115
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#e2e2e2",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "__lo",
+          "type": "quantitative",
+          "axis": {
+            "title": "revenue",
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "field": "__hi"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "store": "Seattle",
+            "__lo": 135,
+            "__hi": 270
+          },
+          {
+            "store": "Portland",
+            "__lo": 105,
+            "__hi": 210
+          },
+          {
+            "store": "Denver",
+            "__lo": 117.5,
+            "__hi": 235
+          },
+          {
+            "store": "Austin",
+            "__lo": 180,
+            "__hi": 360
+          },
+          {
+            "store": "Chicago",
+            "__lo": 140,
+            "__hi": 280
+          },
+          {
+            "store": "Boston",
+            "__lo": 87.5,
+            "__hi": 175
+          },
+          {
+            "store": "Atlanta",
+            "__lo": 125,
+            "__hi": 250
+          },
+          {
+            "store": "Miami",
+            "__lo": 120,
+            "__hi": 240
+          },
+          {
+            "store": "Phoenix",
+            "__lo": 75,
+            "__hi": 150
+          },
+          {
+            "store": "Dallas",
+            "__lo": 162.5,
+            "__hi": 325
+          },
+          {
+            "store": "Detroit",
+            "__lo": 80,
+            "__hi": 160
+          },
+          {
+            "store": "Newark",
+            "__lo": 115,
+            "__hi": 230
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#ececec",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "__lo",
+          "type": "quantitative",
+          "axis": {
+            "title": "revenue",
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "field": "__hi"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "store": "Seattle",
+            "__lo": 270,
+            "__hi": 405
+          },
+          {
+            "store": "Portland",
+            "__lo": 210,
+            "__hi": 315
+          },
+          {
+            "store": "Denver",
+            "__lo": 235,
+            "__hi": 352.5
+          },
+          {
+            "store": "Austin",
+            "__lo": 360,
+            "__hi": 540
+          },
+          {
+            "store": "Chicago",
+            "__lo": 280,
+            "__hi": 420
+          },
+          {
+            "store": "Boston",
+            "__lo": 175,
+            "__hi": 262.5
+          },
+          {
+            "store": "Atlanta",
+            "__lo": 250,
+            "__hi": 375
+          },
+          {
+            "store": "Miami",
+            "__lo": 240,
+            "__hi": 360
+          },
+          {
+            "store": "Phoenix",
+            "__lo": 150,
+            "__hi": 225
+          },
+          {
+            "store": "Dallas",
+            "__lo": 325,
+            "__hi": 487.5
+          },
+          {
+            "store": "Detroit",
+            "__lo": 160,
+            "__hi": 240
+          },
+          {
+            "store": "Newark",
+            "__lo": 230,
+            "__hi": 345
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#f5f5f5",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "__lo",
+          "type": "quantitative",
+          "axis": {
+            "title": "revenue",
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "field": "__hi"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.5
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "revenue",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "revenue",
+            "format": ",.12~g"
+          }
+        },
+        "color": {
+          "field": "__status",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Below target",
+              "Meets target"
+            ],
+            "range": [
+              "#c44e52",
+              "#2f855a"
+            ]
+          },
+          "legend": {
+            "title": null
+          },
+          "title": null
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum[\"revenue\"] >= datum[\"target\"] ? 'Meets target' : 'Below target'",
+          "as": "__status"
+        }
+      ]
+    },
+    {
+      "mark": {
+        "type": "tick",
+        "color": "#1a1a1a",
+        "thickness": 3,
+        "opacity": 1,
+        "size": 24
+      },
+      "encoding": {
+        "x": {
+          "field": "target",
+          "type": "quantitative",
+          "axis": {
+            "title": "revenue",
+            "format": ",.12~g"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 430,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "height": {
+    "step": 33
+  },
+  "data": {
+    "values": [
+      {
+        "store": "Seattle",
+        "revenue": 612,
+        "target": 540
+      },
+      {
+        "store": "Portland",
+        "revenue": 388,
+        "target": 420
+      },
+      {
+        "store": "Denver",
+        "revenue": 470,
+        "target": 470
+      },
+      {
+        "store": "Austin",
+        "revenue": 845,
+        "target": 720
+      },
+      {
+        "store": "Chicago",
+        "revenue": 503,
+        "target": 560
+      },
+      {
+        "store": "Boston",
+        "revenue": 266,
+        "target": 350
+      },
+      {
+        "store": "Atlanta",
+        "revenue": 591,
+        "target": 500
+      },
+      {
+        "store": "Miami",
+        "revenue": 432,
+        "target": 480
+      },
+      {
+        "store": "Phoenix",
+        "revenue": 358,
+        "target": 300
+      },
+      {
+        "store": "Dallas",
+        "revenue": 707,
+        "target": 650
+      },
+      {
+        "store": "Detroit",
+        "revenue": 214,
+        "target": 320
+      },
+      {
+        "store": "Newark",
+        "revenue": 489,
+        "target": 460
+      }
+    ]
+  },
+  "_width": 430,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

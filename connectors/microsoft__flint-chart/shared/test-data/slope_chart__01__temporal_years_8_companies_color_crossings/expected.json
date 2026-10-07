@@ -1,0 +1,187 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "ordinal",
+      "sort": [
+        "2018",
+        "2023"
+      ],
+      "scale": {
+        "padding": 0.4
+      }
+    },
+    "y": {
+      "field": "Market Share",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true,
+        "padding": 12
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Company",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "width": {
+    "step": 224
+  },
+  "data": {
+    "values": [
+      {
+        "Year": "2018",
+        "Company": "Apple",
+        "Market Share": 36
+      },
+      {
+        "Year": "2023",
+        "Company": "Apple",
+        "Market Share": 94
+      },
+      {
+        "Year": "2018",
+        "Company": "Google",
+        "Market Share": 39
+      },
+      {
+        "Year": "2023",
+        "Company": "Google",
+        "Market Share": 85
+      },
+      {
+        "Year": "2018",
+        "Company": "Microsoft",
+        "Market Share": 50
+      },
+      {
+        "Year": "2023",
+        "Company": "Microsoft",
+        "Market Share": 74
+      },
+      {
+        "Year": "2018",
+        "Company": "Amazon",
+        "Market Share": 58
+      },
+      {
+        "Year": "2023",
+        "Company": "Amazon",
+        "Market Share": 66
+      },
+      {
+        "Year": "2018",
+        "Company": "Meta",
+        "Market Share": 67
+      },
+      {
+        "Year": "2023",
+        "Company": "Meta",
+        "Market Share": 63
+      },
+      {
+        "Year": "2018",
+        "Company": "Tesla",
+        "Market Share": 75
+      },
+      {
+        "Year": "2023",
+        "Company": "Tesla",
+        "Market Share": 56
+      },
+      {
+        "Year": "2018",
+        "Company": "Netflix",
+        "Market Share": 84
+      },
+      {
+        "Year": "2023",
+        "Company": "Netflix",
+        "Market Share": 46
+      },
+      {
+        "Year": "2018",
+        "Company": "Adobe",
+        "Market Share": 86
+      },
+      {
+        "Year": "2023",
+        "Company": "Adobe",
+        "Market Share": 37
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

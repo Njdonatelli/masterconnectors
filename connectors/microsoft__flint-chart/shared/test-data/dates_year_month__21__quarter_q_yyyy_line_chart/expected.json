@@ -1,0 +1,265 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Quarter",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 25
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Quarter": "Q1 2018",
+        "Value": 296
+      },
+      {
+        "Quarter": "Q2 2018",
+        "Value": 87
+      },
+      {
+        "Quarter": "Q3 2018",
+        "Value": 404
+      },
+      {
+        "Quarter": "Q4 2018",
+        "Value": 143
+      },
+      {
+        "Quarter": "Q1 2019",
+        "Value": 413
+      },
+      {
+        "Quarter": "Q2 2019",
+        "Value": 400
+      },
+      {
+        "Quarter": "Q3 2019",
+        "Value": 86
+      },
+      {
+        "Quarter": "Q4 2019",
+        "Value": 399
+      },
+      {
+        "Quarter": "Q1 2020",
+        "Value": 463
+      },
+      {
+        "Quarter": "Q2 2020",
+        "Value": 97
+      },
+      {
+        "Quarter": "Q3 2020",
+        "Value": 183
+      },
+      {
+        "Quarter": "Q4 2020",
+        "Value": 402
+      },
+      {
+        "Quarter": "Q1 2021",
+        "Value": 390
+      },
+      {
+        "Quarter": "Q2 2021",
+        "Value": 397
+      },
+      {
+        "Quarter": "Q3 2021",
+        "Value": 359
+      },
+      {
+        "Quarter": "Q4 2021",
+        "Value": 194
+      },
+      {
+        "Quarter": "Q1 2022",
+        "Value": 318
+      },
+      {
+        "Quarter": "Q2 2022",
+        "Value": 534
+      },
+      {
+        "Quarter": "Q3 2022",
+        "Value": 374
+      },
+      {
+        "Quarter": "Q4 2022",
+        "Value": 438
+      },
+      {
+        "Quarter": "Q1 2023",
+        "Value": 421
+      },
+      {
+        "Quarter": "Q2 2023",
+        "Value": 306
+      },
+      {
+        "Quarter": "Q3 2023",
+        "Value": 89
+      },
+      {
+        "Quarter": "Q4 2023",
+        "Value": 210
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "title": "8 facets × 3 x-bars",
+  "description": "8 column facets, each with only 3 x-categories — thin subplots",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Panel": "Panel1",
+          "Type": "Type1",
+          "Value": 98
+        },
+        {
+          "Panel": "Panel1",
+          "Type": "Type2",
+          "Value": 281
+        },
+        {
+          "Panel": "Panel1",
+          "Type": "Type3",
+          "Value": 120
+        },
+        {
+          "Panel": "Panel2",
+          "Type": "Type1",
+          "Value": 193
+        },
+        {
+          "Panel": "Panel2",
+          "Type": "Type2",
+          "Value": 88
+        },
+        {
+          "Panel": "Panel2",
+          "Type": "Type3",
+          "Value": 170
+        },
+        {
+          "Panel": "Panel3",
+          "Type": "Type1",
+          "Value": 175
+        },
+        {
+          "Panel": "Panel3",
+          "Type": "Type2",
+          "Value": 192
+        },
+        {
+          "Panel": "Panel3",
+          "Type": "Type3",
+          "Value": 81
+        },
+        {
+          "Panel": "Panel4",
+          "Type": "Type1",
+          "Value": 152
+        },
+        {
+          "Panel": "Panel4",
+          "Type": "Type2",
+          "Value": 109
+        },
+        {
+          "Panel": "Panel4",
+          "Type": "Type3",
+          "Value": 266
+        },
+        {
+          "Panel": "Panel5",
+          "Type": "Type1",
+          "Value": 131
+        },
+        {
+          "Panel": "Panel5",
+          "Type": "Type2",
+          "Value": 270
+        },
+        {
+          "Panel": "Panel5",
+          "Type": "Type3",
+          "Value": 238
+        },
+        {
+          "Panel": "Panel6",
+          "Type": "Type1",
+          "Value": 116
+        },
+        {
+          "Panel": "Panel6",
+          "Type": "Type2",
+          "Value": 175
+        },
+        {
+          "Panel": "Panel6",
+          "Type": "Type3",
+          "Value": 79
+        },
+        {
+          "Panel": "Panel7",
+          "Type": "Type1",
+          "Value": 28
+        },
+        {
+          "Panel": "Panel7",
+          "Type": "Type2",
+          "Value": 212
+        },
+        {
+          "Panel": "Panel7",
+          "Type": "Type3",
+          "Value": 241
+        },
+        {
+          "Panel": "Panel8",
+          "Type": "Type1",
+          "Value": 30
+        },
+        {
+          "Panel": "Panel8",
+          "Type": "Type2",
+          "Value": 299
+        },
+        {
+          "Panel": "Panel8",
+          "Type": "Type3",
+          "Value": 282
+        }
+      ]
+    },
+    "semantic_types": {
+      "Panel": "Category",
+      "Type": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "column": {
+          "field": "Panel"
+        },
+        "x": {
+          "field": "Type"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

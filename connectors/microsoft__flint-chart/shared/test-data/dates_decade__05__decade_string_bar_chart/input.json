@@ -1,0 +1,65 @@
+{
+  "title": "Decade (string) → Bar Chart",
+  "description": "Decades as plain strings: \"1950\", \"1960\", … (8 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": "1950",
+          "Value": 200
+        },
+        {
+          "Decade": "1960",
+          "Value": 533
+        },
+        {
+          "Decade": "1970",
+          "Value": 384
+        },
+        {
+          "Decade": "1980",
+          "Value": 154
+        },
+        {
+          "Decade": "1990",
+          "Value": 333
+        },
+        {
+          "Decade": "2000",
+          "Value": 460
+        },
+        {
+          "Decade": "2010",
+          "Value": 267
+        },
+        {
+          "Decade": "2020",
+          "Value": 433
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

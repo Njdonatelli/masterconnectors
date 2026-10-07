@@ -1,0 +1,81 @@
+{
+  "title": "Date (DD.MM.YYYY) → Scatter Plot",
+  "description": "European date: \"15.01.2020\", \"15.02.2020\", … (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "15.01.2020",
+          "Value": 256
+        },
+        {
+          "Date": "15.02.2020",
+          "Value": 314
+        },
+        {
+          "Date": "15.03.2020",
+          "Value": 65
+        },
+        {
+          "Date": "15.04.2020",
+          "Value": 548
+        },
+        {
+          "Date": "15.05.2020",
+          "Value": 68
+        },
+        {
+          "Date": "15.06.2020",
+          "Value": 191
+        },
+        {
+          "Date": "15.07.2020",
+          "Value": 308
+        },
+        {
+          "Date": "15.08.2020",
+          "Value": 500
+        },
+        {
+          "Date": "15.09.2020",
+          "Value": 201
+        },
+        {
+          "Date": "15.10.2020",
+          "Value": 294
+        },
+        {
+          "Date": "15.11.2020",
+          "Value": 252
+        },
+        {
+          "Date": "15.12.2020",
+          "Value": 316
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

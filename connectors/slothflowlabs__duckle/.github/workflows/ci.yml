@@ -1,0 +1,640 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # The Python API writes pipeline JSON the Rust engine has to recognise, and a
+  # property name it does not recognise is ignored rather than rejected. That
+  # made `.limit(2)` return every row and `read_duckdb` return none, both with a
+  # green status. These tests assert the exact component ids and property keys,
+  # so that class of bug fails here instead of in someone's output.
+  python-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Contract tests
+        run: PYTHONPATH=packaging/pypi python -m unittest discover -s packaging/pypi/tests -v
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install
+        run: npm --prefix frontend ci
+      - name: Type-check + build
+        run: npm --prefix frontend run build
+      # #313: the MCP server include_str!s crates/duckle-mcp/catalog.json, so a
+      # manifest change that is not exported leaves agents reading a component
+      # schema that no longer exists. That happened: removing a dead Encoding
+      # control from the file sinks left the catalog advertising it. The export
+      # is deterministic, so regenerating and diffing is the whole check.
+      # A field gated on a value its controlling dropdown cannot produce is
+      # invisible forever, and nothing else reports it: the form renders, the
+      # engine still reads the property, and the only symptom is a setting
+      # nobody can reach.
+      - name: Every visibleWhen condition is satisfiable
+        run: npm --prefix frontend run check-visible-when
+
+      # A value the engine redacts from logs and refuses on deploy must not sit
+      # on screen in the clear. The needles come from the Rust source, so the
+      # two cannot drift apart quietly.
+      - name: Every credential field is masked
+        run: npm --prefix frontend run check-secret-fields
+
+      # The frontend has no unit-test runner. These call the real modules with
+      # real inputs, for logic whose bugs only showed up when it was executed.
+      - name: Frontend logic behaves
+        run: npm --prefix frontend run check-logic
+
+      - name: Catalog is in sync with the manifests
+        run: |
+          npm --prefix frontend run export-catalog
+          git diff --exit-code -- crates/duckle-mcp/catalog.json || {
+            echo "::error::crates/duckle-mcp/catalog.json is stale. Run:"
+            echo "::error::  npm --prefix frontend run export-catalog"
+            echo "::error::and commit the result in the same change as the manifest edit."
+            exit 1
+          }
+      # The site's llms.txt / llms-full.txt are generated FROM that catalog and
+      # are what an agent reads to answer "does Duckle support X". They had
+      # drifted too - 385 components against an actual 409 - so they are
+      # regenerated and diffed for the same reason.
+      - name: Site component index is in sync with the catalog
+        run: |
+          node website/scripts/build-llms.mjs
+          git diff --exit-code -- website/llms.txt website/llms-full.txt || {
+            echo "::error::website/llms.txt is stale. Run:"
+            echo "::error::  node website/scripts/build-llms.mjs"
+            echo "::error::and commit the result."
+            exit 1
+          }
+
+  rust:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, windows-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      # The full workspace (engine + duckle-runner + duckle-mcp + apps/desktop
+      # with two embedded binaries) plus test artifacts can exceed the ~14 GB
+      # free on a GitHub Linux runner ("No space left on device"). Drop large
+      # preinstalled toolchains we never use to reclaim ~20 GB.
+      - name: Free disk space (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /opt/hostedtoolcache/CodeQL /usr/local/.ghcup /usr/local/share/boost \
+            /usr/local/share/powershell /usr/share/swift || true
+          sudo docker image prune --all --force || true
+          df -h /
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Linux WebView deps (Tauri)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev libgtk-3-dev \
+            libayatana-appindicator3-dev librsvg2-dev libsoup-3.0-dev \
+            unixodbc-dev libltdl-dev
+          # libltdl-dev provides libltdl.a, needed alongside unixodbc-dev's
+          # libodbc.a/libodbcinst.a for the static unixODBC link on Linux (#131).
+          # mdbtools: how src.access reads an Access file off Windows, so
+          # tests/access_mdbtools.rs runs here instead of skipping.
+          sudo apt-get install -y mdbtools
+
+      - name: Install DuckDB CLI (for engine tests)
+        shell: bash
+        run: |
+          set -e
+          ver=1.5.5
+          case "$RUNNER_OS" in
+            Linux)   asset=duckdb_cli-linux-amd64.zip;  exe=duckdb ;;
+            Windows) asset=duckdb_cli-windows-amd64.zip; exe=duckdb.exe ;;
+            macOS)   asset=duckdb_cli-osx-universal.zip; exe=duckdb ;;
+          esac
+          # Use RUNNER_TEMP (a native drive-letter path on Windows) so the
+          # binary path resolves for the Rust test process; $HOME is an
+          # MSYS path (/c/...) on the Windows runner and Rust cannot find it.
+          dest="$RUNNER_TEMP/duckdb"
+          mkdir -p "$dest"
+          curl -L -o duckdb.zip "https://github.com/duckdb/duckdb/releases/download/v$ver/$asset"
+          unzip -o duckdb.zip -d "$dest"
+          bin="$dest/$exe"
+          if [ "$RUNNER_OS" = "Windows" ]; then bin="$(cygpath -w "$bin")"; fi
+          echo "using duckdb at: $bin"
+          echo "DUCKLE_DUCKDB_BIN=$bin" >> "$GITHUB_ENV"
+
+      - name: Pre-install DuckDB extensions
+        shell: bash
+        # Install once up front so the per-stage LOAD doesn't race with
+        # parallel test threads downloading the same extension into the
+        # shared ~/.duckdb cache.
+        run: |
+          "$DUCKLE_DUCKDB_BIN" :memory: -c "INSTALL postgres; INSTALL mysql; INSTALL sqlite; INSTALL excel; INSTALL httpfs; INSTALL iceberg; INSTALL delta; INSTALL ducklake; INSTALL vss; INSTALL fts; INSTALL inet;"
+
+      # The desktop crate embeds duckle-runner AND duckle-mcp at compile time
+      # via build.rs include_bytes!, so both binaries must exist before anything
+      # that compiles apps/desktop. Build them in the dev profile so the engine
+      # compilation is shared with the cargo test below.
+      - name: Build + stage duckle-runner + duckle-mcp (embedded into the desktop app)
+        shell: bash
+        run: |
+          set -e
+          cargo build -p duckle-runner -p duckle-mcp
+          mkdir -p apps/desktop/bin
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            cp target/debug/duckle-runner.exe apps/desktop/bin/duckle-runner.exe
+            cp target/debug/duckle-mcp.exe apps/desktop/bin/duckle-mcp.exe
+          else
+            cp target/debug/duckle-runner apps/desktop/bin/duckle-runner
+            cp target/debug/duckle-mcp apps/desktop/bin/duckle-mcp
+          fi
+
+      # #90: the samples under examples/ are runnable workspaces, not
+      # screenshots - validate compiles every pipeline on every OS, and the
+      # Linux leg (which has the runner and a DuckDB binary) runs each
+      # top-level pipeline so a broken sample fails CI instead of a user's
+      # first run. Children (the _-prefixed pipelineRef targets) run through
+      # their parents.
+      - name: Validate the example workspaces compile
+        shell: bash
+        run: |
+          set -e
+          runner=target/debug/duckle-runner
+          [ "$RUNNER_OS" = "Windows" ] && runner=target/debug/duckle-runner.exe
+          for ws in examples/*/; do
+            [ -d "$ws/pipelines" ] || continue
+            "$runner" validate "$ws"pipelines/*.pipeline.json
+          done
+
+      - name: Run the example workspaces
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -e
+          for ws in examples/*/; do
+            # starter-workspace's inputs are generated, not committed.
+            if [ -f "$ws/gen_samples.sql" ]; then
+              mkdir -p "$ws/data"
+              sed "s|\${workspace}|$PWD/${ws%/}|g" "$ws/gen_samples.sql" | "$DUCKLE_DUCKDB_BIN" :memory:
+            fi
+            [ -d "$ws/pipelines" ] || continue
+            for p in "$ws"pipelines/*.pipeline.json; do
+              case "$(basename "$p")" in _*) continue ;; esac
+              echo "== $p"
+              target/debug/duckle-runner --pipeline "$p" --workspace "${ws%/}" --log-dir "$RUNNER_TEMP/duckle-logs"
+            done
+          done
+          # A sink that reports rows but writes nowhere would pass the loop
+          # above - check a known output actually landed on disk.
+          test -s examples/flow-control/output/by_region/North.csv
+
+      - name: Test
+        # Exclude duckle-lance: the LanceDB sidecar pulls lancedb + DataFusion and
+        # needs protoc to build. It is built separately (with protoc) in the
+        # release/bundle job, so the routine workspace test stays fast + toolchain-free.
+        run: cargo test --workspace --exclude duckle-lance
+
+      # Style checks are informational - they report problems without
+      # failing the build.
+      # #313: generated FROM the registry, so it cannot disagree with the code -
+      # but only if nobody has to remember to regenerate it. Here rather than in
+      # a job of its own: this leg already has unixodbc-dev and a built
+      # workspace, and a standalone job had neither, so it failed to compile
+      # instead of checking anything.
+      - name: Capability matrix is in sync with the registry
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          cargo run -q -p duckle-runner -- capabilities --markdown > docs/capability-matrix.md
+          git diff --exit-code -- docs/capability-matrix.md || {
+            echo "::error::docs/capability-matrix.md is stale. Run:"
+            echo "::error::  cargo run -p duckle-runner -- capabilities --markdown > docs/capability-matrix.md"
+            echo "::error::and commit it in the same change as the component edit."
+            exit 1
+          }
+
+      - name: Format check
+        continue-on-error: true
+        run: cargo fmt --all --check
+      - name: Clippy
+        continue-on-error: true
+        run: cargo clippy --workspace --all-targets --exclude duckle-lance
+
+  # Smoke build of the desktop release binary - the exact same command
+  # the release workflow runs. Catches feature-flag regressions like
+  # the v0.0.7 bug where `cargo build --release` (without
+  # `--features custom-protocol`) silently shipped a binary that loaded
+  # `http://localhost:5173` inside the Tauri WebView instead of the
+  # embedded frontend. `cargo test --workspace` never exercises this
+  # path, so the bug only surfaces when someone downloads + launches
+  # the published artifact.
+  desktop-release-build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - name: Free disk space
+        shell: bash
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /opt/hostedtoolcache/CodeQL /usr/local/.ghcup /usr/local/share/boost \
+            /usr/local/share/powershell /usr/share/swift || true
+          sudo docker image prune --all --force || true
+          df -h /
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend deps
+        run: npm --prefix frontend ci
+      - name: Build frontend (embedded into the Rust binary)
+        run: npm --prefix frontend run build
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install Linux WebView deps (Tauri)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libwebkit2gtk-4.1-dev libgtk-3-dev \
+            libayatana-appindicator3-dev librsvg2-dev libsoup-3.0-dev \
+            unixodbc-dev libltdl-dev
+          # libltdl-dev provides libltdl.a, needed alongside unixodbc-dev's
+          # libodbc.a/libodbcinst.a for the static unixODBC link on Linux (#131).
+      # Build + stage duckle-runner + duckle-mcp first: the desktop crate embeds
+      # both at compile time (build.rs include_bytes!). Release profile so the
+      # engine build is shared with the desktop release build below.
+      - name: Build + stage duckle-runner + duckle-mcp (embedded into the desktop app)
+        run: |
+          set -e
+          cargo build --release -p duckle-runner -p duckle-mcp
+          mkdir -p apps/desktop/bin
+          cp target/release/duckle-runner apps/desktop/bin/duckle-runner
+          cp target/release/duckle-mcp apps/desktop/bin/duckle-mcp
+      - name: Build raw Duckle binary (release workflow command)
+        run: cargo build --release --manifest-path apps/desktop/Cargo.toml --features custom-protocol
+      - name: Verify embedded frontend (not devUrl) is in binary
+        # Grep the built binary for the frontend's main JS chunk filename.
+        # If tauri-codegen embedded devUrl instead, this string will be
+        # absent and the check fails - catching the v0.0.7-class bug.
+        run: |
+          set -e
+          asset=$(ls frontend/dist/assets/index-*.js | head -1 | xargs basename)
+          if grep -q "$asset" target/release/duckle; then
+            echo "OK: embedded frontend asset '$asset' is present in the binary"
+          else
+            echo "FAIL: frontend asset '$asset' NOT found in binary - tauri-codegen likely embedded devUrl"
+            exit 1
+          fi
+
+  # Live PostgreSQL integration tests. Runs against a real postgres
+  # service container; engine tests that don't see DUCKLE_PG_HOST in the
+  # main matrix job skip cleanly, so this is the only place they execute.
+  postgres-integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_PASSWORD: pgtest
+          POSTGRES_DB: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install DuckDB CLI
+        run: |
+          set -e
+          curl -L -o duckdb.zip https://github.com/duckdb/duckdb/releases/download/v1.5.5/duckdb_cli-linux-amd64.zip
+          mkdir -p "$RUNNER_TEMP/duckdb"
+          unzip -o duckdb.zip -d "$RUNNER_TEMP/duckdb"
+          echo "DUCKLE_DUCKDB_BIN=$RUNNER_TEMP/duckdb/duckdb" >> "$GITHUB_ENV"
+      - name: Pre-install postgres extension
+        run: |
+          "$DUCKLE_DUCKDB_BIN" :memory: -c "INSTALL postgres;"
+      - name: Run PostgreSQL integration tests
+        env:
+          DUCKLE_PG_HOST: localhost
+          DUCKLE_PG_PORT: '5432'
+          DUCKLE_PG_DB: postgres
+          DUCKLE_PG_USER: postgres
+          DUCKLE_PG_PASS: pgtest
+        run: cargo test -p duckle-duckdb-engine --test execution -- pg_
+      # Logical decoding needs wal_level=logical, which a service container
+      # cannot be started with, so it is set and the container restarted. The
+      # final check fails the step if the setting did not take, rather than
+      # letting the CDC tests fail for a reason that is not theirs.
+      - name: Enable logical decoding for the CDC tests
+        run: |
+          set -e
+          id=${{ job.services.postgres.id }}
+          docker exec "$id" psql -U postgres -c "ALTER SYSTEM SET wal_level = logical"
+          docker restart "$id"
+          for i in $(seq 1 30); do docker exec "$id" pg_isready -U postgres && break; sleep 2; done
+          docker exec "$id" psql -U postgres -tAc "SHOW wal_level" | grep -qx logical
+      - name: Run PostgreSQL CDC tests
+        env:
+          DUCKLE_PG_HOST: localhost
+          DUCKLE_PG_PORT: '5432'
+          DUCKLE_PG_DB: postgres
+          DUCKLE_PG_USER: postgres
+          DUCKLE_PG_PASS: pgtest
+        run: cargo test -p duckle-duckdb-engine --test postgres_cdc
+
+  # Live Iceberg REST catalog tests: the catalog the Iceberg project itself
+  # tests against, with its warehouse on MinIO. Started with docker run rather
+  # than as service containers, because a service cannot be given a command
+  # and MinIO needs `server /data`.
+  iceberg-rest-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install DuckDB CLI
+        run: |
+          set -e
+          curl -L -o duckdb.zip https://github.com/duckdb/duckdb/releases/download/v1.5.5/duckdb_cli-linux-amd64.zip
+          mkdir -p "$RUNNER_TEMP/duckdb"
+          unzip -o duckdb.zip -d "$RUNNER_TEMP/duckdb"
+          echo "DUCKLE_DUCKDB_BIN=$RUNNER_TEMP/duckdb/duckdb" >> "$GITHUB_ENV"
+      - name: Pre-install extensions
+        run: |
+          "$DUCKLE_DUCKDB_BIN" :memory: -c "INSTALL iceberg; INSTALL httpfs;"
+      - name: Start MinIO and the Iceberg REST catalog
+        run: |
+          set -e
+          # The official MinIO images are gone from Docker Hub and quay.io; this is
+          # the MinIO server as Chainguard builds it, pinned by digest, and the
+          # same one the minio job below uses.
+          MINIO=cgr.dev/chainguard/minio@sha256:bd014394a80898e68c149f2311fdf8d5a2c2f3bb2c33b9327ae6d02b4b065ae1
+          for i in 1 2 3; do
+            docker pull "$MINIO" && break
+            echo "docker pull attempt $i failed; retrying in 5s"; sleep 5
+          done
+          docker network create ice
+          docker run -d --name minio --network ice -p 9000:9000 \
+            -e MINIO_ROOT_USER=admin -e MINIO_ROOT_PASSWORD=password \
+            "$MINIO" server /data
+          for i in $(seq 1 30); do curl -sf http://localhost:9000/minio/health/live && break; sleep 2; done
+          # The bucket, with a signed PUT rather than an mc container.
+          curl -fsS -X PUT --aws-sigv4 "aws:amz:us-east-1:s3" --user admin:password http://localhost:9000/warehouse
+          docker run -d --name rest --network ice -p 8181:8181 \
+            -e AWS_ACCESS_KEY_ID=admin -e AWS_SECRET_ACCESS_KEY=password -e AWS_REGION=us-east-1 \
+            -e CATALOG_WAREHOUSE=s3://warehouse/ \
+            -e CATALOG_IO__IMPL=org.apache.iceberg.aws.s3.S3FileIO \
+            -e CATALOG_S3_ENDPOINT=http://minio:9000 -e CATALOG_S3_PATH__STYLE__ACCESS=true \
+            apache/iceberg-rest-fixture
+          for i in $(seq 1 60); do curl -sf http://localhost:8181/v1/config && break; sleep 2; done
+          curl -sf http://localhost:8181/v1/config > /dev/null
+      - name: Run Iceberg REST tests
+        env:
+          DUCKLE_ICEBERG_REST_URI: http://localhost:8181
+          DUCKLE_ICEBERG_WAREHOUSE: warehouse
+          DUCKLE_ICEBERG_S3_ENDPOINT: localhost:9000
+          DUCKLE_ICEBERG_S3_KEY: admin
+          DUCKLE_ICEBERG_S3_SECRET: password
+        run: cargo test -p duckle-duckdb-engine --test iceberg_rest
+
+  # Live MySQL integration tests (also covers MariaDB, same wire).
+  # SharePoint Server has no container, so tests/sharepoint.rs runs against
+  # tests/sharepoint_mock.py: SharePoint's REST shapes behind a real NTLM
+  # acceptor (pyspnego), the same one curl's --ntlm signs in to.
+  sharepoint-ntlm-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - name: Install DuckDB CLI
+        run: |
+          set -e
+          curl -L -o duckdb.zip https://github.com/duckdb/duckdb/releases/download/v1.5.5/duckdb_cli-linux-amd64.zip
+          mkdir -p "$RUNNER_TEMP/duckdb"
+          unzip -o duckdb.zip -d "$RUNNER_TEMP/duckdb"
+          echo "DUCKLE_DUCKDB_BIN=$RUNNER_TEMP/duckdb/duckdb" >> "$GITHUB_ENV"
+      - name: Start the SharePoint mock
+        run: |
+          set -e
+          pip install pyspnego
+          printf 'CONTOSO:alice:P@ssw0rd!\n' > "$RUNNER_TEMP/users.txt"
+          NTLM_USER_FILE="$RUNNER_TEMP/users.txt" nohup python crates/duckdb-engine/tests/sharepoint_mock.py 8765 > "$RUNNER_TEMP/mock.log" 2>&1 &
+          for i in $(seq 1 30); do
+            curl -fs -o /dev/null http://127.0.0.1:8765/_test/state && break
+            sleep 1
+          done
+          # The mock is only a fair judge if an independent client signs in to it.
+          curl -fs --ntlm -u 'CONTOSO\alice:P@ssw0rd!' -o /dev/null http://127.0.0.1:8765/sites/team/_api/web
+      - name: Run SharePoint tests
+        env:
+          DUCKLE_SHAREPOINT_URL: http://127.0.0.1:8765/sites/team
+        run: cargo test -p duckle-duckdb-engine --test sharepoint
+
+  mysql-integration:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: mytest
+          MYSQL_DATABASE: ducktest
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd "mysqladmin ping -h localhost -p$$MYSQL_ROOT_PASSWORD"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install DuckDB CLI
+        run: |
+          set -e
+          curl -L -o duckdb.zip https://github.com/duckdb/duckdb/releases/download/v1.5.5/duckdb_cli-linux-amd64.zip
+          mkdir -p "$RUNNER_TEMP/duckdb"
+          unzip -o duckdb.zip -d "$RUNNER_TEMP/duckdb"
+          echo "DUCKLE_DUCKDB_BIN=$RUNNER_TEMP/duckdb/duckdb" >> "$GITHUB_ENV"
+      - name: Pre-install mysql extension
+        run: |
+          "$DUCKLE_DUCKDB_BIN" :memory: -c "INSTALL mysql;"
+      - name: Run MySQL integration tests
+        env:
+          DUCKLE_MYSQL_HOST: 127.0.0.1
+          DUCKLE_MYSQL_PORT: '3306'
+          DUCKLE_MYSQL_DB: ducktest
+          DUCKLE_MYSQL_USER: root
+          DUCKLE_MYSQL_PASS: mytest
+        run: cargo test -p duckle-duckdb-engine --test execution -- mysql_
+
+  # Live SQL Server tests: date/time typing (#362) and the sink's upserts. They
+  # skipped everywhere else, which is how the default bulk path broke every
+  # upsert without a test going red.
+  sqlserver-integration:
+    runs-on: ubuntu-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2022-latest
+        env:
+          ACCEPT_EULA: 'Y'
+          MSSQL_SA_PASSWORD: 'Duckle!Passw0rd'
+        ports: ['1433:1433']
+        options: >-
+          --health-cmd "/opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P 'Duckle!Passw0rd' -Q 'SELECT 1' -b"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install DuckDB CLI
+        run: |
+          set -e
+          curl -L -o duckdb.zip https://github.com/duckdb/duckdb/releases/download/v1.5.5/duckdb_cli-linux-amd64.zip
+          mkdir -p "$RUNNER_TEMP/duckdb"
+          unzip -o duckdb.zip -d "$RUNNER_TEMP/duckdb"
+          echo "DUCKLE_DUCKDB_BIN=$RUNNER_TEMP/duckdb/duckdb" >> "$GITHUB_ENV"
+      - name: Pre-install mssql extension
+        run: |
+          "$DUCKLE_DUCKDB_BIN" :memory: -c "INSTALL mssql FROM community;"
+      - name: Run SQL Server integration tests
+        env:
+          DUCKLE_MSSQL_HOST: 127.0.0.1
+          DUCKLE_MSSQL_PORT: '1433'
+          DUCKLE_MSSQL_PASS: 'Duckle!Passw0rd'
+        run: |
+          cargo test -p duckle-duckdb-engine --test execution -- sqlserver_
+          cargo test -p duckle-duckdb-engine --test sqlserver_types
+
+  # Live MinIO integration tests (covers all S3-compatible: MinIO, R2, B2).
+  # MinIO needs `server /data` as the container command; GitHub Actions
+  # service containers can't override CMD, so we run it as a step.
+  minio-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Start MinIO + create bucket
+        run: |
+          set -e
+          # The official MinIO images are gone from Docker Hub and quay.io; this is
+          # the MinIO server as Chainguard builds it, pinned by digest. Pulls are
+          # retried so a registry hiccup does not fail the job.
+          MINIO=cgr.dev/chainguard/minio@sha256:bd014394a80898e68c149f2311fdf8d5a2c2f3bb2c33b9327ae6d02b4b065ae1
+          for i in 1 2 3; do
+            docker pull "$MINIO" && break
+            echo "docker pull attempt $i failed; retrying in 5s"; sleep 5
+          done
+          docker run -d --name minio -p 9000:9000 \
+            -e MINIO_ROOT_USER=minioadmin -e MINIO_ROOT_PASSWORD=minioadmin \
+            "$MINIO" server /data
+          for i in $(seq 1 30); do
+            if curl -fs http://localhost:9000/minio/health/live >/dev/null 2>&1; then
+              echo "MinIO is up"; break
+            fi
+            sleep 2
+          done
+          # The bucket, with a signed PUT: the mc image went with the others.
+          curl -fsS -X PUT --aws-sigv4 "aws:amz:us-east-1:s3" --user minioadmin:minioadmin http://localhost:9000/duckle-test
+      - name: Install DuckDB CLI
+        run: |
+          set -e
+          curl -L -o duckdb.zip https://github.com/duckdb/duckdb/releases/download/v1.5.5/duckdb_cli-linux-amd64.zip
+          mkdir -p "$RUNNER_TEMP/duckdb"
+          unzip -o duckdb.zip -d "$RUNNER_TEMP/duckdb"
+          echo "DUCKLE_DUCKDB_BIN=$RUNNER_TEMP/duckdb/duckdb" >> "$GITHUB_ENV"
+      - name: Seed MinIO with a test object
+        run: |
+          set -e
+          # Upload a small parquet file to s3://duckle-test/orders.parquet
+          # via the DuckDB CLI itself, so the source test reads it back.
+          "$DUCKLE_DUCKDB_BIN" :memory: -c "
+            INSTALL httpfs; LOAD httpfs;
+            CREATE OR REPLACE SECRET seed (
+              TYPE S3,
+              KEY_ID 'minioadmin',
+              SECRET 'minioadmin',
+              REGION 'us-east-1',
+              ENDPOINT 'localhost:9000',
+              URL_STYLE 'path',
+              USE_SSL false
+            );
+            COPY (SELECT * FROM (VALUES (1,'alice'),(2,'bob'),(3,'carol')) t(id,name))
+              TO 's3://duckle-test/orders.parquet' (FORMAT PARQUET);
+          "
+      - name: Run MinIO integration tests
+        env:
+          DUCKLE_MINIO_HOST: localhost
+          DUCKLE_MINIO_PORT: '9000'
+          DUCKLE_MINIO_BUCKET: duckle-test
+          DUCKLE_MINIO_ACCESS_KEY: minioadmin
+          DUCKLE_MINIO_SECRET_KEY: minioadmin
+        run: |
+          cargo test -p duckle-duckdb-engine --test execution -- minio_
+          cargo test -p duckle-duckdb-engine --test keyless_cloud
+
+  # Live Salesforce integration (#166): runs the credential-free lifecycle
+  # suite in docs/salesforce-sink/live-suite against a REAL org - insert ->
+  # retrieve -> update (remapped idField) -> upsert -> retrieve -> delete via a
+  # saved connection, plus bearer back-compat and failure modes. There is no
+  # container for a Salesforce org, so unlike the jobs above this one is
+  # OPT-IN: set the repository variable SF_LIVE_TESTS=true and the secrets
+  # SF_INSTANCE_URL / SF_CLIENT_ID / SF_CLIENT_SECRET (a dev org with an
+  # External_ID__c external-Id field on Account and a client-credentials app -
+  # see the suite README). Skipped otherwise, including on fork PRs, which
+  # never see repository secrets. Suite records are keyed SUITE-* and
+  # self-clean. Mock-level Salesforce coverage runs unconditionally in the
+  # rust matrix (engine execution tests + duckle-secrets' connection_e2e).
+  salesforce-integration:
+    if: vars.SF_LIVE_TESTS == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install DuckDB CLI
+        run: |
+          set -e
+          curl -L -o duckdb.zip https://github.com/duckdb/duckdb/releases/download/v1.5.5/duckdb_cli-linux-amd64.zip
+          mkdir -p "$RUNNER_TEMP/duckdb"
+          unzip -o duckdb.zip -d "$RUNNER_TEMP/duckdb"
+          echo "DUCKLE_DUCKDB_BIN=$RUNNER_TEMP/duckdb/duckdb" >> "$GITHUB_ENV"
+      - name: Build duckle-runner
+        run: cargo build -p duckle-runner
+      - name: Run Salesforce live suite
+        env:
+          SF_INSTANCE_URL: ${{ secrets.SF_INSTANCE_URL }}
+          SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
+          SF_CLIENT_SECRET: ${{ secrets.SF_CLIENT_SECRET }}
+          DUCKLE_RUNNER: ${{ github.workspace }}/target/debug/duckle-runner
+        run: bash docs/salesforce-sink/live-suite/run-suite.sh

@@ -1,0 +1,343 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 190
+    },
+    "axisX": {
+      "labelLimit": 60,
+      "labelFontSize": 9,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 19
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 12
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Cat01",
+        "Value": 355
+      },
+      {
+        "Category": "Cat02",
+        "Value": 135
+      },
+      {
+        "Category": "Cat03",
+        "Value": 140
+      },
+      {
+        "Category": "Cat04",
+        "Value": 174
+      },
+      {
+        "Category": "Cat05",
+        "Value": 84
+      },
+      {
+        "Category": "Cat06",
+        "Value": 142
+      },
+      {
+        "Category": "Cat07",
+        "Value": 90
+      },
+      {
+        "Category": "Cat08",
+        "Value": 241
+      },
+      {
+        "Category": "Cat09",
+        "Value": 143
+      },
+      {
+        "Category": "Cat10",
+        "Value": 324
+      },
+      {
+        "Category": "Cat11",
+        "Value": 328
+      },
+      {
+        "Category": "Cat12",
+        "Value": 389
+      },
+      {
+        "Category": "Cat13",
+        "Value": 391
+      },
+      {
+        "Category": "Cat14",
+        "Value": 250
+      },
+      {
+        "Category": "Cat15",
+        "Value": 464
+      },
+      {
+        "Category": "Cat16",
+        "Value": 329
+      },
+      {
+        "Category": "Cat17",
+        "Value": 329
+      },
+      {
+        "Category": "Cat18",
+        "Value": 385
+      },
+      {
+        "Category": "Cat19",
+        "Value": 461
+      },
+      {
+        "Category": "Cat20",
+        "Value": 38
+      },
+      {
+        "Category": "Cat21",
+        "Value": 238
+      },
+      {
+        "Category": "Cat22",
+        "Value": 232
+      },
+      {
+        "Category": "Cat23",
+        "Value": 318
+      },
+      {
+        "Category": "Cat24",
+        "Value": 453
+      },
+      {
+        "Category": "Cat25",
+        "Value": 335
+      },
+      {
+        "Category": "Cat26",
+        "Value": 205
+      },
+      {
+        "Category": "Cat27",
+        "Value": 311
+      },
+      {
+        "Category": "Cat28",
+        "Value": 46
+      },
+      {
+        "Category": "Cat29",
+        "Value": 390
+      },
+      {
+        "Category": "Cat30",
+        "Value": 194
+      },
+      {
+        "Category": "Cat31",
+        "Value": 45
+      },
+      {
+        "Category": "Cat32",
+        "Value": 213
+      },
+      {
+        "Category": "Cat33",
+        "Value": 357
+      },
+      {
+        "Category": "Cat34",
+        "Value": 197
+      },
+      {
+        "Category": "Cat35",
+        "Value": 488
+      },
+      {
+        "Category": "Cat36",
+        "Value": 228
+      },
+      {
+        "Category": "Cat37",
+        "Value": 58
+      },
+      {
+        "Category": "Cat38",
+        "Value": 14
+      },
+      {
+        "Category": "Cat39",
+        "Value": 84
+      },
+      {
+        "Category": "Cat40",
+        "Value": 20
+      },
+      {
+        "Category": "Cat41",
+        "Value": 393
+      },
+      {
+        "Category": "Cat42",
+        "Value": 273
+      },
+      {
+        "Category": "Cat43",
+        "Value": 298
+      },
+      {
+        "Category": "Cat44",
+        "Value": 424
+      },
+      {
+        "Category": "Cat45",
+        "Value": 414
+      },
+      {
+        "Category": "Cat46",
+        "Value": 478
+      },
+      {
+        "Category": "Cat47",
+        "Value": 315
+      },
+      {
+        "Category": "Cat48",
+        "Value": 275
+      },
+      {
+        "Category": "Cat49",
+        "Value": 473
+      },
+      {
+        "Category": "Cat50",
+        "Value": 430
+      },
+      {
+        "Category": "Cat51",
+        "Value": 167
+      },
+      {
+        "Category": "Cat52",
+        "Value": 320
+      },
+      {
+        "Category": "Cat53",
+        "Value": 60
+      },
+      {
+        "Category": "Cat54",
+        "Value": 170
+      },
+      {
+        "Category": "Cat55",
+        "Value": 65
+      },
+      {
+        "Category": "Cat56",
+        "Value": 303
+      },
+      {
+        "Category": "Cat57",
+        "Value": 112
+      },
+      {
+        "Category": "Cat58",
+        "Value": 84
+      },
+      {
+        "Category": "Cat59",
+        "Value": 467
+      },
+      {
+        "Category": "Cat60",
+        "Value": 274
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 190,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

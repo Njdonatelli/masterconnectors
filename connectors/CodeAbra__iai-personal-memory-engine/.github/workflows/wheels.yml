@@ -1,0 +1,90 @@
+name: Wheels
+
+on:
+  # Releases come in through publish.yml, which calls this workflow and then
+  # uploads what it produced — keeping the release trigger here too would build
+  # everything twice.
+  workflow_call:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_wheels:
+    name: wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Prebuild the MCP wrapper on the host
+        # The build containers have no Node, so both outputs are produced here:
+        # `build` for the editable/source path, `bundle` for the single
+        # self-contained file the wheel ships.
+        working-directory: mcp-wrapper
+        run: |
+          npm ci --prefer-offline
+          npm run build
+          npm run bundle
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.21
+        env:
+          CIBW_BUILD: "cp311-* cp312-*"
+          CIBW_SKIP: "*-musllinux_* *_i686 *_ppc64le *_s390x *-win32 *-win_arm64"
+          # Intel macOS is not a viable wheel target: numba, llvmlite and
+          # cryptography no longer publish x86_64 macOS wheels, so the test
+          # install falls back to source builds that cannot succeed.
+          CIBW_ARCHS_MACOS: "arm64"
+          CIBW_BEFORE_ALL_MACOS: rustup target add aarch64-apple-darwin
+          # glibc 2.17 (manylinux2014) predates the wheels our dependencies
+          # publish — scipy/numba/cryptography ship manylinux_2_28 and newer
+          # only, and building them from sdist in the test venv is what fails.
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
+          # manylinux_2_28 ships its own rustup-managed toolchain, so installing
+          # ours into the default CARGO_HOME collides on bin/cargo-clippy and
+          # rolls back, leaving no compiler at all. Keep our pinned toolchain in
+          # a separate root. pkg-config is what onig_sys probes for.
+          CIBW_BEFORE_ALL_LINUX: >
+            curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs
+            | CARGO_HOME=/opt/iai-rust/cargo RUSTUP_HOME=/opt/iai-rust/rustup
+            sh -s -- -y --default-toolchain 1.94 --profile minimal --no-modify-path &&
+            (yum install -y pkgconfig || true)
+          # RUSTUP_TOOLCHAIN pins the toolchain directly: without it rustup
+          # re-reads rust-toolchain.toml at build time and re-installs the
+          # components it lists, which collides with the copies the same pin
+          # already put in place (detected conflict: bin/cargo-clippy).
+          CIBW_ENVIRONMENT_LINUX: >
+            PATH="/opt/iai-rust/cargo/bin:$PATH"
+            CARGO_HOME=/opt/iai-rust/cargo
+            RUSTUP_HOME=/opt/iai-rust/rustup
+            RUSTUP_TOOLCHAIN=1.94
+          CIBW_ENVIRONMENT_MACOS: MACOSX_DEPLOYMENT_TARGET=11.0
+          # A freshly built native wheel must import before it ships.
+          CIBW_TEST_COMMAND: 'python -c "import iai_mcp, iai_mcp_native"'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}
+          path: ./wheelhouse/*.whl
+
+  build_sdist:
+    name: sdist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build sdist
+        run: pipx run build --sdist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz

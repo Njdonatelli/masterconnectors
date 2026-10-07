@@ -1,0 +1,67 @@
+{
+  "title": "Snap: PctChange ±3–5% → no snap",
+  "description": "Daily stock changes range -3% to +5%. Both ends are far from ±1 (threshold = 0.25 per side), so no snap. Axis data-fits around the small range. Contextual zero-baseline still includes 0 for bar marks.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "stock": "AAPL",
+          "daily_change": -0.026
+        },
+        {
+          "stock": "GOOG",
+          "daily_change": 0.014
+        },
+        {
+          "stock": "MSFT",
+          "daily_change": 0.032
+        },
+        {
+          "stock": "AMZN",
+          "daily_change": -0.006
+        },
+        {
+          "stock": "META",
+          "daily_change": 0.015
+        },
+        {
+          "stock": "NVDA",
+          "daily_change": -0.028
+        },
+        {
+          "stock": "TSLA",
+          "daily_change": 0.018
+        }
+      ]
+    },
+    "semantic_types": {
+      "stock": "Category",
+      "daily_change": {
+        "semanticType": "PercentageChange",
+        "intrinsicDomain": [
+          -1,
+          1
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "stock"
+        },
+        "y": {
+          "field": "daily_change"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

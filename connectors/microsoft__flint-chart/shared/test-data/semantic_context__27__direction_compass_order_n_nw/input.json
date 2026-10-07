@@ -1,0 +1,65 @@
+{
+  "title": "Direction Compass Order (N→NW)",
+  "description": "Semantic type \"Direction\" sorts compass directions in clockwise order (N→NE→E→SE→S→SW→W→NW). Direction is cyclic (NW→N wraps). WITHOUT this: alphabetical (E, N, NE, NW...) destroys geographic sense.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "direction": "SW",
+          "wind_speed": 6
+        },
+        {
+          "direction": "N",
+          "wind_speed": 25
+        },
+        {
+          "direction": "E",
+          "wind_speed": 25
+        },
+        {
+          "direction": "NW",
+          "wind_speed": 36
+        },
+        {
+          "direction": "S",
+          "wind_speed": 18
+        },
+        {
+          "direction": "NE",
+          "wind_speed": 19
+        },
+        {
+          "direction": "W",
+          "wind_speed": 40
+        },
+        {
+          "direction": "SE",
+          "wind_speed": 28
+        }
+      ]
+    },
+    "semantic_types": {
+      "direction": "Direction",
+      "wind_speed": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "direction"
+        },
+        "y": {
+          "field": "wind_speed"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

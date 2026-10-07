@@ -1,0 +1,140 @@
+{
+  "title": "Temperature Scatter — No Zero",
+  "description": "Temperature zero (0°F/°C) is an arbitrary scale point. For data in 65–95°F, including zero wastes 60% of the canvas. zero:false lets VL data-fit with nice tick rounding. WITHOUT this: chart might waste space including the irrelevant zero.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "day": "Day 1",
+          "high_temp": 65,
+          "humidity": 38
+        },
+        {
+          "day": "Day 2",
+          "high_temp": 67,
+          "humidity": 65
+        },
+        {
+          "day": "Day 3",
+          "high_temp": 94,
+          "humidity": 37
+        },
+        {
+          "day": "Day 4",
+          "high_temp": 85,
+          "humidity": 53
+        },
+        {
+          "day": "Day 5",
+          "high_temp": 86,
+          "humidity": 38
+        },
+        {
+          "day": "Day 6",
+          "high_temp": 92,
+          "humidity": 43
+        },
+        {
+          "day": "Day 7",
+          "high_temp": 94,
+          "humidity": 49
+        },
+        {
+          "day": "Day 8",
+          "high_temp": 92,
+          "humidity": 52
+        },
+        {
+          "day": "Day 9",
+          "high_temp": 83,
+          "humidity": 74
+        },
+        {
+          "day": "Day 10",
+          "high_temp": 91,
+          "humidity": 61
+        },
+        {
+          "day": "Day 11",
+          "high_temp": 95,
+          "humidity": 52
+        },
+        {
+          "day": "Day 12",
+          "high_temp": 73,
+          "humidity": 30
+        },
+        {
+          "day": "Day 13",
+          "high_temp": 84,
+          "humidity": 32
+        },
+        {
+          "day": "Day 14",
+          "high_temp": 73,
+          "humidity": 76
+        },
+        {
+          "day": "Day 15",
+          "high_temp": 72,
+          "humidity": 65
+        },
+        {
+          "day": "Day 16",
+          "high_temp": 92,
+          "humidity": 49
+        },
+        {
+          "day": "Day 17",
+          "high_temp": 65,
+          "humidity": 74
+        },
+        {
+          "day": "Day 18",
+          "high_temp": 72,
+          "humidity": 35
+        },
+        {
+          "day": "Day 19",
+          "high_temp": 72,
+          "humidity": 54
+        },
+        {
+          "day": "Day 20",
+          "high_temp": 80,
+          "humidity": 68
+        }
+      ]
+    },
+    "semantic_types": {
+      "day": "Category",
+      "high_temp": "Temperature",
+      "humidity": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "humidity"
+        },
+        "y": {
+          "field": "high_temp"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

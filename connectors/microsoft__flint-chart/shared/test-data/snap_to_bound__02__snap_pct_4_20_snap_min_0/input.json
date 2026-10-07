@@ -1,0 +1,71 @@
+{
+  "title": "Snap: Pct 4–20% → snap min 0",
+  "description": "Error rates range 4–20%. Since 4 is within 25 (threshold = 25% of 100) of 0, the lower bound snaps to 0%. Upper end (20%) is far from 100 → no snap. Shows domainMin=0 while the upper end auto-fits.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "item": "A",
+          "error_rate": 3
+        },
+        {
+          "item": "B",
+          "error_rate": 6
+        },
+        {
+          "item": "C",
+          "error_rate": 14
+        },
+        {
+          "item": "D",
+          "error_rate": 23
+        },
+        {
+          "item": "E",
+          "error_rate": 24
+        },
+        {
+          "item": "F",
+          "error_rate": 11
+        },
+        {
+          "item": "G",
+          "error_rate": 12
+        },
+        {
+          "item": "H",
+          "error_rate": 4
+        }
+      ]
+    },
+    "semantic_types": {
+      "item": "Category",
+      "error_rate": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "item"
+        },
+        "y": {
+          "field": "error_rate"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

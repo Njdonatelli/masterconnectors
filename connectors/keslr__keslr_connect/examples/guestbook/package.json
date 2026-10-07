@@ -1,0 +1,23 @@
+{
+  "name": "keslr-guestbook-example",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A guestbook where every signature is a verified human.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc --build",
+    "dev": "node --watch --experimental-strip-types src/server.ts",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "@keslr/auth": "0.1.0",
+    "@keslr/express": "0.1.0",
+    "@keslr/network": "0.1.0",
+    "express": "^5.0.1",
+    "express-session": "^1.18.1"
+  },
+  "engines": {
+    "node": ">=20.10.0"
+  }
+}

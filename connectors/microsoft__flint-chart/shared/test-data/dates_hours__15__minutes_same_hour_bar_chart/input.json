@@ -1,0 +1,153 @@
+{
+  "title": "Minutes (same hour) → Bar Chart",
+  "description": "Per-minute data within one hour: \"2020-01-15T10:00\", …, \"2020-01-15T10:59\" (30 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "DateTime": "2020-01-15T10:00:00",
+          "Value": 260
+        },
+        {
+          "DateTime": "2020-01-15T10:02:00",
+          "Value": 129
+        },
+        {
+          "DateTime": "2020-01-15T10:04:00",
+          "Value": 341
+        },
+        {
+          "DateTime": "2020-01-15T10:06:00",
+          "Value": 463
+        },
+        {
+          "DateTime": "2020-01-15T10:08:00",
+          "Value": 303
+        },
+        {
+          "DateTime": "2020-01-15T10:10:00",
+          "Value": 307
+        },
+        {
+          "DateTime": "2020-01-15T10:12:00",
+          "Value": 182
+        },
+        {
+          "DateTime": "2020-01-15T10:14:00",
+          "Value": 189
+        },
+        {
+          "DateTime": "2020-01-15T10:16:00",
+          "Value": 397
+        },
+        {
+          "DateTime": "2020-01-15T10:18:00",
+          "Value": 514
+        },
+        {
+          "DateTime": "2020-01-15T10:20:00",
+          "Value": 502
+        },
+        {
+          "DateTime": "2020-01-15T10:22:00",
+          "Value": 60
+        },
+        {
+          "DateTime": "2020-01-15T10:24:00",
+          "Value": 432
+        },
+        {
+          "DateTime": "2020-01-15T10:26:00",
+          "Value": 451
+        },
+        {
+          "DateTime": "2020-01-15T10:28:00",
+          "Value": 501
+        },
+        {
+          "DateTime": "2020-01-15T10:30:00",
+          "Value": 466
+        },
+        {
+          "DateTime": "2020-01-15T10:32:00",
+          "Value": 58
+        },
+        {
+          "DateTime": "2020-01-15T10:34:00",
+          "Value": 477
+        },
+        {
+          "DateTime": "2020-01-15T10:36:00",
+          "Value": 420
+        },
+        {
+          "DateTime": "2020-01-15T10:38:00",
+          "Value": 314
+        },
+        {
+          "DateTime": "2020-01-15T10:40:00",
+          "Value": 156
+        },
+        {
+          "DateTime": "2020-01-15T10:42:00",
+          "Value": 74
+        },
+        {
+          "DateTime": "2020-01-15T10:44:00",
+          "Value": 515
+        },
+        {
+          "DateTime": "2020-01-15T10:46:00",
+          "Value": 384
+        },
+        {
+          "DateTime": "2020-01-15T10:48:00",
+          "Value": 479
+        },
+        {
+          "DateTime": "2020-01-15T10:50:00",
+          "Value": 185
+        },
+        {
+          "DateTime": "2020-01-15T10:52:00",
+          "Value": 168
+        },
+        {
+          "DateTime": "2020-01-15T10:54:00",
+          "Value": 133
+        },
+        {
+          "DateTime": "2020-01-15T10:56:00",
+          "Value": 255
+        },
+        {
+          "DateTime": "2020-01-15T10:58:00",
+          "Value": 161
+        }
+      ]
+    },
+    "semantic_types": {
+      "DateTime": "DateTime",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "DateTime"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

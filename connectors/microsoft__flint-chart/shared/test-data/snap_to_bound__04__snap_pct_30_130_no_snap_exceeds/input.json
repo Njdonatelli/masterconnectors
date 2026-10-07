@@ -1,0 +1,55 @@
+{
+  "title": "Snap: Pct 30–130% → no snap (exceeds)",
+  "description": "Growth data ranges 30–130%. The max (130) exceeds the intrinsic upper bound (100), so no snap — VL auto-extends. The min (30) is also far from 0. Axis data-fits to the actual data range.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "quarter": "Q1",
+          "growth": 35
+        },
+        {
+          "quarter": "Q2",
+          "growth": 72
+        },
+        {
+          "quarter": "Q3",
+          "growth": 32
+        },
+        {
+          "quarter": "Q4",
+          "growth": 114
+        }
+      ]
+    },
+    "semantic_types": {
+      "quarter": "Category",
+      "growth": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "quarter"
+        },
+        "y": {
+          "field": "growth"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

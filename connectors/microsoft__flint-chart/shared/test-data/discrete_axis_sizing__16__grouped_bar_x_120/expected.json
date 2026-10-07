@@ -1,0 +1,478 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...96 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Cat007",
+          "Cat044",
+          "Cat004",
+          "Cat024",
+          "Cat119",
+          "Cat017",
+          "Cat113",
+          "Cat118",
+          "Cat098",
+          "Cat110",
+          "Cat050",
+          "Cat034",
+          "Cat095",
+          "Cat117",
+          "Cat107",
+          "Cat081",
+          "Cat028",
+          "Cat018",
+          "Cat032",
+          "Cat115",
+          "Cat092",
+          "Cat047",
+          "Cat015",
+          "Cat041",
+          "...96 items omitted"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "xOffset": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 30,
+    "for": "position"
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Cat004",
+        "Group": "Grp1",
+        "Value": 370
+      },
+      {
+        "Category": "Cat004",
+        "Group": "Grp2",
+        "Value": 493
+      },
+      {
+        "Category": "Cat004",
+        "Group": "Grp3",
+        "Value": 390
+      },
+      {
+        "Category": "Cat007",
+        "Group": "Grp1",
+        "Value": 393
+      },
+      {
+        "Category": "Cat007",
+        "Group": "Grp2",
+        "Value": 395
+      },
+      {
+        "Category": "Cat007",
+        "Group": "Grp3",
+        "Value": 492
+      },
+      {
+        "Category": "Cat015",
+        "Group": "Grp1",
+        "Value": 296
+      },
+      {
+        "Category": "Cat015",
+        "Group": "Grp2",
+        "Value": 307
+      },
+      {
+        "Category": "Cat015",
+        "Group": "Grp3",
+        "Value": 420
+      },
+      {
+        "Category": "Cat017",
+        "Group": "Grp1",
+        "Value": 392
+      },
+      {
+        "Category": "Cat017",
+        "Group": "Grp2",
+        "Value": 491
+      },
+      {
+        "Category": "Cat017",
+        "Group": "Grp3",
+        "Value": 305
+      },
+      {
+        "Category": "Cat018",
+        "Group": "Grp1",
+        "Value": 213
+      },
+      {
+        "Category": "Cat018",
+        "Group": "Grp2",
+        "Value": 380
+      },
+      {
+        "Category": "Cat018",
+        "Group": "Grp3",
+        "Value": 460
+      },
+      {
+        "Category": "Cat024",
+        "Group": "Grp1",
+        "Value": 242
+      },
+      {
+        "Category": "Cat024",
+        "Group": "Grp2",
+        "Value": 490
+      },
+      {
+        "Category": "Cat024",
+        "Group": "Grp3",
+        "Value": 469
+      },
+      {
+        "Category": "Cat028",
+        "Group": "Grp1",
+        "Value": 242
+      },
+      {
+        "Category": "Cat028",
+        "Group": "Grp2",
+        "Value": 360
+      },
+      {
+        "Category": "Cat028",
+        "Group": "Grp3",
+        "Value": 466
+      },
+      {
+        "Category": "Cat032",
+        "Group": "Grp1",
+        "Value": 425
+      },
+      {
+        "Category": "Cat032",
+        "Group": "Grp2",
+        "Value": 158
+      },
+      {
+        "Category": "Cat032",
+        "Group": "Grp3",
+        "Value": 465
+      },
+      {
+        "Category": "Cat034",
+        "Group": "Grp1",
+        "Value": 485
+      },
+      {
+        "Category": "Cat034",
+        "Group": "Grp2",
+        "Value": 420
+      },
+      {
+        "Category": "Cat034",
+        "Group": "Grp3",
+        "Value": 209
+      },
+      {
+        "Category": "Cat041",
+        "Group": "Grp1",
+        "Value": 305
+      },
+      {
+        "Category": "Cat041",
+        "Group": "Grp2",
+        "Value": 219
+      },
+      {
+        "Category": "Cat041",
+        "Group": "Grp3",
+        "Value": 497
+      },
+      {
+        "Category": "Cat044",
+        "Group": "Grp1",
+        "Value": 352
+      },
+      {
+        "Category": "Cat044",
+        "Group": "Grp2",
+        "Value": 455
+      },
+      {
+        "Category": "Cat044",
+        "Group": "Grp3",
+        "Value": 470
+      },
+      {
+        "Category": "Cat047",
+        "Group": "Grp1",
+        "Value": 416
+      },
+      {
+        "Category": "Cat047",
+        "Group": "Grp2",
+        "Value": 426
+      },
+      {
+        "Category": "Cat047",
+        "Group": "Grp3",
+        "Value": 185
+      },
+      {
+        "Category": "Cat050",
+        "Group": "Grp1",
+        "Value": 243
+      },
+      {
+        "Category": "Cat050",
+        "Group": "Grp2",
+        "Value": 435
+      },
+      {
+        "Category": "Cat050",
+        "Group": "Grp3",
+        "Value": 438
+      },
+      {
+        "Category": "Cat081",
+        "Group": "Grp1",
+        "Value": 292
+      },
+      {
+        "Category": "Cat081",
+        "Group": "Grp2",
+        "Value": 308
+      },
+      {
+        "Category": "Cat081",
+        "Group": "Grp3",
+        "Value": 473
+      },
+      {
+        "Category": "Cat092",
+        "Group": "Grp1",
+        "Value": 319
+      },
+      {
+        "Category": "Cat092",
+        "Group": "Grp2",
+        "Value": 342
+      },
+      {
+        "Category": "Cat092",
+        "Group": "Grp3",
+        "Value": 367
+      },
+      {
+        "Category": "Cat095",
+        "Group": "Grp1",
+        "Value": 428
+      },
+      {
+        "Category": "Cat095",
+        "Group": "Grp2",
+        "Value": 480
+      },
+      {
+        "Category": "Cat095",
+        "Group": "Grp3",
+        "Value": 196
+      },
+      {
+        "Category": "Cat098",
+        "Group": "Grp1",
+        "Value": 478
+      },
+      {
+        "Category": "Cat098",
+        "Group": "Grp2",
+        "Value": 297
+      },
+      {
+        "Category": "Cat098",
+        "Group": "Grp3",
+        "Value": 375
+      },
+      {
+        "Category": "Cat107",
+        "Group": "Grp1",
+        "Value": 369
+      },
+      {
+        "Category": "Cat107",
+        "Group": "Grp2",
+        "Value": 216
+      },
+      {
+        "Category": "Cat107",
+        "Group": "Grp3",
+        "Value": 490
+      },
+      {
+        "Category": "Cat110",
+        "Group": "Grp1",
+        "Value": 289
+      },
+      {
+        "Category": "Cat110",
+        "Group": "Grp2",
+        "Value": 354
+      },
+      {
+        "Category": "Cat110",
+        "Group": "Grp3",
+        "Value": 481
+      },
+      {
+        "Category": "Cat113",
+        "Group": "Grp1",
+        "Value": 470
+      },
+      {
+        "Category": "Cat113",
+        "Group": "Grp2",
+        "Value": 341
+      },
+      {
+        "Category": "Cat113",
+        "Group": "Grp3",
+        "Value": 377
+      },
+      {
+        "Category": "Cat115",
+        "Group": "Grp1",
+        "Value": 409
+      },
+      {
+        "Category": "Cat115",
+        "Group": "Grp2",
+        "Value": 478
+      },
+      {
+        "Category": "Cat115",
+        "Group": "Grp3",
+        "Value": 161
+      },
+      {
+        "Category": "Cat117",
+        "Group": "Grp1",
+        "Value": 394
+      },
+      {
+        "Category": "Cat117",
+        "Group": "Grp2",
+        "Value": 458
+      },
+      {
+        "Category": "Cat117",
+        "Group": "Grp3",
+        "Value": 234
+      },
+      {
+        "Category": "Cat118",
+        "Group": "Grp1",
+        "Value": 406
+      },
+      {
+        "Category": "Cat118",
+        "Group": "Grp2",
+        "Value": 285
+      },
+      {
+        "Category": "Cat118",
+        "Group": "Grp3",
+        "Value": 479
+      },
+      {
+        "Category": "Cat119",
+        "Group": "Grp1",
+        "Value": 267
+      },
+      {
+        "Category": "Cat119",
+        "Group": "Grp2",
+        "Value": 471
+      },
+      {
+        "Category": "Cat119",
+        "Group": "Grp3",
+        "Value": 461
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "96 of 120 values in 'Category' were omitted (showing top 24).",
+      "channel": "x",
+      "field": "Category"
+    }
+  ],
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

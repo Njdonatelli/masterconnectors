@@ -1,0 +1,506 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Height (cm)",
+      "groupby": [
+        "Cohort"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        137.12590542244422,
+        201.07409457755577
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Height (cm)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Cohort",
+      "type": "nominal",
+      "legend": null
+    },
+    "facet": {
+      "field": "Cohort",
+      "type": "nominal",
+      "sort": null,
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      },
+      "columns": 1
+    }
+  },
+  "width": 220,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 220,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 181.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 168.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 173.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 173.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 183.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 165.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 162.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 177.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 163.1
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 172.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 168.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 166.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 151
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 171.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 161.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 187.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 149.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 174.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 157
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 176.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 158.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 155.1
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 165.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 166.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 195.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 172.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 170.1
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 171.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 177.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 164
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 162.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 178.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 160.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 164.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 164.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 179.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 156.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 169.1
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 164.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 171.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 170.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 170.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 180.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 181
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 177.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 162
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 178.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 184.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 172
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 170.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 161.1
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 183.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 156.1
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 173.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 164.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 177
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 165.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 165.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 156.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 175.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 160.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 174.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 171.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 178.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 177
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 175.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 156.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 158
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 186
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 157.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 170.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 160.5
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 154.6
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 171.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 182.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 184.4
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 171.2
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 169.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 168.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 171.9
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 169.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 177.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 157.1
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 179.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 173.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 142.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 167.7
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 160.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 164.8
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 163.3
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 169
+      },
+      {
+        "Cohort": "All Adults",
+        "Height (cm)": 175.8
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

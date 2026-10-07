@@ -1,0 +1,81 @@
+{
+  "title": "Year (ISO date) → Bar Chart",
+  "description": "Years as ISO strings: \"2000-01-01\", \"2001-01-01\", … (12 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2000-01-01",
+          "Value": 466
+        },
+        {
+          "Date": "2001-01-01",
+          "Value": 133
+        },
+        {
+          "Date": "2002-01-01",
+          "Value": 345
+        },
+        {
+          "Date": "2003-01-01",
+          "Value": 346
+        },
+        {
+          "Date": "2004-01-01",
+          "Value": 160
+        },
+        {
+          "Date": "2005-01-01",
+          "Value": 305
+        },
+        {
+          "Date": "2006-01-01",
+          "Value": 265
+        },
+        {
+          "Date": "2007-01-01",
+          "Value": 224
+        },
+        {
+          "Date": "2008-01-01",
+          "Value": 129
+        },
+        {
+          "Date": "2009-01-01",
+          "Value": 99
+        },
+        {
+          "Date": "2010-01-01",
+          "Value": 316
+        },
+        {
+          "Date": "2011-01-01",
+          "Value": 130
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

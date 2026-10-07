@@ -1,0 +1,10 @@
+services:
+  guestbook:
+    build:
+      context: ../..
+      dockerfile: examples/guestbook/Dockerfile
+    env_file: .env
+    # Bind to the host's Keslr address so the service is reachable by members
+    # and not from the public internet. Set BIND_ADDRESS in .env to that address.
+    network_mode: host
+    restart: unless-stopped

@@ -1,0 +1,49 @@
+<UserControl
+    x:Class="Gridex.FilterBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex">
+
+    <Grid Padding="8,6"
+          Background="{ThemeResource LayerFillColorDefaultBrush}"
+          BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+          BorderThickness="0,1,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Column picker -->
+        <ComboBox Grid.Column="0" x:Name="ColumnPicker"
+                  PlaceholderText="Column"
+                  MinWidth="140" Height="28" FontSize="12" />
+
+        <!-- Operator picker -->
+        <ComboBox Grid.Column="1" x:Name="OperatorPicker"
+                  Margin="6,0,0,0" MinWidth="120" Height="28" FontSize="12">
+            <ComboBoxItem Content="equals" IsSelected="True" />
+            <ComboBoxItem Content="not equals" />
+            <ComboBoxItem Content="contains" />
+            <ComboBoxItem Content="starts with" />
+            <ComboBoxItem Content="is null" />
+            <ComboBoxItem Content="is not null" />
+        </ComboBox>
+
+        <!-- Value input -->
+        <TextBox Grid.Column="2" x:Name="FilterValue"
+                 Margin="6,0,0,0" MinWidth="180" Height="28"
+                 FontSize="12" PlaceholderText="Value..." />
+
+        <!-- Apply / Clear -->
+        <StackPanel Grid.Column="4" Orientation="Horizontal" Spacing="6">
+            <Button Content="Apply" Padding="10,4" FontSize="12"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Click="ApplyFilter_Click" />
+            <Button Content="Clear" Padding="10,4" FontSize="12"
+                    Click="ClearFilter_Click" />
+        </StackPanel>
+    </Grid>
+</UserControl>

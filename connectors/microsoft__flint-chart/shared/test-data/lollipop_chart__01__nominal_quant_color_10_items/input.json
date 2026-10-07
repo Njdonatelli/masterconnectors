@@ -1,0 +1,87 @@
+{
+  "title": "Nominal × Quant + Color (10 items)",
+  "description": "Products with color-coded region",
+  "chartType": "Lollipop Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Product": "Laptop",
+          "Sales": 771,
+          "Region": "West"
+        },
+        {
+          "Product": "Phone",
+          "Sales": 691,
+          "Region": "West"
+        },
+        {
+          "Product": "Tablet",
+          "Sales": 818,
+          "Region": "West"
+        },
+        {
+          "Product": "Desktop",
+          "Sales": 747,
+          "Region": "East"
+        },
+        {
+          "Product": "Monitor",
+          "Sales": 252,
+          "Region": "West"
+        },
+        {
+          "Product": "Keyboard",
+          "Sales": 619,
+          "Region": "West"
+        },
+        {
+          "Product": "Mouse",
+          "Sales": 336,
+          "Region": "East"
+        },
+        {
+          "Product": "Headphones",
+          "Sales": 773,
+          "Region": "West"
+        },
+        {
+          "Product": "Speaker",
+          "Sales": 942,
+          "Region": "West"
+        },
+        {
+          "Product": "Camera",
+          "Sales": 575,
+          "Region": "West"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Product": "Category",
+      "Sales": "Quantity",
+      "Region": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Lollipop Chart",
+      "encodings": {
+        "x": {
+          "field": "Product"
+        },
+        "y": {
+          "field": "Sales"
+        },
+        "color": {
+          "field": "Region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

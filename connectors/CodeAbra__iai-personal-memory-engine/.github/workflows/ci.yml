@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-macos:
+    name: build & test (macOS)
+    runs-on: macos-latest
+    # Pinning the toolchain by env stops rustup re-reading rust-toolchain.toml at
+    # build time and re-installing the components the action already placed
+    # (detected conflict: bin/cargo-clippy, then "can't find Rust compiler").
+    env:
+      RUSTUP_TOOLCHAIN: "1.94"
+      # Fresh stores default to the stdlib oracle; the prod engine runs only
+      # when this is set, so CI must set it or it tests the fallback, not lilli.
+      LILLI_STORAGE_DRIVER: "lilli"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: dtolnay/rust-toolchain@1.94.0
+        with:
+          components: rustfmt, clippy
+      - name: Install with dev extras
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      # The suite builds real embedders. The cache must live under the home
+      # directory the test fixtures point HF_HOME at, or the fetch happens
+      # mid-run instead: tests guarded on a cached model skip, and the rest
+      # depend on a network fetch succeeding between assertions.
+      - name: Cache embedding models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-embed-bge-small-en-v1.5-e5-small-614241f6
+      - name: Warm the embedding model cache
+        run: |
+          python -c "from iai_mcp.embed import Embedder; Embedder(); Embedder(model_key='multilingual-e5-small')"
+      - name: Correctness gate
+        run: pytest --timeout=600 -m "not perf and not slow and not live"
+      - name: Build wheel
+        run: pip wheel . --no-deps -w dist
+
+  gitleaks:
+    name: secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

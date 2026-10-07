@@ -1,0 +1,165 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "study_hours",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "student",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "exam_score",
+      "type": "ordinal",
+      "sort": "ascending",
+      "scale": {
+        "scheme": "yelloworangebrown"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 316,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 25
+  },
+  "data": {
+    "values": [
+      {
+        "student": "Alice",
+        "exam_score": 22,
+        "study_hours": 12
+      },
+      {
+        "student": "Bob",
+        "exam_score": 81,
+        "study_hours": 27
+      },
+      {
+        "student": "Carol",
+        "exam_score": 91,
+        "study_hours": 21
+      },
+      {
+        "student": "Dave",
+        "exam_score": 95,
+        "study_hours": 26
+      },
+      {
+        "student": "Eve",
+        "exam_score": 42,
+        "study_hours": 28
+      },
+      {
+        "student": "Frank",
+        "exam_score": 42,
+        "study_hours": 17
+      },
+      {
+        "student": "Grace",
+        "exam_score": 28,
+        "study_hours": 18
+      },
+      {
+        "student": "Heidi",
+        "exam_score": 82,
+        "study_hours": 16
+      },
+      {
+        "student": "Ivan",
+        "exam_score": 63,
+        "study_hours": 6
+      },
+      {
+        "student": "Judy",
+        "exam_score": 95,
+        "study_hours": 11
+      },
+      {
+        "student": "Karl",
+        "exam_score": 85,
+        "study_hours": 22
+      },
+      {
+        "student": "Laura",
+        "exam_score": 28,
+        "study_hours": 13
+      }
+    ]
+  },
+  "_width": 316,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

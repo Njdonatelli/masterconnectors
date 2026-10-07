@@ -1,0 +1,129 @@
+{
+  "title": "Week (Wk ##) → Line Chart",
+  "description": "Week labels: \"Wk 01\", \"Wk 02\", …, \"Wk 24\" (24 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Week": "Wk 01",
+          "Value": 112
+        },
+        {
+          "Week": "Wk 02",
+          "Value": 273
+        },
+        {
+          "Week": "Wk 03",
+          "Value": 184
+        },
+        {
+          "Week": "Wk 04",
+          "Value": 242
+        },
+        {
+          "Week": "Wk 05",
+          "Value": 315
+        },
+        {
+          "Week": "Wk 06",
+          "Value": 185
+        },
+        {
+          "Week": "Wk 07",
+          "Value": 513
+        },
+        {
+          "Week": "Wk 08",
+          "Value": 500
+        },
+        {
+          "Week": "Wk 09",
+          "Value": 80
+        },
+        {
+          "Week": "Wk 10",
+          "Value": 514
+        },
+        {
+          "Week": "Wk 11",
+          "Value": 397
+        },
+        {
+          "Week": "Wk 12",
+          "Value": 251
+        },
+        {
+          "Week": "Wk 13",
+          "Value": 342
+        },
+        {
+          "Week": "Wk 14",
+          "Value": 207
+        },
+        {
+          "Week": "Wk 15",
+          "Value": 298
+        },
+        {
+          "Week": "Wk 16",
+          "Value": 337
+        },
+        {
+          "Week": "Wk 17",
+          "Value": 333
+        },
+        {
+          "Week": "Wk 18",
+          "Value": 353
+        },
+        {
+          "Week": "Wk 19",
+          "Value": 426
+        },
+        {
+          "Week": "Wk 20",
+          "Value": 311
+        },
+        {
+          "Week": "Wk 21",
+          "Value": 321
+        },
+        {
+          "Week": "Wk 22",
+          "Value": 479
+        },
+        {
+          "Week": "Wk 23",
+          "Value": 395
+        },
+        {
+          "Week": "Wk 24",
+          "Value": 112
+        }
+      ]
+    },
+    "semantic_types": {
+      "Week": "Week",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Week"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

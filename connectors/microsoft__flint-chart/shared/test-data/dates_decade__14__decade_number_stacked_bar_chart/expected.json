@@ -1,0 +1,214 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Decade",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "1944-12-31T18:51:25.715Z",
+          "2024-12-31T05:08:34.285Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 243,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 24
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Decade": "1950",
+        "Value": 59,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1950",
+        "Value": 441,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1950",
+        "Value": 341,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1960",
+        "Value": 234,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1960",
+        "Value": 410,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1960",
+        "Value": 491,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1970",
+        "Value": 212,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1970",
+        "Value": 291,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1970",
+        "Value": 338,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1980",
+        "Value": 381,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1980",
+        "Value": 387,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1980",
+        "Value": 93,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "1990",
+        "Value": 337,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "1990",
+        "Value": 369,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "1990",
+        "Value": 483,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "2000",
+        "Value": 177,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "2000",
+        "Value": 549,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "2000",
+        "Value": 303,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "2010",
+        "Value": 311,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "2010",
+        "Value": 258,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "2010",
+        "Value": 458,
+        "Category": "Gamma"
+      },
+      {
+        "Decade": "2020",
+        "Value": 217,
+        "Category": "Alpha"
+      },
+      {
+        "Decade": "2020",
+        "Value": 492,
+        "Category": "Beta"
+      },
+      {
+        "Decade": "2020",
+        "Value": 227,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 243,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

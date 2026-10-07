@@ -1,0 +1,626 @@
+{
+  "title": {
+    "text": "Price",
+    "anchor": "start",
+    "fontSize": 11,
+    "fontWeight": "normal",
+    "color": "#666"
+  },
+  "facet": {
+    "field": "Ticker",
+    "type": "nominal",
+    "sort": null
+  },
+  "columns": 3,
+  "spec": {
+    "layer": [
+      {
+        "mark": "rule",
+        "encoding": {
+          "y": {
+            "field": "Low"
+          },
+          "y2": {
+            "field": "High"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "bar",
+          "size": 13
+        },
+        "encoding": {
+          "y": {
+            "field": "Open"
+          },
+          "y2": {
+            "field": "Close"
+          }
+        }
+      }
+    ],
+    "encoding": {
+      "x": {
+        "field": "Date",
+        "type": "temporal",
+        "scale": {
+          "nice": false,
+          "domain": [
+            "2024-02-29T12:00:00.000Z",
+            "2024-03-19T12:00:00.000Z"
+          ]
+        }
+      },
+      "y": {
+        "type": "quantitative",
+        "scale": {
+          "zero": false
+        },
+        "axis": {
+          "title": null,
+          "format": ",.12~g"
+        }
+      },
+      "color": {
+        "condition": {
+          "test": "datum['Open'] < datum['Close']",
+          "value": "#06982d"
+        },
+        "value": "#ae1325"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 240,
+      "continuousHeight": 190,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 260
+    },
+    "facet": {
+      "spacing": 19
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2024-03-01",
+        "Ticker": "AAPL",
+        "Open": 180,
+        "High": 181.83,
+        "Low": 177.76,
+        "Close": 178.37
+      },
+      {
+        "Date": "2024-03-02",
+        "Ticker": "AAPL",
+        "Open": 178.37,
+        "High": 180.74,
+        "Low": 176.78,
+        "Close": 180.41
+      },
+      {
+        "Date": "2024-03-03",
+        "Ticker": "AAPL",
+        "Open": 180.41,
+        "High": 183.07,
+        "Low": 178.7,
+        "Close": 181.07
+      },
+      {
+        "Date": "2024-03-04",
+        "Ticker": "AAPL",
+        "Open": 181.07,
+        "High": 182.91,
+        "Low": 179.84,
+        "Close": 182.7
+      },
+      {
+        "Date": "2024-03-05",
+        "Ticker": "AAPL",
+        "Open": 182.7,
+        "High": 184.27,
+        "Low": 182.15,
+        "Close": 183.19
+      },
+      {
+        "Date": "2024-03-06",
+        "Ticker": "AAPL",
+        "Open": 183.19,
+        "High": 184.34,
+        "Low": 181.41,
+        "Close": 183.57
+      },
+      {
+        "Date": "2024-03-07",
+        "Ticker": "AAPL",
+        "Open": 183.57,
+        "High": 184.68,
+        "Low": 182.84,
+        "Close": 184.34
+      },
+      {
+        "Date": "2024-03-08",
+        "Ticker": "AAPL",
+        "Open": 184.34,
+        "High": 185.07,
+        "Low": 181.55,
+        "Close": 182.46
+      },
+      {
+        "Date": "2024-03-09",
+        "Ticker": "AAPL",
+        "Open": 182.46,
+        "High": 184.53,
+        "Low": 181.08,
+        "Close": 183.77
+      },
+      {
+        "Date": "2024-03-10",
+        "Ticker": "AAPL",
+        "Open": 183.77,
+        "High": 186.81,
+        "Low": 182.93,
+        "Close": 185.3
+      },
+      {
+        "Date": "2024-03-10",
+        "Ticker": "AAPL",
+        "Open": 185.3,
+        "High": 186.57,
+        "Low": 183.86,
+        "Close": 184.3
+      },
+      {
+        "Date": "2024-03-11",
+        "Ticker": "AAPL",
+        "Open": 184.3,
+        "High": 184.46,
+        "Low": 183.3,
+        "Close": 183.69
+      },
+      {
+        "Date": "2024-03-12",
+        "Ticker": "AAPL",
+        "Open": 183.69,
+        "High": 184.06,
+        "Low": 181.79,
+        "Close": 183.93
+      },
+      {
+        "Date": "2024-03-13",
+        "Ticker": "AAPL",
+        "Open": 183.93,
+        "High": 184.72,
+        "Low": 182.45,
+        "Close": 182.49
+      },
+      {
+        "Date": "2024-03-14",
+        "Ticker": "AAPL",
+        "Open": 182.49,
+        "High": 183.66,
+        "Low": 181.77,
+        "Close": 182
+      },
+      {
+        "Date": "2024-03-15",
+        "Ticker": "AAPL",
+        "Open": 182,
+        "High": 182.88,
+        "Low": 180.65,
+        "Close": 181.11
+      },
+      {
+        "Date": "2024-03-16",
+        "Ticker": "AAPL",
+        "Open": 181.11,
+        "High": 182.33,
+        "Low": 179.13,
+        "Close": 182.16
+      },
+      {
+        "Date": "2024-03-17",
+        "Ticker": "AAPL",
+        "Open": 182.16,
+        "High": 184.29,
+        "Low": 181.81,
+        "Close": 182.74
+      },
+      {
+        "Date": "2024-03-18",
+        "Ticker": "AAPL",
+        "Open": 182.74,
+        "High": 183.37,
+        "Low": 181.63,
+        "Close": 182.39
+      },
+      {
+        "Date": "2024-03-19",
+        "Ticker": "AAPL",
+        "Open": 182.39,
+        "High": 183.48,
+        "Low": 179.86,
+        "Close": 180.65
+      },
+      {
+        "Date": "2024-03-01",
+        "Ticker": "GOOG",
+        "Open": 140,
+        "High": 141.36,
+        "Low": 139.59,
+        "Close": 139.9
+      },
+      {
+        "Date": "2024-03-02",
+        "Ticker": "GOOG",
+        "Open": 139.9,
+        "High": 140.96,
+        "Low": 137.39,
+        "Close": 139.32
+      },
+      {
+        "Date": "2024-03-03",
+        "Ticker": "GOOG",
+        "Open": 139.32,
+        "High": 140.62,
+        "Low": 137.37,
+        "Close": 138.72
+      },
+      {
+        "Date": "2024-03-04",
+        "Ticker": "GOOG",
+        "Open": 138.72,
+        "High": 141.35,
+        "Low": 137.14,
+        "Close": 139.43
+      },
+      {
+        "Date": "2024-03-05",
+        "Ticker": "GOOG",
+        "Open": 139.43,
+        "High": 140.59,
+        "Low": 136.88,
+        "Close": 138.74
+      },
+      {
+        "Date": "2024-03-06",
+        "Ticker": "GOOG",
+        "Open": 138.74,
+        "High": 139.11,
+        "Low": 137.57,
+        "Close": 139.02
+      },
+      {
+        "Date": "2024-03-07",
+        "Ticker": "GOOG",
+        "Open": 139.02,
+        "High": 141,
+        "Low": 137.43,
+        "Close": 138.99
+      },
+      {
+        "Date": "2024-03-08",
+        "Ticker": "GOOG",
+        "Open": 138.99,
+        "High": 141.76,
+        "Low": 138.98,
+        "Close": 140.64
+      },
+      {
+        "Date": "2024-03-09",
+        "Ticker": "GOOG",
+        "Open": 140.64,
+        "High": 141.9,
+        "Low": 138.36,
+        "Close": 140.16
+      },
+      {
+        "Date": "2024-03-10",
+        "Ticker": "GOOG",
+        "Open": 140.16,
+        "High": 141.83,
+        "Low": 138.37,
+        "Close": 141.32
+      },
+      {
+        "Date": "2024-03-10",
+        "Ticker": "GOOG",
+        "Open": 141.32,
+        "High": 143.59,
+        "Low": 139.38,
+        "Close": 142.19
+      },
+      {
+        "Date": "2024-03-11",
+        "Ticker": "GOOG",
+        "Open": 142.19,
+        "High": 144.89,
+        "Low": 142.1,
+        "Close": 144.24
+      },
+      {
+        "Date": "2024-03-12",
+        "Ticker": "GOOG",
+        "Open": 144.24,
+        "High": 147.35,
+        "Low": 142.73,
+        "Close": 145.79
+      },
+      {
+        "Date": "2024-03-13",
+        "Ticker": "GOOG",
+        "Open": 145.79,
+        "High": 146.89,
+        "Low": 143.48,
+        "Close": 143.91
+      },
+      {
+        "Date": "2024-03-14",
+        "Ticker": "GOOG",
+        "Open": 143.91,
+        "High": 144.09,
+        "Low": 142.08,
+        "Close": 143.38
+      },
+      {
+        "Date": "2024-03-15",
+        "Ticker": "GOOG",
+        "Open": 143.38,
+        "High": 144.09,
+        "Low": 141.53,
+        "Close": 142.74
+      },
+      {
+        "Date": "2024-03-16",
+        "Ticker": "GOOG",
+        "Open": 142.74,
+        "High": 143.57,
+        "Low": 142.59,
+        "Close": 143.35
+      },
+      {
+        "Date": "2024-03-17",
+        "Ticker": "GOOG",
+        "Open": 143.35,
+        "High": 146.46,
+        "Low": 141.87,
+        "Close": 144.67
+      },
+      {
+        "Date": "2024-03-18",
+        "Ticker": "GOOG",
+        "Open": 144.67,
+        "High": 145.6,
+        "Low": 143.03,
+        "Close": 145.18
+      },
+      {
+        "Date": "2024-03-19",
+        "Ticker": "GOOG",
+        "Open": 145.18,
+        "High": 145.93,
+        "Low": 145.02,
+        "Close": 145.89
+      },
+      {
+        "Date": "2024-03-01",
+        "Ticker": "MSFT",
+        "Open": 350,
+        "High": 353.22,
+        "Low": 349.01,
+        "Close": 351.37
+      },
+      {
+        "Date": "2024-03-02",
+        "Ticker": "MSFT",
+        "Open": 351.37,
+        "High": 352.76,
+        "Low": 348.26,
+        "Close": 349.99
+      },
+      {
+        "Date": "2024-03-03",
+        "Ticker": "MSFT",
+        "Open": 349.99,
+        "High": 353.42,
+        "Low": 349.41,
+        "Close": 351.55
+      },
+      {
+        "Date": "2024-03-04",
+        "Ticker": "MSFT",
+        "Open": 351.55,
+        "High": 353.09,
+        "Low": 349.36,
+        "Close": 350.96
+      },
+      {
+        "Date": "2024-03-05",
+        "Ticker": "MSFT",
+        "Open": 350.96,
+        "High": 352.43,
+        "Low": 350.32,
+        "Close": 351.47
+      },
+      {
+        "Date": "2024-03-06",
+        "Ticker": "MSFT",
+        "Open": 351.47,
+        "High": 354.53,
+        "Low": 350.83,
+        "Close": 353.47
+      },
+      {
+        "Date": "2024-03-07",
+        "Ticker": "MSFT",
+        "Open": 353.47,
+        "High": 354.82,
+        "Low": 351.61,
+        "Close": 353.98
+      },
+      {
+        "Date": "2024-03-08",
+        "Ticker": "MSFT",
+        "Open": 353.98,
+        "High": 355.58,
+        "Low": 353.42,
+        "Close": 354.06
+      },
+      {
+        "Date": "2024-03-09",
+        "Ticker": "MSFT",
+        "Open": 354.06,
+        "High": 356.15,
+        "Low": 352.22,
+        "Close": 355.02
+      },
+      {
+        "Date": "2024-03-10",
+        "Ticker": "MSFT",
+        "Open": 355.02,
+        "High": 355.78,
+        "Low": 352.45,
+        "Close": 353.37
+      },
+      {
+        "Date": "2024-03-10",
+        "Ticker": "MSFT",
+        "Open": 353.37,
+        "High": 355.67,
+        "Low": 352.41,
+        "Close": 353.7
+      },
+      {
+        "Date": "2024-03-11",
+        "Ticker": "MSFT",
+        "Open": 353.7,
+        "High": 356.41,
+        "Low": 352.15,
+        "Close": 354.5
+      },
+      {
+        "Date": "2024-03-12",
+        "Ticker": "MSFT",
+        "Open": 354.5,
+        "High": 355.67,
+        "Low": 351.92,
+        "Close": 353.47
+      },
+      {
+        "Date": "2024-03-13",
+        "Ticker": "MSFT",
+        "Open": 353.47,
+        "High": 355.1,
+        "Low": 350.91,
+        "Close": 351.82
+      },
+      {
+        "Date": "2024-03-14",
+        "Ticker": "MSFT",
+        "Open": 351.82,
+        "High": 354.6,
+        "Low": 351.22,
+        "Close": 353.63
+      },
+      {
+        "Date": "2024-03-15",
+        "Ticker": "MSFT",
+        "Open": 353.63,
+        "High": 353.76,
+        "Low": 351.58,
+        "Close": 353.06
+      },
+      {
+        "Date": "2024-03-16",
+        "Ticker": "MSFT",
+        "Open": 353.06,
+        "High": 354.93,
+        "Low": 351.83,
+        "Close": 353.53
+      },
+      {
+        "Date": "2024-03-17",
+        "Ticker": "MSFT",
+        "Open": 353.53,
+        "High": 355.22,
+        "Low": 351.73,
+        "Close": 352.08
+      },
+      {
+        "Date": "2024-03-18",
+        "Ticker": "MSFT",
+        "Open": 352.08,
+        "High": 353.58,
+        "Low": 351.84,
+        "Close": 352.34
+      },
+      {
+        "Date": "2024-03-19",
+        "Ticker": "MSFT",
+        "Open": 352.34,
+        "High": 356.23,
+        "Low": 351.99,
+        "Close": 354.27
+      }
+    ]
+  },
+  "_width": 240,
+  "_height": 190,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

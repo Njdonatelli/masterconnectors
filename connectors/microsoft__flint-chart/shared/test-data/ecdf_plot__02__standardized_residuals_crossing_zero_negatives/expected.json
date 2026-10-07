@@ -1,0 +1,436 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Std residual",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Std residual",
+          "order": "ascending"
+        }
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Std residual",
+          "as": "__ecdf_total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Std residual",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Std residual",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Std residual": 1.48
+      },
+      {
+        "Std residual": 0.38
+      },
+      {
+        "Std residual": -0.55
+      },
+      {
+        "Std residual": 0.51
+      },
+      {
+        "Std residual": 1.96
+      },
+      {
+        "Std residual": 1.73
+      },
+      {
+        "Std residual": 1.37
+      },
+      {
+        "Std residual": 0.29
+      },
+      {
+        "Std residual": 0.72
+      },
+      {
+        "Std residual": -0.22
+      },
+      {
+        "Std residual": 0.5
+      },
+      {
+        "Std residual": -0.9
+      },
+      {
+        "Std residual": -1.15
+      },
+      {
+        "Std residual": -0.16
+      },
+      {
+        "Std residual": -0.16
+      },
+      {
+        "Std residual": -0.12
+      },
+      {
+        "Std residual": -0.42
+      },
+      {
+        "Std residual": -0.95
+      },
+      {
+        "Std residual": 0.08
+      },
+      {
+        "Std residual": -0.37
+      },
+      {
+        "Std residual": -1.01
+      },
+      {
+        "Std residual": -0.89
+      },
+      {
+        "Std residual": -1.16
+      },
+      {
+        "Std residual": -1.25
+      },
+      {
+        "Std residual": 0.12
+      },
+      {
+        "Std residual": -0.19
+      },
+      {
+        "Std residual": 1.53
+      },
+      {
+        "Std residual": -0.19
+      },
+      {
+        "Std residual": -0.07
+      },
+      {
+        "Std residual": 0.79
+      },
+      {
+        "Std residual": 0.11
+      },
+      {
+        "Std residual": 0.33
+      },
+      {
+        "Std residual": 0.06
+      },
+      {
+        "Std residual": 0.33
+      },
+      {
+        "Std residual": -0.44
+      },
+      {
+        "Std residual": -1.48
+      },
+      {
+        "Std residual": -0.94
+      },
+      {
+        "Std residual": -0.55
+      },
+      {
+        "Std residual": 1.44
+      },
+      {
+        "Std residual": -0.89
+      },
+      {
+        "Std residual": 0.87
+      },
+      {
+        "Std residual": 0.19
+      },
+      {
+        "Std residual": -0.29
+      },
+      {
+        "Std residual": 0.9
+      },
+      {
+        "Std residual": -2.04
+      },
+      {
+        "Std residual": 1.68
+      },
+      {
+        "Std residual": 0.47
+      },
+      {
+        "Std residual": -0.06
+      },
+      {
+        "Std residual": 1.26
+      },
+      {
+        "Std residual": -0.13
+      },
+      {
+        "Std residual": -0.84
+      },
+      {
+        "Std residual": 0.84
+      },
+      {
+        "Std residual": -1.99
+      },
+      {
+        "Std residual": 0.51
+      },
+      {
+        "Std residual": -0.7
+      },
+      {
+        "Std residual": -0.33
+      },
+      {
+        "Std residual": 0.44
+      },
+      {
+        "Std residual": -0.27
+      },
+      {
+        "Std residual": -0.79
+      },
+      {
+        "Std residual": 0.46
+      },
+      {
+        "Std residual": 0.64
+      },
+      {
+        "Std residual": 1.96
+      },
+      {
+        "Std residual": -1.99
+      },
+      {
+        "Std residual": 1.58
+      },
+      {
+        "Std residual": 0.43
+      },
+      {
+        "Std residual": 1.8
+      },
+      {
+        "Std residual": 1.9
+      },
+      {
+        "Std residual": 0.03
+      },
+      {
+        "Std residual": 0.65
+      },
+      {
+        "Std residual": 0.95
+      },
+      {
+        "Std residual": 0.28
+      },
+      {
+        "Std residual": -0.11
+      },
+      {
+        "Std residual": -0.45
+      },
+      {
+        "Std residual": -0.05
+      },
+      {
+        "Std residual": -0.91
+      },
+      {
+        "Std residual": -0.36
+      },
+      {
+        "Std residual": -0.07
+      },
+      {
+        "Std residual": -0.18
+      },
+      {
+        "Std residual": 0.22
+      },
+      {
+        "Std residual": 0.47
+      },
+      {
+        "Std residual": 0.11
+      },
+      {
+        "Std residual": -1.13
+      },
+      {
+        "Std residual": -0.34
+      },
+      {
+        "Std residual": 1.73
+      },
+      {
+        "Std residual": -0.46
+      },
+      {
+        "Std residual": 1.25
+      },
+      {
+        "Std residual": 0.29
+      },
+      {
+        "Std residual": 0.9
+      },
+      {
+        "Std residual": 0.41
+      },
+      {
+        "Std residual": 0.79
+      },
+      {
+        "Std residual": 0.43
+      },
+      {
+        "Std residual": -0.53
+      },
+      {
+        "Std residual": 0.21
+      },
+      {
+        "Std residual": 0.2
+      },
+      {
+        "Std residual": 0.27
+      },
+      {
+        "Std residual": -1.23
+      },
+      {
+        "Std residual": 1.6
+      },
+      {
+        "Std residual": 1.51
+      },
+      {
+        "Std residual": 0.14
+      },
+      {
+        "Std residual": 0.53
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "title": "Flint: Pie — total count by region",
+  "description": "Aggregated respondent counts summed across all waves.",
+  "chartType": "Pie Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Region": "N",
+          "Total": 3340
+        },
+        {
+          "Region": "E",
+          "Total": 7160
+        },
+        {
+          "Region": "S",
+          "Total": 5080
+        },
+        {
+          "Region": "W",
+          "Total": 3620
+        }
+      ]
+    },
+    "semantic_types": {
+      "Region": "Category",
+      "Total": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Pie Chart",
+      "encodings": {
+        "color": {
+          "field": "Region"
+        },
+        "size": {
+          "field": "Total"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

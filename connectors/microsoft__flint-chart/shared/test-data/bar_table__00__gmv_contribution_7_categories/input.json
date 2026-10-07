@@ -1,0 +1,61 @@
+{
+  "title": "GMV Contribution (7 categories)",
+  "description": "Ranked contribution table — bar + value + % share, like Chinese BI dashboards",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "电子产品",
+          "Contribution": 331207.65
+        },
+        {
+          "Category": "自行车",
+          "Contribution": 89774.5
+        },
+        {
+          "Category": "香水和古龙水",
+          "Contribution": 57668.3
+        },
+        {
+          "Category": "服装",
+          "Contribution": 48210.1
+        },
+        {
+          "Category": "家具",
+          "Contribution": 32104.55
+        },
+        {
+          "Category": "玩具",
+          "Contribution": 20157.8
+        },
+        {
+          "Category": "其他",
+          "Contribution": 12998.4
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Contribution": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Category"
+        },
+        "x": {
+          "field": "Contribution"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

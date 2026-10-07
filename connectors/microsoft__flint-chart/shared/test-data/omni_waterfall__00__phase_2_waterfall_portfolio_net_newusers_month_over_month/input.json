@@ -1,0 +1,107 @@
+{
+  "title": "Phase 2 — Waterfall: portfolio net newUsers month over month",
+  "description": "Change: x = step (opening → each YYYY-MM → closing); y = Amount. Middle steps are monthly sum(newUsers) across all games/regions; start/end are opening and December total MAU (portfolio sum). Good for exec-friendly “how we got here”.",
+  "chartType": "Waterfall Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Step": "Opening MAU (year start)",
+          "Amount": 325726,
+          "Type": "start"
+        },
+        {
+          "Step": "2025-01",
+          "Amount": 397986,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-02",
+          "Amount": 533739,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-03",
+          "Amount": -521212,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-04",
+          "Amount": -149552,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-05",
+          "Amount": 40044,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-06",
+          "Amount": 633936,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-07",
+          "Amount": 442875,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-08",
+          "Amount": 138280,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-09",
+          "Amount": -502170,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-10",
+          "Amount": -167050,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-11",
+          "Amount": 293585,
+          "Type": "delta"
+        },
+        {
+          "Step": "2025-12",
+          "Amount": 494963,
+          "Type": "delta"
+        },
+        {
+          "Step": "Closing MAU (year end)",
+          "Amount": 1961150,
+          "Type": "end"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Step": "Category",
+      "Amount": "Quantity",
+      "Type": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Waterfall Chart",
+      "encodings": {
+        "x": {
+          "field": "Step"
+        },
+        "y": {
+          "field": "Amount"
+        },
+        "color": {
+          "field": "Type"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

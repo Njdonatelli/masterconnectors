@@ -1,0 +1,284 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Month": 1,
+        "Value": 520,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 1,
+        "Value": 513,
+        "Category": "Beta"
+      },
+      {
+        "Month": 1,
+        "Value": 342,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 2,
+        "Value": 76,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 2,
+        "Value": 473,
+        "Category": "Beta"
+      },
+      {
+        "Month": 2,
+        "Value": 520,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 3,
+        "Value": 133,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 3,
+        "Value": 468,
+        "Category": "Beta"
+      },
+      {
+        "Month": 3,
+        "Value": 322,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 4,
+        "Value": 389,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 4,
+        "Value": 506,
+        "Category": "Beta"
+      },
+      {
+        "Month": 4,
+        "Value": 248,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 5,
+        "Value": 290,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 5,
+        "Value": 156,
+        "Category": "Beta"
+      },
+      {
+        "Month": 5,
+        "Value": 300,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 6,
+        "Value": 522,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 6,
+        "Value": 466,
+        "Category": "Beta"
+      },
+      {
+        "Month": 6,
+        "Value": 147,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 7,
+        "Value": 529,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 7,
+        "Value": 234,
+        "Category": "Beta"
+      },
+      {
+        "Month": 7,
+        "Value": 106,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 8,
+        "Value": 499,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 8,
+        "Value": 88,
+        "Category": "Beta"
+      },
+      {
+        "Month": 8,
+        "Value": 66,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 9,
+        "Value": 550,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 9,
+        "Value": 282,
+        "Category": "Beta"
+      },
+      {
+        "Month": 9,
+        "Value": 157,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 10,
+        "Value": 116,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 10,
+        "Value": 111,
+        "Category": "Beta"
+      },
+      {
+        "Month": 10,
+        "Value": 445,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 11,
+        "Value": 162,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 11,
+        "Value": 63,
+        "Category": "Beta"
+      },
+      {
+        "Month": 11,
+        "Value": 329,
+        "Category": "Gamma"
+      },
+      {
+        "Month": 12,
+        "Value": 108,
+        "Category": "Alpha"
+      },
+      {
+        "Month": 12,
+        "Value": 169,
+        "Category": "Beta"
+      },
+      {
+        "Month": 12,
+        "Value": 418,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

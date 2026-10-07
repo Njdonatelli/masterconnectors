@@ -1,0 +1,189 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "DateTime",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 374,
+      "continuousHeight": 321
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "DateTime": "2020-01-15T00:00:00",
+        "Value": 292
+      },
+      {
+        "DateTime": "2020-01-15T01:00:00",
+        "Value": 69
+      },
+      {
+        "DateTime": "2020-01-15T02:00:00",
+        "Value": 427
+      },
+      {
+        "DateTime": "2020-01-15T03:00:00",
+        "Value": 503
+      },
+      {
+        "DateTime": "2020-01-15T04:00:00",
+        "Value": 471
+      },
+      {
+        "DateTime": "2020-01-15T05:00:00",
+        "Value": 465
+      },
+      {
+        "DateTime": "2020-01-15T06:00:00",
+        "Value": 394
+      },
+      {
+        "DateTime": "2020-01-15T07:00:00",
+        "Value": 181
+      },
+      {
+        "DateTime": "2020-01-15T08:00:00",
+        "Value": 186
+      },
+      {
+        "DateTime": "2020-01-15T09:00:00",
+        "Value": 431
+      },
+      {
+        "DateTime": "2020-01-15T10:00:00",
+        "Value": 293
+      },
+      {
+        "DateTime": "2020-01-15T11:00:00",
+        "Value": 215
+      },
+      {
+        "DateTime": "2020-01-15T12:00:00",
+        "Value": 238
+      },
+      {
+        "DateTime": "2020-01-15T13:00:00",
+        "Value": 464
+      },
+      {
+        "DateTime": "2020-01-15T14:00:00",
+        "Value": 284
+      },
+      {
+        "DateTime": "2020-01-15T15:00:00",
+        "Value": 252
+      },
+      {
+        "DateTime": "2020-01-15T16:00:00",
+        "Value": 235
+      },
+      {
+        "DateTime": "2020-01-15T17:00:00",
+        "Value": 529
+      },
+      {
+        "DateTime": "2020-01-15T18:00:00",
+        "Value": 384
+      },
+      {
+        "DateTime": "2020-01-15T19:00:00",
+        "Value": 547
+      },
+      {
+        "DateTime": "2020-01-15T20:00:00",
+        "Value": 56
+      },
+      {
+        "DateTime": "2020-01-15T21:00:00",
+        "Value": 267
+      },
+      {
+        "DateTime": "2020-01-15T22:00:00",
+        "Value": 163
+      },
+      {
+        "DateTime": "2020-01-15T23:00:00",
+        "Value": 428
+      }
+    ]
+  },
+  "_width": 374,
+  "_height": 321,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

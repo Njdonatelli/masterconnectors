@@ -1,0 +1,448 @@
+{
+  "mark": {
+    "type": "circle",
+    "opacity": 0.6,
+    "size": 100
+  },
+  "encoding": {
+    "x": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Gender",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "xOffset": {
+      "field": "__jitter",
+      "type": "quantitative",
+      "axis": null,
+      "scale": {
+        "domain": [
+          -10,
+          10
+        ]
+      }
+    }
+  },
+  "width": {
+    "step": 67
+  },
+  "transform": [
+    {
+      "calculate": "-6 + random() * 12",
+      "as": "__jitter"
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 38
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 55
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 53
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 49
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 65
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 46
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 42
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 60
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 61
+      },
+      {
+        "Group": "Control",
+        "Gender": "M",
+        "Score": 46
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 60
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 59
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 42
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 39
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 59
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 56
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 40
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 58
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 60
+      },
+      {
+        "Group": "Control",
+        "Gender": "F",
+        "Score": 64
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 75
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 66
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 78
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 79
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 67
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 64
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 56
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 69
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 71
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "M",
+        "Score": 74
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 56
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 55
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 56
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 58
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 76
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 80
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 73
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 70
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 59
+      },
+      {
+        "Group": "Treatment A",
+        "Gender": "F",
+        "Score": 57
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 90
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 82
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 86
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 77
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 78
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 80
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 86
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 94
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 98
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "M",
+        "Score": 80
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 82
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 69
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 96
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 74
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 86
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 88
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 92
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 98
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 68
+      },
+      {
+        "Group": "Treatment B",
+        "Gender": "F",
+        "Score": 78
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "stepWidth",
+      "label": "Jitter",
+      "type": "continuous",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "pointSize",
+      "label": "Size",
+      "type": "continuous",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

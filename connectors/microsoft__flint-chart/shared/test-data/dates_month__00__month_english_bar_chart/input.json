@@ -1,0 +1,81 @@
+{
+  "title": "Month (English) → Bar Chart",
+  "description": "Month short names: \"Jan\", \"Feb\", … (12 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": "Jan",
+          "Value": 84
+        },
+        {
+          "Month": "Feb",
+          "Value": 448
+        },
+        {
+          "Month": "Mar",
+          "Value": 469
+        },
+        {
+          "Month": "Apr",
+          "Value": 69
+        },
+        {
+          "Month": "May",
+          "Value": 259
+        },
+        {
+          "Month": "Jun",
+          "Value": 189
+        },
+        {
+          "Month": "Jul",
+          "Value": 93
+        },
+        {
+          "Month": "Aug",
+          "Value": 234
+        },
+        {
+          "Month": "Sep",
+          "Value": 133
+        },
+        {
+          "Month": "Oct",
+          "Value": 133
+        },
+        {
+          "Month": "Nov",
+          "Value": 343
+        },
+        {
+          "Month": "Dec",
+          "Value": 501
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "title": "Lollipop ▸ X ×20",
+  "description": "Lollipop with 20 categories on X",
+  "chartType": "Lollipop Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Item": "Item01",
+          "Value": 13
+        },
+        {
+          "Item": "Item02",
+          "Value": 47
+        },
+        {
+          "Item": "Item03",
+          "Value": 463
+        },
+        {
+          "Item": "Item04",
+          "Value": 37
+        },
+        {
+          "Item": "Item05",
+          "Value": 469
+        },
+        {
+          "Item": "Item06",
+          "Value": 143
+        },
+        {
+          "Item": "Item07",
+          "Value": 466
+        },
+        {
+          "Item": "Item08",
+          "Value": 111
+        },
+        {
+          "Item": "Item09",
+          "Value": 259
+        },
+        {
+          "Item": "Item10",
+          "Value": 150
+        },
+        {
+          "Item": "Item11",
+          "Value": 231
+        },
+        {
+          "Item": "Item12",
+          "Value": 300
+        },
+        {
+          "Item": "Item13",
+          "Value": 341
+        },
+        {
+          "Item": "Item14",
+          "Value": 108
+        },
+        {
+          "Item": "Item15",
+          "Value": 217
+        },
+        {
+          "Item": "Item16",
+          "Value": 397
+        },
+        {
+          "Item": "Item17",
+          "Value": 404
+        },
+        {
+          "Item": "Item18",
+          "Value": 200
+        },
+        {
+          "Item": "Item19",
+          "Value": 202
+        },
+        {
+          "Item": "Item20",
+          "Value": 397
+        }
+      ]
+    },
+    "semantic_types": {
+      "Item": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Lollipop Chart",
+      "encodings": {
+        "x": {
+          "field": "Item"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

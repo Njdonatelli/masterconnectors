@@ -1,0 +1,62 @@
+{
+  "title": "O(5)×Q +color(Q) (5 pts)",
+  "description": "Ordinal + continuous color gradient",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Stage": "Stage 1",
+          "Value": 223,
+          "ColorVal": 5.1
+        },
+        {
+          "Stage": "Stage 2",
+          "Value": 220,
+          "ColorVal": 4.3
+        },
+        {
+          "Stage": "Stage 3",
+          "Value": 216,
+          "ColorVal": 5.7
+        },
+        {
+          "Stage": "Stage 4",
+          "Value": 215,
+          "ColorVal": 3.1
+        },
+        {
+          "Stage": "Stage 5",
+          "Value": 210,
+          "ColorVal": 0.3
+        }
+      ]
+    },
+    "semantic_types": {
+      "Stage": "Category",
+      "Value": "Quantity",
+      "ColorVal": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Stage"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "ColorVal"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

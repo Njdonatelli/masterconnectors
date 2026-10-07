@@ -1,0 +1,134 @@
+{
+  "title": "Two periods × 4 products + Color, faceted by Segment",
+  "description": "4 products across two periods, small multiples by channel (column facet)",
+  "chartType": "Slope Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Period": "2021",
+          "Product": "Laptop",
+          "Segment": "Retail",
+          "Sales": 66
+        },
+        {
+          "Period": "2022",
+          "Product": "Laptop",
+          "Segment": "Retail",
+          "Sales": 60
+        },
+        {
+          "Period": "2021",
+          "Product": "Phone",
+          "Segment": "Retail",
+          "Sales": 52
+        },
+        {
+          "Period": "2022",
+          "Product": "Phone",
+          "Segment": "Retail",
+          "Sales": 66
+        },
+        {
+          "Period": "2021",
+          "Product": "Tablet",
+          "Segment": "Retail",
+          "Sales": 39
+        },
+        {
+          "Period": "2022",
+          "Product": "Tablet",
+          "Segment": "Retail",
+          "Sales": 31
+        },
+        {
+          "Period": "2021",
+          "Product": "Desktop",
+          "Segment": "Retail",
+          "Sales": 28
+        },
+        {
+          "Period": "2022",
+          "Product": "Desktop",
+          "Segment": "Retail",
+          "Sales": 37
+        },
+        {
+          "Period": "2021",
+          "Product": "Laptop",
+          "Segment": "Online",
+          "Sales": 73
+        },
+        {
+          "Period": "2022",
+          "Product": "Laptop",
+          "Segment": "Online",
+          "Sales": 69
+        },
+        {
+          "Period": "2021",
+          "Product": "Phone",
+          "Segment": "Online",
+          "Sales": 58
+        },
+        {
+          "Period": "2022",
+          "Product": "Phone",
+          "Segment": "Online",
+          "Sales": 73
+        },
+        {
+          "Period": "2021",
+          "Product": "Tablet",
+          "Segment": "Online",
+          "Sales": 47
+        },
+        {
+          "Period": "2022",
+          "Product": "Tablet",
+          "Segment": "Online",
+          "Sales": 38
+        },
+        {
+          "Period": "2021",
+          "Product": "Desktop",
+          "Segment": "Online",
+          "Sales": 34
+        },
+        {
+          "Period": "2022",
+          "Product": "Desktop",
+          "Segment": "Online",
+          "Sales": 42
+        }
+      ]
+    },
+    "semantic_types": {
+      "Period": "Category",
+      "Sales": "Quantity",
+      "Product": "Product",
+      "Segment": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Slope Chart",
+      "encodings": {
+        "x": {
+          "field": "Period"
+        },
+        "y": {
+          "field": "Sales"
+        },
+        "color": {
+          "field": "Product"
+        },
+        "column": {
+          "field": "Segment"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

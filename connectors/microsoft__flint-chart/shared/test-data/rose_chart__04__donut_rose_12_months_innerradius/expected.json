@@ -1,0 +1,216 @@
+{
+  "encoding": {
+    "theta": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ],
+      "stack": true
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "stroke": "white",
+        "padAngle": 0.02,
+        "innerRadius": 40
+      },
+      "encoding": {
+        "radius": {
+          "field": "Rainfall",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt"
+          }
+        },
+        "color": {
+          "field": "Month",
+          "type": "ordinal",
+          "sort": [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec"
+          ]
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radiusOffset": 15,
+        "fontSize": 11
+      },
+      "encoding": {
+        "text": {
+          "field": "Month",
+          "type": "ordinal"
+        },
+        "radius": {
+          "field": "Rainfall",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt"
+          }
+        }
+      },
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "Rainfall",
+              "as": "Rainfall"
+            }
+          ],
+          "groupby": [
+            "Month"
+          ]
+        }
+      ]
+    }
+  ],
+  "width": 285,
+  "height": 285,
+  "config": {
+    "view": {
+      "continuousWidth": 285,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Month": "Jan",
+        "Rainfall": 32
+      },
+      {
+        "Month": "Feb",
+        "Rainfall": 34
+      },
+      {
+        "Month": "Mar",
+        "Rainfall": 120
+      },
+      {
+        "Month": "Apr",
+        "Rainfall": 54
+      },
+      {
+        "Month": "May",
+        "Rainfall": 110
+      },
+      {
+        "Month": "Jun",
+        "Rainfall": 155
+      },
+      {
+        "Month": "Jul",
+        "Rainfall": 88
+      },
+      {
+        "Month": "Aug",
+        "Rainfall": 65
+      },
+      {
+        "Month": "Sep",
+        "Rainfall": 31
+      },
+      {
+        "Month": "Oct",
+        "Rainfall": 95
+      },
+      {
+        "Month": "Nov",
+        "Rainfall": 147
+      },
+      {
+        "Month": "Dec",
+        "Rainfall": 163
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Inner Radius",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 40
+    },
+    {
+      "key": "padAngle",
+      "label": "Gap",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.1,
+      "step": 0.005,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "alignment",
+      "label": "Alignment",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (default)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

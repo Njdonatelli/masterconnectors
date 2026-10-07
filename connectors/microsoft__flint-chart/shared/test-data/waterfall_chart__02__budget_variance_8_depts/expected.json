@@ -1,0 +1,174 @@
+{
+  "encoding": {
+    "x": {
+      "field": "Department",
+      "type": "ordinal",
+      "sort": null,
+      "axis": {
+        "labelAngle": -45
+      }
+    }
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "row_number",
+          "as": "__wf_row"
+        }
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "as": "__wf_total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.__wf_row === 1 ? 'start' : datum.__wf_row === datum.__wf_total ? 'end' : 'delta'",
+      "as": "__wf_type"
+    },
+    {
+      "window": [
+        {
+          "op": "sum",
+          "field": "Variance",
+          "as": "__wf_sum_raw"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['__wf_type'] === 'end' ? datum.__wf_sum_raw - datum['Variance'] : datum.__wf_sum_raw",
+      "as": "__wf_sum"
+    },
+    {
+      "calculate": "datum['__wf_type'] === 'end' ? 0 : datum.__wf_sum - datum['Variance']",
+      "as": "__wf_prev_sum"
+    },
+    {
+      "calculate": "datum['__wf_type'] !== 'delta' ? 'total' : datum['Variance'] >= 0 ? 'increase' : 'decrease'",
+      "as": "__wf_color"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "y": {
+          "field": "__wf_prev_sum",
+          "type": "quantitative",
+          "title": "Variance",
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y2": {
+          "field": "__wf_sum"
+        },
+        "color": {
+          "field": "__wf_color",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "total",
+              "increase",
+              "decrease"
+            ],
+            "range": [
+              "#f7e0b6",
+              "#93c4aa",
+              "#f78a64"
+            ]
+          },
+          "legend": {
+            "title": "Type"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Department": "Engineering",
+        "Variance": 120
+      },
+      {
+        "Department": "Sales",
+        "Variance": -45
+      },
+      {
+        "Department": "Marketing",
+        "Variance": -80
+      },
+      {
+        "Department": "Operations",
+        "Variance": 35
+      },
+      {
+        "Department": "HR",
+        "Variance": -20
+      },
+      {
+        "Department": "Finance",
+        "Variance": 15
+      },
+      {
+        "Department": "Support",
+        "Variance": -30
+      },
+      {
+        "Department": "Total",
+        "Variance": -5
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

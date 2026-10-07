@@ -1,0 +1,96 @@
+{
+  "title": "Nice = false (Score [0-100])",
+  "description": "Score's bounded domainShape sets nice = false so VL doesn't extend the axis beyond [0, 100]. Ticks stop at the intrinsic bounds. WITHOUT nice = false: VL extends to [0, 120] — implying impossible scores.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "student": "Alice",
+          "math_score": 45,
+          "science_score": 90
+        },
+        {
+          "student": "Bob",
+          "math_score": 54,
+          "science_score": 47
+        },
+        {
+          "student": "Carol",
+          "math_score": 50,
+          "science_score": 40
+        },
+        {
+          "student": "Dave",
+          "math_score": 73,
+          "science_score": 76
+        },
+        {
+          "student": "Eve",
+          "math_score": 50,
+          "science_score": 33
+        },
+        {
+          "student": "Frank",
+          "math_score": 64,
+          "science_score": 73
+        },
+        {
+          "student": "Grace",
+          "math_score": 60,
+          "science_score": 94
+        },
+        {
+          "student": "Heidi",
+          "math_score": 100,
+          "science_score": 100
+        },
+        {
+          "student": "Ivan",
+          "math_score": 92,
+          "science_score": 84
+        },
+        {
+          "student": "Judy",
+          "math_score": 59,
+          "science_score": 66
+        }
+      ]
+    },
+    "semantic_types": {
+      "student": "Category",
+      "math_score": {
+        "semanticType": "Score",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      },
+      "science_score": {
+        "semanticType": "Score",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "math_score"
+        },
+        "y": {
+          "field": "science_score"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

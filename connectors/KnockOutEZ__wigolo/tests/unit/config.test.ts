@@ -1,0 +1,654 @@
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { getConfig, resetConfig } from '../../src/config.js';
+import { resetPersistedConfig } from '../../src/persisted-config.js';
+
+describe('config', () => {
+  const originalEnv = process.env;
+  let tmpConfigDir: string;
+
+  beforeEach(() => {
+    process.env = { ...originalEnv };
+    // Hermetic isolation: point the persisted-config path at an empty temp dir.
+    // config reads several fields (e.g. llmProvider) from persisted settings as
+    // a fallback when the env var is unset. Without isolation these tests pick
+    // up whatever is in the real ~/.wigolo/config.json or a sibling test's
+    // leaked WIGOLO_CONFIG_PATH/cache, which made "defaults to null" flaky.
+    tmpConfigDir = mkdtempSync(join(tmpdir(), 'wigolo-config-test-'));
+    process.env.WIGOLO_CONFIG_PATH = join(tmpConfigDir, 'config.json');
+    resetPersistedConfig();
+    resetConfig();
+  });
+
+  afterEach(() => {
+    process.env = originalEnv;
+    rmSync(tmpConfigDir, { recursive: true, force: true });
+    // Drop our temp-path cache entry so later test files start clean.
+    resetPersistedConfig();
+    resetConfig();
+  });
+
+  it('returns defaults when no env vars set', () => {
+    const config = getConfig();
+    expect(config.fetchTimeoutMs).toBe(10000);
+    expect(config.fetchMaxRetries).toBe(2);
+    expect(config.maxRedirects).toBe(5);
+    expect(config.playwrightLoadTimeoutMs).toBe(15000);
+    expect(config.playwrightNavTimeoutMs).toBe(30000);
+    expect(config.maxBrowsers).toBe(3);
+    expect(config.browserIdleTimeoutMs).toBe(60000);
+    expect(config.browserFallbackThreshold).toBe(3);
+    expect(config.cacheTtlContent).toBe(604800);
+    expect(config.logLevel).toBe('info');
+    expect(config.logFormat).toBe('json');
+    expect(config.validateLinks).toBe(true);
+    expect(config.respectRobotsTxt).toBe(true);
+  });
+
+  it('reads env var overrides', () => {
+    process.env.FETCH_TIMEOUT_MS = '5000';
+    process.env.MAX_BROWSERS = '5';
+    process.env.LOG_LEVEL = 'debug';
+    process.env.LOG_FORMAT = 'text';
+    process.env.VALIDATE_LINKS = 'false';
+    const config = getConfig();
+    expect(config.fetchTimeoutMs).toBe(5000);
+    expect(config.maxBrowsers).toBe(5);
+    expect(config.logLevel).toBe('debug');
+    expect(config.logFormat).toBe('text');
+    expect(config.validateLinks).toBe(false);
+  });
+
+  it('reads auth paths', () => {
+    process.env.WIGOLO_AUTH_STATE_PATH = '/tmp/state.json';
+    process.env.WIGOLO_CHROME_PROFILE_PATH = '/tmp/chrome';
+    const config = getConfig();
+    expect(config.authStatePath).toBe('/tmp/state.json');
+    expect(config.chromeProfilePath).toBe('/tmp/chrome');
+  });
+
+  it('resolves data dir with home expansion', () => {
+    const config = getConfig();
+    expect(config.dataDir).toContain('.wigolo');
+  });
+
+  describe('proxyBypassOnChallenge configuration', () => {
+    // Defaults OFF: silently retrying direct defeats an operator's configured
+    // proxy and leaks their real IP to the origin. That is a consent decision,
+    // so it must be opted into rather than inherited.
+    it('defaults to false — never bypasses a configured proxy unasked', () => {
+      delete process.env.WIGOLO_PROXY_BYPASS_ON_CHALLENGE;
+      resetConfig();
+      expect(getConfig().proxyBypassOnChallenge).toBe(false);
+    });
+
+    it('reads WIGOLO_PROXY_BYPASS_ON_CHALLENGE=true to opt in', () => {
+      process.env.WIGOLO_PROXY_BYPASS_ON_CHALLENGE = 'true';
+      resetConfig();
+      expect(getConfig().proxyBypassOnChallenge).toBe(true);
+    });
+  });
+
+  describe('stealth (anti-bot fingerprint hardening) configuration', () => {
+    it('defaults WIGOLO_STEALTH to auto', () => {
+      delete process.env.WIGOLO_STEALTH;
+      resetConfig();
+      expect(getConfig().stealth).toBe('auto');
+    });
+
+    it('reads WIGOLO_STEALTH=on', () => {
+      process.env.WIGOLO_STEALTH = 'on';
+      resetConfig();
+      expect(getConfig().stealth).toBe('on');
+    });
+
+    it('reads WIGOLO_STEALTH=off', () => {
+      process.env.WIGOLO_STEALTH = 'off';
+      resetConfig();
+      expect(getConfig().stealth).toBe('off');
+    });
+
+    it('normalizes an unknown WIGOLO_STEALTH value to the safe auto default', () => {
+      process.env.WIGOLO_STEALTH = 'aggressive';
+      resetConfig();
+      expect(getConfig().stealth).toBe('auto');
+    });
+
+    it('is case-insensitive for WIGOLO_STEALTH', () => {
+      process.env.WIGOLO_STEALTH = 'ON';
+      resetConfig();
+      expect(getConfig().stealth).toBe('on');
+    });
+  });
+
+  describe('humanize (behavioral realism) configuration', () => {
+    // Defaults OFF: the pass is reactive (escalation path only) so it never
+    // slows a successful fetch, but it adds ~1.2s to one that ends up blocked
+    // anyway, for a lever that did not measure as changing a wall outcome.
+    it('defaults WIGOLO_HUMANIZE to off', () => {
+      delete process.env.WIGOLO_HUMANIZE;
+      resetConfig();
+      expect(getConfig().humanize).toBe('off');
+    });
+
+    it('reads WIGOLO_HUMANIZE=auto to opt into the escalation-path pass', () => {
+      process.env.WIGOLO_HUMANIZE = 'auto';
+      resetConfig();
+      expect(getConfig().humanize).toBe('auto');
+    });
+
+    it('reads WIGOLO_HUMANIZE=on', () => {
+      process.env.WIGOLO_HUMANIZE = 'on';
+      resetConfig();
+      expect(getConfig().humanize).toBe('on');
+    });
+
+    it('reads WIGOLO_HUMANIZE=off', () => {
+      process.env.WIGOLO_HUMANIZE = 'off';
+      resetConfig();
+      expect(getConfig().humanize).toBe('off');
+    });
+
+    it('normalizes an unknown WIGOLO_HUMANIZE value to the safe off default', () => {
+      process.env.WIGOLO_HUMANIZE = 'aggressive';
+      resetConfig();
+      expect(getConfig().humanize).toBe('off');
+    });
+
+    it('is case-insensitive for WIGOLO_HUMANIZE', () => {
+      process.env.WIGOLO_HUMANIZE = 'ON';
+      resetConfig();
+      expect(getConfig().humanize).toBe('on');
+    });
+
+    afterEach(() => {
+      delete process.env.WIGOLO_HUMANIZE;
+    });
+  });
+
+  describe('browser identity (channel + headful) configuration', () => {
+    // Defaults to the BUNDLED engine so every install renders through the same
+    // pinned browser instead of whatever build happens to be on the host.
+    it('defaults WIGOLO_BROWSER_CHANNEL to chromium (bundled)', () => {
+      delete process.env.WIGOLO_BROWSER_CHANNEL;
+      resetConfig();
+      expect(getConfig().browserChannel).toBe('chromium');
+    });
+
+    it('reads WIGOLO_BROWSER_CHANNEL=auto to opt into an installed browser', () => {
+      process.env.WIGOLO_BROWSER_CHANNEL = 'auto';
+      resetConfig();
+      expect(getConfig().browserChannel).toBe('auto');
+    });
+
+    it('reads WIGOLO_BROWSER_CHANNEL=chrome', () => {
+      process.env.WIGOLO_BROWSER_CHANNEL = 'chrome';
+      resetConfig();
+      expect(getConfig().browserChannel).toBe('chrome');
+    });
+
+    it('reads WIGOLO_BROWSER_CHANNEL=chromium', () => {
+      process.env.WIGOLO_BROWSER_CHANNEL = 'chromium';
+      resetConfig();
+      expect(getConfig().browserChannel).toBe('chromium');
+    });
+
+    it('normalizes an unknown WIGOLO_BROWSER_CHANNEL to chromium', () => {
+      // A typo must not silently opt the host into launching its own installed
+      // browser — it falls back to the pinned bundled engine.
+      process.env.WIGOLO_BROWSER_CHANNEL = 'firefox';
+      resetConfig();
+      expect(getConfig().browserChannel).toBe('chromium');
+    });
+
+    it('is case-insensitive for WIGOLO_BROWSER_CHANNEL', () => {
+      process.env.WIGOLO_BROWSER_CHANNEL = 'Chrome';
+      resetConfig();
+      expect(getConfig().browserChannel).toBe('chrome');
+    });
+
+    it('defaults WIGOLO_BROWSER_HEADFUL to false (never pop a window)', () => {
+      delete process.env.WIGOLO_BROWSER_HEADFUL;
+      resetConfig();
+      expect(getConfig().browserHeadful).toBe(false);
+    });
+
+    it('reads WIGOLO_BROWSER_HEADFUL=1 as true', () => {
+      process.env.WIGOLO_BROWSER_HEADFUL = '1';
+      resetConfig();
+      expect(getConfig().browserHeadful).toBe(true);
+    });
+
+    it('reads WIGOLO_BROWSER_HEADFUL=false as false', () => {
+      process.env.WIGOLO_BROWSER_HEADFUL = 'false';
+      resetConfig();
+      expect(getConfig().browserHeadful).toBe(false);
+    });
+  });
+
+  describe('stealthDriver (driver-level hardening) configuration', () => {
+    // Defaults to the STANDARD driver: the hardened one has no launch-time
+    // fallback, so a driver that imports but cannot launch would hard-fail the
+    // fetch instead of degrading.
+    it('defaults WIGOLO_STEALTH_DRIVER to playwright (standard driver)', () => {
+      delete process.env.WIGOLO_STEALTH_DRIVER;
+      resetConfig();
+      expect(getConfig().stealthDriver).toBe('playwright');
+    });
+
+    it('reads WIGOLO_STEALTH_DRIVER=auto to opt into the hardened driver', () => {
+      process.env.WIGOLO_STEALTH_DRIVER = 'auto';
+      resetConfig();
+      expect(getConfig().stealthDriver).toBe('auto');
+    });
+
+    it('reads WIGOLO_STEALTH_DRIVER=patchright', () => {
+      process.env.WIGOLO_STEALTH_DRIVER = 'patchright';
+      resetConfig();
+      expect(getConfig().stealthDriver).toBe('patchright');
+    });
+
+    it('reads WIGOLO_STEALTH_DRIVER=playwright', () => {
+      process.env.WIGOLO_STEALTH_DRIVER = 'playwright';
+      resetConfig();
+      expect(getConfig().stealthDriver).toBe('playwright');
+    });
+
+    it('normalizes an unknown WIGOLO_STEALTH_DRIVER value to the safe playwright default', () => {
+      // A typo must not silently select the hardened driver, which has no
+      // launch-time fallback.
+      process.env.WIGOLO_STEALTH_DRIVER = 'undetected';
+      resetConfig();
+      expect(getConfig().stealthDriver).toBe('playwright');
+    });
+
+    it('is case-insensitive for WIGOLO_STEALTH_DRIVER', () => {
+      process.env.WIGOLO_STEALTH_DRIVER = 'PatchRight';
+      resetConfig();
+      expect(getConfig().stealthDriver).toBe('patchright');
+    });
+
+    afterEach(() => {
+      delete process.env.WIGOLO_STEALTH_DRIVER;
+      resetConfig();
+    });
+  });
+
+  describe('reranker configuration', () => {
+    it('respects explicit WIGOLO_RERANKER=none to disable reranking', () => {
+      process.env.WIGOLO_RERANKER = 'none';
+      resetConfig();
+      expect(getConfig().reranker).toBe('none');
+    });
+
+    it('reads WIGOLO_RERANKER_MODEL config', () => {
+      process.env.WIGOLO_RERANKER_MODEL = 'custom-model';
+      resetConfig();
+      expect(getConfig().rerankerModel).toBe('custom-model');
+    });
+
+    it('reads WIGOLO_RELEVANCE_THRESHOLD config', () => {
+      process.env.WIGOLO_RELEVANCE_THRESHOLD = '0.3';
+      resetConfig();
+      expect(getConfig().relevanceThreshold).toBe(0.3);
+    });
+
+    it('defaults WIGOLO_RELEVANCE_THRESHOLD to 0', () => {
+      delete process.env.WIGOLO_RELEVANCE_THRESHOLD;
+      resetConfig();
+      expect(getConfig().relevanceThreshold).toBe(0);
+    });
+
+    it('handles invalid WIGOLO_RELEVANCE_THRESHOLD (NaN falls back to 0)', () => {
+      process.env.WIGOLO_RELEVANCE_THRESHOLD = 'not-a-number';
+      resetConfig();
+      expect(getConfig().relevanceThreshold).toBe(0);
+    });
+
+    it('reads WIGOLO_RERANKER value custom', () => {
+      process.env.WIGOLO_RERANKER = 'custom';
+      resetConfig();
+      expect(getConfig().reranker).toBe('custom');
+    });
+  });
+
+  describe('config — bootstrap reliability', () => {
+    it('defaults bootstrapMaxAttempts to 3', () => {
+      expect(getConfig().bootstrapMaxAttempts).toBe(3);
+    });
+
+    it('reads WIGOLO_BOOTSTRAP_MAX_ATTEMPTS as integer', () => {
+      process.env.WIGOLO_BOOTSTRAP_MAX_ATTEMPTS = '5';
+      resetConfig();
+      expect(getConfig().bootstrapMaxAttempts).toBe(5);
+    });
+
+    it('defaults bootstrapBackoffSeconds to [30, 3600, 86400]', () => {
+      expect(getConfig().bootstrapBackoffSeconds).toEqual([30, 3600, 86400]);
+    });
+
+    it('parses WIGOLO_BOOTSTRAP_BACKOFF_SECONDS as comma-separated ints', () => {
+      process.env.WIGOLO_BOOTSTRAP_BACKOFF_SECONDS = '10,60,3600';
+      resetConfig();
+      expect(getConfig().bootstrapBackoffSeconds).toEqual([10, 60, 3600]);
+    });
+
+    it('ignores malformed backoff entries and falls back to default', () => {
+      process.env.WIGOLO_BOOTSTRAP_BACKOFF_SECONDS = 'abc,def';
+      resetConfig();
+      expect(getConfig().bootstrapBackoffSeconds).toEqual([30, 3600, 86400]);
+    });
+
+    it('defaults healthProbeIntervalMs to 30000', () => {
+      expect(getConfig().healthProbeIntervalMs).toBe(30000);
+    });
+
+    it('reads WIGOLO_HEALTH_PROBE_INTERVAL_MS as integer', () => {
+      process.env.WIGOLO_HEALTH_PROBE_INTERVAL_MS = '5000';
+      resetConfig();
+      expect(getConfig().healthProbeIntervalMs).toBe(5000);
+    });
+  });
+
+  describe('config -- daemon mode', () => {
+    it('defaults daemonPort to 3333', () => {
+      expect(getConfig().daemonPort).toBe(3333);
+    });
+
+    it('reads WIGOLO_DAEMON_PORT as integer', () => {
+      process.env.WIGOLO_DAEMON_PORT = '4444';
+      resetConfig();
+      expect(getConfig().daemonPort).toBe(4444);
+    });
+
+    it('defaults daemonHost to 127.0.0.1', () => {
+      expect(getConfig().daemonHost).toBe('127.0.0.1');
+    });
+
+    it('reads WIGOLO_DAEMON_HOST from env', () => {
+      process.env.WIGOLO_DAEMON_HOST = '0.0.0.0';
+      resetConfig();
+      expect(getConfig().daemonHost).toBe('0.0.0.0');
+    });
+
+    it('ignores non-numeric WIGOLO_DAEMON_PORT and falls back to default', () => {
+      process.env.WIGOLO_DAEMON_PORT = 'not-a-number';
+      resetConfig();
+      expect(getConfig().daemonPort).toBe(3333);
+    });
+
+    it('handles empty WIGOLO_DAEMON_PORT string', () => {
+      process.env.WIGOLO_DAEMON_PORT = '';
+      resetConfig();
+      expect(getConfig().daemonPort).toBe(3333);
+    });
+
+    it('handles WIGOLO_DAEMON_PORT=0 (valid port for OS-assigned)', () => {
+      process.env.WIGOLO_DAEMON_PORT = '0';
+      resetConfig();
+      expect(getConfig().daemonPort).toBe(0);
+    });
+
+    it('handles negative WIGOLO_DAEMON_PORT (parsed but caller validates)', () => {
+      process.env.WIGOLO_DAEMON_PORT = '-1';
+      resetConfig();
+      expect(getConfig().daemonPort).toBe(-1);
+    });
+
+    it('handles float WIGOLO_DAEMON_PORT (parseInt truncates)', () => {
+      process.env.WIGOLO_DAEMON_PORT = '3333.7';
+      resetConfig();
+      expect(getConfig().daemonPort).toBe(3333);
+    });
+
+    it('WIGOLO_DAEMON_HOST can be an IPv6 address', () => {
+      process.env.WIGOLO_DAEMON_HOST = '::1';
+      resetConfig();
+      expect(getConfig().daemonHost).toBe('::1');
+    });
+
+    it('WIGOLO_DAEMON_HOST can be a hostname', () => {
+      process.env.WIGOLO_DAEMON_HOST = 'localhost';
+      resetConfig();
+      expect(getConfig().daemonHost).toBe('localhost');
+    });
+
+    it('empty WIGOLO_DAEMON_HOST falls back to default', () => {
+      process.env.WIGOLO_DAEMON_HOST = '';
+      resetConfig();
+      expect(getConfig().daemonHost).toBe('127.0.0.1');
+    });
+
+    it('whitespace-only WIGOLO_DAEMON_HOST falls back to default', () => {
+      process.env.WIGOLO_DAEMON_HOST = '   ';
+      resetConfig();
+      expect(getConfig().daemonHost).toBe('127.0.0.1');
+    });
+  });
+
+  describe('config --- CDP discovery', () => {
+    beforeEach(() => { resetConfig(); });
+    afterEach(() => { resetConfig(); });
+
+    it('defaults cdpUrl to null', () => {
+      expect(getConfig().cdpUrl).toBeNull();
+    });
+
+    it('reads WIGOLO_CDP_URL as string', () => {
+      process.env.WIGOLO_CDP_URL = 'http://localhost:9222';
+      resetConfig();
+      expect(getConfig().cdpUrl).toBe('http://localhost:9222');
+    });
+
+    it('reads custom CDP port', () => {
+      process.env.WIGOLO_CDP_URL = 'http://localhost:9333';
+      resetConfig();
+      expect(getConfig().cdpUrl).toBe('http://localhost:9333');
+    });
+
+    it('reads remote CDP URL', () => {
+      process.env.WIGOLO_CDP_URL = 'http://192.168.1.100:9222';
+      resetConfig();
+      expect(getConfig().cdpUrl).toBe('http://192.168.1.100:9222');
+    });
+
+    it('handles empty string as null', () => {
+      process.env.WIGOLO_CDP_URL = '';
+      resetConfig();
+      expect(getConfig().cdpUrl).toBeNull();
+    });
+  });
+
+  describe('config — multi-query', () => {
+    it('multiQueryConcurrency defaults to 5', () => {
+      expect(getConfig().multiQueryConcurrency).toBe(5);
+    });
+
+    it('multiQueryConcurrency reads from WIGOLO_MULTI_QUERY_CONCURRENCY', () => {
+      process.env.WIGOLO_MULTI_QUERY_CONCURRENCY = '3';
+      resetConfig();
+      expect(getConfig().multiQueryConcurrency).toBe(3);
+    });
+
+    it('multiQueryMax defaults to 10', () => {
+      expect(getConfig().multiQueryMax).toBe(10);
+    });
+
+    it('multiQueryMax reads from WIGOLO_MULTI_QUERY_MAX', () => {
+      process.env.WIGOLO_MULTI_QUERY_MAX = '20';
+      resetConfig();
+      expect(getConfig().multiQueryMax).toBe(20);
+    });
+
+    it('multiQueryConcurrency falls back to default on non-numeric', () => {
+      process.env.WIGOLO_MULTI_QUERY_CONCURRENCY = 'abc';
+      resetConfig();
+      expect(getConfig().multiQueryConcurrency).toBe(5);
+    });
+
+    it('multiQueryMax falls back to default on non-numeric', () => {
+      process.env.WIGOLO_MULTI_QUERY_MAX = '';
+      resetConfig();
+      expect(getConfig().multiQueryMax).toBe(10);
+    });
+  });
+
+  describe('config — embedding', () => {
+    it('embeddingModel defaults to bge-small-en-v1.5', () => {
+      expect(getConfig().embeddingModel).toBe('BAAI/bge-small-en-v1.5');
+    });
+
+    it('embeddingModel reads from WIGOLO_EMBEDDING_MODEL', () => {
+      process.env.WIGOLO_EMBEDDING_MODEL = 'all-MiniLM-L6-v2';
+      resetConfig();
+      expect(getConfig().embeddingModel).toBe('all-MiniLM-L6-v2');
+    });
+
+    it('embeddingIdleTimeoutMs defaults to 1800000', () => {
+      expect(getConfig().embeddingIdleTimeoutMs).toBe(1800000);
+    });
+
+    it('embeddingIdleTimeoutMs reads from WIGOLO_EMBEDDING_IDLE_TIMEOUT', () => {
+      process.env.WIGOLO_EMBEDDING_IDLE_TIMEOUT = '60000';
+      resetConfig();
+      expect(getConfig().embeddingIdleTimeoutMs).toBe(60000);
+    });
+
+    it('embeddingMaxTextLength defaults to 8000', () => {
+      expect(getConfig().embeddingMaxTextLength).toBe(8000);
+    });
+
+    it('embeddingMaxTextLength reads from WIGOLO_EMBEDDING_MAX_TEXT_LENGTH', () => {
+      process.env.WIGOLO_EMBEDDING_MAX_TEXT_LENGTH = '4000';
+      resetConfig();
+      expect(getConfig().embeddingMaxTextLength).toBe(4000);
+    });
+
+    it('embeddingIdleTimeoutMs falls back to default on non-numeric', () => {
+      process.env.WIGOLO_EMBEDDING_IDLE_TIMEOUT = 'invalid';
+      resetConfig();
+      expect(getConfig().embeddingIdleTimeoutMs).toBe(1800000);
+    });
+
+    it('embeddingMaxTextLength falls back to default on non-numeric', () => {
+      process.env.WIGOLO_EMBEDDING_MAX_TEXT_LENGTH = 'abc';
+      resetConfig();
+      expect(getConfig().embeddingMaxTextLength).toBe(8000);
+    });
+  });
+
+  describe('config — llm fallback', () => {
+    it('llmProvider defaults to null', () => {
+      delete process.env.WIGOLO_LLM_PROVIDER;
+      resetConfig();
+      expect(getConfig().llmProvider).toBeNull();
+    });
+
+    it('reads WIGOLO_LLM_PROVIDER', () => {
+      process.env.WIGOLO_LLM_PROVIDER = 'openai';
+      resetConfig();
+      expect(getConfig().llmProvider).toBe('openai');
+    });
+
+    it('llmCacheTtlDays defaults to 7', () => {
+      delete process.env.WIGOLO_LLM_CACHE_TTL_DAYS;
+      resetConfig();
+      expect(getConfig().llmCacheTtlDays).toBe(7);
+    });
+
+    it('reads WIGOLO_LLM_CACHE_TTL_DAYS', () => {
+      process.env.WIGOLO_LLM_CACHE_TTL_DAYS = '30';
+      resetConfig();
+      expect(getConfig().llmCacheTtlDays).toBe(30);
+    });
+
+    it('llmMaxCallsPerRequest defaults to 1', () => {
+      delete process.env.WIGOLO_LLM_MAX_CALLS_PER_REQUEST;
+      resetConfig();
+      expect(getConfig().llmMaxCallsPerRequest).toBe(1);
+    });
+
+    it('reads WIGOLO_LLM_MAX_CALLS_PER_REQUEST', () => {
+      process.env.WIGOLO_LLM_MAX_CALLS_PER_REQUEST = '3';
+      resetConfig();
+      expect(getConfig().llmMaxCallsPerRequest).toBe(3);
+    });
+
+    it('non-numeric WIGOLO_LLM_CACHE_TTL_DAYS falls back to default', () => {
+      process.env.WIGOLO_LLM_CACHE_TTL_DAYS = 'abc';
+      resetConfig();
+      expect(getConfig().llmCacheTtlDays).toBe(7);
+    });
+  });
+
+  describe('reranker config rename (ticket #10)', () => {
+    it('default reranker is "onnx"', () => {
+      delete process.env.WIGOLO_RERANKER;
+      resetConfig();
+      expect(getConfig().reranker).toBe('onnx');
+    });
+
+    it('default rerankerModel is "bge-reranker-v2-m3"', () => {
+      delete process.env.WIGOLO_RERANKER_MODEL;
+      resetConfig();
+      expect(getConfig().rerankerModel).toBe('bge-reranker-v2-m3');
+    });
+
+    it('legacy value "flashrank" is aliased to "onnx" (with warn log)', () => {
+      process.env.WIGOLO_RERANKER = 'flashrank';
+      resetConfig();
+      expect(getConfig().reranker).toBe('onnx');
+    });
+
+    it('"minilm-l12" alias is preserved verbatim (resolution at use-site)', () => {
+      process.env.WIGOLO_RERANKER_MODEL = 'minilm-l12';
+      resetConfig();
+      expect(getConfig().rerankerModel).toBe('minilm-l12');
+    });
+
+    it('reranker=none disables reranking', () => {
+      process.env.WIGOLO_RERANKER = 'none';
+      resetConfig();
+      expect(getConfig().reranker).toBe('none');
+    });
+  });
+
+  describe('config — local LLM tier (WIGOLO_LOCAL_LLM)', () => {
+    it("defaults to 'off' when nothing is set — keyless default is unchanged", () => {
+      // WHY: the opt-in local tier must be OFF by default so the keyless
+      // benchmark path is byte-for-byte identical to before this knob existed.
+      expect(getConfig().localLlm).toBe('off');
+      expect(getConfig().localLlmModel).toBeNull();
+    });
+
+    it("reads WIGOLO_LOCAL_LLM=auto", () => {
+      process.env.WIGOLO_LOCAL_LLM = 'auto';
+      resetConfig();
+      expect(getConfig().localLlm).toBe('auto');
+    });
+
+    it('preserves an explicit endpoint value verbatim (resolution at use-site)', () => {
+      // WHY: an explicit http(s) endpoint is a legitimate third value alongside
+      // off/auto; config must not normalize or drop it — the resolver decides.
+      process.env.WIGOLO_LOCAL_LLM = 'http://box:11434';
+      resetConfig();
+      expect(getConfig().localLlm).toBe('http://box:11434');
+    });
+
+    it("normalizes an unknown value to 'off' (fail-safe)", () => {
+      // WHY: a typo (WIGOLO_LOCAL_LLM=on) must not accidentally enable an
+      // ambiguous tier — anything that is not 'auto' or an http(s) URL is off.
+      process.env.WIGOLO_LOCAL_LLM = 'yes';
+      resetConfig();
+      expect(getConfig().localLlm).toBe('off');
+    });
+
+    it('reads WIGOLO_LOCAL_LLM_MODEL when set', () => {
+      process.env.WIGOLO_LOCAL_LLM_MODEL = 'qwen2.5:7b-instruct';
+      resetConfig();
+      expect(getConfig().localLlmModel).toBe('qwen2.5:7b-instruct');
+    });
+  });
+});

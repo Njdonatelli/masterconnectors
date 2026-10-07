@@ -1,0 +1,406 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 468,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "Jan 2018",
+        "Value": 240
+      },
+      {
+        "Date": "Feb 2018",
+        "Value": 233
+      },
+      {
+        "Date": "Mar 2018",
+        "Value": 490
+      },
+      {
+        "Date": "Apr 2018",
+        "Value": 224
+      },
+      {
+        "Date": "May 2018",
+        "Value": 468
+      },
+      {
+        "Date": "Jun 2018",
+        "Value": 229
+      },
+      {
+        "Date": "Jul 2018",
+        "Value": 185
+      },
+      {
+        "Date": "Aug 2018",
+        "Value": 108
+      },
+      {
+        "Date": "Sep 2018",
+        "Value": 84
+      },
+      {
+        "Date": "Oct 2018",
+        "Value": 306
+      },
+      {
+        "Date": "Nov 2018",
+        "Value": 103
+      },
+      {
+        "Date": "Dec 2018",
+        "Value": 381
+      },
+      {
+        "Date": "Jan 2019",
+        "Value": 433
+      },
+      {
+        "Date": "Feb 2019",
+        "Value": 402
+      },
+      {
+        "Date": "Mar 2019",
+        "Value": 474
+      },
+      {
+        "Date": "Apr 2019",
+        "Value": 122
+      },
+      {
+        "Date": "May 2019",
+        "Value": 412
+      },
+      {
+        "Date": "Jun 2019",
+        "Value": 219
+      },
+      {
+        "Date": "Jul 2019",
+        "Value": 343
+      },
+      {
+        "Date": "Aug 2019",
+        "Value": 65
+      },
+      {
+        "Date": "Sep 2019",
+        "Value": 61
+      },
+      {
+        "Date": "Oct 2019",
+        "Value": 56
+      },
+      {
+        "Date": "Nov 2019",
+        "Value": 512
+      },
+      {
+        "Date": "Dec 2019",
+        "Value": 143
+      },
+      {
+        "Date": "Jan 2020",
+        "Value": 281
+      },
+      {
+        "Date": "Feb 2020",
+        "Value": 380
+      },
+      {
+        "Date": "Mar 2020",
+        "Value": 225
+      },
+      {
+        "Date": "Apr 2020",
+        "Value": 224
+      },
+      {
+        "Date": "May 2020",
+        "Value": 231
+      },
+      {
+        "Date": "Jun 2020",
+        "Value": 314
+      },
+      {
+        "Date": "Jul 2020",
+        "Value": 495
+      },
+      {
+        "Date": "Aug 2020",
+        "Value": 265
+      },
+      {
+        "Date": "Sep 2020",
+        "Value": 170
+      },
+      {
+        "Date": "Oct 2020",
+        "Value": 82
+      },
+      {
+        "Date": "Nov 2020",
+        "Value": 131
+      },
+      {
+        "Date": "Dec 2020",
+        "Value": 533
+      },
+      {
+        "Date": "Jan 2021",
+        "Value": 541
+      },
+      {
+        "Date": "Feb 2021",
+        "Value": 368
+      },
+      {
+        "Date": "Mar 2021",
+        "Value": 256
+      },
+      {
+        "Date": "Apr 2021",
+        "Value": 386
+      },
+      {
+        "Date": "May 2021",
+        "Value": 396
+      },
+      {
+        "Date": "Jun 2021",
+        "Value": 198
+      },
+      {
+        "Date": "Jul 2021",
+        "Value": 262
+      },
+      {
+        "Date": "Aug 2021",
+        "Value": 216
+      },
+      {
+        "Date": "Sep 2021",
+        "Value": 492
+      },
+      {
+        "Date": "Oct 2021",
+        "Value": 109
+      },
+      {
+        "Date": "Nov 2021",
+        "Value": 314
+      },
+      {
+        "Date": "Dec 2021",
+        "Value": 390
+      },
+      {
+        "Date": "Jan 2022",
+        "Value": 310
+      },
+      {
+        "Date": "Feb 2022",
+        "Value": 70
+      },
+      {
+        "Date": "Mar 2022",
+        "Value": 360
+      },
+      {
+        "Date": "Apr 2022",
+        "Value": 376
+      },
+      {
+        "Date": "May 2022",
+        "Value": 196
+      },
+      {
+        "Date": "Jun 2022",
+        "Value": 251
+      },
+      {
+        "Date": "Jul 2022",
+        "Value": 343
+      },
+      {
+        "Date": "Aug 2022",
+        "Value": 245
+      },
+      {
+        "Date": "Sep 2022",
+        "Value": 130
+      },
+      {
+        "Date": "Oct 2022",
+        "Value": 170
+      },
+      {
+        "Date": "Nov 2022",
+        "Value": 226
+      },
+      {
+        "Date": "Dec 2022",
+        "Value": 156
+      }
+    ]
+  },
+  "_width": 468,
+  "_height": 290,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

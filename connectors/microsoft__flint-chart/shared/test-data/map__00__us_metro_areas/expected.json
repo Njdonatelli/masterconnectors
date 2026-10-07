@@ -1,0 +1,419 @@
+{
+  "layer": [
+    {
+      "mark": {
+        "type": "geoshape",
+        "fill": "lightgray",
+        "stroke": "white"
+      },
+      "data": {
+        "url": "https://vega.github.io/vega-lite/data/us-10m.json",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "projection": {
+        "type": "albersUsa"
+      }
+    },
+    {
+      "mark": "circle",
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative",
+          "scale": {
+            "nice": false
+          }
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative",
+          "scale": {
+            "nice": false
+          }
+        },
+        "size": {
+          "field": "pop",
+          "type": "quantitative",
+          "scale": {
+            "type": "sqrt",
+            "zero": true,
+            "range": [
+              9,
+              361
+            ]
+          }
+        },
+        "color": {
+          "field": "pop",
+          "type": "quantitative",
+          "scale": {
+            "scheme": "goldgreen"
+          }
+        }
+      },
+      "projection": {
+        "type": "albersUsa"
+      }
+    }
+  ],
+  "width": 500,
+  "height": 300,
+  "config": {
+    "view": {
+      "continuousWidth": 500,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "city": "New York",
+        "lon": -74.01,
+        "lat": 40.71,
+        "pop": 18.9
+      },
+      {
+        "city": "Los Angeles",
+        "lon": -118.24,
+        "lat": 34.05,
+        "pop": 12.4
+      },
+      {
+        "city": "Chicago",
+        "lon": -87.63,
+        "lat": 41.88,
+        "pop": 9.3
+      },
+      {
+        "city": "Dallas",
+        "lon": -96.8,
+        "lat": 32.78,
+        "pop": 7.6
+      },
+      {
+        "city": "Houston",
+        "lon": -95.37,
+        "lat": 29.76,
+        "pop": 7.1
+      },
+      {
+        "city": "Washington",
+        "lon": -77.04,
+        "lat": 38.91,
+        "pop": 6.3
+      },
+      {
+        "city": "Philadelphia",
+        "lon": -75.17,
+        "lat": 39.95,
+        "pop": 6.2
+      },
+      {
+        "city": "Atlanta",
+        "lon": -84.39,
+        "lat": 33.75,
+        "pop": 6.1
+      },
+      {
+        "city": "Miami",
+        "lon": -80.19,
+        "lat": 25.76,
+        "pop": 6.1
+      },
+      {
+        "city": "Phoenix",
+        "lon": -112.07,
+        "lat": 33.45,
+        "pop": 4.9
+      },
+      {
+        "city": "Boston",
+        "lon": -71.06,
+        "lat": 42.36,
+        "pop": 4.9
+      },
+      {
+        "city": "San Francisco",
+        "lon": -122.42,
+        "lat": 37.77,
+        "pop": 4.7
+      },
+      {
+        "city": "Seattle",
+        "lon": -122.33,
+        "lat": 47.61,
+        "pop": 4
+      },
+      {
+        "city": "Minneapolis",
+        "lon": -93.27,
+        "lat": 44.98,
+        "pop": 3.7
+      },
+      {
+        "city": "Denver",
+        "lon": -104.99,
+        "lat": 39.74,
+        "pop": 2.9
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "region",
+      "label": "Region",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto-detect"
+        },
+        {
+          "value": "us",
+          "label": "United States"
+        },
+        {
+          "value": "world",
+          "label": "World"
+        }
+      ],
+      "defaultValue": "auto",
+      "applicable": true,
+      "value": "us"
+    },
+    {
+      "key": "projection",
+      "label": "Projection",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "mercator",
+          "label": "Mercator"
+        },
+        {
+          "value": "equalEarth",
+          "label": "Equal Earth"
+        },
+        {
+          "value": "orthographic",
+          "label": "Orthographic (Globe)"
+        },
+        {
+          "value": "stereographic",
+          "label": "Stereographic"
+        },
+        {
+          "value": "conicEqualArea",
+          "label": "Conic Equal Area"
+        },
+        {
+          "value": "conicEquidistant",
+          "label": "Conic Equidistant"
+        },
+        {
+          "value": "azimuthalEquidistant",
+          "label": "Azimuthal Equidistant"
+        },
+        {
+          "value": "mollweide",
+          "label": "Mollweide"
+        }
+      ],
+      "defaultValue": "default",
+      "applicable": false,
+      "value": "default"
+    },
+    {
+      "key": "projectionCenter",
+      "label": "Center",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default"
+        },
+        {
+          "value": [
+            0,
+            0
+          ],
+          "label": "World (Atlantic) [0, 0]"
+        },
+        {
+          "value": [
+            150,
+            0
+          ],
+          "label": "World (Pacific) [150, 0]"
+        },
+        {
+          "value": [
+            105,
+            35
+          ],
+          "label": "China [105, 35]"
+        },
+        {
+          "value": [
+            -98,
+            39
+          ],
+          "label": "USA [-98, 39]"
+        },
+        {
+          "value": [
+            10,
+            50
+          ],
+          "label": "Europe [10, 50]"
+        },
+        {
+          "value": [
+            138,
+            36
+          ],
+          "label": "Japan [138, 36]"
+        },
+        {
+          "value": [
+            78,
+            22
+          ],
+          "label": "India [78, 22]"
+        },
+        {
+          "value": [
+            -52,
+            -14
+          ],
+          "label": "Brazil [-52, -14]"
+        },
+        {
+          "value": [
+            134,
+            -25
+          ],
+          "label": "Australia [134, -25]"
+        },
+        {
+          "value": [
+            100,
+            60
+          ],
+          "label": "Russia [100, 60]"
+        },
+        {
+          "value": [
+            20,
+            0
+          ],
+          "label": "Africa [20, 0]"
+        },
+        {
+          "value": [
+            45,
+            28
+          ],
+          "label": "Middle East [45, 28]"
+        },
+        {
+          "value": [
+            115,
+            5
+          ],
+          "label": "Southeast Asia [115, 5]"
+        },
+        {
+          "value": [
+            -60,
+            -15
+          ],
+          "label": "South America [-60, -15]"
+        },
+        {
+          "value": [
+            -100,
+            45
+          ],
+          "label": "North America [-100, 45]"
+        },
+        {
+          "value": [
+            -2,
+            54
+          ],
+          "label": "UK [-2, 54]"
+        },
+        {
+          "value": [
+            10,
+            51
+          ],
+          "label": "Germany [10, 51]"
+        },
+        {
+          "value": [
+            2,
+            47
+          ],
+          "label": "France [2, 47]"
+        },
+        {
+          "value": [
+            128,
+            36
+          ],
+          "label": "Korea [128, 36]"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

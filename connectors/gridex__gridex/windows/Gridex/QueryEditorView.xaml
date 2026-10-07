@@ -1,0 +1,151 @@
+<UserControl
+    x:Class="Gridex.QueryEditorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex">
+
+    <Grid x:Name="RootGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition x:Name="EditorRowDef" Height="*" />
+            <RowDefinition x:Name="SplitterRowDef" Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Toolbar -->
+        <Grid Grid.Row="0" Padding="8,4"
+              Background="{ThemeResource LayerFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+              BorderThickness="0,0,0,1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="RunQueryButton" Grid.Column="0" Content="Run" Padding="16,4"
+                    Style="{StaticResource AccentButtonStyle}"
+                    ToolTipService.ToolTip="Execute (Ctrl+Enter)" />
+            <Button x:Name="FormatQueryButton" Grid.Column="1" Margin="4,0,0,0" Padding="8,4"
+                    Background="Transparent" BorderThickness="0"
+                    ToolTipService.ToolTip="Format SQL">
+                <FontIcon Glyph="&#xE943;" FontSize="14" />
+            </Button>
+            <Button x:Name="ClearEditorButton" Grid.Column="2" Margin="4,0,0,0" Padding="8,4"
+                    Background="Transparent" BorderThickness="0"
+                    ToolTipService.ToolTip="Clear">
+                <FontIcon Glyph="&#xE74D;" FontSize="14" />
+            </Button>
+
+            <TextBlock Grid.Column="4" x:Name="QueryStatusText"
+                       FontSize="11" VerticalAlignment="Center"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+        </Grid>
+
+        <!-- SQL Editor + Suggest Popup overlay -->
+        <Grid Grid.Row="1" x:Name="EditorContainer" MinHeight="150">
+            <!-- TextBox created in code-behind -->
+            <!-- Suggest popup overlaid at bottom-left of editor -->
+            <Border x:Name="SuggestPopup" Visibility="Collapsed"
+                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                    Margin="50,30,0,0" MaxHeight="200" MinWidth="220" MaxWidth="350"
+                    Background="{ThemeResource AcrylicBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource SurfaceStrokeColorDefaultBrush}"
+                    BorderThickness="1" CornerRadius="6"
+                    Padding="0" Canvas.ZIndex="100">
+                <ListView x:Name="SuggestList" SelectionMode="Single"
+                          IsItemClickEnabled="True" MaxHeight="196"
+                          Padding="2" />
+            </Border>
+        </Grid>
+
+        <!-- Splitter -->
+        <Grid x:Name="EditorSplitter" Grid.Row="2" Height="6"
+              Background="{ThemeResource LayerFillColorDefaultBrush}"
+              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+              BorderThickness="0,1,0,1">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="32" Height="2" CornerRadius="1"
+                    Background="{ThemeResource TextFillColorDisabledBrush}" />
+        </Grid>
+
+        <!-- Results -->
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Padding="8,4,8,0"
+                  Background="{ThemeResource LayerFillColorDefaultBrush}"
+                  BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                  BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal" Spacing="2">
+                    <ToggleButton x:Name="ResultsTabBtn"
+                                  IsChecked="True"
+                                  Padding="10,4"
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  Click="ResultsTab_Click">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE71D;" FontSize="11"/>
+                            <TextBlock Text="Results" FontSize="12"/>
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton x:Name="VisualizeTabBtn"
+                                  Padding="10,4"
+                                  Background="Transparent"
+                                  BorderThickness="0"
+                                  Visibility="Collapsed"
+                                  Click="VisualizeTab_Click">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon Glyph="&#xE9D9;" FontSize="11"/>
+                            <TextBlock Text="Visualize" FontSize="12"/>
+                        </StackPanel>
+                    </ToggleButton>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1" Padding="8,4"
+                  Background="{ThemeResource LayerFillColorDefaultBrush}"
+                  BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                  BorderThickness="0,0,0,1"
+                  Visibility="Collapsed" x:Name="ResultsHeader">
+                <TextBlock x:Name="ResultsSummaryText" FontSize="11"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <ScrollViewer x:Name="ResultsScroller"
+                              HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel x:Name="ResultsContainer" Spacing="0" />
+                </ScrollViewer>
+                <ContentControl x:Name="VisualizeHost"
+                                Visibility="Collapsed"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalContentAlignment="Stretch"/>
+
+                <!-- Loading overlay shown while a query is running. -->
+                <Grid x:Name="QueryLoadingOverlay"
+                      Visibility="Collapsed"
+                      Background="{ThemeResource SmokeFillColorDefaultBrush}">
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="12">
+                        <ProgressRing IsActive="True" Width="40" Height="40" />
+                        <TextBlock x:Name="QueryLoadingText"
+                                   Text="Running query..."
+                                   FontSize="13"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

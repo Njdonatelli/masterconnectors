@@ -1,0 +1,65 @@
+{
+  "title": "Decade (number) → Line Chart",
+  "description": "Decades as integers: 1950, 1960, … (8 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": 1950,
+          "Value": 89
+        },
+        {
+          "Decade": 1960,
+          "Value": 287
+        },
+        {
+          "Decade": 1970,
+          "Value": 254
+        },
+        {
+          "Decade": 1980,
+          "Value": 269
+        },
+        {
+          "Decade": 1990,
+          "Value": 359
+        },
+        {
+          "Decade": 2000,
+          "Value": 176
+        },
+        {
+          "Decade": 2010,
+          "Value": 174
+        },
+        {
+          "Decade": 2020,
+          "Value": 137
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

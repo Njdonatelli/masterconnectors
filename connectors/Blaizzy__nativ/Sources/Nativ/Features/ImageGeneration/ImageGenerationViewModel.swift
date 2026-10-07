@@ -1,0 +1,1445 @@
+import AppKit
+import Combine
+import Foundation
+import NativServerKit
+import UniformTypeIdentifiers
+
+enum ImageGenerationSizeOptions {
+    static let longestSides = [512, 768, 1_024, 1_536, 2_048]
+}
+
+enum SessionModelKind: String, Codable, Equatable, Sendable {
+    case language
+    case imageGeneration
+
+    var badgeTitle: String {
+        switch self {
+        case .language:
+            "Text"
+        case .imageGeneration:
+            "Image"
+        }
+    }
+}
+
+struct ImageRequestSettings: Equatable, Codable, Sendable {
+    var count = 1
+    var width = 512
+    var height = 512
+    // Nil lets the model resolve its own defaults, including any guidance schedule.
+    var steps: Int?
+    var guidance: Double?
+    var seedText = ""
+}
+
+struct ImageGenerationExecutor {
+    func run(
+        baseURL: URL,
+        apiKey: String?,
+        modelID: String,
+        prompt: String,
+        references: [ChatImageAttachment],
+        settings: ImageRequestSettings,
+        seed: Int?
+    ) async throws -> [GeneratedImage] {
+        let client = NativImageClient(baseURL: baseURL, apiKey: apiKey)
+        let response: MLXImageResponse
+        if references.isEmpty {
+            response = try await client.generate(MLXImageGenerationRequest(
+                model: modelID,
+                prompt: prompt,
+                n: settings.count,
+                width: settings.width,
+                height: settings.height,
+                steps: settings.steps,
+                seed: seed,
+                guidance: settings.guidance
+            ))
+        } else {
+            let paths = try references.map(Self.materializeReference).map(\.path)
+            response = try await client.edit(MLXImageEditRequest(
+                model: modelID,
+                prompt: prompt,
+                image: paths,
+                n: settings.count,
+                width: settings.width,
+                height: settings.height,
+                steps: settings.steps,
+                seed: seed,
+                guidance: settings.guidance
+            ))
+        }
+
+        try Task.checkCancellation()
+        return try Self.makeGeneratedImages(from: response)
+    }
+
+    private static func materializeReference(_ attachment: ChatImageAttachment) throws -> URL {
+        if let assetURL = attachment.assetFileURL {
+            return assetURL
+        }
+        guard let data = attachment.imageData else {
+            throw NativImageError.missingImageData
+        }
+        let fileManager = FileManager.default
+        let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first
+            ?? fileManager.temporaryDirectory
+        let directory = caches
+            .appendingPathComponent("Nativ", isDirectory: true)
+            .appendingPathComponent("ImageGeneration", isDirectory: true)
+            .appendingPathComponent("References", isDirectory: true)
+        try fileManager.createDirectory(at: directory, withIntermediateDirectories: true)
+
+        let fileExtension = UTType(mimeType: attachment.mimeType)?.preferredFilenameExtension
+            ?? URL(fileURLWithPath: attachment.filename).pathExtension.nonEmpty
+            ?? "png"
+        let url = directory.appendingPathComponent("\(attachment.id.uuidString).\(fileExtension)")
+        if !fileManager.fileExists(atPath: url.path) {
+            try data.write(to: url, options: .atomic)
+        }
+        return url
+    }
+
+    private static func makeGeneratedImages(from response: MLXImageResponse) throws -> [GeneratedImage] {
+        let images = response.data.compactMap { item -> GeneratedImage? in
+            let data: Data?
+            if let base64 = item.b64JSON {
+                data = Data(base64Encoded: base64)
+            } else if let path = item.path {
+                data = try? Data(contentsOf: URL(fileURLWithPath: path))
+            } else {
+                data = nil
+            }
+            guard let data, NSImage(data: data) != nil else {
+                return nil
+            }
+            return GeneratedImage(
+                imageData: data,
+                mimeType: item.mimeType,
+                width: item.width,
+                height: item.height,
+                seed: item.seed,
+                path: item.path,
+                revisedPrompt: item.revisedPrompt
+            )
+        }
+        guard !images.isEmpty else {
+            throw NativImageError.missingImageData
+        }
+        return images
+    }
+}
+
+enum ImageGenerationTurnStatus: String, Equatable, Codable, Sendable {
+    case inProgress
+    case completed
+    case failed
+    case cancelled
+}
+
+struct ImageGenerationTurn: Identifiable, Equatable, Codable, Sendable {
+    let id: UUID
+    let prompt: String
+    var referenceImages: [ChatImageAttachment]
+    let modelID: String
+    let settings: ImageRequestSettings
+    let createdAt: Date
+    var outputs: [GeneratedImage]
+    var status: ImageGenerationTurnStatus
+    var errorMessage: String?
+
+    var isEdit: Bool {
+        !referenceImages.isEmpty
+    }
+}
+
+@MainActor
+final class ImageGenerationViewModel: ObservableObject {
+    static let fallbackModelID = "mlx-community/flux2-klein-4b-8bit"
+
+    @Published var prompt = ""
+    @Published var modelID = fallbackModelID
+    @Published var requestSettings = ImageRequestSettings()
+    @Published private(set) var sessions: [ImageGenerationSessionSummary] = []
+    @Published private(set) var currentSessionID: UUID?
+    @Published private(set) var turns: [ImageGenerationTurn] = []
+    @Published private(set) var pendingImageAttachments: [ChatImageAttachment] = []
+    @Published private(set) var activeReference: ChatImageAttachment?
+    @Published private(set) var isGenerating = false
+    @Published private(set) var statusText: String?
+    @Published private(set) var scrollToken = 0
+
+    private let sessionStore: ImageGenerationSessionStore
+    private let windowID: UUID
+    private let persistedDataChanges: PersistedDataChangeHub
+    private let inferenceActivity: InferenceActivityCoordinator
+    private var activeTask: Task<Void, Never>?
+    private var activeTurnID: UUID?
+    private var storedSessions: [ImageGenerationSession] = []
+    private var currentSession: ImageGenerationSession?
+    private var persistedDataChangeCancellable: AnyCancellable?
+
+    private let imageSizeMultiple = 16
+    private let minImageDimension = 64
+    private let maxRequestDimension = 4_096
+    private let maxAutoEditLongestSide = 2_048
+
+    init(
+        windowID: UUID = UUID(),
+        persistedDataChanges: PersistedDataChangeHub = .init(),
+        inferenceActivity: InferenceActivityCoordinator = .init(),
+        sessionStore: ImageGenerationSessionStore = .init()
+    ) {
+        self.windowID = windowID
+        self.persistedDataChanges = persistedDataChanges
+        self.inferenceActivity = inferenceActivity
+        self.sessionStore = sessionStore
+        storedSessions = sessionStore.loadSessions().map { session in
+            var repaired = session
+            for index in repaired.turns.indices where repaired.turns[index].status == .inProgress {
+                repaired.turns[index].status = .failed
+                repaired.turns[index].errorMessage = "Image generation was interrupted."
+            }
+            return repaired
+        }
+        refreshSessionList()
+        persistedDataChangeCancellable = persistedDataChanges.changes
+            .sink { [weak self] change in
+                self?.handlePersistedDataChange(change)
+            }
+    }
+
+    deinit {
+        activeTask?.cancel()
+    }
+
+    var canPasteImage: Bool {
+        ChatImageAttachment.canReadImages(from: .general)
+    }
+
+    var currentLongestSide: Int {
+        max(requestSettings.width, requestSettings.height)
+    }
+
+    var effectiveReferenceImages: [ChatImageAttachment] {
+        if !pendingImageAttachments.isEmpty {
+            return pendingImageAttachments
+        }
+        return activeReference.map { [$0] } ?? []
+    }
+
+    var nextRequestIsEdit: Bool {
+        !effectiveReferenceImages.isEmpty
+    }
+
+    var isCurrentSessionActiveInAnotherWindow: Bool {
+        guard let currentSessionID else {
+            return false
+        }
+        return !canModifySession(currentSessionID)
+    }
+
+    func applyDefaultModel(
+        _ selectedModelID: String?,
+        installedImageModelIDs: [String] = []
+    ) {
+        let resolvedModelID = normalized(selectedModelID)
+            ?? installedImageModelIDs.lazy.compactMap(normalized).first
+            ?? Self.fallbackModelID
+        guard !isCurrentSessionActiveInAnotherWindow,
+            modelID != resolvedModelID
+        else {
+            return
+        }
+        modelID = resolvedModelID
+        persistCurrentSession(updateTimestamp: false)
+    }
+
+    func canSubmit(isRunning: Bool) -> Bool {
+        isRunning
+            && !isGenerating
+            && normalized(modelID) != nil
+            && normalized(prompt) != nil
+            && parsedSeed != nil
+    }
+
+    func unavailableReason(isRunning: Bool) -> String? {
+        if !isRunning {
+            return "Server is stopped."
+        }
+        if normalized(modelID) == nil {
+            return "No image model is configured."
+        }
+        if parsedSeed == nil {
+            return "Seed must be a whole number."
+        }
+        if normalized(prompt) == nil {
+            return nextRequestIsEdit ? "Describe how to edit the image." : "Describe an image to generate."
+        }
+        return nil
+    }
+
+    func applyLongestSide(_ longestSide: Int) {
+        guard !isCurrentSessionActiveInAnotherWindow else {
+            return
+        }
+        let size = aspectFitSize(
+            for: ImageGenerationPixelSize(
+                width: requestSettings.width,
+                height: requestSettings.height
+            ),
+            longestSide: longestSide,
+            upperLimit: maxRequestDimension
+        )
+        requestSettings.width = size.width
+        requestSettings.height = size.height
+        persistCurrentSession(updateTimestamp: false)
+    }
+
+    func beginNewDraft(preservingUncommittedDraft: Bool = false) {
+        guard !isGenerating else {
+            return
+        }
+
+        if preservingUncommittedDraft, currentSession == nil {
+            return
+        }
+
+        persistCurrentSession(updateTimestamp: false)
+        prompt = ""
+        pendingImageAttachments.removeAll()
+        currentSession = nil
+        currentSessionID = nil
+        turns = []
+        activeReference = nil
+        statusText = nil
+        refreshSessionList()
+        bumpScroll()
+    }
+
+    func selectSession(_ sessionID: UUID) {
+        guard !isGenerating,
+            sessionID != currentSessionID
+        else {
+            return
+        }
+
+        persistCurrentSession(updateTimestamp: false)
+        prompt = ""
+        pendingImageAttachments.removeAll()
+
+        if let session = storedSessions.first(where: { $0.id == sessionID }) {
+            applyCurrentSession(session)
+        } else if let session = sessionStore.loadSession(id: sessionID) {
+            storedSessions.append(session)
+            applyCurrentSession(session)
+        }
+    }
+
+    func deleteSession(_ sessionID: UUID) {
+        guard !isGenerating, canModifySession(sessionID) else {
+            return
+        }
+
+        storedSessions.removeAll { $0.id == sessionID }
+        deletePersistedSession(sessionID)
+
+        guard sessionID == currentSessionID else {
+            refreshSessionList()
+            return
+        }
+
+        prompt = ""
+        pendingImageAttachments.removeAll()
+        if let nextSession = storedSessions.sorted(by: ImageGenerationSession.recencySort).first {
+            applyCurrentSession(nextSession)
+        } else {
+            currentSession = nil
+            currentSessionID = nil
+            turns = []
+            activeReference = nil
+            refreshSessionList()
+        }
+    }
+
+    func sessionDataFileURL(for sessionID: UUID) -> URL? {
+        guard storedSessions.contains(where: { $0.id == sessionID }) else {
+            return nil
+        }
+        if sessionID == currentSessionID {
+            persistCurrentSession(updateTimestamp: false)
+        }
+        let url = sessionStore.sessionURL(for: sessionID)
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
+    }
+
+    func run(
+        using appModel: NativModel,
+        modelIsInstalled: Bool = true,
+        modelSupportsEditing: Bool
+    ) {
+        guard !isGenerating,
+              appModel.isRunning,
+              let requestModelID = normalized(modelID),
+              let requestPrompt = normalized(prompt),
+              let requestSeed = parsedSeed
+        else {
+            return
+        }
+        if let currentSessionID, !canModifySession(currentSessionID) {
+            statusText = "This image session is already generating in another window."
+            return
+        }
+        materializeDraftSession(modelID: requestModelID)
+        guard let currentSessionID else {
+            return
+        }
+        let operationID = UUID()
+        let activityResource = InferenceActivityCoordinator.Resource.imageGeneration(
+            currentSessionID
+        )
+        guard inferenceActivity.begin(
+            resource: activityResource,
+            windowID: windowID,
+            operationID: operationID
+        ) else {
+            statusText = "This image session is already generating in another window."
+            return
+        }
+        appModel.clearModelLoadFailure(for: requestModelID)
+
+        var settings = requestSettings
+        settings.count = min(max(settings.count, 1), 10)
+        settings.width = boundedRoundedDimension(settings.width, upperLimit: maxRequestDimension)
+        settings.height = boundedRoundedDimension(settings.height, upperLimit: maxRequestDimension)
+        settings.steps = settings.steps.map { min(max($0, 1), 1_000) }
+        settings.guidance = settings.guidance.map { min(max($0, 0), 100) }
+        requestSettings = settings
+
+        let references = effectiveReferenceImages
+        guard modelSupportsEditing || references.isEmpty else {
+            inferenceActivity.end(
+                resource: activityResource,
+                operationID: operationID
+            )
+            statusText = "The selected model does not support image editing."
+            return
+        }
+        if references.count == 1 {
+            activeReference = references[0]
+        } else if references.count > 1 {
+            activeReference = nil
+        }
+
+        let turn = ImageGenerationTurn(
+            id: UUID(),
+            prompt: requestPrompt,
+            referenceImages: references,
+            modelID: requestModelID,
+            settings: settings,
+            createdAt: Date(),
+            outputs: [],
+            status: .inProgress,
+            errorMessage: nil
+        )
+
+        turns.append(turn)
+        activeTurnID = turn.id
+        prompt = ""
+        pendingImageAttachments.removeAll()
+        isGenerating = true
+        if modelIsInstalled {
+            statusText = references.isEmpty ? "Generating image…" : "Editing image…"
+        } else {
+            statusText = references.isEmpty
+                ? "Downloading model before generating image…"
+                : "Downloading model before editing image…"
+        }
+        persistCurrentSession(updateTimestamp: true)
+        bumpScroll()
+
+        activeTask?.cancel()
+        let serverSettings = appModel.settings.normalized()
+        let serverBaseURL = serverSettings.serverBaseURL
+        let serverAPIKey = serverSettings.serverAPIKey
+        let modelSearchPath = serverSettings.modelSearchPath
+        let modelCacheVolumeIdentifier = serverSettings.externalModelCache?.volumeIdentifier
+        let huggingFaceToken = appModel.effectiveHuggingFaceToken
+        activeTask = Task { @MainActor [weak self, weak appModel, inferenceActivity] in
+            defer {
+                inferenceActivity.end(
+                    resource: activityResource,
+                    operationID: operationID
+                )
+            }
+            guard let self else {
+                return
+            }
+
+            do {
+                if !modelIsInstalled {
+                    try await HuggingFaceDownloadManager.shared.downloadIfNeeded(
+                        repoID: requestModelID,
+                        sizeBytes: nil,
+                        cachePath: modelSearchPath,
+                        volumeIdentifier: modelCacheVolumeIdentifier,
+                        token: huggingFaceToken
+                    )
+                    try Task.checkCancellation()
+                    statusText = references.isEmpty ? "Generating image…" : "Editing image…"
+                }
+
+                let outputs = try await ImageGenerationExecutor().run(
+                    baseURL: serverBaseURL,
+                    apiKey: serverAPIKey,
+                    modelID: requestModelID,
+                    prompt: requestPrompt,
+                    references: references,
+                    settings: settings,
+                    seed: requestSeed
+                )
+                updateTurn(turn.id) { current in
+                    current.outputs = outputs
+                    current.status = .completed
+                }
+
+                if outputs.count == 1, modelSupportsEditing {
+                    activeReference = outputs[0].attachment
+                    statusText = "Image ready. Your next prompt will edit it."
+                } else {
+                    activeReference = nil
+                    statusText = outputs.count == 1
+                        ? "Image ready."
+                        : modelSupportsEditing
+                            ? "\(outputs.count) images ready. Choose one to continue editing."
+                            : "\(outputs.count) images ready."
+                }
+                persistCurrentSession(updateTimestamp: true)
+                bumpScroll()
+                appModel?.refreshMetricsIfRunning(force: true)
+            } catch is CancellationError {
+                finishCancelledTurn(turn.id)
+            } catch let error as URLError where error.code == .cancelled {
+                finishCancelledTurn(turn.id)
+            } catch {
+                appModel?.reportModelLoadFailure(
+                    modelID: requestModelID,
+                    error: error
+                )
+                updateTurn(turn.id) { current in
+                    current.status = .failed
+                    current.errorMessage = error.localizedDescription
+                }
+                statusText = nil
+                persistCurrentSession(updateTimestamp: true)
+                bumpScroll()
+                appModel?.refreshMetricsIfRunning(force: true)
+            }
+
+            guard activeTurnID == turn.id else {
+                return
+            }
+            activeTurnID = nil
+            isGenerating = false
+            activeTask = nil
+        }
+    }
+
+    func cancel() {
+        activeTask?.cancel()
+    }
+
+    func chooseImageAttachments() {
+        guard !isGenerating, !isCurrentSessionActiveInAnotherWindow else {
+            return
+        }
+
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = true
+        panel.allowedContentTypes = [.image]
+        guard panel.runModal() == .OK else {
+            return
+        }
+
+        appendPending(panel.urls.compactMap { try? ChatImageAttachment(contentsOf: $0) })
+    }
+
+    @discardableResult
+    func attachImages(from pasteboard: NSPasteboard) -> Bool {
+        guard !isGenerating, !isCurrentSessionActiveInAnotherWindow else {
+            return false
+        }
+        let attachments = ChatImageAttachment.imageAttachments(from: pasteboard)
+        guard !attachments.isEmpty else {
+            return false
+        }
+        appendPending(attachments)
+        return true
+    }
+
+    func pasteImageFromClipboard() {
+        attachImages(from: .general)
+    }
+
+    func captureScreenshot() {
+        guard !isGenerating, !isCurrentSessionActiveInAnotherWindow else {
+            return
+        }
+        let fileURL = FileManager.default.temporaryDirectory
+            .appendingPathComponent("Nativ-Image-Reference-\(UUID().uuidString).png")
+
+        Task { [weak self] in
+            let captured = await ChatScreenCapture.captureInteractive(to: fileURL)
+            guard captured, let attachment = try? ChatImageAttachment(contentsOf: fileURL) else {
+                return
+            }
+            self?.appendPending([attachment])
+            try? FileManager.default.removeItem(at: fileURL)
+        }
+    }
+
+    @discardableResult
+    func loadImageAttachments(from providers: [NSItemProvider]) -> Bool {
+        guard !isGenerating, !isCurrentSessionActiveInAnotherWindow else {
+            return false
+        }
+
+        var accepted = false
+        for provider in providers {
+            if provider.hasItemConformingToTypeIdentifier(UTType.fileURL.identifier) {
+                accepted = true
+                provider.loadItem(forTypeIdentifier: UTType.fileURL.identifier, options: nil) { [weak self] item, _ in
+                    guard let url = Self.fileURL(from: item),
+                          let attachment = try? ChatImageAttachment(contentsOf: url)
+                    else {
+                        return
+                    }
+                    Task { @MainActor in
+                        self?.appendPending([attachment])
+                    }
+                }
+                continue
+            }
+
+            guard let typeIdentifier = Self.preferredImageTypeIdentifier(for: provider) else {
+                continue
+            }
+            accepted = true
+            provider.loadDataRepresentation(forTypeIdentifier: typeIdentifier) { [weak self] data, _ in
+                guard let data,
+                      let image = NSImage(data: data),
+                      let attachment = ChatImageAttachment.attachment(
+                        from: image,
+                        filename: Self.dropFilename(for: typeIdentifier)
+                      )
+                else {
+                    return
+                }
+                Task { @MainActor in
+                    self?.appendPending([attachment])
+                }
+            }
+        }
+        return accepted
+    }
+
+    func removePendingImageAttachment(_ id: UUID) {
+        guard !isCurrentSessionActiveInAnotherWindow else {
+            return
+        }
+        pendingImageAttachments.removeAll { $0.id == id }
+    }
+
+    func clearActiveReference() {
+        guard !isGenerating, !isCurrentSessionActiveInAnotherWindow else {
+            return
+        }
+        activeReference = nil
+        statusText = "Your next prompt will create a new image."
+        persistCurrentSession(updateTimestamp: true)
+    }
+
+    func useAsReference(_ result: GeneratedImage) {
+        guard !isGenerating, !isCurrentSessionActiveInAnotherWindow else {
+            return
+        }
+        setActiveReference(result.attachment)
+    }
+
+    func useAsReference(_ attachment: ChatImageAttachment) {
+        guard !isGenerating, !isCurrentSessionActiveInAnotherWindow else {
+            return
+        }
+        setActiveReference(attachment)
+    }
+
+    func save(_ result: GeneratedImage) {
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [result.imageType]
+        panel.nameFieldStringValue = result.filename
+        guard panel.runModal() == .OK, let url = panel.url else {
+            return
+        }
+
+        do {
+            try result.imageData.write(to: url, options: .atomic)
+            statusText = "Saved \(url.lastPathComponent)."
+        } catch {
+            statusText = "Could not save image: \(error.localizedDescription)"
+        }
+    }
+
+    func persistDraftState() {
+        persistCurrentSession(updateTimestamp: false)
+    }
+
+    private func appendPending(_ attachments: [ChatImageAttachment]) {
+        guard !attachments.isEmpty else {
+            return
+        }
+        pendingImageAttachments.append(contentsOf: attachments)
+        if let first = attachments.first, let size = pixelSize(for: first) {
+            applyEditSize(for: size)
+        }
+        statusText = attachments.count == 1
+            ? "Reference image attached."
+            : "\(attachments.count) reference images attached."
+    }
+
+    private func setActiveReference(_ attachment: ChatImageAttachment) {
+        activeReference = attachment
+        pendingImageAttachments.removeAll()
+        if let size = pixelSize(for: attachment) {
+            applyEditSize(for: size)
+        }
+        statusText = "Selected \(attachment.filename) for the next edit."
+        persistCurrentSession(updateTimestamp: true)
+    }
+
+    private func pixelSize(for attachment: ChatImageAttachment) -> ImageGenerationPixelSize? {
+        guard let data = attachment.imageData,
+              let image = NSImage(data: data)
+        else {
+            return nil
+        }
+        if let representation = image.representations
+            .filter({ $0.pixelsWide > 0 && $0.pixelsHigh > 0 })
+            .max(by: { $0.pixelsWide * $0.pixelsHigh < $1.pixelsWide * $1.pixelsHigh }) {
+            return ImageGenerationPixelSize(width: representation.pixelsWide, height: representation.pixelsHigh)
+        }
+        if let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+            return ImageGenerationPixelSize(width: cgImage.width, height: cgImage.height)
+        }
+        return nil
+    }
+
+    private func finishCancelledTurn(_ turnID: UUID) {
+        updateTurn(turnID) { turn in
+            turn.status = .cancelled
+            turn.errorMessage = "Image generation canceled."
+        }
+        statusText = "Canceled."
+        persistCurrentSession(updateTimestamp: true)
+        bumpScroll()
+    }
+
+    private func updateTurn(_ id: UUID, mutate: (inout ImageGenerationTurn) -> Void) {
+        guard let index = turns.firstIndex(where: { $0.id == id }) else {
+            return
+        }
+        mutate(&turns[index])
+    }
+
+    private func applyCurrentSession(_ session: ImageGenerationSession) {
+        currentSession = session
+        currentSessionID = session.id
+        modelID = normalized(session.modelID) ?? Self.fallbackModelID
+        requestSettings = session.draftSettings
+        turns = session.turns
+        activeReference = session.activeReference
+        statusText = nil
+        refreshSessionList()
+        bumpScroll()
+    }
+
+    private func materializeDraftSession(modelID: String) {
+        guard currentSession == nil else {
+            return
+        }
+        let createdAt = Date()
+        let session = ImageGenerationSession(
+            id: UUID(),
+            title: ImageGenerationSession.timestampTitle(for: createdAt),
+            createdAt: createdAt,
+            updatedAt: createdAt,
+            modelKind: .imageGeneration,
+            modelID: modelID,
+            draftSettings: requestSettings,
+            activeReference: activeReference,
+            turns: []
+        )
+        currentSession = session
+        currentSessionID = session.id
+    }
+
+    @discardableResult
+    func removeOutput(sessionID: UUID, turnID: UUID, outputID: UUID) -> Bool {
+        guard canModifySession(sessionID) else {
+            return false
+        }
+        if sessionID == currentSessionID {
+            let previousTurns = turns
+            guard removeOutput(turnID: turnID, outputID: outputID, from: &turns) else {
+                return false
+            }
+            guard persistCurrentSession(updateTimestamp: false) else {
+                turns = previousTurns
+                return false
+            }
+            return true
+        }
+
+        guard var session = storedSessions.first(where: { $0.id == sessionID })
+            ?? sessionStore.loadSession(id: sessionID)
+        else {
+            return false
+        }
+        guard removeOutput(turnID: turnID, outputID: outputID, from: &session.turns) else {
+            return false
+        }
+        guard saveSession(session) else {
+            return false
+        }
+        upsertStoredSession(session)
+        refreshSessionList()
+        return true
+    }
+
+    private func removeOutput(
+        turnID: UUID,
+        outputID: UUID,
+        from turns: inout [ImageGenerationTurn]
+    ) -> Bool {
+        guard let turnIndex = turns.firstIndex(where: { $0.id == turnID }),
+            let outputIndex = turns[turnIndex].outputs.firstIndex(where: { $0.id == outputID })
+        else {
+            return false
+        }
+        turns[turnIndex].outputs.remove(at: outputIndex)
+        return true
+    }
+
+    @discardableResult
+    private func persistCurrentSession(updateTimestamp: Bool) -> Bool {
+        guard var session = currentSession, canModifySession(session.id) else {
+            return false
+        }
+        session.modelKind = .imageGeneration
+        session.modelID = normalized(modelID) ?? Self.fallbackModelID
+        session.draftSettings = requestSettings
+        session.activeReference = activeReference
+        session.turns = turns
+        session.title = ImageGenerationSession.defaultTitle(
+            turns: turns,
+            createdAt: session.createdAt,
+            fallback: session.title
+        )
+        if updateTimestamp {
+            session.updatedAt = Date()
+        }
+
+        guard saveSession(session) else {
+            return false
+        }
+        currentSession = session
+        upsertStoredSession(session)
+        refreshSessionList()
+        return true
+    }
+
+    private func upsertStoredSession(_ session: ImageGenerationSession) {
+        if let index = storedSessions.firstIndex(where: { $0.id == session.id }) {
+            storedSessions[index] = session
+        } else {
+            storedSessions.append(session)
+        }
+    }
+
+    private func refreshSessionList() {
+        sessions = storedSessions
+            .map(\.summary)
+            .sorted(by: ImageGenerationSessionSummary.recencySort)
+    }
+
+    private func handlePersistedDataChange(_ change: PersistedDataChange) {
+        guard change.originWindowID != windowID else { return }
+        if case .artifactDeleted(let id) = change.kind {
+            pendingImageAttachments.removeAll { $0.assetID == id }
+            if activeReference?.assetID == id { activeReference = nil }
+            return
+        }
+        guard case .imageGenerationSession(let id) = change.kind else { return }
+
+        if let session = sessionStore.loadSession(id: id) {
+            upsertStoredSession(session)
+        } else {
+            storedSessions.removeAll { $0.id == id }
+        }
+        if let currentSession {
+            if let fresh = storedSessions.first(where: { $0.id == currentSession.id }) {
+                if !isGenerating, fresh != currentSession {
+                    applyCurrentSession(fresh)
+                }
+            } else if !isGenerating {
+                prompt = ""
+                pendingImageAttachments.removeAll()
+                if let replacement = storedSessions.sorted(
+                    by: ImageGenerationSession.recencySort
+                ).first {
+                    applyCurrentSession(replacement)
+                } else {
+                    self.currentSession = nil
+                    currentSessionID = nil
+                    turns = []
+                    activeReference = nil
+                    statusText = nil
+                }
+            } else {
+                upsertStoredSession(currentSession)
+            }
+        }
+        refreshSessionList()
+    }
+
+    @discardableResult
+    private func saveSession(_ session: ImageGenerationSession) -> Bool {
+        guard canModifySession(session.id) else {
+            return false
+        }
+        guard sessionStore.saveSession(session) else {
+            return false
+        }
+        persistedDataChanges.send(
+            .imageGenerationSession(session.id),
+            originWindowID: windowID
+        )
+        return true
+    }
+
+    private func canModifySession(_ sessionID: UUID) -> Bool {
+        !inferenceActivity.isOwnedByAnotherWindow(
+            .imageGeneration(sessionID),
+            windowID: windowID
+        )
+    }
+
+    private func deletePersistedSession(_ sessionID: UUID) {
+        sessionStore.deleteSession(id: sessionID)
+        persistedDataChanges.send(
+            .imageGenerationSession(sessionID),
+            originWindowID: windowID
+        )
+    }
+
+    private func bumpScroll() {
+        scrollToken += 1
+    }
+
+    private func applyEditSize(for sourceSize: ImageGenerationPixelSize) {
+        let size = aspectFitSize(
+            for: sourceSize,
+            longestSide: min(sourceSize.longestSide, maxAutoEditLongestSide),
+            upperLimit: maxAutoEditLongestSide
+        )
+        requestSettings.width = size.width
+        requestSettings.height = size.height
+    }
+
+    private func aspectFitSize(
+        for sourceSize: ImageGenerationPixelSize,
+        longestSide: Int,
+        upperLimit: Int
+    ) -> ImageGenerationPixelSize {
+        guard sourceSize.width > 0, sourceSize.height > 0 else {
+            return ImageGenerationPixelSize(
+                width: requestSettings.width,
+                height: requestSettings.height
+            )
+        }
+
+        let sourceAspect = Double(sourceSize.width) / Double(sourceSize.height)
+        let targetLongestSide = boundedRoundedDimension(longestSide, upperLimit: upperLimit)
+        if sourceSize.width >= sourceSize.height {
+            let height = boundedRoundedDimension(
+                Int((Double(targetLongestSide) / sourceAspect).rounded(.down)),
+                upperLimit: upperLimit
+            )
+            return ImageGenerationPixelSize(width: targetLongestSide, height: height)
+        }
+        let width = boundedRoundedDimension(
+            Int((Double(targetLongestSide) * sourceAspect).rounded(.down)),
+            upperLimit: upperLimit
+        )
+        return ImageGenerationPixelSize(width: width, height: targetLongestSide)
+    }
+
+    private func boundedRoundedDimension(_ value: Int, upperLimit: Int) -> Int {
+        max(minImageDimension, (min(value, upperLimit) / imageSizeMultiple) * imageSizeMultiple)
+    }
+
+    private var parsedSeed: Int?? {
+        let trimmed = requestSettings.seedText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty {
+            return .some(nil)
+        }
+        return Int(trimmed).map(Optional.some)
+    }
+
+    private func normalized(_ value: String?) -> String? {
+        let trimmed = value?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return trimmed.isEmpty ? nil : trimmed
+    }
+
+    private static func preferredImageTypeIdentifier(for provider: NSItemProvider) -> String? {
+        let fallbackTypes: [UTType] = [.png, .jpeg, .tiff, .gif, .image]
+        return provider.registeredTypeIdentifiers.first(where: { identifier in
+            UTType(identifier)?.conforms(to: .image) == true
+        }) ?? fallbackTypes.map(\.identifier).first(where: provider.hasItemConformingToTypeIdentifier)
+    }
+
+    private nonisolated static func fileURL(from item: NSSecureCoding?) -> URL? {
+        if let url = item as? URL {
+            return url
+        }
+        if let url = item as? NSURL {
+            return url as URL
+        }
+        if let data = item as? Data {
+            return URL(dataRepresentation: data, relativeTo: nil)
+        }
+        if let string = item as? String {
+            return URL(string: string) ?? URL(fileURLWithPath: string)
+        }
+        return nil
+    }
+
+    private nonisolated static func dropFilename(for typeIdentifier: String) -> String {
+        let fileExtension = UTType(typeIdentifier)?.preferredFilenameExtension ?? "png"
+        return "dropped-reference.\(fileExtension)"
+    }
+}
+
+struct ImageGenerationSession: Identifiable, Equatable, Codable {
+    var id: UUID
+    var title: String
+    var createdAt: Date
+    var updatedAt: Date
+    var modelKind: SessionModelKind
+    var modelID: String
+    var draftSettings: ImageRequestSettings
+    var activeReference: ChatImageAttachment?
+    var turns: [ImageGenerationTurn]
+
+    var summary: ImageGenerationSessionSummary {
+        ImageGenerationSessionSummary(
+            id: id,
+            title: displayTitle,
+            createdAt: createdAt,
+            updatedAt: updatedAt,
+            modelKind: modelKind,
+            resultCount: turns.reduce(0) { $0 + $1.outputs.count }
+        )
+    }
+
+    var displayTitle: String {
+        Self.defaultTitle(turns: turns, createdAt: createdAt, fallback: title)
+    }
+
+    static func recencySort(_ lhs: Self, _ rhs: Self) -> Bool {
+        lhs.updatedAt == rhs.updatedAt ? lhs.createdAt > rhs.createdAt : lhs.updatedAt > rhs.updatedAt
+    }
+
+    static func timestampTitle(for date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter.string(from: date)
+    }
+
+    static func defaultTitle(
+        turns: [ImageGenerationTurn],
+        createdAt: Date,
+        fallback: String? = nil
+    ) -> String {
+        if let firstPrompt = turns.first?.prompt.trimmingCharacters(in: .whitespacesAndNewlines),
+           !firstPrompt.isEmpty {
+            return firstPrompt.count > 56 ? "\(firstPrompt.prefix(53))…" : firstPrompt
+        }
+        let trimmedFallback = fallback?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        return trimmedFallback.isEmpty ? timestampTitle(for: createdAt) : trimmedFallback
+    }
+}
+
+struct ImageGenerationSessionSummary: Identifiable, Equatable {
+    let id: UUID
+    let title: String
+    let createdAt: Date
+    let updatedAt: Date
+    let modelKind: SessionModelKind
+    let resultCount: Int
+
+    static func recencySort(_ lhs: Self, _ rhs: Self) -> Bool {
+        lhs.updatedAt == rhs.updatedAt ? lhs.createdAt > rhs.createdAt : lhs.updatedAt > rhs.updatedAt
+    }
+}
+
+struct ImageGenerationSessionStore {
+    private static let migrationLock = NSLock()
+    private let fileManager: FileManager
+    private let imageDirectory: URL
+    private let legacyImageDirectory: URL?
+    private let mediaStore: MediaAssetStore
+
+    init(
+        imageDirectory: URL? = nil,
+        legacyImageDirectory: URL? = nil,
+        mediaStore: MediaAssetStore = .shared,
+        fileManager: FileManager = .default
+    ) {
+        self.fileManager = fileManager
+        self.mediaStore = mediaStore
+        if let imageDirectory {
+            self.imageDirectory = imageDirectory
+            self.legacyImageDirectory = legacyImageDirectory
+        } else {
+            let support = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+                ?? fileManager.temporaryDirectory
+            self.imageDirectory = support
+                .appendingPathComponent("Nativ", isDirectory: true)
+                .appendingPathComponent("ImageGeneration", isDirectory: true)
+            let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first
+                ?? fileManager.temporaryDirectory
+            self.legacyImageDirectory = caches
+                .appendingPathComponent("Nativ", isDirectory: true)
+                .appendingPathComponent("ImageGeneration", isDirectory: true)
+        }
+    }
+
+    func loadSessions() -> [ImageGenerationSession] {
+        migrateLegacyStoreIfNeeded()
+        guard let urls = try? fileManager.contentsOfDirectory(
+            at: sessionsDirectory,
+            includingPropertiesForKeys: nil
+        ) else {
+            return []
+        }
+        return urls
+            .filter { $0.pathExtension == "json" }
+            .compactMap(loadSession)
+            .sorted(by: ImageGenerationSession.recencySort)
+    }
+
+    func loadSession(id: UUID) -> ImageGenerationSession? {
+        migrateLegacyStoreIfNeeded()
+        return loadSession(from: sessionURL(for: id))
+    }
+
+    func fingerprint() -> String {
+        let urls = (try? fileManager.contentsOfDirectory(
+            at: sessionsDirectory,
+            includingPropertiesForKeys: [.contentModificationDateKey, .fileSizeKey]
+        )) ?? []
+        return urls
+            .filter { $0.pathExtension == "json" }
+            .compactMap { url in
+                let values = try? url.resourceValues(forKeys: [.contentModificationDateKey, .fileSizeKey])
+                let mtime = values?.contentModificationDate?.timeIntervalSince1970 ?? 0
+                let size = values?.fileSize ?? 0
+                return "\(url.lastPathComponent):\(mtime):\(size)"
+            }
+            .sorted()
+            .joined(separator: "|")
+    }
+
+    @discardableResult
+    func saveSession(_ session: ImageGenerationSession) -> Bool {
+        do {
+            migrateLegacyStoreIfNeeded()
+            try fileManager.createDirectory(at: sessionsDirectory, withIntermediateDirectories: true)
+            var persisted = session
+            _ = try persisted.externalizeAssets(using: mediaStore)
+            try encoder().encode(persisted).write(to: sessionURL(for: persisted.id), options: .atomic)
+            mediaStore.updateOwner("image:\(persisted.id.uuidString)", assets: persisted.assetReferences)
+            return true
+        } catch {
+            NSLog("Nativ image session save failed: %@", error.localizedDescription)
+            return false
+        }
+    }
+
+    func deleteSession(id: UUID) {
+        try? fileManager.removeItem(at: sessionURL(for: id))
+        mediaStore.removeOwner("image:\(id.uuidString)")
+    }
+
+    private func loadSession(from url: URL) -> ImageGenerationSession? {
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+        do {
+            var session = try decoder().decode(ImageGenerationSession.self, from: data)
+            if try session.externalizeAssets(using: mediaStore) {
+                try encoder().encode(session).write(to: url, options: .atomic)
+            }
+            mediaStore.updateOwner("image:\(session.id.uuidString)", assets: session.assetReferences)
+            return session
+        } catch {
+            NSLog("Nativ image session load failed for %@: %@", url.lastPathComponent, error.localizedDescription)
+            return nil
+        }
+    }
+
+    func sessionURL(for id: UUID) -> URL {
+        sessionsDirectory.appendingPathComponent("\(id.uuidString).json")
+    }
+
+    private var sessionsDirectory: URL {
+        imageDirectory.appendingPathComponent("Sessions", isDirectory: true)
+    }
+
+    private func encoder() -> JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        return encoder
+    }
+
+    private func decoder() -> JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }
+
+    private func migrateLegacyStoreIfNeeded() {
+        Self.migrationLock.lock()
+        defer { Self.migrationLock.unlock() }
+
+        let completionURL = imageDirectory.appendingPathComponent(".legacy-cache-migration-complete")
+        guard let legacyImageDirectory,
+              legacyImageDirectory.standardizedFileURL != imageDirectory.standardizedFileURL,
+              fileManager.fileExists(atPath: legacyImageDirectory.path)
+        else { return }
+        do {
+            let legacySessions = legacyImageDirectory.appendingPathComponent("Sessions", isDirectory: true)
+            let files = fileManager.fileExists(atPath: legacySessions.path)
+                ? try fileManager.contentsOfDirectory(at: legacySessions, includingPropertiesForKeys: nil)
+                    .filter { $0.pathExtension == "json" }
+                : []
+            if !fileManager.fileExists(atPath: completionURL.path) {
+                try fileManager.createDirectory(at: sessionsDirectory, withIntermediateDirectories: true)
+                for source in files {
+                    let destination = sessionsDirectory.appendingPathComponent(source.lastPathComponent)
+                    if !fileManager.fileExists(atPath: destination.path) {
+                        try fileManager.copyItem(at: source, to: destination)
+                    }
+                    _ = try decoder().decode(ImageGenerationSession.self, from: Data(contentsOf: destination))
+                }
+                // Commit before removing originals so interrupted cleanup cannot reimport deleted sessions.
+                try Data().write(to: completionURL, options: .atomic)
+            }
+            for source in files {
+                try fileManager.removeItem(at: source)
+            }
+            for directory in [legacySessions, legacyImageDirectory] where fileManager.fileExists(atPath: directory.path) {
+                if try fileManager.contentsOfDirectory(atPath: directory.path).isEmpty {
+                    try fileManager.removeItem(at: directory)
+                }
+            }
+        } catch {
+            NSLog("Nativ legacy image-session migration failed: %@", error.localizedDescription)
+        }
+    }
+}
+
+private extension ImageGenerationSession {
+    var assetReferences: Set<MediaAssetReference> {
+        var references = Set<MediaAssetReference>()
+        if let asset = activeReference?.asset { references.insert(asset) }
+        for turn in turns {
+            references.formUnion(turn.referenceImages.compactMap(\.asset))
+            references.formUnion(turn.outputs.compactMap(\.asset))
+        }
+        return references
+    }
+
+    mutating func externalizeAssets(using store: MediaAssetStore) throws -> Bool {
+        var changed = false
+        if activeReference != nil {
+            changed = try activeReference!.externalize(using: store) || changed
+        }
+        for turnIndex in turns.indices {
+            for attachmentIndex in turns[turnIndex].referenceImages.indices {
+                changed = try turns[turnIndex].referenceImages[attachmentIndex]
+                    .externalize(using: store) || changed
+            }
+            for outputIndex in turns[turnIndex].outputs.indices {
+                changed = try turns[turnIndex].outputs[outputIndex].externalize(using: store) || changed
+            }
+        }
+        return changed
+    }
+}
+
+struct ImageGenerationPixelSize: Equatable, Codable, Sendable {
+    let width: Int
+    let height: Int
+
+    var longestSide: Int {
+        max(width, height)
+    }
+}
+
+struct GeneratedImage: Identifiable, Equatable, Codable, Sendable {
+    let id: UUID
+    let mimeType: String
+    let width: Int
+    let height: Int
+    let seed: Int
+    let path: String?
+    let revisedPrompt: String?
+    private var inlineImageData: Data?
+    private(set) var asset: MediaAssetReference?
+
+    enum CodingKeys: String, CodingKey {
+        case id, imageData, mimeType, width, height, seed, path, revisedPrompt, asset
+    }
+
+    init(
+        id: UUID = UUID(),
+        imageData: Data,
+        mimeType: String,
+        width: Int,
+        height: Int,
+        seed: Int,
+        path: String?,
+        revisedPrompt: String?,
+        mediaStore: MediaAssetStore = .shared
+    ) {
+        self.id = id
+        self.mimeType = mimeType
+        self.width = width
+        self.height = height
+        self.seed = seed
+        self.path = path
+        self.revisedPrompt = revisedPrompt
+        self.asset = try? mediaStore.store(
+            imageData,
+            id: id,
+            mimeType: mimeType,
+            filename: "image-\(seed)"
+        )
+        self.inlineImageData = asset == nil ? imageData : nil
+    }
+
+    init(
+        id: UUID,
+        mimeType: String,
+        width: Int,
+        height: Int,
+        seed: Int,
+        path: String?,
+        revisedPrompt: String?,
+        asset: MediaAssetReference
+    ) {
+        self.id = id
+        self.mimeType = mimeType
+        self.width = width
+        self.height = height
+        self.seed = seed
+        self.path = path
+        self.revisedPrompt = revisedPrompt
+        self.asset = asset
+        self.inlineImageData = nil
+    }
+
+    var imageData: Data {
+        if let asset, let data = MediaAssetStore.shared.data(for: asset) { return data }
+        return inlineImageData ?? Data()
+    }
+
+    mutating func externalize(using store: MediaAssetStore = .shared) throws -> Bool {
+        guard asset == nil, let inlineImageData else { return false }
+        asset = try store.store(
+            inlineImageData,
+            id: id,
+            mimeType: mimeType,
+            filename: filename
+        )
+        self.inlineImageData = nil
+        return true
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        mimeType = try container.decode(String.self, forKey: .mimeType)
+        width = try container.decode(Int.self, forKey: .width)
+        height = try container.decode(Int.self, forKey: .height)
+        seed = try container.decode(Int.self, forKey: .seed)
+        path = try container.decodeIfPresent(String.self, forKey: .path)
+        revisedPrompt = try container.decodeIfPresent(String.self, forKey: .revisedPrompt)
+        asset = try container.decodeIfPresent(MediaAssetReference.self, forKey: .asset)
+        inlineImageData = try container.decodeIfPresent(Data.self, forKey: .imageData)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(mimeType, forKey: .mimeType)
+        try container.encode(width, forKey: .width)
+        try container.encode(height, forKey: .height)
+        try container.encode(seed, forKey: .seed)
+        try container.encodeIfPresent(path, forKey: .path)
+        try container.encodeIfPresent(revisedPrompt, forKey: .revisedPrompt)
+        try container.encodeIfPresent(asset, forKey: .asset)
+        if asset == nil { try container.encodeIfPresent(inlineImageData, forKey: .imageData) }
+    }
+
+    var nsImage: NSImage? {
+        NSImage(data: imageData)
+    }
+
+    var imageType: UTType {
+        UTType(mimeType: mimeType) ?? .png
+    }
+
+    var filename: String {
+        "image-\(seed).\(imageType.preferredFilenameExtension ?? "png")"
+    }
+
+    var attachment: ChatImageAttachment {
+        var attachment: ChatImageAttachment
+        if let asset {
+            attachment = ChatImageAttachment(id: id, filename: filename, mimeType: mimeType, asset: asset)
+        } else {
+            attachment = ChatImageAttachment(
+                id: id, filename: filename, mimeType: mimeType,
+                base64Data: imageData.base64EncodedString()
+            )
+        }
+        attachment.origin = .generated
+        attachment.generation = ArtifactGeneration(
+            prompt: revisedPrompt, seed: seed, width: width, height: height
+        )
+        return attachment
+    }
+
+}
+
+private extension String {
+    var nonEmpty: String? {
+        isEmpty ? nil : self
+    }
+}

@@ -1,0 +1,154 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "reviews",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "tickMinStep": 1,
+        "labelExpr": "datum.value === ceil(datum.value) ? format(datum.value, ',d') : ''"
+      }
+    },
+    "y": {
+      "field": "rating",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "domain": [
+          1,
+          5
+        ],
+        "nice": false
+      },
+      "axis": {
+        "tickMinStep": 1,
+        "values": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 376,
+      "continuousHeight": 319
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "product": "Widget A",
+        "rating": 2,
+        "reviews": 73
+      },
+      {
+        "product": "Widget B",
+        "rating": 2.5,
+        "reviews": 165
+      },
+      {
+        "product": "Widget C",
+        "rating": 2.1,
+        "reviews": 431
+      },
+      {
+        "product": "Widget D",
+        "rating": 3.7,
+        "reviews": 144
+      },
+      {
+        "product": "Widget E",
+        "rating": 2.9,
+        "reviews": 486
+      },
+      {
+        "product": "Widget F",
+        "rating": 3.5,
+        "reviews": 498
+      },
+      {
+        "product": "Widget G",
+        "rating": 4.8,
+        "reviews": 334
+      },
+      {
+        "product": "Widget H",
+        "rating": 2.3,
+        "reviews": 396
+      }
+    ]
+  },
+  "_width": 376,
+  "_height": 319,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

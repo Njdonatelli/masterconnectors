@@ -1,0 +1,273 @@
+{
+  "title": "Year-Month (Mon YYYY, 5 years) → Area Chart",
+  "description": "Natural year-month spanning 5 years: \"Jan 2018\", …, \"Dec 2022\" (60 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 2018",
+          "Value": 117
+        },
+        {
+          "Date": "Feb 2018",
+          "Value": 362
+        },
+        {
+          "Date": "Mar 2018",
+          "Value": 366
+        },
+        {
+          "Date": "Apr 2018",
+          "Value": 287
+        },
+        {
+          "Date": "May 2018",
+          "Value": 261
+        },
+        {
+          "Date": "Jun 2018",
+          "Value": 263
+        },
+        {
+          "Date": "Jul 2018",
+          "Value": 203
+        },
+        {
+          "Date": "Aug 2018",
+          "Value": 149
+        },
+        {
+          "Date": "Sep 2018",
+          "Value": 434
+        },
+        {
+          "Date": "Oct 2018",
+          "Value": 251
+        },
+        {
+          "Date": "Nov 2018",
+          "Value": 240
+        },
+        {
+          "Date": "Dec 2018",
+          "Value": 539
+        },
+        {
+          "Date": "Jan 2019",
+          "Value": 168
+        },
+        {
+          "Date": "Feb 2019",
+          "Value": 268
+        },
+        {
+          "Date": "Mar 2019",
+          "Value": 531
+        },
+        {
+          "Date": "Apr 2019",
+          "Value": 429
+        },
+        {
+          "Date": "May 2019",
+          "Value": 187
+        },
+        {
+          "Date": "Jun 2019",
+          "Value": 372
+        },
+        {
+          "Date": "Jul 2019",
+          "Value": 528
+        },
+        {
+          "Date": "Aug 2019",
+          "Value": 548
+        },
+        {
+          "Date": "Sep 2019",
+          "Value": 66
+        },
+        {
+          "Date": "Oct 2019",
+          "Value": 364
+        },
+        {
+          "Date": "Nov 2019",
+          "Value": 101
+        },
+        {
+          "Date": "Dec 2019",
+          "Value": 271
+        },
+        {
+          "Date": "Jan 2020",
+          "Value": 431
+        },
+        {
+          "Date": "Feb 2020",
+          "Value": 308
+        },
+        {
+          "Date": "Mar 2020",
+          "Value": 144
+        },
+        {
+          "Date": "Apr 2020",
+          "Value": 425
+        },
+        {
+          "Date": "May 2020",
+          "Value": 505
+        },
+        {
+          "Date": "Jun 2020",
+          "Value": 191
+        },
+        {
+          "Date": "Jul 2020",
+          "Value": 542
+        },
+        {
+          "Date": "Aug 2020",
+          "Value": 79
+        },
+        {
+          "Date": "Sep 2020",
+          "Value": 417
+        },
+        {
+          "Date": "Oct 2020",
+          "Value": 412
+        },
+        {
+          "Date": "Nov 2020",
+          "Value": 260
+        },
+        {
+          "Date": "Dec 2020",
+          "Value": 403
+        },
+        {
+          "Date": "Jan 2021",
+          "Value": 160
+        },
+        {
+          "Date": "Feb 2021",
+          "Value": 414
+        },
+        {
+          "Date": "Mar 2021",
+          "Value": 80
+        },
+        {
+          "Date": "Apr 2021",
+          "Value": 190
+        },
+        {
+          "Date": "May 2021",
+          "Value": 480
+        },
+        {
+          "Date": "Jun 2021",
+          "Value": 412
+        },
+        {
+          "Date": "Jul 2021",
+          "Value": 281
+        },
+        {
+          "Date": "Aug 2021",
+          "Value": 373
+        },
+        {
+          "Date": "Sep 2021",
+          "Value": 486
+        },
+        {
+          "Date": "Oct 2021",
+          "Value": 63
+        },
+        {
+          "Date": "Nov 2021",
+          "Value": 115
+        },
+        {
+          "Date": "Dec 2021",
+          "Value": 258
+        },
+        {
+          "Date": "Jan 2022",
+          "Value": 340
+        },
+        {
+          "Date": "Feb 2022",
+          "Value": 69
+        },
+        {
+          "Date": "Mar 2022",
+          "Value": 150
+        },
+        {
+          "Date": "Apr 2022",
+          "Value": 104
+        },
+        {
+          "Date": "May 2022",
+          "Value": 341
+        },
+        {
+          "Date": "Jun 2022",
+          "Value": 464
+        },
+        {
+          "Date": "Jul 2022",
+          "Value": 301
+        },
+        {
+          "Date": "Aug 2022",
+          "Value": 463
+        },
+        {
+          "Date": "Sep 2022",
+          "Value": 431
+        },
+        {
+          "Date": "Oct 2022",
+          "Value": 166
+        },
+        {
+          "Date": "Nov 2022",
+          "Value": 421
+        },
+        {
+          "Date": "Dec 2022",
+          "Value": 90
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

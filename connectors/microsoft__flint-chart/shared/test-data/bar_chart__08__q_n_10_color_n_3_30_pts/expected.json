@@ -1,0 +1,258 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "X": 1,
+        "Group": "Monitor",
+        "Segment": "USA"
+      },
+      {
+        "X": 1,
+        "Group": "Keyboard",
+        "Segment": "China"
+      },
+      {
+        "X": 1,
+        "Group": "Headphones",
+        "Segment": "Japan"
+      },
+      {
+        "X": 2,
+        "Group": "Tablet",
+        "Segment": "USA"
+      },
+      {
+        "X": 2,
+        "Group": "Laptop",
+        "Segment": "China"
+      },
+      {
+        "X": 2,
+        "Group": "Mouse",
+        "Segment": "Japan"
+      },
+      {
+        "X": 3,
+        "Group": "Headphones",
+        "Segment": "USA"
+      },
+      {
+        "X": 3,
+        "Group": "Mouse",
+        "Segment": "China"
+      },
+      {
+        "X": 3,
+        "Group": "Tablet",
+        "Segment": "Japan"
+      },
+      {
+        "X": 4,
+        "Group": "Phone",
+        "Segment": "USA"
+      },
+      {
+        "X": 4,
+        "Group": "Phone",
+        "Segment": "China"
+      },
+      {
+        "X": 4,
+        "Group": "Keyboard",
+        "Segment": "Japan"
+      },
+      {
+        "X": 5,
+        "Group": "Camera",
+        "Segment": "USA"
+      },
+      {
+        "X": 5,
+        "Group": "Desktop",
+        "Segment": "China"
+      },
+      {
+        "X": 5,
+        "Group": "Phone",
+        "Segment": "Japan"
+      },
+      {
+        "X": 6,
+        "Group": "Monitor",
+        "Segment": "USA"
+      },
+      {
+        "X": 6,
+        "Group": "Keyboard",
+        "Segment": "China"
+      },
+      {
+        "X": 6,
+        "Group": "Camera",
+        "Segment": "Japan"
+      },
+      {
+        "X": 7,
+        "Group": "Desktop",
+        "Segment": "USA"
+      },
+      {
+        "X": 7,
+        "Group": "Desktop",
+        "Segment": "China"
+      },
+      {
+        "X": 7,
+        "Group": "Tablet",
+        "Segment": "Japan"
+      },
+      {
+        "X": 8,
+        "Group": "Mouse",
+        "Segment": "USA"
+      },
+      {
+        "X": 8,
+        "Group": "Mouse",
+        "Segment": "China"
+      },
+      {
+        "X": 8,
+        "Group": "Mouse",
+        "Segment": "Japan"
+      },
+      {
+        "X": 9,
+        "Group": "Monitor",
+        "Segment": "USA"
+      },
+      {
+        "X": 9,
+        "Group": "Speaker",
+        "Segment": "China"
+      },
+      {
+        "X": 9,
+        "Group": "Mouse",
+        "Segment": "Japan"
+      },
+      {
+        "X": 10,
+        "Group": "Monitor",
+        "Segment": "USA"
+      },
+      {
+        "X": 10,
+        "Group": "Camera",
+        "Segment": "China"
+      },
+      {
+        "X": 10,
+        "Group": "Keyboard",
+        "Segment": "Japan"
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

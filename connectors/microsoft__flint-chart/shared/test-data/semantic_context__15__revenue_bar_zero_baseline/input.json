@@ -1,0 +1,56 @@
+{
+  "title": "Revenue Bar — Zero Baseline",
+  "description": "Revenue is zero-meaningful: $0 = no revenue. Bar charts must start at zero to preserve proportional bar length. WITHOUT this: data-fit might show bars starting at $80K, exaggerating differences.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "product": "Widget A",
+          "revenue": 81257
+        },
+        {
+          "product": "Widget B",
+          "revenue": 90230
+        },
+        {
+          "product": "Widget C",
+          "revenue": 180439
+        },
+        {
+          "product": "Widget D",
+          "revenue": 157557
+        },
+        {
+          "product": "Widget E",
+          "revenue": 223729
+        }
+      ]
+    },
+    "semantic_types": {
+      "product": "Category",
+      "revenue": {
+        "semanticType": "Amount",
+        "unit": "USD"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "product"
+        },
+        "y": {
+          "field": "revenue"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,387 @@
+#!/usr/bin/env bash
+# mentioncheck.sh — B8: the query-mention anchor on the --for lens.
+#
+# Default-on: a file, dotted module, or Scope.symbol literally NAMED in the task text has its SCORE lifted
+# to within 5% of the top score (a score promise, not a rank one — see the §L10 arm below). Pinned promises
+# (each measured in the 4-arm head-to-head as the #1 loss bucket):
+#   (i)   SIGNAL — a path mention ("pkg/beta.py"), a URL-embedded mention, a dotted module ("pkg.beta"),
+#         and a Scope.symbol mention ("Widget.render") each lift the named target into the top ranks,
+#         while the same query WITHOUT the boost leaves it low/absent.
+#   (ii)  NEVER DISPLACES #1 — the top-1 candidate is identical boost-on vs boost-off.
+#   (iii) INERT WITHOUT MENTIONS — prose that names nothing indexed (incl. "e.g." / version numbers) is
+#         BYTE-IDENTICAL boost-on vs boost-off.
+#   (iv)  SCOPE — --query and --for --no-route are untouched even with the boost active.
+#   (v)   DETERMINISM ×3, xmllint-clean, env (RIPWIRE_NO_MENTION=1) == flag (--no-mention-boost)
+#         byte-for-byte, and the flag alone refuses loudly.
+#   (vi)  PACKAGE-DIR MENTION — a backticked bare name or dotted chain that names a source DIRECTORY
+#         (not a file) lifts that package's index file (__init__.py & friends). Measured: r2 head-to-head
+#         loss micropython-lib-947 (gold requests/__init__.py at 35; the `requests` mention anchored
+#         nothing). Precision-first: only the dir's index file lifts, never the whole directory.
+#   (vii) NAMED IDENTIFIER (dogfood G2, 2026-09-26) — a symbol the task names VERBATIM takes the direct-symbol
+#         slot, below an unanchored #1: a bare snake_case/camelCase word, `name()` call syntax, a backticked word,
+#         `ns::fn`, or `mod.fn`, defined in at most 3 files. Measured: "How does hybrid_search rank search results"
+#         served the named function at r=8 on a public Python repo. RED on the base binary (absent from the served
+#         head), GREEN after. Controls, each byte-identical to --no-mention-boost: plain English words that ARE
+#         symbol names; call syntax inside pasted code (a fence, an indented line); `std::vector`; a qualifier that
+#         places nothing; a target only in the test/fixture tier whose file the task does not name. At most two
+#         identifier lifts per task, the rest disclosed by mention_syms_capped=. PHP folds case, as PHP does.
+#
+# Usage:  bash test/mentioncheck.sh   |   RIPWIRE_BIN=asan/ripwire bash test/mentioncheck.sh
+
+set -u
+ROOT="$( cd "$( dirname "$0" )/.." && pwd )"
+BIN="${1:-${RIPWIRE_BIN:-$ROOT/build/ripwire}}"
+[ "${BIN#/}" = "$BIN" ] && BIN="$ROOT/$BIN"
+TMP="$( mktemp -d )"; trap 'rm -rf "$TMP"' EXIT
+fail=0
+ok(){ printf '  PASS  %s\n' "$*" || { fail=1; printf '  FAIL  could not write the PASS line for: %s\n' "$*"; }; return 0; }
+no(){ printf '  FAIL  %s\n' "$*"; fail=1; }
+
+[ -x "$BIN" ] || { echo "no ripwire binary at $BIN — build first (cmake --build build -j)"; exit 2; }
+echo "mentioncheck: BIN=$BIN"
+
+# ── fixture: no git needed — the anchor is pure string work over the INDEX ──────────────────────────
+# pkg/alpha.py holds the strong lexical matches; pkg/beta.py shares NO word with any query prose (its
+# rank without an anchor is low); root-level delta.py holds Widget.render for the Scope.symbol case.
+FIX="$TMP/fix"
+mkdir -p "$FIX/pkg"
+cat > "$FIX/pkg/alpha.py" <<'PY'
+def widget_pipeline_process(records):
+    """Process widget records through the pipeline."""
+    return [r for r in records if r]
+
+def widget_records_pipeline(records):
+    """Pipeline stage: validate widget records."""
+    return records
+
+def process_widget_records(records):
+    """Process the records for each widget in the pipeline."""
+    return len(records)
+PY
+cat > "$FIX/pkg/beta.py" <<'PY'
+def flush_stale_cache(entries):
+    """Evict stale cache entries."""
+    return [e for e in entries if e.fresh]
+PY
+mkdir -p "$FIX/plugins/requests"
+cat > "$FIX/plugins/requests/__init__.py" <<'PY'
+def open_http_session(url):
+    """Create the session used for outbound calls."""
+    return url
+
+def encode_basic_credentials(user, pw):
+    """Base64 header assembly for outbound calls."""
+    return user + pw
+PY
+cat > "$FIX/delta.py" <<'PY'
+class Widget:
+    def render(self):
+        """Draw the widget."""
+        return "ok"
+
+    def hidden_helper(self):
+        return 1
+PY
+
+cands(){ "$BIN" "$FIX" --for="$1" --format=candidates --top-k=20 --no-cache "${@:2}" 2>/dev/null; }
+rankOf(){ printf '%s' "$1" | grep -o "<cand r=\"[0-9]*\" [^>]*n=\"$2\"" | grep -o 'r="[0-9]*"' | grep -o '[0-9]*' | head -1; }
+
+# ── (i) signal, four mention shapes ──────────────────────────────────────────────────────────────────
+sig(){ # $1=label $2=query $3=expected-symbol
+    ON="$( cands "$2" )"; OFF="$( cands "$2" --no-mention-boost )"
+    rOn="$( rankOf "$ON" "$3" )"; rOff="$( rankOf "$OFF" "$3" )"
+    if [ -n "$rOn" ] && [ "$rOn" -le 5 ] && { [ -z "$rOff" ] || [ "$rOn" -lt "$rOff" ]; }; then
+        ok "$1: $3 lifted to rank $rOn (default) vs ${rOff:-absent} (--no-mention-boost)"
+    else no "$1: expected a lift (on=${rOn:-absent} off=${rOff:-absent})"; fi
+}
+sig "path mention"      "widget pipeline process records — the fix belongs in pkg/beta.py"                       flush_stale_cache
+sig "URL mention"       "widget pipeline process records, see https://github.com/x/y/blob/main/pkg/beta.py#L2"   flush_stale_cache
+sig "dotted module"     "widget pipeline process records regression traced to pkg.beta"                          flush_stale_cache
+sig "Scope.symbol"      "widget pipeline process records break inside Widget.render"                             render
+
+# ── (vi) package-dir mention: bare backticked name / dotted chain naming a DIRECTORY ─────────────────
+sig "pkg-dir backtick"  'widget pipeline process records leak inside the `requests` module'                      open_http_session
+sig "pkg-dir dotted"    "widget pipeline process records regression traced to plugins.requests"                   open_http_session
+# a backticked word matching NO directory stays inert (precision guard)
+ONX="$( cands 'widget pipeline process records inside the `nonexistentpkg` module' )"
+OFFX="$( cands 'widget pipeline process records inside the `nonexistentpkg` module' --no-mention-boost )"
+if [ "$ONX" = "$OFFX" ]; then ok "unmatched backtick stays inert"; else no "unmatched backtick moved the ranking"; fi
+
+# header note appears when (and only when) something anchored
+"$BIN" "$FIX" --for="widget pipeline in pkg/beta.py" --no-cache 2>/dev/null | grep -q 'mention anchor:' \
+    && ok "--for header names the anchor" || no "--for header note missing"
+
+# ── §L10 (2026-09-04): the note promises a SCORE lift (within kMentionTopGapStep of the top score), not a
+#    RANK lift. The old wording ("lifted to just below the top hit" / "lifted near the top") read as a rank
+#    promise, and the "path mention" case above already falsifies a literal rank-2 reading: flush_stale_cache
+#    lands at rank 3, not 2, because two genuine matches (process_widget_records, widget_pipeline_process)
+#    already score inside that same 5% band above it. Pin both halves so neither regresses silently: the
+#    wording says "score", and the rank gap the old wording got wrong is a real, reproduced fact here, not a
+#    one-off measurement on a different corpus.
+# L1 (2026-09-19): the CLI default legend is compact; this arm reads the FULL header note's wording, so it asks for it.
+NOTE_ON="$( "$BIN" "$FIX" --for="widget pipeline process records — the fix belongs in pkg/beta.py" --no-cache --legend=full 2>/dev/null )"
+printf '%s' "$NOTE_ON" | grep -q 'score lifted to within 5% of the top score' \
+    && ok "L10: mention-anchor note promises a SCORE lift, not a rank one" \
+    || { no "L10: mention-anchor note does not carry the score-lift wording"; printf '%s' "$NOTE_ON" | grep -o '\[mention anchor:[^]]*\]'; }
+
+rOn2="$( rankOf "$( cands "widget pipeline process records — the fix belongs in pkg/beta.py" )" flush_stale_cache )"
+[ -n "$rOn2" ] && [ "$rOn2" -gt 2 ] \
+    && ok "L10: the anchored hit is not simply 'just below the top hit' (landed at rank $rOn2, with $(( rOn2 - 1 )) genuine matches ahead of it) — a score promise holds here where a rank-2 promise would not" \
+    || no "L10 fixture drifted: expected the path-mention case to land below rank 2 (the case the old wording got wrong), got rank ${rOn2:-absent}"
+
+# ── (ii) never displaces #1 ──────────────────────────────────────────────────────────────────────────
+ON="$( cands "widget pipeline process records — the fix belongs in pkg/beta.py" )"
+OFF="$( cands "widget pipeline process records — the fix belongs in pkg/beta.py" --no-mention-boost )"
+top1on="$( printf '%s' "$ON" | grep -o '<cand r="1" [^>]*id="[^"]*"' )"
+top1off="$( printf '%s' "$OFF" | grep -o '<cand r="1" [^>]*id="[^"]*"' )"
+[ -n "$top1on" ] && [ "$top1on" = "$top1off" ] && ok "top-1 identical boost-on vs boost-off" \
+    || no "top-1 displaced:  ON<<$top1on>>  OFF<<$top1off>>"
+
+# ── (iii) inert without mentions (incl. dotted-prose false-positive guards: e.g., i.e., 3.10) ────────
+Q_PLAIN="widget pipeline process records, e.g. python 3.10 i.e. the usual"
+"$BIN" "$FIX" --for="$Q_PLAIN" --no-cache >"$TMP/p1.xml" 2>/dev/null
+"$BIN" "$FIX" --for="$Q_PLAIN" --no-mention-boost --no-cache >"$TMP/p2.xml" 2>/dev/null
+cmp -s "$TMP/p1.xml" "$TMP/p2.xml" && ok "inert on mention-free prose (byte-identical, e.g./3.10 ignored)" \
+    || no "NOT inert on mention-free prose"
+grep -q 'mention anchor:' "$TMP/p1.xml" && no "header note must not appear when nothing anchored" \
+    || ok "no header note when nothing anchored"
+
+# ── (iv) scope: --query and --no-route untouched even when active ────────────────────────────────────
+QM="widget pipeline in pkg/beta.py"
+"$BIN" "$FIX" --query="$QM" --no-cache >"$TMP/q1.xml" 2>/dev/null
+RIPWIRE_NO_MENTION=1 "$BIN" "$FIX" --query="$QM" --no-cache >"$TMP/q2.xml" 2>/dev/null
+if cmp -s "$TMP/q1.xml" "$TMP/q2.xml"; then ok "--query path untouched"; else no "--query path affected"; fi
+"$BIN" "$FIX" --for="$QM" --no-route --no-cache >"$TMP/nr1.xml" 2>/dev/null
+"$BIN" "$FIX" --for="$QM" --no-route --no-mention-boost --no-cache >"$TMP/nr2.xml" 2>/dev/null
+cmp -s "$TMP/nr1.xml" "$TMP/nr2.xml" && ok "--no-route path keeps its pre-routing bytes" \
+    || no "--no-route path affected"
+
+# ── (v) determinism ×3, xmllint, env==flag, refuse-loudly ────────────────────────────────────────────
+"$BIN" "$FIX" --for="$QM" --no-cache >"$TMP/d1.xml" 2>/dev/null
+"$BIN" "$FIX" --for="$QM" --no-cache >"$TMP/d2.xml" 2>/dev/null
+"$BIN" "$FIX" --for="$QM" --no-cache >"$TMP/d3.xml" 2>/dev/null
+cmp -s "$TMP/d1.xml" "$TMP/d2.xml" && cmp -s "$TMP/d2.xml" "$TMP/d3.xml" && ok "determinism x3 (anchored)" \
+    || no "anchored output not deterministic"
+if command -v xmllint >/dev/null; then
+    if xmllint --noout "$TMP/d1.xml" 2>/dev/null; then ok "anchored bundle is xmllint-clean (G4)"; else no "anchored bundle not well-formed"; fi
+else ok "xmllint not present — skipped (G4 covered by xmlwellformed.sh)"; fi
+"$BIN" "$FIX" --for="$QM" --no-mention-boost --no-cache >"$TMP/f1.xml" 2>/dev/null
+RIPWIRE_NO_MENTION=1 "$BIN" "$FIX" --for="$QM" --no-cache >"$TMP/f2.xml" 2>/dev/null
+cmp -s "$TMP/f1.xml" "$TMP/f2.xml" && ok "RIPWIRE_NO_MENTION=1 == --no-mention-boost (byte-identical)" \
+    || no "env disable and flag disable diverge"
+"$BIN" "$FIX" --no-mention-boost >/dev/null 2>"$TMP/refuse.err"
+if [ $? -ne 0 ] && grep -q 'no-mention-boost' "$TMP/refuse.err"; then ok "flag alone refuses loudly"; else no "flag alone did not refuse"; fi
+
+# ── §L10b (finding #1): mention_anchored= is a root ATTRIBUTE, not just legend prose — the "mention
+#    anchor: N file + M symbols..." note had no machine-readable twin. The XML root now carries
+#    mention_anchored="N+M" (N+M read straight out of the note's own counts, so this arm survives a fixture
+#    edit that changes how many files/symbols anchor) whenever the note fires, ABSENT (never
+#    mention_anchored="0") when it does not; the JSON dialect gets the matching numeric key.
+NOTE_COUNTS="$( grep -o 'mention anchor: [0-9]* file[s]\{0,1\} + [0-9]* symbol' "$TMP/d1.xml" | grep -o '[0-9]*' )"
+NOTE_TOTAL="$( printf '%s\n' $NOTE_COUNTS | awk '{s+=$1} END{print s}' )"
+MA_ATTR="$( grep -o 'mention_anchored="[0-9]*"' "$TMP/d1.xml" | head -1 | grep -o '[0-9]*' )"
+[ -n "$NOTE_TOTAL" ] && [ "$MA_ATTR" = "$NOTE_TOTAL" ] \
+    && ok "L10b: XML root carries mention_anchored=\"$MA_ATTR\" (matches the note's own file+symbol count)" \
+    || no "L10b: XML root mention_anchored= missing or disagrees with the note (attr='${MA_ATTR:-<absent>}' note_total='${NOTE_TOTAL:-<none>}')"
+grep -q 'mention_anchored=' "$TMP/p1.xml" && no "L10b: mention_anchored= present on a query nothing anchored" \
+    || ok "L10b: mention_anchored= absent when the note did not fire (never mention_anchored=\"0\")"
+JSON_HIT="$( "$BIN" "$FIX" --for="$QM" --json --no-cache 2>/dev/null )"
+printf '%s' "$JSON_HIT" | python3 -c "import json,sys; d=json.load(sys.stdin); assert d.get('mention_anchored')==$NOTE_TOTAL, d.get('mention_anchored')" \
+    && ok "L10b: --json carries the matching \"mention_anchored\":$NOTE_TOTAL" \
+    || no "L10b: --json mention_anchored key missing or wrong"
+
+# ── (vii) NAMED IDENTIFIER — the symbol the task names verbatim enters the head, below an unanchored #1 ──────
+# core/search.py defines hybrid_search once. eval/bench_top.py's run() calls it twice and repeats the question's
+# prose (the unanchored #1); forty-five eval/bench_NN.py run_NN()s call it once each and outscore it, so without the
+# anchor it sits far past the served head (r=47 on the base binary's candidate list).
+FIXN="$TMP/fixn"
+mkdir -p "$FIXN/core" "$FIXN/eval" "$FIXN/tests"
+cat > "$FIXN/core/search.py" <<'PY'
+def hybrid_search(store, query):
+    """Blend the keyword and vector legs."""
+    return store.lookup(query) + store.nearest(query)
+
+def merge_rankings(a, b):
+    return a + b
+
+def load_rows_fast(src):
+    return list(src)
+PY
+cat > "$FIXN/core/util.py" <<'PY'
+def get(cache, key):
+    """Return the cached value for key."""
+    return cache.value_for(key)
+
+def helper(cache):
+    return cache
+
+def results(rows):
+    return list(rows)
+
+def rank(rows):
+    return sorted(rows)
+
+def mean(xs):
+    return sum(xs) / len(xs)
+PY
+# a name defined in FOUR files: ambiguous, never lifted (the <=3-file bound); one in THREE files that already
+# ranks at the top on its own (lifting it would move nothing, so refusing one of the three is no cut)
+mkdir -p "$FIXN/lib" "$FIXN/web" "$FIXN/ext"
+# (the four-file name lives in its own fixture, FIXA, below: its forty-five callers would re-weight this one)
+FIXA="$TMP/fixa"
+mkdir -p "$FIXA/core" "$FIXA/lib" "$FIXA/web" "$FIXA/eval"
+for f in core/s1.py core/s2.py lib/s3.py web/s4.py; do printf 'def shared_ident(x):\n    return x\n' > "$FIXA/$f"; done
+cat > "$FIXA/eval/bench_top.py" <<'PY'
+def run(store, questions):
+    """Rank the search results for each question and score how the search results rank; rank search results again."""
+    return [shared_ident(shared_ident(store.search(q))) for q in questions]
+PY
+for n in $( seq -w 1 45 ); do
+cat > "$FIXA/eval/bench_$n.py" <<PY
+def run_$n(store, questions):
+    """Rank the search results for each question."""
+    return [shared_ident(store.search(q)) for q in questions]
+PY
+done
+for f in core/t1.py lib/t2.py web/t3.py; do printf 'def tri_rows_rank(x):\n    """tri rows rank"""\n    return x\n' > "$FIXN/$f"; done
+# C++: a header prototype and its definition — one named function, one lift
+printf '#pragma once\nint scale_all( int x );\n' > "$FIXN/ext/scale.h"
+printf '#include "scale.h"\nint scale_all( int x ) { return x * 2; }\n' > "$FIXN/ext/scale.cpp"
+cat > "$FIXN/core/ranking.cpp" <<'CPP'
+namespace ranking
+{
+int rescore( int x )
+{
+    return x * 2;
+}
+}
+CPP
+cat > "$FIXN/core/merge.php" <<'PHP'
+<?php
+function MergeRankings($a, $b) {
+    return array_merge($a, $b);
+}
+PHP
+cat > "$FIXN/eval/bench_top.py" <<'PY'
+from core.search import hybrid_search
+
+def run(store, questions):
+    """Rank the search results for each question and score how the search results rank; rank search results again."""
+    results = []
+    for q in questions:
+        search_results = hybrid_search(store, q)
+        ranked = sorted(search_results, key=lambda r: r.rank)
+        reranked = sorted(hybrid_search(store, q), key=lambda r: r.rank)
+        results.append(helper(rescore(MergeRankings(ranked, reranked))))
+        results.append(helper(rescore(MergeRankings(ranked, reranked))))
+    return results
+PY
+for n in $( seq -w 1 45 ); do
+cat > "$FIXN/eval/bench_$n.py" <<PY
+from core.search import hybrid_search
+
+def run_$n(store, questions):
+    """Rank the search results for each question."""
+    return [helper(rescore(MergeRankings(hybrid_search(store, q), []))) for q in questions]
+PY
+done
+# a fixture-tier file: load_fixture_rows is defined ONLY here; four siblings carry every word of the question and
+# outrank it, so the file anchor's own top-three lift never reaches it
+cat > "$FIXN/tests/test_rows.py" <<'PY'
+def test_load_fixture_rows_rank_search_results_a(): """load fixture rows, rank the search results""" ; return 1
+def test_load_fixture_rows_rank_search_results_b(): """load fixture rows, rank the search results""" ; return 2
+def test_load_fixture_rows_rank_search_results_c(): """load fixture rows, rank the search results""" ; return 3
+def test_load_fixture_rows_rank_search_results_d(): """load fixture rows, rank the search results""" ; return 4
+
+def load_fixture_rows(path):
+    return open(path).read()
+PY
+headOf(){ "$BIN" "$FIXN" --for="$1" --no-cache "${@:2}" 2>/dev/null; }
+servedRank(){ printf '%s' "$1" | grep -o "<d [^>]*n=\"$2\"[^>]*>" | grep -o ' r="[0-9]*"' | grep -o '[0-9]*' | head -1; }
+topOf(){ printf '%s' "$1" | grep -o '<d [^>]* r="1"[^>]*>' | grep -o ' n="[^"]*" p="[^"]*"'; }
+named(){ # $1=label $2=query $3=symbol — in the served head at r<=2, #1 unchanged, and absent with the anchor off
+    ON="$( headOf "$2" )"; OFF="$( headOf "$2" --no-mention-boost )"
+    rOn="$( servedRank "$ON" "$3" )"; rOff="$( servedRank "$OFF" "$3" )"
+    if [ -n "$rOn" ] && [ "$rOn" -le 2 ] && [ -z "$rOff" ] && [ "$( topOf "$ON" )" = "$( topOf "$OFF" )" ]; then
+        ok "vii $1: $3 served at r=$rOn below the unchanged #1 (anchor off: absent from the served head)"
+    else no "vii $1: $3 expected at r<=2 with #1 unchanged, got on=${rOn:-absent} off=${rOff:-absent} top-on=$( topOf "$ON" ) top-off=$( topOf "$OFF" )"; fi
+}
+named "bare snake_case"      "How does hybrid_search rank search results"               hybrid_search
+named "backticked"           'How does `hybrid_search` rank search results'             hybrid_search
+named "module.fn"            "How does search.hybrid_search rank search results"        hybrid_search
+named "self.fn"              "why is self.hybrid_search slow to rank search results"    hybrid_search
+named "ns::fn"               "where does ranking::rescore reorder the search results"   rescore
+named "PHP case-folded call" "why does mergerankings() drop the ranked search results"  MergeRankings
+named "call syntax"          "why does helper() return stale search results"            helper
+ON1="$( headOf "How does hybrid_search rank search results" )"
+if printf '%s' "$ON1" | grep -q 'mention_anchored="1"'; then
+    ok "vii the root discloses the lift: mention_anchored=\"1\""
+else no "vii mention_anchored=\"1\" missing on the anchored head"; fi
+# controls: each byte-identical to --no-mention-boost
+inert(){ # $1=label $2=query
+    A="$( headOf "$2" )"; Bq="$( headOf "$2" --no-mention-boost )"
+    if [ -n "$A" ] && [ "$A" = "$Bq" ]; then
+        ok "vii control $1: byte-identical to --no-mention-boost"
+    else no "vii control $1: the anchor moved bytes on a task whose named identifier must not lift"; fi
+}
+inert "plain words (get, results, rank)" "how do I get the search results and rank them"
+inert "call syntax inside a fenced paste" 'why does it rank search results ```x = helper(cache)```'
+inert "call syntax on an indented pasted line" "$( printf 'why does it rank search results\n    x = helper(cache)\n' )"
+inert "std::vector names no user symbol" "does std::vector hold the search results"
+inert "a qualifier that places nothing" "does ranking::results rank the search results"
+inert "fixture-tier target, file not named" "why does load_fixture_rows rank search results"
+# rule (b)'s exception: once the task names the fixture file, its named identifier lifts too — to the anchor slot,
+# the score the file anchor gives the file's lifted siblings. With the same words but no identifier it stays below.
+candOf(){ "$BIN" "$FIXN" --for="$1" --format=candidates --top-k=200 --no-cache 2>/dev/null; }
+scoreOf(){ printf '%s' "$1" | grep -o "<cand r=\"[0-9]*\" s=\"[^\"]*\" n=\"$2\"" | grep -o 's="[^"]*"' | head -1; }
+FN="$( candOf "why does load_fixture_rows rank search results in tests/test_rows.py" )"
+FO="$( candOf "why does load fixture rows rank search results in tests/test_rows.py" )"
+SIB=test_load_fixture_rows_rank_search_results_a
+if [ -n "$( scoreOf "$FN" load_fixture_rows )" ] && [ "$( scoreOf "$FN" load_fixture_rows )" = "$( scoreOf "$FN" $SIB )" ] \
+   && [ "$( scoreOf "$FO" load_fixture_rows )" != "$( scoreOf "$FO" $SIB )" ]; then
+    ok "vii fixture-tier target lifts to the anchor slot once the task names its file ($( scoreOf "$FN" load_fixture_rows ); without the identifier $( scoreOf "$FO" load_fixture_rows ))"
+else no "vii fixture exception: target $( scoreOf "$FN" load_fixture_rows ) vs slot $( scoreOf "$FN" $SIB ); without the identifier $( scoreOf "$FO" load_fixture_rows ) vs $( scoreOf "$FO" $SIB )"; fi
+# rule (c): at most 2 identifier lifts per task, the third disclosed — and the two kept are the FIRST two in task-text
+# order, whether an identifier is bare or backticked (fix round M1: the backticked one used to jump the queue)
+CAP="$( headOf "does hybrid_search call helper() or ranking::rescore to rank search results" )"
+if printf '%s' "$CAP" | grep -q 'mention_syms_capped="1" mention_syms_total="3"' && printf '%s' "$CAP" | grep -q 'mention_anchored="2"'; then
+    ok "vii three named identifiers: two lift, the third is disclosed (mention_syms_capped=\"1\" mention_syms_total=\"3\")"
+else no "vii cap: expected mention_anchored=\"2\" with mention_syms_capped=\"1\" mention_syms_total=\"3\""; fi
+ORD="$( headOf 'does helper() call ranking::rescore before `hybrid_search` to rank search results' )"
+if [ -n "$( servedRank "$ORD" helper )" ] && [ -n "$( servedRank "$ORD" rescore )" ] && [ -z "$( servedRank "$ORD" hybrid_search )" ]; then
+    ok "vii cap order is task-text order: helper and rescore lift, the later backticked hybrid_search is the one refused"
+else no "vii cap order: helper r=$( servedRank "$ORD" helper ) rescore r=$( servedRank "$ORD" rescore ) hybrid_search r=$( servedRank "$ORD" hybrid_search ) (want the last absent)"; fi
+# M2: a refusal the lift would not have changed is no cut — three definitions already at the top, cap 2, no disclosure
+TRI="$( headOf "why does tri_rows_rank fail on stale search results" )"
+if [ -n "$( servedRank "$TRI" tri_rows_rank )" ] && ! printf '%s' "$TRI" | grep -q 'mention_syms_capped'; then
+    ok "vii a refused symbol that already ranks at the anchor slot is not announced as cut (no mention_syms_capped)"
+else no "vii refused-but-served: tri_rows_rank r=$( servedRank "$TRI" tri_rows_rank ), capped attr present=$( printf '%s' "$TRI" | grep -c 'mention_syms_capped' )"; fi
+# M4: the <=3-file ambiguity bound, and the trace leg of the pasted-code rule, each pinned by a control
+# the four-file control, in FIXA: shared_ident sits outside the head there, so a lift of any definition would show
+FA_ON="$( "$BIN" "$FIXA" --for="why does shared_ident rank search results" --no-cache 2>/dev/null )"
+FA_OFF="$( "$BIN" "$FIXA" --for="why does shared_ident rank search results" --no-cache --no-mention-boost 2>/dev/null )"
+if [ -n "$FA_ON" ] && [ "$FA_ON" = "$FA_OFF" ] && [ -z "$( servedRank "$FA_OFF" shared_ident )" ]; then
+    ok "vii control a name defined in four files (ambiguous): byte-identical to --no-mention-boost, and absent from the head"
+else no "vii control four-file name: the anchor moved bytes, or the fixture no longer buries it (off r=$( servedRank "$FA_OFF" shared_ident ))"; fi
+inert "call syntax inside a one-line stack trace"      'why does it rank search results Traceback (most recent call last): File "app/main.py", line 5, in main helper() TypeError: bad'
+# L3: a member call after a call, and a Windows path, name no identifier
+inert "a member call after a call (gather(x).helper())" "why is gather(x).helper() wrong for the search results"
+inert "a shaped directory inside a Windows path"       'why does D:\src\hybrid_search\x.py rank search results'
+# L2: a header prototype and its definition are one named function and spend ONE lift: naming scale_all (a
+# prototype in ext/scale.h, its definition in ext/scale.cpp) still leaves a lift for hybrid_search, with no cut
+SC="$( headOf "why does scale_all call hybrid_search to rank search results" )"
+if [ -n "$( servedRank "$SC" hybrid_search )" ] && ! printf '%s' "$SC" | grep -q 'mention_syms_capped'; then
+    ok "vii C++ prototype + definition count once: hybrid_search still lifts (r=$( servedRank "$SC" hybrid_search )), nothing refused"
+else no "vii prototype/definition: hybrid_search r=$( servedRank "$SC" hybrid_search ) (want served), capped attr present=$( printf '%s' "$SC" | grep -c 'mention_syms_capped' )"; fi
+# M3: a task naming more than kMentionMaxNamedIdents distinct identifiers reads the first 64 and discloses the rest
+MANY="why do these rank search results:$( for k in $( seq 1 70 ); do printf ' zz_ident_%d' "$k"; done )"
+MA="$( headOf "$MANY" )"
+if printf '%s' "$MA" | grep -q 'mention_idents_capped="1" mention_idents_total="70"'; then
+    ok "vii 70 distinct identifiers: the first 64 are read, the cut is disclosed (mention_idents_capped=\"1\" mention_idents_total=\"70\")"
+else no "vii identifier bound: expected mention_idents_capped=\"1\" mention_idents_total=\"70\""; fi
+D1="$( headOf "How does hybrid_search rank search results" )"; D2="$( headOf "How does hybrid_search rank search results" )"
+if [ -n "$D1" ] && [ "$D1" = "$D2" ]; then ok "vii determinism (anchored twice, byte-identical)"
+else no "vii anchored output not deterministic"; fi
+
+[ "$fail" = 0 ] && echo 'ALL PASS' || echo 'FAILURES ABOVE'
+exit "$fail"

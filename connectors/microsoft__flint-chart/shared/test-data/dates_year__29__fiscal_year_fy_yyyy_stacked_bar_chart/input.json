@@ -1,0 +1,157 @@
+{
+  "title": "Fiscal Year (FY YYYY) → Stacked Bar Chart",
+  "description": "Fiscal years: \"FY 2018\", \"FY 2019\", … (8 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "FiscalYear": "FY 2018",
+          "Value": 461,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2018",
+          "Value": 262,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2018",
+          "Value": 499,
+          "Category": "Gamma"
+        },
+        {
+          "FiscalYear": "FY 2019",
+          "Value": 338,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2019",
+          "Value": 451,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2019",
+          "Value": 392,
+          "Category": "Gamma"
+        },
+        {
+          "FiscalYear": "FY 2020",
+          "Value": 154,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2020",
+          "Value": 142,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2020",
+          "Value": 302,
+          "Category": "Gamma"
+        },
+        {
+          "FiscalYear": "FY 2021",
+          "Value": 58,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2021",
+          "Value": 528,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2021",
+          "Value": 509,
+          "Category": "Gamma"
+        },
+        {
+          "FiscalYear": "FY 2022",
+          "Value": 344,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2022",
+          "Value": 217,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2022",
+          "Value": 420,
+          "Category": "Gamma"
+        },
+        {
+          "FiscalYear": "FY 2023",
+          "Value": 252,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2023",
+          "Value": 198,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2023",
+          "Value": 116,
+          "Category": "Gamma"
+        },
+        {
+          "FiscalYear": "FY 2024",
+          "Value": 247,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2024",
+          "Value": 342,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2024",
+          "Value": 397,
+          "Category": "Gamma"
+        },
+        {
+          "FiscalYear": "FY 2025",
+          "Value": 340,
+          "Category": "Alpha"
+        },
+        {
+          "FiscalYear": "FY 2025",
+          "Value": 368,
+          "Category": "Beta"
+        },
+        {
+          "FiscalYear": "FY 2025",
+          "Value": 322,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "FiscalYear": "Year",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "FiscalYear"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

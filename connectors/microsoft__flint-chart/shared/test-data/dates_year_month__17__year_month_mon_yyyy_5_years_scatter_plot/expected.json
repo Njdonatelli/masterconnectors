@@ -1,0 +1,333 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 372,
+      "continuousHeight": 326
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 33
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "Jan 2018",
+        "Value": 238
+      },
+      {
+        "Date": "Feb 2018",
+        "Value": 521
+      },
+      {
+        "Date": "Mar 2018",
+        "Value": 247
+      },
+      {
+        "Date": "Apr 2018",
+        "Value": 276
+      },
+      {
+        "Date": "May 2018",
+        "Value": 304
+      },
+      {
+        "Date": "Jun 2018",
+        "Value": 342
+      },
+      {
+        "Date": "Jul 2018",
+        "Value": 225
+      },
+      {
+        "Date": "Aug 2018",
+        "Value": 229
+      },
+      {
+        "Date": "Sep 2018",
+        "Value": 148
+      },
+      {
+        "Date": "Oct 2018",
+        "Value": 469
+      },
+      {
+        "Date": "Nov 2018",
+        "Value": 335
+      },
+      {
+        "Date": "Dec 2018",
+        "Value": 181
+      },
+      {
+        "Date": "Jan 2019",
+        "Value": 499
+      },
+      {
+        "Date": "Feb 2019",
+        "Value": 516
+      },
+      {
+        "Date": "Mar 2019",
+        "Value": 110
+      },
+      {
+        "Date": "Apr 2019",
+        "Value": 261
+      },
+      {
+        "Date": "May 2019",
+        "Value": 180
+      },
+      {
+        "Date": "Jun 2019",
+        "Value": 51
+      },
+      {
+        "Date": "Jul 2019",
+        "Value": 98
+      },
+      {
+        "Date": "Aug 2019",
+        "Value": 349
+      },
+      {
+        "Date": "Sep 2019",
+        "Value": 252
+      },
+      {
+        "Date": "Oct 2019",
+        "Value": 128
+      },
+      {
+        "Date": "Nov 2019",
+        "Value": 230
+      },
+      {
+        "Date": "Dec 2019",
+        "Value": 457
+      },
+      {
+        "Date": "Jan 2020",
+        "Value": 72
+      },
+      {
+        "Date": "Feb 2020",
+        "Value": 474
+      },
+      {
+        "Date": "Mar 2020",
+        "Value": 135
+      },
+      {
+        "Date": "Apr 2020",
+        "Value": 73
+      },
+      {
+        "Date": "May 2020",
+        "Value": 363
+      },
+      {
+        "Date": "Jun 2020",
+        "Value": 374
+      },
+      {
+        "Date": "Jul 2020",
+        "Value": 417
+      },
+      {
+        "Date": "Aug 2020",
+        "Value": 501
+      },
+      {
+        "Date": "Sep 2020",
+        "Value": 62
+      },
+      {
+        "Date": "Oct 2020",
+        "Value": 539
+      },
+      {
+        "Date": "Nov 2020",
+        "Value": 96
+      },
+      {
+        "Date": "Dec 2020",
+        "Value": 196
+      },
+      {
+        "Date": "Jan 2021",
+        "Value": 514
+      },
+      {
+        "Date": "Feb 2021",
+        "Value": 295
+      },
+      {
+        "Date": "Mar 2021",
+        "Value": 197
+      },
+      {
+        "Date": "Apr 2021",
+        "Value": 261
+      },
+      {
+        "Date": "May 2021",
+        "Value": 373
+      },
+      {
+        "Date": "Jun 2021",
+        "Value": 178
+      },
+      {
+        "Date": "Jul 2021",
+        "Value": 529
+      },
+      {
+        "Date": "Aug 2021",
+        "Value": 359
+      },
+      {
+        "Date": "Sep 2021",
+        "Value": 288
+      },
+      {
+        "Date": "Oct 2021",
+        "Value": 523
+      },
+      {
+        "Date": "Nov 2021",
+        "Value": 509
+      },
+      {
+        "Date": "Dec 2021",
+        "Value": 65
+      },
+      {
+        "Date": "Jan 2022",
+        "Value": 390
+      },
+      {
+        "Date": "Feb 2022",
+        "Value": 365
+      },
+      {
+        "Date": "Mar 2022",
+        "Value": 382
+      },
+      {
+        "Date": "Apr 2022",
+        "Value": 535
+      },
+      {
+        "Date": "May 2022",
+        "Value": 348
+      },
+      {
+        "Date": "Jun 2022",
+        "Value": 311
+      },
+      {
+        "Date": "Jul 2022",
+        "Value": 469
+      },
+      {
+        "Date": "Aug 2022",
+        "Value": 391
+      },
+      {
+        "Date": "Sep 2022",
+        "Value": 489
+      },
+      {
+        "Date": "Oct 2022",
+        "Value": 55
+      },
+      {
+        "Date": "Nov 2022",
+        "Value": 424
+      },
+      {
+        "Date": "Dec 2022",
+        "Value": 256
+      }
+    ]
+  },
+  "_width": 372,
+  "_height": 326,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

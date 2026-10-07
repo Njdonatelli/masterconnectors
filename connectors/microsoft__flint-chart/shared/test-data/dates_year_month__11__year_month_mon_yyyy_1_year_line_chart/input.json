@@ -1,0 +1,81 @@
+{
+  "title": "Year-Month (Mon YYYY, 1 year) → Line Chart",
+  "description": "Natural year-month within one year: \"Jan 2020\", …, \"Dec 2020\" (12 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 2020",
+          "Value": 397
+        },
+        {
+          "Date": "Feb 2020",
+          "Value": 151
+        },
+        {
+          "Date": "Mar 2020",
+          "Value": 265
+        },
+        {
+          "Date": "Apr 2020",
+          "Value": 506
+        },
+        {
+          "Date": "May 2020",
+          "Value": 218
+        },
+        {
+          "Date": "Jun 2020",
+          "Value": 273
+        },
+        {
+          "Date": "Jul 2020",
+          "Value": 142
+        },
+        {
+          "Date": "Aug 2020",
+          "Value": 509
+        },
+        {
+          "Date": "Sep 2020",
+          "Value": 488
+        },
+        {
+          "Date": "Oct 2020",
+          "Value": 363
+        },
+        {
+          "Date": "Nov 2020",
+          "Value": 387
+        },
+        {
+          "Date": "Dec 2020",
+          "Value": 188
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

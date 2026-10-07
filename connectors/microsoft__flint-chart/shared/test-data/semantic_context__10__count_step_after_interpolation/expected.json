@@ -1,0 +1,298 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "week",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "count",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "tickMinStep": 1,
+        "labelExpr": "datum.value === ceil(datum.value) ? format(datum.value, ',d') : ''"
+      }
+    },
+    "color": {
+      "field": "metric",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "week": "Wk1",
+        "metric": "Bugs Filed",
+        "count": 3
+      },
+      {
+        "week": "Wk1",
+        "metric": "Features Completed",
+        "count": 1
+      },
+      {
+        "week": "Wk2",
+        "metric": "Bugs Filed",
+        "count": 7
+      },
+      {
+        "week": "Wk2",
+        "metric": "Features Completed",
+        "count": 2
+      },
+      {
+        "week": "Wk3",
+        "metric": "Bugs Filed",
+        "count": 12
+      },
+      {
+        "week": "Wk3",
+        "metric": "Features Completed",
+        "count": 4
+      },
+      {
+        "week": "Wk4",
+        "metric": "Bugs Filed",
+        "count": 8
+      },
+      {
+        "week": "Wk4",
+        "metric": "Features Completed",
+        "count": 6
+      },
+      {
+        "week": "Wk5",
+        "metric": "Bugs Filed",
+        "count": 15
+      },
+      {
+        "week": "Wk5",
+        "metric": "Features Completed",
+        "count": 7
+      },
+      {
+        "week": "Wk6",
+        "metric": "Bugs Filed",
+        "count": 22
+      },
+      {
+        "week": "Wk6",
+        "metric": "Features Completed",
+        "count": 8
+      },
+      {
+        "week": "Wk7",
+        "metric": "Bugs Filed",
+        "count": 18
+      },
+      {
+        "week": "Wk7",
+        "metric": "Features Completed",
+        "count": 10
+      },
+      {
+        "week": "Wk8",
+        "metric": "Bugs Filed",
+        "count": 11
+      },
+      {
+        "week": "Wk8",
+        "metric": "Features Completed",
+        "count": 13
+      },
+      {
+        "week": "Wk9",
+        "metric": "Bugs Filed",
+        "count": 9
+      },
+      {
+        "week": "Wk9",
+        "metric": "Features Completed",
+        "count": 15
+      },
+      {
+        "week": "Wk10",
+        "metric": "Bugs Filed",
+        "count": 14
+      },
+      {
+        "week": "Wk10",
+        "metric": "Features Completed",
+        "count": 16
+      },
+      {
+        "week": "Wk11",
+        "metric": "Bugs Filed",
+        "count": 6
+      },
+      {
+        "week": "Wk11",
+        "metric": "Features Completed",
+        "count": 18
+      },
+      {
+        "week": "Wk12",
+        "metric": "Bugs Filed",
+        "count": 4
+      },
+      {
+        "week": "Wk12",
+        "metric": "Features Completed",
+        "count": 20
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

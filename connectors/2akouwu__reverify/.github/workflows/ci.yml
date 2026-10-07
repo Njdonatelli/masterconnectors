@@ -1,0 +1,134 @@
+name: CI
+
+# Contributors do nothing beyond opening the PR: this runs, and a green ci-ok is the only gate.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: tests (${{ matrix.os }}, py${{ matrix.python }}, ${{ matrix.deps }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # The pure-Python core must pass everywhere with nothing installed ...
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.9", "3.13"]
+        deps: [pure]
+        include:
+          # ... and the mature engines (capstone, unicorn, lief, z3) must upgrade it cleanly.
+          - { os: ubuntu-latest, python: "3.13", deps: full }
+          - { os: windows-latest, python: "3.13", deps: full }
+          - { os: macos-latest, python: "3.13", deps: full }
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install (pure-Python core)
+        if: matrix.deps == 'pure'
+        run: python -m pip install -e .
+      - name: Install (with engines)
+        if: matrix.deps == 'full'
+        run: python -m pip install -e ".[full]"
+      - name: Engines in use
+        run: reverify backends
+      - name: Tests
+        if: matrix.os != 'ubuntu-latest' || matrix.deps != 'full'
+        run: python -m unittest discover -s reverify/tests -p "test_*.py"
+      - name: Tests (with coverage)
+        if: matrix.os == 'ubuntu-latest' && matrix.deps == 'full'
+        run: |
+          python -m pip install coverage==7.16.0
+          python -m coverage run --source=reverify --omit="reverify/tests/*" -m unittest discover -s reverify/tests -p "test_*.py"
+          python -m coverage xml -o coverage.xml
+          python -m coverage report | tail -n 3
+      - name: Upload coverage to Codecov
+        if: matrix.os == 'ubuntu-latest' && matrix.deps == 'full'
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
+          fail_ci_if_error: false
+      - name: Benchmark on this platform's real binaries (false VERIFIED must be 0)
+        if: matrix.deps == 'full'
+        shell: bash
+        run: |
+          python benchmarks/prologue_prior.py --per-dir 40 --json "bench-${{ matrix.os }}.json" --fail-on-false-verified
+          python benchmarks/prologue_prior.py --per-dir 40 --markdown | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Keep the benchmark record (hashes, verdicts, tool versions)
+        if: matrix.deps == 'full'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: benchmark-${{ matrix.os }}
+          path: bench-*.json
+      - name: MSVC developer environment (Windows)
+        if: matrix.deps == 'full' && runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@0b201ec74fa43914dc39ae48a89fd1d8cb592756 # v1
+      - name: Build the reproducible corpus from source (gcc / clang / cl, -O0 and -O2)
+        if: matrix.deps == 'full'
+        shell: bash
+        run: python benchmarks/corpus/build.py
+      - name: Benchmarks on the compiled corpus (exported functions; the prior may be right at -O0)
+        if: matrix.deps == 'full'
+        shell: bash
+        run: |
+          python benchmarks/prologue_prior.py benchmarks/corpus/build --probe exports --per-dir 60 --json "bench-corpus-${{ matrix.os }}.json" --markdown --fail-on-false-verified | tee -a "$GITHUB_STEP_SUMMARY"
+          python benchmarks/verifier_matrix.py benchmarks/corpus/build --per-dir 60 --json "matrix-corpus-${{ matrix.os }}.json" --fail-on-false-verified | tee -a "$GITHUB_STEP_SUMMARY"
+          cp benchmarks/corpus/build/manifest.json "corpus-manifest-${{ matrix.os }}.json"
+      - name: Keep the corpus manifest (toolchain versions, flags, hashes)
+        if: matrix.deps == 'full'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: corpus-${{ matrix.os }}
+          path: |
+            corpus-manifest-*.json
+            bench-corpus-*.json
+            matrix-corpus-*.json
+      - name: Reconstruction re-executability (correct rebuild verifies, wrong is refuted, 0 false accepts)
+        if: runner.os != 'Windows'
+        shell: bash
+        env:
+          REVERIFY_ALLOW_NATIVE_EXEC: "1"
+        run: |
+          python benchmarks/reconstructions.py --markdown --fail-on-false-accept \
+            --json "recon-${{ matrix.os }}-${{ matrix.deps }}.json" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Keep the reconstruction record
+        if: runner.os != 'Windows'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: recon-${{ matrix.os }}-py${{ matrix.python }}-${{ matrix.deps }}
+          path: recon-*.json
+      - name: Verifier confusion matrix on real binaries (false VERIFIED must be 0, known-true never refuted)
+        shell: bash
+        run: python benchmarks/verifier_matrix.py --per-dir 25 --json "matrix-${{ matrix.os }}-${{ matrix.deps }}.json" --fail-on-false-verified | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Keep the matrix record
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: matrix-${{ matrix.os }}-py${{ matrix.python }}-${{ matrix.deps }}
+          path: matrix-*.json
+
+  # Single required check for branch protection, so the matrix can change freely.
+  ci-ok:
+    name: ci-ok
+    if: always()
+    needs: [tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: All test jobs passed
+        run: |
+          echo "tests: ${{ needs.tests.result }}"
+          test "${{ needs.tests.result }}" = "success"

@@ -1,0 +1,218 @@
+{
+  "spacing": 0,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "scale": {
+            "reverse": true,
+            "domain": [
+              0,
+              47488
+            ]
+          },
+          "stack": null,
+          "field": "Value",
+          "type": "quantitative"
+        },
+        "opacity": {
+          "value": 0.9
+        },
+        "color": {
+          "value": "#4e79a7"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "Direction",
+            "equal": "Import"
+          }
+        }
+      ],
+      "title": "Import",
+      "width": 246,
+      "height": 300
+    },
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "axis": null,
+          "field": "Country",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "stack": null,
+          "field": "Value",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              47488
+            ]
+          }
+        },
+        "opacity": {
+          "value": 0.9
+        },
+        "color": {
+          "value": "#e15759"
+        }
+      },
+      "transform": [
+        {
+          "filter": {
+            "field": "Direction",
+            "equal": "Export"
+          }
+        }
+      ],
+      "title": "Export",
+      "width": 246,
+      "height": 300
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Country": "USA",
+        "Direction": "Import",
+        "Value": 31686
+      },
+      {
+        "Country": "USA",
+        "Direction": "Export",
+        "Value": 44720
+      },
+      {
+        "Country": "China",
+        "Direction": "Import",
+        "Value": 8071
+      },
+      {
+        "Country": "China",
+        "Direction": "Export",
+        "Value": 46763
+      },
+      {
+        "Country": "Japan",
+        "Direction": "Import",
+        "Value": 35829
+      },
+      {
+        "Country": "Japan",
+        "Direction": "Export",
+        "Value": 23447
+      },
+      {
+        "Country": "Germany",
+        "Direction": "Import",
+        "Value": 11702
+      },
+      {
+        "Country": "Germany",
+        "Direction": "Export",
+        "Value": 21445
+      },
+      {
+        "Country": "UK",
+        "Direction": "Import",
+        "Value": 17460
+      },
+      {
+        "Country": "UK",
+        "Direction": "Export",
+        "Value": 47488
+      },
+      {
+        "Country": "France",
+        "Direction": "Import",
+        "Value": 32401
+      },
+      {
+        "Country": "France",
+        "Direction": "Export",
+        "Value": 8762
+      },
+      {
+        "Country": "India",
+        "Direction": "Import",
+        "Value": 3322
+      },
+      {
+        "Country": "India",
+        "Direction": "Export",
+        "Value": 33256
+      },
+      {
+        "Country": "Brazil",
+        "Direction": "Import",
+        "Value": 29939
+      },
+      {
+        "Country": "Brazil",
+        "Direction": "Export",
+        "Value": 22031
+      },
+      {
+        "Country": "Canada",
+        "Direction": "Import",
+        "Value": 10621
+      },
+      {
+        "Country": "Canada",
+        "Direction": "Export",
+        "Value": 1603
+      },
+      {
+        "Country": "Australia",
+        "Direction": "Import",
+        "Value": 37942
+      },
+      {
+        "Country": "Australia",
+        "Direction": "Export",
+        "Value": 41683
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": []
+}

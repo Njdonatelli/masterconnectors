@@ -1,0 +1,181 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Reaction (s)",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Reaction (s)",
+          "order": "ascending"
+        }
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Reaction (s)",
+          "as": "__ecdf_total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Reaction (s)",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Reaction (s)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Reaction (s)": 0.451
+      },
+      {
+        "Reaction (s)": 0.306
+      },
+      {
+        "Reaction (s)": 0.272
+      },
+      {
+        "Reaction (s)": 0.353
+      },
+      {
+        "Reaction (s)": 0.289
+      },
+      {
+        "Reaction (s)": 0.539
+      },
+      {
+        "Reaction (s)": 0.312
+      },
+      {
+        "Reaction (s)": 0.506
+      },
+      {
+        "Reaction (s)": 0.361
+      },
+      {
+        "Reaction (s)": 0.442
+      },
+      {
+        "Reaction (s)": 0.381
+      },
+      {
+        "Reaction (s)": 0.453
+      },
+      {
+        "Reaction (s)": 0.339
+      },
+      {
+        "Reaction (s)": 0.489
+      },
+      {
+        "Reaction (s)": 0.384
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

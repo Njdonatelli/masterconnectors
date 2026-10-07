@@ -1,0 +1,80 @@
+{
+  "title": "Exam Score Domain [0–100]",
+  "description": "Enriched annotation { semanticType: \"Score\", intrinsicDomain: [0, 100] } pins the axis to 0–100, giving full context. WITHOUT this: axis auto-scales to data range (e.g., 58–94), losing the \"out of 100\" context.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "student": "Alice",
+          "exam_score": 55,
+          "study_hours": 7
+        },
+        {
+          "student": "Bob",
+          "exam_score": 79,
+          "study_hours": 18
+        },
+        {
+          "student": "Carol",
+          "exam_score": 78,
+          "study_hours": 16
+        },
+        {
+          "student": "Dave",
+          "exam_score": 94,
+          "study_hours": 16
+        },
+        {
+          "student": "Eve",
+          "exam_score": 87,
+          "study_hours": 18
+        },
+        {
+          "student": "Frank",
+          "exam_score": 61,
+          "study_hours": 15
+        },
+        {
+          "student": "Grace",
+          "exam_score": 69,
+          "study_hours": 5
+        },
+        {
+          "student": "Hank",
+          "exam_score": 70,
+          "study_hours": 9
+        }
+      ]
+    },
+    "semantic_types": {
+      "student": "Category",
+      "exam_score": {
+        "semanticType": "Score",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      },
+      "study_hours": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "student"
+        },
+        "y": {
+          "field": "exam_score"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

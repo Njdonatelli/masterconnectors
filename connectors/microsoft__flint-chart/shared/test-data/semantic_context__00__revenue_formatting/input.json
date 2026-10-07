@@ -1,0 +1,56 @@
+{
+  "title": "Revenue Formatting ($)",
+  "description": "Semantic type \"Revenue\" with unit \"USD\" adds currency prefix ($) and SI abbreviation to axis labels. WITHOUT this: axis would show raw numbers like 1200000.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "city": "Seattle",
+          "revenue": 501479
+        },
+        {
+          "city": "Austin",
+          "revenue": 2860642
+        },
+        {
+          "city": "Boston",
+          "revenue": 3809406
+        },
+        {
+          "city": "Denver",
+          "revenue": 1684875
+        },
+        {
+          "city": "Miami",
+          "revenue": 2193008
+        }
+      ]
+    },
+    "semantic_types": {
+      "city": "City",
+      "revenue": {
+        "semanticType": "Amount",
+        "unit": "USD"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "city"
+        },
+        "y": {
+          "field": "revenue"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

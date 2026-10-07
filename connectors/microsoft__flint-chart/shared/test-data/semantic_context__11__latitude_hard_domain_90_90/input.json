@@ -1,0 +1,84 @@
+{
+  "title": "Latitude Hard Domain [-90°, 90°]",
+  "description": "Semantic type \"Latitude\" pins axis to [-90, 90] with clamp=true (hard physical domain). Shows where cities fall in global context. WITHOUT this: axis auto-scales to data range (1–70), losing context.",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "city": "Singapore",
+          "latitude": 1.35,
+          "gdp_per_capita": 65000
+        },
+        {
+          "city": "Mumbai",
+          "latitude": 19.08,
+          "gdp_per_capita": 7200
+        },
+        {
+          "city": "Cairo",
+          "latitude": 30.04,
+          "gdp_per_capita": 3900
+        },
+        {
+          "city": "Istanbul",
+          "latitude": 41.01,
+          "gdp_per_capita": 9500
+        },
+        {
+          "city": "Paris",
+          "latitude": 48.86,
+          "gdp_per_capita": 42000
+        },
+        {
+          "city": "London",
+          "latitude": 51.51,
+          "gdp_per_capita": 46000
+        },
+        {
+          "city": "Moscow",
+          "latitude": 55.76,
+          "gdp_per_capita": 11300
+        },
+        {
+          "city": "Helsinki",
+          "latitude": 60.17,
+          "gdp_per_capita": 49000
+        },
+        {
+          "city": "Reykjavik",
+          "latitude": 64.13,
+          "gdp_per_capita": 52000
+        },
+        {
+          "city": "Tromsø",
+          "latitude": 69.65,
+          "gdp_per_capita": 65000
+        }
+      ]
+    },
+    "semantic_types": {
+      "city": "City",
+      "latitude": "Latitude",
+      "gdp_per_capita": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "gdp_per_capita"
+        },
+        "y": {
+          "field": "latitude"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "title": "ID Sequence Number",
+  "description": "Semantic type \"ID\" uses nominal encoding for unique identifiers. Covers row numbers, sequence numbers, trial IDs. WITHOUT this: treated as quantitative with fractional ticks.",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "trial_number": 1,
+          "response_time_ms": 220
+        },
+        {
+          "trial_number": 2,
+          "response_time_ms": 242
+        },
+        {
+          "trial_number": 3,
+          "response_time_ms": 754
+        },
+        {
+          "trial_number": 4,
+          "response_time_ms": 311
+        },
+        {
+          "trial_number": 5,
+          "response_time_ms": 510
+        },
+        {
+          "trial_number": 6,
+          "response_time_ms": 911
+        },
+        {
+          "trial_number": 7,
+          "response_time_ms": 672
+        },
+        {
+          "trial_number": 8,
+          "response_time_ms": 237
+        },
+        {
+          "trial_number": 9,
+          "response_time_ms": 542
+        },
+        {
+          "trial_number": 10,
+          "response_time_ms": 962
+        }
+      ]
+    },
+    "semantic_types": {
+      "trial_number": "ID",
+      "response_time_ms": {
+        "semanticType": "Duration",
+        "unit": "ms"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "trial_number"
+        },
+        "y": {
+          "field": "response_time_ms"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "title": "Snap: Pct 35–65% → no snap",
+  "description": "Usage data ranges 35–65%. Both ends are far from 0 and 100 (threshold = 25% of range = 25), so no snap occurs. Axis data-fits to show detail in the 35–65% band.",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "week": "Week 1",
+          "usage": 37
+        },
+        {
+          "week": "Week 2",
+          "usage": 62
+        },
+        {
+          "week": "Week 3",
+          "usage": 65
+        },
+        {
+          "week": "Week 4",
+          "usage": 35
+        },
+        {
+          "week": "Week 5",
+          "usage": 62
+        },
+        {
+          "week": "Week 6",
+          "usage": 63
+        },
+        {
+          "week": "Week 7",
+          "usage": 46
+        },
+        {
+          "week": "Week 8",
+          "usage": 57
+        }
+      ]
+    },
+    "semantic_types": {
+      "week": "Category",
+      "usage": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "week"
+        },
+        "y": {
+          "field": "usage"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,1 @@
+export { AuthErrorCode } from "@melandlabs/contracts/errors";

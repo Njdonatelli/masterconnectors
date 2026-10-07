@@ -1,0 +1,141 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 368,
+      "continuousHeight": 326
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 33
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Year": "2000",
+        "Value": 107
+      },
+      {
+        "Year": "2001",
+        "Value": 300
+      },
+      {
+        "Year": "2002",
+        "Value": 242
+      },
+      {
+        "Year": "2003",
+        "Value": 120
+      },
+      {
+        "Year": "2004",
+        "Value": 155
+      },
+      {
+        "Year": "2005",
+        "Value": 139
+      },
+      {
+        "Year": "2006",
+        "Value": 417
+      },
+      {
+        "Year": "2007",
+        "Value": 102
+      },
+      {
+        "Year": "2008",
+        "Value": 474
+      },
+      {
+        "Year": "2009",
+        "Value": 418
+      },
+      {
+        "Year": "2010",
+        "Value": 178
+      },
+      {
+        "Year": "2011",
+        "Value": 445
+      }
+    ]
+  },
+  "_width": 368,
+  "_height": 326,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

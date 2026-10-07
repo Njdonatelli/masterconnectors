@@ -1,0 +1,261 @@
+{
+  "mark": {
+    "type": "arc",
+    "stroke": "white",
+    "padAngle": 0.02
+  },
+  "encoding": {
+    "theta": {
+      "field": "Direction",
+      "type": "ordinal",
+      "sort": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW"
+      ],
+      "stack": true,
+      "scale": {
+        "range": [
+          -0.39269908169872414,
+          5.890486225480862
+        ]
+      }
+    },
+    "radius": {
+      "field": "Speed",
+      "type": "quantitative",
+      "scale": {
+        "type": "sqrt"
+      }
+    },
+    "color": {
+      "field": "Direction",
+      "type": "ordinal",
+      "sort": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW"
+      ]
+    },
+    "facet": {
+      "field": "Year",
+      "type": "ordinal",
+      "sort": null,
+      "columns": 3
+    }
+  },
+  "width": 159,
+  "height": 159,
+  "config": {
+    "view": {
+      "continuousWidth": 159,
+      "continuousHeight": 159
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 179
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Direction": "N",
+        "Speed": 10,
+        "Year": "2022"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 17,
+        "Year": "2022"
+      },
+      {
+        "Direction": "E",
+        "Speed": 9,
+        "Year": "2022"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 23,
+        "Year": "2022"
+      },
+      {
+        "Direction": "S",
+        "Speed": 5,
+        "Year": "2022"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 18,
+        "Year": "2022"
+      },
+      {
+        "Direction": "W",
+        "Speed": 23,
+        "Year": "2022"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 7,
+        "Year": "2022"
+      },
+      {
+        "Direction": "N",
+        "Speed": 6,
+        "Year": "2023"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 20,
+        "Year": "2023"
+      },
+      {
+        "Direction": "E",
+        "Speed": 17,
+        "Year": "2023"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 11,
+        "Year": "2023"
+      },
+      {
+        "Direction": "S",
+        "Speed": 22,
+        "Year": "2023"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 11,
+        "Year": "2023"
+      },
+      {
+        "Direction": "W",
+        "Speed": 22,
+        "Year": "2023"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 6,
+        "Year": "2023"
+      },
+      {
+        "Direction": "N",
+        "Speed": 5,
+        "Year": "2024"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 20,
+        "Year": "2024"
+      },
+      {
+        "Direction": "E",
+        "Speed": 11,
+        "Year": "2024"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 9,
+        "Year": "2024"
+      },
+      {
+        "Direction": "S",
+        "Speed": 19,
+        "Year": "2024"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 5,
+        "Year": "2024"
+      },
+      {
+        "Direction": "W",
+        "Speed": 8,
+        "Year": "2024"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 13,
+        "Year": "2024"
+      }
+    ]
+  },
+  "_width": 159,
+  "_height": 263,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Inner Radius",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "padAngle",
+      "label": "Gap",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.1,
+      "step": 0.005,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "alignment",
+      "label": "Alignment",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (default)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "applicable": true,
+      "value": "center"
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

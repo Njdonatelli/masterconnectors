@@ -1,0 +1,217 @@
+{
+  "title": "Year (ISO date) → Stacked Bar Chart",
+  "description": "Years as ISO strings: \"2000-01-01\", \"2001-01-01\", … (12 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2000-01-01",
+          "Value": 120,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2000-01-01",
+          "Value": 159,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2000-01-01",
+          "Value": 471,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2001-01-01",
+          "Value": 66,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2001-01-01",
+          "Value": 530,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2001-01-01",
+          "Value": 257,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2002-01-01",
+          "Value": 402,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2002-01-01",
+          "Value": 436,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2002-01-01",
+          "Value": 465,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2003-01-01",
+          "Value": 144,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2003-01-01",
+          "Value": 172,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2003-01-01",
+          "Value": 407,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2004-01-01",
+          "Value": 191,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2004-01-01",
+          "Value": 197,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2004-01-01",
+          "Value": 367,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2005-01-01",
+          "Value": 77,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2005-01-01",
+          "Value": 195,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2005-01-01",
+          "Value": 78,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2006-01-01",
+          "Value": 304,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2006-01-01",
+          "Value": 240,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2006-01-01",
+          "Value": 498,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2007-01-01",
+          "Value": 276,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2007-01-01",
+          "Value": 430,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2007-01-01",
+          "Value": 309,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2008-01-01",
+          "Value": 109,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2008-01-01",
+          "Value": 62,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2008-01-01",
+          "Value": 424,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2009-01-01",
+          "Value": 213,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2009-01-01",
+          "Value": 428,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2009-01-01",
+          "Value": 339,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2010-01-01",
+          "Value": 163,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2010-01-01",
+          "Value": 487,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2010-01-01",
+          "Value": 514,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "2011-01-01",
+          "Value": 300,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "2011-01-01",
+          "Value": 168,
+          "Category": "Beta"
+        },
+        {
+          "Date": "2011-01-01",
+          "Value": 418,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

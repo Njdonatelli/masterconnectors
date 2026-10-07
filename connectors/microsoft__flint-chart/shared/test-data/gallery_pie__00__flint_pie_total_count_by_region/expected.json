@@ -1,0 +1,85 @@
+{
+  "mark": "arc",
+  "encoding": {
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": [
+        "N",
+        "E",
+        "S",
+        "W"
+      ],
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "theta": {
+      "field": "Total",
+      "type": "quantitative"
+    }
+  },
+  "width": 400,
+  "height": 300,
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Region": "N",
+        "Total": 3340
+      },
+      {
+        "Region": "E",
+        "Total": 7160
+      },
+      {
+        "Region": "S",
+        "Total": 5080
+      },
+      {
+        "Region": "W",
+        "Total": 3620
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Donut",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

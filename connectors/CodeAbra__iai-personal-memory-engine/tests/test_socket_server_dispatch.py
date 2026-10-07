@@ -1,0 +1,284 @@
+from __future__ import annotations
+
+import asyncio
+import json
+import os
+from pathlib import Path
+
+import pytest
+
+from _live_harness import _send_jsonrpc, _send_raw, _with_socket_server  # noqa: F401
+
+@pytest.fixture
+def short_socket_paths(tmp_path, monkeypatch):
+    from iai_mcp import concurrency, daemon_state
+
+    sock_dir = Path(f"/tmp/iai-srvdisp-{os.getpid()}-{id(tmp_path)}")
+    sock_dir.mkdir(parents=True, exist_ok=True)
+    sock_path = sock_dir / "d.sock"
+    state_path = tmp_path / ".daemon-state.json"
+
+    monkeypatch.setattr(concurrency, "SOCKET_PATH", sock_path)
+    monkeypatch.setattr(daemon_state, "STATE_PATH", state_path)
+    store_root = tmp_path / "store_root"
+    store_root.mkdir(parents=True, exist_ok=True)
+    monkeypatch.setenv("IAI_MCP_STORE", str(store_root))
+
+    try:
+        yield None, sock_path, state_path
+    finally:
+        try:
+            if sock_path.exists():
+                sock_path.unlink()
+        except OSError:
+            pass
+        try:
+            sock_dir.rmdir()
+        except OSError:
+            pass
+
+def test_memory_recall_routed_over_socket(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        return await _send_jsonrpc(
+            sock_path, "memory_recall",
+            {"cue": "migration done", "budget_tokens": 400},
+            req_id=1,
+        )
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] == 1, resp
+    assert "result" in resp, resp
+    assert "hits" in resp["result"], resp["result"]
+
+def test_session_start_payload_routed(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.capture import capture_turn
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+    # Seed one active record so records_count > 0 and dispatch takes the
+    # real assemble_session_start -> _payload_to_json path instead of the
+    # empty-store early return; a directive record keeps this independent
+    # of the default wake_depth ("minimal"), since directives render at
+    # every wake_depth while recent_thread only renders above minimal.
+    seed_result = capture_turn(
+        store=store, cue="standing order marker",
+        text="STANDING_ORDER_MARKER: never drop this on the wire",
+        directive=True, session_id="s-dispatch-seed", role="user",
+    )
+    assert seed_result["status"] == "inserted", seed_result
+
+    async def _runner(sock_path, store):
+        return await _send_jsonrpc(
+            sock_path, "session_start_payload", {}, req_id=2,
+        )
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] == 2, resp
+    assert "result" in resp, resp
+    result = resp["result"]
+    assert "l0" in result and "l1" in result, result
+    assert "wake_depth" in result, result
+    assert "recent_thread" in result, (
+        "a host reading the serialized brief loses ambient first-turn recall "
+        f"when this key is absent: {result}"
+    )
+    assert "directives" in result, (
+        f"a host reading the serialized brief loses standing orders when this key is absent: {result}"
+    )
+    assert "live_state" in result, (
+        "a host reading the serialized brief loses session-continuity state "
+        f"when this key is absent: {result}"
+    )
+    # The populated-store path must actually have run, not just the keys'
+    # presence: the seeded directive text must be traceable on the wire, so
+    # a future _payload_to_json that hardcodes "" instead of reading the
+    # dataclass field fails this test.
+    assert "STANDING_ORDER_MARKER" in result["directives"], result
+
+def test_profile_get_routed(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        return await _send_jsonrpc(
+            sock_path, "profile_get", {"knob": None}, req_id=3,
+        )
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] == 3, resp
+    assert "result" in resp, resp
+    result = resp["result"]
+    assert isinstance(result, dict), result
+    assert "live" in result, result
+    assert "literal_preservation" in result["live"], result
+
+def test_topology_routed(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        return await _send_jsonrpc(sock_path, "topology", {}, req_id=4)
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] == 4, resp
+    assert "result" in resp, resp
+    result = resp["result"]
+    assert "regime" in result or "sigma" in result, result
+
+def test_invalid_jsonrpc_returns_minus_32600(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        bad = {"jsonrpc": "1.0", "id": 1, "method": "memory_recall"}
+        return await _send_raw(
+            sock_path, (json.dumps(bad) + "\n").encode("utf-8"),
+        )
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert "error" in resp, resp
+    assert resp["error"]["code"] == -32600, resp
+
+def test_unknown_method_returns_minus_32601(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        return await _send_jsonrpc(
+            sock_path, "not_a_real_method", {}, req_id=5,
+        )
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] == 5, resp
+    assert "error" in resp, resp
+    assert "result" not in resp, resp
+    assert resp["error"]["code"] == -32601, resp
+    assert "not_a_real_method" in resp["error"]["message"], resp
+
+def test_missing_required_param_returns_minus_32602(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        return await _send_jsonrpc(
+            sock_path, "memory_recall", {}, req_id=6,
+        )
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] == 6, resp
+    assert "error" in resp, resp
+    assert "result" not in resp, resp
+    assert resp["error"]["code"] == -32602, resp
+    msg = resp["error"]["message"]
+    assert "missing required param" in msg, resp
+    assert "cue" in msg, resp
+
+def test_id_echoed_unchanged(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        r1 = await _send_jsonrpc(
+            sock_path, "session_start_payload", {}, req_id=1,
+        )
+        r2 = await _send_jsonrpc(
+            sock_path, "session_start_payload", {}, req_id=999,
+        )
+        r3 = await _send_jsonrpc(
+            sock_path, "session_start_payload", {}, req_id="some-string-id",
+        )
+        return r1, r2, r3
+
+    r1, r2, r3 = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert r1["id"] == 1, r1
+    assert r2["id"] == 999, r2
+    assert r3["id"] == "some-string-id", r3
+
+def test_unknown_method_does_not_crash_server(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        r_bad = await _send_jsonrpc(
+            sock_path, "definitely_not_a_method", {}, req_id=100,
+        )
+        r_good = await _send_jsonrpc(
+            sock_path, "session_start_payload", {}, req_id=101,
+        )
+        return r_bad, r_good
+
+    r_bad, r_good = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert r_bad["id"] == 100, r_bad
+    assert "error" in r_bad, r_bad
+    assert "result" not in r_bad, r_bad
+    assert r_good["id"] == 101, r_good
+    assert "result" in r_good, r_good
+
+def test_parse_error_returns_minus_32700(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        return await _send_raw(sock_path, b"not valid json\n")
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] is None, resp
+    assert "error" in resp, resp
+    assert resp["error"]["code"] == -32700, resp
+
+def test_empty_params_defaults_to_empty_dict(short_socket_paths):
+    _, sock_path, _ = short_socket_paths
+    from iai_mcp.store import MemoryStore
+
+    store = MemoryStore()
+
+    async def _runner(sock_path, store):
+        return await _send_jsonrpc(
+            sock_path, "session_start_payload", None, req_id=200,
+        )
+
+    resp = asyncio.run(_with_socket_server(sock_path, store, _runner))
+
+    assert resp["jsonrpc"] == "2.0", resp
+    assert resp["id"] == 200, resp
+    assert "result" in resp, resp

@@ -1,0 +1,113 @@
+{
+  "title": "Line ▸ X ×20",
+  "description": "Line chart with 20 ordinal steps on X",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Step": "Step01",
+          "Value": 12
+        },
+        {
+          "Step": "Step02",
+          "Value": 387
+        },
+        {
+          "Step": "Step03",
+          "Value": 403
+        },
+        {
+          "Step": "Step04",
+          "Value": 169
+        },
+        {
+          "Step": "Step05",
+          "Value": 198
+        },
+        {
+          "Step": "Step06",
+          "Value": 245
+        },
+        {
+          "Step": "Step07",
+          "Value": 266
+        },
+        {
+          "Step": "Step08",
+          "Value": 222
+        },
+        {
+          "Step": "Step09",
+          "Value": 328
+        },
+        {
+          "Step": "Step10",
+          "Value": 180
+        },
+        {
+          "Step": "Step11",
+          "Value": 378
+        },
+        {
+          "Step": "Step12",
+          "Value": 357
+        },
+        {
+          "Step": "Step13",
+          "Value": 247
+        },
+        {
+          "Step": "Step14",
+          "Value": 150
+        },
+        {
+          "Step": "Step15",
+          "Value": 368
+        },
+        {
+          "Step": "Step16",
+          "Value": 427
+        },
+        {
+          "Step": "Step17",
+          "Value": 292
+        },
+        {
+          "Step": "Step18",
+          "Value": 426
+        },
+        {
+          "Step": "Step19",
+          "Value": 357
+        },
+        {
+          "Step": "Step20",
+          "Value": 216
+        }
+      ]
+    },
+    "semantic_types": {
+      "Step": "Category",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Step"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

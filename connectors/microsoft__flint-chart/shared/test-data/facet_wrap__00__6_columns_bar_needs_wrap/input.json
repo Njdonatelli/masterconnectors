@@ -1,0 +1,127 @@
+{
+  "title": "6 Columns — Bar (needs wrap)",
+  "description": "6 column facets × 3 bars. Should require horizontal wrapping or scrolling.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "A",
+          "Value": 55,
+          "Col": "Electronics"
+        },
+        {
+          "Category": "B",
+          "Value": 130,
+          "Col": "Electronics"
+        },
+        {
+          "Category": "C",
+          "Value": 191,
+          "Col": "Electronics"
+        },
+        {
+          "Category": "A",
+          "Value": 533,
+          "Col": "Clothing"
+        },
+        {
+          "Category": "B",
+          "Value": 374,
+          "Col": "Clothing"
+        },
+        {
+          "Category": "C",
+          "Value": 520,
+          "Col": "Clothing"
+        },
+        {
+          "Category": "A",
+          "Value": 512,
+          "Col": "Food"
+        },
+        {
+          "Category": "B",
+          "Value": 263,
+          "Col": "Food"
+        },
+        {
+          "Category": "C",
+          "Value": 524,
+          "Col": "Food"
+        },
+        {
+          "Category": "A",
+          "Value": 539,
+          "Col": "Books"
+        },
+        {
+          "Category": "B",
+          "Value": 69,
+          "Col": "Books"
+        },
+        {
+          "Category": "C",
+          "Value": 297,
+          "Col": "Books"
+        },
+        {
+          "Category": "A",
+          "Value": 284,
+          "Col": "Sports"
+        },
+        {
+          "Category": "B",
+          "Value": 466,
+          "Col": "Sports"
+        },
+        {
+          "Category": "C",
+          "Value": 394,
+          "Col": "Sports"
+        },
+        {
+          "Category": "A",
+          "Value": 519,
+          "Col": "Home"
+        },
+        {
+          "Category": "B",
+          "Value": 95,
+          "Col": "Home"
+        },
+        {
+          "Category": "C",
+          "Value": 207,
+          "Col": "Home"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Amount",
+      "Col": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "column": {
+          "field": "Col"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

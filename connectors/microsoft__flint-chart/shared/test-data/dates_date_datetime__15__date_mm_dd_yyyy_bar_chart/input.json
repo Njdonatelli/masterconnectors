@@ -1,0 +1,81 @@
+{
+  "title": "Date (MM/DD/YYYY) → Bar Chart",
+  "description": "US date format: \"01/15/2020\", \"02/15/2020\", … (12 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "01/15/2020",
+          "Value": 328
+        },
+        {
+          "Date": "02/15/2020",
+          "Value": 84
+        },
+        {
+          "Date": "03/15/2020",
+          "Value": 205
+        },
+        {
+          "Date": "04/15/2020",
+          "Value": 299
+        },
+        {
+          "Date": "05/15/2020",
+          "Value": 220
+        },
+        {
+          "Date": "06/15/2020",
+          "Value": 297
+        },
+        {
+          "Date": "07/15/2020",
+          "Value": 411
+        },
+        {
+          "Date": "08/15/2020",
+          "Value": 336
+        },
+        {
+          "Date": "09/15/2020",
+          "Value": 94
+        },
+        {
+          "Date": "10/15/2020",
+          "Value": 209
+        },
+        {
+          "Date": "11/15/2020",
+          "Value": 377
+        },
+        {
+          "Date": "12/15/2020",
+          "Value": 548
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

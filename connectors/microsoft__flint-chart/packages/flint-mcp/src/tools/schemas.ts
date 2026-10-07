@@ -1,0 +1,177 @@
+// Copyright (c) Microsoft Corporation.
+// Licensed under the MIT License.
+
+import { z } from 'zod';
+import { INTERACTION_PRESET_TYPES, type ChartAssemblyInput, type InteractionPresetType } from 'flint-chart';
+
+/** The three backends this server can compile, validate, and render. */
+export const SUPPORTED_BACKENDS = ['vegalite', 'echarts', 'chartjs'] as const;
+export type SupportedBackend = (typeof SUPPORTED_BACKENDS)[number];
+
+/**
+ * Build the `data` source schema. When `disableFileReference` is set (e.g. on a
+ * remote/hosted server) the field descriptions tell the agent NOT to use
+ * `data.url` and to pass rows inline via `data.values`, so the guidance lives
+ * right next to where the argument is authored.
+ */
+export function makeDataSchema(disableFileReference = false) {
+  return z
+    .object({
+      values: z
+        .array(z.record(z.string(), z.any()))
+        .optional()
+        .describe(
+          disableFileReference
+            ? 'Inline data rows (array of row objects), like Vega-Lite data.values. ' +
+                'REQUIRED on this server: the only supported way to provide data.'
+            : 'Inline data rows (array of row objects), like Vega-Lite data.values.',
+        ),
+      url: z
+        .string()
+        .optional()
+        .describe(
+          disableFileReference
+            ? 'DISABLED on this server — do NOT set. This server cannot read local ' +
+                'files; provide the rows inline via `values` instead. Remote URLs are ' +
+                'never fetched.'
+            : 'Local JSON/CSV/TSV file path (relative paths resolve against the working ' +
+                'directory; file:// URLs allowed). Remote URLs are not fetched.',
+        ),
+    })
+    .describe(
+      disableFileReference
+        ? 'Data source. Provide rows inline via `values`. Local file `url` references ' +
+            'are disabled on this server.'
+        : 'Data source. Provide inline `values`, or a local file `url`.',
+    );
+}
+
+/** Default data schema (local file references allowed). */
+export const dataSchema = makeDataSchema(false);
+
+export const chartSpecSchema = z
+  .object({
+    chartType: z
+      .string()
+      .describe('Chart template name, e.g. "Bar Chart", "Scatter Plot", "Heatmap".'),
+    title: z
+      .string()
+      .optional()
+      .describe(
+        'Headline: what this chart says, in words. Strongly recommended — many design languages drop axis titles and rely on the headline to name the measure, so a chart without one reads as unlabelled numbers.',
+      ),
+    subtitle: z
+      .string()
+      .optional()
+      .describe('Deck: what is measured, of whom, when, and in what units. E.g. "US population by age and sex, 2020, millions".'),
+    encodings: z
+      .record(z.string(), z.any())
+      .describe(
+        'Channel → encoding map, e.g. { x: { field: "region" }, y: { field: "revenue" } }. A bare string is shorthand for { field: "..." }.',
+      ),
+    baseSize: z
+      .object({ width: z.number(), height: z.number() })
+      .optional()
+      .describe(
+        'Target canvas size in px (default 400×320). Flint\'s layout model stretches around this base up to the ceiling.',
+      ),
+    canvasSize: z
+      .object({ width: z.number(), height: z.number() })
+      .optional()
+      .describe(
+        'Optional hard ceiling in px. Caps how far the chart may stretch beyond baseSize. When omitted, the cap is baseSize × the maxStretch option (default 2×).',
+      ),
+    chartProperties: z
+      .record(z.string(), z.any())
+      .optional()
+      .describe('Template-specific properties (e.g. bar corner radius, show labels).'),
+  })
+  .describe('What to draw.');
+
+/**
+ * The five fields of a {@link ChartAssemblyInput}, expressed as a flat MCP tool
+ * parameter shape so each part is self-documenting in the JSON schema.
+ */
+export function buildAssemblyInputShape(disableFileReference = false) {
+  return {
+    data: makeDataSchema(disableFileReference),
+    semantic_types: z
+      .record(z.string(), z.any())
+      .optional()
+      .describe(
+        'Field name → semantic type, e.g. { revenue: "Quantity", country: "Country" }. A value may instead be an annotation object when the type alone understates what you know, e.g. { rating: { semanticType: "Score", intrinsicDomain: [1, 5] } } — see the flint://agent-skill resource.',
+      ),
+    chart_spec: chartSpecSchema,
+    theme_spec: z
+      .union([z.string(), z.record(z.string(), z.any())])
+      .optional()
+      .describe(
+        'Visual theme for Vega-Lite. Prefer a preset id from list_themes (e.g. "economist"). To customize it, pass an object with `extends` plus a small set of overrides. Full guide: https://microsoft.github.io/flint-chart/#/documentation/theme-spec',
+      ),
+    interaction_spec: z
+      .object({
+        interactions: z
+          .array(
+            z.object({
+              type: z
+                .enum(INTERACTION_PRESET_TYPES as unknown as [InteractionPresetType, ...InteractionPresetType[]])
+                .describe('The preset that makes this interaction; also its default id.'),
+              id: z.string().optional().describe('Names the interaction when one chart uses the same preset twice.'),
+              options: z
+                .record(z.string(), z.any())
+                .optional()
+                .describe('The preset\'s own options, including its `reset` gesture list ("click-none", "double-click", "escape").'),
+            }),
+          )
+          .describe('One entry per interaction. Take the preset names from list_chart_types → chartTypes[].interactions for the chosen chart type.'),
+        assistedTargeting: z.union([z.boolean(), z.record(z.string(), z.any())]).optional(),
+        keyboardTargeting: z.boolean().optional(),
+      })
+      .optional()
+      .describe(
+        'How the chart behaves, for create_chart_view (Vega-Lite only). Lists interaction presets by type with their options nested under `options`. An entry the chart type cannot honour is dropped with a warning and the chart still renders; validate_chart reports the same warnings. Guide: https://microsoft.github.io/flint-chart/#/documentation/interaction-spec',
+      ),
+    options: z
+      .record(z.string(), z.any())
+      .optional()
+      .describe('Assembler options (e.g. { addTooltips: true } and layout tuning).'),
+    field_display_names: z
+      .record(z.string(), z.string())
+      .optional()
+      .describe('Field name → display label, used for axis titles and legend headers.'),
+  };
+}
+
+/** Default flat tool parameter shape (local file references allowed). */
+export const assemblyInputShape = buildAssemblyInputShape(false);
+
+export type AssemblyInputArgs = {
+  data: { values?: unknown[]; url?: string };
+  semantic_types?: Record<string, unknown>;
+  chart_spec: {
+    chartType: string;
+    encodings: Record<string, unknown>;
+    title?: string;
+    subtitle?: string;
+    baseSize?: { width: number; height: number };
+    canvasSize?: { width: number; height: number };
+    chartProperties?: Record<string, unknown>;
+  };
+  options?: Record<string, unknown>;
+  theme_spec?: string | Record<string, unknown>;
+  interaction_spec?: Record<string, unknown>;
+  field_display_names?: Record<string, string>;
+};
+
+/** Reassemble the flat tool args into a {@link ChartAssemblyInput} object. */
+export function toAssemblyInput(args: AssemblyInputArgs): ChartAssemblyInput {
+  return {
+    data: args.data,
+    semantic_types: args.semantic_types,
+    chart_spec: args.chart_spec,
+    theme_spec: args.theme_spec,
+    interaction_spec: args.interaction_spec,
+    options: args.options,
+    field_display_names: args.field_display_names,
+  } as ChartAssemblyInput;
+}

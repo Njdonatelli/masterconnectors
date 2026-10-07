@@ -1,0 +1,180 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 263
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 26
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 23
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Cat01",
+        "Value": 10
+      },
+      {
+        "Category": "Cat02",
+        "Value": 85
+      },
+      {
+        "Category": "Cat03",
+        "Value": 285
+      },
+      {
+        "Category": "Cat04",
+        "Value": 434
+      },
+      {
+        "Category": "Cat05",
+        "Value": 146
+      },
+      {
+        "Category": "Cat06",
+        "Value": 449
+      },
+      {
+        "Category": "Cat07",
+        "Value": 355
+      },
+      {
+        "Category": "Cat08",
+        "Value": 444
+      },
+      {
+        "Category": "Cat09",
+        "Value": 466
+      },
+      {
+        "Category": "Cat10",
+        "Value": 240
+      },
+      {
+        "Category": "Cat11",
+        "Value": 182
+      },
+      {
+        "Category": "Cat12",
+        "Value": 471
+      },
+      {
+        "Category": "Cat13",
+        "Value": 57
+      },
+      {
+        "Category": "Cat14",
+        "Value": 234
+      },
+      {
+        "Category": "Cat15",
+        "Value": 180
+      },
+      {
+        "Category": "Cat16",
+        "Value": 485
+      },
+      {
+        "Category": "Cat17",
+        "Value": 66
+      },
+      {
+        "Category": "Cat18",
+        "Value": 387
+      },
+      {
+        "Category": "Cat19",
+        "Value": 177
+      },
+      {
+        "Category": "Cat20",
+        "Value": 345
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 263,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

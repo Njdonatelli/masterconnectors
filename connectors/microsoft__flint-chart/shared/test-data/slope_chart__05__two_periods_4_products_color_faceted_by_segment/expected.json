@@ -1,0 +1,218 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Period",
+      "type": "nominal",
+      "sort": [
+        "2021",
+        "2022"
+      ],
+      "scale": {
+        "padding": 0.4
+      }
+    },
+    "y": {
+      "field": "Sales",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true,
+        "padding": 12
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Product",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "facet": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "columns": 2
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 310,
+      "continuousHeight": 284
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 330
+    },
+    "facet": {
+      "spacing": 28
+    }
+  },
+  "width": {
+    "step": 186
+  },
+  "data": {
+    "values": [
+      {
+        "Period": "2021",
+        "Product": "Laptop",
+        "Segment": "Retail",
+        "Sales": 66
+      },
+      {
+        "Period": "2022",
+        "Product": "Laptop",
+        "Segment": "Retail",
+        "Sales": 60
+      },
+      {
+        "Period": "2021",
+        "Product": "Phone",
+        "Segment": "Retail",
+        "Sales": 52
+      },
+      {
+        "Period": "2022",
+        "Product": "Phone",
+        "Segment": "Retail",
+        "Sales": 66
+      },
+      {
+        "Period": "2021",
+        "Product": "Tablet",
+        "Segment": "Retail",
+        "Sales": 39
+      },
+      {
+        "Period": "2022",
+        "Product": "Tablet",
+        "Segment": "Retail",
+        "Sales": 31
+      },
+      {
+        "Period": "2021",
+        "Product": "Desktop",
+        "Segment": "Retail",
+        "Sales": 28
+      },
+      {
+        "Period": "2022",
+        "Product": "Desktop",
+        "Segment": "Retail",
+        "Sales": 37
+      },
+      {
+        "Period": "2021",
+        "Product": "Laptop",
+        "Segment": "Online",
+        "Sales": 73
+      },
+      {
+        "Period": "2022",
+        "Product": "Laptop",
+        "Segment": "Online",
+        "Sales": 69
+      },
+      {
+        "Period": "2021",
+        "Product": "Phone",
+        "Segment": "Online",
+        "Sales": 58
+      },
+      {
+        "Period": "2022",
+        "Product": "Phone",
+        "Segment": "Online",
+        "Sales": 73
+      },
+      {
+        "Period": "2021",
+        "Product": "Tablet",
+        "Segment": "Online",
+        "Sales": 47
+      },
+      {
+        "Period": "2022",
+        "Product": "Tablet",
+        "Segment": "Online",
+        "Sales": 38
+      },
+      {
+        "Period": "2021",
+        "Product": "Desktop",
+        "Segment": "Online",
+        "Sales": 34
+      },
+      {
+        "Period": "2022",
+        "Product": "Desktop",
+        "Segment": "Online",
+        "Sales": 42
+      }
+    ]
+  },
+  "_width": 310,
+  "_height": 284,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

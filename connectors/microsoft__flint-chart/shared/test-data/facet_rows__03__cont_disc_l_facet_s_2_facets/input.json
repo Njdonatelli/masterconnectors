@@ -1,0 +1,237 @@
+{
+  "title": "Cont × Disc-L — facet S (2 facets)",
+  "description": "Bar chart: 20 categories × 2 facets",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Electronics",
+          "Value": 166,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 546,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Food",
+          "Value": 272,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Books",
+          "Value": 466,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Sports",
+          "Value": 385,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Home",
+          "Value": 94,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Garden",
+          "Value": 158,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Auto",
+          "Value": 538,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Health",
+          "Value": 425,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Beauty",
+          "Value": 271,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Toys",
+          "Value": 505,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Music",
+          "Value": 162,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Movies",
+          "Value": 480,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Software",
+          "Value": 375,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Games",
+          "Value": 463,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Office",
+          "Value": 178,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Pet",
+          "Value": 347,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Baby",
+          "Value": 426,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Tools",
+          "Value": 450,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Crafts",
+          "Value": 338,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 113,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 496,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Food",
+          "Value": 419,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Books",
+          "Value": 523,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Sports",
+          "Value": 319,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Home",
+          "Value": 312,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Garden",
+          "Value": 147,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Auto",
+          "Value": 168,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Health",
+          "Value": 151,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Beauty",
+          "Value": 454,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Toys",
+          "Value": 294,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Music",
+          "Value": 368,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Movies",
+          "Value": 472,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Software",
+          "Value": 310,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Games",
+          "Value": 206,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Office",
+          "Value": 223,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Pet",
+          "Value": 83,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Baby",
+          "Value": 173,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Tools",
+          "Value": 394,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Crafts",
+          "Value": 495,
+          "Facet": "Clothing"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Amount",
+      "Facet": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "row": {
+          "field": "Facet"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

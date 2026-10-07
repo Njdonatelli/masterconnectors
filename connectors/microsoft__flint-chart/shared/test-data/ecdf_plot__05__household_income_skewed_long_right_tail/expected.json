@@ -1,0 +1,586 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Income ($k)",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Income ($k)",
+          "order": "ascending"
+        }
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Income ($k)",
+          "as": "__ecdf_total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Income ($k)",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Income ($k)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Income ($k)": 34.2
+      },
+      {
+        "Income ($k)": 48.4
+      },
+      {
+        "Income ($k)": 29
+      },
+      {
+        "Income ($k)": 80.4
+      },
+      {
+        "Income ($k)": 133.9
+      },
+      {
+        "Income ($k)": 31.5
+      },
+      {
+        "Income ($k)": 65.1
+      },
+      {
+        "Income ($k)": 110.8
+      },
+      {
+        "Income ($k)": 37.2
+      },
+      {
+        "Income ($k)": 30.8
+      },
+      {
+        "Income ($k)": 44
+      },
+      {
+        "Income ($k)": 28.7
+      },
+      {
+        "Income ($k)": 56.6
+      },
+      {
+        "Income ($k)": 36.2
+      },
+      {
+        "Income ($k)": 45.2
+      },
+      {
+        "Income ($k)": 29.8
+      },
+      {
+        "Income ($k)": 38.8
+      },
+      {
+        "Income ($k)": 85.9
+      },
+      {
+        "Income ($k)": 45.4
+      },
+      {
+        "Income ($k)": 45.5
+      },
+      {
+        "Income ($k)": 85.7
+      },
+      {
+        "Income ($k)": 55.4
+      },
+      {
+        "Income ($k)": 58
+      },
+      {
+        "Income ($k)": 86.1
+      },
+      {
+        "Income ($k)": 52
+      },
+      {
+        "Income ($k)": 46.1
+      },
+      {
+        "Income ($k)": 36.1
+      },
+      {
+        "Income ($k)": 40.2
+      },
+      {
+        "Income ($k)": 52.8
+      },
+      {
+        "Income ($k)": 45.7
+      },
+      {
+        "Income ($k)": 50.6
+      },
+      {
+        "Income ($k)": 61.9
+      },
+      {
+        "Income ($k)": 74.3
+      },
+      {
+        "Income ($k)": 44.2
+      },
+      {
+        "Income ($k)": 51.2
+      },
+      {
+        "Income ($k)": 38.9
+      },
+      {
+        "Income ($k)": 25.7
+      },
+      {
+        "Income ($k)": 58.4
+      },
+      {
+        "Income ($k)": 42
+      },
+      {
+        "Income ($k)": 57.8
+      },
+      {
+        "Income ($k)": 51.1
+      },
+      {
+        "Income ($k)": 87.4
+      },
+      {
+        "Income ($k)": 98.5
+      },
+      {
+        "Income ($k)": 54.2
+      },
+      {
+        "Income ($k)": 35.1
+      },
+      {
+        "Income ($k)": 27.5
+      },
+      {
+        "Income ($k)": 44.9
+      },
+      {
+        "Income ($k)": 38.7
+      },
+      {
+        "Income ($k)": 46.3
+      },
+      {
+        "Income ($k)": 78.4
+      },
+      {
+        "Income ($k)": 41
+      },
+      {
+        "Income ($k)": 61.4
+      },
+      {
+        "Income ($k)": 58.1
+      },
+      {
+        "Income ($k)": 42.8
+      },
+      {
+        "Income ($k)": 41.4
+      },
+      {
+        "Income ($k)": 41.1
+      },
+      {
+        "Income ($k)": 34.4
+      },
+      {
+        "Income ($k)": 84.9
+      },
+      {
+        "Income ($k)": 32
+      },
+      {
+        "Income ($k)": 43
+      },
+      {
+        "Income ($k)": 30.4
+      },
+      {
+        "Income ($k)": 71.9
+      },
+      {
+        "Income ($k)": 37.6
+      },
+      {
+        "Income ($k)": 46.9
+      },
+      {
+        "Income ($k)": 30
+      },
+      {
+        "Income ($k)": 51.8
+      },
+      {
+        "Income ($k)": 82.5
+      },
+      {
+        "Income ($k)": 72.9
+      },
+      {
+        "Income ($k)": 51.1
+      },
+      {
+        "Income ($k)": 78.3
+      },
+      {
+        "Income ($k)": 38.2
+      },
+      {
+        "Income ($k)": 141.8
+      },
+      {
+        "Income ($k)": 66.3
+      },
+      {
+        "Income ($k)": 126.9
+      },
+      {
+        "Income ($k)": 30.4
+      },
+      {
+        "Income ($k)": 56.7
+      },
+      {
+        "Income ($k)": 64.9
+      },
+      {
+        "Income ($k)": 29.2
+      },
+      {
+        "Income ($k)": 70.6
+      },
+      {
+        "Income ($k)": 40.7
+      },
+      {
+        "Income ($k)": 40.9
+      },
+      {
+        "Income ($k)": 28.1
+      },
+      {
+        "Income ($k)": 27.5
+      },
+      {
+        "Income ($k)": 62.5
+      },
+      {
+        "Income ($k)": 53.1
+      },
+      {
+        "Income ($k)": 83
+      },
+      {
+        "Income ($k)": 46.7
+      },
+      {
+        "Income ($k)": 55.3
+      },
+      {
+        "Income ($k)": 36.9
+      },
+      {
+        "Income ($k)": 46.6
+      },
+      {
+        "Income ($k)": 51.4
+      },
+      {
+        "Income ($k)": 35.4
+      },
+      {
+        "Income ($k)": 30.4
+      },
+      {
+        "Income ($k)": 48.3
+      },
+      {
+        "Income ($k)": 58.6
+      },
+      {
+        "Income ($k)": 31.2
+      },
+      {
+        "Income ($k)": 72.2
+      },
+      {
+        "Income ($k)": 134.9
+      },
+      {
+        "Income ($k)": 51.9
+      },
+      {
+        "Income ($k)": 64
+      },
+      {
+        "Income ($k)": 53.6
+      },
+      {
+        "Income ($k)": 27.8
+      },
+      {
+        "Income ($k)": 90.9
+      },
+      {
+        "Income ($k)": 38.1
+      },
+      {
+        "Income ($k)": 32.4
+      },
+      {
+        "Income ($k)": 37.9
+      },
+      {
+        "Income ($k)": 44.6
+      },
+      {
+        "Income ($k)": 80.5
+      },
+      {
+        "Income ($k)": 48.8
+      },
+      {
+        "Income ($k)": 124.8
+      },
+      {
+        "Income ($k)": 76.3
+      },
+      {
+        "Income ($k)": 40
+      },
+      {
+        "Income ($k)": 40.1
+      },
+      {
+        "Income ($k)": 33
+      },
+      {
+        "Income ($k)": 32.8
+      },
+      {
+        "Income ($k)": 63.7
+      },
+      {
+        "Income ($k)": 31.3
+      },
+      {
+        "Income ($k)": 40.4
+      },
+      {
+        "Income ($k)": 39.1
+      },
+      {
+        "Income ($k)": 54.3
+      },
+      {
+        "Income ($k)": 50.9
+      },
+      {
+        "Income ($k)": 134.9
+      },
+      {
+        "Income ($k)": 100
+      },
+      {
+        "Income ($k)": 36.4
+      },
+      {
+        "Income ($k)": 61.6
+      },
+      {
+        "Income ($k)": 30.4
+      },
+      {
+        "Income ($k)": 38.5
+      },
+      {
+        "Income ($k)": 109.8
+      },
+      {
+        "Income ($k)": 48.5
+      },
+      {
+        "Income ($k)": 61.3
+      },
+      {
+        "Income ($k)": 64.3
+      },
+      {
+        "Income ($k)": 39.1
+      },
+      {
+        "Income ($k)": 44.7
+      },
+      {
+        "Income ($k)": 94.3
+      },
+      {
+        "Income ($k)": 59.1
+      },
+      {
+        "Income ($k)": 70.2
+      },
+      {
+        "Income ($k)": 70.8
+      },
+      {
+        "Income ($k)": 52.6
+      },
+      {
+        "Income ($k)": 27.5
+      },
+      {
+        "Income ($k)": 71.1
+      },
+      {
+        "Income ($k)": 52
+      },
+      {
+        "Income ($k)": 70.5
+      },
+      {
+        "Income ($k)": 86.8
+      },
+      {
+        "Income ($k)": 46.9
+      },
+      {
+        "Income ($k)": 36.2
+      },
+      {
+        "Income ($k)": 48.5
+      },
+      {
+        "Income ($k)": 57.1
+      },
+      {
+        "Income ($k)": 55.9
+      },
+      {
+        "Income ($k)": 49.7
+      },
+      {
+        "Income ($k)": 55.3
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "title": "Faceted launch leaders (% within agency type)",
+  "description": "column + color both use Agency Type; % of total should be computed within each facet",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Agency": "Arianespace",
+          "Agency Type": "private",
+          "Launch Count": 258
+        },
+        {
+          "Agency": "ILS-K",
+          "Agency Type": "private",
+          "Launch Count": 97
+        },
+        {
+          "Agency": "ULA/LMA",
+          "Agency Type": "private",
+          "Launch Count": 70
+        },
+        {
+          "Agency": "MDSSC",
+          "Agency Type": "private",
+          "Launch Count": 62
+        },
+        {
+          "Agency": "OSC-Fairfax",
+          "Agency Type": "private",
+          "Launch Count": 60
+        },
+        {
+          "Agency": "ULA/Boeing",
+          "Agency Type": "private",
+          "Launch Count": 58
+        },
+        {
+          "Agency": "Boeing",
+          "Agency Type": "private",
+          "Launch Count": 56
+        },
+        {
+          "Agency": "LMA",
+          "Agency Type": "private",
+          "Launch Count": 43
+        },
+        {
+          "Agency": "SpaceX",
+          "Agency Type": "startup",
+          "Launch Count": 65
+        },
+        {
+          "Agency": "Rocket Lab",
+          "Agency Type": "startup",
+          "Launch Count": 2
+        },
+        {
+          "Agency": "RVSN",
+          "Agency Type": "state",
+          "Launch Count": 1528
+        },
+        {
+          "Agency": "UNKS",
+          "Agency Type": "state",
+          "Launch Count": 904
+        },
+        {
+          "Agency": "NASA",
+          "Agency Type": "state",
+          "Launch Count": 469
+        },
+        {
+          "Agency": "USAF",
+          "Agency Type": "state",
+          "Launch Count": 388
+        },
+        {
+          "Agency": "AFSC",
+          "Agency Type": "state",
+          "Launch Count": 247
+        },
+        {
+          "Agency": "VKS RVSN",
+          "Agency Type": "state",
+          "Launch Count": 200
+        },
+        {
+          "Agency": "CALT",
+          "Agency Type": "state",
+          "Launch Count": 181
+        },
+        {
+          "Agency": "Roskosmos",
+          "Agency Type": "state",
+          "Launch Count": 128
+        }
+      ]
+    },
+    "semantic_types": {
+      "Agency": "Category",
+      "Agency Type": "Category",
+      "Launch Count": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Agency"
+        },
+        "x": {
+          "field": "Launch Count"
+        },
+        "color": {
+          "field": "Agency Type"
+        },
+        "column": {
+          "field": "Agency Type"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "showPercent": true
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

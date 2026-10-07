@@ -1,0 +1,65 @@
+{
+  "title": "Fiscal Year (FY YYYY) → Scatter Plot",
+  "description": "Fiscal years: \"FY 2018\", \"FY 2019\", … (8 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "FiscalYear": "FY 2018",
+          "Value": 291
+        },
+        {
+          "FiscalYear": "FY 2019",
+          "Value": 259
+        },
+        {
+          "FiscalYear": "FY 2020",
+          "Value": 327
+        },
+        {
+          "FiscalYear": "FY 2021",
+          "Value": 496
+        },
+        {
+          "FiscalYear": "FY 2022",
+          "Value": 339
+        },
+        {
+          "FiscalYear": "FY 2023",
+          "Value": 168
+        },
+        {
+          "FiscalYear": "FY 2024",
+          "Value": 202
+        },
+        {
+          "FiscalYear": "FY 2025",
+          "Value": 53
+        }
+      ]
+    },
+    "semantic_types": {
+      "FiscalYear": "Year",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "FiscalYear"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,284 @@
+[[permission]]
+identifier = "allow-get-data-directory"
+description = "Allow the get_data_directory command"
+commands.allow = ["get_data_directory"]
+
+[[permission]]
+identifier = "allow-get-storage-directory"
+description = "Allow the get_storage_directory command"
+commands.allow = ["get_storage_directory"]
+
+[[permission]]
+identifier = "allow-get-memory-directory"
+description = "Allow the get_memory_directory command"
+commands.allow = ["get_memory_directory"]
+
+[[permission]]
+identifier = "allow-get-bundled-skills-dir"
+description = "Allow the get_bundled_skills_dir command"
+commands.allow = ["get_bundled_skills_dir"]
+
+[[permission]]
+identifier = "allow-get-app-info"
+description = "Allow the get_app_info command"
+commands.allow = ["get_app_info"]
+
+[[permission]]
+identifier = "allow-get-host-os"
+description = "Allow the get_host_os command"
+commands.allow = ["get_host_os"]
+
+[[permission]]
+identifier = "allow-get-system-locale"
+description = "Allow the get_system_locale command"
+commands.allow = ["get_system_locale"]
+
+[[permission]]
+identifier = "allow-open-url-custom"
+description = "Allow the open_url_custom command"
+commands.allow = ["open_url_custom"]
+
+[[permission]]
+identifier = "allow-open-path-custom"
+description = "Allow the open_path_custom command"
+commands.allow = ["open_path_custom"]
+
+[[permission]]
+identifier = "allow-pick-folder-dialog"
+description = "Allow the pick_folder_dialog command"
+commands.allow = ["pick_folder_dialog"]
+
+[[permission]]
+identifier = "allow-read-file-custom"
+description = "Allow the read_file_custom command"
+commands.allow = ["read_file_custom"]
+
+[[permission]]
+identifier = "allow-file-stat-custom"
+description = "Allow the file_stat_custom command"
+commands.allow = ["file_stat_custom"]
+
+[[permission]]
+identifier = "allow-file-exists-custom"
+description = "Allow the file_exists_custom command"
+commands.allow = ["file_exists_custom"]
+
+[[permission]]
+identifier = "allow-mkdir-custom"
+description = "Allow the mkdir_custom command"
+commands.allow = ["mkdir_custom"]
+
+[[permission]]
+identifier = "allow-write-text-file-custom"
+description = "Allow the write_text_file_custom command"
+commands.allow = ["write_text_file_custom"]
+
+[[permission]]
+identifier = "allow-read-text-file-custom"
+description = "Allow the read_text_file_custom command"
+commands.allow = ["read_text_file_custom"]
+
+[[permission]]
+identifier = "allow-remove-file-custom"
+description = "Allow the remove_file_custom command"
+commands.allow = ["remove_file_custom"]
+
+[[permission]]
+identifier = "allow-reveal-item-in-dir-custom"
+description = "Allow the reveal_item_in_dir_custom command"
+commands.allow = ["reveal_item_in_dir_custom"]
+
+[[permission]]
+identifier = "allow-copy-file-to-clipboard"
+description = "Allow the copy_file_to_clipboard command"
+commands.allow = ["copy_file_to_clipboard"]
+
+[[permission]]
+identifier = "allow-home-dir-custom"
+description = "Allow the home_dir_custom command"
+commands.allow = ["home_dir_custom"]
+
+[[permission]]
+identifier = "allow-capture-screen"
+description = "Allow the capture_screen command"
+commands.allow = ["capture_screen"]
+
+[[permission]]
+identifier = "allow-register-screen-capture-shortcut"
+description = "Allow the register_screen_capture_shortcut command"
+commands.allow = ["register_screen_capture_shortcut"]
+
+[[permission]]
+identifier = "allow-unregister-screen-capture-shortcut"
+description = "Allow the unregister_screen_capture_shortcut command"
+commands.allow = ["unregister_screen_capture_shortcut"]
+
+[[permission]]
+identifier = "allow-test-global-shortcut"
+description = "Allow the test_global_shortcut command"
+commands.allow = ["test_global_shortcut"]
+
+[[permission]]
+identifier = "allow-start-system-audio-capture"
+description = "Allow the start_system_audio_capture command"
+commands.allow = ["start_system_audio_capture"]
+
+[[permission]]
+identifier = "allow-stop-system-audio-capture"
+description = "Allow the stop_system_audio_capture command"
+commands.allow = ["stop_system_audio_capture"]
+
+[[permission]]
+identifier = "allow-is-system-audio-capture-active"
+description = "Allow the is_system_audio_capture_active command"
+commands.allow = ["is_system_audio_capture_active"]
+
+[[permission]]
+identifier = "allow-save-token"
+description = "Allow the save_token command"
+commands.allow = ["save_token"]
+
+[[permission]]
+identifier = "allow-load-token"
+description = "Allow the load_token command"
+commands.allow = ["load_token"]
+
+[[permission]]
+identifier = "allow-delete-token"
+description = "Allow the delete_token command"
+commands.allow = ["delete_token"]
+
+[[permission]]
+identifier = "allow-get-server-status"
+description = "Allow the get_server_status command"
+commands.allow = ["get_server_status"]
+
+[[permission]]
+identifier = "allow-restart-server"
+description = "Allow the restart_server command"
+commands.allow = ["restart_server"]
+
+[[permission]]
+identifier = "allow-check-for-update"
+description = "Allow the check_for_update command"
+commands.allow = ["check_for_update"]
+
+[[permission]]
+identifier = "allow-start-update-download"
+description = "Allow the start_update_download command"
+commands.allow = ["start_update_download"]
+
+[[permission]]
+identifier = "allow-poll-update-download-progress"
+description = "Allow the poll_update_download_progress command"
+commands.allow = ["poll_update_download_progress"]
+
+[[permission]]
+identifier = "allow-finish-update-download"
+description = "Allow the finish_update_download command"
+commands.allow = ["finish_update_download"]
+
+[[permission]]
+identifier = "allow-restart-for-update"
+description = "Allow the restart_for_update command"
+commands.allow = ["restart_for_update"]
+
+[[permission]]
+identifier = "allow-detect-telegram-desktop"
+description = "Allow the detect_telegram_desktop command"
+commands.allow = ["detect_telegram_desktop"]
+
+[[permission]]
+identifier = "allow-check-custom-telegram-path"
+description = "Allow the check_custom_telegram_path command"
+commands.allow = ["check_custom_telegram_path"]
+
+[[permission]]
+identifier = "allow-send-notification"
+description = "Allow the send_notification command"
+commands.allow = ["send_notification"]
+
+[[permission]]
+identifier = "allow-get-render-engine-status-cmd"
+description = "Allow the get_render_engine_status_cmd command"
+commands.allow = ["get_render_engine_status_cmd"]
+
+[[permission]]
+identifier = "allow-ensure-render-engine-download-started-cmd"
+description = "Allow the ensure_render_engine_download_started_cmd command"
+commands.allow = ["ensure_render_engine_download_started_cmd"]
+
+[[permission]]
+identifier = "allow-list-workspace-artifacts"
+description = "Allow the list_workspace_artifacts command"
+commands.allow = ["list_workspace_artifacts"]
+
+[[permission]]
+identifier = "allow-check-system-permissions"
+description = "Allow the check_system_permissions command"
+commands.allow = ["check_system_permissions"]
+
+[[permission]]
+identifier = "allow-request-folder-access"
+description = "Allow the request_folder_access command"
+commands.allow = ["request_folder_access"]
+
+[[permission]]
+identifier = "allow-request-screen-recording-access"
+description = "Allow the request_screen_recording_access command"
+commands.allow = ["request_screen_recording_access"]
+
+[[permission]]
+identifier = "allow-request-system-audio-access"
+description = "Allow the request_system_audio_access command"
+commands.allow = ["request_system_audio_access"]
+
+[[permission]]
+identifier = "allow-request-accessibility-access"
+description = "Allow the request_accessibility_access command"
+commands.allow = ["request_accessibility_access"]
+
+[[permission]]
+identifier = "allow-request-microphone-access"
+description = "Allow the request_microphone_access command"
+commands.allow = ["request_microphone_access"]
+
+[[permission]]
+identifier = "allow-request-notification-access"
+description = "Allow the request_notification_access command"
+commands.allow = ["request_notification_access"]
+
+[[permission]]
+identifier = "allow-open-system-settings"
+description = "Allow the open_system_settings command"
+commands.allow = ["open_system_settings"]
+
+[[permission]]
+identifier = "allow-register-voice-input-shortcut"
+description = "Allow the register_voice_input_shortcut command"
+commands.allow = ["register_voice_input_shortcut"]
+
+[[permission]]
+identifier = "allow-unregister-voice-input-shortcut"
+description = "Allow the unregister_voice_input_shortcut command"
+commands.allow = ["unregister_voice_input_shortcut"]
+
+[[permission]]
+identifier = "allow-emit-dev-state"
+description = "Allow the emit_dev_state command (dev panel → pet state flip)"
+commands.allow = ["emit_dev_state"]
+
+[[permission]]
+identifier = "allow-get-pet-config"
+description = "Allow the get_pet_config command (read theme + overrides)"
+commands.allow = ["get_pet_config"]
+
+[[permission]]
+identifier = "allow-get-pet-context-actions"
+description = "Allow the get_pet_context_actions command (read sanitized Pet action menu metadata)"
+commands.allow = ["get_pet_context_actions"]
+
+[[permission]]
+identifier = "allow-set-active-theme"
+description = "Allow the set_active_theme command (right-click theme switcher)"
+commands.allow = ["set_active_theme"]

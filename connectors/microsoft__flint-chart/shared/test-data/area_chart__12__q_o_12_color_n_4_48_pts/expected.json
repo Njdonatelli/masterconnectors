@@ -1,0 +1,415 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Step",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 316,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 25
+  },
+  "data": {
+    "values": [
+      {
+        "X": 0,
+        "Step": "Stage 1",
+        "Series": "Electronics"
+      },
+      {
+        "X": 9.1,
+        "Step": "Stage 2",
+        "Series": "Electronics"
+      },
+      {
+        "X": 18.2,
+        "Step": "Stage 3",
+        "Series": "Electronics"
+      },
+      {
+        "X": 27.3,
+        "Step": "Stage 4",
+        "Series": "Electronics"
+      },
+      {
+        "X": 36.4,
+        "Step": "Stage 5",
+        "Series": "Electronics"
+      },
+      {
+        "X": 45.5,
+        "Step": "Stage 6",
+        "Series": "Electronics"
+      },
+      {
+        "X": 54.5,
+        "Step": "Stage 7",
+        "Series": "Electronics"
+      },
+      {
+        "X": 63.6,
+        "Step": "Stage 8",
+        "Series": "Electronics"
+      },
+      {
+        "X": 72.7,
+        "Step": "Stage 9",
+        "Series": "Electronics"
+      },
+      {
+        "X": 81.8,
+        "Step": "Stage 10",
+        "Series": "Electronics"
+      },
+      {
+        "X": 90.9,
+        "Step": "Stage 11",
+        "Series": "Electronics"
+      },
+      {
+        "X": 100,
+        "Step": "Stage 12",
+        "Series": "Electronics"
+      },
+      {
+        "X": 0,
+        "Step": "Stage 1",
+        "Series": "Clothing"
+      },
+      {
+        "X": 9.1,
+        "Step": "Stage 2",
+        "Series": "Clothing"
+      },
+      {
+        "X": 18.2,
+        "Step": "Stage 3",
+        "Series": "Clothing"
+      },
+      {
+        "X": 27.3,
+        "Step": "Stage 4",
+        "Series": "Clothing"
+      },
+      {
+        "X": 36.4,
+        "Step": "Stage 5",
+        "Series": "Clothing"
+      },
+      {
+        "X": 45.5,
+        "Step": "Stage 6",
+        "Series": "Clothing"
+      },
+      {
+        "X": 54.5,
+        "Step": "Stage 7",
+        "Series": "Clothing"
+      },
+      {
+        "X": 63.6,
+        "Step": "Stage 8",
+        "Series": "Clothing"
+      },
+      {
+        "X": 72.7,
+        "Step": "Stage 9",
+        "Series": "Clothing"
+      },
+      {
+        "X": 81.8,
+        "Step": "Stage 10",
+        "Series": "Clothing"
+      },
+      {
+        "X": 90.9,
+        "Step": "Stage 11",
+        "Series": "Clothing"
+      },
+      {
+        "X": 100,
+        "Step": "Stage 12",
+        "Series": "Clothing"
+      },
+      {
+        "X": 0,
+        "Step": "Stage 1",
+        "Series": "Food"
+      },
+      {
+        "X": 9.1,
+        "Step": "Stage 2",
+        "Series": "Food"
+      },
+      {
+        "X": 18.2,
+        "Step": "Stage 3",
+        "Series": "Food"
+      },
+      {
+        "X": 27.3,
+        "Step": "Stage 4",
+        "Series": "Food"
+      },
+      {
+        "X": 36.4,
+        "Step": "Stage 5",
+        "Series": "Food"
+      },
+      {
+        "X": 45.5,
+        "Step": "Stage 6",
+        "Series": "Food"
+      },
+      {
+        "X": 54.5,
+        "Step": "Stage 7",
+        "Series": "Food"
+      },
+      {
+        "X": 63.6,
+        "Step": "Stage 8",
+        "Series": "Food"
+      },
+      {
+        "X": 72.7,
+        "Step": "Stage 9",
+        "Series": "Food"
+      },
+      {
+        "X": 81.8,
+        "Step": "Stage 10",
+        "Series": "Food"
+      },
+      {
+        "X": 90.9,
+        "Step": "Stage 11",
+        "Series": "Food"
+      },
+      {
+        "X": 100,
+        "Step": "Stage 12",
+        "Series": "Food"
+      },
+      {
+        "X": 0,
+        "Step": "Stage 1",
+        "Series": "Books"
+      },
+      {
+        "X": 9.1,
+        "Step": "Stage 2",
+        "Series": "Books"
+      },
+      {
+        "X": 18.2,
+        "Step": "Stage 3",
+        "Series": "Books"
+      },
+      {
+        "X": 27.3,
+        "Step": "Stage 4",
+        "Series": "Books"
+      },
+      {
+        "X": 36.4,
+        "Step": "Stage 5",
+        "Series": "Books"
+      },
+      {
+        "X": 45.5,
+        "Step": "Stage 6",
+        "Series": "Books"
+      },
+      {
+        "X": 54.5,
+        "Step": "Stage 7",
+        "Series": "Books"
+      },
+      {
+        "X": 63.6,
+        "Step": "Stage 8",
+        "Series": "Books"
+      },
+      {
+        "X": 72.7,
+        "Step": "Stage 9",
+        "Series": "Books"
+      },
+      {
+        "X": 81.8,
+        "Step": "Stage 10",
+        "Series": "Books"
+      },
+      {
+        "X": 90.9,
+        "Step": "Stage 11",
+        "Series": "Books"
+      },
+      {
+        "X": 100,
+        "Step": "Stage 12",
+        "Series": "Books"
+      }
+    ]
+  },
+  "_width": 316,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

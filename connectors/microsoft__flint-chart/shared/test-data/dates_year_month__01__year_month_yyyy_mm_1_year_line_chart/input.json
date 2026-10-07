@@ -1,0 +1,81 @@
+{
+  "title": "Year-Month (YYYY-MM, 1 year) → Line Chart",
+  "description": "Year-month strings within one year: \"2020-01\", …, \"2020-12\" (12 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2020-01",
+          "Value": 544
+        },
+        {
+          "Date": "2020-02",
+          "Value": 219
+        },
+        {
+          "Date": "2020-03",
+          "Value": 361
+        },
+        {
+          "Date": "2020-04",
+          "Value": 525
+        },
+        {
+          "Date": "2020-05",
+          "Value": 114
+        },
+        {
+          "Date": "2020-06",
+          "Value": 434
+        },
+        {
+          "Date": "2020-07",
+          "Value": 154
+        },
+        {
+          "Date": "2020-08",
+          "Value": 256
+        },
+        {
+          "Date": "2020-09",
+          "Value": 115
+        },
+        {
+          "Date": "2020-10",
+          "Value": 380
+        },
+        {
+          "Date": "2020-11",
+          "Value": 431
+        },
+        {
+          "Date": "2020-12",
+          "Value": 366
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

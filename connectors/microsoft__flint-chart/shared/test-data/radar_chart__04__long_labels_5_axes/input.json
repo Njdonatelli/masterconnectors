@@ -1,0 +1,87 @@
+{
+  "title": "Long Labels (5 axes)",
+  "description": "Labels with long text should not overlap the radar",
+  "chartType": "Radar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Customer Satisfaction Score",
+          "Assessment": "Product A",
+          "Score": 82
+        },
+        {
+          "Category": "Annual Revenue Growth Rate",
+          "Assessment": "Product A",
+          "Score": 91
+        },
+        {
+          "Category": "Employee Retention",
+          "Assessment": "Product A",
+          "Score": 74
+        },
+        {
+          "Category": "Market Share Percentage",
+          "Assessment": "Product A",
+          "Score": 68
+        },
+        {
+          "Category": "Net Promoter Score",
+          "Assessment": "Product A",
+          "Score": 88
+        },
+        {
+          "Category": "Customer Satisfaction Score",
+          "Assessment": "Product B",
+          "Score": 70
+        },
+        {
+          "Category": "Annual Revenue Growth Rate",
+          "Assessment": "Product B",
+          "Score": 65
+        },
+        {
+          "Category": "Employee Retention",
+          "Assessment": "Product B",
+          "Score": 85
+        },
+        {
+          "Category": "Market Share Percentage",
+          "Assessment": "Product B",
+          "Score": 78
+        },
+        {
+          "Category": "Net Promoter Score",
+          "Assessment": "Product B",
+          "Score": 60
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Assessment": "Category",
+      "Score": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Radar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Score"
+        },
+        "color": {
+          "field": "Assessment"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

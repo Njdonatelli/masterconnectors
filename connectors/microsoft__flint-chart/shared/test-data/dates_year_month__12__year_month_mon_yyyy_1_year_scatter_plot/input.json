@@ -1,0 +1,81 @@
+{
+  "title": "Year-Month (Mon YYYY, 1 year) → Scatter Plot",
+  "description": "Natural year-month within one year: \"Jan 2020\", …, \"Dec 2020\" (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 2020",
+          "Value": 444
+        },
+        {
+          "Date": "Feb 2020",
+          "Value": 355
+        },
+        {
+          "Date": "Mar 2020",
+          "Value": 484
+        },
+        {
+          "Date": "Apr 2020",
+          "Value": 122
+        },
+        {
+          "Date": "May 2020",
+          "Value": 370
+        },
+        {
+          "Date": "Jun 2020",
+          "Value": 457
+        },
+        {
+          "Date": "Jul 2020",
+          "Value": 549
+        },
+        {
+          "Date": "Aug 2020",
+          "Value": 386
+        },
+        {
+          "Date": "Sep 2020",
+          "Value": 546
+        },
+        {
+          "Date": "Oct 2020",
+          "Value": 308
+        },
+        {
+          "Date": "Nov 2020",
+          "Value": 295
+        },
+        {
+          "Date": "Dec 2020",
+          "Value": 541
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

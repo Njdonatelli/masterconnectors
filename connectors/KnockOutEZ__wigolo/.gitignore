@@ -1,0 +1,65 @@
+
+# Build & runtime
+node_modules/
+dist/
+*.tgz
+
+# Single-file binary build (build:binary) — artifacts never committed
+packaging/binary/dist/
+/pkg.build.json
+
+# Database files
+*.db
+*.db-journal
+*.db-wal
+
+# wigolo data
+.wigolo/
+
+# Secrets
+.env
+
+# Test coverage
+coverage/
+
+# Benchmark output (generated)
+benchmarks/extraction/output/
+benchmarks/extraction/.compare-cache/
+
+# Git worktrees
+.worktrees/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+
+CLAUDE.md
+internal-docs/
+
+# IDE / tool configs
+.claude/
+.cursor/
+.github/copilot-instructions.md
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Private strategy doc (never commit)
+competitive-blueprint.md
+
+
+# local demo tooling (VHS tapes + build scripts), not shipped
+.demo/
+
+# SDK dev artifacts (each SDK also ships its own .gitignore)
+.venv/
+.pytest_cache/
+*.egg-info

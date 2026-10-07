@@ -1,0 +1,81 @@
+{
+  "title": "Year (UTC ms) → Bar Chart",
+  "description": "Years as UTC timestamps in ms: 946684800000, … (12 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Timestamp": 946713600000,
+          "Value": 186
+        },
+        {
+          "Timestamp": 978336000000,
+          "Value": 188
+        },
+        {
+          "Timestamp": 1009872000000,
+          "Value": 91
+        },
+        {
+          "Timestamp": 1041408000000,
+          "Value": 243
+        },
+        {
+          "Timestamp": 1072944000000,
+          "Value": 366
+        },
+        {
+          "Timestamp": 1104566400000,
+          "Value": 363
+        },
+        {
+          "Timestamp": 1136102400000,
+          "Value": 305
+        },
+        {
+          "Timestamp": 1167638400000,
+          "Value": 216
+        },
+        {
+          "Timestamp": 1199174400000,
+          "Value": 155
+        },
+        {
+          "Timestamp": 1230796800000,
+          "Value": 279
+        },
+        {
+          "Timestamp": 1262332800000,
+          "Value": 112
+        },
+        {
+          "Timestamp": 1293868800000,
+          "Value": 236
+        }
+      ]
+    },
+    "semantic_types": {
+      "Timestamp": "Timestamp",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Timestamp"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

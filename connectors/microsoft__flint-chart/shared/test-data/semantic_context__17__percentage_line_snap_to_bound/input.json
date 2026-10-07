@@ -1,0 +1,79 @@
+{
+  "title": "Percentage Line — Snap-to-Bound",
+  "description": "Completion rates (40–85%) with intrinsicDomain [0, 100]. Data max (85%) is below the 90% snap threshold, so the axis data-fits rather than forcing 100%. If data reached 97%, the axis would snap to 100% (stopping at 97% looks arbitrary).",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "week": "Week 1",
+          "completion_rate": 40
+        },
+        {
+          "week": "Week 2",
+          "completion_rate": 53
+        },
+        {
+          "week": "Week 3",
+          "completion_rate": 77
+        },
+        {
+          "week": "Week 4",
+          "completion_rate": 47
+        },
+        {
+          "week": "Week 5",
+          "completion_rate": 63
+        },
+        {
+          "week": "Week 6",
+          "completion_rate": 56
+        },
+        {
+          "week": "Week 7",
+          "completion_rate": 72
+        },
+        {
+          "week": "Week 8",
+          "completion_rate": 47
+        },
+        {
+          "week": "Week 9",
+          "completion_rate": 56
+        },
+        {
+          "week": "Week 10",
+          "completion_rate": 44
+        }
+      ]
+    },
+    "semantic_types": {
+      "week": "Category",
+      "completion_rate": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "week"
+        },
+        "y": {
+          "field": "completion_rate"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "title": "Year (UTC ms) → Stacked Bar Chart",
+  "description": "Years as UTC timestamps in ms: 946684800000, … (12 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Timestamp": 946713600000,
+          "Value": 366,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 946713600000,
+          "Value": 364,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 946713600000,
+          "Value": 276,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 978336000000,
+          "Value": 458,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 978336000000,
+          "Value": 417,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 978336000000,
+          "Value": 502,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1009872000000,
+          "Value": 497,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1009872000000,
+          "Value": 332,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1009872000000,
+          "Value": 171,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1041408000000,
+          "Value": 331,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1041408000000,
+          "Value": 242,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1041408000000,
+          "Value": 255,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1072944000000,
+          "Value": 537,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1072944000000,
+          "Value": 495,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1072944000000,
+          "Value": 247,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1104566400000,
+          "Value": 55,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1104566400000,
+          "Value": 521,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1104566400000,
+          "Value": 57,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1136102400000,
+          "Value": 223,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1136102400000,
+          "Value": 473,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1136102400000,
+          "Value": 326,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1167638400000,
+          "Value": 406,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1167638400000,
+          "Value": 505,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1167638400000,
+          "Value": 140,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1199174400000,
+          "Value": 79,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1199174400000,
+          "Value": 427,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1199174400000,
+          "Value": 456,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1230796800000,
+          "Value": 68,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1230796800000,
+          "Value": 377,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1230796800000,
+          "Value": 496,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1262332800000,
+          "Value": 88,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1262332800000,
+          "Value": 231,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1262332800000,
+          "Value": 524,
+          "Category": "Gamma"
+        },
+        {
+          "Timestamp": 1293868800000,
+          "Value": 484,
+          "Category": "Alpha"
+        },
+        {
+          "Timestamp": 1293868800000,
+          "Value": 231,
+          "Category": "Beta"
+        },
+        {
+          "Timestamp": 1293868800000,
+          "Value": 201,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Timestamp": "Timestamp",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Timestamp"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

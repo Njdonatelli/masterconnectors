@@ -1,0 +1,175 @@
+/**
+ * Image → OCR-text note conversion, driven by `python/ocr_extract.py`.
+ *
+ * The image analogue of `pdf.ts`: whenever a `.png` / `.jpg` / `.jpeg`
+ * / `.webp` lands in a folder (file import or an external copy)
+ * we spawn RapidOCR in the background. It writes OCR Markdown under AppData;
+ * on completion the note is admitted to the index directly — so a screenshot's text becomes searchable. The image itself
+ * stays on disk as the user-facing file.
+ *
+ * Unlike PDFs there is no image bundle — OCR yields only text.
+ *
+ * Conversion status reuses the same `state.db`-backed store as PDFs
+ * (`conversion-status.ts`, keyed by path) so search readiness and persistent
+ * failures cover images and PDFs through one path.
+ */
+import { spawn } from 'node:child_process';
+import fs, { closeSync, mkdirSync, openSync, readSync, rmSync, statSync } from 'node:fs';
+import { isImageFile } from './format.ts';
+import { derivedNoteFor, derivedDir } from './derived-store.ts';
+import { extractorSpawn, prepareExtractorRuntime } from './python-host.ts';
+import { derivedIsFresh, discoverCandidateSources, discoverNewSources, indexFreshDerived, maybeConvert, TransientConversionError, type ConversionSpec } from './conversion.ts';
+import { lowerExtractorPriority, spawnOptionsForPdfOcr, terminateExtractorTree, waitForExtractorTree } from './extractor-process.ts';
+
+const OCR_COMPLETE_MARKER = '<!-- stashbase-ocr-conversion: complete -->';
+
+/** App-data derived note path for an image (the OCR text layer) — never in
+ *  the user's opened folder (see `derived-store.ts`). No image bundle. */
+export function derivedNotePathForImage(imageAbsPath: string): string {
+  return derivedNoteFor(imageAbsPath);
+}
+
+export function currentDerivedTextPathForImage(sourceAbs: string, known?: { sourceMtimeMs: number; derivedMtimeMs: number }): string | null {
+  return derivedIsFresh(IMAGE_SPEC, sourceAbs, known) ? derivedNotePathForImage(sourceAbs) : null;
+}
+
+export async function currentDerivedTextPathForImageAsync(
+  sourceAbs: string,
+  known: { sourceMtimeMs: number; derivedMtimeMs: number },
+): Promise<string | null> {
+  const notePath = derivedNotePathForImage(sourceAbs);
+  if (known.derivedMtimeMs < known.sourceMtimeMs) return null;
+  let handle: fs.promises.FileHandle | null = null;
+  try {
+    handle = await fs.promises.open(notePath, 'r');
+    const stat = await handle.stat();
+    const length = Math.min(stat.size, 2048);
+    const buffer = Buffer.alloc(length);
+    await handle.read(buffer, 0, length, Math.max(0, stat.size - length));
+    return buffer.toString('utf8').includes(OCR_COMPLETE_MARKER) ? notePath : null;
+  } catch {
+    return null;
+  } finally {
+    await handle?.close().catch(() => undefined);
+  }
+}
+
+function cleanupDerivedImage(imageAbsPath: string): void {
+  rmSync(derivedNotePathForImage(imageAbsPath), { force: true });
+}
+
+function derivedImageIsComplete(_imageAbsPath: string, notePath: string): boolean {
+  let fd: number | null = null;
+  try {
+    fd = openSync(notePath, 'r');
+    const tailBytes = 2048;
+    const size = statSync(notePath).size;
+    const start = Math.max(0, size - tailBytes);
+    const buf = Buffer.alloc(size - start);
+    readSync(fd, buf, 0, buf.length, start);
+    return buf.toString('utf8').includes(OCR_COMPLETE_MARKER);
+  } catch {
+    return false;
+  } finally {
+    if (fd != null) {
+      try { closeSync(fd); } catch { /* ignore */ }
+    }
+  }
+}
+
+/** Run the OCR extractor on a single image. Resolves with the note path
+ *  on success; rejects with the extractor's stderr tail on failure.
+ *  Does not throw synchronously — fire-and-forget at the call site. */
+async function convertImage(
+  imageAbsPath: string,
+  _onProgress?: unknown,
+  signal?: AbortSignal,
+  yieldLane?: (until?: Promise<unknown>) => Promise<void>,
+): Promise<{ notePath: string }> {
+  await prepareExtractorRuntime(signal, yieldLane);
+  signal?.throwIfAborted();
+  const notePath = derivedNotePathForImage(imageAbsPath);
+  mkdirSync(derivedDir(), { recursive: true });
+  return new Promise((resolve, reject) => {
+    if (signal?.aborted) {
+      reject(new Error('ocr_extract cancelled'));
+      return;
+    }
+    const { cmd, args } = extractorSpawn('ocr', 'ocr_extract.py', [imageAbsPath, notePath]);
+    const proc = spawn(cmd, args, spawnOptionsForPdfOcr());
+    lowerExtractorPriority(proc);
+    let stderr = '';
+    let cancelled = false;
+    const onAbort = () => {
+      cancelled = true;
+      terminateExtractorTree(proc);
+    };
+    signal?.addEventListener('abort', onAbort, { once: true });
+    proc.stderr.on('data', (b) => { stderr += String(b); });
+    proc.on('error', (err) => {
+      signal?.removeEventListener('abort', onAbort);
+      reject(new Error(`spawn failed: ${err.message}`));
+    });
+    void waitForExtractorTree(proc).then((code) => {
+      signal?.removeEventListener('abort', onAbort);
+      if (cancelled) {
+        reject(new TransientConversionError('ocr_extract cancelled'));
+        return;
+      }
+      if (code === 0) {
+        resolve({ notePath });
+      } else {
+        const tail = stderr.trim().split('\n').slice(-3).join('\n');
+        if (isMissingRapidOcrError(tail)) {
+          reject(new Error(
+            'OCR engine is not installed. Run `pnpm setup:python-extract` and restart StashBase; the image still opens, but its text cannot be searched until OCR is available.',
+          ));
+          return;
+        }
+        reject(new Error(`ocr_extract exit ${code}: ${tail || '(no stderr)'}`));
+      }
+    }, reject);
+  });
+}
+
+/** Conversion spec wiring images into the shared `conversion.ts` plumbing.
+ *  Unlike PDFs there's no image bundle — OCR yields only the text note. */
+const IMAGE_SPEC: ConversionSpec = {
+  kind: 'ocr_extract',
+  lane: 'heavy',
+  cost: 10,
+  matches: isImageFile,
+  derivedNote: derivedNotePathForImage,
+  derivedReady: derivedImageIsComplete,
+  convert: convertImage,
+  cleanupDerived: cleanupDerivedImage,
+};
+
+/** Fire-and-forget OCR entry. Queued/running state is scheduler memory;
+ *  durable failures are shared with PDF/DOCX through state.db. */
+export function maybeConvertImage(
+  imageAbsPath: string,
+  opts: { urgency?: 'interactive' } = {},
+): void {
+  maybeConvert(imageAbsPath, IMAGE_SPEC, { urgency: opts.urgency ?? 'background' });
+}
+
+/** Reconcile hook: OCR any untracked image under the folder (added via git
+ *  checkout / external copy / `mv`). */
+export async function discoverNewImages(folderAbs: string, candidates?: readonly string[]): Promise<void> {
+  if (candidates) {
+    await discoverCandidateSources(candidates, IMAGE_SPEC);
+    return;
+  }
+  await discoverNewSources(folderAbs, IMAGE_SPEC);
+}
+
+export function indexFreshImage(imageAbsPath: string) {
+  return indexFreshDerived(imageAbsPath, IMAGE_SPEC);
+}
+
+function isMissingRapidOcrError(message: string): boolean {
+  return /rapidocr_onnxruntime/i.test(message)
+    || /No module named ['"][^'"]*rapidocr/i.test(message)
+    || /OCR dependency rapidocr/i.test(message);
+}

@@ -1,0 +1,68 @@
+{
+  "title": "Profit Signed Decimal",
+  "description": "Semantic type \"Profit\" with unit \"USD\" uses decimal format with currency in tooltip. Sign is always visible in tooltips, making gains vs losses obvious. WITHOUT this: raw numbers without sign prefix.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "quarter": "Q1-2024",
+          "profit": -199000
+        },
+        {
+          "quarter": "Q2-2024",
+          "profit": 160000
+        },
+        {
+          "quarter": "Q3-2024",
+          "profit": 323000
+        },
+        {
+          "quarter": "Q4-2024",
+          "profit": 346000
+        },
+        {
+          "quarter": "Q1-2025",
+          "profit": -118000
+        },
+        {
+          "quarter": "Q2-2025",
+          "profit": -17000
+        },
+        {
+          "quarter": "Q3-2025",
+          "profit": -67000
+        },
+        {
+          "quarter": "Q4-2025",
+          "profit": 12000
+        }
+      ]
+    },
+    "semantic_types": {
+      "quarter": "Category",
+      "profit": {
+        "semanticType": "Profit",
+        "unit": "USD"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "quarter"
+        },
+        "y": {
+          "field": "profit"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

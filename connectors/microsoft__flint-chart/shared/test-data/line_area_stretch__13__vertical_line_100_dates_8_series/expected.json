@@ -1,0 +1,4175 @@
+{
+  "mark": "line",
+  "encoding": {
+    "y": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "x": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 740,
+      "continuousHeight": 286
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2017-01-01",
+        "Series": "Auto",
+        "Value": 242
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Auto",
+        "Value": 246
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Auto",
+        "Value": 252
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Auto",
+        "Value": 257
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Auto",
+        "Value": 263
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Auto",
+        "Value": 272
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Auto",
+        "Value": 273
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Auto",
+        "Value": 270
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Auto",
+        "Value": 267
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Auto",
+        "Value": 270
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Auto",
+        "Value": 276
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Auto",
+        "Value": 276
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Auto",
+        "Value": 275
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Auto",
+        "Value": 280
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Auto",
+        "Value": 277
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Auto",
+        "Value": 281
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Auto",
+        "Value": 286
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Auto",
+        "Value": 296
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Auto",
+        "Value": 296
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Auto",
+        "Value": 300
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Auto",
+        "Value": 310
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Auto",
+        "Value": 318
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Auto",
+        "Value": 329
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Auto",
+        "Value": 331
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Auto",
+        "Value": 325
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Auto",
+        "Value": 322
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Auto",
+        "Value": 317
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Auto",
+        "Value": 318
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Auto",
+        "Value": 325
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Auto",
+        "Value": 323
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Auto",
+        "Value": 322
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Auto",
+        "Value": 321
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Auto",
+        "Value": 326
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Auto",
+        "Value": 331
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Auto",
+        "Value": 335
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Auto",
+        "Value": 345
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Auto",
+        "Value": 357
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Auto",
+        "Value": 358
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Auto",
+        "Value": 358
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Auto",
+        "Value": 356
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Auto",
+        "Value": 357
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Auto",
+        "Value": 361
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Auto",
+        "Value": 363
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Auto",
+        "Value": 366
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Auto",
+        "Value": 374
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Auto",
+        "Value": 380
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Auto",
+        "Value": 386
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Auto",
+        "Value": 392
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Auto",
+        "Value": 396
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Auto",
+        "Value": 394
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Auto",
+        "Value": 396
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Auto",
+        "Value": 392
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Auto",
+        "Value": 384
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Auto",
+        "Value": 374
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Auto",
+        "Value": 372
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Auto",
+        "Value": 370
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Auto",
+        "Value": 363
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Auto",
+        "Value": 364
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Auto",
+        "Value": 363
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Auto",
+        "Value": 367
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Auto",
+        "Value": 376
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Auto",
+        "Value": 379
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Auto",
+        "Value": 374
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Auto",
+        "Value": 368
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Auto",
+        "Value": 359
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Auto",
+        "Value": 352
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Auto",
+        "Value": 352
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Auto",
+        "Value": 348
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Auto",
+        "Value": 345
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Auto",
+        "Value": 343
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Auto",
+        "Value": 335
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Auto",
+        "Value": 325
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Auto",
+        "Value": 312
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Auto",
+        "Value": 306
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Auto",
+        "Value": 306
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Auto",
+        "Value": 302
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Auto",
+        "Value": 296
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Auto",
+        "Value": 292
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Auto",
+        "Value": 285
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Auto",
+        "Value": 286
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Auto",
+        "Value": 284
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Auto",
+        "Value": 285
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Auto",
+        "Value": 283
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Auto",
+        "Value": 277
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Auto",
+        "Value": 273
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Auto",
+        "Value": 270
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Auto",
+        "Value": 261
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Auto",
+        "Value": 260
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Auto",
+        "Value": 263
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Auto",
+        "Value": 258
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Auto",
+        "Value": 257
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Auto",
+        "Value": 263
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Auto",
+        "Value": 273
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Auto",
+        "Value": 286
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Auto",
+        "Value": 292
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Auto",
+        "Value": 292
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Auto",
+        "Value": 296
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Auto",
+        "Value": 306
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Auto",
+        "Value": 312
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Auto",
+        "Value": 315
+      },
+      {
+        "Date": "2017-01-01",
+        "Series": "Books",
+        "Value": 140
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Books",
+        "Value": 133
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Books",
+        "Value": 132
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Books",
+        "Value": 124
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Books",
+        "Value": 119
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Books",
+        "Value": 114
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Books",
+        "Value": 110
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Books",
+        "Value": 112
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Books",
+        "Value": 118
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Books",
+        "Value": 129
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Books",
+        "Value": 139
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Books",
+        "Value": 144
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Books",
+        "Value": 140
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Books",
+        "Value": 137
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Books",
+        "Value": 130
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Books",
+        "Value": 123
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Books",
+        "Value": 117
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Books",
+        "Value": 118
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Books",
+        "Value": 118
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Books",
+        "Value": 112
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Books",
+        "Value": 115
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Books",
+        "Value": 122
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Books",
+        "Value": 126
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Books",
+        "Value": 123
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Books",
+        "Value": 128
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Books",
+        "Value": 129
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Books",
+        "Value": 126
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Books",
+        "Value": 117
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Books",
+        "Value": 107
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Books",
+        "Value": 95
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Books",
+        "Value": 89
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Books",
+        "Value": 84
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Books",
+        "Value": 86
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Books",
+        "Value": 88
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Books",
+        "Value": 93
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Books",
+        "Value": 93
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Books",
+        "Value": 89
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Books",
+        "Value": 84
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Books",
+        "Value": 86
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Books",
+        "Value": 86
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Books",
+        "Value": 80
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Books",
+        "Value": 77
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Books",
+        "Value": 73
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Books",
+        "Value": 71
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Books",
+        "Value": 73
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Books",
+        "Value": 69
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Books",
+        "Value": 69
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Books",
+        "Value": 72
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Books",
+        "Value": 80
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Books",
+        "Value": 89
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Books",
+        "Value": 91
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Books",
+        "Value": 88
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Books",
+        "Value": 85
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Books",
+        "Value": 84
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Books",
+        "Value": 91
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Books",
+        "Value": 92
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Books",
+        "Value": 98
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Books",
+        "Value": 98
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Books",
+        "Value": 101
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Books",
+        "Value": 104
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Books",
+        "Value": 113
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Books",
+        "Value": 113
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Books",
+        "Value": 111
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Books",
+        "Value": 104
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Books",
+        "Value": 100
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Books",
+        "Value": 94
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Books",
+        "Value": 85
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Books",
+        "Value": 78
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Books",
+        "Value": 78
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Books",
+        "Value": 85
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Books",
+        "Value": 89
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Books",
+        "Value": 86
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Books",
+        "Value": 90
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Books",
+        "Value": 88
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Books",
+        "Value": 85
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Books",
+        "Value": 81
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Books",
+        "Value": 74
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Books",
+        "Value": 72
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Books",
+        "Value": 64
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Books",
+        "Value": 66
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Books",
+        "Value": 72
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Books",
+        "Value": 83
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Books",
+        "Value": 94
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Books",
+        "Value": 95
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Books",
+        "Value": 97
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Books",
+        "Value": 96
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Books",
+        "Value": 97
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Books",
+        "Value": 95
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Books",
+        "Value": 99
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Books",
+        "Value": 106
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Books",
+        "Value": 108
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Books",
+        "Value": 103
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Books",
+        "Value": 101
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Books",
+        "Value": 104
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Books",
+        "Value": 113
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Books",
+        "Value": 114
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Books",
+        "Value": 118
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Books",
+        "Value": 125
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Books",
+        "Value": 125
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Books",
+        "Value": 120
+      },
+      {
+        "Date": "2017-01-01",
+        "Series": "Clothing",
+        "Value": 289
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Clothing",
+        "Value": 295
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Clothing",
+        "Value": 292
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Clothing",
+        "Value": 296
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Clothing",
+        "Value": 292
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Clothing",
+        "Value": 291
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Clothing",
+        "Value": 291
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Clothing",
+        "Value": 297
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Clothing",
+        "Value": 307
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Clothing",
+        "Value": 309
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Clothing",
+        "Value": 305
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Clothing",
+        "Value": 300
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Clothing",
+        "Value": 297
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Clothing",
+        "Value": 289
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Clothing",
+        "Value": 291
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Clothing",
+        "Value": 287
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Clothing",
+        "Value": 286
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Clothing",
+        "Value": 280
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Clothing",
+        "Value": 282
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Clothing",
+        "Value": 288
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Clothing",
+        "Value": 290
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Clothing",
+        "Value": 296
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Clothing",
+        "Value": 305
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Clothing",
+        "Value": 305
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Clothing",
+        "Value": 303
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Clothing",
+        "Value": 300
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Clothing",
+        "Value": 296
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Clothing",
+        "Value": 288
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Clothing",
+        "Value": 281
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Clothing",
+        "Value": 280
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Clothing",
+        "Value": 286
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Clothing",
+        "Value": 289
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Clothing",
+        "Value": 293
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Clothing",
+        "Value": 290
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Clothing",
+        "Value": 282
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Clothing",
+        "Value": 281
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Clothing",
+        "Value": 285
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Clothing",
+        "Value": 293
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Clothing",
+        "Value": 299
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Clothing",
+        "Value": 306
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Clothing",
+        "Value": 308
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Clothing",
+        "Value": 307
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Clothing",
+        "Value": 303
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Clothing",
+        "Value": 306
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Clothing",
+        "Value": 305
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Clothing",
+        "Value": 304
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Clothing",
+        "Value": 305
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Clothing",
+        "Value": 308
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Clothing",
+        "Value": 316
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Clothing",
+        "Value": 319
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Clothing",
+        "Value": 318
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Clothing",
+        "Value": 315
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Clothing",
+        "Value": 307
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Clothing",
+        "Value": 302
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Clothing",
+        "Value": 295
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Clothing",
+        "Value": 296
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Clothing",
+        "Value": 302
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Clothing",
+        "Value": 313
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Clothing",
+        "Value": 325
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Clothing",
+        "Value": 334
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Clothing",
+        "Value": 339
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Clothing",
+        "Value": 342
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Clothing",
+        "Value": 346
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Clothing",
+        "Value": 349
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Clothing",
+        "Value": 355
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Clothing",
+        "Value": 354
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Clothing",
+        "Value": 355
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Clothing",
+        "Value": 350
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Clothing",
+        "Value": 339
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Clothing",
+        "Value": 326
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Clothing",
+        "Value": 322
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Clothing",
+        "Value": 322
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Clothing",
+        "Value": 327
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Clothing",
+        "Value": 324
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Clothing",
+        "Value": 322
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Clothing",
+        "Value": 314
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Clothing",
+        "Value": 302
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Clothing",
+        "Value": 294
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Clothing",
+        "Value": 292
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Clothing",
+        "Value": 290
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Clothing",
+        "Value": 295
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Clothing",
+        "Value": 302
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Clothing",
+        "Value": 301
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Clothing",
+        "Value": 295
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Clothing",
+        "Value": 296
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Clothing",
+        "Value": 292
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Clothing",
+        "Value": 291
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Clothing",
+        "Value": 293
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Clothing",
+        "Value": 298
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Clothing",
+        "Value": 306
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Clothing",
+        "Value": 313
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Clothing",
+        "Value": 322
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Clothing",
+        "Value": 322
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Clothing",
+        "Value": 320
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Clothing",
+        "Value": 316
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Clothing",
+        "Value": 318
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Clothing",
+        "Value": 317
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Clothing",
+        "Value": 322
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Clothing",
+        "Value": 322
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Clothing",
+        "Value": 319
+      },
+      {
+        "Date": "2017-01-01",
+        "Series": "Electronics",
+        "Value": 171
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Electronics",
+        "Value": 165
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Electronics",
+        "Value": 167
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Electronics",
+        "Value": 169
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Electronics",
+        "Value": 171
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Electronics",
+        "Value": 177
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Electronics",
+        "Value": 179
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Electronics",
+        "Value": 183
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Electronics",
+        "Value": 192
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Electronics",
+        "Value": 191
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Electronics",
+        "Value": 190
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Electronics",
+        "Value": 183
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Electronics",
+        "Value": 181
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Electronics",
+        "Value": 174
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Electronics",
+        "Value": 168
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Electronics",
+        "Value": 157
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Electronics",
+        "Value": 145
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Electronics",
+        "Value": 145
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Electronics",
+        "Value": 148
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Electronics",
+        "Value": 149
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Electronics",
+        "Value": 157
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Electronics",
+        "Value": 160
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Electronics",
+        "Value": 158
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Electronics",
+        "Value": 151
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Electronics",
+        "Value": 143
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Electronics",
+        "Value": 133
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Electronics",
+        "Value": 122
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Electronics",
+        "Value": 110
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Electronics",
+        "Value": 97
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Electronics",
+        "Value": 83
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Electronics",
+        "Value": 79
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Electronics",
+        "Value": 72
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Electronics",
+        "Value": 67
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Electronics",
+        "Value": 60
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Electronics",
+        "Value": 48
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Electronics",
+        "Value": 47
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Electronics",
+        "Value": 43
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Electronics",
+        "Value": 41
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Electronics",
+        "Value": 36
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Electronics",
+        "Value": 32
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Electronics",
+        "Value": 34
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Electronics",
+        "Value": 30
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Electronics",
+        "Value": 25
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Electronics",
+        "Value": 20
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Electronics",
+        "Value": 21
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Electronics",
+        "Value": 23
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Electronics",
+        "Value": 30
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Electronics",
+        "Value": 39
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Electronics",
+        "Value": 48
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Electronics",
+        "Value": 50
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Electronics",
+        "Value": 50
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Electronics",
+        "Value": 51
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Electronics",
+        "Value": 50
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Electronics",
+        "Value": 56
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Electronics",
+        "Value": 53
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Electronics",
+        "Value": 45
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Electronics",
+        "Value": 36
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Electronics",
+        "Value": 31
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Electronics",
+        "Value": 32
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Electronics",
+        "Value": 40
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Electronics",
+        "Value": 48
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Electronics",
+        "Value": 60
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Electronics",
+        "Value": 75
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Electronics",
+        "Value": 83
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Electronics",
+        "Value": 93
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Electronics",
+        "Value": 100
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Electronics",
+        "Value": 109
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Electronics",
+        "Value": 117
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Electronics",
+        "Value": 118
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Electronics",
+        "Value": 116
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Electronics",
+        "Value": 119
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Electronics",
+        "Value": 127
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Electronics",
+        "Value": 128
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Electronics",
+        "Value": 133
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Electronics",
+        "Value": 143
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Electronics",
+        "Value": 144
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Electronics",
+        "Value": 146
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Electronics",
+        "Value": 143
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Electronics",
+        "Value": 142
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Electronics",
+        "Value": 140
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Electronics",
+        "Value": 145
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Electronics",
+        "Value": 155
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Electronics",
+        "Value": 156
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Electronics",
+        "Value": 153
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Electronics",
+        "Value": 150
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Electronics",
+        "Value": 144
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Electronics",
+        "Value": 138
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Electronics",
+        "Value": 141
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Electronics",
+        "Value": 145
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Electronics",
+        "Value": 155
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Electronics",
+        "Value": 166
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Electronics",
+        "Value": 172
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Electronics",
+        "Value": 170
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Electronics",
+        "Value": 162
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Electronics",
+        "Value": 157
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Electronics",
+        "Value": 150
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Electronics",
+        "Value": 153
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Electronics",
+        "Value": 153
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Electronics",
+        "Value": 156
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Electronics",
+        "Value": 162
+      },
+      {
+        "Date": "2017-01-01",
+        "Series": "Food",
+        "Value": 64
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Food",
+        "Value": 58
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Food",
+        "Value": 54
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Food",
+        "Value": 49
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Food",
+        "Value": 52
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Food",
+        "Value": 53
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Food",
+        "Value": 58
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Food",
+        "Value": 61
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Food",
+        "Value": 65
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Food",
+        "Value": 75
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Food",
+        "Value": 79
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Food",
+        "Value": 78
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Food",
+        "Value": 71
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Food",
+        "Value": 73
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Food",
+        "Value": 72
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Food",
+        "Value": 65
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Food",
+        "Value": 56
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Food",
+        "Value": 47
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Food",
+        "Value": 42
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Food",
+        "Value": 36
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Food",
+        "Value": 40
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Food",
+        "Value": 49
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Food",
+        "Value": 52
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Food",
+        "Value": 49
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Food",
+        "Value": 45
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Food",
+        "Value": 40
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Food",
+        "Value": 38
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Food",
+        "Value": 32
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Food",
+        "Value": 27
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Food",
+        "Value": 21
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Food",
+        "Value": 22
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Food",
+        "Value": 26
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Food",
+        "Value": 30
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Food",
+        "Value": 28
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Food",
+        "Value": 26
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Food",
+        "Value": 22
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Food",
+        "Value": 22
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Food",
+        "Value": 23
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Food",
+        "Value": 17
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Food",
+        "Value": 17
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Food",
+        "Value": 12
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Food",
+        "Value": 12
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Food",
+        "Value": 8
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Food",
+        "Value": 11
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Food",
+        "Value": 5
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Food",
+        "Value": 9
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Food",
+        "Value": 10
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Food",
+        "Value": 13
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Food",
+        "Value": 13
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Food",
+        "Value": 19
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Food",
+        "Value": 26
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Food",
+        "Value": 25
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Food",
+        "Value": 30
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Food",
+        "Value": 34
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Food",
+        "Value": 32
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Food",
+        "Value": 32
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Food",
+        "Value": 28
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Food",
+        "Value": 24
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Food",
+        "Value": 18
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Food",
+        "Value": 16
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Food",
+        "Value": 10
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Food",
+        "Value": 9
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Food",
+        "Value": 15
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Food",
+        "Value": 18
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Food",
+        "Value": 25
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Food",
+        "Value": 29
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Food",
+        "Value": 25
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Food",
+        "Value": 26
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Food",
+        "Value": 20
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Food",
+        "Value": 16
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Food",
+        "Value": 11
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Food",
+        "Value": 5
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Food",
+        "Value": 4
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Food",
+        "Value": 6
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Food",
+        "Value": 4
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Food",
+        "Value": 1
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Food",
+        "Value": 1
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Food",
+        "Value": 4
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Food",
+        "Value": 2
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Food",
+        "Value": 0
+      },
+      {
+        "Date": "2017-01-01",
+        "Series": "Garden",
+        "Value": 174
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Garden",
+        "Value": 177
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Garden",
+        "Value": 186
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Garden",
+        "Value": 185
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Garden",
+        "Value": 186
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Garden",
+        "Value": 187
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Garden",
+        "Value": 194
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Garden",
+        "Value": 196
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Garden",
+        "Value": 191
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Garden",
+        "Value": 193
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Garden",
+        "Value": 189
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Garden",
+        "Value": 193
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Garden",
+        "Value": 192
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Garden",
+        "Value": 187
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Garden",
+        "Value": 177
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Garden",
+        "Value": 169
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Garden",
+        "Value": 161
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Garden",
+        "Value": 156
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Garden",
+        "Value": 151
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Garden",
+        "Value": 154
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Garden",
+        "Value": 154
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Garden",
+        "Value": 161
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Garden",
+        "Value": 165
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Garden",
+        "Value": 171
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Garden",
+        "Value": 174
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Garden",
+        "Value": 170
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Garden",
+        "Value": 168
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Garden",
+        "Value": 165
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Garden",
+        "Value": 162
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Garden",
+        "Value": 155
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Garden",
+        "Value": 148
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Garden",
+        "Value": 148
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Garden",
+        "Value": 142
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Garden",
+        "Value": 130
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Garden",
+        "Value": 120
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Garden",
+        "Value": 108
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Garden",
+        "Value": 96
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Garden",
+        "Value": 86
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Garden",
+        "Value": 87
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Garden",
+        "Value": 80
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Garden",
+        "Value": 79
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Garden",
+        "Value": 72
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Garden",
+        "Value": 74
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Garden",
+        "Value": 76
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Garden",
+        "Value": 80
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Garden",
+        "Value": 84
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Garden",
+        "Value": 94
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Garden",
+        "Value": 105
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Garden",
+        "Value": 112
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Garden",
+        "Value": 111
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Garden",
+        "Value": 117
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Garden",
+        "Value": 117
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Garden",
+        "Value": 122
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Garden",
+        "Value": 125
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Garden",
+        "Value": 131
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Garden",
+        "Value": 132
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Garden",
+        "Value": 135
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Garden",
+        "Value": 136
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Garden",
+        "Value": 132
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Garden",
+        "Value": 128
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Garden",
+        "Value": 133
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Garden",
+        "Value": 139
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Garden",
+        "Value": 139
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Garden",
+        "Value": 139
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Garden",
+        "Value": 143
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Garden",
+        "Value": 138
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Garden",
+        "Value": 130
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Garden",
+        "Value": 125
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Garden",
+        "Value": 129
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Garden",
+        "Value": 128
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Garden",
+        "Value": 130
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Garden",
+        "Value": 138
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Garden",
+        "Value": 145
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Garden",
+        "Value": 156
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Garden",
+        "Value": 163
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Garden",
+        "Value": 173
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Garden",
+        "Value": 183
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Garden",
+        "Value": 193
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Garden",
+        "Value": 203
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Garden",
+        "Value": 207
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Garden",
+        "Value": 204
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Garden",
+        "Value": 202
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Garden",
+        "Value": 199
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Garden",
+        "Value": 202
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Garden",
+        "Value": 197
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Garden",
+        "Value": 195
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Garden",
+        "Value": 194
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Garden",
+        "Value": 196
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Garden",
+        "Value": 201
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Garden",
+        "Value": 198
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Garden",
+        "Value": 201
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Garden",
+        "Value": 207
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Garden",
+        "Value": 215
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Garden",
+        "Value": 214
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Garden",
+        "Value": 211
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Garden",
+        "Value": 204
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Garden",
+        "Value": 200
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Garden",
+        "Value": 199
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Garden",
+        "Value": 192
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Garden",
+        "Value": 184
+      },
+      {
+        "Date": "2017-01-01",
+        "Series": "Home",
+        "Value": 185
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Home",
+        "Value": 189
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Home",
+        "Value": 186
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Home",
+        "Value": 182
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Home",
+        "Value": 186
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Home",
+        "Value": 191
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Home",
+        "Value": 197
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Home",
+        "Value": 196
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Home",
+        "Value": 192
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Home",
+        "Value": 187
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Home",
+        "Value": 189
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Home",
+        "Value": 197
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Home",
+        "Value": 206
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Home",
+        "Value": 209
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Home",
+        "Value": 211
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Home",
+        "Value": 213
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Home",
+        "Value": 217
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Home",
+        "Value": 226
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Home",
+        "Value": 238
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Home",
+        "Value": 242
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Home",
+        "Value": 250
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Home",
+        "Value": 260
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Home",
+        "Value": 263
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Home",
+        "Value": 264
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Home",
+        "Value": 268
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Home",
+        "Value": 273
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Home",
+        "Value": 271
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Home",
+        "Value": 275
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Home",
+        "Value": 273
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Home",
+        "Value": 266
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Home",
+        "Value": 265
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Home",
+        "Value": 268
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Home",
+        "Value": 274
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Home",
+        "Value": 280
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Home",
+        "Value": 277
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Home",
+        "Value": 276
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Home",
+        "Value": 278
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Home",
+        "Value": 286
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Home",
+        "Value": 293
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Home",
+        "Value": 299
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Home",
+        "Value": 310
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Home",
+        "Value": 323
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Home",
+        "Value": 338
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Home",
+        "Value": 344
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Home",
+        "Value": 345
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Home",
+        "Value": 340
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Home",
+        "Value": 336
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Home",
+        "Value": 327
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Home",
+        "Value": 318
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Home",
+        "Value": 305
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Home",
+        "Value": 289
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Home",
+        "Value": 280
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Home",
+        "Value": 279
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Home",
+        "Value": 273
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Home",
+        "Value": 275
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Home",
+        "Value": 272
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Home",
+        "Value": 266
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Home",
+        "Value": 256
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Home",
+        "Value": 256
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Home",
+        "Value": 262
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Home",
+        "Value": 262
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Home",
+        "Value": 256
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Home",
+        "Value": 251
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Home",
+        "Value": 247
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Home",
+        "Value": 245
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Home",
+        "Value": 244
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Home",
+        "Value": 242
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Home",
+        "Value": 245
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Home",
+        "Value": 253
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Home",
+        "Value": 252
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Home",
+        "Value": 244
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Home",
+        "Value": 234
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Home",
+        "Value": 233
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Home",
+        "Value": 232
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Home",
+        "Value": 227
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Home",
+        "Value": 224
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Home",
+        "Value": 219
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Home",
+        "Value": 211
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Home",
+        "Value": 208
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Home",
+        "Value": 199
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Home",
+        "Value": 190
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Home",
+        "Value": 179
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Home",
+        "Value": 166
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Home",
+        "Value": 151
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Home",
+        "Value": 143
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Home",
+        "Value": 139
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Home",
+        "Value": 143
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Home",
+        "Value": 151
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Home",
+        "Value": 149
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Home",
+        "Value": 142
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Home",
+        "Value": 138
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Home",
+        "Value": 133
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Home",
+        "Value": 136
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Home",
+        "Value": 140
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Home",
+        "Value": 142
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Home",
+        "Value": 149
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Home",
+        "Value": 159
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Home",
+        "Value": 169
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Home",
+        "Value": 177
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Home",
+        "Value": 185
+      },
+      {
+        "Date": "2017-01-01",
+        "Series": "Sports",
+        "Value": 89
+      },
+      {
+        "Date": "2017-01-11",
+        "Series": "Sports",
+        "Value": 94
+      },
+      {
+        "Date": "2017-01-22",
+        "Series": "Sports",
+        "Value": 90
+      },
+      {
+        "Date": "2017-02-02",
+        "Series": "Sports",
+        "Value": 81
+      },
+      {
+        "Date": "2017-02-13",
+        "Series": "Sports",
+        "Value": 78
+      },
+      {
+        "Date": "2017-02-24",
+        "Series": "Sports",
+        "Value": 74
+      },
+      {
+        "Date": "2017-03-07",
+        "Series": "Sports",
+        "Value": 73
+      },
+      {
+        "Date": "2017-03-18",
+        "Series": "Sports",
+        "Value": 72
+      },
+      {
+        "Date": "2017-03-29",
+        "Series": "Sports",
+        "Value": 73
+      },
+      {
+        "Date": "2017-04-09",
+        "Series": "Sports",
+        "Value": 72
+      },
+      {
+        "Date": "2017-04-20",
+        "Series": "Sports",
+        "Value": 68
+      },
+      {
+        "Date": "2017-05-01",
+        "Series": "Sports",
+        "Value": 61
+      },
+      {
+        "Date": "2017-05-12",
+        "Series": "Sports",
+        "Value": 54
+      },
+      {
+        "Date": "2017-05-23",
+        "Series": "Sports",
+        "Value": 45
+      },
+      {
+        "Date": "2017-06-03",
+        "Series": "Sports",
+        "Value": 32
+      },
+      {
+        "Date": "2017-06-14",
+        "Series": "Sports",
+        "Value": 18
+      },
+      {
+        "Date": "2017-06-25",
+        "Series": "Sports",
+        "Value": 12
+      },
+      {
+        "Date": "2017-07-06",
+        "Series": "Sports",
+        "Value": 15
+      },
+      {
+        "Date": "2017-07-17",
+        "Series": "Sports",
+        "Value": 16
+      },
+      {
+        "Date": "2017-07-28",
+        "Series": "Sports",
+        "Value": 12
+      },
+      {
+        "Date": "2017-08-08",
+        "Series": "Sports",
+        "Value": 17
+      },
+      {
+        "Date": "2017-08-18",
+        "Series": "Sports",
+        "Value": 14
+      },
+      {
+        "Date": "2017-08-29",
+        "Series": "Sports",
+        "Value": 16
+      },
+      {
+        "Date": "2017-09-09",
+        "Series": "Sports",
+        "Value": 15
+      },
+      {
+        "Date": "2017-09-20",
+        "Series": "Sports",
+        "Value": 19
+      },
+      {
+        "Date": "2017-10-01",
+        "Series": "Sports",
+        "Value": 17
+      },
+      {
+        "Date": "2017-10-12",
+        "Series": "Sports",
+        "Value": 23
+      },
+      {
+        "Date": "2017-10-23",
+        "Series": "Sports",
+        "Value": 27
+      },
+      {
+        "Date": "2017-11-03",
+        "Series": "Sports",
+        "Value": 36
+      },
+      {
+        "Date": "2017-11-14",
+        "Series": "Sports",
+        "Value": 36
+      },
+      {
+        "Date": "2017-11-25",
+        "Series": "Sports",
+        "Value": 31
+      },
+      {
+        "Date": "2017-12-06",
+        "Series": "Sports",
+        "Value": 29
+      },
+      {
+        "Date": "2017-12-17",
+        "Series": "Sports",
+        "Value": 21
+      },
+      {
+        "Date": "2017-12-28",
+        "Series": "Sports",
+        "Value": 12
+      },
+      {
+        "Date": "2018-01-08",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-01-19",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-01-30",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-02-10",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-02-21",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-03-04",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-03-15",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-03-25",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-04-05",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2018-04-16",
+        "Series": "Sports",
+        "Value": 1
+      },
+      {
+        "Date": "2018-04-27",
+        "Series": "Sports",
+        "Value": 9
+      },
+      {
+        "Date": "2018-05-08",
+        "Series": "Sports",
+        "Value": 16
+      },
+      {
+        "Date": "2018-05-19",
+        "Series": "Sports",
+        "Value": 27
+      },
+      {
+        "Date": "2018-05-30",
+        "Series": "Sports",
+        "Value": 37
+      },
+      {
+        "Date": "2018-06-10",
+        "Series": "Sports",
+        "Value": 46
+      },
+      {
+        "Date": "2018-06-21",
+        "Series": "Sports",
+        "Value": 51
+      },
+      {
+        "Date": "2018-07-02",
+        "Series": "Sports",
+        "Value": 57
+      },
+      {
+        "Date": "2018-07-13",
+        "Series": "Sports",
+        "Value": 60
+      },
+      {
+        "Date": "2018-07-24",
+        "Series": "Sports",
+        "Value": 62
+      },
+      {
+        "Date": "2018-08-04",
+        "Series": "Sports",
+        "Value": 56
+      },
+      {
+        "Date": "2018-08-15",
+        "Series": "Sports",
+        "Value": 55
+      },
+      {
+        "Date": "2018-08-26",
+        "Series": "Sports",
+        "Value": 57
+      },
+      {
+        "Date": "2018-09-06",
+        "Series": "Sports",
+        "Value": 53
+      },
+      {
+        "Date": "2018-09-17",
+        "Series": "Sports",
+        "Value": 46
+      },
+      {
+        "Date": "2018-09-28",
+        "Series": "Sports",
+        "Value": 35
+      },
+      {
+        "Date": "2018-10-09",
+        "Series": "Sports",
+        "Value": 30
+      },
+      {
+        "Date": "2018-10-20",
+        "Series": "Sports",
+        "Value": 24
+      },
+      {
+        "Date": "2018-10-30",
+        "Series": "Sports",
+        "Value": 17
+      },
+      {
+        "Date": "2018-11-10",
+        "Series": "Sports",
+        "Value": 12
+      },
+      {
+        "Date": "2018-11-21",
+        "Series": "Sports",
+        "Value": 14
+      },
+      {
+        "Date": "2018-12-02",
+        "Series": "Sports",
+        "Value": 19
+      },
+      {
+        "Date": "2018-12-13",
+        "Series": "Sports",
+        "Value": 28
+      },
+      {
+        "Date": "2018-12-24",
+        "Series": "Sports",
+        "Value": 28
+      },
+      {
+        "Date": "2019-01-04",
+        "Series": "Sports",
+        "Value": 23
+      },
+      {
+        "Date": "2019-01-15",
+        "Series": "Sports",
+        "Value": 17
+      },
+      {
+        "Date": "2019-01-26",
+        "Series": "Sports",
+        "Value": 17
+      },
+      {
+        "Date": "2019-02-06",
+        "Series": "Sports",
+        "Value": 13
+      },
+      {
+        "Date": "2019-02-17",
+        "Series": "Sports",
+        "Value": 5
+      },
+      {
+        "Date": "2019-02-28",
+        "Series": "Sports",
+        "Value": 2
+      },
+      {
+        "Date": "2019-03-11",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-03-22",
+        "Series": "Sports",
+        "Value": 2
+      },
+      {
+        "Date": "2019-04-02",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-04-13",
+        "Series": "Sports",
+        "Value": 4
+      },
+      {
+        "Date": "2019-04-24",
+        "Series": "Sports",
+        "Value": 3
+      },
+      {
+        "Date": "2019-05-05",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-05-16",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-05-27",
+        "Series": "Sports",
+        "Value": 1
+      },
+      {
+        "Date": "2019-06-06",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-06-17",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-06-28",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-07-09",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-07-20",
+        "Series": "Sports",
+        "Value": 1
+      },
+      {
+        "Date": "2019-07-31",
+        "Series": "Sports",
+        "Value": 4
+      },
+      {
+        "Date": "2019-08-11",
+        "Series": "Sports",
+        "Value": 13
+      },
+      {
+        "Date": "2019-08-22",
+        "Series": "Sports",
+        "Value": 19
+      },
+      {
+        "Date": "2019-09-02",
+        "Series": "Sports",
+        "Value": 26
+      },
+      {
+        "Date": "2019-09-13",
+        "Series": "Sports",
+        "Value": 28
+      },
+      {
+        "Date": "2019-09-24",
+        "Series": "Sports",
+        "Value": 22
+      },
+      {
+        "Date": "2019-10-05",
+        "Series": "Sports",
+        "Value": 12
+      },
+      {
+        "Date": "2019-10-16",
+        "Series": "Sports",
+        "Value": 6
+      },
+      {
+        "Date": "2019-10-27",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-11-07",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-11-18",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-11-29",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-12-10",
+        "Series": "Sports",
+        "Value": 0
+      },
+      {
+        "Date": "2019-12-21",
+        "Series": "Sports",
+        "Value": 0
+      }
+    ]
+  },
+  "_width": 740,
+  "_height": 286,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false,
+      "value": "temporal"
+    }
+  ]
+}

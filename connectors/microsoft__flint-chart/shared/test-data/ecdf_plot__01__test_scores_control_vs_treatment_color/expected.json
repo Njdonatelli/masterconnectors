@@ -1,0 +1,1190 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Score",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Score",
+          "order": "ascending"
+        }
+      ],
+      "groupby": [
+        "Group"
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Score",
+          "as": "__ecdf_total"
+        }
+      ],
+      "groupby": [
+        "Group"
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Score",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Score": 57,
+        "Group": "Control"
+      },
+      {
+        "Score": 38,
+        "Group": "Control"
+      },
+      {
+        "Score": 73,
+        "Group": "Control"
+      },
+      {
+        "Score": 44,
+        "Group": "Control"
+      },
+      {
+        "Score": 68,
+        "Group": "Control"
+      },
+      {
+        "Score": 50,
+        "Group": "Control"
+      },
+      {
+        "Score": 54,
+        "Group": "Control"
+      },
+      {
+        "Score": 57,
+        "Group": "Control"
+      },
+      {
+        "Score": 76,
+        "Group": "Control"
+      },
+      {
+        "Score": 53,
+        "Group": "Control"
+      },
+      {
+        "Score": 54,
+        "Group": "Control"
+      },
+      {
+        "Score": 65,
+        "Group": "Control"
+      },
+      {
+        "Score": 42,
+        "Group": "Control"
+      },
+      {
+        "Score": 59,
+        "Group": "Control"
+      },
+      {
+        "Score": 61,
+        "Group": "Control"
+      },
+      {
+        "Score": 28,
+        "Group": "Control"
+      },
+      {
+        "Score": 61,
+        "Group": "Control"
+      },
+      {
+        "Score": 71,
+        "Group": "Control"
+      },
+      {
+        "Score": 46,
+        "Group": "Control"
+      },
+      {
+        "Score": 69,
+        "Group": "Control"
+      },
+      {
+        "Score": 70,
+        "Group": "Control"
+      },
+      {
+        "Score": 78,
+        "Group": "Control"
+      },
+      {
+        "Score": 71,
+        "Group": "Control"
+      },
+      {
+        "Score": 62,
+        "Group": "Control"
+      },
+      {
+        "Score": 70,
+        "Group": "Control"
+      },
+      {
+        "Score": 55,
+        "Group": "Control"
+      },
+      {
+        "Score": 61,
+        "Group": "Control"
+      },
+      {
+        "Score": 43,
+        "Group": "Control"
+      },
+      {
+        "Score": 61,
+        "Group": "Control"
+      },
+      {
+        "Score": 39,
+        "Group": "Control"
+      },
+      {
+        "Score": 51,
+        "Group": "Control"
+      },
+      {
+        "Score": 72,
+        "Group": "Control"
+      },
+      {
+        "Score": 72,
+        "Group": "Control"
+      },
+      {
+        "Score": 45,
+        "Group": "Control"
+      },
+      {
+        "Score": 46,
+        "Group": "Control"
+      },
+      {
+        "Score": 67,
+        "Group": "Control"
+      },
+      {
+        "Score": 55,
+        "Group": "Control"
+      },
+      {
+        "Score": 72,
+        "Group": "Control"
+      },
+      {
+        "Score": 49,
+        "Group": "Control"
+      },
+      {
+        "Score": 73,
+        "Group": "Control"
+      },
+      {
+        "Score": 63,
+        "Group": "Control"
+      },
+      {
+        "Score": 55,
+        "Group": "Control"
+      },
+      {
+        "Score": 75,
+        "Group": "Control"
+      },
+      {
+        "Score": 58,
+        "Group": "Control"
+      },
+      {
+        "Score": 52,
+        "Group": "Control"
+      },
+      {
+        "Score": 41,
+        "Group": "Control"
+      },
+      {
+        "Score": 51,
+        "Group": "Control"
+      },
+      {
+        "Score": 75,
+        "Group": "Control"
+      },
+      {
+        "Score": 53,
+        "Group": "Control"
+      },
+      {
+        "Score": 65,
+        "Group": "Control"
+      },
+      {
+        "Score": 71,
+        "Group": "Control"
+      },
+      {
+        "Score": 68,
+        "Group": "Control"
+      },
+      {
+        "Score": 57,
+        "Group": "Control"
+      },
+      {
+        "Score": 59,
+        "Group": "Control"
+      },
+      {
+        "Score": 40,
+        "Group": "Control"
+      },
+      {
+        "Score": 71,
+        "Group": "Control"
+      },
+      {
+        "Score": 52,
+        "Group": "Control"
+      },
+      {
+        "Score": 46,
+        "Group": "Control"
+      },
+      {
+        "Score": 56,
+        "Group": "Control"
+      },
+      {
+        "Score": 58,
+        "Group": "Control"
+      },
+      {
+        "Score": 51,
+        "Group": "Control"
+      },
+      {
+        "Score": 54,
+        "Group": "Control"
+      },
+      {
+        "Score": 71,
+        "Group": "Control"
+      },
+      {
+        "Score": 68,
+        "Group": "Control"
+      },
+      {
+        "Score": 59,
+        "Group": "Control"
+      },
+      {
+        "Score": 51,
+        "Group": "Control"
+      },
+      {
+        "Score": 62,
+        "Group": "Control"
+      },
+      {
+        "Score": 67,
+        "Group": "Control"
+      },
+      {
+        "Score": 67,
+        "Group": "Control"
+      },
+      {
+        "Score": 75,
+        "Group": "Control"
+      },
+      {
+        "Score": 43,
+        "Group": "Control"
+      },
+      {
+        "Score": 62,
+        "Group": "Control"
+      },
+      {
+        "Score": 55,
+        "Group": "Control"
+      },
+      {
+        "Score": 60,
+        "Group": "Control"
+      },
+      {
+        "Score": 56,
+        "Group": "Control"
+      },
+      {
+        "Score": 66,
+        "Group": "Control"
+      },
+      {
+        "Score": 61,
+        "Group": "Control"
+      },
+      {
+        "Score": 53,
+        "Group": "Control"
+      },
+      {
+        "Score": 63,
+        "Group": "Control"
+      },
+      {
+        "Score": 73,
+        "Group": "Control"
+      },
+      {
+        "Score": 91,
+        "Group": "Control"
+      },
+      {
+        "Score": 63,
+        "Group": "Control"
+      },
+      {
+        "Score": 71,
+        "Group": "Control"
+      },
+      {
+        "Score": 54,
+        "Group": "Control"
+      },
+      {
+        "Score": 57,
+        "Group": "Control"
+      },
+      {
+        "Score": 73,
+        "Group": "Control"
+      },
+      {
+        "Score": 67,
+        "Group": "Control"
+      },
+      {
+        "Score": 50,
+        "Group": "Control"
+      },
+      {
+        "Score": 99,
+        "Group": "Control"
+      },
+      {
+        "Score": 74,
+        "Group": "Control"
+      },
+      {
+        "Score": 56,
+        "Group": "Control"
+      },
+      {
+        "Score": 42,
+        "Group": "Control"
+      },
+      {
+        "Score": 78,
+        "Group": "Control"
+      },
+      {
+        "Score": 90,
+        "Group": "Control"
+      },
+      {
+        "Score": 42,
+        "Group": "Control"
+      },
+      {
+        "Score": 67,
+        "Group": "Control"
+      },
+      {
+        "Score": 47,
+        "Group": "Control"
+      },
+      {
+        "Score": 66,
+        "Group": "Control"
+      },
+      {
+        "Score": 70,
+        "Group": "Control"
+      },
+      {
+        "Score": 47,
+        "Group": "Control"
+      },
+      {
+        "Score": 66,
+        "Group": "Control"
+      },
+      {
+        "Score": 74,
+        "Group": "Control"
+      },
+      {
+        "Score": 59,
+        "Group": "Control"
+      },
+      {
+        "Score": 50,
+        "Group": "Control"
+      },
+      {
+        "Score": 44,
+        "Group": "Control"
+      },
+      {
+        "Score": 55,
+        "Group": "Control"
+      },
+      {
+        "Score": 84,
+        "Group": "Control"
+      },
+      {
+        "Score": 57,
+        "Group": "Control"
+      },
+      {
+        "Score": 77,
+        "Group": "Control"
+      },
+      {
+        "Score": 67,
+        "Group": "Control"
+      },
+      {
+        "Score": 77,
+        "Group": "Control"
+      },
+      {
+        "Score": 72,
+        "Group": "Control"
+      },
+      {
+        "Score": 63,
+        "Group": "Control"
+      },
+      {
+        "Score": 69,
+        "Group": "Control"
+      },
+      {
+        "Score": 56,
+        "Group": "Control"
+      },
+      {
+        "Score": 73,
+        "Group": "Control"
+      },
+      {
+        "Score": 62,
+        "Group": "Control"
+      },
+      {
+        "Score": 63,
+        "Group": "Control"
+      },
+      {
+        "Score": 30,
+        "Group": "Control"
+      },
+      {
+        "Score": 50,
+        "Group": "Control"
+      },
+      {
+        "Score": 46,
+        "Group": "Control"
+      },
+      {
+        "Score": 47,
+        "Group": "Control"
+      },
+      {
+        "Score": 66,
+        "Group": "Control"
+      },
+      {
+        "Score": 70,
+        "Group": "Control"
+      },
+      {
+        "Score": 64,
+        "Group": "Control"
+      },
+      {
+        "Score": 65,
+        "Group": "Control"
+      },
+      {
+        "Score": 85,
+        "Group": "Control"
+      },
+      {
+        "Score": 71,
+        "Group": "Control"
+      },
+      {
+        "Score": 74,
+        "Group": "Control"
+      },
+      {
+        "Score": 63,
+        "Group": "Control"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 67,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 79,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 82,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 69,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 89,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 73,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 55,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 89,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 71,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 92,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 79,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 92,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 88,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 87,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 60,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 59,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 86,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 63,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 73,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 74,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 89,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 67,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 79,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 78,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 67,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 93,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 63,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 86,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 70,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 79,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 76,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 81,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 66,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 68,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 93,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 57,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 82,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 77,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 84,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 56,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 55,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 73,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 78,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 75,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 58,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 92,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 81,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 72,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 73,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 45,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 66,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 74,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 74,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 90,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 57,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 89,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 75,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 73,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 73,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 53,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 58,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 70,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 65,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 80,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 76,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 41,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 91,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 100,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 65,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 85,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 75,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 50,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 94,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 77,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 91,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 81,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 75,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 76,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 78,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 77,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 90,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 70,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 40,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 57,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 75,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 87,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 90,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 77,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 82,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 70,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 69,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 67,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 75,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 76,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 63,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 87,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 68,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 81,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 55,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 86,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 88,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 63,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 62,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 69,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 78,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 67,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 70,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 78,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 69,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 81,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 60,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 74,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 93,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 72,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 55,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 46,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 68,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 80,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 83,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 76,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 68,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 73,
+        "Group": "Treatment"
+      },
+      {
+        "Score": 52,
+        "Group": "Treatment"
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

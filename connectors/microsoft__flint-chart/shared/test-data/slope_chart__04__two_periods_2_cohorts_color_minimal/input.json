@@ -1,0 +1,54 @@
+{
+  "title": "Two periods × 2 cohorts + Color (minimal)",
+  "description": "2 cohorts, before/after — lowest-cardinality slopegraph",
+  "chartType": "Slope Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Phase": "Before",
+          "Cohort": "Treatment",
+          "Score": 62
+        },
+        {
+          "Phase": "After",
+          "Cohort": "Treatment",
+          "Score": 88
+        },
+        {
+          "Phase": "Before",
+          "Cohort": "Control",
+          "Score": 60
+        },
+        {
+          "Phase": "After",
+          "Cohort": "Control",
+          "Score": 64
+        }
+      ]
+    },
+    "semantic_types": {
+      "Phase": "Category",
+      "Score": "Score",
+      "Cohort": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Slope Chart",
+      "encodings": {
+        "x": {
+          "field": "Phase"
+        },
+        "y": {
+          "field": "Score"
+        },
+        "color": {
+          "field": "Cohort"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

@@ -1,0 +1,537 @@
+{
+  "title": "Regression + Color (4 groups)",
+  "description": "100 points — separate regression per region with distinct slopes",
+  "chartType": "Regression",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Advertising": 85.5,
+          "Revenue": 72,
+          "Region": "North"
+        },
+        {
+          "Advertising": 31.4,
+          "Revenue": 32,
+          "Region": "North"
+        },
+        {
+          "Advertising": 78.8,
+          "Revenue": 71,
+          "Region": "North"
+        },
+        {
+          "Advertising": 55.3,
+          "Revenue": 46,
+          "Region": "North"
+        },
+        {
+          "Advertising": 67,
+          "Revenue": 61,
+          "Region": "North"
+        },
+        {
+          "Advertising": 69.7,
+          "Revenue": 54,
+          "Region": "North"
+        },
+        {
+          "Advertising": 23.2,
+          "Revenue": 21,
+          "Region": "North"
+        },
+        {
+          "Advertising": 77.9,
+          "Revenue": 62,
+          "Region": "North"
+        },
+        {
+          "Advertising": 8.6,
+          "Revenue": 21,
+          "Region": "North"
+        },
+        {
+          "Advertising": 76.5,
+          "Revenue": 57,
+          "Region": "North"
+        },
+        {
+          "Advertising": 70.9,
+          "Revenue": 65,
+          "Region": "North"
+        },
+        {
+          "Advertising": 48.4,
+          "Revenue": 45,
+          "Region": "North"
+        },
+        {
+          "Advertising": 26.4,
+          "Revenue": 34,
+          "Region": "North"
+        },
+        {
+          "Advertising": 70,
+          "Revenue": 59,
+          "Region": "North"
+        },
+        {
+          "Advertising": 92.8,
+          "Revenue": 74,
+          "Region": "North"
+        },
+        {
+          "Advertising": 61.1,
+          "Revenue": 60,
+          "Region": "North"
+        },
+        {
+          "Advertising": 87.5,
+          "Revenue": 74,
+          "Region": "North"
+        },
+        {
+          "Advertising": 74.2,
+          "Revenue": 61,
+          "Region": "North"
+        },
+        {
+          "Advertising": 81.9,
+          "Revenue": 68,
+          "Region": "North"
+        },
+        {
+          "Advertising": 37.9,
+          "Revenue": 34,
+          "Region": "North"
+        },
+        {
+          "Advertising": 48.4,
+          "Revenue": 39,
+          "Region": "North"
+        },
+        {
+          "Advertising": 69.3,
+          "Revenue": 56,
+          "Region": "North"
+        },
+        {
+          "Advertising": 12.5,
+          "Revenue": 21,
+          "Region": "North"
+        },
+        {
+          "Advertising": 90.6,
+          "Revenue": 73,
+          "Region": "North"
+        },
+        {
+          "Advertising": 65.9,
+          "Revenue": 62,
+          "Region": "North"
+        },
+        {
+          "Advertising": 7.9,
+          "Revenue": -8,
+          "Region": "South"
+        },
+        {
+          "Advertising": 53.1,
+          "Revenue": 14,
+          "Region": "South"
+        },
+        {
+          "Advertising": 54.9,
+          "Revenue": 30,
+          "Region": "South"
+        },
+        {
+          "Advertising": 53.3,
+          "Revenue": 21,
+          "Region": "South"
+        },
+        {
+          "Advertising": 31,
+          "Revenue": 3,
+          "Region": "South"
+        },
+        {
+          "Advertising": 94.2,
+          "Revenue": 43,
+          "Region": "South"
+        },
+        {
+          "Advertising": 23,
+          "Revenue": 6,
+          "Region": "South"
+        },
+        {
+          "Advertising": 6.8,
+          "Revenue": 0,
+          "Region": "South"
+        },
+        {
+          "Advertising": 73.6,
+          "Revenue": 35,
+          "Region": "South"
+        },
+        {
+          "Advertising": 46.3,
+          "Revenue": 16,
+          "Region": "South"
+        },
+        {
+          "Advertising": 38.2,
+          "Revenue": 8,
+          "Region": "South"
+        },
+        {
+          "Advertising": 44.8,
+          "Revenue": 22,
+          "Region": "South"
+        },
+        {
+          "Advertising": 11.2,
+          "Revenue": 2,
+          "Region": "South"
+        },
+        {
+          "Advertising": 70.5,
+          "Revenue": 24,
+          "Region": "South"
+        },
+        {
+          "Advertising": 26.2,
+          "Revenue": 8,
+          "Region": "South"
+        },
+        {
+          "Advertising": 65.1,
+          "Revenue": 29,
+          "Region": "South"
+        },
+        {
+          "Advertising": 54.5,
+          "Revenue": 16,
+          "Region": "South"
+        },
+        {
+          "Advertising": 43.1,
+          "Revenue": 10,
+          "Region": "South"
+        },
+        {
+          "Advertising": 50.5,
+          "Revenue": 26,
+          "Region": "South"
+        },
+        {
+          "Advertising": 10,
+          "Revenue": 3,
+          "Region": "South"
+        },
+        {
+          "Advertising": 55.4,
+          "Revenue": 25,
+          "Region": "South"
+        },
+        {
+          "Advertising": 35.3,
+          "Revenue": 7,
+          "Region": "South"
+        },
+        {
+          "Advertising": 81.3,
+          "Revenue": 37,
+          "Region": "South"
+        },
+        {
+          "Advertising": 11.1,
+          "Revenue": 7,
+          "Region": "South"
+        },
+        {
+          "Advertising": 30.2,
+          "Revenue": 13,
+          "Region": "South"
+        },
+        {
+          "Advertising": 31.4,
+          "Revenue": 30,
+          "Region": "East"
+        },
+        {
+          "Advertising": 79.1,
+          "Revenue": 79,
+          "Region": "East"
+        },
+        {
+          "Advertising": 14.4,
+          "Revenue": 22,
+          "Region": "East"
+        },
+        {
+          "Advertising": 48.7,
+          "Revenue": 47,
+          "Region": "East"
+        },
+        {
+          "Advertising": 49.2,
+          "Revenue": 47,
+          "Region": "East"
+        },
+        {
+          "Advertising": 89.7,
+          "Revenue": 90,
+          "Region": "East"
+        },
+        {
+          "Advertising": 46.9,
+          "Revenue": 43,
+          "Region": "East"
+        },
+        {
+          "Advertising": 16.8,
+          "Revenue": 21,
+          "Region": "East"
+        },
+        {
+          "Advertising": 83.1,
+          "Revenue": 84,
+          "Region": "East"
+        },
+        {
+          "Advertising": 67.4,
+          "Revenue": 61,
+          "Region": "East"
+        },
+        {
+          "Advertising": 70.7,
+          "Revenue": 68,
+          "Region": "East"
+        },
+        {
+          "Advertising": 63,
+          "Revenue": 58,
+          "Region": "East"
+        },
+        {
+          "Advertising": 44.9,
+          "Revenue": 37,
+          "Region": "East"
+        },
+        {
+          "Advertising": 13.2,
+          "Revenue": 13,
+          "Region": "East"
+        },
+        {
+          "Advertising": 49.5,
+          "Revenue": 51,
+          "Region": "East"
+        },
+        {
+          "Advertising": 26.3,
+          "Revenue": 25,
+          "Region": "East"
+        },
+        {
+          "Advertising": 60.4,
+          "Revenue": 59,
+          "Region": "East"
+        },
+        {
+          "Advertising": 20.7,
+          "Revenue": 19,
+          "Region": "East"
+        },
+        {
+          "Advertising": 37.5,
+          "Revenue": 34,
+          "Region": "East"
+        },
+        {
+          "Advertising": 35.2,
+          "Revenue": 42,
+          "Region": "East"
+        },
+        {
+          "Advertising": 90.3,
+          "Revenue": 80,
+          "Region": "East"
+        },
+        {
+          "Advertising": 29,
+          "Revenue": 23,
+          "Region": "East"
+        },
+        {
+          "Advertising": 62.8,
+          "Revenue": 66,
+          "Region": "East"
+        },
+        {
+          "Advertising": 35.5,
+          "Revenue": 38,
+          "Region": "East"
+        },
+        {
+          "Advertising": 66.7,
+          "Revenue": 60,
+          "Region": "East"
+        },
+        {
+          "Advertising": 44.9,
+          "Revenue": 8,
+          "Region": "West"
+        },
+        {
+          "Advertising": 14.1,
+          "Revenue": -5,
+          "Region": "West"
+        },
+        {
+          "Advertising": 28.2,
+          "Revenue": 0,
+          "Region": "West"
+        },
+        {
+          "Advertising": 82,
+          "Revenue": 31,
+          "Region": "West"
+        },
+        {
+          "Advertising": 76.5,
+          "Revenue": 26,
+          "Region": "West"
+        },
+        {
+          "Advertising": 59.7,
+          "Revenue": 21,
+          "Region": "West"
+        },
+        {
+          "Advertising": 12.3,
+          "Revenue": -5,
+          "Region": "West"
+        },
+        {
+          "Advertising": 8.4,
+          "Revenue": -5,
+          "Region": "West"
+        },
+        {
+          "Advertising": 64.7,
+          "Revenue": 16,
+          "Region": "West"
+        },
+        {
+          "Advertising": 56.3,
+          "Revenue": 13,
+          "Region": "West"
+        },
+        {
+          "Advertising": 20.4,
+          "Revenue": -6,
+          "Region": "West"
+        },
+        {
+          "Advertising": 89.7,
+          "Revenue": 24,
+          "Region": "West"
+        },
+        {
+          "Advertising": 80.7,
+          "Revenue": 30,
+          "Region": "West"
+        },
+        {
+          "Advertising": 88.7,
+          "Revenue": 20,
+          "Region": "West"
+        },
+        {
+          "Advertising": 8,
+          "Revenue": -7,
+          "Region": "West"
+        },
+        {
+          "Advertising": 53.1,
+          "Revenue": 10,
+          "Region": "West"
+        },
+        {
+          "Advertising": 38.6,
+          "Revenue": 7,
+          "Region": "West"
+        },
+        {
+          "Advertising": 42.3,
+          "Revenue": 5,
+          "Region": "West"
+        },
+        {
+          "Advertising": 28.7,
+          "Revenue": 2,
+          "Region": "West"
+        },
+        {
+          "Advertising": 92.3,
+          "Revenue": 32,
+          "Region": "West"
+        },
+        {
+          "Advertising": 10.8,
+          "Revenue": -10,
+          "Region": "West"
+        },
+        {
+          "Advertising": 5.3,
+          "Revenue": -8,
+          "Region": "West"
+        },
+        {
+          "Advertising": 19.7,
+          "Revenue": 0,
+          "Region": "West"
+        },
+        {
+          "Advertising": 65.9,
+          "Revenue": 25,
+          "Region": "West"
+        },
+        {
+          "Advertising": 44.2,
+          "Revenue": 15,
+          "Region": "West"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Advertising": "Quantity",
+      "Revenue": "Quantity",
+      "Region": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Regression",
+      "encodings": {
+        "x": {
+          "field": "Advertising"
+        },
+        "y": {
+          "field": "Revenue"
+        },
+        "color": {
+          "field": "Region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

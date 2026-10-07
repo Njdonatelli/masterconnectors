@@ -1,0 +1,274 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "1999-07-02T08:43:38.181Z",
+          "2011-07-02T15:16:21.818Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 351,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Year": "2000",
+        "Value": 99,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2000",
+        "Value": 314,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2000",
+        "Value": 328,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2001",
+        "Value": 235,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2001",
+        "Value": 160,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2001",
+        "Value": 269,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2002",
+        "Value": 465,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2002",
+        "Value": 506,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2002",
+        "Value": 323,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2003",
+        "Value": 327,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2003",
+        "Value": 371,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2003",
+        "Value": 491,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2004",
+        "Value": 84,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2004",
+        "Value": 328,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2004",
+        "Value": 128,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2005",
+        "Value": 387,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2005",
+        "Value": 532,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2005",
+        "Value": 258,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2006",
+        "Value": 516,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2006",
+        "Value": 349,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2006",
+        "Value": 149,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2007",
+        "Value": 82,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2007",
+        "Value": 408,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2007",
+        "Value": 149,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2008",
+        "Value": 147,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2008",
+        "Value": 392,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2008",
+        "Value": 51,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2009",
+        "Value": 473,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2009",
+        "Value": 178,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2009",
+        "Value": 88,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2010",
+        "Value": 227,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2010",
+        "Value": 453,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2010",
+        "Value": 415,
+        "Category": "Gamma"
+      },
+      {
+        "Year": "2011",
+        "Value": 364,
+        "Category": "Alpha"
+      },
+      {
+        "Year": "2011",
+        "Value": 352,
+        "Category": "Beta"
+      },
+      {
+        "Year": "2011",
+        "Value": 514,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 351,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

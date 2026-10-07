@@ -1,0 +1,157 @@
+{
+  "encoding": {
+    "x": {
+      "field": "Step",
+      "type": "ordinal",
+      "sort": null,
+      "axis": {
+        "labelAngle": -45
+      }
+    }
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "sum",
+          "field": "Value",
+          "as": "__wf_sum_raw"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? datum.__wf_sum_raw - datum['Value'] : datum.__wf_sum_raw",
+      "as": "__wf_sum"
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? 0 : datum.__wf_sum - datum['Value']",
+      "as": "__wf_prev_sum"
+    },
+    {
+      "calculate": "datum['Type'] !== 'delta' ? 'total' : datum['Value'] >= 0 ? 'increase' : 'decrease'",
+      "as": "__wf_color"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "y": {
+          "field": "__wf_prev_sum",
+          "type": "quantitative",
+          "title": "Value",
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y2": {
+          "field": "__wf_sum"
+        },
+        "color": {
+          "field": "__wf_color",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "total",
+              "increase",
+              "decrease"
+            ],
+            "range": [
+              "#f7e0b6",
+              "#93c4aa",
+              "#f78a64"
+            ]
+          },
+          "legend": {
+            "title": "Type"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Step": "Starting Balance",
+        "Value": 5000,
+        "Type": "start"
+      },
+      {
+        "Step": "Sales",
+        "Value": 2200,
+        "Type": "delta"
+      },
+      {
+        "Step": "Returns",
+        "Value": -350,
+        "Type": "delta"
+      },
+      {
+        "Step": "Payroll",
+        "Value": -1800,
+        "Type": "delta"
+      },
+      {
+        "Step": "Rent",
+        "Value": -600,
+        "Type": "delta"
+      },
+      {
+        "Step": "Marketing",
+        "Value": -400,
+        "Type": "delta"
+      },
+      {
+        "Step": "Ending Balance",
+        "Value": 4050,
+        "Type": "end"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,300 @@
+[package]
+name = "duckle-duckdb-engine"
+description = "DuckDB-backed execution engine for Duckle pipelines."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+chrono = { workspace = true }
+duckle-metadata = { workspace = true }
+duckle-plugin-sdk = { workspace = true }
+# A child pipeline is read from disk inside the engine, so its saved
+# connections have to be resolved here too. No cycle: it depends on neither.
+duckle-secrets = { workspace = true }
+# Blocking HTTP client for SaaS connectors (snk.webhook, snk.rest,
+# src.rest, vector-DB HTTP APIs). ureq is ~20kb with minimal deps
+# vs ~100kb for reqwest + tokio, and it matches the per-stage CLI
+# shell-out model we already use (one synchronous round-trip).
+# `gzip` is required for the Snowflake SQL API: GET ?partition=N bodies are
+# always gzip-compressed (Content-Encoding: gzip). Without it ureq hands back
+# raw gzip bytes and JSON parsing dies with "expected value at line 1 column 1"
+# on any result that splits into >1 partition (GitHub #24).
+ureq = { version = "2.10", default-features = false, features = ["tls", "json", "gzip"] }
+# TLS trust roots for the HTTP clients above. We build one rustls config
+# that unions the bundled Mozilla roots (webpki-roots, the prior default)
+# with the OS native store (rustls-native-certs) so connections succeed
+# behind a TLS-inspecting corporate proxy whose CA lives only in the OS
+# store. Pinned to the same versions/provider ureq already resolves (ring),
+# so this adds no new crypto backend and no extra build cost. See src/tls.rs.
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+webpki-roots = "1.0"
+rustls-native-certs = "0.8"
+rustls-pemfile = "2"
+# Snowflake JWT RS256 auth path. Reads a PEM-encoded private key,
+# derives the public-key fingerprint, and signs the standard
+# Snowflake claims (iss / sub / iat / exp). PAT bearer auth is also
+# supported and doesn't pull these in.
+jsonwebtoken = { version = "11", default-features = false, features = ["use_pem", "rust_crypto"] }
+rsa = { version = "0.9", features = ["pem", "sha2"] }
+sha2 = "0.11"
+# #311: OpenLineage requires runId to be a UUID, and Duckle run ids are readable
+# strings, so they are mapped by name. v5 is the name-based flavour.
+uuid = { workspace = true }
+chrono-tz = "0.10"
+cron = { workspace = true }
+# HMAC-SHA256 for AWS SigV4 signing in src.dynamodb (and any future
+# AWS services we add via direct HTTP). Avoids the aws-sdk-rust
+# dep tree (300+ services we don't need).
+hmac = "0.13"
+base64 = "0.23"
+# NTLM for SharePoint Server on premises (Windows authentication). NTLMv2 on
+# RustCrypto primitives already in the tree; chosen over sspi, which brings
+# Kerberos and pre-release crypto crates this does not need.
+ntlmclient = "0.2"
+# MongoDB. The official driver is async-only; we use a minimal tokio
+# rt feature and call .block_on() from the synchronous executor.
+# Significant dep cost (~5MB, 30s of compile time) but the only path
+# to genuine self-hosted Mongo support short of hand-writing the
+# BSON wire protocol.
+mongodb = { version = "3" }
+tokio = { version = "1", default-features = false, features = ["rt", "rt-multi-thread", "macros", "net", "time"] }
+# SQL Server + Synapse via the pure-Rust TDS driver. Async; wrapped
+# in tokio block_on like mongo. compat feature adapts a tokio
+# TcpStream to the AsyncRead/Write that tiberius wants.
+tiberius = { version = "0.12", default-features = false, features = ["tds73", "rustls", "chrono"] }
+tokio-util = { version = "0.7", features = ["compat"] }
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+# Cassandra / ScyllaDB via the pure-Rust scylla driver (also speaks
+# CQL to Cassandra). Async; same block_on pattern as mongo + sqlserver.
+scylla = "1.8"
+# Oracle support. The `oracle` crate uses ODPI-C (statically compiled
+# from C source at build time) which dynamically loads Oracle Instant
+# Client at RUNTIME via dlopen. Build is self-contained on every OS;
+# users just need Oracle Instant Client (libclntsh.{so,dll,dylib}) on
+# the library path when they actually connect. Default-on so the
+# shipped binary supports Oracle out of the box.
+oracle = { version = "0.6", optional = true }
+# Teradata support. Teradata ships a free ODBC driver (there is no DuckDB
+# Teradata extension and no native Rust driver), so src.teradata / snk.teradata
+# talk to it through ODBC via odbc-api. odbc-api links the system ODBC driver
+# manager at build time (odbc32 on Windows - always present; unixODBC on
+# Linux/macOS). Off by default so a plain engine build/test needs no ODBC; the
+# shipped binaries (desktop, runner, mcp) turn it on.
+odbc-api = { version = "29", optional = true }
+# Direct (optional) handle on odbc-api's ODBC FFI crate so the `teradata-static`
+# feature can flip it to static linking. Base entry carries no static features;
+# the Linux override below adds them (see that table + build.rs + issue #131).
+odbc-sys = { version = "0.31", optional = true }
+# Redis sync client. Tokio-async is optional and off; we use the blocking
+# Connection / Pipeline API to fit the per-stage CLI shell-out model.
+# Small dep (~300kb).
+redis = { version = "1.6", default-features = false }
+# YAML and TOML format readers/writers. Small pure-Rust deps. Used by
+# src.yaml / snk.yaml / src.toml / snk.toml - we parse to serde_json::Value
+# then either materialize as a DuckDB JSON table or write the JSON back
+# out as YAML/TOML. Avoids needing DuckDB extensions for either format.
+serde_yaml = "0.9"
+toml = "1.1"
+# Kafka (and Redpanda) producer + consumer via the pure-Rust rskafka
+# crate (InfluxDB IOx in production). Async-only - wrapped in tokio
+# block_on like mongo + tiberius + scylla. Avoids the C-lib rdkafka
+# build dance entirely, at the cost of fewer broker-protocol features
+# (good enough for batch produce + batch consume, no admin client).
+# transport-tls so a Kafka broker reached over SSL/SASL_SSL is actually
+# encrypted. It wants rustls 0.23 with the ring provider, which is exactly
+# what tls::build_client_config already produces, so no second TLS stack.
+rskafka = { version = "0.6", features = ["transport-tls"] }
+# Apache Avro container-file reader/writer. Pure Rust. Pairs with
+# Kafka topics that publish Avro-encoded payloads, and reads the
+# .avro / .ocf files that exporters drop on object storage.
+apache-avro = "0.22"
+# NATS / JetStream. Pure-Rust client by the NATS team.
+async-nats = "0.50"
+# XML reader/writer. Used by src.xml (walks a row path, emits each
+# match as a JSON object) and snk.xml (wraps rows in row elements).
+# Pure Rust.
+quick-xml = "0.42"
+# HTML parsing + CSS selection for src.html (#255). Pure Rust (html5ever +
+# cssparser + selectors), no native toolchain, and already resolved in this
+# workspace's lockfile via tauri-utils and wry, so it adds no new dependency
+# tree - only the compile of those crates in the headless runner build.
+dom_query = "0.28"
+# PDF page text + geometry for src.pdf (#248). Both pure Rust - pdf-extract is
+# the font-encoding and character-mapping work, lopdf the page tree, MediaBox
+# and Info dictionary - so no native toolchain and no rendering engine. OCR is
+# deliberately not here: it would need exactly that.
+pdf-extract = "0.12"
+lopdf = "0.42"
+# Streaming gzip decoder for src.xml, so a .gz (or .xml.gz) XML file is
+# decompressed on the fly and never lands in RAM whole (issue #186). Pure Rust.
+flate2 = "1"
+# ZIP reader/writer, used only to post-process xlsx output. DuckDB's excel
+# writer emits <t> text nodes without xml:space="preserve", so Excel strips
+# leading/trailing whitespace from those cells on load. We reopen the written
+# .xlsx (which is a zip), add the attribute, and repack (#141). Deflate only -
+# no need for the bzip2 / zstd / aes backends.
+zip = { version = "8", default-features = false, features = ["deflate"] }
+# #284: TAR members, for the .tar and .tar.gz archives bulk publishers use.
+# Already in the lock via the desktop app, so this adds no new tree.
+tar = "0.4"
+# RabbitMQ / AMQP 0.9.1 client. Pure Rust, async. Same block_on
+# pattern as Kafka/NATS. Publishes to an exchange + routing key;
+# pulls from a queue with a per-message timeout for batch ETL.
+#
+# `default-runtime` is not optional. lapin 4 moved its async runtime into a
+# default feature, so this line - correct for lapin 2 - stopped carrying one when
+# only the version number changed, and every connect failed with "no default
+# configured runtime" before opening a socket. Tokio is already in the tree.
+lapin = { version = "4", default-features = false, features = ["rustls", "default-runtime"] }
+# FTP / FTPS client. Pure Rust, synchronous API (fits the per-stage
+# blocking model - no block_on dance). Rustls-backed TLS keeps the
+# build self-contained on every OS.
+suppaftp = { version = "11", default-features = false, features = ["rustls-ring"] }
+# SFTP (SSH-based) source, src.sftp. russh + russh-sftp on the `ring`
+# crypto backend (default-features=false drops aws-lc-rs, so NO NASM and
+# NO C toolchain - the same ring 0.17 stack the rest of our TLS already
+# uses, building on all release targets incl. windows-arm64). russh is
+# async; run_sftp_source wraps it in block_on like the mongo / tiberius
+# sources to stay synchronous. Host-key/fingerprint is enforced in russh's
+# check_server_key callback.
+russh = { version = "0.63", default-features = false, features = ["ring", "flate2", "rsa"] }
+russh-sftp = "2.3"
+# System clipboard reader (src.clipboard). Text-only - image-data is
+# off because we never round-trip images through pipelines. arboard
+# is pure-Rust on Windows and macOS; on Linux it talks to X11/Wayland
+# at runtime (gracefully fails with a clear engine error when there's
+# no display, e.g. on a headless CI runner).
+arboard = { version = "3", default-features = false }
+# WebAssembly interpreter for code.wasm. wasmi is pure Rust, no JIT,
+# no cranelift - far smaller than wasmtime. Trade-off: slower
+# execution, but per-row ETL transforms aren't throughput-critical.
+# The wasm module runs in a sandbox - no fs, no network, no env vars.
+wasmi = "2.0"
+# Pure-Rust JavaScript engine for code.javascript. Boa is an
+# interpreter (no JIT), sandboxed by default - no DOM, no fetch, no
+# fs. The user supplies a transform(row) -> object function and the
+# engine calls it per row, marshalling JSON in / out via the boa
+# JsValue<->serde_json bridge.
+boa_engine = "0.22"
+# Pure-Rust jq for xf.jq (GitHub #173). jaq is a jq clone with no C libjq and
+# no subprocess: the user's jq filter is parsed and interpreted in-process, then
+# applied per row to a JSON column. This is exactly the "no subprocess overhead"
+# path the issue asks for. Pinned to the 1.x interpret API.
+jaq-core = "3.1"
+jaq-std = "3.0"
+jaq-json = "2.0"
+# Used by xf.ai.pii for regex-based PII detection (emails, phones,
+# SSNs, credit cards). Already in our dep graph transitively but
+# pinned explicitly here so it's stable across upstream churn.
+regex = "1"
+# Ownership rules are globs over asset names. Already in the workspace lock.
+glob = "0.3"
+# IMAP client for src.email. 3.x alpha is what we need for rustls
+# support - the 2.x stable line only supports native-tls (OpenSSL on
+# Linux which would break the self-contained build promise). The
+# accompanying mail-parser decodes RFC 822 envelopes + MIME bodies.
+imap = { version = "=3.0.0-alpha.15", default-features = false, features = ["rustls-tls"] }
+mail-parser = "0.11"
+rustls-connector = { version = "0.23", default-features = false, features = ["rustls--ring"] }
+# SMTP client for snk.email. Pure Rust with rustls-tls. Symmetric
+# to src.email (the IMAP reader). Builder + smtp-transport features;
+# default native-tls disabled so we don't drag OpenSSL on Linux.
+lettre = { version = "0.11", default-features = false, features = ["builder", "smtp-transport", "rustls-tls"] }
+# ADBC (Arrow Database Connectivity) source. adbc_core loads a prebuilt
+# ADBC driver shared library at runtime (libloading) and returns Arrow
+# RecordBatches; we stream them to a Parquet temp file and materialize via
+# DuckDB read_parquet (no in-process DuckDB). arrow 53 unifies with the
+# workspace arrow/parquet pins so the driver's RecordBatch and the parquet
+# writer share one arrow version. The driver .dll/.so/.dylib is bundled
+# per-OS (conda-forge) and located at runtime; absent driver -> clear error.
+adbc_core = "0.24"
+adbc_driver_manager = "0.24"
+arrow-array = { workspace = true }
+arrow-schema = { workspace = true }
+parquet = { workspace = true }
+# GizmoSQL source/sink: a self-contained, pure-Rust Arrow Flight SQL client.
+# We use BASE arrow-flight (the gRPC Flight protocol + IPC decode) and hand-roll
+# the few Flight SQL command messages with prost - deliberately NOT enabling the
+# flight-sql-experimental feature, which drags in arrow-arith 53 (it fails to
+# build against chrono >= 0.4.42, which russh-sftp pins us above). arrow-flight 53
+# unifies with the workspace arrow pins; do_get RecordBatches stream to a Parquet
+# temp file + materialize via DuckDB read_parquet, like the ADBC source.
+arrow-flight = "59"
+tonic = { version = "0.14", features = ["transport", "tls-ring", "tls-native-roots"] }
+prost = "0.14"
+tokio-tungstenite = { version = "0.30", default-features = false, features = ["connect", "handshake", "rustls-tls-webpki-roots"] }
+
+# Linux-only: on top of the base odbc-sys above, request its `static` /
+# `static_ltdl` features so the Teradata ODBC driver manager (unixODBC) is
+# linked statically into the binary instead of as a runtime libodbc.so.2
+# dependency. Activated by the engine's `teradata-static` feature, which the
+# desktop/runner/mcp crates turn on for their Linux builds (issue #131).
+[target.'cfg(target_os = "linux")'.dependencies]
+odbc-sys = { version = "0.31", optional = true, features = ["static", "static_ltdl"] }
+
+[features]
+default = ["oracle"]
+oracle = ["dep:oracle"]
+# ODBC (odbc-api) transport, shared by every connector that has no DuckDB
+# extension and no native Rust driver. Off by default so a plain engine
+# build/test needs no ODBC driver manager; the shipped binaries enable it.
+odbc = ["dep:odbc-api"]
+# Teradata and IBM DB2 both ride ODBC. They stay separate feature names so a
+# build can take one without the other; both just switch the transport on.
+teradata = ["odbc"]
+db2 = ["odbc"]
+# Linux self-contained ODBC: statically link the unixODBC driver manager so a
+# shipped Linux binary launches with no system libodbc.so.2 installed. Enabled
+# only on Linux (by the consuming crates' Linux target tables) alongside
+# `teradata`; needs unixodbc-dev + libltdl-dev present at build time (issue #131).
+teradata-static = ["dep:odbc-sys"]
+
+# Issue #4 repro harness: connects to a live Oracle, replays
+# run_oracle_source faithfully, and times each phase. Gated so a
+# --no-default-features build (no `oracle` dep) skips it instead of
+# failing on the unresolved `oracle::` imports.
+[[example]]
+name = "oracle_repro"
+required-features = ["oracle"]
+
+[dev-dependencies]
+tempfile = "3.10"
+# Re-imported as dev-deps so the integration tests can BUILD the archives they
+# then read back through xf.archive.extract. Same versions as the lib deps.
+zip = { version = "8", default-features = false, features = ["deflate"] }
+tar = "0.4"
+# Re-imported as a dev-dep so the integration tests can call its
+# Writer to build a small .avro file inline before reading it back
+# through src.avro. Same version as the lib dep above.
+apache-avro = "0.22"
+# Re-imported so src.clipboard tests can write a known payload to the
+# system clipboard before running the pipeline. Same backend as the
+# lib dep -> writer and reader agree on the OS clipboard format.
+arboard = { version = "3", default-features = false }
+# Used by code.wasm tests to compile inline WAT (WebAssembly text
+# format) to bytes so we don't have to ship a pre-compiled .wasm
+# fixture in the repo.
+wat = "1"
+# Used by the Snowflake source test to gzip a partition body inline
+# (Content-Encoding: gzip), reproducing the real SQL API partition
+# format that GitHub #24 was choking on.
+flate2 = "1"
+
+# flock(2) for the cross-process run lock. Windows uses a share-mode open,
+# which is in std, so this is unix-only. Already in the tree transitively.
+# Also kill(pid, 0) for `runlock::process_alive`.
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+# OpenProcess + GetExitCodeProcess for `runlock::process_alive`, which std has
+# no equivalent of on Windows. 0.61 is already compiled into the tree for tokio,
+# so this adds two feature flags rather than a dependency.
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_System_LibraryLoader", "Win32_System_Threading"] }

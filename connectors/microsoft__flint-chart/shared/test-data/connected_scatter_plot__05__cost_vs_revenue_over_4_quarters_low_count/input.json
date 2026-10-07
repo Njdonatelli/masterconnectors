@@ -1,0 +1,54 @@
+{
+  "title": "Cost vs Revenue over 4 quarters (low count)",
+  "description": "A minimal 4-point trajectory ordered by quarter index — lowest useful connected scatter",
+  "chartType": "Connected Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Quarter": 1,
+          "Cost": 12,
+          "Revenue": 18
+        },
+        {
+          "Quarter": 2,
+          "Cost": 20,
+          "Revenue": 26
+        },
+        {
+          "Quarter": 3,
+          "Cost": 17,
+          "Revenue": 35
+        },
+        {
+          "Quarter": 4,
+          "Cost": 24,
+          "Revenue": 30
+        }
+      ]
+    },
+    "semantic_types": {
+      "Cost": "Quantity",
+      "Revenue": "Quantity",
+      "Quarter": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Connected Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Cost"
+        },
+        "y": {
+          "field": "Revenue"
+        },
+        "order": {
+          "field": "Quarter"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

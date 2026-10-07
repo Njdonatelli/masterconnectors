@@ -1,0 +1,237 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 372,
+      "continuousHeight": 323
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01",
+        "Value": 274
+      },
+      {
+        "Date": "2020-02",
+        "Value": 543
+      },
+      {
+        "Date": "2020-03",
+        "Value": 172
+      },
+      {
+        "Date": "2020-04",
+        "Value": 276
+      },
+      {
+        "Date": "2020-05",
+        "Value": 425
+      },
+      {
+        "Date": "2020-06",
+        "Value": 65
+      },
+      {
+        "Date": "2020-07",
+        "Value": 116
+      },
+      {
+        "Date": "2020-08",
+        "Value": 156
+      },
+      {
+        "Date": "2020-09",
+        "Value": 443
+      },
+      {
+        "Date": "2020-10",
+        "Value": 266
+      },
+      {
+        "Date": "2020-11",
+        "Value": 278
+      },
+      {
+        "Date": "2020-12",
+        "Value": 156
+      },
+      {
+        "Date": "2021-01",
+        "Value": 413
+      },
+      {
+        "Date": "2021-02",
+        "Value": 543
+      },
+      {
+        "Date": "2021-03",
+        "Value": 476
+      },
+      {
+        "Date": "2021-04",
+        "Value": 231
+      },
+      {
+        "Date": "2021-05",
+        "Value": 252
+      },
+      {
+        "Date": "2021-06",
+        "Value": 467
+      },
+      {
+        "Date": "2021-07",
+        "Value": 336
+      },
+      {
+        "Date": "2021-08",
+        "Value": 90
+      },
+      {
+        "Date": "2021-09",
+        "Value": 382
+      },
+      {
+        "Date": "2021-10",
+        "Value": 234
+      },
+      {
+        "Date": "2021-11",
+        "Value": 99
+      },
+      {
+        "Date": "2021-12",
+        "Value": 85
+      },
+      {
+        "Date": "2022-01",
+        "Value": 481
+      },
+      {
+        "Date": "2022-02",
+        "Value": 349
+      },
+      {
+        "Date": "2022-03",
+        "Value": 120
+      },
+      {
+        "Date": "2022-04",
+        "Value": 315
+      },
+      {
+        "Date": "2022-05",
+        "Value": 270
+      },
+      {
+        "Date": "2022-06",
+        "Value": 466
+      },
+      {
+        "Date": "2022-07",
+        "Value": 276
+      },
+      {
+        "Date": "2022-08",
+        "Value": 170
+      },
+      {
+        "Date": "2022-09",
+        "Value": 478
+      },
+      {
+        "Date": "2022-10",
+        "Value": 125
+      },
+      {
+        "Date": "2022-11",
+        "Value": 311
+      },
+      {
+        "Date": "2022-12",
+        "Value": 515
+      }
+    ]
+  },
+  "_width": 372,
+  "_height": 323,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "title": "Date (ISO YYYY-MM-DD, 3 years) → Area Chart",
+  "description": "ISO date strings spanning 3 years: \"2020-01-15\", …, \"2022-12-15\" (36 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2020-01-15",
+          "Value": 283
+        },
+        {
+          "Date": "2020-02-15",
+          "Value": 364
+        },
+        {
+          "Date": "2020-03-15",
+          "Value": 151
+        },
+        {
+          "Date": "2020-04-15",
+          "Value": 84
+        },
+        {
+          "Date": "2020-05-15",
+          "Value": 445
+        },
+        {
+          "Date": "2020-06-15",
+          "Value": 182
+        },
+        {
+          "Date": "2020-07-15",
+          "Value": 202
+        },
+        {
+          "Date": "2020-08-15",
+          "Value": 280
+        },
+        {
+          "Date": "2020-09-15",
+          "Value": 288
+        },
+        {
+          "Date": "2020-10-15",
+          "Value": 515
+        },
+        {
+          "Date": "2020-11-15",
+          "Value": 458
+        },
+        {
+          "Date": "2020-12-15",
+          "Value": 362
+        },
+        {
+          "Date": "2021-01-15",
+          "Value": 265
+        },
+        {
+          "Date": "2021-02-15",
+          "Value": 265
+        },
+        {
+          "Date": "2021-03-15",
+          "Value": 67
+        },
+        {
+          "Date": "2021-04-15",
+          "Value": 349
+        },
+        {
+          "Date": "2021-05-15",
+          "Value": 418
+        },
+        {
+          "Date": "2021-06-15",
+          "Value": 310
+        },
+        {
+          "Date": "2021-07-15",
+          "Value": 545
+        },
+        {
+          "Date": "2021-08-15",
+          "Value": 131
+        },
+        {
+          "Date": "2021-09-15",
+          "Value": 320
+        },
+        {
+          "Date": "2021-10-15",
+          "Value": 264
+        },
+        {
+          "Date": "2021-11-15",
+          "Value": 484
+        },
+        {
+          "Date": "2021-12-15",
+          "Value": 165
+        },
+        {
+          "Date": "2022-01-15",
+          "Value": 221
+        },
+        {
+          "Date": "2022-02-15",
+          "Value": 72
+        },
+        {
+          "Date": "2022-03-15",
+          "Value": 454
+        },
+        {
+          "Date": "2022-04-15",
+          "Value": 104
+        },
+        {
+          "Date": "2022-05-15",
+          "Value": 302
+        },
+        {
+          "Date": "2022-06-15",
+          "Value": 307
+        },
+        {
+          "Date": "2022-07-15",
+          "Value": 328
+        },
+        {
+          "Date": "2022-08-15",
+          "Value": 66
+        },
+        {
+          "Date": "2022-09-15",
+          "Value": 392
+        },
+        {
+          "Date": "2022-10-15",
+          "Value": 122
+        },
+        {
+          "Date": "2022-11-15",
+          "Value": 507
+        },
+        {
+          "Date": "2022-12-15",
+          "Value": 271
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

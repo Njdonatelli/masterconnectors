@@ -1,0 +1,483 @@
+/**
+ * `wigolo config` / `wigolo dashboard` — reconfigure and management entry.
+ *
+ * In interactive TTY mode, mounts the Ink schema-driven shell in home mode.
+ * In non-TTY / --plain / --non-interactive mode, prints a summary of current
+ * settings and exits cleanly (headless parity requirement).
+ *
+ * Headless flags (non-interactive parity):
+ *   --export [path]      Export config to file (default: ~/wigolo-config-export.json)
+ *   --import <path>      Import config from file
+ *   --cleanup <component> Cleanup a component (cache|embeddings|models|browser|searxng)
+ *   --uninstall [--yes]  Full uninstall (requires --yes to skip confirmation)
+ *   --storage            Print storage usage map
+ *   --cache-stats        Print cache statistics
+ *   --set key=value      Update a single non-secret setting
+ *
+ * HARD invariant: NEVER called from the MCP stdio path. Only mounted here,
+ * from `init`, and from `doctor --interactive`.
+ */
+import { join } from 'node:path';
+import { homedir } from 'node:os';
+import { getConfig } from '../config.js';
+import { isPackagedBinary, BINARY_TUI_UNAVAILABLE_MESSAGE } from '../util/packaged.js';
+import type { CategoryDef, FieldDef } from './tui/schema/types.js';
+
+const CONFIG_USAGE = [
+  'Usage: wigolo config [options]',
+  '',
+  'Opens the interactive settings shell. On first run (or when required fields',
+  'are missing), automatically launches the setup wizard.',
+  '',
+  'Options:',
+  '  --force-wizard           Always launch the setup wizard (alias: wigolo init).',
+  '                           Use the bare flag; --force-wizard=true is not accepted.',
+  '  --plain, -p              Print current settings and exit (non-interactive)',
+  '  --json                   With --plain: print settings as a machine-readable JSON object',
+  '  --storage                Print storage usage map',
+  '  --cache-stats            Print cache statistics',
+  '  --export [path]          Export config to file (secrets excluded)',
+  '  --import <path>          Import config from file',
+  '  --cleanup <component>    Free storage for: cache|embeddings|models|browser|searxng',
+  '  --set <key>=<value>      Update a single non-secret setting headlessly',
+  '  --uninstall              Full uninstall (requires --yes)',
+  '  --yes                    Skip interactive confirmation (use with --uninstall)',
+  '  --help, -h               Show this message',
+  '',
+].join('\n');
+
+const CLEANABLE = new Set(['cache', 'embeddings', 'models', 'browser', 'searxng']);
+
+interface ConfigFlags {
+  plain: boolean;
+  help: boolean;
+  forceWizard: boolean;
+  storage: boolean;
+  cacheStats: boolean;
+  export: string | null;  // path or null (use default when flag present, undefined when absent)
+  exportRequested: boolean;
+  import: string | null;
+  cleanup: string | null;
+  set: string | null;
+  uninstall: boolean;
+  yes: boolean;
+  json: boolean;
+}
+
+function parseConfigFlags(args: string[]): ConfigFlags {
+  const flags: ConfigFlags = {
+    plain: false,
+    help: false,
+    forceWizard: false,
+    storage: false,
+    cacheStats: false,
+    export: null,
+    exportRequested: false,
+    import: null,
+    cleanup: null,
+    set: null,
+    uninstall: false,
+    yes: false,
+    json: false,
+  };
+
+  let i = 0;
+  while (i < args.length) {
+    const arg = args[i];
+    if (!arg) { i++; continue; }
+
+    if (arg === '--plain' || arg === '-p') { flags.plain = true; i++; continue; }
+    if (arg === '--json') { flags.json = true; i++; continue; }
+    if (arg === '--help' || arg === '-h') { flags.help = true; i++; continue; }
+    if (arg === '--force-wizard') { flags.forceWizard = true; i++; continue; }
+    if (arg === '--storage') { flags.storage = true; i++; continue; }
+    if (arg === '--cache-stats') { flags.cacheStats = true; i++; continue; }
+    if (arg === '--yes' || arg === '-y') { flags.yes = true; i++; continue; }
+    if (arg === '--uninstall') { flags.uninstall = true; i++; continue; }
+
+    if (arg === '--export') {
+      flags.exportRequested = true;
+      const next = args[i + 1];
+      if (next && !next.startsWith('-')) {
+        flags.export = next;
+        i += 2;
+      } else {
+        i++;
+      }
+      continue;
+    }
+    if (arg.startsWith('--export=')) {
+      flags.exportRequested = true;
+      flags.export = arg.slice('--export='.length) || null;
+      i++;
+      continue;
+    }
+
+    if (arg === '--import') {
+      const next = args[i + 1];
+      if (!next || next.startsWith('-')) {
+        process.stderr.write('--import requires a path argument\n');
+        process.exit(1);
+      }
+      flags.import = next;
+      i += 2;
+      continue;
+    }
+    if (arg.startsWith('--import=')) {
+      flags.import = arg.slice('--import='.length);
+      i++;
+      continue;
+    }
+
+    if (arg === '--cleanup') {
+      const next = args[i + 1];
+      if (!next || next.startsWith('-')) {
+        process.stderr.write(`--cleanup requires a component: ${[...CLEANABLE].join('|')}\n`);
+        process.exit(1);
+      }
+      flags.cleanup = next;
+      i += 2;
+      continue;
+    }
+    if (arg.startsWith('--cleanup=')) {
+      flags.cleanup = arg.slice('--cleanup='.length);
+      i++;
+      continue;
+    }
+
+    if (arg === '--set') {
+      const next = args[i + 1];
+      if (!next || next.startsWith('-') || !next.includes('=')) {
+        process.stderr.write('--set requires <key>=<value> (e.g. --set WIGOLO_SEARCH=hybrid)\n');
+        process.exit(1);
+      }
+      flags.set = next;
+      i += 2;
+      continue;
+    }
+    if (arg.startsWith('--set=')) {
+      const payload = arg.slice('--set='.length);
+      if (!payload.includes('=')) {
+        process.stderr.write('--set requires <key>=<value> (e.g. --set=WIGOLO_SEARCH=hybrid)\n');
+        process.exit(1);
+      }
+      flags.set = payload;
+      i++;
+      continue;
+    }
+
+    // unknown flag — ignore (forward-compat)
+    i++;
+  }
+
+  return flags;
+}
+
+export async function runConfig(args: string[]): Promise<number> {
+  const flags = parseConfigFlags(args);
+
+  if (flags.help) {
+    process.stderr.write(CONFIG_USAGE);
+    return 0;
+  }
+
+  // ----- Headless actions -----
+
+  if (flags.storage) {
+    const { computeStorage } = await import('./tui/actions/index.js');
+    const config = getConfig();
+    const result = await computeStorage(config.dataDir);
+    process.stdout.write('Storage usage\n');
+    process.stdout.write('=============\n');
+    for (const item of result.items) {
+      const mb = (item.bytes / (1024 * 1024)).toFixed(2);
+      process.stdout.write(`  ${item.label.padEnd(24)} ${mb} MB\n`);
+    }
+    process.stdout.write(`\n  ${'Total'.padEnd(24)} ${(result.totalBytes / (1024 * 1024)).toFixed(2)} MB\n`);
+    return 0;
+  }
+
+  if (flags.cacheStats) {
+    const { getCacheStatsAction } = await import('./tui/actions/index.js');
+    const stats = await getCacheStatsAction();
+    if (stats.error) {
+      process.stderr.write(`Cache stats error: ${stats.error}\n`);
+      return 1;
+    }
+    process.stdout.write('Cache statistics\n');
+    process.stdout.write('================\n');
+    process.stdout.write(`  Entries: ${stats.totalEntries}\n`);
+    process.stdout.write(`  Size:    ${stats.sizeMb.toFixed(2)} MB\n`);
+    if (stats.oldest) process.stdout.write(`  Oldest:  ${stats.oldest}\n`);
+    if (stats.newest) process.stdout.write(`  Newest:  ${stats.newest}\n`);
+    return 0;
+  }
+
+  if (flags.exportRequested) {
+    const { exportConfig } = await import('./tui/actions/index.js');
+    const defaultPath = join(homedir(), 'wigolo-config-export.json');
+    const exportPath = flags.export ?? defaultPath;
+    const configPath = process.env.WIGOLO_CONFIG_PATH ?? join(homedir(), '.wigolo', 'config.json');
+    const result = await exportConfig(exportPath, configPath);
+    if (result.ok) {
+      process.stdout.write(`Config exported to ${exportPath} (secrets excluded)\n`);
+      return 0;
+    }
+    process.stderr.write(`Export failed: ${result.error}\n`);
+    return 1;
+  }
+
+  if (flags.import !== null) {
+    const { importConfig } = await import('./tui/actions/index.js');
+    const configPath = process.env.WIGOLO_CONFIG_PATH ?? join(homedir(), '.wigolo', 'config.json');
+    const result = await importConfig(flags.import, configPath);
+    if (result.ok) {
+      process.stdout.write(`Config imported from ${flags.import}\n`);
+      return 0;
+    }
+    process.stderr.write(`Import failed: ${result.error}\n`);
+    return 1;
+  }
+
+  if (flags.cleanup !== null) {
+    const component = flags.cleanup;
+    if (!CLEANABLE.has(component)) {
+      process.stderr.write(`Unknown component: ${component}. Valid: ${[...CLEANABLE].join(', ')}\n`);
+      return 1;
+    }
+    const { cleanupComponent } = await import('./tui/actions/index.js');
+    const config = getConfig();
+    const result = await cleanupComponent(
+      component as 'cache' | 'embeddings' | 'models' | 'browser' | 'searxng',
+      config.dataDir,
+    );
+    if (result.ok) {
+      const mb = (result.freedBytes / (1024 * 1024)).toFixed(2);
+      process.stdout.write(`Cleaned ${component}: freed ${mb} MB\n`);
+      return 0;
+    }
+    process.stderr.write(`Cleanup failed: ${result.error}\n`);
+    return 1;
+  }
+
+  if (flags.set !== null) {
+    const eqIdx = flags.set.indexOf('=');
+    const key = flags.set.slice(0, eqIdx);
+    const value = flags.set.slice(eqIdx + 1);
+    const { applyHeadlessSet } = await import('./tui/actions/index.js');
+    const { CATALOG } = await import('./tui/schema/catalog.js');
+    const { defaultAgentTargets } = await import('./tui/state/agent-targets.js');
+    const { defaultSecretStore } = await import('./tui/state/secret-store.js');
+    const config = getConfig();
+    const configPath = process.env.WIGOLO_CONFIG_PATH ?? join(homedir(), '.wigolo', 'config.json');
+    const agents = defaultAgentTargets({ dataDir: config.dataDir });
+    const secretStore = defaultSecretStore({ dataDir: config.dataDir });
+    const result = await applyHeadlessSet({
+      key,
+      value,
+      configPath,
+      catalog: CATALOG,
+      agents,
+      secretStore,
+    });
+    if (result.status === 'ok') {
+      process.stdout.write(`${result.message}\n`);
+      return 0;
+    }
+    process.stderr.write(`${result.message}\n`);
+    return 1;
+  }
+
+  if (flags.uninstall) {
+    if (!flags.yes) {
+      process.stderr.write(
+        'Uninstall requires confirmation. Use --uninstall --yes to proceed.\n',
+      );
+      return 1;
+    }
+    const { uninstall } = await import('./tui/actions/index.js');
+    const config = getConfig();
+    const result = await uninstall({ dataDir: config.dataDir, confirmed: true });
+    if (result.dataDirRemoved) {
+      process.stdout.write(`Removed data directory: ${config.dataDir}\n`);
+    }
+    for (const ar of result.agentResults) {
+      if (ar.error) {
+        process.stderr.write(`${ar.displayName}: error — ${ar.error}\n`);
+      } else if (ar.removed.length > 0) {
+        process.stdout.write(`${ar.displayName}: removed ${ar.removed.join(', ')}\n`);
+      }
+    }
+    if (!result.ok) {
+      process.stderr.write(`Uninstall error: ${result.error}\n`);
+      return 1;
+    }
+    process.stdout.write('Wigolo uninstalled.\n');
+    return 0;
+  }
+
+  // ----- Interactive / plain mode -----
+
+  const isTTY = Boolean(process.stdout.isTTY);
+  const isCI =
+    process.env.CI === 'true' ||
+    process.env.CI === '1' ||
+    process.env.GITHUB_ACTIONS === 'true';
+
+  // --json forces headless machine output regardless of TTY.
+  const useInk = !flags.plain && !flags.json && isTTY && !isCI;
+
+  // The Ink TUI stack cannot boot inside the standalone binary (dependency-level
+  // top-level await). Headless-first: surface the actionable fallback, then fall
+  // through to the plain settings printout below instead of crashing.
+  if (useInk && isPackagedBinary()) {
+    process.stderr.write(`${BINARY_TUI_UNAVAILABLE_MESSAGE}\n`);
+  } else if (useInk) {
+    return runInkConfig({
+      isTTY,
+      ci: isCI,
+      plain: flags.plain,
+      forceWizard: flags.forceWizard,
+    });
+  }
+
+  // Plain / non-interactive: print current settings from the schema CATALOG.
+  // The catalog + persisted-config accessor stay the source of truth — no
+  // separate curated-env-vars list exists.
+  const { CATALOG } = await import('./tui/schema/catalog.js');
+  const { readPersistedConfig } = await import('../persisted-config.js');
+  const config = getConfig();
+  const configPath = process.env.WIGOLO_CONFIG_PATH ?? join(homedir(), '.wigolo', 'config.json');
+  const persisted = readPersistedConfig(configPath);
+
+  if (flags.json) {
+    // Machine-readable settings. Masked/secret fields are collapsed to a
+    // presence flag so --json never leaks a credential (mirrors --plain).
+    const settings: Record<string, unknown> = {};
+    for (const category of CATALOG) {
+      for (const field of category.fields) {
+        if (field.kind === 'readonly') continue;
+        const raw = persisted.settings[field.settingsPath];
+        if (field.kind === 'masked' || field.secret === true) {
+          settings[field.settingsPath] = raw === undefined || raw === '' ? null : '****';
+        } else {
+          settings[field.settingsPath] = raw ?? null;
+        }
+      }
+    }
+    process.stdout.write(`${JSON.stringify({ dataDir: config.dataDir, settings })}\n`);
+    return 0;
+  }
+
+  process.stdout.write('Wigolo current settings\n');
+  process.stdout.write('=======================\n\n');
+
+  for (const category of CATALOG) {
+    printCategory(category, persisted.settings);
+  }
+
+  process.stdout.write(`\nData directory: ${config.dataDir}\n`);
+  process.stdout.write('\nRun `wigolo config` in an interactive terminal to change settings.\n');
+  process.stdout.write('\nHeadless commands:\n');
+  process.stdout.write('  wigolo config --storage          Show storage usage\n');
+  process.stdout.write('  wigolo config --cache-stats      Show cache statistics\n');
+  process.stdout.write('  wigolo config --export           Export settings to file\n');
+  process.stdout.write('  wigolo config --import <path>    Import settings from file\n');
+  process.stdout.write('  wigolo config --cleanup <comp>   Free storage per component\n');
+  process.stdout.write('  wigolo config --set k=v          Update a single non-secret setting\n');
+  process.stdout.write('  wigolo config --uninstall --yes  Full uninstall\n');
+
+  return 0;
+}
+
+/**
+ * Format one FieldDef as a one-line summary. Masked/secret fields show only a
+ * placeholder so a `--plain` print never leaks a credential.
+ */
+function formatFieldValue(field: FieldDef, raw: unknown): string {
+  if (field.kind === 'masked' || field.secret === true) {
+    return raw === undefined || raw === '' ? '(unset)' : '****';
+  }
+  if (raw === undefined || raw === null) {
+    return field.default === undefined ? '(unset)' : `${String(field.default)} (default)`;
+  }
+  if (Array.isArray(raw)) return raw.join(', ');
+  return String(raw);
+}
+
+function printCategory(
+  category: CategoryDef,
+  settings: Readonly<Record<string, unknown>>,
+): void {
+  process.stdout.write(`[${category.label}]\n`);
+  for (const field of category.fields) {
+    if (field.kind === 'readonly') continue;
+    const raw = settings[field.settingsPath];
+    const display = formatFieldValue(field, raw);
+    // 30-col label keeps long key names from breaking alignment.
+    process.stdout.write(`  ${field.key.padEnd(30)} ${display}\n`);
+  }
+  process.stdout.write('\n');
+}
+
+interface RunInkConfigOpts {
+  isTTY: boolean;
+  ci: boolean;
+  plain: boolean;
+  /** When true, always launch the wizard regardless of config state. */
+  forceWizard?: boolean;
+}
+
+/**
+ * Mounts the new schema-driven TUI.
+ *
+ * Entry routing:
+ *   - forceWizard=true  → mode='wizard' (bypasses required-fields check)
+ *   - forceWizard=false → mode='auto'   (wizard if config missing or incomplete,
+ *                                        home if config has required fields)
+ *
+ * After wizard finish, the user drops directly into the settings shell with
+ * the new config loaded — there is no intermediate state or "rerun" prompt.
+ */
+async function runInkConfig(opts: RunInkConfigOpts): Promise<number> {
+  const { runEntry } = await import('./tui/entry.js');
+  const { createSettingsStore } = await import('./tui/state/settings-store.js');
+  const { CATALOG } = await import('./tui/schema/catalog.js');
+  const { defaultAgentTargets } = await import('./tui/state/agent-targets.js');
+  const { defaultSecretStore } = await import('./tui/state/secret-store.js');
+  const { enableTuiMode } = await import('./tui/utils/suppress-logs.js');
+  const { getPackageVersion } = await import('./tui/version.js');
+  const { defaultConfigPath, readPersistedConfig } = await import('../persisted-config.js');
+  const { toastStore } = await import('./tui/state/toast-store-instance.js');
+  const { activityStore } = await import('./tui/state/activity-store-instance.js');
+
+  enableTuiMode();
+  const configPath = defaultConfigPath();
+  const persisted = readPersistedConfig(configPath);
+  const store = createSettingsStore(persisted.settings, toastStore, activityStore);
+  const config = getConfig();
+  const agents = defaultAgentTargets({ dataDir: config.dataDir });
+  const secretStore = defaultSecretStore({ dataDir: config.dataDir });
+
+  const result = await runEntry({
+    mode: opts.forceWizard ? 'wizard' : 'auto',
+    configPath,
+    isTTY: opts.isTTY,
+    ci: opts.ci,
+    plain: opts.plain,
+    store,
+    catalog: CATALOG,
+    agents,
+    secretStore,
+    version: getPackageVersion(),
+    productName: 'wigolo',
+  });
+
+  if (!result.mounted) {
+    // Headless gating tripped — caller already guarded on flags, but surface
+    // a sensible non-zero so scripts notice if the gating ever drifts.
+    process.stderr.write('Interactive config requires a terminal. Use --plain to see settings.\n');
+    return 1;
+  }
+  return 0;
+}

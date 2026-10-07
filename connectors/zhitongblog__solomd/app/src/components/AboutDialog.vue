@@ -1,0 +1,275 @@
+<script setup lang="ts">
+import { ref, onMounted, watch } from 'vue';
+import { getVersion } from '@tauri-apps/api/app';
+import { openUrl } from '@tauri-apps/plugin-opener';
+import { DsModal } from '../ui';
+import BrandMark from './BrandMark.vue';
+
+const props = defineProps<{ open: boolean }>();
+const emit = defineEmits<{ (e: 'close'): void }>();
+
+const VERSION = ref('…');
+onMounted(async () => {
+  try {
+    VERSION.value = await getVersion();
+  } catch {
+    VERSION.value = '2.5.0';
+  }
+});
+
+// Sponsor nicknames, fetched from the site so a new name shows up without an
+// app release. Silent on failure (offline, blocked): the section just stays
+// hidden. Fetched once per session, only when the dialog is first opened.
+const sponsors = ref<string[]>([]);
+const promoters = ref<string[]>([]);
+const testers = ref<string[]>([]);
+let sponsorsLoaded = false;
+async function loadSponsors() {
+  if (sponsorsLoaded) return;
+  sponsorsLoaded = true;
+  try {
+    const res = await fetch('https://solomd.app/sponsors.json', { signal: AbortSignal.timeout(5000) });
+    if (!res.ok) return;
+    const data = await res.json();
+    const names = (list: unknown) =>
+      (Array.isArray(list) ? list : [])
+        .map((s: { name?: unknown }) => (typeof s?.name === 'string' ? s.name.trim() : ''))
+        .filter((n: string) => n.length > 0 && n.length <= 40)
+        .slice(0, 200);
+    sponsors.value = names(data?.sponsors);
+    // People who wrote about SoloMD or recommended it (solomd.app/promote).
+    promoters.value = names(data?.promoters);
+    // People who test SoloMD carefully and send detailed bug reports.
+    testers.value = names(data?.testers);
+  } catch {
+    /* offline or blocked — nothing to show */
+  }
+}
+watch(() => props.open, (o) => { if (o) loadSponsors(); }, { immediate: true });
+
+const links = {
+  website: 'https://solomd.app',
+  github: 'https://github.com/zhitongblog/solomd',
+  // Update/version-history surfaces point at solomd.app, not GitHub: the
+  // site serves mainland users (Cloudflare edge + Gitee mirror links) where
+  // github.com often doesn't resolve. Same policy as the update toast (#154).
+  releases: 'https://solomd.app/whats-new',
+  sponsor: 'https://solomd.app/#sponsor',
+  promote: 'https://solomd.app/promote',
+};
+
+// NOTE: this function intentionally is NOT named `open` because that
+// collides with the `open` prop and the template would shadow it.
+async function visit(url: string) {
+  try {
+    await openUrl(url);
+  } catch (e) {
+    console.error('failed to open url', e);
+  }
+}
+</script>
+
+<template>
+  <DsModal
+    :model-value="open"
+    width="440px"
+    @update:model-value="emit('close')"
+  >
+    <!-- Empty header slot keeps DsModal's × close button without a title bar,
+         since the About content is centered branding rather than a labelled
+         form. -->
+    <template #header><span class="about__hdr" aria-label="About SoloMD"></span></template>
+
+    <div class="about">
+      <div class="about__brand">
+        <BrandMark class="brand" :size="64" label="SoloMD" />
+      </div>
+
+      <h2 class="about__name">SoloMD</h2>
+      <div class="about__version">v{{ VERSION }}</div>
+
+      <p class="about__tagline">
+        One file. One window. Just write.<br />
+        <span class="about__tagline-zh">一个文件,一个窗口,专心写作。</span>
+      </p>
+
+      <p class="about__desc">
+        A lightweight, cross-platform Markdown + plain text editor.<br />
+        <span class="about__desc-zh">一款轻量、跨平台的 Markdown 与纯文本编辑器。</span>
+      </p>
+
+      <div class="about__links">
+        <button class="about__link" @click="visit(links.website)">
+          <span class="about__link-icon">🌐</span>
+          <div>
+            <div class="about__link-title">Website / 官网</div>
+            <div class="about__link-url">solomd.app</div>
+          </div>
+        </button>
+        <button class="about__link" @click="visit(links.github)">
+          <span class="about__link-icon">⭐</span>
+          <div>
+            <div class="about__link-title">Star on GitHub / 去 GitHub 点 Star</div>
+            <div class="about__link-url">zhitongblog/solomd</div>
+          </div>
+        </button>
+        <button class="about__link" @click="visit(links.releases)">
+          <span class="about__link-icon">📦</span>
+          <div>
+            <div class="about__link-title">What's New / 更新日志</div>
+            <div class="about__link-url">solomd.app/whats-new</div>
+          </div>
+        </button>
+        <button class="about__link" @click="visit(links.sponsor)">
+          <span class="about__link-icon">❤️</span>
+          <div>
+            <div class="about__link-title">Sponsor / 赞助</div>
+            <div class="about__link-url">GitHub · Alipay · WeChat</div>
+          </div>
+        </button>
+      </div>
+
+      <div v-if="sponsors.length" class="about__sponsors">
+        <div class="about__sponsors-title">Thanks to our sponsors / 感谢赞助者</div>
+        <div class="about__sponsors-names">{{ sponsors.join(' · ') }}</div>
+      </div>
+      <div v-if="testers.length" class="about__sponsors">
+        <div class="about__sponsors-title">Thanks to our testers / 感谢测试者</div>
+        <div class="about__sponsors-names">{{ testers.join(' · ') }}</div>
+      </div>
+      <div v-if="promoters.length" class="about__sponsors">
+        <div class="about__sponsors-title">Thanks to our promoters / 感谢推广者</div>
+        <div class="about__sponsors-names">{{ promoters.join(' · ') }}</div>
+      </div>
+      <button class="about__promote" @click="visit(links.promote)">
+        📣 Help spread the word / 帮忙推广 SoloMD →
+      </button>
+
+      <div class="about__footer">
+        © 2026 xiangdong li · MIT License<br />
+        Tauri 2 · Vue 3 · CodeMirror 6 · Rust
+      </div>
+    </div>
+  </DsModal>
+</template>
+
+<style scoped>
+.about {
+  text-align: center;
+}
+.about__hdr {
+  flex: 1;
+}
+.about__brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+.brand {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+}
+
+.about__name {
+  margin: 14px 0 2px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+.about__version {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.about__tagline {
+  font-size: 13px;
+  color: var(--text);
+  margin: 0 0 6px;
+  line-height: 1.6;
+}
+.about__tagline-zh {
+  color: var(--text-muted);
+}
+.about__desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
+.about__desc-zh {
+  color: var(--text-faint);
+}
+
+.about__links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+.about__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+  transition: all 0.15s;
+  font: inherit;
+}
+.about__link:hover {
+  border-color: var(--accent);
+  background: var(--bg-hover);
+}
+.about__link-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.about__link-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+}
+.about__link-url {
+  font-size: 10px;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  margin-top: 1px;
+}
+
+.about__sponsors {
+  margin: 0 0 14px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.about__sponsors-title {
+  color: var(--text-faint);
+  margin-bottom: 2px;
+}
+.about__sponsors-names {
+  color: var(--text-muted);
+}
+.about__footer {
+  font-size: 10px;
+  color: var(--text-faint);
+  line-height: 1.7;
+}
+
+.about__promote {
+  margin: 4px auto 14px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.about__promote:hover {
+  text-decoration: underline;
+}
+</style>

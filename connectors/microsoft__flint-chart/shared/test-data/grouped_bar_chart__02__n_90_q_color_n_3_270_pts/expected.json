@@ -1,0 +1,478 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...66 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Daniel Flores",
+          "Donna White",
+          "Sandra Lopez",
+          "Anthony Thomas",
+          "Paul Anderson",
+          "Andrew King",
+          "Lisa Clark",
+          "Steven Wilson",
+          "Joseph Williams",
+          "Karen Rodriguez",
+          "James Perez",
+          "Steven Lewis",
+          "Richard Flores",
+          "Mark Taylor",
+          "William Perez",
+          "Margaret Garcia",
+          "Charles King",
+          "Emily Martinez",
+          "Nancy Young",
+          "John Lewis",
+          "Karen Garcia",
+          "Patricia Jackson",
+          "Karen Johnson",
+          "Mary Walker",
+          "...66 items omitted"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "xOffset": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 30,
+    "for": "position"
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Steven Lewis",
+        "Value": 476,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Steven Lewis",
+        "Value": 794,
+        "Segment": "China"
+      },
+      {
+        "Category": "Steven Lewis",
+        "Value": 924,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Mark Taylor",
+        "Value": 418,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Mark Taylor",
+        "Value": 815,
+        "Segment": "China"
+      },
+      {
+        "Category": "Mark Taylor",
+        "Value": 924,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Karen Rodriguez",
+        "Value": 477,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Karen Rodriguez",
+        "Value": 782,
+        "Segment": "China"
+      },
+      {
+        "Category": "Karen Rodriguez",
+        "Value": 953,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Patricia Jackson",
+        "Value": 956,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Patricia Jackson",
+        "Value": 304,
+        "Segment": "China"
+      },
+      {
+        "Category": "Patricia Jackson",
+        "Value": 765,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Donna White",
+        "Value": 889,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Donna White",
+        "Value": 713,
+        "Segment": "China"
+      },
+      {
+        "Category": "Donna White",
+        "Value": 993,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Steven Wilson",
+        "Value": 869,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Steven Wilson",
+        "Value": 627,
+        "Segment": "China"
+      },
+      {
+        "Category": "Steven Wilson",
+        "Value": 839,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Paul Anderson",
+        "Value": 576,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Paul Anderson",
+        "Value": 959,
+        "Segment": "China"
+      },
+      {
+        "Category": "Paul Anderson",
+        "Value": 898,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Richard Flores",
+        "Value": 931,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Richard Flores",
+        "Value": 827,
+        "Segment": "China"
+      },
+      {
+        "Category": "Richard Flores",
+        "Value": 419,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Joseph Williams",
+        "Value": 946,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Joseph Williams",
+        "Value": 375,
+        "Segment": "China"
+      },
+      {
+        "Category": "Joseph Williams",
+        "Value": 974,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Karen Johnson",
+        "Value": 747,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Karen Johnson",
+        "Value": 324,
+        "Segment": "China"
+      },
+      {
+        "Category": "Karen Johnson",
+        "Value": 923,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Emily Martinez",
+        "Value": 451,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Emily Martinez",
+        "Value": 992,
+        "Segment": "China"
+      },
+      {
+        "Category": "Emily Martinez",
+        "Value": 634,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Sandra Lopez",
+        "Value": 811,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Sandra Lopez",
+        "Value": 928,
+        "Segment": "China"
+      },
+      {
+        "Category": "Sandra Lopez",
+        "Value": 777,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Daniel Flores",
+        "Value": 930,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Daniel Flores",
+        "Value": 796,
+        "Segment": "China"
+      },
+      {
+        "Category": "Daniel Flores",
+        "Value": 975,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Mary Walker",
+        "Value": 517,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Mary Walker",
+        "Value": 507,
+        "Segment": "China"
+      },
+      {
+        "Category": "Mary Walker",
+        "Value": 950,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Andrew King",
+        "Value": 918,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Andrew King",
+        "Value": 537,
+        "Segment": "China"
+      },
+      {
+        "Category": "Andrew King",
+        "Value": 946,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "William Perez",
+        "Value": 596,
+        "Segment": "USA"
+      },
+      {
+        "Category": "William Perez",
+        "Value": 859,
+        "Segment": "China"
+      },
+      {
+        "Category": "William Perez",
+        "Value": 693,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Margaret Garcia",
+        "Value": 579,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Margaret Garcia",
+        "Value": 879,
+        "Segment": "China"
+      },
+      {
+        "Category": "Margaret Garcia",
+        "Value": 680,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Karen Garcia",
+        "Value": 823,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Karen Garcia",
+        "Value": 801,
+        "Segment": "China"
+      },
+      {
+        "Category": "Karen Garcia",
+        "Value": 415,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Nancy Young",
+        "Value": 520,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Nancy Young",
+        "Value": 730,
+        "Segment": "China"
+      },
+      {
+        "Category": "Nancy Young",
+        "Value": 811,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "John Lewis",
+        "Value": 501,
+        "Segment": "USA"
+      },
+      {
+        "Category": "John Lewis",
+        "Value": 997,
+        "Segment": "China"
+      },
+      {
+        "Category": "John Lewis",
+        "Value": 563,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Anthony Thomas",
+        "Value": 619,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Anthony Thomas",
+        "Value": 868,
+        "Segment": "China"
+      },
+      {
+        "Category": "Anthony Thomas",
+        "Value": 990,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "James Perez",
+        "Value": 663,
+        "Segment": "USA"
+      },
+      {
+        "Category": "James Perez",
+        "Value": 809,
+        "Segment": "China"
+      },
+      {
+        "Category": "James Perez",
+        "Value": 723,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Lisa Clark",
+        "Value": 957,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Lisa Clark",
+        "Value": 767,
+        "Segment": "China"
+      },
+      {
+        "Category": "Lisa Clark",
+        "Value": 654,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Charles King",
+        "Value": 224,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Charles King",
+        "Value": 919,
+        "Segment": "China"
+      },
+      {
+        "Category": "Charles King",
+        "Value": 937,
+        "Segment": "Japan"
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "66 of 90 values in 'Category' were omitted (showing top 24).",
+      "channel": "x",
+      "field": "Category"
+    }
+  ],
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

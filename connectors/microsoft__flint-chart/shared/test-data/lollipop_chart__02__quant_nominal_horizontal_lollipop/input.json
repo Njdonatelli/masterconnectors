@@ -1,0 +1,57 @@
+{
+  "title": "Quant × Nominal (horizontal lollipop)",
+  "description": "6 departments — horizontal layout",
+  "chartType": "Lollipop Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Department": "Engineering",
+          "Score": 93
+        },
+        {
+          "Department": "Marketing",
+          "Score": 46
+        },
+        {
+          "Department": "Sales",
+          "Score": 76
+        },
+        {
+          "Department": "Support",
+          "Score": 91
+        },
+        {
+          "Department": "HR",
+          "Score": 45
+        },
+        {
+          "Department": "Finance",
+          "Score": 49
+        }
+      ]
+    },
+    "semantic_types": {
+      "Score": "Quantity",
+      "Department": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Lollipop Chart",
+      "encodings": {
+        "x": {
+          "field": "Score"
+        },
+        "y": {
+          "field": "Department"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

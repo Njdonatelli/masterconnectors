@@ -1,0 +1,988 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "y": {
+      "field": "Dept",
+      "type": "nominal",
+      "sort": null
+    },
+    "x": {
+      "field": "Budget",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 190,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 8
+    },
+    "facet": {
+      "spacing": 19
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 9
+  },
+  "data": {
+    "values": [
+      {
+        "Dept": "Dept01",
+        "Segment": "Seg1",
+        "Budget": 132
+      },
+      {
+        "Dept": "Dept01",
+        "Segment": "Seg2",
+        "Budget": 298
+      },
+      {
+        "Dept": "Dept01",
+        "Segment": "Seg3",
+        "Budget": 453
+      },
+      {
+        "Dept": "Dept02",
+        "Segment": "Seg1",
+        "Budget": 346
+      },
+      {
+        "Dept": "Dept02",
+        "Segment": "Seg2",
+        "Budget": 151
+      },
+      {
+        "Dept": "Dept02",
+        "Segment": "Seg3",
+        "Budget": 325
+      },
+      {
+        "Dept": "Dept03",
+        "Segment": "Seg1",
+        "Budget": 207
+      },
+      {
+        "Dept": "Dept03",
+        "Segment": "Seg2",
+        "Budget": 380
+      },
+      {
+        "Dept": "Dept03",
+        "Segment": "Seg3",
+        "Budget": 484
+      },
+      {
+        "Dept": "Dept04",
+        "Segment": "Seg1",
+        "Budget": 249
+      },
+      {
+        "Dept": "Dept04",
+        "Segment": "Seg2",
+        "Budget": 262
+      },
+      {
+        "Dept": "Dept04",
+        "Segment": "Seg3",
+        "Budget": 120
+      },
+      {
+        "Dept": "Dept05",
+        "Segment": "Seg1",
+        "Budget": 393
+      },
+      {
+        "Dept": "Dept05",
+        "Segment": "Seg2",
+        "Budget": 303
+      },
+      {
+        "Dept": "Dept05",
+        "Segment": "Seg3",
+        "Budget": 467
+      },
+      {
+        "Dept": "Dept06",
+        "Segment": "Seg1",
+        "Budget": 303
+      },
+      {
+        "Dept": "Dept06",
+        "Segment": "Seg2",
+        "Budget": 308
+      },
+      {
+        "Dept": "Dept06",
+        "Segment": "Seg3",
+        "Budget": 175
+      },
+      {
+        "Dept": "Dept07",
+        "Segment": "Seg1",
+        "Budget": 42
+      },
+      {
+        "Dept": "Dept07",
+        "Segment": "Seg2",
+        "Budget": 32
+      },
+      {
+        "Dept": "Dept07",
+        "Segment": "Seg3",
+        "Budget": 330
+      },
+      {
+        "Dept": "Dept08",
+        "Segment": "Seg1",
+        "Budget": 190
+      },
+      {
+        "Dept": "Dept08",
+        "Segment": "Seg2",
+        "Budget": 402
+      },
+      {
+        "Dept": "Dept08",
+        "Segment": "Seg3",
+        "Budget": 109
+      },
+      {
+        "Dept": "Dept09",
+        "Segment": "Seg1",
+        "Budget": 43
+      },
+      {
+        "Dept": "Dept09",
+        "Segment": "Seg2",
+        "Budget": 358
+      },
+      {
+        "Dept": "Dept09",
+        "Segment": "Seg3",
+        "Budget": 82
+      },
+      {
+        "Dept": "Dept10",
+        "Segment": "Seg1",
+        "Budget": 316
+      },
+      {
+        "Dept": "Dept10",
+        "Segment": "Seg2",
+        "Budget": 312
+      },
+      {
+        "Dept": "Dept10",
+        "Segment": "Seg3",
+        "Budget": 93
+      },
+      {
+        "Dept": "Dept11",
+        "Segment": "Seg1",
+        "Budget": 387
+      },
+      {
+        "Dept": "Dept11",
+        "Segment": "Seg2",
+        "Budget": 32
+      },
+      {
+        "Dept": "Dept11",
+        "Segment": "Seg3",
+        "Budget": 306
+      },
+      {
+        "Dept": "Dept12",
+        "Segment": "Seg1",
+        "Budget": 193
+      },
+      {
+        "Dept": "Dept12",
+        "Segment": "Seg2",
+        "Budget": 98
+      },
+      {
+        "Dept": "Dept12",
+        "Segment": "Seg3",
+        "Budget": 287
+      },
+      {
+        "Dept": "Dept13",
+        "Segment": "Seg1",
+        "Budget": 431
+      },
+      {
+        "Dept": "Dept13",
+        "Segment": "Seg2",
+        "Budget": 330
+      },
+      {
+        "Dept": "Dept13",
+        "Segment": "Seg3",
+        "Budget": 475
+      },
+      {
+        "Dept": "Dept14",
+        "Segment": "Seg1",
+        "Budget": 394
+      },
+      {
+        "Dept": "Dept14",
+        "Segment": "Seg2",
+        "Budget": 185
+      },
+      {
+        "Dept": "Dept14",
+        "Segment": "Seg3",
+        "Budget": 131
+      },
+      {
+        "Dept": "Dept15",
+        "Segment": "Seg1",
+        "Budget": 396
+      },
+      {
+        "Dept": "Dept15",
+        "Segment": "Seg2",
+        "Budget": 364
+      },
+      {
+        "Dept": "Dept15",
+        "Segment": "Seg3",
+        "Budget": 85
+      },
+      {
+        "Dept": "Dept16",
+        "Segment": "Seg1",
+        "Budget": 476
+      },
+      {
+        "Dept": "Dept16",
+        "Segment": "Seg2",
+        "Budget": 78
+      },
+      {
+        "Dept": "Dept16",
+        "Segment": "Seg3",
+        "Budget": 26
+      },
+      {
+        "Dept": "Dept17",
+        "Segment": "Seg1",
+        "Budget": 163
+      },
+      {
+        "Dept": "Dept17",
+        "Segment": "Seg2",
+        "Budget": 53
+      },
+      {
+        "Dept": "Dept17",
+        "Segment": "Seg3",
+        "Budget": 220
+      },
+      {
+        "Dept": "Dept18",
+        "Segment": "Seg1",
+        "Budget": 143
+      },
+      {
+        "Dept": "Dept18",
+        "Segment": "Seg2",
+        "Budget": 190
+      },
+      {
+        "Dept": "Dept18",
+        "Segment": "Seg3",
+        "Budget": 73
+      },
+      {
+        "Dept": "Dept19",
+        "Segment": "Seg1",
+        "Budget": 157
+      },
+      {
+        "Dept": "Dept19",
+        "Segment": "Seg2",
+        "Budget": 49
+      },
+      {
+        "Dept": "Dept19",
+        "Segment": "Seg3",
+        "Budget": 20
+      },
+      {
+        "Dept": "Dept20",
+        "Segment": "Seg1",
+        "Budget": 384
+      },
+      {
+        "Dept": "Dept20",
+        "Segment": "Seg2",
+        "Budget": 178
+      },
+      {
+        "Dept": "Dept20",
+        "Segment": "Seg3",
+        "Budget": 285
+      },
+      {
+        "Dept": "Dept21",
+        "Segment": "Seg1",
+        "Budget": 425
+      },
+      {
+        "Dept": "Dept21",
+        "Segment": "Seg2",
+        "Budget": 495
+      },
+      {
+        "Dept": "Dept21",
+        "Segment": "Seg3",
+        "Budget": 423
+      },
+      {
+        "Dept": "Dept22",
+        "Segment": "Seg1",
+        "Budget": 302
+      },
+      {
+        "Dept": "Dept22",
+        "Segment": "Seg2",
+        "Budget": 121
+      },
+      {
+        "Dept": "Dept22",
+        "Segment": "Seg3",
+        "Budget": 289
+      },
+      {
+        "Dept": "Dept23",
+        "Segment": "Seg1",
+        "Budget": 168
+      },
+      {
+        "Dept": "Dept23",
+        "Segment": "Seg2",
+        "Budget": 18
+      },
+      {
+        "Dept": "Dept23",
+        "Segment": "Seg3",
+        "Budget": 180
+      },
+      {
+        "Dept": "Dept24",
+        "Segment": "Seg1",
+        "Budget": 400
+      },
+      {
+        "Dept": "Dept24",
+        "Segment": "Seg2",
+        "Budget": 404
+      },
+      {
+        "Dept": "Dept24",
+        "Segment": "Seg3",
+        "Budget": 84
+      },
+      {
+        "Dept": "Dept25",
+        "Segment": "Seg1",
+        "Budget": 216
+      },
+      {
+        "Dept": "Dept25",
+        "Segment": "Seg2",
+        "Budget": 214
+      },
+      {
+        "Dept": "Dept25",
+        "Segment": "Seg3",
+        "Budget": 83
+      },
+      {
+        "Dept": "Dept26",
+        "Segment": "Seg1",
+        "Budget": 201
+      },
+      {
+        "Dept": "Dept26",
+        "Segment": "Seg2",
+        "Budget": 287
+      },
+      {
+        "Dept": "Dept26",
+        "Segment": "Seg3",
+        "Budget": 171
+      },
+      {
+        "Dept": "Dept27",
+        "Segment": "Seg1",
+        "Budget": 247
+      },
+      {
+        "Dept": "Dept27",
+        "Segment": "Seg2",
+        "Budget": 178
+      },
+      {
+        "Dept": "Dept27",
+        "Segment": "Seg3",
+        "Budget": 160
+      },
+      {
+        "Dept": "Dept28",
+        "Segment": "Seg1",
+        "Budget": 77
+      },
+      {
+        "Dept": "Dept28",
+        "Segment": "Seg2",
+        "Budget": 452
+      },
+      {
+        "Dept": "Dept28",
+        "Segment": "Seg3",
+        "Budget": 389
+      },
+      {
+        "Dept": "Dept29",
+        "Segment": "Seg1",
+        "Budget": 126
+      },
+      {
+        "Dept": "Dept29",
+        "Segment": "Seg2",
+        "Budget": 427
+      },
+      {
+        "Dept": "Dept29",
+        "Segment": "Seg3",
+        "Budget": 78
+      },
+      {
+        "Dept": "Dept30",
+        "Segment": "Seg1",
+        "Budget": 492
+      },
+      {
+        "Dept": "Dept30",
+        "Segment": "Seg2",
+        "Budget": 312
+      },
+      {
+        "Dept": "Dept30",
+        "Segment": "Seg3",
+        "Budget": 334
+      },
+      {
+        "Dept": "Dept31",
+        "Segment": "Seg1",
+        "Budget": 303
+      },
+      {
+        "Dept": "Dept31",
+        "Segment": "Seg2",
+        "Budget": 175
+      },
+      {
+        "Dept": "Dept31",
+        "Segment": "Seg3",
+        "Budget": 150
+      },
+      {
+        "Dept": "Dept32",
+        "Segment": "Seg1",
+        "Budget": 141
+      },
+      {
+        "Dept": "Dept32",
+        "Segment": "Seg2",
+        "Budget": 479
+      },
+      {
+        "Dept": "Dept32",
+        "Segment": "Seg3",
+        "Budget": 351
+      },
+      {
+        "Dept": "Dept33",
+        "Segment": "Seg1",
+        "Budget": 191
+      },
+      {
+        "Dept": "Dept33",
+        "Segment": "Seg2",
+        "Budget": 404
+      },
+      {
+        "Dept": "Dept33",
+        "Segment": "Seg3",
+        "Budget": 474
+      },
+      {
+        "Dept": "Dept34",
+        "Segment": "Seg1",
+        "Budget": 91
+      },
+      {
+        "Dept": "Dept34",
+        "Segment": "Seg2",
+        "Budget": 85
+      },
+      {
+        "Dept": "Dept34",
+        "Segment": "Seg3",
+        "Budget": 192
+      },
+      {
+        "Dept": "Dept35",
+        "Segment": "Seg1",
+        "Budget": 407
+      },
+      {
+        "Dept": "Dept35",
+        "Segment": "Seg2",
+        "Budget": 433
+      },
+      {
+        "Dept": "Dept35",
+        "Segment": "Seg3",
+        "Budget": 369
+      },
+      {
+        "Dept": "Dept36",
+        "Segment": "Seg1",
+        "Budget": 38
+      },
+      {
+        "Dept": "Dept36",
+        "Segment": "Seg2",
+        "Budget": 101
+      },
+      {
+        "Dept": "Dept36",
+        "Segment": "Seg3",
+        "Budget": 197
+      },
+      {
+        "Dept": "Dept37",
+        "Segment": "Seg1",
+        "Budget": 118
+      },
+      {
+        "Dept": "Dept37",
+        "Segment": "Seg2",
+        "Budget": 27
+      },
+      {
+        "Dept": "Dept37",
+        "Segment": "Seg3",
+        "Budget": 436
+      },
+      {
+        "Dept": "Dept38",
+        "Segment": "Seg1",
+        "Budget": 382
+      },
+      {
+        "Dept": "Dept38",
+        "Segment": "Seg2",
+        "Budget": 104
+      },
+      {
+        "Dept": "Dept38",
+        "Segment": "Seg3",
+        "Budget": 96
+      },
+      {
+        "Dept": "Dept39",
+        "Segment": "Seg1",
+        "Budget": 77
+      },
+      {
+        "Dept": "Dept39",
+        "Segment": "Seg2",
+        "Budget": 37
+      },
+      {
+        "Dept": "Dept39",
+        "Segment": "Seg3",
+        "Budget": 72
+      },
+      {
+        "Dept": "Dept40",
+        "Segment": "Seg1",
+        "Budget": 37
+      },
+      {
+        "Dept": "Dept40",
+        "Segment": "Seg2",
+        "Budget": 379
+      },
+      {
+        "Dept": "Dept40",
+        "Segment": "Seg3",
+        "Budget": 208
+      },
+      {
+        "Dept": "Dept41",
+        "Segment": "Seg1",
+        "Budget": 69
+      },
+      {
+        "Dept": "Dept41",
+        "Segment": "Seg2",
+        "Budget": 285
+      },
+      {
+        "Dept": "Dept41",
+        "Segment": "Seg3",
+        "Budget": 222
+      },
+      {
+        "Dept": "Dept42",
+        "Segment": "Seg1",
+        "Budget": 499
+      },
+      {
+        "Dept": "Dept42",
+        "Segment": "Seg2",
+        "Budget": 156
+      },
+      {
+        "Dept": "Dept42",
+        "Segment": "Seg3",
+        "Budget": 41
+      },
+      {
+        "Dept": "Dept43",
+        "Segment": "Seg1",
+        "Budget": 102
+      },
+      {
+        "Dept": "Dept43",
+        "Segment": "Seg2",
+        "Budget": 371
+      },
+      {
+        "Dept": "Dept43",
+        "Segment": "Seg3",
+        "Budget": 72
+      },
+      {
+        "Dept": "Dept44",
+        "Segment": "Seg1",
+        "Budget": 282
+      },
+      {
+        "Dept": "Dept44",
+        "Segment": "Seg2",
+        "Budget": 124
+      },
+      {
+        "Dept": "Dept44",
+        "Segment": "Seg3",
+        "Budget": 125
+      },
+      {
+        "Dept": "Dept45",
+        "Segment": "Seg1",
+        "Budget": 253
+      },
+      {
+        "Dept": "Dept45",
+        "Segment": "Seg2",
+        "Budget": 195
+      },
+      {
+        "Dept": "Dept45",
+        "Segment": "Seg3",
+        "Budget": 245
+      },
+      {
+        "Dept": "Dept46",
+        "Segment": "Seg1",
+        "Budget": 172
+      },
+      {
+        "Dept": "Dept46",
+        "Segment": "Seg2",
+        "Budget": 127
+      },
+      {
+        "Dept": "Dept46",
+        "Segment": "Seg3",
+        "Budget": 437
+      },
+      {
+        "Dept": "Dept47",
+        "Segment": "Seg1",
+        "Budget": 260
+      },
+      {
+        "Dept": "Dept47",
+        "Segment": "Seg2",
+        "Budget": 466
+      },
+      {
+        "Dept": "Dept47",
+        "Segment": "Seg3",
+        "Budget": 125
+      },
+      {
+        "Dept": "Dept48",
+        "Segment": "Seg1",
+        "Budget": 398
+      },
+      {
+        "Dept": "Dept48",
+        "Segment": "Seg2",
+        "Budget": 435
+      },
+      {
+        "Dept": "Dept48",
+        "Segment": "Seg3",
+        "Budget": 134
+      },
+      {
+        "Dept": "Dept49",
+        "Segment": "Seg1",
+        "Budget": 68
+      },
+      {
+        "Dept": "Dept49",
+        "Segment": "Seg2",
+        "Budget": 256
+      },
+      {
+        "Dept": "Dept49",
+        "Segment": "Seg3",
+        "Budget": 339
+      },
+      {
+        "Dept": "Dept50",
+        "Segment": "Seg1",
+        "Budget": 331
+      },
+      {
+        "Dept": "Dept50",
+        "Segment": "Seg2",
+        "Budget": 139
+      },
+      {
+        "Dept": "Dept50",
+        "Segment": "Seg3",
+        "Budget": 414
+      },
+      {
+        "Dept": "Dept51",
+        "Segment": "Seg1",
+        "Budget": 266
+      },
+      {
+        "Dept": "Dept51",
+        "Segment": "Seg2",
+        "Budget": 101
+      },
+      {
+        "Dept": "Dept51",
+        "Segment": "Seg3",
+        "Budget": 290
+      },
+      {
+        "Dept": "Dept52",
+        "Segment": "Seg1",
+        "Budget": 405
+      },
+      {
+        "Dept": "Dept52",
+        "Segment": "Seg2",
+        "Budget": 199
+      },
+      {
+        "Dept": "Dept52",
+        "Segment": "Seg3",
+        "Budget": 314
+      },
+      {
+        "Dept": "Dept53",
+        "Segment": "Seg1",
+        "Budget": 427
+      },
+      {
+        "Dept": "Dept53",
+        "Segment": "Seg2",
+        "Budget": 403
+      },
+      {
+        "Dept": "Dept53",
+        "Segment": "Seg3",
+        "Budget": 160
+      },
+      {
+        "Dept": "Dept54",
+        "Segment": "Seg1",
+        "Budget": 435
+      },
+      {
+        "Dept": "Dept54",
+        "Segment": "Seg2",
+        "Budget": 309
+      },
+      {
+        "Dept": "Dept54",
+        "Segment": "Seg3",
+        "Budget": 296
+      },
+      {
+        "Dept": "Dept55",
+        "Segment": "Seg1",
+        "Budget": 459
+      },
+      {
+        "Dept": "Dept55",
+        "Segment": "Seg2",
+        "Budget": 70
+      },
+      {
+        "Dept": "Dept55",
+        "Segment": "Seg3",
+        "Budget": 486
+      },
+      {
+        "Dept": "Dept56",
+        "Segment": "Seg1",
+        "Budget": 191
+      },
+      {
+        "Dept": "Dept56",
+        "Segment": "Seg2",
+        "Budget": 365
+      },
+      {
+        "Dept": "Dept56",
+        "Segment": "Seg3",
+        "Budget": 59
+      },
+      {
+        "Dept": "Dept57",
+        "Segment": "Seg1",
+        "Budget": 164
+      },
+      {
+        "Dept": "Dept57",
+        "Segment": "Seg2",
+        "Budget": 457
+      },
+      {
+        "Dept": "Dept57",
+        "Segment": "Seg3",
+        "Budget": 370
+      },
+      {
+        "Dept": "Dept58",
+        "Segment": "Seg1",
+        "Budget": 204
+      },
+      {
+        "Dept": "Dept58",
+        "Segment": "Seg2",
+        "Budget": 116
+      },
+      {
+        "Dept": "Dept58",
+        "Segment": "Seg3",
+        "Budget": 105
+      },
+      {
+        "Dept": "Dept59",
+        "Segment": "Seg1",
+        "Budget": 437
+      },
+      {
+        "Dept": "Dept59",
+        "Segment": "Seg2",
+        "Budget": 197
+      },
+      {
+        "Dept": "Dept59",
+        "Segment": "Seg3",
+        "Budget": 256
+      },
+      {
+        "Dept": "Dept60",
+        "Segment": "Seg1",
+        "Budget": 247
+      },
+      {
+        "Dept": "Dept60",
+        "Segment": "Seg2",
+        "Budget": 40
+      },
+      {
+        "Dept": "Dept60",
+        "Segment": "Seg3",
+        "Budget": 128
+      }
+    ]
+  },
+  "_width": 190,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

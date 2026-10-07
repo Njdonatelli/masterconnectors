@@ -1,0 +1,376 @@
+{
+  "layer": [
+    {
+      "mark": "circle",
+      "encoding": {
+        "x": {
+          "field": "Investment",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y": {
+          "field": "Returns",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "color": {},
+        "size": {}
+      }
+    },
+    {
+      "mark": {
+        "type": "line",
+        "color": "red"
+      },
+      "transform": [
+        {
+          "regression": "Returns",
+          "on": "Investment",
+          "method": "log"
+        }
+      ],
+      "encoding": {
+        "x": {
+          "field": "Investment",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y": {
+          "field": "Returns",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        }
+      }
+    }
+  ],
+  "encoding": {},
+  "config": {
+    "view": {
+      "continuousWidth": 382,
+      "continuousHeight": 314
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 31
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Investment": 31.4,
+        "Returns": 41
+      },
+      {
+        "Investment": 1.7,
+        "Returns": 10
+      },
+      {
+        "Investment": 94.6,
+        "Returns": 51
+      },
+      {
+        "Investment": 1.5,
+        "Returns": 12
+      },
+      {
+        "Investment": 84.3,
+        "Returns": 53
+      },
+      {
+        "Investment": 68.2,
+        "Returns": 45
+      },
+      {
+        "Investment": 72.8,
+        "Returns": 48
+      },
+      {
+        "Investment": 57.6,
+        "Returns": 47
+      },
+      {
+        "Investment": 63.8,
+        "Returns": 48
+      },
+      {
+        "Investment": 85.2,
+        "Returns": 52
+      },
+      {
+        "Investment": 85.7,
+        "Returns": 51
+      },
+      {
+        "Investment": 30.9,
+        "Returns": 40
+      },
+      {
+        "Investment": 31.9,
+        "Returns": 42
+      },
+      {
+        "Investment": 58,
+        "Returns": 46
+      },
+      {
+        "Investment": 75.5,
+        "Returns": 45
+      },
+      {
+        "Investment": 14.3,
+        "Returns": 29
+      },
+      {
+        "Investment": 73.6,
+        "Returns": 46
+      },
+      {
+        "Investment": 18.3,
+        "Returns": 31
+      },
+      {
+        "Investment": 96.6,
+        "Returns": 52
+      },
+      {
+        "Investment": 38.2,
+        "Returns": 41
+      },
+      {
+        "Investment": 30.4,
+        "Returns": 39
+      },
+      {
+        "Investment": 53.5,
+        "Returns": 48
+      },
+      {
+        "Investment": 32.5,
+        "Returns": 42
+      },
+      {
+        "Investment": 47.2,
+        "Returns": 46
+      },
+      {
+        "Investment": 16.6,
+        "Returns": 33
+      },
+      {
+        "Investment": 21.4,
+        "Returns": 38
+      },
+      {
+        "Investment": 59.6,
+        "Returns": 49
+      },
+      {
+        "Investment": 97.1,
+        "Returns": 49
+      },
+      {
+        "Investment": 2.2,
+        "Returns": 9
+      },
+      {
+        "Investment": 68.4,
+        "Returns": 49
+      },
+      {
+        "Investment": 23.3,
+        "Returns": 39
+      },
+      {
+        "Investment": 34,
+        "Returns": 41
+      },
+      {
+        "Investment": 48,
+        "Returns": 40
+      },
+      {
+        "Investment": 90.9,
+        "Returns": 48
+      },
+      {
+        "Investment": 18.3,
+        "Returns": 33
+      },
+      {
+        "Investment": 23.2,
+        "Returns": 36
+      },
+      {
+        "Investment": 53.3,
+        "Returns": 47
+      },
+      {
+        "Investment": 80.7,
+        "Returns": 48
+      },
+      {
+        "Investment": 49.3,
+        "Returns": 42
+      },
+      {
+        "Investment": 35.3,
+        "Returns": 40
+      },
+      {
+        "Investment": 88.2,
+        "Returns": 46
+      },
+      {
+        "Investment": 94,
+        "Returns": 49
+      },
+      {
+        "Investment": 94.1,
+        "Returns": 50
+      },
+      {
+        "Investment": 99.6,
+        "Returns": 48
+      },
+      {
+        "Investment": 46.5,
+        "Returns": 42
+      },
+      {
+        "Investment": 78.1,
+        "Returns": 51
+      },
+      {
+        "Investment": 93.3,
+        "Returns": 51
+      },
+      {
+        "Investment": 77.2,
+        "Returns": 51
+      },
+      {
+        "Investment": 96.3,
+        "Returns": 55
+      },
+      {
+        "Investment": 14.1,
+        "Returns": 30
+      }
+    ]
+  },
+  "_width": 382,
+  "_height": 314,
+  "_options": [
+    {
+      "key": "regressionMethod",
+      "label": "Method",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "log",
+          "label": "Logarithmic"
+        },
+        {
+          "value": "exp",
+          "label": "Exponential"
+        },
+        {
+          "value": "pow",
+          "label": "Power"
+        },
+        {
+          "value": "quad",
+          "label": "Quadratic"
+        },
+        {
+          "value": "poly",
+          "label": "Polynomial"
+        }
+      ],
+      "defaultValue": "linear",
+      "applicable": true,
+      "value": "log"
+    },
+    {
+      "key": "polyOrder",
+      "label": "Poly Order",
+      "type": "continuous",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "defaultValue": 3,
+      "applicable": true,
+      "value": 3
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

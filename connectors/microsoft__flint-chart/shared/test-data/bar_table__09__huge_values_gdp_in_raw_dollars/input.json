@@ -1,0 +1,73 @@
+{
+  "title": "Huge values (GDP in raw dollars)",
+  "description": "Trillion-scale numbers → wide value column, panel-width budget pressure",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Country": "United States",
+          "GDP": 2500273920596
+        },
+        {
+          "Country": "China",
+          "GDP": 6903822584826
+        },
+        {
+          "Country": "Japan",
+          "GDP": 3546186275171
+        },
+        {
+          "Country": "Germany",
+          "GDP": 2952754615483
+        },
+        {
+          "Country": "India",
+          "GDP": 5346853308796
+        },
+        {
+          "Country": "United Kingdom",
+          "GDP": 4163571520395
+        },
+        {
+          "Country": "France",
+          "GDP": 2946561565945
+        },
+        {
+          "Country": "Italy",
+          "GDP": 4860265089814
+        },
+        {
+          "Country": "Brazil",
+          "GDP": 4675374203711
+        },
+        {
+          "Country": "Canada",
+          "GDP": 3414251356865
+        }
+      ]
+    },
+    "semantic_types": {
+      "Country": "Country",
+      "GDP": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Country"
+        },
+        "x": {
+          "field": "GDP"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

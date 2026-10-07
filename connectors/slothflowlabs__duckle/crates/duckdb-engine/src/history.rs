@@ -1,0 +1,927 @@
+//! Run history persistence.
+//!
+//! Every pipeline execution (manual, partial, or scheduled) appends a
+//! [`RunRecord`] to `<workspace>/runs/<pipeline_id>.json`. We keep the
+//! most recent [`MAX_RECORDS`] entries so the file stays small and
+//! git-diffs stay readable.
+
+use crate::RunResult;
+use chrono::Utc;
+use serde::{Deserialize, Serialize};
+use std::path::Path;
+
+const MAX_RECORDS: usize = 50;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct RunRecord {
+    /// #259: the id an async run was accepted under, so a run started through
+    /// POST /api/run/async can still be found after the console restarts.
+    /// Absent for runs started before this existed, and for synchronous runs
+    /// whose caller already holds the result.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub run_id: Option<String>,
+    /// RFC3339 timestamp of when the run started.
+    pub at: String,
+    pub status: String,
+    pub duration_ms: u64,
+    /// Total rows written across all sinks.
+    pub rows: u64,
+    pub node_count: usize,
+    /// What kicked off the run: "manual" / "partial" / "scheduled".
+    pub trigger: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub error: Option<String>,
+    /// The run checked its sources, found nothing changed, and wrote nothing.
+    ///
+    /// Persisted because the durable distinction is the point: a recurring
+    /// poll is unchanged hundreds of times between real updates, and later you
+    /// have to be able to tell "the last poll succeeded and the source was
+    /// unchanged" from "the last poll ingested new data". Without it on the
+    /// record, both read as an ordinary ok the moment the run is over.
+    ///
+    /// `default` so records written before this existed still load.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub unchanged: bool,
+    /// #258: the run produced rows, they are correct, and they are not all of
+    /// them - a stage stopped at a ceiling it was given.
+    ///
+    /// Persisted for the same reason `unchanged` is, and it matters more: the
+    /// moment the run is over, a budget stop is indistinguishable from an
+    /// ordinary success unless the record says otherwise. Alerting and the Runs
+    /// tab both read this history, and "we hit the ceiling" has to be tellable
+    /// from "it worked".
+    ///
+    /// `default` so records written before this existed still load.
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub incomplete: bool,
+    /// Why, machine-readable (`budget:maxRequests`), so alerting can match on
+    /// it rather than on a sentence.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub incomplete_reason: Option<String>,
+    /// Coarse error bucket (see error_category) - present only on failure.
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub category: Option<String>,
+    /// What this run actually read and wrote, by asset name.
+    ///
+    /// Run history already says a pipeline ran; this says which data moved,
+    /// which is what turns "the catalog knows /lake/orders.parquet exists" into
+    /// "and it was last written 20 minutes ago, by nightly-load, 4.1M rows".
+    /// Freshness is the first question anyone asks of a catalog entry and the
+    /// one a static graph cannot answer.
+    ///
+    /// Defaulted, so every run record written before this still parses.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub assets: Vec<AssetTouch>,
+    /// What each node did, for the metrics document (#300): per-node duration
+    /// and row counts are the difference between "the run got slower" and
+    /// "the parse stage got slower".
+    ///
+    /// Defaulted and omitted when empty, so records written before this still
+    /// parse and a run with no node detail records nothing extra.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub nodes: Vec<NodeMetric>,
+}
+
+/// One node's contribution to a run, in the shape metrics need.
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct NodeMetric {
+    pub node: String,
+    /// The component that ran (`src.rest`, `xf.filter`). Bounded - it comes
+    /// from the component registry, not from user text - so it is a safe
+    /// Prometheus label.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub component: Option<String>,
+    /// Absent is not zero: a node the run never reached took no time, and
+    /// emitting 0 would report an instant stage.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub duration_ms: Option<u64>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub rows: Option<u64>,
+}
+
+/// One asset a run touched.
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AssetTouch {
+    /// The catalog's name for it, so this joins straight to the asset graph.
+    pub id: String,
+    /// "read" or "write", matching catalog::Direction.
+    pub direction: String,
+    /// Rows the node reported. Absent when the node reported none, which is
+    /// not the same as zero - a failed run has counts for nothing after the
+    /// point it stopped.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub rows: Option<u64>,
+}
+
+impl RunRecord {
+    pub fn from_result(result: &RunResult, trigger: &str) -> Self {
+        // Only sinks "write" rows; summing view stages too massively
+        // overcounts (every intermediate stage reports its row count).
+        let rows: u64 = result
+            .nodes
+            .values()
+            .filter(|n| n.kind.as_deref() == Some("sink"))
+            .filter_map(|n| n.rows)
+            .sum();
+        RunRecord {
+            run_id: None,
+            at: Utc::now().to_rfc3339(),
+            status: result.status.clone(),
+            duration_ms: result.duration_ms,
+            rows,
+            node_count: result.nodes.len(),
+            trigger: trigger.to_string(),
+            unchanged: result.unchanged,
+            incomplete: result.incomplete,
+            incomplete_reason: result.incomplete_reason.clone(),
+            error: result.error.clone(),
+            category: result.category.clone(),
+            assets: Vec::new(),
+            // BTreeMap order, so the record is deterministic.
+            nodes: result
+                .nodes
+                .iter()
+                .map(|(id, n)| NodeMetric {
+                    node: id.clone(),
+                    component: n.component.clone(),
+                    duration_ms: n.duration_ms,
+                    rows: n.rows,
+                })
+                .collect(),
+        }
+    }
+
+    /// Like [`from_result`], naming the assets the run touched.
+    ///
+    /// The names come from the saved catalog rather than from re-deriving them
+    /// here, so a run record and the asset graph always agree - two ways of
+    /// naming one table is how a catalog ends up with two entries for it. The
+    /// catalog's touches are keyed by node id, which is also how the run
+    /// reports its row counts, so the two join without either side guessing.
+    ///
+    /// A workspace with no catalog yet records no assets rather than failing:
+    /// run history must never depend on a derived file being present.
+    pub fn from_result_in(
+        workspace: &Path,
+        pipeline_id: &str,
+        result: &RunResult,
+        trigger: &str,
+    ) -> Self {
+        let mut record = Self::from_result(result, trigger);
+        let Ok(Some(catalog)) = crate::catalog::load(workspace) else {
+            return record;
+        };
+        for touch in catalog.touches.iter().filter(|t| t.pipeline_id == pipeline_id) {
+            let rows = result.nodes.get(&touch.node_id).and_then(|n| n.rows);
+            record.assets.push(AssetTouch {
+                id: touch.asset.clone(),
+                direction: match touch.direction {
+                    crate::catalog::Direction::Read => "read".into(),
+                    crate::catalog::Direction::Write => "write".into(),
+                },
+                rows,
+            });
+        }
+        record
+    }
+}
+
+fn history_file(workspace: &Path, pipeline_id: &str) -> std::path::PathBuf {
+    workspace.join("runs").join(format!("{}.json", pipeline_id))
+}
+
+/// Append a record, trimming to the most recent MAX_RECORDS. A run surface
+/// should call [`record_run`], which says when this fails.
+pub fn append_run_record(
+    workspace: &Path,
+    pipeline_id: &str,
+    record: RunRecord,
+) -> std::io::Result<()> {
+    let path = history_file(workspace, pipeline_id);
+    if let Some(parent) = path.parent() {
+        std::fs::create_dir_all(parent)?;
+    }
+    // Serialised, because this is a read-modify-write and two of them routinely
+    // overlap: the desktop appends straight from its run command and takes no
+    // run lock at all, so a scheduled run of the same pipeline under `serve` is
+    // not excluded from it. Unserialised, both loaded the same records, both
+    // pushed one, and one write won - and when a load landed inside the other's
+    // truncating write it came back EMPTY, so the next write replaced the whole
+    // history with a single record.
+    //
+    // Keyed case-insensitively: the lock name is digested exactly, while the
+    // file name is not, so on a case-insensitive filesystem `Nightly` and
+    // `nightly` share one history file and would otherwise take two locks.
+    //
+    // A workspace that cannot take the lock still gets its record: losing a run
+    // from the history is worse than a rare overlap, which is the same call
+    // `alerts::update_state` makes for the same reason.
+    let _guard = crate::runlock::lock_store(workspace, &format!("history-{}", pipeline_id.to_lowercase())).ok();
+    let mut records = load_run_history(workspace, pipeline_id);
+    // #325: a successful publication is an event, recorded HERE rather than at
+    // each of the four places that append a record. Four call sites is four
+    // chances to forget, and the standing evidence that they do is that only
+    // three of them raise alerts.
+    //
+    // After the history write below would be tidier and is wrong: the record is
+    // the source of truth an event is rebuilt FROM, so it has to be durable
+    // first. Ordered this way, a crash between the two costs an index entry
+    // that `materialize::reconcile` can rebuild, not a publication.
+    let publication = record.clone();
+    records.push(record);
+    let start = records.len().saturating_sub(MAX_RECORDS);
+    let trimmed = &mut records[start..];
+    // Per-node detail is read off the newest record only (render_metrics
+    // looks at `last.nodes`), so keeping it on every retained record would
+    // multiply the file by the node count - a 200-node pipeline would append
+    // ~1.3MiB and rewrite it on every run. Strip it from the older records
+    // at trim time; the records still say the run happened, just not how
+    // each stage did.
+    let newest = trimmed.len().saturating_sub(1);
+    for r in trimmed.iter_mut().take(newest) {
+        r.nodes.clear();
+    }
+    let json = serde_json::to_string_pretty(&*trimmed)
+        .map_err(|e| std::io::Error::new(std::io::ErrorKind::InvalidData, e))?;
+    // Temp file then rename, so a reader never sees the file mid-write. A plain
+    // write truncates first, and `load_run_history` reads an unparseable file as
+    // "no history", which is how a scrape of /metrics could report a pipeline
+    // with no runs while it had fifty. The temp name carries this writer's pid
+    // and a sequence so two of them cannot share it: see `alerts::save_state`,
+    // which is where this repository learned that the hard way.
+    static TMP_SEQ: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+    let seq = TMP_SEQ.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+    let tmp = path.with_extension(format!("json.{}.{seq}.tmp", std::process::id()));
+    std::fs::write(&tmp, json)?;
+    if let Err(e) = std::fs::rename(&tmp, &path) {
+        let _ = std::fs::remove_file(&tmp);
+        return Err(e);
+    }
+    // The record is durable now, so the event can be indexed from it. Reported
+    // rather than swallowed: a lost alert loses a notification, a lost
+    // publication event loses downstream WORK, and the producer will not
+    // publish again until its next cycle. It is not fatal, because the record
+    // it is derived from is already on disk and `materialize::reconcile`
+    // rebuilds what the log is missing - the failure costs latency, not the
+    // event.
+    if let Err(e) = crate::materialize::append(workspace, pipeline_id, &publication) {
+        eprintln!(
+            "duckle: {pipeline_id} published but its materialization event was not recorded \
+             ({e}). Downstream triggers will not see it until the log is reconciled."
+        );
+    }
+    // Refresh the OpenMetrics textfile alongside the history. Best-effort:
+    // monitoring must never fail a run.
+    let _ = write_metrics_textfile(workspace);
+    Ok(())
+}
+
+/// Export run state for every pipeline as an OpenMetrics/Prometheus textfile
+/// at `<workspace>/logs/duckle_metrics.prom`, suitable for node_exporter's
+/// textfile collector (or Grafana Alloy) - monitoring integration with no
+/// HTTP server and no agent inside Duckle, which keeps headless and
+/// air-gapped deployments covered.
+///
+/// All series are gauges derived from the retained run history (a rolling
+/// MAX_RECORDS window per pipeline), so totals are windowed, not lifetime
+/// counters - the metric names say so. Written atomically (temp file +
+/// rename) so a concurrent scrape never reads a half-written file.
+pub fn write_metrics_textfile(workspace: &Path) -> std::io::Result<()> {
+    let out = render_metrics(workspace)?;
+    let logs_dir = workspace.join("logs");
+    std::fs::create_dir_all(&logs_dir)?;
+    let final_path = logs_dir.join("duckle_metrics.prom");
+    // A temp name of this writer's own. One shared `.prom.tmp` is only atomic
+    // against a READER: two runs finishing together wrote the same temp, so one
+    // renamed a file the other was still filling and a scrape read a document
+    // that was half one run's and half the other's.
+    static TMP_SEQ: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
+    let seq = TMP_SEQ.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+    let tmp_path = logs_dir.join(format!("duckle_metrics.prom.{}.{seq}.tmp", std::process::id()));
+    std::fs::write(&tmp_path, &out)?;
+    if let Err(e) = std::fs::rename(&tmp_path, &final_path) {
+        let _ = std::fs::remove_file(&tmp_path);
+        return Err(e);
+    }
+    Ok(())
+}
+
+/// How many pipelines may contribute label values.
+///
+/// #300 asks for bounded labels, and nothing prunes `runs/`: a workspace that
+/// has ever run five thousand pipelines would otherwise emit five thousand
+/// label values forever, and serving that over HTTP turns a local file into a
+/// scraped time series that never shrinks. The cap is generous because the
+/// pipeline that breaks is exactly the one you must not have dropped - and
+/// when it does bite, [`OMITTED`] says so rather than the series simply not
+/// being there.
+const MAX_PIPELINE_SERIES: usize = 1000;
+const OMITTED: &str = "duckle_metrics_pipelines_omitted";
+
+/// The metrics document, without writing it anywhere (#300).
+///
+/// Split from [`write_metrics_textfile`] so the console can serve the same
+/// bytes at `/metrics`. Rendering twice - once for the textfile, once for the
+/// endpoint - is how the two would come to disagree about what a series means.
+pub fn render_metrics(workspace: &Path) -> std::io::Result<String> {
+    let runs_dir = workspace.join("runs");
+    let mut out = String::new();
+    out.push_str("# HELP duckle_run_last_status 1 when the pipeline's most recent run succeeded, 0 when it failed or was cancelled.\n# TYPE duckle_run_last_status gauge\n");
+    let mut last_status = String::new();
+    let mut last_duration = String::new();
+    let mut last_rows = String::new();
+    let mut last_ts = String::new();
+    let mut last_unchanged = String::new();
+    let mut window_runs = String::new();
+    let mut node_duration = String::new();
+    let mut node_rows = String::new();
+
+    let entries = std::fs::read_dir(&runs_dir)?;
+    let mut files: Vec<_> = entries
+        .filter_map(|e| e.ok())
+        .map(|e| e.path())
+        .filter(|p| p.extension().is_some_and(|x| x == "json"))
+        .collect();
+    files.sort();
+    // Newest first, so if the cap bites it drops pipelines nobody has run in
+    // months rather than whichever happens to sort last. Sorted by name second
+    // so the choice is deterministic when timestamps tie.
+    let mut loaded: Vec<(String, Vec<RunRecord>, i64)> = Vec::new();
+    for path in files {
+        let Some(pipeline_id) = path.file_stem().and_then(|s| s.to_str()) else {
+            continue;
+        };
+        let records = load_run_history(workspace, pipeline_id);
+        let Some(last) = records.last() else {
+            continue;
+        };
+        let at = chrono::DateTime::parse_from_rfc3339(&last.at).map(|t| t.timestamp()).unwrap_or(0);
+        loaded.push((pipeline_id.to_string(), records, at));
+    }
+    loaded.sort_by(|a, b| b.2.cmp(&a.2).then_with(|| a.0.cmp(&b.0)));
+    let omitted = loaded.len().saturating_sub(MAX_PIPELINE_SERIES);
+    loaded.truncate(MAX_PIPELINE_SERIES);
+
+    for (pipeline_id, records, _) in &loaded {
+        let pipeline_id = pipeline_id.as_str();
+        let last = records.last().expect("only pipelines with a record are loaded");
+        let label = escape_label(pipeline_id);
+        let ok = if last.status == "ok" { 1 } else { 0 };
+        last_status.push_str(&format!(
+            "duckle_run_last_status{{pipeline=\"{}\"}} {}\n",
+            label, ok
+        ));
+        // A quiet poll is a success, so last_status alone cannot tell a
+        // pipeline that is working and finding nothing from one that is
+        // ingesting. Freshness alerting needs both.
+        last_unchanged.push_str(&format!(
+            "duckle_run_last_unchanged{{pipeline=\"{}\"}} {}
+",
+            label,
+            if last.unchanged { 1 } else { 0 }
+        ));
+        last_duration.push_str(&format!(
+            "duckle_run_last_duration_seconds{{pipeline=\"{}\"}} {}\n",
+            label,
+            last.duration_ms as f64 / 1000.0
+        ));
+        last_rows.push_str(&format!(
+            "duckle_run_last_rows{{pipeline=\"{}\"}} {}\n",
+            label, last.rows
+        ));
+        if let Ok(ts) = chrono::DateTime::parse_from_rfc3339(&last.at) {
+            last_ts.push_str(&format!(
+                "duckle_run_last_timestamp_seconds{{pipeline=\"{}\"}} {}\n",
+                label,
+                ts.timestamp()
+            ));
+        }
+        for status in ["ok", "error", "cancelled"] {
+            // An unchanged run has status "ok", so inside that bucket it would
+            // be indistinguishable. Counting it out keeps "ok" meaning "did
+            // work", and the buckets still sum to the number of runs.
+            let n = records
+                .iter()
+                .filter(|r| r.status == status && !(status == "ok" && r.unchanged))
+                .count();
+            window_runs.push_str(&format!(
+                "duckle_runs_window{{pipeline=\"{}\",status=\"{}\"}} {}\n",
+                label, status, n
+            ));
+        }
+        window_runs.push_str(&format!(
+            "duckle_runs_window{{pipeline=\"{}\",status=\"unchanged\"}} {}
+",
+            label,
+            records.iter().filter(|r| r.unchanged).count()
+        ));
+        // Per-node detail from the most recent run only. `node` is bounded
+        // (a pipeline's own ids) and `component` is bounded (the registry), so
+        // the pair stays inside the same label budget as the pipeline itself.
+        // Absent values emit nothing: a node the run never reached is not a
+        // zero-duration stage.
+        for n in &last.nodes {
+            let labels = format!(
+                "pipeline=\"{}\",node=\"{}\"{}",
+                label,
+                escape_label(&n.node),
+                n.component
+                    .as_deref()
+                    .map(|c| format!(",component=\"{}\"", escape_label(c)))
+                    .unwrap_or_default()
+            );
+            if let Some(ms) = n.duration_ms {
+                node_duration.push_str(&format!(
+                    "duckle_node_last_duration_seconds{{{}}} {}\n",
+                    labels,
+                    ms as f64 / 1000.0
+                ));
+            }
+            if let Some(rows) = n.rows {
+                node_rows.push_str(&format!("duckle_node_last_rows{{{}}} {}\n", labels, rows));
+            }
+        }
+    }
+
+    out.push_str(&last_status);
+    out.push_str("# HELP duckle_run_last_unchanged 1 when the most recent run checked its sources, found nothing changed and wrote nothing. Such a run is a success, so duckle_run_last_status is 1 for it too - this is what separates a poll that is working and finding nothing from one that is ingesting.
+# TYPE duckle_run_last_unchanged gauge
+");
+    out.push_str(&last_unchanged);
+    out.push_str("# HELP duckle_run_last_duration_seconds Wall-clock duration of the most recent run.\n# TYPE duckle_run_last_duration_seconds gauge\n");
+    out.push_str(&last_duration);
+    out.push_str("# HELP duckle_run_last_rows Rows written across all sinks in the most recent run.\n# TYPE duckle_run_last_rows gauge\n");
+    out.push_str(&last_rows);
+    out.push_str("# HELP duckle_run_last_timestamp_seconds Unix time the most recent run started.\n# TYPE duckle_run_last_timestamp_seconds gauge\n");
+    out.push_str(&last_ts);
+    out.push_str("# HELP duckle_runs_window Runs by status within the retained history window (not a lifetime counter).\n# TYPE duckle_runs_window gauge\n");
+    out.push_str(&window_runs);
+    out.push_str("# HELP duckle_node_last_duration_seconds Per-node duration of the most recent run, by component. \"The run got slower\" answered by which stage, not by polling the UI.\n# TYPE duckle_node_last_duration_seconds gauge\n");
+    out.push_str(&node_duration);
+    out.push_str("# HELP duckle_node_last_rows Rows each node reported in the most recent run. Absent is not zero: a node the run never reached emits nothing.\n# TYPE duckle_node_last_rows gauge\n");
+    out.push_str(&node_rows);
+    // One push per line. A `\` continuation inside a string literal keeps the
+    // indentation of the next source line, and Prometheus requires every line
+    // to begin in column zero.
+    out.push_str("# HELP duckle_metrics_pipelines Pipelines contributing a label value to this document.
+");
+    out.push_str("# TYPE duckle_metrics_pipelines gauge
+");
+    out.push_str(&format!("duckle_metrics_pipelines {}
+", loaded.len()));
+    out.push_str(&format!("# HELP {OMITTED} Pipelines left out because the label budget was reached. Alert on this being above zero: those pipelines are not being monitored.
+"));
+    out.push_str(&format!("# TYPE {OMITTED} gauge
+"));
+    out.push_str(&format!("{OMITTED} {omitted}
+"));
+    Ok(out)
+}
+
+/// Escape a value for a Prometheus label: backslash, quote, newline.
+fn escape_label(v: &str) -> String {
+    v.replace('\\', "\\\\").replace('"', "\\\"").replace('\n', "\\n")
+}
+
+#[cfg(test)]
+mod incomplete_record_tests {
+    use super::*;
+
+    fn result(incomplete: bool, reason: Option<&str>) -> RunResult {
+        RunResult {
+            cache_keys: Default::default(),
+            status: "ok".into(),
+            duration_ms: 1,
+            nodes: Default::default(),
+            preview: Vec::new(),
+            error: None,
+            category: None,
+            unchanged: false,
+            incomplete,
+            incomplete_reason: reason.map(str::to_string),
+            artifacts: Vec::new(),
+            artifacts_truncated: false,
+        }
+    }
+
+    /// #258: the moment the run is over, a budget stop is indistinguishable
+    /// from an ordinary success unless the RECORD says otherwise. Alerting and
+    /// the Runs tab read this history, not the RunResult that is long gone.
+    #[test]
+    fn an_incomplete_run_stays_incomplete_in_its_record() {
+        let rec = RunRecord::from_result(&result(true, Some("budget:maxRequests")), "manual");
+        assert_eq!(rec.status, "ok", "a budget stop is not a failure");
+        assert!(rec.incomplete, "but the record must not call it a plain success");
+        assert_eq!(rec.incomplete_reason.as_deref(), Some("budget:maxRequests"));
+
+        // A record written before this existed still loads, and reads as
+        // complete rather than failing to parse.
+        let old: RunRecord =
+            serde_json::from_str(r#"{"at":"2026-01-01","status":"ok","duration_ms":1,"rows":0,"node_count":1,"trigger":"manual"}"#)
+                .expect("an older record must still load");
+        assert!(!old.incomplete);
+        assert_eq!(old.incomplete_reason, None);
+    }
+
+    /// And an ordinary run is not marked, so the flag means something.
+    #[test]
+    fn an_ordinary_run_is_not_marked_incomplete() {
+        let rec = RunRecord::from_result(&result(false, None), "manual");
+        assert!(!rec.incomplete);
+        // It is skipped in the JSON entirely, so old readers see no new key.
+        let json = serde_json::to_string(&rec).unwrap();
+        assert!(!json.contains("incomplete"), "{json}");
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// A record that cannot be written is reported, not swallowed: `runs` is a
+    /// file here, so the history directory cannot exist.
+    #[test]
+    fn a_run_record_that_cannot_be_written_is_reported() {
+        let tmp = tempfile::tempdir().unwrap();
+        std::fs::write(tmp.path().join("runs"), "not a directory").unwrap();
+        let rec = record("ok", 10, 1);
+        assert!(!record_run(tmp.path(), "nightly", rec.clone()), "a lost record was reported as written");
+        std::fs::remove_file(tmp.path().join("runs")).unwrap();
+        assert!(record_run(tmp.path(), "nightly", rec), "a writable history must still record");
+        assert_eq!(load_run_history(tmp.path(), "nightly").len(), 1);
+    }
+
+    /// Two runs of one pipeline finishing together keep both records, and a
+    /// reader never sees a half-written file.
+    ///
+    /// `append_run_record` was a read-modify-write with no lock, finished by a
+    /// truncating `fs::write`: the desktop appends directly (it takes no run
+    /// lock at all) while `serve`'s scheduler fires the same pipeline, so both
+    /// load the same 50 records, both push one, and one of them wins - or worse,
+    /// one loads while the other has truncated the file to zero, gets an empty
+    /// history out of `unwrap_or_default`, and writes back a single record.
+    /// Fifty runs of history are gone, and the Runs tab, alerting, freshness and
+    /// `runs diff` all read that file.
+    #[test]
+    fn concurrent_appends_keep_every_record() {
+        let ws = tempfile::tempdir().unwrap();
+        let root = ws.path().to_path_buf();
+        // Enough writers and rounds to lose records reliably when unserialised:
+        // the window is the whole load-push-write, not a single syscall.
+        let writers = 6;
+        let each = 12;
+        // Seed one record first: a reader that arrives before the file exists
+        // sees "no history" legitimately, and that is not the torn read this is
+        // watching for.
+        super::append_run_record(&root, "nightly", record("ok", 1, 0)).expect("seeded");
+        let readers_saw_empty = std::sync::Arc::new(std::sync::atomic::AtomicUsize::new(0));
+        let stop = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
+        let watcher = {
+            let (root, seen, stop) = (root.clone(), readers_saw_empty.clone(), stop.clone());
+            std::thread::spawn(move || {
+                while !stop.load(std::sync::atomic::Ordering::Relaxed) {
+                    // A reader must never observe the file mid-rewrite. Empty is
+                    // the shape that does the damage, because the next writer
+                    // takes it for the whole history.
+                    if super::load_run_history(&root, "nightly").is_empty() {
+                        seen.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                    }
+                }
+            })
+        };
+
+        std::thread::scope(|scope| {
+            for w in 0..writers {
+                let root = root.clone();
+                scope.spawn(move || {
+                    for i in 0..each {
+                        let mut r = record("ok", 1, 0);
+                        r.run_id = Some(format!("w{w}-{i}"));
+                        super::append_run_record(&root, "nightly", r).expect("appended");
+                    }
+                });
+            }
+        });
+        stop.store(true, std::sync::atomic::Ordering::Relaxed);
+        watcher.join().unwrap();
+
+        let kept = super::load_run_history(&root, "nightly");
+        let total = writers * each + 1; // + the seed
+        // MAX_RECORDS is the only thing allowed to drop a record.
+        let expect = total.min(super::MAX_RECORDS);
+        assert_eq!(
+            kept.len(),
+            expect,
+            "{writers} writers x {each} appends should leave {expect} records, not {}",
+            kept.len()
+        );
+        let ids: std::collections::HashSet<_> =
+            kept.iter().filter_map(|r| r.run_id.as_deref()).collect();
+        assert_eq!(ids.len(), kept.len(), "a record was written twice");
+        assert_eq!(
+            readers_saw_empty.load(std::sync::atomic::Ordering::Relaxed),
+            0,
+            "a reader saw an empty history while a write was in flight"
+        );
+    }
+
+    fn record(status: &str, duration_ms: u64, rows: u64) -> RunRecord {
+        RunRecord {
+            run_id: None,
+            at: Utc::now().to_rfc3339(),
+            status: status.into(),
+            duration_ms,
+            rows,
+            node_count: 3,
+            trigger: "manual".into(),
+            error: (status == "error").then(|| "Binder Error: column gone".into()),
+            category: (status == "error").then(|| "schema".into()),
+            assets: Vec::new(),
+            nodes: Vec::new(),
+            unchanged: false,
+            incomplete: false,
+            incomplete_reason: None,
+        }
+    }
+
+    #[test]
+    fn the_label_budget_is_reported_rather_than_assumed() {
+        // #300 asks for bounded labels, and nothing prunes runs/. The bound is
+        // only trustworthy if hitting it is visible: a pipeline silently
+        // dropped from the metrics is a pipeline nobody is alerting on.
+        let ws = tempfile::tempdir().unwrap();
+        std::fs::create_dir_all(ws.path().join("runs")).unwrap();
+        append_run_record(ws.path(), "one", record("ok", 10, 1));
+        let out = render_metrics(ws.path()).unwrap();
+        assert!(out.contains("duckle_metrics_pipelines 1"), "{out}");
+        assert!(out.contains("duckle_metrics_pipelines_omitted 0"), "{out}");
+        // and the cap is a real number, not unbounded by accident
+        assert!(MAX_PIPELINE_SERIES > 0);
+    }
+
+    #[test]
+    fn metrics_textfile_written_with_run_history() {
+        let ws = tempfile::tempdir().unwrap();
+        append_run_record(ws.path(), "orders_etl", record("ok", 1500, 42)).unwrap();
+        append_run_record(ws.path(), "orders_etl", record("error", 900, 0)).unwrap();
+        append_run_record(ws.path(), "other", record("ok", 100, 7)).unwrap();
+
+        let text =
+            std::fs::read_to_string(ws.path().join("logs").join("duckle_metrics.prom")).unwrap();
+        assert!(text.contains("duckle_run_last_status{pipeline=\"orders_etl\"} 0"));
+        assert!(text.contains("duckle_run_last_status{pipeline=\"other\"} 1"));
+        assert!(text.contains("duckle_run_last_duration_seconds{pipeline=\"orders_etl\"} 0.9"));
+        assert!(text.contains("duckle_runs_window{pipeline=\"orders_etl\",status=\"ok\"} 1"));
+        assert!(text.contains("duckle_runs_window{pipeline=\"orders_etl\",status=\"error\"} 1"));
+        assert!(text.contains("# TYPE duckle_run_last_rows gauge"));
+        // No half-written temp file left behind.
+        assert!(!ws.path().join("logs").join("duckle_metrics.prom.tmp").exists());
+    }
+
+    #[test]
+    fn the_last_run_breaks_down_by_node_and_component() {
+        // #300: "the run got slower" has to answer "which stage", and a stage
+        // the run never reached is absent rather than a zero that never
+        // happened.
+        let ws = tempfile::tempdir().unwrap();
+        let mut rec = record("ok", 1500, 42);
+        rec.nodes = vec![
+            NodeMetric {
+                node: "extract".into(),
+                component: Some("src.rest".into()),
+                duration_ms: Some(900),
+                rows: Some(100),
+            },
+            NodeMetric {
+                node: "load".into(),
+                component: Some("snk.parquet".into()),
+                duration_ms: Some(600),
+                rows: Some(42),
+            },
+            // Never reached: no duration, no rows, emits nothing.
+            NodeMetric { node: "audit".into(), component: Some("snk.audit".into()), duration_ms: None, rows: None },
+        ];
+        append_run_record(ws.path(), "nightly", rec).unwrap();
+
+        let out = render_metrics(ws.path()).unwrap();
+        assert!(
+            out.contains(
+                "duckle_node_last_duration_seconds{pipeline=\"nightly\",node=\"extract\",component=\"src.rest\"} 0.9"
+            ),
+            "{out}"
+        );
+        assert!(
+            out.contains(
+                "duckle_node_last_rows{pipeline=\"nightly\",node=\"load\",component=\"snk.parquet\"} 42"
+            ),
+            "{out}"
+        );
+        assert!(!out.contains("audit"), "a node that never ran emits nothing: {out}");
+
+        // A record from before nodes existed still renders: it emits no node
+        // lines and breaks nothing.
+        append_run_record(ws.path(), "old", record("ok", 10, 1)).unwrap();
+        let out = render_metrics(ws.path()).unwrap();
+        assert!(!out.contains("pipeline=\"old\",node="), "old pipelines keep working: {out}");
+    }
+
+    #[test]
+    fn run_record_carries_error_category() {
+        let ws = tempfile::tempdir().unwrap();
+        append_run_record(ws.path(), "p", record("error", 10, 0)).unwrap();
+        let loaded = load_run_history(ws.path(), "p");
+        assert_eq!(loaded.len(), 1);
+        assert_eq!(loaded[0].category.as_deref(), Some("schema"));
+    }
+
+    /// #300: the nodes list is built by `from_result`, not written by hand -
+    /// the test proves the mapping, the BTreeMap ordering, and that
+    /// `component` survives, none of which a hand-built NodeMetric pins.
+    #[test]
+    fn from_result_maps_nodes_in_order_with_their_components() {
+        let mut nodes: std::collections::BTreeMap<String, crate::NodeRunStatus> =
+            Default::default();
+        let entry = |component: &str, ms: u64, rows: u64| crate::NodeRunStatus {
+            status: "ok".into(),
+            kind: None,
+            component: Some(component.into()),
+            note: None,
+            rows: Some(rows),
+            duration_ms: Some(ms),
+            error: None,
+            category: None,
+            sql: None,
+        };
+        // Inserted out of order on purpose: the record must be BTreeMap-sorted
+        // so two runs of the same pipeline serialize identically.
+        nodes.insert("zeta".into(), entry("snk.csv", 50, 9));
+        nodes.insert("alpha".into(), entry("src.csv", 100, 9));
+        let result = RunResult {
+            cache_keys: Default::default(),
+            status: "ok".into(),
+            duration_ms: 150,
+            nodes,
+            preview: Vec::new(),
+            error: None,
+            category: None,
+            unchanged: false,
+            incomplete: false,
+            incomplete_reason: None,
+            artifacts: Vec::new(),
+            artifacts_truncated: false,
+        };
+        let rec = RunRecord::from_result(&result, "manual");
+        let ids: Vec<&str> = rec.nodes.iter().map(|n| n.node.as_str()).collect();
+        assert_eq!(ids, ["alpha", "zeta"], "node order is the map's, not insertion order");
+        assert_eq!(rec.nodes[0].component.as_deref(), Some("src.csv"));
+        assert_eq!(rec.nodes[0].duration_ms, Some(100));
+        assert_eq!(rec.nodes[1].rows, Some(9));
+    }
+
+    /// The per-node list is unbounded input (node count) inside a file that is
+    /// rewritten whole on every run - so it is kept on the newest record only,
+    /// which is the only record render_metrics reads it from.
+    #[test]
+    fn node_detail_is_kept_on_the_newest_record_only() {
+        let ws = tempfile::tempdir().unwrap();
+        let with_nodes = |run: &str| {
+            let mut r = record("ok", 10, 1);
+            r.run_id = Some(run.into());
+            r.nodes = vec![NodeMetric {
+                node: "a".into(),
+                component: Some("src.csv".into()),
+                duration_ms: Some(1),
+                rows: Some(1),
+            }];
+            r
+        };
+        append_run_record(ws.path(), "nightly", with_nodes("run-1")).unwrap();
+        append_run_record(ws.path(), "nightly", with_nodes("run-2")).unwrap();
+        let loaded = load_run_history(ws.path(), "nightly");
+        assert_eq!(loaded.len(), 2);
+        assert!(loaded[0].nodes.is_empty(), "older records shed node detail");
+        assert_eq!(loaded[1].nodes.len(), 1, "the newest record keeps it");
+        // And the metrics still emit the newest run's node series.
+        let out = render_metrics(ws.path()).unwrap();
+        assert!(out.contains("duckle_node_last_rows{pipeline=\"nightly\",node=\"a\",component=\"src.csv\"} 1"), "{out}");
+    }
+}
+
+/// Load the run history for a pipeline (oldest first). Returns an empty
+/// vec if there's no history yet or it can't be parsed.
+/// Append a finished run's record, or say on stderr why it could not be.
+///
+/// The doc above promised callers would log the failure; none did - the CLI,
+/// follow mode, the console and both desktop scheduler paths all dropped it.
+/// The run has already happened, so failing it would invite a re-run that
+/// repeats its sinks. But the record is more than a history line: publication
+/// events are rebuilt from it, and freshness, alerting and `runs diff` read it,
+/// so a silent loss meant subscribers were never triggered and nothing said why.
+/// Returns whether it was written, for a caller that reports it.
+pub fn record_run(workspace: &Path, pipeline_id: &str, record: RunRecord) -> bool {
+    match append_run_record(workspace, pipeline_id, record) {
+        Ok(()) => true,
+        Err(e) => {
+            eprintln!(
+                "duckle: the {pipeline_id} run finished but its record could not be written ({e}). \
+                 It is missing from run history, freshness and alerting, and nothing subscribed \
+                 to what it published will be triggered by it."
+            );
+            false
+        }
+    }
+}
+
+pub fn load_run_history(workspace: &Path, pipeline_id: &str) -> Vec<RunRecord> {
+    let path = history_file(workspace, pipeline_id);
+    let Ok(content) = std::fs::read_to_string(&path) else {
+        return Vec::new();
+    };
+    serde_json::from_str(&content).unwrap_or_default()
+}
+
+#[cfg(test)]
+mod unchanged_persistence_tests {
+    use super::*;
+
+    fn rec(status: &str, unchanged: bool) -> RunRecord {
+        RunRecord {
+            run_id: None,
+            at: Utc::now().to_rfc3339(),
+            status: status.into(),
+            duration_ms: 5,
+            rows: 0,
+            node_count: 1,
+            trigger: "scheduled".into(),
+            unchanged,
+            error: None,
+            category: None,
+            incomplete: false,
+            incomplete_reason: None,
+            assets: Vec::new(),
+            nodes: Vec::new(),
+        }
+    }
+
+    /// The whole point of persisting it: once the run is over, "succeeded and
+    /// found nothing" and "succeeded and ingested" are both status ok. If the
+    /// flag does not survive the round trip, that question cannot be answered
+    /// later - which is when it is actually asked.
+    #[test]
+    fn the_flag_survives_being_written_and_read_back() {
+        let r = rec("ok", true);
+        let text = serde_json::to_string(&r).unwrap();
+        assert!(text.contains("\"unchanged\":true"), "{text}");
+        let back: RunRecord = serde_json::from_str(&text).unwrap();
+        assert!(back.unchanged);
+        assert_eq!(back.status, "ok", "an unchanged run is still a success");
+    }
+
+    /// Records written before the flag existed must still load, or upgrading
+    /// loses a pipeline's history.
+    #[test]
+    fn a_record_from_before_this_existed_still_loads() {
+        let old = r#"{"at":"2026-01-01T00:00:00Z","status":"ok","duration_ms":5,
+                      "rows":10,"node_count":2,"trigger":"manual"}"#;
+        let back: RunRecord = serde_json::from_str(old).expect("old records must still parse");
+        assert!(!back.unchanged, "absent means it did work, which is the safe reading");
+    }
+
+    /// An unchanged run is a success, so `last_status` says 1 for it. Only the
+    /// new gauge separates a poll that is working and finding nothing from one
+    /// that is ingesting.
+    #[test]
+    fn the_metrics_separate_a_quiet_poll_from_an_ingesting_one() {
+        let tmp = tempfile::tempdir().unwrap();
+        let ws = tmp.path();
+        std::fs::create_dir_all(ws.join("runs")).unwrap();
+        std::fs::write(
+            ws.join("runs").join("quiet.json"),
+            serde_json::to_string(&vec![rec("ok", false), rec("ok", true)]).unwrap(),
+        )
+        .unwrap();
+
+        write_metrics_textfile(ws).expect("write metrics");
+        let text = std::fs::read_to_string(ws.join("logs").join("duckle_metrics.prom"))
+            .expect("metrics file");
+        assert!(
+            text.contains("duckle_run_last_unchanged{pipeline=\"quiet\"} 1"),
+            "the last run was a quiet poll and nothing says so: {text}"
+        );
+        assert!(
+            text.contains("duckle_run_last_status{pipeline=\"quiet\"} 1"),
+            "and it is still a success: {text}"
+        );
+        // Counted out of "ok" so the buckets still sum to the run count.
+        assert!(
+            text.contains("duckle_runs_window{pipeline=\"quiet\",status=\"ok\"} 1"),
+            "only the ingesting run belongs in ok: {text}"
+        );
+        assert!(
+            text.contains("duckle_runs_window{pipeline=\"quiet\",status=\"unchanged\"} 1"),
+            "{text}"
+        );
+    }
+}

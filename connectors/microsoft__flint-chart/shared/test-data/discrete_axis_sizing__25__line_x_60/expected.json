@@ -1,0 +1,412 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "Step",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 190
+    },
+    "axisX": {
+      "labelLimit": 60,
+      "labelFontSize": 9,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 19
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 12
+  },
+  "data": {
+    "values": [
+      {
+        "Step": "Step01",
+        "Value": 374
+      },
+      {
+        "Step": "Step02",
+        "Value": 199
+      },
+      {
+        "Step": "Step03",
+        "Value": 249
+      },
+      {
+        "Step": "Step04",
+        "Value": 117
+      },
+      {
+        "Step": "Step05",
+        "Value": 51
+      },
+      {
+        "Step": "Step06",
+        "Value": 238
+      },
+      {
+        "Step": "Step07",
+        "Value": 491
+      },
+      {
+        "Step": "Step08",
+        "Value": 480
+      },
+      {
+        "Step": "Step09",
+        "Value": 500
+      },
+      {
+        "Step": "Step10",
+        "Value": 302
+      },
+      {
+        "Step": "Step11",
+        "Value": 89
+      },
+      {
+        "Step": "Step12",
+        "Value": 59
+      },
+      {
+        "Step": "Step13",
+        "Value": 121
+      },
+      {
+        "Step": "Step14",
+        "Value": 369
+      },
+      {
+        "Step": "Step15",
+        "Value": 30
+      },
+      {
+        "Step": "Step16",
+        "Value": 67
+      },
+      {
+        "Step": "Step17",
+        "Value": 166
+      },
+      {
+        "Step": "Step18",
+        "Value": 111
+      },
+      {
+        "Step": "Step19",
+        "Value": 264
+      },
+      {
+        "Step": "Step20",
+        "Value": 338
+      },
+      {
+        "Step": "Step21",
+        "Value": 265
+      },
+      {
+        "Step": "Step22",
+        "Value": 145
+      },
+      {
+        "Step": "Step23",
+        "Value": 172
+      },
+      {
+        "Step": "Step24",
+        "Value": 342
+      },
+      {
+        "Step": "Step25",
+        "Value": 382
+      },
+      {
+        "Step": "Step26",
+        "Value": 178
+      },
+      {
+        "Step": "Step27",
+        "Value": 411
+      },
+      {
+        "Step": "Step28",
+        "Value": 183
+      },
+      {
+        "Step": "Step29",
+        "Value": 184
+      },
+      {
+        "Step": "Step30",
+        "Value": 111
+      },
+      {
+        "Step": "Step31",
+        "Value": 131
+      },
+      {
+        "Step": "Step32",
+        "Value": 434
+      },
+      {
+        "Step": "Step33",
+        "Value": 445
+      },
+      {
+        "Step": "Step34",
+        "Value": 232
+      },
+      {
+        "Step": "Step35",
+        "Value": 320
+      },
+      {
+        "Step": "Step36",
+        "Value": 134
+      },
+      {
+        "Step": "Step37",
+        "Value": 137
+      },
+      {
+        "Step": "Step38",
+        "Value": 416
+      },
+      {
+        "Step": "Step39",
+        "Value": 306
+      },
+      {
+        "Step": "Step40",
+        "Value": 148
+      },
+      {
+        "Step": "Step41",
+        "Value": 170
+      },
+      {
+        "Step": "Step42",
+        "Value": 138
+      },
+      {
+        "Step": "Step43",
+        "Value": 82
+      },
+      {
+        "Step": "Step44",
+        "Value": 263
+      },
+      {
+        "Step": "Step45",
+        "Value": 167
+      },
+      {
+        "Step": "Step46",
+        "Value": 494
+      },
+      {
+        "Step": "Step47",
+        "Value": 45
+      },
+      {
+        "Step": "Step48",
+        "Value": 190
+      },
+      {
+        "Step": "Step49",
+        "Value": 442
+      },
+      {
+        "Step": "Step50",
+        "Value": 439
+      },
+      {
+        "Step": "Step51",
+        "Value": 183
+      },
+      {
+        "Step": "Step52",
+        "Value": 45
+      },
+      {
+        "Step": "Step53",
+        "Value": 275
+      },
+      {
+        "Step": "Step54",
+        "Value": 455
+      },
+      {
+        "Step": "Step55",
+        "Value": 438
+      },
+      {
+        "Step": "Step56",
+        "Value": 119
+      },
+      {
+        "Step": "Step57",
+        "Value": 250
+      },
+      {
+        "Step": "Step58",
+        "Value": 31
+      },
+      {
+        "Step": "Step59",
+        "Value": 381
+      },
+      {
+        "Step": "Step60",
+        "Value": 60
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 190,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

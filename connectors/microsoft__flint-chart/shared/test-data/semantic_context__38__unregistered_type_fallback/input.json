@@ -1,0 +1,57 @@
+{
+  "title": "Unregistered Type Fallback",
+  "description": "Semantic type \"CustomMetric\" is NOT in the registry. Falls back to data-driven inference: numeric data → quantitative encoding, aggregationDefault = sum, zeroClass = meaningful. Tests that unknown types don't crash and behave sensibly.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "item": "Item A",
+          "custom_metric": 127
+        },
+        {
+          "item": "Item B",
+          "custom_metric": 216
+        },
+        {
+          "item": "Item C",
+          "custom_metric": 655
+        },
+        {
+          "item": "Item D",
+          "custom_metric": 275
+        },
+        {
+          "item": "Item E",
+          "custom_metric": 392
+        },
+        {
+          "item": "Item F",
+          "custom_metric": 244
+        }
+      ]
+    },
+    "semantic_types": {
+      "item": "Category",
+      "custom_metric": "CustomMetric"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "item"
+        },
+        "y": {
+          "field": "custom_metric"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

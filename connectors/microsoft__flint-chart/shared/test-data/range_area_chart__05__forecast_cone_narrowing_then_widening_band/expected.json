@@ -1,0 +1,178 @@
+{
+  "mark": {
+    "type": "area",
+    "opacity": 0.5,
+    "line": {
+      "strokeWidth": 1
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Weeks Ahead",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Forecast Low",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y2": {
+      "field": "Forecast High"
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Weeks Ahead": 0,
+        "Forecast Low": 91.6,
+        "Forecast High": 108.4
+      },
+      {
+        "Weeks Ahead": 1,
+        "Forecast Low": 95.6,
+        "Forecast High": 109.2
+      },
+      {
+        "Weeks Ahead": 2,
+        "Forecast Low": 99.6,
+        "Forecast High": 110
+      },
+      {
+        "Weeks Ahead": 3,
+        "Forecast Low": 103.6,
+        "Forecast High": 110.8
+      },
+      {
+        "Weeks Ahead": 4,
+        "Forecast Low": 107.6,
+        "Forecast High": 111.6
+      },
+      {
+        "Weeks Ahead": 5,
+        "Forecast Low": 108.4,
+        "Forecast High": 115.6
+      },
+      {
+        "Weeks Ahead": 6,
+        "Forecast Low": 109.2,
+        "Forecast High": 119.6
+      },
+      {
+        "Weeks Ahead": 7,
+        "Forecast Low": 110,
+        "Forecast High": 123.6
+      },
+      {
+        "Weeks Ahead": 8,
+        "Forecast Low": 110.8,
+        "Forecast High": 127.6
+      },
+      {
+        "Weeks Ahead": 9,
+        "Forecast Low": 111.6,
+        "Forecast High": 131.6
+      },
+      {
+        "Weeks Ahead": 10,
+        "Forecast Low": 112.4,
+        "Forecast High": 135.6
+      },
+      {
+        "Weeks Ahead": 11,
+        "Forecast Low": 113.2,
+        "Forecast High": 139.6
+      },
+      {
+        "Weeks Ahead": 12,
+        "Forecast Low": 114,
+        "Forecast High": 143.6
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.5,
+      "applicable": true,
+      "value": 0.5
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

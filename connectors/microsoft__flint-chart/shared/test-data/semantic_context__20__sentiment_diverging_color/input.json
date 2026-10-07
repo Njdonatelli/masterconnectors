@@ -1,0 +1,77 @@
+{
+  "title": "Sentiment Diverging Color",
+  "description": "Semantic type \"Sentiment\" on the color channel triggers a diverging color scheme (redblue) with domainMid = 0. Negative sentiment gets one hue, positive gets another, and zero is neutral. WITHOUT this: generic sequential palette with no semantic midpoint.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "product": "Widget A",
+          "reviews": 53,
+          "sentiment": -0.47
+        },
+        {
+          "product": "Widget B",
+          "reviews": 97,
+          "sentiment": -0.21
+        },
+        {
+          "product": "Gadget X",
+          "reviews": 482,
+          "sentiment": -0.59
+        },
+        {
+          "product": "Gadget Y",
+          "reviews": 299,
+          "sentiment": -0.04
+        },
+        {
+          "product": "Tool M",
+          "reviews": 416,
+          "sentiment": -0.39
+        },
+        {
+          "product": "Tool N",
+          "reviews": 492,
+          "sentiment": 0.14
+        },
+        {
+          "product": "Part P",
+          "reviews": 347,
+          "sentiment": 0.58
+        },
+        {
+          "product": "Part Q",
+          "reviews": 293,
+          "sentiment": 0.12
+        }
+      ]
+    },
+    "semantic_types": {
+      "product": "Category",
+      "reviews": "Count",
+      "sentiment": "Sentiment"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "product"
+        },
+        "y": {
+          "field": "reviews"
+        },
+        "color": {
+          "field": "sentiment"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,308 @@
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import type { SearchEngine, RawSearchResult } from '../../src/types.js';
+import type { SmartRouter } from '../../src/fetch/router.js';
+import { resetConfig } from '../../src/config.js';
+import { initDatabase, closeDatabase } from '../../src/cache/db.js';
+
+const extractMock = vi.fn().mockResolvedValue({
+  title: 'Integration Page',
+  markdown: '# Integration Test\n\nContent about React Server Components and their architecture.',
+  metadata: {},
+  links: [],
+  images: [],
+  extractor: 'defuddle' as const,
+});
+vi.mock('../../src/providers/extract-provider.js', () => ({
+  getExtractProvider: vi.fn(async () => ({
+    name: 'v1' as const,
+    extract: extractMock,
+  })),
+  _resetExtractProviderForTest: vi.fn(),
+}));
+
+
+const { handleSearch } = await import('../../src/tools/search.js');
+
+function createMockServer(opts: {
+  samplingSupported?: boolean;
+  responseText?: string;
+  samplingError?: Error;
+} = {}) {
+  return {
+    getClientCapabilities: vi.fn().mockReturnValue(
+      opts.samplingSupported !== false ? { sampling: {} } : {},
+    ),
+    createMessage: opts.samplingError
+      ? vi.fn().mockRejectedValue(opts.samplingError)
+      : vi.fn().mockResolvedValue({
+          model: 'integration-model',
+          content: {
+            type: 'text',
+            text: opts.responseText ?? 'React Server Components render ahead of time on the server [1]. This enables better performance [2].',
+          },
+        }),
+  };
+}
+
+describe('search answer synthesis -- integration', () => {
+  const originalEnv = process.env;
+
+  const stubEngine: SearchEngine = {
+    name: 'integration-stub',
+    search: vi.fn().mockResolvedValue([
+      {
+        title: 'React Server Components',
+        url: 'https://react.dev/reference/rsc/server-components',
+        snippet: 'React Server Components render ahead of time.',
+        relevance_score: 0.95,
+        engine: 'integration-stub',
+      },
+      {
+        title: 'Understanding RSC',
+        url: 'https://vercel.com/blog/understanding-rsc',
+        snippet: 'RSC enables a new mental model for React apps.',
+        relevance_score: 0.88,
+        engine: 'integration-stub',
+      },
+      {
+        title: 'RSC Deep Dive',
+        url: 'https://blog.example.com/rsc-deep-dive',
+        snippet: 'Comprehensive deep dive into RSC architecture.',
+        relevance_score: 0.75,
+        engine: 'integration-stub',
+      },
+    ] satisfies RawSearchResult[]),
+  };
+
+  const mockRouter = {
+    fetch: vi.fn().mockResolvedValue({
+      url: 'https://react.dev',
+      finalUrl: 'https://react.dev',
+      html: '<html><body>Content</body></html>',
+      contentType: 'text/html',
+      statusCode: 200,
+      method: 'http' as const,
+      headers: {},
+    }),
+  } as unknown as SmartRouter;
+
+  beforeEach(() => {
+    process.env = {
+      ...originalEnv,
+      VALIDATE_LINKS: 'false',
+      LOG_LEVEL: 'error',
+    };
+    resetConfig();
+    initDatabase(':memory:');
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    closeDatabase();
+    process.env = originalEnv;
+    resetConfig();
+  });
+
+  it('end-to-end: format=answer returns answer with citations', async () => {
+    const server = createMockServer({
+      samplingSupported: true,
+      responseText: 'React Server Components render on the server before bundling [1]. This improves performance [2].',
+    });
+
+    const __r_result = await handleSearch(
+      { query: 'What are React Server Components?', format: 'answer' },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      server,
+    );;
+    const result = __r_result.ok ? __r_result.data : ({ ...__r_result } as any);
+
+    expect(result.answer).toBeDefined();
+    expect(result.answer).toContain('React Server Components');
+    expect(result.citations).toBeDefined();
+    expect(result.citations!.length).toBeGreaterThanOrEqual(1);
+    expect(result.results.length).toBeGreaterThan(0);
+    expect(result.context_text).toBeUndefined();
+    expect(result.total_time_ms).toBeGreaterThanOrEqual(0);
+  });
+
+  it('end-to-end: format=answer falls back to heuristic when sampling unavailable', async () => {
+    const server = createMockServer({ samplingSupported: false });
+
+    const __r_result = await handleSearch(
+      { query: 'React Server Components', format: 'answer', include_content: false },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      server,
+    );;
+    const result = __r_result.ok ? __r_result.data : ({ ...__r_result } as any);
+
+    // Heuristic fallback fills `answer` with a bulleted summary + warning
+    expect(result.answer).toBeDefined();
+    expect(result.warning).toBeDefined();
+    expect(result.citations).toBeDefined();
+    expect(result.citations!.length).toBeGreaterThan(0);
+  });
+
+  it('end-to-end: format=answer without server falls back to heuristic', async () => {
+    const __r_result = await handleSearch(
+      { query: 'React Server Components', format: 'answer', include_content: false },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      undefined,
+    );;
+    const result = __r_result.ok ? __r_result.data : ({ ...__r_result } as any);
+
+    expect(result.answer).toBeDefined();
+    expect(result.warning).toBeDefined();
+  });
+
+  it('end-to-end: format=stream_answer sets streaming flag', async () => {
+    const server = createMockServer({ samplingSupported: true });
+
+    const __r_result = await handleSearch(
+      { query: 'test', format: 'stream_answer' },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      server,
+    );;
+    const result = __r_result.ok ? __r_result.data : ({ ...__r_result } as any);
+
+    expect(result.answer).toBeDefined();
+    expect(result.streaming).toBe(true);
+  });
+
+  it('end-to-end: sampling error falls back to heuristic answer', async () => {
+    const server = createMockServer({
+      samplingSupported: true,
+      samplingError: new Error('context window exceeded'),
+    });
+
+    const __r_result = await handleSearch(
+      { query: 'test', format: 'answer' },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      server,
+    );;
+    const result = __r_result.ok ? __r_result.data : ({ ...__r_result } as any);
+
+    expect(result.answer).toBeDefined();
+    expect(result.warning).toBeDefined();
+  });
+
+  it('end-to-end: citations reference correct source URLs', async () => {
+    const server = createMockServer({
+      samplingSupported: true,
+      responseText: 'RSC renders on server [1]. Vercel explains the model [2]. Deep dive covers architecture [3].',
+    });
+
+    const __r_result = await handleSearch(
+      { query: 'React Server Components', format: 'answer' },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      server,
+    );;
+    const result = __r_result.ok ? __r_result.data : ({ ...__r_result } as any);
+
+    expect(result.citations).toBeDefined();
+    const citationUrls = result.citations!.map(c => c.url);
+
+    if (citationUrls.length >= 1) {
+      expect(citationUrls[0]).toBe('https://react.dev/reference/rsc/server-components');
+    }
+    if (citationUrls.length >= 2) {
+      expect(citationUrls[1]).toBe('https://vercel.com/blog/understanding-rsc');
+    }
+  });
+
+  it('end-to-end: empty search results with answer format', async () => {
+    const emptyEngine: SearchEngine = {
+      name: 'empty',
+      search: vi.fn().mockResolvedValue([]),
+    };
+
+    const server = createMockServer({ samplingSupported: true });
+
+    const __r_result = await handleSearch(
+      { query: 'nonexistent topic xyz123', format: 'answer' },
+      [emptyEngine],
+      mockRouter,
+      undefined,
+      server,
+    );;
+    const result = __r_result.ok ? __r_result.data : ({ ...__r_result } as any);
+
+    expect(result.results).toEqual([]);
+    expect(result.answer).toBeUndefined();
+    expect(result.error).toBeDefined();
+  });
+
+  it('end-to-end: answer synthesis prompt includes query', async () => {
+    const server = createMockServer({ samplingSupported: true });
+
+    await handleSearch(
+      { query: 'specific technical question about RSC', format: 'answer' },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      server,
+    );
+
+    expect(server.createMessage).toHaveBeenCalled();
+    const callArgs = server.createMessage.mock.calls[0][0];
+    const messageText = callArgs.messages[0].content.text;
+    expect(messageText).toContain('specific technical question about RSC');
+  });
+
+  it('end-to-end: maxTokens passed correctly to sampling', async () => {
+    const server = createMockServer({ samplingSupported: true });
+
+    await handleSearch(
+      { query: 'test', format: 'answer' },
+      [stubEngine],
+      mockRouter,
+      undefined,
+      server,
+    );
+
+    const callArgs = server.createMessage.mock.calls[0][0];
+    expect(callArgs.maxTokens).toBe(1500);
+  });
+
+  it('end-to-end: concurrent answer requests do not interfere', async () => {
+    const server = createMockServer({
+      samplingSupported: true,
+      responseText: 'Concurrent answer [1].',
+    });
+
+    const [__r1, __r2] = await Promise.all([
+      handleSearch(
+        { query: 'query one', format: 'answer' },
+        [stubEngine],
+        mockRouter,
+        undefined,
+        server,
+      ),
+      handleSearch(
+        { query: 'query two', format: 'answer' },
+        [stubEngine],
+        mockRouter,
+        undefined,
+        server,
+      ),
+    ]);
+    const result1 = __r1.ok ? __r1.data : ({ ...__r1 } as any);
+    const result2 = __r2.ok ? __r2.data : ({ ...__r2 } as any);
+
+    expect(result1.answer).toBeDefined();
+    expect(result2.answer).toBeDefined();
+    expect(result1.query).toBe('query one');
+    expect(result2.query).toBe('query two');
+  });
+});

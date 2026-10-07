@@ -1,0 +1,110 @@
+# Xcode
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets
+*.env
+.env.*
+!.env.example
+credentials.json
+
+# Internal / temporary
+CLAUDE-CONTEXT.md
+Untitled.png
+list.md
+plans/
+docs/
+# Distribution
+*.dmg
+*.app
+*.zip
+screenshot_mac/
+plans/
+# Windows / Visual Studio
+.vs/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+ARM64/
+*.user
+*.suo
+*.obj
+*.pch
+*.pdb
+*.ilk
+*.log
+*.tlog/
+*.idb
+*.exe
+*.dll
+*.lib
+*.exp
+*.winmd
+*.xbf
+*.pri
+*.appx
+*.msix
+*.lastbuildstate
+*.FileListAbsolute.txt
+*.cache
+*.rsp
+*.resfiles
+*.resfiles.intermediate
+*.Build.CppClean.log
+*.vcxproj.FileListAbsolute.txt
+packages/
+Generated Files/
+repomix-output.xml
+screenshot_mac/
+
+# Velopack release artifacts (Setup.exe, *.nupkg, releases.*.json, RELEASES)
+windows/Releases/
+
+# Cached vendor binaries downloaded on demand by build-unpackaged.ps1.
+# The Velopack C++ SDK is vendored in windows/vendor/velopack/ and must
+# be tracked (header files + static lib) so clones can build without a
+# separate fetch step. WebView2 bootstrap is fetched at build time.
+windows/vendor/webview2/
+!windows/vendor/velopack/lib/velopack_libc_win_x64_msvc.lib
+
+# Bundled D2 CLI (Assets/d2/d2.exe) — ER Diagram uses it to render SVGs.
+# Binary is vendored so clones build + package without a manual download.
+!windows/Gridex/Assets/d2/d2.exe
+
+# Generated version header — written by build-unpackaged.ps1 -Version
+# from the CI tag, falls back to 0.0.0-dev locally via __has_include.
+windows/Gridex/GridexVersion.generated.h
+dist
+.wangler
+.env.example

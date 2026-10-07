@@ -1,0 +1,474 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Period",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 263
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 26
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 23
+  },
+  "data": {
+    "values": [
+      {
+        "Period": "Period01",
+        "Series": "S1",
+        "Value": 6
+      },
+      {
+        "Period": "Period01",
+        "Series": "S2",
+        "Value": 185
+      },
+      {
+        "Period": "Period01",
+        "Series": "S3",
+        "Value": 76
+      },
+      {
+        "Period": "Period02",
+        "Series": "S1",
+        "Value": 42
+      },
+      {
+        "Period": "Period02",
+        "Series": "S2",
+        "Value": 134
+      },
+      {
+        "Period": "Period02",
+        "Series": "S3",
+        "Value": 78
+      },
+      {
+        "Period": "Period03",
+        "Series": "S1",
+        "Value": 49
+      },
+      {
+        "Period": "Period03",
+        "Series": "S2",
+        "Value": 67
+      },
+      {
+        "Period": "Period03",
+        "Series": "S3",
+        "Value": 118
+      },
+      {
+        "Period": "Period04",
+        "Series": "S1",
+        "Value": 164
+      },
+      {
+        "Period": "Period04",
+        "Series": "S2",
+        "Value": 25
+      },
+      {
+        "Period": "Period04",
+        "Series": "S3",
+        "Value": 132
+      },
+      {
+        "Period": "Period05",
+        "Series": "S1",
+        "Value": 118
+      },
+      {
+        "Period": "Period05",
+        "Series": "S2",
+        "Value": 150
+      },
+      {
+        "Period": "Period05",
+        "Series": "S3",
+        "Value": 20
+      },
+      {
+        "Period": "Period06",
+        "Series": "S1",
+        "Value": 165
+      },
+      {
+        "Period": "Period06",
+        "Series": "S2",
+        "Value": 139
+      },
+      {
+        "Period": "Period06",
+        "Series": "S3",
+        "Value": 126
+      },
+      {
+        "Period": "Period07",
+        "Series": "S1",
+        "Value": 15
+      },
+      {
+        "Period": "Period07",
+        "Series": "S2",
+        "Value": 26
+      },
+      {
+        "Period": "Period07",
+        "Series": "S3",
+        "Value": 101
+      },
+      {
+        "Period": "Period08",
+        "Series": "S1",
+        "Value": 17
+      },
+      {
+        "Period": "Period08",
+        "Series": "S2",
+        "Value": 80
+      },
+      {
+        "Period": "Period08",
+        "Series": "S3",
+        "Value": 56
+      },
+      {
+        "Period": "Period09",
+        "Series": "S1",
+        "Value": 142
+      },
+      {
+        "Period": "Period09",
+        "Series": "S2",
+        "Value": 36
+      },
+      {
+        "Period": "Period09",
+        "Series": "S3",
+        "Value": 40
+      },
+      {
+        "Period": "Period10",
+        "Series": "S1",
+        "Value": 74
+      },
+      {
+        "Period": "Period10",
+        "Series": "S2",
+        "Value": 122
+      },
+      {
+        "Period": "Period10",
+        "Series": "S3",
+        "Value": 144
+      },
+      {
+        "Period": "Period11",
+        "Series": "S1",
+        "Value": 43
+      },
+      {
+        "Period": "Period11",
+        "Series": "S2",
+        "Value": 67
+      },
+      {
+        "Period": "Period11",
+        "Series": "S3",
+        "Value": 97
+      },
+      {
+        "Period": "Period12",
+        "Series": "S1",
+        "Value": 98
+      },
+      {
+        "Period": "Period12",
+        "Series": "S2",
+        "Value": 132
+      },
+      {
+        "Period": "Period12",
+        "Series": "S3",
+        "Value": 188
+      },
+      {
+        "Period": "Period13",
+        "Series": "S1",
+        "Value": 119
+      },
+      {
+        "Period": "Period13",
+        "Series": "S2",
+        "Value": 170
+      },
+      {
+        "Period": "Period13",
+        "Series": "S3",
+        "Value": 126
+      },
+      {
+        "Period": "Period14",
+        "Series": "S1",
+        "Value": 45
+      },
+      {
+        "Period": "Period14",
+        "Series": "S2",
+        "Value": 49
+      },
+      {
+        "Period": "Period14",
+        "Series": "S3",
+        "Value": 108
+      },
+      {
+        "Period": "Period15",
+        "Series": "S1",
+        "Value": 121
+      },
+      {
+        "Period": "Period15",
+        "Series": "S2",
+        "Value": 8
+      },
+      {
+        "Period": "Period15",
+        "Series": "S3",
+        "Value": 183
+      },
+      {
+        "Period": "Period16",
+        "Series": "S1",
+        "Value": 124
+      },
+      {
+        "Period": "Period16",
+        "Series": "S2",
+        "Value": 196
+      },
+      {
+        "Period": "Period16",
+        "Series": "S3",
+        "Value": 166
+      },
+      {
+        "Period": "Period17",
+        "Series": "S1",
+        "Value": 127
+      },
+      {
+        "Period": "Period17",
+        "Series": "S2",
+        "Value": 170
+      },
+      {
+        "Period": "Period17",
+        "Series": "S3",
+        "Value": 180
+      },
+      {
+        "Period": "Period18",
+        "Series": "S1",
+        "Value": 130
+      },
+      {
+        "Period": "Period18",
+        "Series": "S2",
+        "Value": 135
+      },
+      {
+        "Period": "Period18",
+        "Series": "S3",
+        "Value": 189
+      },
+      {
+        "Period": "Period19",
+        "Series": "S1",
+        "Value": 114
+      },
+      {
+        "Period": "Period19",
+        "Series": "S2",
+        "Value": 181
+      },
+      {
+        "Period": "Period19",
+        "Series": "S3",
+        "Value": 183
+      },
+      {
+        "Period": "Period20",
+        "Series": "S1",
+        "Value": 121
+      },
+      {
+        "Period": "Period20",
+        "Series": "S2",
+        "Value": 107
+      },
+      {
+        "Period": "Period20",
+        "Series": "S3",
+        "Value": 71
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 263,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

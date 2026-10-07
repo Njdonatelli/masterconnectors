@@ -1,0 +1,217 @@
+{
+  "title": "Year-Month (Mon YYYY, 1 year) → Stacked Bar Chart",
+  "description": "Natural year-month within one year: \"Jan 2020\", …, \"Dec 2020\" (12 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "Jan 2020",
+          "Value": 494,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Jan 2020",
+          "Value": 274,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Jan 2020",
+          "Value": 334,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Feb 2020",
+          "Value": 304,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Feb 2020",
+          "Value": 351,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Feb 2020",
+          "Value": 430,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Mar 2020",
+          "Value": 389,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Mar 2020",
+          "Value": 58,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Mar 2020",
+          "Value": 478,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Apr 2020",
+          "Value": 463,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Apr 2020",
+          "Value": 491,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Apr 2020",
+          "Value": 133,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "May 2020",
+          "Value": 289,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "May 2020",
+          "Value": 66,
+          "Category": "Beta"
+        },
+        {
+          "Date": "May 2020",
+          "Value": 453,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Jun 2020",
+          "Value": 508,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Jun 2020",
+          "Value": 514,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Jun 2020",
+          "Value": 180,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Jul 2020",
+          "Value": 373,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Jul 2020",
+          "Value": 121,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Jul 2020",
+          "Value": 468,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Aug 2020",
+          "Value": 242,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Aug 2020",
+          "Value": 375,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Aug 2020",
+          "Value": 510,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Sep 2020",
+          "Value": 426,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Sep 2020",
+          "Value": 259,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Sep 2020",
+          "Value": 193,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Oct 2020",
+          "Value": 414,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Oct 2020",
+          "Value": 56,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Oct 2020",
+          "Value": 87,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Nov 2020",
+          "Value": 396,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Nov 2020",
+          "Value": 360,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Nov 2020",
+          "Value": 449,
+          "Category": "Gamma"
+        },
+        {
+          "Date": "Dec 2020",
+          "Value": 496,
+          "Category": "Alpha"
+        },
+        {
+          "Date": "Dec 2020",
+          "Value": 196,
+          "Category": "Beta"
+        },
+        {
+          "Date": "Dec 2020",
+          "Value": 393,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

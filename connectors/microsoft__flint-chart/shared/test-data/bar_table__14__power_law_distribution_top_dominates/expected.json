@@ -1,0 +1,396 @@
+{
+  "spacing": 8,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 239,
+      "height": 300,
+      "title": {
+        "text": "Vendor",
+        "anchor": "start",
+        "offset": 6,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.842
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "Vendor",
+          "type": "nominal",
+          "sort": [
+            "Electronics",
+            "Clothing",
+            "Food",
+            "Books",
+            "Sports",
+            "Home",
+            "Garden",
+            "Auto",
+            "Health",
+            "Beauty",
+            "Toys",
+            "Movies",
+            "Music",
+            "Games",
+            "Software"
+          ],
+          "axis": {
+            "title": null,
+            "domain": false,
+            "ticks": false,
+            "labelFontSize": 13,
+            "labelAlign": "left",
+            "labelPadding": 91,
+            "labelLimit": 91
+          }
+        },
+        "x": {
+          "field": "Spend",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "nice": false
+          }
+        },
+        "color": {
+          "field": "Spend",
+          "type": "quantitative",
+          "legend": null,
+          "scale": {
+            "range": [
+              "#cdebd3",
+              "#41a25f"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 62,
+      "height": 300,
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "Spend",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "Vendor"
+          ]
+        }
+      ],
+      "title": {
+        "text": "Spend",
+        "anchor": "end",
+        "offset": 6,
+        "limit": 58,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "Vendor",
+          "type": "nominal",
+          "sort": [
+            "Electronics",
+            "Clothing",
+            "Food",
+            "Books",
+            "Sports",
+            "Home",
+            "Garden",
+            "Auto",
+            "Health",
+            "Beauty",
+            "Toys",
+            "Movies",
+            "Music",
+            "Games",
+            "Software"
+          ],
+          "axis": null
+        },
+        "x": {
+          "datum": 1,
+          "axis": null,
+          "scale": {
+            "type": "linear",
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "text": {
+          "field": "__bt_val",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#666"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "Vendor": "Electronics",
+        "Spend": 1000000,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Clothing",
+        "Spend": 550078,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Food",
+        "Spend": 302924,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Books",
+        "Spend": 166593,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Sports",
+        "Spend": 92022,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Home",
+        "Spend": 51116,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Garden",
+        "Spend": 28139,
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Auto",
+        "Spend": 15269,
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Health",
+        "Spend": 8432,
+        "__bt_sort": 8,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Beauty",
+        "Spend": 5581,
+        "__bt_sort": 9,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Toys",
+        "Spend": 3422,
+        "__bt_sort": 10,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Music",
+        "Spend": 1495,
+        "__bt_sort": 12,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Movies",
+        "Spend": 1526,
+        "__bt_sort": 11,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Software",
+        "Spend": 493,
+        "__bt_sort": 14,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Vendor": "Games",
+        "Spend": 889,
+        "__bt_sort": 13,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      }
+    ]
+  },
+  "height": {
+    "step": 25
+  },
+  "data": {
+    "values": [
+      {
+        "Vendor": "Electronics",
+        "Spend": 1000000
+      },
+      {
+        "Vendor": "Clothing",
+        "Spend": 550078
+      },
+      {
+        "Vendor": "Food",
+        "Spend": 302924
+      },
+      {
+        "Vendor": "Books",
+        "Spend": 166593
+      },
+      {
+        "Vendor": "Sports",
+        "Spend": 92022
+      },
+      {
+        "Vendor": "Home",
+        "Spend": 51116
+      },
+      {
+        "Vendor": "Garden",
+        "Spend": 28139
+      },
+      {
+        "Vendor": "Auto",
+        "Spend": 15269
+      },
+      {
+        "Vendor": "Health",
+        "Spend": 8432
+      },
+      {
+        "Vendor": "Beauty",
+        "Spend": 5581
+      },
+      {
+        "Vendor": "Toys",
+        "Spend": 3422
+      },
+      {
+        "Vendor": "Music",
+        "Spend": 1495
+      },
+      {
+        "Vendor": "Movies",
+        "Spend": 1526
+      },
+      {
+        "Vendor": "Software",
+        "Spend": 493
+      },
+      {
+        "Vendor": "Games",
+        "Spend": 889
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

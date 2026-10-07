@@ -1,0 +1,219 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Signal A",
+      "type": "quantitative",
+      "scale": {
+        "nice": true,
+        "padding": 10,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Signal B",
+      "type": "quantitative",
+      "scale": {
+        "nice": true,
+        "padding": 10,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "order": {
+      "field": "Step",
+      "type": "quantitative"
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 523,
+      "continuousHeight": 385
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 39
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Step": 0,
+        "Signal A": 90,
+        "Signal B": 50
+      },
+      {
+        "Step": 1,
+        "Signal A": 88.5,
+        "Signal B": 60.4
+      },
+      {
+        "Step": 2,
+        "Signal A": 84.2,
+        "Signal B": 67.8
+      },
+      {
+        "Step": 3,
+        "Signal A": 77.3,
+        "Signal B": 70
+      },
+      {
+        "Step": 4,
+        "Signal A": 68.4,
+        "Signal B": 66.3
+      },
+      {
+        "Step": 5,
+        "Signal A": 58.1,
+        "Signal B": 58
+      },
+      {
+        "Step": 6,
+        "Signal A": 47.3,
+        "Signal B": 47.3
+      },
+      {
+        "Step": 7,
+        "Signal A": 36.6,
+        "Signal B": 37.4
+      },
+      {
+        "Step": 8,
+        "Signal A": 26.9,
+        "Signal B": 31.2
+      },
+      {
+        "Step": 9,
+        "Signal A": 19,
+        "Signal B": 30.4
+      },
+      {
+        "Step": 10,
+        "Signal A": 13.3,
+        "Signal B": 35.4
+      },
+      {
+        "Step": 11,
+        "Signal A": 10.4,
+        "Signal B": 44.6
+      },
+      {
+        "Step": 12,
+        "Signal A": 10.4,
+        "Signal B": 55.4
+      },
+      {
+        "Step": 13,
+        "Signal A": 13.3,
+        "Signal B": 64.6
+      },
+      {
+        "Step": 14,
+        "Signal A": 19,
+        "Signal B": 69.6
+      },
+      {
+        "Step": 15,
+        "Signal A": 26.9,
+        "Signal B": 68.8
+      },
+      {
+        "Step": 16,
+        "Signal A": 36.6,
+        "Signal B": 62.6
+      },
+      {
+        "Step": 17,
+        "Signal A": 47.3,
+        "Signal B": 52.7
+      },
+      {
+        "Step": 18,
+        "Signal A": 58.1,
+        "Signal B": 42
+      },
+      {
+        "Step": 19,
+        "Signal A": 68.4,
+        "Signal B": 33.7
+      },
+      {
+        "Step": 20,
+        "Signal A": 77.3,
+        "Signal B": 30
+      },
+      {
+        "Step": 21,
+        "Signal A": 84.2,
+        "Signal B": 32.2
+      },
+      {
+        "Step": 22,
+        "Signal A": 88.5,
+        "Signal B": 39.6
+      },
+      {
+        "Step": 23,
+        "Signal A": 90,
+        "Signal B": 50
+      }
+    ]
+  },
+  "_width": 523,
+  "_height": 385,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    }
+  ]
+}

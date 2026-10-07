@@ -1,0 +1,60 @@
+{
+  "title": "Cost Currency Format ($)",
+  "description": "Semantic type \"Cost\" with unit \"USD\" uses currency format ($450K, $1.2M). Cost is additive — department costs sum to total company cost. WITHOUT this: plain numbers without currency context.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "department": "Engineering",
+          "annual_cost": 238050
+        },
+        {
+          "department": "Marketing",
+          "annual_cost": 710418
+        },
+        {
+          "department": "Sales",
+          "annual_cost": 1801955
+        },
+        {
+          "department": "Support",
+          "annual_cost": 1665211
+        },
+        {
+          "department": "HR",
+          "annual_cost": 207755
+        },
+        {
+          "department": "Legal",
+          "annual_cost": 935772
+        }
+      ]
+    },
+    "semantic_types": {
+      "department": "Category",
+      "annual_cost": {
+        "semanticType": "Amount",
+        "unit": "USD"
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "department"
+        },
+        "y": {
+          "field": "annual_cost"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

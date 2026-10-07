@@ -1,0 +1,304 @@
+{
+  "encoding": {
+    "y": {
+      "field": "rep",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "title": null
+      }
+    }
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "rep": "Anna",
+            "__lo": 0,
+            "__hi": 75
+          },
+          {
+            "rep": "Ben",
+            "__lo": 0,
+            "__hi": 37.5
+          },
+          {
+            "rep": "Carla",
+            "__lo": 0,
+            "__hi": 55
+          },
+          {
+            "rep": "Diego",
+            "__lo": 0,
+            "__hi": 70
+          },
+          {
+            "rep": "Eve",
+            "__lo": 0,
+            "__hi": 62.5
+          },
+          {
+            "rep": "Frank",
+            "__lo": 0,
+            "__hi": 52.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#e2e2e2",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "__lo",
+          "type": "quantitative",
+          "axis": {
+            "title": "sales",
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "field": "__hi"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "rep": "Anna",
+            "__lo": 75,
+            "__hi": 150
+          },
+          {
+            "rep": "Ben",
+            "__lo": 37.5,
+            "__hi": 75
+          },
+          {
+            "rep": "Carla",
+            "__lo": 55,
+            "__hi": 110
+          },
+          {
+            "rep": "Diego",
+            "__lo": 70,
+            "__hi": 140
+          },
+          {
+            "rep": "Eve",
+            "__lo": 62.5,
+            "__hi": 125
+          },
+          {
+            "rep": "Frank",
+            "__lo": 52.5,
+            "__hi": 105
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#ececec",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "__lo",
+          "type": "quantitative",
+          "axis": {
+            "title": "sales",
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "field": "__hi"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "rep": "Anna",
+            "__lo": 150,
+            "__hi": 225
+          },
+          {
+            "rep": "Ben",
+            "__lo": 75,
+            "__hi": 112.5
+          },
+          {
+            "rep": "Carla",
+            "__lo": 110,
+            "__hi": 165
+          },
+          {
+            "rep": "Diego",
+            "__lo": 140,
+            "__hi": 210
+          },
+          {
+            "rep": "Eve",
+            "__lo": 125,
+            "__hi": 187.5
+          },
+          {
+            "rep": "Frank",
+            "__lo": 105,
+            "__hi": 157.5
+          }
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "color": "#f5f5f5",
+        "opacity": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "__lo",
+          "type": "quantitative",
+          "axis": {
+            "title": "sales",
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "field": "__hi"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.5
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "sales",
+          "type": "quantitative",
+          "scale": {
+            "zero": true
+          },
+          "axis": {
+            "title": "sales",
+            "format": ",.12~g"
+          }
+        },
+        "color": {
+          "field": "__status",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Below target",
+              "Meets target"
+            ],
+            "range": [
+              "#c44e52",
+              "#2f855a"
+            ]
+          },
+          "legend": {
+            "title": null
+          },
+          "title": null
+        }
+      },
+      "transform": [
+        {
+          "calculate": "datum[\"sales\"] >= datum[\"quota\"] ? 'Meets target' : 'Below target'",
+          "as": "__status"
+        }
+      ]
+    },
+    {
+      "mark": {
+        "type": "tick",
+        "color": "#1a1a1a",
+        "thickness": 3,
+        "opacity": 1,
+        "size": 27
+      },
+      "encoding": {
+        "x": {
+          "field": "quota",
+          "type": "quantitative",
+          "axis": {
+            "title": "sales",
+            "format": ",.12~g"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 455,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "height": {
+    "step": 37
+  },
+  "data": {
+    "values": [
+      {
+        "rep": "Anna",
+        "sales": 284,
+        "quota": 300
+      },
+      {
+        "rep": "Ben",
+        "sales": 172,
+        "quota": 150
+      },
+      {
+        "rep": "Carla",
+        "sales": 248,
+        "quota": 220
+      },
+      {
+        "rep": "Diego",
+        "sales": 305,
+        "quota": 280
+      },
+      {
+        "rep": "Eve",
+        "sales": 198,
+        "quota": 250
+      },
+      {
+        "rep": "Frank",
+        "sales": 226,
+        "quota": 210
+      }
+    ]
+  },
+  "_width": 455,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

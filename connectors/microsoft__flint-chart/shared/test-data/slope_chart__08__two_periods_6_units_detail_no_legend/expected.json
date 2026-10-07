@@ -1,0 +1,164 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "linear",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Phase",
+      "type": "nominal",
+      "sort": [
+        "Before",
+        "After"
+      ],
+      "scale": {
+        "padding": 0.4
+      }
+    },
+    "y": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "nice": true,
+        "padding": 12
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "detail": {
+      "field": "Unit",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "width": {
+    "step": 224
+  },
+  "data": {
+    "values": [
+      {
+        "Phase": "Before",
+        "Unit": "Electronics",
+        "Score": 40
+      },
+      {
+        "Phase": "After",
+        "Unit": "Electronics",
+        "Score": 58
+      },
+      {
+        "Phase": "Before",
+        "Unit": "Clothing",
+        "Score": 53
+      },
+      {
+        "Phase": "After",
+        "Unit": "Clothing",
+        "Score": 36
+      },
+      {
+        "Phase": "Before",
+        "Unit": "Food",
+        "Score": 62
+      },
+      {
+        "Phase": "After",
+        "Unit": "Food",
+        "Score": 58
+      },
+      {
+        "Phase": "Before",
+        "Unit": "Books",
+        "Score": 37
+      },
+      {
+        "Phase": "After",
+        "Unit": "Books",
+        "Score": 59
+      },
+      {
+        "Phase": "Before",
+        "Unit": "Sports",
+        "Score": 34
+      },
+      {
+        "Phase": "After",
+        "Unit": "Sports",
+        "Score": 62
+      },
+      {
+        "Phase": "Before",
+        "Unit": "Home",
+        "Score": 45
+      },
+      {
+        "Phase": "After",
+        "Unit": "Home",
+        "Score": 59
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": true
+    }
+  ]
+}

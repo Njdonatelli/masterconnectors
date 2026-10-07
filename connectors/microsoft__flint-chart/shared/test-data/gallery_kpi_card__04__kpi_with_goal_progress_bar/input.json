@@ -1,0 +1,60 @@
+{
+  "title": "KPI: With goal (progress bar)",
+  "description": "Both value and goal are numeric → small \"X% of goal\" line + progress bar beneath the big number.",
+  "chartType": "KPI Card",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Metric": "Q1 Revenue",
+          "Value": 1184320,
+          "Goal": 1500000
+        },
+        {
+          "Metric": "Signups",
+          "Value": 1182,
+          "Goal": 2000
+        },
+        {
+          "Metric": "NPS",
+          "Value": 47,
+          "Goal": 60
+        },
+        {
+          "Metric": "Stretch",
+          "Value": 128,
+          "Goal": 100
+        }
+      ]
+    },
+    "semantic_types": {
+      "Metric": "Category",
+      "Value": "Quantity",
+      "Goal": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "KPI Card",
+      "encodings": {
+        "metric": {
+          "field": "Metric"
+        },
+        "value": {
+          "field": "Value"
+        },
+        "goal": {
+          "field": "Goal"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "layout": "horizontal"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

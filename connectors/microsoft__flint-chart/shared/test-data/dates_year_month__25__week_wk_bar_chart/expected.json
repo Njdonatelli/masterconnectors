@@ -1,0 +1,196 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Week",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 25
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Week": "Wk 01",
+        "Value": 536
+      },
+      {
+        "Week": "Wk 02",
+        "Value": 252
+      },
+      {
+        "Week": "Wk 03",
+        "Value": 494
+      },
+      {
+        "Week": "Wk 04",
+        "Value": 310
+      },
+      {
+        "Week": "Wk 05",
+        "Value": 481
+      },
+      {
+        "Week": "Wk 06",
+        "Value": 506
+      },
+      {
+        "Week": "Wk 07",
+        "Value": 382
+      },
+      {
+        "Week": "Wk 08",
+        "Value": 392
+      },
+      {
+        "Week": "Wk 09",
+        "Value": 227
+      },
+      {
+        "Week": "Wk 10",
+        "Value": 251
+      },
+      {
+        "Week": "Wk 11",
+        "Value": 507
+      },
+      {
+        "Week": "Wk 12",
+        "Value": 239
+      },
+      {
+        "Week": "Wk 13",
+        "Value": 534
+      },
+      {
+        "Week": "Wk 14",
+        "Value": 84
+      },
+      {
+        "Week": "Wk 15",
+        "Value": 204
+      },
+      {
+        "Week": "Wk 16",
+        "Value": 195
+      },
+      {
+        "Week": "Wk 17",
+        "Value": 290
+      },
+      {
+        "Week": "Wk 18",
+        "Value": 314
+      },
+      {
+        "Week": "Wk 19",
+        "Value": 207
+      },
+      {
+        "Week": "Wk 20",
+        "Value": 463
+      },
+      {
+        "Week": "Wk 21",
+        "Value": 327
+      },
+      {
+        "Week": "Wk 22",
+        "Value": 239
+      },
+      {
+        "Week": "Wk 23",
+        "Value": 258
+      },
+      {
+        "Week": "Wk 24",
+        "Value": 63
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

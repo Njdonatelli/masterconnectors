@@ -1,0 +1,94 @@
+{
+  "title": "Store revenue vs target",
+  "description": "A denser bullet: twelve stores compared against an annual revenue target ($K). Stores at or above target read in the meets-target colour, those below in the below-target colour, and the muted grey bands behind each bar mark quarters of that store’s own target so partial progress is easy to gauge.",
+  "chartType": "Bullet Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "store": "Seattle",
+          "revenue": 612,
+          "target": 540
+        },
+        {
+          "store": "Portland",
+          "revenue": 388,
+          "target": 420
+        },
+        {
+          "store": "Denver",
+          "revenue": 470,
+          "target": 470
+        },
+        {
+          "store": "Austin",
+          "revenue": 845,
+          "target": 720
+        },
+        {
+          "store": "Chicago",
+          "revenue": 503,
+          "target": 560
+        },
+        {
+          "store": "Boston",
+          "revenue": 266,
+          "target": 350
+        },
+        {
+          "store": "Atlanta",
+          "revenue": 591,
+          "target": 500
+        },
+        {
+          "store": "Miami",
+          "revenue": 432,
+          "target": 480
+        },
+        {
+          "store": "Phoenix",
+          "revenue": 358,
+          "target": 300
+        },
+        {
+          "store": "Dallas",
+          "revenue": 707,
+          "target": 650
+        },
+        {
+          "store": "Detroit",
+          "revenue": 214,
+          "target": 320
+        },
+        {
+          "store": "Newark",
+          "revenue": 489,
+          "target": 460
+        }
+      ]
+    },
+    "semantic_types": {
+      "store": "Category",
+      "revenue": "Quantity",
+      "target": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bullet Chart",
+      "encodings": {
+        "y": {
+          "field": "store"
+        },
+        "x": {
+          "field": "revenue"
+        },
+        "goal": {
+          "field": "target"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

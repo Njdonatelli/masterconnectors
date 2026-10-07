@@ -1,0 +1,380 @@
+{
+  "mark": {
+    "type": "circle",
+    "opacity": 0.6,
+    "size": 100
+  },
+  "encoding": {
+    "x": {
+      "field": "Species",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "PetalLength",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "xOffset": {
+      "field": "__jitter",
+      "type": "quantitative",
+      "axis": null,
+      "scale": {
+        "domain": [
+          -10,
+          10
+        ]
+      }
+    }
+  },
+  "width": {
+    "step": 67
+  },
+  "transform": [
+    {
+      "calculate": "-6 + random() * 12",
+      "as": "__jitter"
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Species": "Setosa",
+        "PetalLength": 0.5
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 0.8
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 0.9
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.1
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 0.5
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 2.2
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.7
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.1
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 2.4
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.6
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 2.5
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 2.5
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.8
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 0.7
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 2.1
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.9
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.7
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 1.5
+      },
+      {
+        "Species": "Setosa",
+        "PetalLength": 0.8
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.6
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 5.1
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4.6
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.6
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4.4
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.5
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.4
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 5.3
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.5
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4.7
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.7
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4.6
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4.7
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.8
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 4.7
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.8
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.9
+      },
+      {
+        "Species": "Versicolor",
+        "PetalLength": 3.6
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.5
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.8
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.8
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.5
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.8
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.7
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.8
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.7
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 6.5
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.7
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.5
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 6.1
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.1
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.8
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.8
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 6.1
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.4
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.7
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 4.5
+      },
+      {
+        "Species": "Virginica",
+        "PetalLength": 5.8
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "stepWidth",
+      "label": "Jitter",
+      "type": "continuous",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "pointSize",
+      "label": "Size",
+      "type": "continuous",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

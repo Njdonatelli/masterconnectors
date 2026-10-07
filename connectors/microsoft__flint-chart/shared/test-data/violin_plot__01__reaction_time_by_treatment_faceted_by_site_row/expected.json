@@ -1,0 +1,2228 @@
+{
+  "mark": {
+    "type": "area",
+    "orient": "horizontal"
+  },
+  "transform": [
+    {
+      "density": "Reaction (ms)",
+      "groupby": [
+        "Treatment",
+        "Site"
+      ],
+      "as": [
+        "value",
+        "density"
+      ],
+      "extent": [
+        224.77124895485048,
+        640.2287510451496
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "value",
+      "type": "quantitative",
+      "title": "Reaction (ms)",
+      "axis": {
+        "format": ",.12~g",
+        "title": null
+      }
+    },
+    "x": {
+      "field": "density",
+      "type": "quantitative",
+      "stack": "center",
+      "impute": null,
+      "title": null,
+      "axis": {
+        "labels": false,
+        "ticks": false,
+        "grid": false,
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Treatment",
+      "type": "nominal",
+      "legend": null
+    },
+    "column": {
+      "field": "Treatment",
+      "type": "nominal",
+      "sort": null,
+      "spacing": 0,
+      "header": {
+        "titleOrient": "bottom",
+        "labelOrient": "bottom",
+        "labelPadding": 2
+      }
+    },
+    "row": {
+      "field": "Site",
+      "type": "nominal",
+      "sort": null,
+      "header": {
+        "title": "Site: Reaction (ms)"
+      }
+    }
+  },
+  "width": 167,
+  "height": 290,
+  "config": {
+    "view": {
+      "continuousWidth": 167,
+      "continuousHeight": 290
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666",
+      "title": null
+    },
+    "headerColumn": {
+      "labelLimit": 580
+    },
+    "headerRow": {
+      "labelLimit": 192
+    },
+    "facet": {
+      "spacing": 19
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 370
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 393
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 380
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 599
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 405
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 545
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 460
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 466
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 450
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 406
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 385
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 406
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 408
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 420
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 463
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 386
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 383
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 413
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 368
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 420
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 378
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 422
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 415
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 448
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 431
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 484
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 503
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 434
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 449
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 415
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 402
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 410
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 380
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 428
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 433
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 485
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 381
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 433
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 403
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 407
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 400
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 436
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 433
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 375
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 389
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 393
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 444
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 423
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 442
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 509
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 390
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 420
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 415
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 449
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 400
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 407
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 485
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 481
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 388
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 389
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 425
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 447
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 472
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 506
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 442
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 410
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 389
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 446
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 424
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 1",
+        "Reaction (ms)": 377
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 361
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 389
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 607
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 356
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 328
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 336
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 317
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 430
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 342
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 361
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 370
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 406
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 353
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 454
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 424
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 343
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 533
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 371
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 323
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 389
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 467
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 420
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 380
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 367
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 339
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 318
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 364
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 409
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 412
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 332
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 325
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 356
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 360
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 354
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 376
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 314
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 410
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 359
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 384
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 416
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 365
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 514
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 427
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 334
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 362
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 399
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 398
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 301
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 367
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 346
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 458
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 354
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 404
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 344
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 427
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 429
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 366
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 303
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 455
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 363
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 345
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 396
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 363
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 381
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 368
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 337
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 323
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 340
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 435
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 428
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 310
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 289
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 270
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 269
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 301
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 311
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 281
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 341
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 297
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 359
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 464
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 322
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 309
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 354
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 273
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 311
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 258
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 268
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 303
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 289
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 307
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 280
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 293
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 279
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 350
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 362
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 378
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 263
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 305
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 298
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 286
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 413
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 294
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 287
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 295
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 310
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 281
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 286
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 311
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 317
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 276
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 266
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 282
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 328
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 292
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 276
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 313
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 294
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 360
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 292
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 280
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 321
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 261
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 301
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 409
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 333
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 448
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 310
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 287
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 264
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 340
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 326
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 295
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 295
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 311
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 306
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 278
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 270
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 281
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 1",
+        "Reaction (ms)": 283
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 463
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 493
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 424
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 495
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 452
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 523
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 488
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 467
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 540
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 546
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 460
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 486
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 378
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 422
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 474
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 484
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 492
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 409
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 435
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 468
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 462
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 406
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 415
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 445
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 461
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 446
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 454
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 448
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 530
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 494
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 403
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 456
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 409
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 459
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 448
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 464
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 460
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 412
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 438
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 457
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 403
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 456
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 468
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 400
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 405
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 476
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 423
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 403
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 472
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 450
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 454
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 447
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 458
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 501
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 482
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 497
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 421
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 479
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 448
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 425
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 398
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 429
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 429
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 439
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 462
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 472
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 427
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 444
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 479
+      },
+      {
+        "Treatment": "Placebo",
+        "Site": "Site 2",
+        "Reaction (ms)": 443
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 380
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 382
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 395
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 407
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 406
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 446
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 401
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 341
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 417
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 468
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 388
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 371
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 380
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 366
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 361
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 379
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 406
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 389
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 371
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 364
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 356
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 378
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 362
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 392
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 389
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 377
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 366
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 387
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 424
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 360
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 444
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 381
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 324
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 374
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 381
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 396
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 363
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 417
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 458
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 404
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 368
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 458
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 401
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 481
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 368
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 365
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 361
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 507
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 424
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 342
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 431
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 337
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 386
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 406
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 390
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 466
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 394
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 393
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 383
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 402
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 330
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 351
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 434
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 395
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 383
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 434
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 452
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 363
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 466
+      },
+      {
+        "Treatment": "Low Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 431
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 315
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 320
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 347
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 413
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 355
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 317
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 316
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 295
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 288
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 345
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 310
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 319
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 315
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 334
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 325
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 280
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 316
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 379
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 347
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 259
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 372
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 356
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 303
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 367
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 349
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 379
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 312
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 359
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 306
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 403
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 288
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 298
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 323
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 354
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 337
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 396
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 304
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 420
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 347
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 267
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 371
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 324
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 294
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 290
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 366
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 359
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 317
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 375
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 356
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 372
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 299
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 314
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 297
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 277
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 331
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 311
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 331
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 316
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 344
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 328
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 452
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 318
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 312
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 340
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 356
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 294
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 303
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 362
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 324
+      },
+      {
+        "Treatment": "High Dose",
+        "Site": "Site 2",
+        "Reaction (ms)": 334
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 192,
+  "_options": [
+    {
+      "key": "bandwidth",
+      "label": "Bandwidth",
+      "type": "continuous",
+      "min": 0.05,
+      "max": 2,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

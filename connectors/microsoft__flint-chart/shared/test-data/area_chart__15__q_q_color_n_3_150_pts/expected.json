@@ -1,0 +1,927 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Series",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 391,
+      "continuousHeight": 328
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 33
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "X": 0,
+        "Value": 62,
+        "Series": "Electronics"
+      },
+      {
+        "X": 2,
+        "Value": 60,
+        "Series": "Electronics"
+      },
+      {
+        "X": 4.1,
+        "Value": 62,
+        "Series": "Electronics"
+      },
+      {
+        "X": 6.1,
+        "Value": 63,
+        "Series": "Electronics"
+      },
+      {
+        "X": 8.2,
+        "Value": 64,
+        "Series": "Electronics"
+      },
+      {
+        "X": 10.2,
+        "Value": 69,
+        "Series": "Electronics"
+      },
+      {
+        "X": 12.2,
+        "Value": 70,
+        "Series": "Electronics"
+      },
+      {
+        "X": 14.3,
+        "Value": 71,
+        "Series": "Electronics"
+      },
+      {
+        "X": 16.3,
+        "Value": 76,
+        "Series": "Electronics"
+      },
+      {
+        "X": 18.4,
+        "Value": 83,
+        "Series": "Electronics"
+      },
+      {
+        "X": 20.4,
+        "Value": 93,
+        "Series": "Electronics"
+      },
+      {
+        "X": 22.4,
+        "Value": 106,
+        "Series": "Electronics"
+      },
+      {
+        "X": 24.5,
+        "Value": 119,
+        "Series": "Electronics"
+      },
+      {
+        "X": 26.5,
+        "Value": 128,
+        "Series": "Electronics"
+      },
+      {
+        "X": 28.6,
+        "Value": 137,
+        "Series": "Electronics"
+      },
+      {
+        "X": 30.6,
+        "Value": 145,
+        "Series": "Electronics"
+      },
+      {
+        "X": 32.7,
+        "Value": 157,
+        "Series": "Electronics"
+      },
+      {
+        "X": 34.7,
+        "Value": 171,
+        "Series": "Electronics"
+      },
+      {
+        "X": 36.7,
+        "Value": 179,
+        "Series": "Electronics"
+      },
+      {
+        "X": 38.8,
+        "Value": 192,
+        "Series": "Electronics"
+      },
+      {
+        "X": 40.8,
+        "Value": 208,
+        "Series": "Electronics"
+      },
+      {
+        "X": 42.9,
+        "Value": 219,
+        "Series": "Electronics"
+      },
+      {
+        "X": 44.9,
+        "Value": 230,
+        "Series": "Electronics"
+      },
+      {
+        "X": 46.9,
+        "Value": 243,
+        "Series": "Electronics"
+      },
+      {
+        "X": 49,
+        "Value": 258,
+        "Series": "Electronics"
+      },
+      {
+        "X": 51,
+        "Value": 269,
+        "Series": "Electronics"
+      },
+      {
+        "X": 53.1,
+        "Value": 276,
+        "Series": "Electronics"
+      },
+      {
+        "X": 55.1,
+        "Value": 283,
+        "Series": "Electronics"
+      },
+      {
+        "X": 57.1,
+        "Value": 286,
+        "Series": "Electronics"
+      },
+      {
+        "X": 59.2,
+        "Value": 286,
+        "Series": "Electronics"
+      },
+      {
+        "X": 61.2,
+        "Value": 289,
+        "Series": "Electronics"
+      },
+      {
+        "X": 63.3,
+        "Value": 298,
+        "Series": "Electronics"
+      },
+      {
+        "X": 65.3,
+        "Value": 311,
+        "Series": "Electronics"
+      },
+      {
+        "X": 67.3,
+        "Value": 323,
+        "Series": "Electronics"
+      },
+      {
+        "X": 69.4,
+        "Value": 338,
+        "Series": "Electronics"
+      },
+      {
+        "X": 71.4,
+        "Value": 355,
+        "Series": "Electronics"
+      },
+      {
+        "X": 73.5,
+        "Value": 369,
+        "Series": "Electronics"
+      },
+      {
+        "X": 75.5,
+        "Value": 384,
+        "Series": "Electronics"
+      },
+      {
+        "X": 77.6,
+        "Value": 396,
+        "Series": "Electronics"
+      },
+      {
+        "X": 79.6,
+        "Value": 411,
+        "Series": "Electronics"
+      },
+      {
+        "X": 81.6,
+        "Value": 424,
+        "Series": "Electronics"
+      },
+      {
+        "X": 83.7,
+        "Value": 431,
+        "Series": "Electronics"
+      },
+      {
+        "X": 85.7,
+        "Value": 433,
+        "Series": "Electronics"
+      },
+      {
+        "X": 87.8,
+        "Value": 441,
+        "Series": "Electronics"
+      },
+      {
+        "X": 89.8,
+        "Value": 451,
+        "Series": "Electronics"
+      },
+      {
+        "X": 91.8,
+        "Value": 463,
+        "Series": "Electronics"
+      },
+      {
+        "X": 93.9,
+        "Value": 468,
+        "Series": "Electronics"
+      },
+      {
+        "X": 95.9,
+        "Value": 472,
+        "Series": "Electronics"
+      },
+      {
+        "X": 98,
+        "Value": 478,
+        "Series": "Electronics"
+      },
+      {
+        "X": 100,
+        "Value": 484,
+        "Series": "Electronics"
+      },
+      {
+        "X": 0,
+        "Value": 139,
+        "Series": "Clothing"
+      },
+      {
+        "X": 2,
+        "Value": 134,
+        "Series": "Clothing"
+      },
+      {
+        "X": 4.1,
+        "Value": 138,
+        "Series": "Clothing"
+      },
+      {
+        "X": 6.1,
+        "Value": 146,
+        "Series": "Clothing"
+      },
+      {
+        "X": 8.2,
+        "Value": 154,
+        "Series": "Clothing"
+      },
+      {
+        "X": 10.2,
+        "Value": 156,
+        "Series": "Clothing"
+      },
+      {
+        "X": 12.2,
+        "Value": 153,
+        "Series": "Clothing"
+      },
+      {
+        "X": 14.3,
+        "Value": 156,
+        "Series": "Clothing"
+      },
+      {
+        "X": 16.3,
+        "Value": 160,
+        "Series": "Clothing"
+      },
+      {
+        "X": 18.4,
+        "Value": 167,
+        "Series": "Clothing"
+      },
+      {
+        "X": 20.4,
+        "Value": 179,
+        "Series": "Clothing"
+      },
+      {
+        "X": 22.4,
+        "Value": 184,
+        "Series": "Clothing"
+      },
+      {
+        "X": 24.5,
+        "Value": 194,
+        "Series": "Clothing"
+      },
+      {
+        "X": 26.5,
+        "Value": 195,
+        "Series": "Clothing"
+      },
+      {
+        "X": 28.6,
+        "Value": 194,
+        "Series": "Clothing"
+      },
+      {
+        "X": 30.6,
+        "Value": 198,
+        "Series": "Clothing"
+      },
+      {
+        "X": 32.7,
+        "Value": 198,
+        "Series": "Clothing"
+      },
+      {
+        "X": 34.7,
+        "Value": 205,
+        "Series": "Clothing"
+      },
+      {
+        "X": 36.7,
+        "Value": 209,
+        "Series": "Clothing"
+      },
+      {
+        "X": 38.8,
+        "Value": 207,
+        "Series": "Clothing"
+      },
+      {
+        "X": 40.8,
+        "Value": 210,
+        "Series": "Clothing"
+      },
+      {
+        "X": 42.9,
+        "Value": 217,
+        "Series": "Clothing"
+      },
+      {
+        "X": 44.9,
+        "Value": 227,
+        "Series": "Clothing"
+      },
+      {
+        "X": 46.9,
+        "Value": 239,
+        "Series": "Clothing"
+      },
+      {
+        "X": 49,
+        "Value": 242,
+        "Series": "Clothing"
+      },
+      {
+        "X": 51,
+        "Value": 252,
+        "Series": "Clothing"
+      },
+      {
+        "X": 53.1,
+        "Value": 256,
+        "Series": "Clothing"
+      },
+      {
+        "X": 55.1,
+        "Value": 256,
+        "Series": "Clothing"
+      },
+      {
+        "X": 57.1,
+        "Value": 254,
+        "Series": "Clothing"
+      },
+      {
+        "X": 59.2,
+        "Value": 261,
+        "Series": "Clothing"
+      },
+      {
+        "X": 61.2,
+        "Value": 260,
+        "Series": "Clothing"
+      },
+      {
+        "X": 63.3,
+        "Value": 268,
+        "Series": "Clothing"
+      },
+      {
+        "X": 65.3,
+        "Value": 268,
+        "Series": "Clothing"
+      },
+      {
+        "X": 67.3,
+        "Value": 264,
+        "Series": "Clothing"
+      },
+      {
+        "X": 69.4,
+        "Value": 265,
+        "Series": "Clothing"
+      },
+      {
+        "X": 71.4,
+        "Value": 272,
+        "Series": "Clothing"
+      },
+      {
+        "X": 73.5,
+        "Value": 274,
+        "Series": "Clothing"
+      },
+      {
+        "X": 75.5,
+        "Value": 274,
+        "Series": "Clothing"
+      },
+      {
+        "X": 77.6,
+        "Value": 276,
+        "Series": "Clothing"
+      },
+      {
+        "X": 79.6,
+        "Value": 274,
+        "Series": "Clothing"
+      },
+      {
+        "X": 81.6,
+        "Value": 271,
+        "Series": "Clothing"
+      },
+      {
+        "X": 83.7,
+        "Value": 265,
+        "Series": "Clothing"
+      },
+      {
+        "X": 85.7,
+        "Value": 269,
+        "Series": "Clothing"
+      },
+      {
+        "X": 87.8,
+        "Value": 279,
+        "Series": "Clothing"
+      },
+      {
+        "X": 89.8,
+        "Value": 291,
+        "Series": "Clothing"
+      },
+      {
+        "X": 91.8,
+        "Value": 296,
+        "Series": "Clothing"
+      },
+      {
+        "X": 93.9,
+        "Value": 304,
+        "Series": "Clothing"
+      },
+      {
+        "X": 95.9,
+        "Value": 316,
+        "Series": "Clothing"
+      },
+      {
+        "X": 98,
+        "Value": 319,
+        "Series": "Clothing"
+      },
+      {
+        "X": 100,
+        "Value": 322,
+        "Series": "Clothing"
+      },
+      {
+        "X": 0,
+        "Value": 111,
+        "Series": "Food"
+      },
+      {
+        "X": 2,
+        "Value": 122,
+        "Series": "Food"
+      },
+      {
+        "X": 4.1,
+        "Value": 142,
+        "Series": "Food"
+      },
+      {
+        "X": 6.1,
+        "Value": 144,
+        "Series": "Food"
+      },
+      {
+        "X": 8.2,
+        "Value": 145,
+        "Series": "Food"
+      },
+      {
+        "X": 10.2,
+        "Value": 136,
+        "Series": "Food"
+      },
+      {
+        "X": 12.2,
+        "Value": 146,
+        "Series": "Food"
+      },
+      {
+        "X": 14.3,
+        "Value": 157,
+        "Series": "Food"
+      },
+      {
+        "X": 16.3,
+        "Value": 165,
+        "Series": "Food"
+      },
+      {
+        "X": 18.4,
+        "Value": 159,
+        "Series": "Food"
+      },
+      {
+        "X": 20.4,
+        "Value": 163,
+        "Series": "Food"
+      },
+      {
+        "X": 22.4,
+        "Value": 180,
+        "Series": "Food"
+      },
+      {
+        "X": 24.5,
+        "Value": 186,
+        "Series": "Food"
+      },
+      {
+        "X": 26.5,
+        "Value": 205,
+        "Series": "Food"
+      },
+      {
+        "X": 28.6,
+        "Value": 220,
+        "Series": "Food"
+      },
+      {
+        "X": 30.6,
+        "Value": 217,
+        "Series": "Food"
+      },
+      {
+        "X": 32.7,
+        "Value": 231,
+        "Series": "Food"
+      },
+      {
+        "X": 34.7,
+        "Value": 248,
+        "Series": "Food"
+      },
+      {
+        "X": 36.7,
+        "Value": 260,
+        "Series": "Food"
+      },
+      {
+        "X": 38.8,
+        "Value": 282,
+        "Series": "Food"
+      },
+      {
+        "X": 40.8,
+        "Value": 295,
+        "Series": "Food"
+      },
+      {
+        "X": 42.9,
+        "Value": 314,
+        "Series": "Food"
+      },
+      {
+        "X": 44.9,
+        "Value": 319,
+        "Series": "Food"
+      },
+      {
+        "X": 46.9,
+        "Value": 334,
+        "Series": "Food"
+      },
+      {
+        "X": 49,
+        "Value": 356,
+        "Series": "Food"
+      },
+      {
+        "X": 51,
+        "Value": 357,
+        "Series": "Food"
+      },
+      {
+        "X": 53.1,
+        "Value": 348,
+        "Series": "Food"
+      },
+      {
+        "X": 55.1,
+        "Value": 352,
+        "Series": "Food"
+      },
+      {
+        "X": 57.1,
+        "Value": 349,
+        "Series": "Food"
+      },
+      {
+        "X": 59.2,
+        "Value": 356,
+        "Series": "Food"
+      },
+      {
+        "X": 61.2,
+        "Value": 376,
+        "Series": "Food"
+      },
+      {
+        "X": 63.3,
+        "Value": 391,
+        "Series": "Food"
+      },
+      {
+        "X": 65.3,
+        "Value": 398,
+        "Series": "Food"
+      },
+      {
+        "X": 67.3,
+        "Value": 410,
+        "Series": "Food"
+      },
+      {
+        "X": 69.4,
+        "Value": 414,
+        "Series": "Food"
+      },
+      {
+        "X": 71.4,
+        "Value": 407,
+        "Series": "Food"
+      },
+      {
+        "X": 73.5,
+        "Value": 413,
+        "Series": "Food"
+      },
+      {
+        "X": 75.5,
+        "Value": 435,
+        "Series": "Food"
+      },
+      {
+        "X": 77.6,
+        "Value": 469,
+        "Series": "Food"
+      },
+      {
+        "X": 79.6,
+        "Value": 502,
+        "Series": "Food"
+      },
+      {
+        "X": 81.6,
+        "Value": 539,
+        "Series": "Food"
+      },
+      {
+        "X": 83.7,
+        "Value": 568,
+        "Series": "Food"
+      },
+      {
+        "X": 85.7,
+        "Value": 602,
+        "Series": "Food"
+      },
+      {
+        "X": 87.8,
+        "Value": 620,
+        "Series": "Food"
+      },
+      {
+        "X": 89.8,
+        "Value": 620,
+        "Series": "Food"
+      },
+      {
+        "X": 91.8,
+        "Value": 641,
+        "Series": "Food"
+      },
+      {
+        "X": 93.9,
+        "Value": 646,
+        "Series": "Food"
+      },
+      {
+        "X": 95.9,
+        "Value": 654,
+        "Series": "Food"
+      },
+      {
+        "X": 98,
+        "Value": 669,
+        "Series": "Food"
+      },
+      {
+        "X": 100,
+        "Value": 691,
+        "Series": "Food"
+      }
+    ]
+  },
+  "_width": 391,
+  "_height": 328,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

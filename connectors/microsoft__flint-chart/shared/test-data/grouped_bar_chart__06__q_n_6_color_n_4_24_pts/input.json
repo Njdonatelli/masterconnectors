@@ -1,0 +1,157 @@
+{
+  "title": "Q×N(6) +color(N,4) (24 pts)",
+  "description": "Horizontal grouped — 6 × 4",
+  "chartType": "Grouped Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "X": 1,
+          "Group": "Tablet",
+          "Segment": "USA"
+        },
+        {
+          "X": 1,
+          "Group": "Keyboard",
+          "Segment": "China"
+        },
+        {
+          "X": 1,
+          "Group": "Monitor",
+          "Segment": "Japan"
+        },
+        {
+          "X": 1,
+          "Group": "Desktop",
+          "Segment": "Germany"
+        },
+        {
+          "X": 2,
+          "Group": "Tablet",
+          "Segment": "USA"
+        },
+        {
+          "X": 2,
+          "Group": "Monitor",
+          "Segment": "China"
+        },
+        {
+          "X": 2,
+          "Group": "Keyboard",
+          "Segment": "Japan"
+        },
+        {
+          "X": 2,
+          "Group": "Laptop",
+          "Segment": "Germany"
+        },
+        {
+          "X": 3,
+          "Group": "Tablet",
+          "Segment": "USA"
+        },
+        {
+          "X": 3,
+          "Group": "Phone",
+          "Segment": "China"
+        },
+        {
+          "X": 3,
+          "Group": "Monitor",
+          "Segment": "Japan"
+        },
+        {
+          "X": 3,
+          "Group": "Keyboard",
+          "Segment": "Germany"
+        },
+        {
+          "X": 4,
+          "Group": "Keyboard",
+          "Segment": "USA"
+        },
+        {
+          "X": 4,
+          "Group": "Keyboard",
+          "Segment": "China"
+        },
+        {
+          "X": 4,
+          "Group": "Keyboard",
+          "Segment": "Japan"
+        },
+        {
+          "X": 4,
+          "Group": "Laptop",
+          "Segment": "Germany"
+        },
+        {
+          "X": 5,
+          "Group": "Keyboard",
+          "Segment": "USA"
+        },
+        {
+          "X": 5,
+          "Group": "Keyboard",
+          "Segment": "China"
+        },
+        {
+          "X": 5,
+          "Group": "Tablet",
+          "Segment": "Japan"
+        },
+        {
+          "X": 5,
+          "Group": "Desktop",
+          "Segment": "Germany"
+        },
+        {
+          "X": 6,
+          "Group": "Laptop",
+          "Segment": "USA"
+        },
+        {
+          "X": 6,
+          "Group": "Phone",
+          "Segment": "China"
+        },
+        {
+          "X": 6,
+          "Group": "Keyboard",
+          "Segment": "Japan"
+        },
+        {
+          "X": 6,
+          "Group": "Monitor",
+          "Segment": "Germany"
+        }
+      ]
+    },
+    "semantic_types": {
+      "X": "Quantity",
+      "Group": "Category",
+      "Segment": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Grouped Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "X"
+        },
+        "y": {
+          "field": "Group"
+        },
+        "group": {
+          "field": "Segment"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,303 @@
+{
+  "spacing": 8,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 250,
+      "height": 300,
+      "title": {
+        "text": "Product",
+        "anchor": "start",
+        "offset": 6,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "mean",
+              "field": "Avg Rating",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "Product"
+          ]
+        }
+      ],
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.842
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "Product",
+          "type": "nominal",
+          "sort": [
+            "Alpha",
+            "Beta",
+            "Gamma",
+            "Delta",
+            "Epsilon",
+            "Zeta"
+          ],
+          "axis": {
+            "title": null,
+            "domain": false,
+            "ticks": false,
+            "labelFontSize": 13,
+            "labelAlign": "left",
+            "labelPadding": 62,
+            "labelLimit": 62
+          }
+        },
+        "x": {
+          "field": "__bt_val",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "nice": false
+          }
+        },
+        "color": {
+          "field": "__bt_val",
+          "type": "quantitative",
+          "legend": null,
+          "scale": {
+            "range": [
+              "#cdebd3",
+              "#41a25f"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 80,
+      "height": 300,
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "mean",
+              "field": "Avg Rating",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "Product"
+          ]
+        }
+      ],
+      "title": {
+        "text": "Avg Rating",
+        "anchor": "end",
+        "offset": 6,
+        "limit": 76,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "Product",
+          "type": "nominal",
+          "sort": [
+            "Alpha",
+            "Beta",
+            "Gamma",
+            "Delta",
+            "Epsilon",
+            "Zeta"
+          ],
+          "axis": null
+        },
+        "x": {
+          "datum": 1,
+          "axis": null,
+          "scale": {
+            "type": "linear",
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "text": {
+          "field": "__bt_val",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#666"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "Product": "Alpha",
+        "Avg Rating": 4.7,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Product": "Beta",
+        "Avg Rating": 4.4,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Product": "Gamma",
+        "Avg Rating": 4.1,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Product": "Delta",
+        "Avg Rating": 3.9,
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Product": "Epsilon",
+        "Avg Rating": 3.6,
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Product": "Zeta",
+        "Avg Rating": 3.2,
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      }
+    ]
+  },
+  "height": {
+    "step": 32
+  },
+  "data": {
+    "values": [
+      {
+        "Product": "Alpha",
+        "Avg Rating": 4.7
+      },
+      {
+        "Product": "Beta",
+        "Avg Rating": 4.4
+      },
+      {
+        "Product": "Gamma",
+        "Avg Rating": 4.1
+      },
+      {
+        "Product": "Delta",
+        "Avg Rating": 3.9
+      },
+      {
+        "Product": "Epsilon",
+        "Avg Rating": 3.6
+      },
+      {
+        "Product": "Zeta",
+        "Avg Rating": 3.2
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

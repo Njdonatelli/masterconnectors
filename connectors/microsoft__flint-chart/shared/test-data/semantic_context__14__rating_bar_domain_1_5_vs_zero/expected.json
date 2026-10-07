@@ -1,0 +1,137 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "restaurant",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "avg_rating",
+      "type": "quantitative",
+      "scale": {
+        "zero": true,
+        "domain": [
+          1,
+          5
+        ],
+        "nice": false
+      },
+      "axis": {
+        "tickMinStep": 1,
+        "values": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "restaurant": "Sakura Sushi",
+        "avg_rating": 2.5
+      },
+      {
+        "restaurant": "Bella Pasta",
+        "avg_rating": 4.6
+      },
+      {
+        "restaurant": "Taco Loco",
+        "avg_rating": 3.8
+      },
+      {
+        "restaurant": "Zen Noodle",
+        "avg_rating": 4.3
+      },
+      {
+        "restaurant": "Burger Joint",
+        "avg_rating": 4.6
+      },
+      {
+        "restaurant": "Le Bistro",
+        "avg_rating": 4.1
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

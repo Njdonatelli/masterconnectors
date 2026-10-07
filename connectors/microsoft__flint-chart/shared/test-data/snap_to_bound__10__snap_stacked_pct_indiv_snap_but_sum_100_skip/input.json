@@ -1,0 +1,103 @@
+{
+  "title": "Snap: Stacked Pct indiv snap but sum>100% → skip",
+  "description": "Individual scores range 84–95% — close to 100%, so snap fires on individual values. But when stacked (3 metrics per month), totals reach 265–274%. Since totals exceed intrinsic bound (100), the stacked-total check overrides → domain constraint is skipped, VL auto-extends.",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "month": "Jan",
+          "metric": "Metric 1",
+          "score": 92
+        },
+        {
+          "month": "Jan",
+          "metric": "Metric 2",
+          "score": 88
+        },
+        {
+          "month": "Jan",
+          "metric": "Metric 3",
+          "score": 85
+        },
+        {
+          "month": "Feb",
+          "metric": "Metric 1",
+          "score": 95
+        },
+        {
+          "month": "Feb",
+          "metric": "Metric 2",
+          "score": 90
+        },
+        {
+          "month": "Feb",
+          "metric": "Metric 3",
+          "score": 87
+        },
+        {
+          "month": "Mar",
+          "metric": "Metric 1",
+          "score": 91
+        },
+        {
+          "month": "Mar",
+          "metric": "Metric 2",
+          "score": 93
+        },
+        {
+          "month": "Mar",
+          "metric": "Metric 3",
+          "score": 84
+        },
+        {
+          "month": "Apr",
+          "metric": "Metric 1",
+          "score": 94
+        },
+        {
+          "month": "Apr",
+          "metric": "Metric 2",
+          "score": 89
+        },
+        {
+          "month": "Apr",
+          "metric": "Metric 3",
+          "score": 91
+        }
+      ]
+    },
+    "semantic_types": {
+      "month": "Category",
+      "metric": "Category",
+      "score": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "month"
+        },
+        "y": {
+          "field": "score"
+        },
+        "color": {
+          "field": "metric"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "FiscalYear",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2017-07-02T08:34:17.142Z",
+          "2025-07-02T15:25:42.857Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 243,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 24
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "FiscalYear": "FY 2018",
+        "Value": 461,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2018",
+        "Value": 262,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2018",
+        "Value": 499,
+        "Category": "Gamma"
+      },
+      {
+        "FiscalYear": "FY 2019",
+        "Value": 338,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2019",
+        "Value": 451,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2019",
+        "Value": 392,
+        "Category": "Gamma"
+      },
+      {
+        "FiscalYear": "FY 2020",
+        "Value": 154,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2020",
+        "Value": 142,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2020",
+        "Value": 302,
+        "Category": "Gamma"
+      },
+      {
+        "FiscalYear": "FY 2021",
+        "Value": 58,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2021",
+        "Value": 528,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2021",
+        "Value": 509,
+        "Category": "Gamma"
+      },
+      {
+        "FiscalYear": "FY 2022",
+        "Value": 344,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2022",
+        "Value": 217,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2022",
+        "Value": 420,
+        "Category": "Gamma"
+      },
+      {
+        "FiscalYear": "FY 2023",
+        "Value": 252,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2023",
+        "Value": 198,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2023",
+        "Value": 116,
+        "Category": "Gamma"
+      },
+      {
+        "FiscalYear": "FY 2024",
+        "Value": 247,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2024",
+        "Value": 342,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2024",
+        "Value": 397,
+        "Category": "Gamma"
+      },
+      {
+        "FiscalYear": "FY 2025",
+        "Value": 340,
+        "Category": "Alpha"
+      },
+      {
+        "FiscalYear": "FY 2025",
+        "Value": 368,
+        "Category": "Beta"
+      },
+      {
+        "FiscalYear": "FY 2025",
+        "Value": 322,
+        "Category": "Gamma"
+      }
+    ]
+  },
+  "_width": 243,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

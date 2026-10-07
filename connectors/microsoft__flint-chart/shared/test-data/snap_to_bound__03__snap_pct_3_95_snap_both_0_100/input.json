@@ -1,0 +1,87 @@
+{
+  "title": "Snap: Pct 3–95% → snap both [0,100]",
+  "description": "Capacity ranges 3–95%. Both 3 (within 25 of 0) and 95 (within 25 of 100) trigger snap, producing the full [0, 100] domain. Natural for data that spans nearly the entire percentage range.",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "month": "Jan",
+          "capacity": 3
+        },
+        {
+          "month": "Feb",
+          "capacity": 12
+        },
+        {
+          "month": "Mar",
+          "capacity": 20
+        },
+        {
+          "month": "Apr",
+          "capacity": 29
+        },
+        {
+          "month": "May",
+          "capacity": 37
+        },
+        {
+          "month": "Jun",
+          "capacity": 45
+        },
+        {
+          "month": "Jul",
+          "capacity": 53
+        },
+        {
+          "month": "Aug",
+          "capacity": 62
+        },
+        {
+          "month": "Sep",
+          "capacity": 70
+        },
+        {
+          "month": "Oct",
+          "capacity": 77
+        },
+        {
+          "month": "Nov",
+          "capacity": 82
+        },
+        {
+          "month": "Dec",
+          "capacity": 95
+        }
+      ]
+    },
+    "semantic_types": {
+      "month": "Month",
+      "capacity": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "month"
+        },
+        "y": {
+          "field": "capacity"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

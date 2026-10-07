@@ -1,0 +1,249 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "monotone",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Round",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Rank",
+      "type": "ordinal",
+      "sort": "ascending",
+      "scale": {
+        "reverse": true
+      }
+    },
+    "color": {
+      "field": "Team",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Round": "Round 1",
+        "Team": "Team C",
+        "Rank": 1
+      },
+      {
+        "Round": "Round 1",
+        "Team": "Team D",
+        "Rank": 2
+      },
+      {
+        "Round": "Round 1",
+        "Team": "Team E",
+        "Rank": 3
+      },
+      {
+        "Round": "Round 1",
+        "Team": "Team B",
+        "Rank": 4
+      },
+      {
+        "Round": "Round 1",
+        "Team": "Team A",
+        "Rank": 5
+      },
+      {
+        "Round": "Round 2",
+        "Team": "Team C",
+        "Rank": 1
+      },
+      {
+        "Round": "Round 2",
+        "Team": "Team E",
+        "Rank": 2
+      },
+      {
+        "Round": "Round 2",
+        "Team": "Team B",
+        "Rank": 3
+      },
+      {
+        "Round": "Round 2",
+        "Team": "Team A",
+        "Rank": 4
+      },
+      {
+        "Round": "Round 2",
+        "Team": "Team D",
+        "Rank": 5
+      },
+      {
+        "Round": "Round 3",
+        "Team": "Team E",
+        "Rank": 1
+      },
+      {
+        "Round": "Round 3",
+        "Team": "Team A",
+        "Rank": 2
+      },
+      {
+        "Round": "Round 3",
+        "Team": "Team D",
+        "Rank": 3
+      },
+      {
+        "Round": "Round 3",
+        "Team": "Team C",
+        "Rank": 4
+      },
+      {
+        "Round": "Round 3",
+        "Team": "Team B",
+        "Rank": 5
+      },
+      {
+        "Round": "Round 4",
+        "Team": "Team A",
+        "Rank": 1
+      },
+      {
+        "Round": "Round 4",
+        "Team": "Team D",
+        "Rank": 2
+      },
+      {
+        "Round": "Round 4",
+        "Team": "Team E",
+        "Rank": 3
+      },
+      {
+        "Round": "Round 4",
+        "Team": "Team B",
+        "Rank": 4
+      },
+      {
+        "Round": "Round 4",
+        "Team": "Team C",
+        "Rank": 5
+      },
+      {
+        "Round": "Round 5",
+        "Team": "Team A",
+        "Rank": 1
+      },
+      {
+        "Round": "Round 5",
+        "Team": "Team C",
+        "Rank": 2
+      },
+      {
+        "Round": "Round 5",
+        "Team": "Team D",
+        "Rank": 3
+      },
+      {
+        "Round": "Round 5",
+        "Team": "Team B",
+        "Rank": 4
+      },
+      {
+        "Round": "Round 5",
+        "Team": "Team E",
+        "Rank": 5
+      },
+      {
+        "Round": "Round 6",
+        "Team": "Team A",
+        "Rank": 1
+      },
+      {
+        "Round": "Round 6",
+        "Team": "Team B",
+        "Rank": 2
+      },
+      {
+        "Round": "Round 6",
+        "Team": "Team E",
+        "Rank": 3
+      },
+      {
+        "Round": "Round 6",
+        "Team": "Team C",
+        "Rank": 4
+      },
+      {
+        "Round": "Round 6",
+        "Team": "Team D",
+        "Rank": 5
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

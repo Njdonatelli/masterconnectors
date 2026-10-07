@@ -1,0 +1,1161 @@
+<!doctype html>
+<!--
+  Loomi · dev scene panel
+
+  Two related surfaces in one window:
+    1. **Pet state picker** — 9 chips, one per pet state (idle / thinking /
+       sweeping / happy / juggling / needsinput / working / sleeping /
+       greet). Click → `t.event.emit("loop:state", { state })` straight
+       to the pet window. No decision, no watcher round-trip — the
+       visual flip is immediate.
+    2. **Scene buttons** — the 8 aha-moment deck forms. Forms 4–8
+       inject a real `LoopDecision` via /api/loop/dev/scene; the
+       watcher picks it up on its 2s poll and the bubble + card
+       render naturally. Forms 1–3 also emit `loop:state` from the
+       hinted state so the pet *visually* matches (without needing a
+       bespoke per-form UI yet).
+
+  Window is built only when `OPENLOOMI_PET_DEV=1` is set in the Tauri
+  host's env (see src-tauri/src/pet/dev_panel.rs). Production builds
+  never see this code path.
+
+  API gate:
+    `/api/loop/dev/*` returns 404 unless `OPENLOOMI_DEV=1` or
+    `NODE_ENV !== "production"`. The header banner calls
+    `GET /api/loop/dev/scene` on boot and shows green/red so a stale
+    process (e.g. you set OPENLOOMI_PET_DEV=1 on cargo but not
+    OPENLOOMI_DEV on pnpm) is obvious instead of silently 404-ing.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Loomi dev panel</title>
+    <style>
+      :root {
+        --w: 340px;
+        --h: 800px;
+        --bg: rgba(15, 23, 42, 0.94);
+        --bg-2: rgba(15, 23, 42, 0.86);
+        --border: rgba(255, 255, 255, 0.08);
+        --text: #f1f5f9;
+        --muted: rgba(241, 245, 249, 0.55);
+        --accent: #60a5fa;
+        --good: #34d399;
+        --warn: #fbbf24;
+        --bad: #f87171;
+        --orange: rgba(255, 161, 73, 0.7);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        -webkit-user-select: none;
+        user-select: none;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        font-size: 12px;
+        line-height: 1.4;
+        color: var(--text);
+      }
+      body {
+        width: var(--w);
+        height: var(--h);
+        overflow: auto;
+      }
+      .panel {
+        width: var(--w);
+        min-height: var(--h);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(18px) saturate(140%);
+        -webkit-backdrop-filter: blur(18px) saturate(140%);
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Top status banner — green = dev API reachable, red = 404, amber
+         = unknown. Tells you in one glance whether a "click does nothing"
+         is a fetch failure vs. an env-var mismatch. */
+      .banner {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 12px;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        background: rgba(251, 191, 36, 0.14);
+        color: #fcd34d;
+        border-bottom: 1px solid var(--border);
+      }
+      .banner .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+        box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.18);
+      }
+      .banner.ok {
+        background: rgba(52, 211, 153, 0.14);
+        color: #6ee7b7;
+      }
+      .banner.ok .dot {
+        box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+      }
+      .banner.bad {
+        background: rgba(248, 113, 113, 0.16);
+        color: #fca5a5;
+      }
+      .banner.bad .dot {
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.18);
+      }
+
+      header {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px 5px;
+        border-bottom: 1px solid var(--border);
+      }
+      header .title {
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.01em;
+      }
+      header .sub {
+        font-size: 10px;
+        color: var(--muted);
+        margin-left: 2px;
+      }
+      header .spacer {
+        flex: 1 1 auto;
+      }
+      header .close {
+        width: 22px;
+        height: 22px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 14px;
+        padding: 0;
+      }
+      header .close:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+      }
+
+      .section {
+        flex: 0 0 auto;
+        padding: 6px 12px 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .section h3 {
+        margin: 0;
+        font-size: 10px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .section .hint {
+        font-size: 10px;
+        color: var(--muted);
+        line-height: 1.25;
+      }
+
+      /* Pet state chips: 9 chips, 3 per row, click → emit loop:state
+         directly. */
+      .states {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+      }
+      .state-chip {
+        font: inherit;
+        cursor: pointer;
+        padding: 4px 4px;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        font-size: 10px;
+        font-weight: 500;
+        text-align: center;
+        transition:
+          background 140ms ease,
+          border-color 140ms ease,
+          transform 140ms ease;
+      }
+      .state-chip:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .state-chip:active {
+        transform: translateY(1px);
+      }
+      .state-chip.flash {
+        background: rgba(96, 165, 250, 0.2);
+        border-color: var(--accent);
+      }
+      .state-chip.active {
+        background: rgba(96, 165, 250, 0.16);
+        border-color: var(--accent);
+      }
+
+      main {
+        flex: 1 1 auto;
+        overflow: auto;
+        padding: 3px 8px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        min-height: 0;
+      }
+      .scene {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 10px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid transparent;
+        color: var(--text);
+        font: inherit;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          background 140ms ease,
+          border-color 140ms ease,
+          transform 140ms ease;
+      }
+      .scene:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.08);
+      }
+      .scene:active {
+        transform: translateY(1px);
+      }
+      .scene.flash {
+        border-color: var(--good);
+        background: rgba(52, 211, 153, 0.12);
+      }
+      .scene.flash.error {
+        border-color: var(--bad);
+        background: rgba(248, 113, 113, 0.16);
+      }
+      .scene .num {
+        flex: 0 0 auto;
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        background: rgba(96, 165, 250, 0.18);
+        color: #93c5fd;
+        font-size: 10px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .scene .body {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+      .scene .label {
+        font-size: 11px;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .scene .caption {
+        font-size: 9px;
+        color: var(--muted);
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .scene .status {
+        flex: 0 0 auto;
+        font-size: 8px;
+        color: var(--muted);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .connectors {
+        margin: 6px 8px 0;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: rgba(96, 165, 250, 0.06);
+        border: 1px solid rgba(96, 165, 250, 0.18);
+        display: none;
+      }
+      .connectors.visible {
+        display: block;
+      }
+      .connectors .row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 11px;
+        color: rgba(241, 245, 249, 0.85);
+      }
+      .connectors .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--bad);
+        box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.18);
+      }
+      .connectors .dot.ok {
+        background: var(--good);
+        box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+      }
+      .connectors .dot.unknown {
+        /* Neutral grey for entries that arrived via the FALLBACK
+           sentinel (no probe yet). Outlined ring rather than a glow,
+           to keep it visually quieter than the red "broken" pill. */
+        background: var(--muted);
+        box-shadow: 0 0 0 3px rgba(241, 245, 249, 0.18);
+      }
+      .connectors .label {
+        font-size: 10px;
+        color: var(--muted);
+        margin-right: auto;
+      }
+      .connectors .meta {
+        font-size: 10px;
+        color: var(--muted);
+      }
+
+      /* Form 2 — judgment-system: 4-step pipeline strip
+         (watch → enrich → classify → execute). Mirrors the
+         `01 / 02 / 03 / 04` cards on the demo's system-slide. */
+      .pipeline {
+        margin: 6px 8px 0;
+        padding: 8px 8px 6px;
+        border-radius: 10px;
+        background: rgba(167, 139, 250, 0.06);
+        border: 1px solid rgba(167, 139, 250, 0.18);
+        display: none;
+      }
+      .pipeline.visible {
+        display: block;
+      }
+      .pipeline-strip {
+        display: flex;
+        align-items: stretch;
+        gap: 2px;
+      }
+      .pipeline-step {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 2px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.04);
+        min-width: 0;
+      }
+      .pipeline-step .step-num {
+        font-size: 8px;
+        color: var(--muted);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .pipeline-step .step-label {
+        font-size: 10px;
+        color: var(--text);
+        font-weight: 500;
+        margin-top: 1px;
+      }
+      .pipeline-arrow {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        color: var(--muted);
+        padding: 0 1px;
+      }
+      .pipeline-note {
+        font-size: 9px;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 6px;
+        font-style: italic;
+        line-height: 1.3;
+      }
+
+      /* Form 3 — noise-reduction: trashed message + context pills +
+         action log. Mirrors the demo's triage-slide ("unknown sender /
+         no project match / no deadline / repeated promo"). */
+      .triage {
+        margin: 6px 8px 0;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: rgba(248, 113, 113, 0.06);
+        border: 1px solid rgba(248, 113, 113, 0.18);
+        display: none;
+      }
+      .triage.visible {
+        display: block;
+      }
+      .triage-msg-title {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 2px;
+        line-height: 1.25;
+      }
+      .triage-msg {
+        font-size: 9px;
+        color: var(--muted);
+        margin-bottom: 6px;
+        line-height: 1.3;
+      }
+      .triage-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+        margin-bottom: 6px;
+      }
+      .triage-pills .pill {
+        font-size: 9px;
+        padding: 2px 6px;
+        border-radius: 999px;
+        background: rgba(248, 113, 113, 0.16);
+        color: #fca5a5;
+        letter-spacing: 0.02em;
+      }
+      .triage-log {
+        font-size: 9px;
+        color: var(--muted);
+        border-top: 1px dashed rgba(248, 113, 113, 0.2);
+        padding-top: 4px;
+        line-height: 1.3;
+      }
+      .triage-log strong {
+        color: #fca5a5;
+        font-weight: 600;
+      }
+
+      footer {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 12px;
+        border-top: 1px solid var(--border);
+      }
+      footer .count {
+        font-size: 10px;
+        color: var(--muted);
+        margin-right: auto;
+        letter-spacing: 0.04em;
+      }
+      footer .count b {
+        color: var(--text);
+        font-weight: 600;
+      }
+      footer button {
+        font: inherit;
+        cursor: pointer;
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text);
+        font-size: 11px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      footer button:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      footer button.danger {
+        background: rgba(248, 113, 113, 0.18);
+        color: #fca5a5;
+        border-color: rgba(248, 113, 113, 0.3);
+      }
+      footer button.danger:hover {
+        background: rgba(248, 113, 113, 0.28);
+      }
+      footer button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 56px;
+        left: 12px;
+        right: 12px;
+        padding: 8px 10px;
+        background: rgba(15, 23, 42, 0.96);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 10px;
+        color: var(--text);
+        opacity: 0;
+        transform: translateY(4px);
+        transition:
+          opacity 180ms ease,
+          transform 180ms ease;
+        pointer-events: none;
+        text-align: center;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .toast.error {
+        border-color: rgba(248, 113, 113, 0.4);
+        color: #fca5a5;
+      }
+      .toast.success {
+        border-color: rgba(52, 211, 153, 0.4);
+        color: #6ee7b7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="panel" id="panel">
+      <div class="banner" id="banner">
+        <span class="dot"></span>
+        <span id="banner-text">checking dev API…</span>
+      </div>
+
+      <header>
+        <div>
+          <div class="title">Loop dev panel</div>
+          <div class="sub">pet state + 8 demo forms</div>
+        </div>
+        <span class="spacer"></span>
+        <button
+          class="close"
+          id="close"
+          type="button"
+          aria-label="Close dev panel"
+        >
+          ×
+        </button>
+      </header>
+
+      <div class="section">
+        <h3>Pet state</h3>
+        <div class="hint">
+          Click a chip → emit <code>loop:state</code> directly to the pet
+          window. No decision round-trip; the visual flips immediately.
+        </div>
+        <div class="states" id="states">
+          <!-- 9 chips populated in JS so the order matches the
+               watcher::map_state_to_pet priority rules. -->
+        </div>
+      </div>
+
+      <main id="scenes">
+        <!-- 8 scene buttons populated from GET /api/loop/dev/scene. -->
+      </main>
+
+      <!-- Form 1 (connection-check) — the canonical 6-connector
+           pill row. All entries paint from the real
+           `/api/loop/connectors` JSON; nothing is hardcoded. If a
+           connector isn't connected the dot is red and the meta line
+           shows the lastError (or "off"). The dev panel Form 1
+           "check connections" button POSTs `{refresh:true}` to the
+           same route so a real agent probe (Composio MCP / Skill /
+           CLI) refreshes the snapshot on demand. -->
+      <div class="connectors" id="connectors">
+        <div class="row">
+          <span class="dot" id="dot-gmail"></span>
+          <span class="label">Gmail</span>
+          <span class="meta" id="meta-gmail">—</span>
+        </div>
+        <div class="row" style="margin-top: 6px">
+          <span class="dot" id="dot-google_calendar"></span>
+          <span class="label">Calendar</span>
+          <span class="meta" id="meta-google_calendar">—</span>
+        </div>
+        <div class="row" style="margin-top: 6px">
+          <span class="dot" id="dot-github"></span>
+          <span class="label">GitHub</span>
+          <span class="meta" id="meta-github">—</span>
+        </div>
+        <div class="row" style="margin-top: 6px">
+          <span class="dot" id="dot-slack"></span>
+          <span class="label">Slack</span>
+          <span class="meta" id="meta-slack">—</span>
+        </div>
+        <div class="row" style="margin-top: 6px">
+          <span class="dot" id="dot-linear"></span>
+          <span class="label">Linear</span>
+          <span class="meta" id="meta-linear">—</span>
+        </div>
+        <div class="row" style="margin-top: 6px">
+          <span class="dot" id="dot-obsidian"></span>
+          <span class="label">Obsidian</span>
+          <span class="meta" id="meta-obsidian">—</span>
+        </div>
+      </div>
+
+      <!-- Form 2 (judgment-system) — 4-step pipeline strip mirroring
+           the demo's `01 / watch · 02 / enrich · 03 / classify ·
+           04 / execute` cards. Pure decoration; lets the dev panel
+           stand in for the demo slide without rebuilding the full
+           `system-map` grid. -->
+      <div class="pipeline" id="pipeline">
+        <div class="pipeline-strip">
+          <div class="pipeline-step">
+            <span class="step-num">01</span>
+            <span class="step-label">watch</span>
+          </div>
+          <span class="pipeline-arrow">→</span>
+          <div class="pipeline-step">
+            <span class="step-num">02</span>
+            <span class="step-label">enrich</span>
+          </div>
+          <span class="pipeline-arrow">→</span>
+          <div class="pipeline-step">
+            <span class="step-num">03</span>
+            <span class="step-label">classify</span>
+          </div>
+          <span class="pipeline-arrow">→</span>
+          <div class="pipeline-step">
+            <span class="step-num">04</span>
+            <span class="step-label">execute</span>
+          </div>
+        </div>
+        <div class="pipeline-note">
+          see signal → read state → triage attention → wait for approval
+        </div>
+      </div>
+
+      <!-- Form 3 (noise-reduction) — trashed-message card mirroring
+           the demo's triage-slide: a low-priority notification with
+           the four context pills (unknown sender / no project match /
+           no deadline / repeated promo) and an `Action: trash quietly`
+           log line. The pet says "这条不重要，我先扔掉了"; this block
+           makes the trashed payload visible without leaving the panel. -->
+      <div class="triage" id="triage">
+        <div class="triage-msg-title">
+          “Try this productivity bundle tonight”
+        </div>
+        <div class="triage-msg">
+          Cold sender · repeated promo · no active project · no deadline
+        </div>
+        <div class="triage-pills">
+          <span class="pill">unknown sender</span>
+          <span class="pill">no project match</span>
+          <span class="pill">no deadline</span>
+          <span class="pill">repeated promo</span>
+        </div>
+        <div class="triage-log">
+          <strong>Action: trash quietly.</strong> Reason saved for audit.
+        </div>
+      </div>
+
+      <footer>
+        <span class="count" id="count">pending: <b>—</b></span>
+        <button id="refresh" type="button" title="Refresh counts">↻</button>
+        <button
+          class="danger"
+          id="reset"
+          type="button"
+          title="Clear pending decisions"
+        >
+          Reset
+        </button>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      (function () {
+        "use strict";
+
+        const bannerEl = document.getElementById("banner");
+        const bannerText = document.getElementById("banner-text");
+        const statesEl = document.getElementById("states");
+        const scenesEl = document.getElementById("scenes");
+        const connectorsEl = document.getElementById("connectors");
+        const pipelineEl = document.getElementById("pipeline");
+        const triageEl = document.getElementById("triage");
+        const countEl = document.getElementById("count");
+        const toastEl = document.getElementById("toast");
+        const resetBtn = document.getElementById("reset");
+        const refreshBtn = document.getElementById("refresh");
+        const closeBtn = document.getElementById("close");
+
+        // Pet states — must match the keys loomi-widget.html renders and
+        // watcher::map_state_to_pet emits. Kept here so adding a state
+        // is one place to edit.
+        const PET_STATES = [
+          "idle",
+          "thinking",
+          "working",
+          "needsinput",
+          "juggling",
+          "sweeping",
+          "happy",
+          "sleeping",
+          "greet",
+          "presenting",
+        ];
+
+        let activeState = null;
+
+        function flashToast(text, kind) {
+          toastEl.textContent = text;
+          toastEl.classList.remove("show", "success", "error");
+          void toastEl.offsetWidth;
+          toastEl.classList.add("show");
+          if (kind) toastEl.classList.add(kind);
+          clearTimeout(flashToast._t);
+          flashToast._t = setTimeout(
+            () => toastEl.classList.remove("show"),
+            1800,
+          );
+        }
+
+        function setBanner(state, text) {
+          bannerEl.classList.remove("ok", "bad");
+          if (state === "ok") bannerEl.classList.add("ok");
+          else if (state === "bad") bannerEl.classList.add("bad");
+          bannerText.textContent = text;
+        }
+
+        function flashChip(chip) {
+          chip.classList.remove("flash");
+          void chip.offsetWidth;
+          chip.classList.add("flash");
+          clearTimeout(flashChip._t);
+          flashChip._t = setTimeout(() => chip.classList.remove("flash"), 600);
+        }
+
+        function flashScene(button, kind) {
+          button.classList.remove("flash", "error");
+          void button.offsetWidth;
+          button.classList.add("flash");
+          if (kind === "error") button.classList.add("error");
+          clearTimeout(flashScene._t);
+          flashScene._t = setTimeout(
+            () => button.classList.remove("flash", "error"),
+            1200,
+          );
+        }
+
+        async function emitPetState(stateKey) {
+          const t = window.__TAURI__;
+          if (!t || !t.core || !t.core.invoke) {
+            flashToast(
+              "Tauri bridge missing — open via the desktop app, not a browser.",
+              "error",
+            );
+            return false;
+          }
+          // Routes through the host (`pet::emit_dev_state` in
+          // dev_panel.rs) which `emit_to`s PET_LABEL + PET_BUBBLE_LABEL
+          // with `loop:state`. Same wire path the watcher uses —
+          // proven reliable. Earlier `t.event.emit("loop:state", ...)`
+          // updated the bubble but never the pet sprite, so the dev
+          // panel switched to invoke().
+          try {
+            await t.core.invoke("emit_dev_state", { state: stateKey });
+            return true;
+          } catch (e) {
+            flashToast(
+              "emit_dev_state failed: " + (e && e.message ? e.message : e),
+              "error",
+            );
+            return false;
+          }
+        }
+
+        async function handleStateChipClick(chip, stateKey) {
+          const ok = await emitPetState(stateKey);
+          if (!ok) return;
+          activeState = stateKey;
+          // Highlight the active chip so devs can see which state the
+          // pet is in without watching the window itself.
+          for (const el of statesEl.querySelectorAll(".state-chip")) {
+            el.classList.toggle("active", el.dataset.state === stateKey);
+          }
+          flashChip(chip);
+          flashToast("Pet → " + stateKey, "success");
+        }
+
+        function makeStateChip(stateKey) {
+          const chip = document.createElement("button");
+          chip.className = "state-chip";
+          chip.type = "button";
+          chip.dataset.state = stateKey;
+          chip.textContent = stateKey;
+          chip.addEventListener("click", () =>
+            handleStateChipClick(chip, stateKey),
+          );
+          return chip;
+        }
+
+        function buildStateChips() {
+          statesEl.innerHTML = "";
+          for (const s of PET_STATES) {
+            statesEl.appendChild(makeStateChip(s));
+          }
+        }
+
+        async function checkApi() {
+          // The banner checks the dev API once on boot. A red banner
+          // means the click "nothing happens" symptom is an env-var
+          // mismatch (NODE_ENV=production, OPENLOOMI_DEV not set).
+          try {
+            const res = await fetch(
+              `${window.__OPENLOOMI_API__ || ""}/api/loop/dev/scene`,
+              {
+                credentials: "include",
+              },
+            );
+            if (res.ok) {
+              setBanner("ok", "dev API ready");
+              return true;
+            }
+            if (res.status === 404) {
+              setBanner(
+                "bad",
+                "dev API disabled — set OPENLOOMI_DEV=1 on the Node side",
+              );
+              return false;
+            }
+            setBanner("bad", "dev API HTTP " + res.status);
+            return false;
+          } catch (e) {
+            setBanner(
+              "bad",
+              "fetch failed: " + (e && e.message ? e.message : e),
+            );
+            return false;
+          }
+        }
+
+        function makeSceneButton(scene) {
+          const btn = document.createElement("button");
+          btn.className = "scene";
+          btn.type = "button";
+          btn.dataset.scene = scene.key;
+          // Status is a sibling of `.body` so it sits at the row's
+          // right edge (most scenes are `click to load`, shrinks to
+          // ~"✓ applied" after firing). Keeps each row to a single
+          // flex row instead of stacking.
+          btn.innerHTML =
+            '<span class="num">' +
+            String(scene.slide) +
+            "</span>" +
+            '<span class="body">' +
+            '<span class="label"></span>' +
+            '<span class="caption"></span>' +
+            "</span>" +
+            '<span class="status">idle</span>';
+          btn.querySelector(".label").textContent = scene.label;
+          btn.querySelector(".caption").textContent = scene.caption;
+          btn.addEventListener("click", () => onSceneClick(btn, scene));
+          return btn;
+        }
+
+        async function loadScenes() {
+          try {
+            const res = await fetch(
+              `${window.__OPENLOOMI_API__ || ""}/api/loop/dev/scene`,
+              {
+                credentials: "include",
+              },
+            );
+            if (!res.ok) {
+              scenesEl.innerHTML =
+                '<div style="padding:16px;text-align:center;color:var(--muted);font-size:11px">Banner above explains why.</div>';
+              return;
+            }
+            const data = await res.json();
+            scenesEl.innerHTML = "";
+            for (const s of data.scenes || []) {
+              scenesEl.appendChild(makeSceneButton(s));
+            }
+          } catch (e) {
+            scenesEl.innerHTML =
+              '<div style="padding:16px;text-align:center;color:var(--bad);font-size:11px">' +
+              (e && e.message ? e.message : "load failed") +
+              "</div>";
+          }
+        }
+
+        async function onSceneClick(btn, scene) {
+          btn.querySelector(".status").textContent = "loading…";
+          // Always emit the hinted pet state first so forms 1–3 produce
+          // a visible pet flip even before the API round-trip resolves.
+          // Forms 4–8 also flip, but the watcher will overwrite within
+          // ~2s once the real decision is on disk.
+          if (scene.hintState) {
+            const ok = await emitPetState(scene.hintState);
+            if (ok) {
+              activeState = scene.hintState;
+              for (const el of statesEl.querySelectorAll(".state-chip")) {
+                el.classList.toggle(
+                  "active",
+                  el.dataset.state === scene.hintState,
+                );
+              }
+            }
+          }
+          try {
+            const res = await fetch(
+              `${window.__OPENLOOMI_API__ || ""}/api/loop/dev/scene`,
+              {
+                method: "POST",
+                credentials: "include",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({ scene: scene.key }),
+              },
+            );
+            const data = await res.json();
+            if (!res.ok || !data.ok) {
+              throw new Error(data.error || `HTTP ${res.status}`);
+            }
+            const n = (data.decisions || []).length;
+            btn.querySelector(".status").textContent =
+              n > 0
+                ? "✓ " + n + " queued"
+                : scene.hintState
+                  ? "✓ " + scene.hintState
+                  : "✓ applied";
+            flashScene(btn, "ok");
+            flashToast(
+              n > 0
+                ? "Form " +
+                    scene.slide +
+                    ": " +
+                    n +
+                    " decision" +
+                    (n === 1 ? "" : "s") +
+                    " queued"
+                : "Form " + scene.slide + ": " + (scene.hintState || "applied"),
+              "success",
+            );
+            // Also broadcast the scene key so the pet card can pin the
+            // matching layout (Form 1 → connection, Form 2 → pipeline,
+            // Form 3 → noise, etc.). Without this, the card has to guess
+            // from pet state alone, which collapses Form 1's connection
+            // view into Form 2's pipeline strip because both hint the
+            // same `thinking` state.
+            const tDev = window.__TAURI__;
+            if (tDev && tDev.event && tDev.event.emit) {
+              try {
+                tDev.event.emit("pet:dev-form", {
+                  key: scene.key,
+                  slide: scene.slide,
+                });
+              } catch (_) {}
+            }
+            if (scene.key === "connection-check") {
+              // The "check connections" button is the only place in
+              // the dev panel that should request a live agent
+              // probe. The connector pill row is otherwise a
+              // reflection of the last cached snapshot, which is
+              // fine for every other form that just needs the row
+              // visible.
+              await loadConnectors({ refresh: true });
+              connectorsEl.classList.add("visible");
+              pipelineEl.classList.remove("visible");
+              triageEl.classList.remove("visible");
+            } else if (scene.key === "judgment-system") {
+              pipelineEl.classList.add("visible");
+              connectorsEl.classList.remove("visible");
+              triageEl.classList.remove("visible");
+            } else if (scene.key === "noise-reduction") {
+              triageEl.classList.add("visible");
+              connectorsEl.classList.remove("visible");
+              pipelineEl.classList.remove("visible");
+            } else {
+              connectorsEl.classList.remove("visible");
+              pipelineEl.classList.remove("visible");
+              triageEl.classList.remove("visible");
+            }
+            refreshCount();
+          } catch (e) {
+            btn.querySelector(".status").textContent =
+              "error: " + (e && e.message ? e.message : "failed");
+            flashScene(btn, "error");
+            flashToast(
+              "Form " + scene.slide + " failed: " + (e.message || e),
+              "error",
+            );
+          }
+        }
+
+        async function loadConnectors(opts) {
+          const refresh = !!(opts && opts.refresh);
+          try {
+            const res = await fetch(
+              `${window.__OPENLOOMI_API__ || ""}/api/loop/connectors`,
+              {
+                method: refresh ? "POST" : "GET",
+                credentials: "include",
+                headers: refresh
+                  ? { "Content-Type": "application/json" }
+                  : undefined,
+                body: refresh ? JSON.stringify({ refresh: true }) : undefined,
+              },
+            );
+            if (!res.ok) return;
+            const data = await res.json();
+            const items = data.items || [];
+            const byId = {};
+            for (const c of items) byId[c.id] = c;
+            // The canonical 6-connector catalog — paint each from
+            // real data. Missing entries render red with the
+            // lastError / "off" sentinel so the row never lies about
+            // a real connection state.
+            paintConnector("gmail", byId["gmail"]);
+            paintConnector(
+              "google_calendar",
+              byId["google_calendar"] || byId["googlecalendar"],
+            );
+            paintConnector("github", byId["github"]);
+            paintConnector("slack", byId["slack"]);
+            paintConnector("linear", byId["linear"]);
+            paintConnector("obsidian", byId["obsidian"]);
+          } catch (_) {
+            /* soft fail */
+          }
+        }
+
+        function paintConnector(slug, entry) {
+          const dot = document.getElementById("dot-" + slug);
+          const meta = document.getElementById("meta-" + slug);
+          if (!dot || !meta) return;
+          // Three states now: probed+ok (green), probed+off (red),
+          // unprobed sentinel (neutral grey). Without the third
+          // branch, fresh installs would render the dev panel as
+          // "all broken" even when nothing is actually broken.
+          if (entry && entry.probed !== true) {
+            dot.classList.remove("ok");
+            dot.classList.add("unknown");
+            meta.textContent = "pending probe";
+          } else if (entry && entry.connected) {
+            dot.classList.add("ok");
+            dot.classList.remove("unknown");
+            meta.textContent =
+              entry.accountCount +
+              " acct · " +
+              (entry.lastError ? "err" : "ok");
+          } else {
+            dot.classList.remove("ok");
+            dot.classList.remove("unknown");
+            meta.textContent = entry ? entry.lastError || "off" : "off";
+          }
+        }
+
+        async function refreshCount() {
+          try {
+            const res = await fetch(
+              `${window.__OPENLOOMI_API__ || ""}/api/loop/state`,
+              {
+                credentials: "include",
+              },
+            );
+            if (!res.ok) return;
+            const data = await res.json();
+            const c = data.counts || {};
+            countEl.innerHTML =
+              "pending: <b>" +
+              (c.pending || 0) +
+              "</b> · done: <b>" +
+              (c.done || 0) +
+              "</b>";
+          } catch (_) {
+            /* soft fail */
+          }
+        }
+
+        resetBtn.addEventListener("click", async () => {
+          resetBtn.disabled = true;
+          try {
+            const res = await fetch(
+              `${window.__OPENLOOMI_API__ || ""}/api/loop/dev/reset`,
+              {
+                method: "POST",
+                credentials: "include",
+              },
+            );
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok || !data.ok) {
+              throw new Error(data.error || `HTTP ${res.status}`);
+            }
+            flashToast("Reset · " + data.dropped + " → dismissed", "success");
+            // Returning to idle is a state change — flip the pet chip
+            // back so the picker reflects reality, and collapse any
+            // form-specific inline block so the panel returns to its
+            // default state.
+            await emitPetState("idle");
+            activeState = "idle";
+            for (const el of statesEl.querySelectorAll(".state-chip")) {
+              el.classList.toggle("active", el.dataset.state === "idle");
+            }
+            connectorsEl.classList.remove("visible");
+            pipelineEl.classList.remove("visible");
+            triageEl.classList.remove("visible");
+            refreshCount();
+          } catch (e) {
+            flashToast("Reset failed: " + (e.message || e), "error");
+          } finally {
+            resetBtn.disabled = false;
+          }
+        });
+
+        refreshBtn.addEventListener("click", () => {
+          refreshCount();
+          flashToast("Refreshed counts");
+        });
+
+        closeBtn.addEventListener("click", () => {
+          const t = window.__TAURI__;
+          if (t && t.event && t.event.emit) {
+            t.event.emit("pet:close-dev-panel");
+          } else {
+            document.body.style.display = "none";
+          }
+        });
+
+        // Boot order: build the state chips first (they don't need the
+        // API), then check the API + load scenes. That way the dev
+        // always has the pet-state picker even if the API is gated.
+        buildStateChips();
+        checkApi().then((ok) => {
+          if (ok) loadScenes();
+        });
+        refreshCount();
+      })();
+    </script>
+  </body>
+</html>

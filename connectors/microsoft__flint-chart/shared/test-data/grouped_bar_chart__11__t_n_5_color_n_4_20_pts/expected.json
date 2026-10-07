@@ -1,0 +1,165 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "yOffset": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 60,
+    "for": "position"
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01-01",
+        "Group": "Laptop",
+        "Segment": "USA"
+      },
+      {
+        "Date": "2020-01-01",
+        "Group": "Tablet",
+        "Segment": "China"
+      },
+      {
+        "Date": "2020-01-01",
+        "Group": "Monitor",
+        "Segment": "Japan"
+      },
+      {
+        "Date": "2020-01-01",
+        "Group": "Laptop",
+        "Segment": "Germany"
+      },
+      {
+        "Date": "2020-08-07",
+        "Group": "Monitor",
+        "Segment": "USA"
+      },
+      {
+        "Date": "2020-08-07",
+        "Group": "Monitor",
+        "Segment": "China"
+      },
+      {
+        "Date": "2020-08-07",
+        "Group": "Tablet",
+        "Segment": "Japan"
+      },
+      {
+        "Date": "2020-08-07",
+        "Group": "Phone",
+        "Segment": "Germany"
+      },
+      {
+        "Date": "2021-03-14",
+        "Group": "Laptop",
+        "Segment": "USA"
+      },
+      {
+        "Date": "2021-03-14",
+        "Group": "Desktop",
+        "Segment": "China"
+      },
+      {
+        "Date": "2021-03-14",
+        "Group": "Desktop",
+        "Segment": "Japan"
+      },
+      {
+        "Date": "2021-03-14",
+        "Group": "Phone",
+        "Segment": "Germany"
+      },
+      {
+        "Date": "2021-10-19",
+        "Group": "Laptop",
+        "Segment": "USA"
+      },
+      {
+        "Date": "2021-10-19",
+        "Group": "Tablet",
+        "Segment": "China"
+      },
+      {
+        "Date": "2021-10-19",
+        "Group": "Laptop",
+        "Segment": "Japan"
+      },
+      {
+        "Date": "2021-10-19",
+        "Group": "Monitor",
+        "Segment": "Germany"
+      },
+      {
+        "Date": "2022-05-26",
+        "Group": "Monitor",
+        "Segment": "USA"
+      },
+      {
+        "Date": "2022-05-26",
+        "Group": "Desktop",
+        "Segment": "China"
+      },
+      {
+        "Date": "2022-05-26",
+        "Group": "Monitor",
+        "Segment": "Japan"
+      },
+      {
+        "Date": "2022-05-26",
+        "Group": "Monitor",
+        "Segment": "Germany"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

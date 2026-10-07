@@ -1,0 +1,1270 @@
+{
+  "mark": "rect",
+  "encoding": {
+    "x": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Row",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "scheme": "goldgreen"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 23
+  },
+  "height": {
+    "step": 25
+  },
+  "data": {
+    "values": [
+      {
+        "Col": "Col01",
+        "Row": "Row01",
+        "Value": 1
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row02",
+        "Value": 23
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row03",
+        "Value": 48
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row04",
+        "Value": 92
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row05",
+        "Value": 21
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row06",
+        "Value": 17
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row07",
+        "Value": 64
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row08",
+        "Value": 9
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row09",
+        "Value": 44
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row10",
+        "Value": 75
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row11",
+        "Value": 80
+      },
+      {
+        "Col": "Col01",
+        "Row": "Row12",
+        "Value": 53
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row01",
+        "Value": 77
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row02",
+        "Value": 66
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row03",
+        "Value": 77
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row04",
+        "Value": 76
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row05",
+        "Value": 92
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row06",
+        "Value": 16
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row07",
+        "Value": 73
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row08",
+        "Value": 47
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row09",
+        "Value": 99
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row10",
+        "Value": 42
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row11",
+        "Value": 18
+      },
+      {
+        "Col": "Col02",
+        "Row": "Row12",
+        "Value": 35
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row01",
+        "Value": 93
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row02",
+        "Value": 54
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row03",
+        "Value": 57
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row04",
+        "Value": 14
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row05",
+        "Value": 80
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row06",
+        "Value": 95
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row07",
+        "Value": 26
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row08",
+        "Value": 76
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row09",
+        "Value": 96
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row10",
+        "Value": 97
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row11",
+        "Value": 87
+      },
+      {
+        "Col": "Col03",
+        "Row": "Row12",
+        "Value": 59
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row01",
+        "Value": 11
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row02",
+        "Value": 13
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row03",
+        "Value": 83
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row04",
+        "Value": 27
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row05",
+        "Value": 63
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row06",
+        "Value": 4
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row07",
+        "Value": 13
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row08",
+        "Value": 68
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row09",
+        "Value": 21
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row10",
+        "Value": 15
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row11",
+        "Value": 31
+      },
+      {
+        "Col": "Col04",
+        "Row": "Row12",
+        "Value": 77
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row01",
+        "Value": 17
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row02",
+        "Value": 13
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row03",
+        "Value": 20
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row04",
+        "Value": 19
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row05",
+        "Value": 22
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row06",
+        "Value": 93
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row07",
+        "Value": 41
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row08",
+        "Value": 21
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row09",
+        "Value": 21
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row10",
+        "Value": 13
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row11",
+        "Value": 37
+      },
+      {
+        "Col": "Col05",
+        "Row": "Row12",
+        "Value": 45
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row01",
+        "Value": 72
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row02",
+        "Value": 62
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row03",
+        "Value": 3
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row04",
+        "Value": 23
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row05",
+        "Value": 31
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row06",
+        "Value": 18
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row07",
+        "Value": 92
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row08",
+        "Value": 59
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row09",
+        "Value": 21
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row10",
+        "Value": 100
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row11",
+        "Value": 57
+      },
+      {
+        "Col": "Col06",
+        "Row": "Row12",
+        "Value": 31
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row01",
+        "Value": 67
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row02",
+        "Value": 5
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row03",
+        "Value": 80
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row04",
+        "Value": 56
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row05",
+        "Value": 78
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row06",
+        "Value": 7
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row07",
+        "Value": 21
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row08",
+        "Value": 16
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row09",
+        "Value": 25
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row10",
+        "Value": 29
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row11",
+        "Value": 69
+      },
+      {
+        "Col": "Col07",
+        "Row": "Row12",
+        "Value": 76
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row01",
+        "Value": 60
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row02",
+        "Value": 63
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row03",
+        "Value": 98
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row04",
+        "Value": 33
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row05",
+        "Value": 57
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row06",
+        "Value": 86
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row07",
+        "Value": 56
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row08",
+        "Value": 6
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row09",
+        "Value": 81
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row10",
+        "Value": 62
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row11",
+        "Value": 89
+      },
+      {
+        "Col": "Col08",
+        "Row": "Row12",
+        "Value": 79
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row01",
+        "Value": 66
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row02",
+        "Value": 21
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row03",
+        "Value": 45
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row04",
+        "Value": 32
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row05",
+        "Value": 84
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row06",
+        "Value": 33
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row07",
+        "Value": 77
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row08",
+        "Value": 66
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row09",
+        "Value": 98
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row10",
+        "Value": 32
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row11",
+        "Value": 92
+      },
+      {
+        "Col": "Col09",
+        "Row": "Row12",
+        "Value": 44
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row01",
+        "Value": 56
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row02",
+        "Value": 78
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row03",
+        "Value": 29
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row04",
+        "Value": 63
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row05",
+        "Value": 67
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row06",
+        "Value": 59
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row07",
+        "Value": 88
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row08",
+        "Value": 63
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row09",
+        "Value": 81
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row10",
+        "Value": 20
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row11",
+        "Value": 77
+      },
+      {
+        "Col": "Col10",
+        "Row": "Row12",
+        "Value": 34
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row01",
+        "Value": 79
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row02",
+        "Value": 67
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row03",
+        "Value": 40
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row04",
+        "Value": 43
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row05",
+        "Value": 50
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row06",
+        "Value": 86
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row07",
+        "Value": 32
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row08",
+        "Value": 93
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row09",
+        "Value": 72
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row10",
+        "Value": 3
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row11",
+        "Value": 59
+      },
+      {
+        "Col": "Col11",
+        "Row": "Row12",
+        "Value": 65
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row01",
+        "Value": 27
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row02",
+        "Value": 8
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row03",
+        "Value": 65
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row04",
+        "Value": 18
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row05",
+        "Value": 79
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row06",
+        "Value": 3
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row07",
+        "Value": 75
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row08",
+        "Value": 46
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row09",
+        "Value": 9
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row10",
+        "Value": 33
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row11",
+        "Value": 92
+      },
+      {
+        "Col": "Col12",
+        "Row": "Row12",
+        "Value": 52
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row01",
+        "Value": 64
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row02",
+        "Value": 1
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row03",
+        "Value": 46
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row04",
+        "Value": 92
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row05",
+        "Value": 70
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row06",
+        "Value": 81
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row07",
+        "Value": 22
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row08",
+        "Value": 88
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row09",
+        "Value": 82
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row10",
+        "Value": 81
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row11",
+        "Value": 40
+      },
+      {
+        "Col": "Col13",
+        "Row": "Row12",
+        "Value": 42
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row01",
+        "Value": 37
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row02",
+        "Value": 0
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row03",
+        "Value": 31
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row04",
+        "Value": 46
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row05",
+        "Value": 27
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row06",
+        "Value": 15
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row07",
+        "Value": 45
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row08",
+        "Value": 60
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row09",
+        "Value": 70
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row10",
+        "Value": 34
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row11",
+        "Value": 20
+      },
+      {
+        "Col": "Col14",
+        "Row": "Row12",
+        "Value": 62
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row01",
+        "Value": 99
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row02",
+        "Value": 25
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row03",
+        "Value": 95
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row04",
+        "Value": 52
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row05",
+        "Value": 74
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row06",
+        "Value": 76
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row07",
+        "Value": 85
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row08",
+        "Value": 27
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row09",
+        "Value": 45
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row10",
+        "Value": 9
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row11",
+        "Value": 52
+      },
+      {
+        "Col": "Col15",
+        "Row": "Row12",
+        "Value": 25
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row01",
+        "Value": 62
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row02",
+        "Value": 84
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row03",
+        "Value": 16
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row04",
+        "Value": 34
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row05",
+        "Value": 32
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row06",
+        "Value": 20
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row07",
+        "Value": 67
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row08",
+        "Value": 14
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row09",
+        "Value": 10
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row10",
+        "Value": 69
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row11",
+        "Value": 1
+      },
+      {
+        "Col": "Col16",
+        "Row": "Row12",
+        "Value": 76
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row01",
+        "Value": 31
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row02",
+        "Value": 5
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row03",
+        "Value": 67
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row04",
+        "Value": 80
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row05",
+        "Value": 9
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row06",
+        "Value": 19
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row07",
+        "Value": 46
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row08",
+        "Value": 76
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row09",
+        "Value": 18
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row10",
+        "Value": 77
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row11",
+        "Value": 72
+      },
+      {
+        "Col": "Col17",
+        "Row": "Row12",
+        "Value": 53
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row01",
+        "Value": 2
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row02",
+        "Value": 45
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row03",
+        "Value": 94
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row04",
+        "Value": 55
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row05",
+        "Value": 75
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row06",
+        "Value": 22
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row07",
+        "Value": 37
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row08",
+        "Value": 25
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row09",
+        "Value": 3
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row10",
+        "Value": 80
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row11",
+        "Value": 41
+      },
+      {
+        "Col": "Col18",
+        "Row": "Row12",
+        "Value": 51
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row01",
+        "Value": 58
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row02",
+        "Value": 23
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row03",
+        "Value": 37
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row04",
+        "Value": 27
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row05",
+        "Value": 82
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row06",
+        "Value": 99
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row07",
+        "Value": 66
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row08",
+        "Value": 16
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row09",
+        "Value": 74
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row10",
+        "Value": 15
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row11",
+        "Value": 14
+      },
+      {
+        "Col": "Col19",
+        "Row": "Row12",
+        "Value": 64
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row01",
+        "Value": 64
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row02",
+        "Value": 31
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row03",
+        "Value": 71
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row04",
+        "Value": 1
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row05",
+        "Value": 16
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row06",
+        "Value": 36
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row07",
+        "Value": 28
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row08",
+        "Value": 49
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row09",
+        "Value": 43
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row10",
+        "Value": 82
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row11",
+        "Value": 59
+      },
+      {
+        "Col": "Col20",
+        "Row": "Row12",
+        "Value": 73
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "showTextLabels",
+      "label": "Show labels",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "title": "Profit on Color (Diverging)",
+  "description": "Profit on color channel triggers diverging color scheme (midpoint 0). Positive profit → one hue, negative → another, making P&L obvious. WITHOUT this: sequential gradient, losses and gains look alike.",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "product": "Product A",
+          "revenue": 114483,
+          "profit": 100698
+        },
+        {
+          "product": "Product B",
+          "revenue": 347649,
+          "profit": 22110
+        },
+        {
+          "product": "Product C",
+          "revenue": 485773,
+          "profit": 949
+        },
+        {
+          "product": "Product D",
+          "revenue": 156062,
+          "profit": 25230
+        },
+        {
+          "product": "Product E",
+          "revenue": 137999,
+          "profit": -14350
+        },
+        {
+          "product": "Product F",
+          "revenue": 270594,
+          "profit": -802
+        }
+      ]
+    },
+    "semantic_types": {
+      "product": "Category",
+      "revenue": "Amount",
+      "profit": "Profit"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "product"
+        },
+        "y": {
+          "field": "revenue"
+        },
+        "color": {
+          "field": "profit"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,741 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...77 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Cat164",
+          "Cat172",
+          "Cat157",
+          "Cat077",
+          "Cat001",
+          "Cat107",
+          "Cat041",
+          "Cat108",
+          "Cat149",
+          "Cat028",
+          "Cat047",
+          "Cat116",
+          "Cat097",
+          "Cat130",
+          "Cat094",
+          "Cat125",
+          "Cat021",
+          "Cat059",
+          "Cat165",
+          "Cat075",
+          "Cat073",
+          "Cat117",
+          "Cat052",
+          "Cat014",
+          "Cat090",
+          "Cat114",
+          "Cat096",
+          "Cat056",
+          "Cat005",
+          "Cat049",
+          "Cat186",
+          "Cat152",
+          "Cat143",
+          "Cat167",
+          "Cat170",
+          "Cat051",
+          "Cat099",
+          "Cat006",
+          "Cat038",
+          "Cat138",
+          "Cat134",
+          "Cat012",
+          "Cat126",
+          "Cat113",
+          "Cat120",
+          "Cat106",
+          "Cat009",
+          "Cat035",
+          "Cat128",
+          "Cat030",
+          "Cat070",
+          "Cat050",
+          "Cat068",
+          "Cat084",
+          "Cat101",
+          "Cat187",
+          "Cat161",
+          "Cat174",
+          "Cat180",
+          "Cat173",
+          "Cat089",
+          "Cat069",
+          "Cat160",
+          "Cat098",
+          "Cat175",
+          "Cat100",
+          "Cat008",
+          "Cat141",
+          "Cat026",
+          "Cat144",
+          "Cat162",
+          "Cat032",
+          "Cat057",
+          "Cat022",
+          "Cat133",
+          "Cat194",
+          "Cat145",
+          "Cat112",
+          "Cat018",
+          "Cat062",
+          "Cat179",
+          "Cat190",
+          "Cat064",
+          "Cat176",
+          "Cat054",
+          "Cat169",
+          "Cat153",
+          "Cat029",
+          "Cat079",
+          "Cat082",
+          "Cat105",
+          "Cat024",
+          "Cat118",
+          "Cat011",
+          "Cat055",
+          "Cat129",
+          "Cat048",
+          "Cat115",
+          "Cat191",
+          "Cat140",
+          "Cat189",
+          "Cat027",
+          "Cat135",
+          "Cat042",
+          "Cat159",
+          "Cat184",
+          "Cat081",
+          "Cat020",
+          "Cat013",
+          "Cat007",
+          "Cat091",
+          "Cat095",
+          "Cat033",
+          "Cat188",
+          "Cat119",
+          "Cat139",
+          "Cat065",
+          "Cat036",
+          "Cat155",
+          "Cat043",
+          "Cat171",
+          "Cat132",
+          "Cat061",
+          "...77 items omitted"
+        ]
+      }
+    },
+    "y": {
+      "field": "Sales",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 134
+    },
+    "axisX": {
+      "labelLimit": 40,
+      "labelFontSize": 6,
+      "labelAngle": -90,
+      "labelAlign": "right",
+      "labelBaseline": "middle"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 13
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 6
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Cat001",
+        "Sales": 500
+      },
+      {
+        "Category": "Cat005",
+        "Sales": 437
+      },
+      {
+        "Category": "Cat006",
+        "Sales": 417
+      },
+      {
+        "Category": "Cat007",
+        "Sales": 202
+      },
+      {
+        "Category": "Cat008",
+        "Sales": 355
+      },
+      {
+        "Category": "Cat009",
+        "Sales": 396
+      },
+      {
+        "Category": "Cat011",
+        "Sales": 269
+      },
+      {
+        "Category": "Cat012",
+        "Sales": 409
+      },
+      {
+        "Category": "Cat013",
+        "Sales": 205
+      },
+      {
+        "Category": "Cat014",
+        "Sales": 444
+      },
+      {
+        "Category": "Cat018",
+        "Sales": 326
+      },
+      {
+        "Category": "Cat020",
+        "Sales": 208
+      },
+      {
+        "Category": "Cat021",
+        "Sales": 464
+      },
+      {
+        "Category": "Cat022",
+        "Sales": 341
+      },
+      {
+        "Category": "Cat024",
+        "Sales": 279
+      },
+      {
+        "Category": "Cat026",
+        "Sales": 351
+      },
+      {
+        "Category": "Cat027",
+        "Sales": 232
+      },
+      {
+        "Category": "Cat028",
+        "Sales": 494
+      },
+      {
+        "Category": "Cat029",
+        "Sales": 285
+      },
+      {
+        "Category": "Cat030",
+        "Sales": 394
+      },
+      {
+        "Category": "Cat032",
+        "Sales": 343
+      },
+      {
+        "Category": "Cat033",
+        "Sales": 197
+      },
+      {
+        "Category": "Cat035",
+        "Sales": 396
+      },
+      {
+        "Category": "Cat036",
+        "Sales": 182
+      },
+      {
+        "Category": "Cat038",
+        "Sales": 415
+      },
+      {
+        "Category": "Cat041",
+        "Sales": 498
+      },
+      {
+        "Category": "Cat042",
+        "Sales": 228
+      },
+      {
+        "Category": "Cat043",
+        "Sales": 174
+      },
+      {
+        "Category": "Cat047",
+        "Sales": 491
+      },
+      {
+        "Category": "Cat048",
+        "Sales": 263
+      },
+      {
+        "Category": "Cat049",
+        "Sales": 436
+      },
+      {
+        "Category": "Cat050",
+        "Sales": 389
+      },
+      {
+        "Category": "Cat051",
+        "Sales": 421
+      },
+      {
+        "Category": "Cat052",
+        "Sales": 447
+      },
+      {
+        "Category": "Cat054",
+        "Sales": 301
+      },
+      {
+        "Category": "Cat055",
+        "Sales": 266
+      },
+      {
+        "Category": "Cat056",
+        "Sales": 438
+      },
+      {
+        "Category": "Cat057",
+        "Sales": 343
+      },
+      {
+        "Category": "Cat059",
+        "Sales": 464
+      },
+      {
+        "Category": "Cat061",
+        "Sales": 169
+      },
+      {
+        "Category": "Cat062",
+        "Sales": 318
+      },
+      {
+        "Category": "Cat064",
+        "Sales": 307
+      },
+      {
+        "Category": "Cat065",
+        "Sales": 184
+      },
+      {
+        "Category": "Cat068",
+        "Sales": 389
+      },
+      {
+        "Category": "Cat069",
+        "Sales": 366
+      },
+      {
+        "Category": "Cat070",
+        "Sales": 394
+      },
+      {
+        "Category": "Cat073",
+        "Sales": 454
+      },
+      {
+        "Category": "Cat075",
+        "Sales": 461
+      },
+      {
+        "Category": "Cat077",
+        "Sales": 501
+      },
+      {
+        "Category": "Cat079",
+        "Sales": 281
+      },
+      {
+        "Category": "Cat081",
+        "Sales": 221
+      },
+      {
+        "Category": "Cat082",
+        "Sales": 281
+      },
+      {
+        "Category": "Cat084",
+        "Sales": 386
+      },
+      {
+        "Category": "Cat089",
+        "Sales": 367
+      },
+      {
+        "Category": "Cat090",
+        "Sales": 443
+      },
+      {
+        "Category": "Cat091",
+        "Sales": 202
+      },
+      {
+        "Category": "Cat094",
+        "Sales": 474
+      },
+      {
+        "Category": "Cat095",
+        "Sales": 200
+      },
+      {
+        "Category": "Cat096",
+        "Sales": 439
+      },
+      {
+        "Category": "Cat097",
+        "Sales": 481
+      },
+      {
+        "Category": "Cat098",
+        "Sales": 363
+      },
+      {
+        "Category": "Cat099",
+        "Sales": 421
+      },
+      {
+        "Category": "Cat100",
+        "Sales": 358
+      },
+      {
+        "Category": "Cat101",
+        "Sales": 381
+      },
+      {
+        "Category": "Cat105",
+        "Sales": 280
+      },
+      {
+        "Category": "Cat106",
+        "Sales": 402
+      },
+      {
+        "Category": "Cat107",
+        "Sales": 500
+      },
+      {
+        "Category": "Cat108",
+        "Sales": 497
+      },
+      {
+        "Category": "Cat112",
+        "Sales": 335
+      },
+      {
+        "Category": "Cat113",
+        "Sales": 403
+      },
+      {
+        "Category": "Cat114",
+        "Sales": 440
+      },
+      {
+        "Category": "Cat115",
+        "Sales": 246
+      },
+      {
+        "Category": "Cat116",
+        "Sales": 486
+      },
+      {
+        "Category": "Cat117",
+        "Sales": 452
+      },
+      {
+        "Category": "Cat118",
+        "Sales": 276
+      },
+      {
+        "Category": "Cat119",
+        "Sales": 192
+      },
+      {
+        "Category": "Cat120",
+        "Sales": 403
+      },
+      {
+        "Category": "Cat125",
+        "Sales": 471
+      },
+      {
+        "Category": "Cat126",
+        "Sales": 406
+      },
+      {
+        "Category": "Cat128",
+        "Sales": 396
+      },
+      {
+        "Category": "Cat129",
+        "Sales": 265
+      },
+      {
+        "Category": "Cat130",
+        "Sales": 476
+      },
+      {
+        "Category": "Cat132",
+        "Sales": 171
+      },
+      {
+        "Category": "Cat133",
+        "Sales": 339
+      },
+      {
+        "Category": "Cat134",
+        "Sales": 414
+      },
+      {
+        "Category": "Cat135",
+        "Sales": 230
+      },
+      {
+        "Category": "Cat138",
+        "Sales": 415
+      },
+      {
+        "Category": "Cat139",
+        "Sales": 188
+      },
+      {
+        "Category": "Cat140",
+        "Sales": 240
+      },
+      {
+        "Category": "Cat141",
+        "Sales": 353
+      },
+      {
+        "Category": "Cat143",
+        "Sales": 431
+      },
+      {
+        "Category": "Cat144",
+        "Sales": 350
+      },
+      {
+        "Category": "Cat145",
+        "Sales": 336
+      },
+      {
+        "Category": "Cat149",
+        "Sales": 497
+      },
+      {
+        "Category": "Cat152",
+        "Sales": 435
+      },
+      {
+        "Category": "Cat153",
+        "Sales": 297
+      },
+      {
+        "Category": "Cat155",
+        "Sales": 175
+      },
+      {
+        "Category": "Cat157",
+        "Sales": 507
+      },
+      {
+        "Category": "Cat159",
+        "Sales": 228
+      },
+      {
+        "Category": "Cat160",
+        "Sales": 364
+      },
+      {
+        "Category": "Cat161",
+        "Sales": 379
+      },
+      {
+        "Category": "Cat162",
+        "Sales": 350
+      },
+      {
+        "Category": "Cat164",
+        "Sales": 510
+      },
+      {
+        "Category": "Cat165",
+        "Sales": 462
+      },
+      {
+        "Category": "Cat167",
+        "Sales": 426
+      },
+      {
+        "Category": "Cat169",
+        "Sales": 298
+      },
+      {
+        "Category": "Cat170",
+        "Sales": 425
+      },
+      {
+        "Category": "Cat171",
+        "Sales": 173
+      },
+      {
+        "Category": "Cat172",
+        "Sales": 510
+      },
+      {
+        "Category": "Cat173",
+        "Sales": 372
+      },
+      {
+        "Category": "Cat174",
+        "Sales": 376
+      },
+      {
+        "Category": "Cat175",
+        "Sales": 361
+      },
+      {
+        "Category": "Cat176",
+        "Sales": 306
+      },
+      {
+        "Category": "Cat179",
+        "Sales": 318
+      },
+      {
+        "Category": "Cat180",
+        "Sales": 376
+      },
+      {
+        "Category": "Cat184",
+        "Sales": 227
+      },
+      {
+        "Category": "Cat186",
+        "Sales": 436
+      },
+      {
+        "Category": "Cat187",
+        "Sales": 381
+      },
+      {
+        "Category": "Cat188",
+        "Sales": 195
+      },
+      {
+        "Category": "Cat189",
+        "Sales": 237
+      },
+      {
+        "Category": "Cat190",
+        "Sales": 311
+      },
+      {
+        "Category": "Cat191",
+        "Sales": 243
+      },
+      {
+        "Category": "Cat194",
+        "Sales": 337
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "77 of 200 values in 'Category' were omitted (showing top 123).",
+      "channel": "x",
+      "field": "Category"
+    }
+  ],
+  "_width": 400,
+  "_height": 134,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

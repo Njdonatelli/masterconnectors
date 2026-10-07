@@ -1,0 +1,251 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 15
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2019-12-16T18:51:25.714Z",
+          "2022-12-16T05:08:34.285Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 629,
+      "continuousHeight": 226
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 23
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01",
+        "Value": 140
+      },
+      {
+        "Date": "2020-02",
+        "Value": 485
+      },
+      {
+        "Date": "2020-03",
+        "Value": 542
+      },
+      {
+        "Date": "2020-04",
+        "Value": 451
+      },
+      {
+        "Date": "2020-05",
+        "Value": 164
+      },
+      {
+        "Date": "2020-06",
+        "Value": 101
+      },
+      {
+        "Date": "2020-07",
+        "Value": 457
+      },
+      {
+        "Date": "2020-08",
+        "Value": 326
+      },
+      {
+        "Date": "2020-09",
+        "Value": 544
+      },
+      {
+        "Date": "2020-10",
+        "Value": 224
+      },
+      {
+        "Date": "2020-11",
+        "Value": 336
+      },
+      {
+        "Date": "2020-12",
+        "Value": 138
+      },
+      {
+        "Date": "2021-01",
+        "Value": 324
+      },
+      {
+        "Date": "2021-02",
+        "Value": 459
+      },
+      {
+        "Date": "2021-03",
+        "Value": 450
+      },
+      {
+        "Date": "2021-04",
+        "Value": 409
+      },
+      {
+        "Date": "2021-05",
+        "Value": 493
+      },
+      {
+        "Date": "2021-06",
+        "Value": 88
+      },
+      {
+        "Date": "2021-07",
+        "Value": 215
+      },
+      {
+        "Date": "2021-08",
+        "Value": 459
+      },
+      {
+        "Date": "2021-09",
+        "Value": 148
+      },
+      {
+        "Date": "2021-10",
+        "Value": 189
+      },
+      {
+        "Date": "2021-11",
+        "Value": 339
+      },
+      {
+        "Date": "2021-12",
+        "Value": 536
+      },
+      {
+        "Date": "2022-01",
+        "Value": 431
+      },
+      {
+        "Date": "2022-02",
+        "Value": 110
+      },
+      {
+        "Date": "2022-03",
+        "Value": 70
+      },
+      {
+        "Date": "2022-04",
+        "Value": 160
+      },
+      {
+        "Date": "2022-05",
+        "Value": 51
+      },
+      {
+        "Date": "2022-06",
+        "Value": 131
+      },
+      {
+        "Date": "2022-07",
+        "Value": 324
+      },
+      {
+        "Date": "2022-08",
+        "Value": 287
+      },
+      {
+        "Date": "2022-09",
+        "Value": 267
+      },
+      {
+        "Date": "2022-10",
+        "Value": 476
+      },
+      {
+        "Date": "2022-11",
+        "Value": 346
+      },
+      {
+        "Date": "2022-12",
+        "Value": 126
+      }
+    ]
+  },
+  "_width": 629,
+  "_height": 226,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

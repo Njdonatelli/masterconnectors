@@ -1,0 +1,192 @@
+{
+  "encoding": {
+    "x": {
+      "field": "Step",
+      "type": "ordinal",
+      "sort": null,
+      "axis": {
+        "labelAngle": -45
+      }
+    }
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "sum",
+          "field": "Amount",
+          "as": "__wf_sum_raw"
+        }
+      ]
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? datum.__wf_sum_raw - datum['Amount'] : datum.__wf_sum_raw",
+      "as": "__wf_sum"
+    },
+    {
+      "calculate": "datum['Type'] === 'end' ? 0 : datum.__wf_sum - datum['Amount']",
+      "as": "__wf_prev_sum"
+    },
+    {
+      "calculate": "datum['Type'] !== 'delta' ? 'total' : datum['Amount'] >= 0 ? 'increase' : 'decrease'",
+      "as": "__wf_color"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar"
+      },
+      "encoding": {
+        "y": {
+          "field": "__wf_prev_sum",
+          "type": "quantitative",
+          "title": "Amount",
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "y2": {
+          "field": "__wf_sum"
+        },
+        "color": {
+          "field": "__wf_color",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "total",
+              "increase",
+              "decrease"
+            ],
+            "range": [
+              "#f7e0b6",
+              "#93c4aa",
+              "#f78a64"
+            ]
+          },
+          "legend": {
+            "title": "Type"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Step": "Opening MAU (year start)",
+        "Amount": 325726,
+        "Type": "start"
+      },
+      {
+        "Step": "2025-01",
+        "Amount": 397986,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-02",
+        "Amount": 533739,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-03",
+        "Amount": -521212,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-04",
+        "Amount": -149552,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-05",
+        "Amount": 40044,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-06",
+        "Amount": 633936,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-07",
+        "Amount": 442875,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-08",
+        "Amount": 138280,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-09",
+        "Amount": -502170,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-10",
+        "Amount": -167050,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-11",
+        "Amount": 293585,
+        "Type": "delta"
+      },
+      {
+        "Step": "2025-12",
+        "Amount": 494963,
+        "Type": "delta"
+      },
+      {
+        "Step": "Closing MAU (year end)",
+        "Amount": 1961150,
+        "Type": "end"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 8,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

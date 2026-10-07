@@ -1,0 +1,286 @@
+<Page
+    x:Class="Gridex.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Gridex"
+    Background="Transparent">
+
+    <ScrollViewer Padding="32,24">
+        <StackPanel MaxWidth="700" Spacing="24">
+
+            <!-- Header with Back button -->
+            <StackPanel Spacing="8">
+                <Button x:Name="BackBtn"
+                        Background="Transparent" BorderThickness="0"
+                        Padding="8,4" HorizontalAlignment="Left"
+                        ToolTipService.ToolTip="Back">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <FontIcon Glyph="&#xE72B;" FontSize="14" />
+                        <TextBlock Text="Back" FontSize="13" />
+                    </StackPanel>
+                </Button>
+                <TextBlock Text="Settings" FontSize="28" FontWeight="SemiBold" />
+                <TextBlock Text="Configure Gridex preferences"
+                           FontSize="13"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+
+            <!-- Appearance -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="Appearance" FontSize="16" FontWeight="SemiBold" />
+
+                <Grid Padding="16"
+                      Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                      CornerRadius="8"
+                      BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                      BorderThickness="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Spacing="2">
+                        <TextBlock Text="Theme" FontSize="14" />
+                        <TextBlock Text="Choose light, dark, or system default"
+                                   FontSize="12"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <ComboBox x:Name="ThemeCombo" Grid.Row="0" Grid.Column="1"
+                              MinWidth="140"
+                              SelectedIndex="0"
+>
+                        <ComboBoxItem Content="System Default" />
+                        <ComboBoxItem Content="Light" />
+                        <ComboBoxItem Content="Dark" />
+                    </ComboBox>
+
+                    <Border Grid.Row="1" Grid.ColumnSpan="2"
+                            Height="1" Margin="0,12,0,0"
+                            Background="{ThemeResource DividerStrokeColorDefaultBrush}"
+                            Visibility="Collapsed" />
+                </Grid>
+            </StackPanel>
+
+            <!-- AI Configuration -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="AI Assistant" FontSize="16" FontWeight="SemiBold" />
+
+                <Grid Padding="16"
+                      Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                      CornerRadius="8"
+                      BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                      BorderThickness="1">
+                    <StackPanel Spacing="16">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Provider" FontSize="14" />
+                            <!-- Order MUST match DBModels::AiProvider enum
+                                 in Models/AiService.h — never reorder, only
+                                 append at the end (the index is persisted
+                                 in settings as aiProviderIndex). -->
+                            <ComboBox x:Name="AiProviderCombo" MinWidth="200"
+                                      SelectedIndex="0">
+                                <ComboBoxItem Content="Anthropic (Claude)" />
+                                <ComboBoxItem Content="OpenAI (GPT)" />
+                                <ComboBoxItem Content="Ollama (Local)" />
+                                <ComboBoxItem Content="Google Gemini" />
+                                <ComboBoxItem Content="OpenRouter" />
+                                <ComboBoxItem Content="OpenAI (Sign in)" />
+                                <ComboBoxItem Content="Requesty" />
+                            </ComboBox>
+                        </StackPanel>
+
+                        <StackPanel x:Name="ApiKeyPanel" Spacing="4">
+                            <TextBlock Text="API Key" FontSize="14" />
+                            <PasswordBox x:Name="ApiKeyBox"
+                                         PlaceholderText="Enter your API key..."
+                                         Width="400"
+                                         HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <!-- Shown only when AiProviderCombo index = 5 (ChatGPT / OpenAI Sign in) -->
+                        <StackPanel x:Name="SignInPanel" Spacing="8" Visibility="Collapsed">
+                            <TextBlock Text="ChatGPT Account" FontSize="14" />
+                            <TextBlock x:Name="ChatGPTStatusText"
+                                       Text="Not signed in"
+                                       FontSize="13"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button x:Name="ChatGPTSignInBtn" Content="Sign in with OpenAI" />
+                                <Button x:Name="ChatGPTSignOutBtn" Content="Sign out"
+                                        Visibility="Collapsed" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Model" FontSize="14" />
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <!-- Editable ComboBox: pick from the
+                                     list fetched via Refresh, or type a
+                                     custom model name (custom domains,
+                                     OpenAI-compatible proxies, etc.). -->
+                                <ComboBox x:Name="ModelBox"
+                                          IsEditable="true"
+                                          PlaceholderText="Pick or type a model…"
+                                          Width="400" />
+                                <Button x:Name="RefreshModelsBtn"
+                                        ToolTipService.ToolTip="Fetch available models from the selected provider">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <FontIcon Glyph="&#xE72C;" FontSize="12" />
+                                        <TextBlock Text="Refresh" FontSize="12" />
+                                    </StackPanel>
+                                </Button>
+                            </StackPanel>
+                            <TextBlock x:Name="ModelFetchStatusText"
+                                       FontSize="11"
+                                       Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                                       Visibility="Collapsed" />
+                        </StackPanel>
+
+                        <StackPanel x:Name="OllamaEndpointPanel" Spacing="4">
+                            <TextBlock Text="Ollama Endpoint" FontSize="14" />
+                            <TextBox x:Name="OllamaEndpointBox"
+                                     PlaceholderText="http://localhost:11434"
+                                     Width="400"
+                                     HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <!-- Editor -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="Editor" FontSize="16" FontWeight="SemiBold" />
+
+                <Grid Padding="16"
+                      Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                      CornerRadius="8"
+                      BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                      BorderThickness="1">
+                    <StackPanel Spacing="12">
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Font Size" FontSize="14" />
+                            <NumberBox x:Name="EditorFontSizeBox" Value="13"
+                                       Minimum="8" Maximum="24"
+                                       SpinButtonPlacementMode="Inline"
+                                       Width="120"
+                                       HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="4">
+                            <TextBlock Text="Default Row Limit" FontSize="14" />
+                            <NumberBox x:Name="RowLimitBox" Value="100"
+                                       Minimum="10" Maximum="10000"
+                                       SpinButtonPlacementMode="Inline"
+                                       Width="160"
+                                       HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+            <!-- Updates -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="Updates" FontSize="16" FontWeight="SemiBold" />
+
+                <Grid Padding="16"
+                      Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                      CornerRadius="8"
+                      BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                      BorderThickness="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Spacing="2">
+                        <TextBlock Text="Check for updates" FontSize="14" />
+                        <TextBlock x:Name="UpdateStatusText"
+                                   Text="Click the button to check."
+                                   FontSize="12"
+                                   TextWrapping="Wrap"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+                    </StackPanel>
+                    <Button x:Name="CheckUpdateButton"
+                            Grid.Column="1"
+                            Content="Check Now"
+                            Padding="16,6"
+                            VerticalAlignment="Center" />
+                </Grid>
+            </StackPanel>
+
+            <!-- Keyboard Shortcuts — populated in SettingsPage.cpp from
+                 DBModels::BuildShortcutsView() so this section and the
+                 Ctrl+/ dialog stay visually identical. -->
+            <StackPanel Spacing="12">
+                <TextBlock Text="Keyboard Shortcuts" FontSize="16" FontWeight="SemiBold" />
+                <Border Padding="16"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        CornerRadius="8"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1">
+                    <StackPanel Spacing="8">
+                        <TextBlock FontSize="12"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   TextWrapping="Wrap"
+                                   Text="Press Ctrl+/ or F1 anywhere in the app to open this reference." />
+                        <ContentControl x:Name="ShortcutsHost"
+                                        HorizontalContentAlignment="Stretch" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <!-- About -->
+            <StackPanel Spacing="8">
+                <TextBlock Text="About" FontSize="16" FontWeight="SemiBold" />
+                <TextBlock FontSize="13"
+                           Foreground="{ThemeResource TextFillColorSecondaryBrush}">
+                    <Run Text="Gridex" FontWeight="SemiBold" />
+                    <Run Text=" — AI-Native Database IDE" />
+                </TextBlock>
+                <TextBlock x:Name="VersionText"
+                           FontSize="12"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+
+                <!-- Open Source attribution -->
+                <TextBlock FontSize="11"
+                           Margin="0,8,0,0"
+                           Foreground="{ThemeResource TextFillColorTertiaryBrush}"
+                           TextWrapping="Wrap">
+                    <Run Text="ER Diagram rendering powered by " />
+                    <Run Text="D2" FontWeight="SemiBold" />
+                    <Run Text=" (MPL-2.0) © Terrastruct, Inc." />
+                    <LineBreak />
+                    <Run Text="Database connectivity via libpq, libmariadb, sqlite3. UI via WinUI 3 + WebView2." />
+                </TextBlock>
+
+                <Button x:Name="ViewLicensesButton"
+                        Content="View Open Source Licenses..."
+                        Margin="0,8,0,0"
+                        Padding="12,4"
+                        FontSize="12" />
+            </StackPanel>
+
+            <!-- Save All — applies to every section above -->
+            <Border Margin="0,8,0,32"
+                    Padding="0,16,0,0"
+                    BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                    BorderThickness="0,1,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="12"
+                            HorizontalAlignment="Right">
+                    <TextBlock x:Name="SaveStatusText"
+                               VerticalAlignment="Center"
+                               FontSize="12"
+                               Foreground="{ThemeResource TextFillColorTertiaryBrush}" />
+                    <Button x:Name="SaveAiButton"
+                            Content="Save All Settings"
+                            Padding="20,8"
+                            Style="{StaticResource AccentButtonStyle}" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

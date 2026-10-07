@@ -1,0 +1,1230 @@
+{
+  "mark": {
+    "type": "line",
+    "interpolate": "step-after"
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "count",
+          "field": "Latency (ms)",
+          "as": "__ecdf_count"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Latency (ms)",
+          "order": "ascending"
+        }
+      ],
+      "groupby": [
+        "Region"
+      ],
+      "frame": [
+        null,
+        0
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "field": "Latency (ms)",
+          "as": "__ecdf_total"
+        }
+      ],
+      "groupby": [
+        "Region"
+      ]
+    },
+    {
+      "calculate": "datum['__ecdf_count'] / datum['__ecdf_total']",
+      "as": "__ecdf"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Latency (ms)",
+      "type": "quantitative",
+      "scale": {
+        "nice": false,
+        "zero": false
+      },
+      "title": "Latency (ms)",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "__ecdf",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0,
+          1
+        ]
+      },
+      "title": "Cumulative proportion",
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 560,
+      "continuousHeight": 360
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 36
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Latency (ms)": 40,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 23,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 52,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 51,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 52,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 44,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 53,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 56,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 37,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 39,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 37,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 66,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 56,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 65,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 37,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 64,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 74,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 65,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 31,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 54,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 81,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 36,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 46,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 59,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 37,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 44,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 56,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 45,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 36,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 60,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 44,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 42,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 61,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 99,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 34,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 54,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 29,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 39,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 76,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 44,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 60,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 46,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 46,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 57,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 32,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 64,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 52,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 40,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 30,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 35,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 36,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 83,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 95,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 41,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 29,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 50,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 54,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 50,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 86,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 71,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 43,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 39,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 36,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 68,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 64,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 26,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 43,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 38,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 53,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 59,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 25,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 115,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 30,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 28,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 41,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 102,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 39,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 64,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 93,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 61,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 69,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 77,
+        "Region": "us-east"
+      },
+      {
+        "Latency (ms)": 102,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 117,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 32,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 34,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 36,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 34,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 83,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 53,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 108,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 78,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 50,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 104,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 47,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 65,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 79,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 50,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 59,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 66,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 54,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 20,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 39,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 45,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 38,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 62,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 52,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 84,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 60,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 118,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 99,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 36,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 94,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 64,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 83,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 66,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 41,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 80,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 129,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 98,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 74,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 46,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 52,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 56,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 73,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 131,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 104,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 93,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 59,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 23,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 42,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 51,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 46,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 60,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 51,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 111,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 91,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 101,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 68,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 59,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 31,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 92,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 80,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 117,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 54,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 41,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 42,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 49,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 67,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 62,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 48,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 44,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 67,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 91,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 79,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 77,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 59,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 197,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 63,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 64,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 44,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 56,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 48,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 76,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 29,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 35,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 60,
+        "Region": "eu-west"
+      },
+      {
+        "Latency (ms)": 102,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 108,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 119,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 97,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 90,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 136,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 62,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 72,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 185,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 156,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 100,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 155,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 145,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 95,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 72,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 168,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 149,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 48,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 56,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 109,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 146,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 105,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 285,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 72,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 105,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 123,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 66,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 78,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 131,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 101,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 118,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 129,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 99,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 100,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 61,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 29,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 241,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 158,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 74,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 79,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 248,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 59,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 127,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 168,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 66,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 109,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 127,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 76,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 55,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 112,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 198,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 90,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 76,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 89,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 32,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 96,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 64,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 48,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 85,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 100,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 58,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 176,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 113,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 103,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 109,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 74,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 161,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 110,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 91,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 76,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 289,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 98,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 91,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 62,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 74,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 60,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 30,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 83,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 95,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 103,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 102,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 164,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 105,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 68,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 51,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 71,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 155,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 126,
+        "Region": "ap-south"
+      },
+      {
+        "Latency (ms)": 67,
+        "Region": "ap-south"
+      }
+    ]
+  },
+  "_width": 560,
+  "_height": 360,
+  "_options": [
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false,
+      "value": true
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

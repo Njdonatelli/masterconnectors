@@ -1,0 +1,520 @@
+{
+  "mark": {
+    "type": "arc",
+    "stroke": "white",
+    "padAngle": 0.02
+  },
+  "encoding": {
+    "theta": {
+      "field": "Direction",
+      "type": "ordinal",
+      "sort": [
+        "N",
+        "NE",
+        "E",
+        "SE",
+        "S",
+        "SW",
+        "W",
+        "NW"
+      ],
+      "stack": true,
+      "scale": {
+        "range": [
+          -0.39269908169872414,
+          5.890486225480862
+        ]
+      }
+    },
+    "radius": {
+      "field": "Speed",
+      "type": "quantitative",
+      "scale": {
+        "type": "sqrt"
+      },
+      "stack": true
+    },
+    "color": {
+      "field": "Season",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "facet": {
+      "field": "Location",
+      "type": "nominal",
+      "sort": null,
+      "columns": 2
+    }
+  },
+  "width": 211,
+  "height": 211,
+  "config": {
+    "view": {
+      "continuousWidth": 211,
+      "continuousHeight": 211
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 231
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Direction": "N",
+        "Speed": 5,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "N",
+        "Speed": 4,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "N",
+        "Speed": 8,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "N",
+        "Speed": 16,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 13,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 17,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 15,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 19,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "E",
+        "Speed": 21,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "E",
+        "Speed": 8,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "E",
+        "Speed": 15,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "E",
+        "Speed": 8,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 10,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 12,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 10,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 12,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "S",
+        "Speed": 16,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "S",
+        "Speed": 8,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "S",
+        "Speed": 19,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "S",
+        "Speed": 5,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 5,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 20,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 17,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 20,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "W",
+        "Speed": 14,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "W",
+        "Speed": 15,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "W",
+        "Speed": 3,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "W",
+        "Speed": 10,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 9,
+        "Season": "Spring",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 10,
+        "Season": "Summer",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 11,
+        "Season": "Autumn",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 7,
+        "Season": "Winter",
+        "Location": "Coastal"
+      },
+      {
+        "Direction": "N",
+        "Speed": 14,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "N",
+        "Speed": 16,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "N",
+        "Speed": 6,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "N",
+        "Speed": 7,
+        "Season": "Winter",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 10,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 10,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 17,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NE",
+        "Speed": 10,
+        "Season": "Winter",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "E",
+        "Speed": 14,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "E",
+        "Speed": 4,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "E",
+        "Speed": 7,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "E",
+        "Speed": 13,
+        "Season": "Winter",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 7,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 18,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 6,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SE",
+        "Speed": 7,
+        "Season": "Winter",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "S",
+        "Speed": 7,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "S",
+        "Speed": 9,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "S",
+        "Speed": 9,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "S",
+        "Speed": 7,
+        "Season": "Winter",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 10,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 11,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 6,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "SW",
+        "Speed": 19,
+        "Season": "Winter",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "W",
+        "Speed": 10,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "W",
+        "Speed": 14,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "W",
+        "Speed": 11,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "W",
+        "Speed": 18,
+        "Season": "Winter",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 12,
+        "Season": "Spring",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 13,
+        "Season": "Summer",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 18,
+        "Season": "Autumn",
+        "Location": "Inland"
+      },
+      {
+        "Direction": "NW",
+        "Speed": 18,
+        "Season": "Winter",
+        "Location": "Inland"
+      }
+    ]
+  },
+  "_width": 211,
+  "_height": 279,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Inner Radius",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "padAngle",
+      "label": "Gap",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.1,
+      "step": 0.005,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "alignment",
+      "label": "Alignment",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (default)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "applicable": true,
+      "value": "center"
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "gdp_per_capita",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "y": {
+      "field": "latitude",
+      "type": "quantitative",
+      "scale": {
+        "zero": false,
+        "domain": [
+          -90,
+          90
+        ],
+        "clamp": true,
+        "nice": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 380,
+      "continuousHeight": 316
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "city": "Singapore",
+        "latitude": 1.35,
+        "gdp_per_capita": 65000
+      },
+      {
+        "city": "Mumbai",
+        "latitude": 19.08,
+        "gdp_per_capita": 7200
+      },
+      {
+        "city": "Cairo",
+        "latitude": 30.04,
+        "gdp_per_capita": 3900
+      },
+      {
+        "city": "Istanbul",
+        "latitude": 41.01,
+        "gdp_per_capita": 9500
+      },
+      {
+        "city": "Paris",
+        "latitude": 48.86,
+        "gdp_per_capita": 42000
+      },
+      {
+        "city": "London",
+        "latitude": 51.51,
+        "gdp_per_capita": 46000
+      },
+      {
+        "city": "Moscow",
+        "latitude": 55.76,
+        "gdp_per_capita": 11300
+      },
+      {
+        "city": "Helsinki",
+        "latitude": 60.17,
+        "gdp_per_capita": 49000
+      },
+      {
+        "city": "Reykjavik",
+        "latitude": 64.13,
+        "gdp_per_capita": 52000
+      },
+      {
+        "city": "Tromsø",
+        "latitude": 69.65,
+        "gdp_per_capita": 65000
+      }
+    ]
+  },
+  "_width": 380,
+  "_height": 316,
+  "_options": [
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 1,
+      "applicable": true,
+      "value": 1
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

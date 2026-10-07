@@ -1,0 +1,1878 @@
+{
+  "hconcat": [
+    {
+      "width": 300,
+      "height": 300,
+      "layer": [
+        {
+          "data": {
+            "values": [
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 0,
+                "__y2": -1
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 1,
+                "__y2": -6.123233995736766e-17
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 1.2246467991473532e-16,
+                "__y2": 1
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": -1,
+                "__y2": 1.8369701987210297e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "rule",
+            "stroke": "#ddd",
+            "strokeWidth": 0.8
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  -1.18,
+                  1.18
+                ]
+              },
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  -1.18,
+                  1.18
+                ]
+              },
+              "axis": null
+            },
+            "x2": {
+              "field": "__x2"
+            },
+            "y2": {
+              "field": "__y2"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 0,
+                "__y": -0.25,
+                "__x2": 0.25,
+                "__y2": -1.5308084989341915e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 0.25,
+                "__y": -1.5308084989341915e-17,
+                "__x2": 3.061616997868383e-17,
+                "__y2": 0.25
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 3.061616997868383e-17,
+                "__y": 0.25,
+                "__x2": -0.25,
+                "__y2": 4.592425496802574e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": -0.25,
+                "__y": 4.592425496802574e-17,
+                "__x2": 0,
+                "__y2": -0.25
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 0,
+                "__y": -0.5,
+                "__x2": 0.5,
+                "__y2": -3.061616997868383e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 0.5,
+                "__y": -3.061616997868383e-17,
+                "__x2": 6.123233995736766e-17,
+                "__y2": 0.5
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 6.123233995736766e-17,
+                "__y": 0.5,
+                "__x2": -0.5,
+                "__y2": 9.184850993605148e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": -0.5,
+                "__y": 9.184850993605148e-17,
+                "__x2": 0,
+                "__y2": -0.5
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 0,
+                "__y": -0.75,
+                "__x2": 0.75,
+                "__y2": -4.592425496802574e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 0.75,
+                "__y": -4.592425496802574e-17,
+                "__x2": 9.184850993605148e-17,
+                "__y2": 0.75
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 9.184850993605148e-17,
+                "__y": 0.75,
+                "__x2": -0.75,
+                "__y2": 1.3777276490407724e-16
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": -0.75,
+                "__y": 1.3777276490407724e-16,
+                "__x2": 0,
+                "__y2": -0.75
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 0,
+                "__y": -1,
+                "__x2": 1,
+                "__y2": -6.123233995736766e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 1,
+                "__y": -6.123233995736766e-17,
+                "__x2": 1.2246467991473532e-16,
+                "__y2": 1
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 1.2246467991473532e-16,
+                "__y": 1,
+                "__x2": -1,
+                "__y2": 1.8369701987210297e-16
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": -1,
+                "__y": 1.8369701987210297e-16,
+                "__x2": 0,
+                "__y2": -1
+              }
+            ]
+          },
+          "mark": {
+            "type": "rule",
+            "stroke": "#e0e0e0",
+            "strokeWidth": 0.6
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "x2": {
+              "field": "__x2"
+            },
+            "y2": {
+              "field": "__y2"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Sales",
+                  "(100)"
+                ],
+                "__x": 0,
+                "__y": -1.15,
+                "__align": "center",
+                "__baseline": "bottom",
+                "__dx": 0,
+                "__dy": -4
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "center",
+            "baseline": "bottom",
+            "dx": 0,
+            "dy": -4,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Sales",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Profit",
+                  "(100)"
+                ],
+                "__x": 1.15,
+                "__y": -7.04171909509728e-17,
+                "__align": "left",
+                "__baseline": "middle",
+                "__dx": 4,
+                "__dy": 0
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "left",
+            "baseline": "middle",
+            "dx": 4,
+            "dy": 0,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Profit",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Growth",
+                  "(100)"
+                ],
+                "__x": 1.408343819019456e-16,
+                "__y": 1.15,
+                "__align": "center",
+                "__baseline": "top",
+                "__dx": 0,
+                "__dy": 4
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "center",
+            "baseline": "top",
+            "dx": 0,
+            "dy": 4,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Growth",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Retention",
+                  "(100)"
+                ],
+                "__x": -1.15,
+                "__y": 2.112515728529184e-16,
+                "__align": "right",
+                "__baseline": "middle",
+                "__dx": -4,
+                "__dy": 0
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "right",
+            "baseline": "middle",
+            "dx": -4,
+            "dy": 0,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Retention",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__group": "_all",
+                "__axis": "Sales",
+                "__value": 0.8,
+                "__raw": 80,
+                "__angle": 0,
+                "__x": 0,
+                "__y": -0.8
+              },
+              {
+                "__group": "_all",
+                "__axis": "Profit",
+                "__value": 0.65,
+                "__raw": 65,
+                "__angle": 90,
+                "__x": 0.65,
+                "__y": -3.9801020972288984e-17
+              },
+              {
+                "__group": "_all",
+                "__axis": "Growth",
+                "__value": 0.9,
+                "__raw": 90,
+                "__angle": 180,
+                "__x": 1.1021821192326179e-16,
+                "__y": 0.9
+              },
+              {
+                "__group": "_all",
+                "__axis": "Retention",
+                "__value": 0.7,
+                "__raw": 70,
+                "__angle": 270,
+                "__x": -0.7,
+                "__y": 1.2858791391047207e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "line",
+            "interpolate": "linear-closed",
+            "strokeWidth": 1.5,
+            "point": false,
+            "fillOpacity": 0.15,
+            "fill": "#4c78a8"
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "order": {
+              "field": "__angle",
+              "type": "quantitative"
+            },
+            "tooltip": [
+              {
+                "field": "__axis",
+                "type": "nominal",
+                "title": "Metric"
+              },
+              {
+                "field": "__raw",
+                "type": "quantitative",
+                "title": "Value"
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__group": "_all",
+                "__axis": "Sales",
+                "__value": 0.8,
+                "__raw": 80,
+                "__angle": 0,
+                "__x": 0,
+                "__y": -0.8
+              },
+              {
+                "__group": "_all",
+                "__axis": "Profit",
+                "__value": 0.65,
+                "__raw": 65,
+                "__angle": 90,
+                "__x": 0.65,
+                "__y": -3.9801020972288984e-17
+              },
+              {
+                "__group": "_all",
+                "__axis": "Growth",
+                "__value": 0.9,
+                "__raw": 90,
+                "__angle": 180,
+                "__x": 1.1021821192326179e-16,
+                "__y": 0.9
+              },
+              {
+                "__group": "_all",
+                "__axis": "Retention",
+                "__value": 0.7,
+                "__raw": 70,
+                "__angle": 270,
+                "__x": -0.7,
+                "__y": 1.2858791391047207e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "point",
+            "filled": true,
+            "size": 25
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "tooltip": [
+              {
+                "field": "__axis",
+                "type": "nominal",
+                "title": "Metric"
+              },
+              {
+                "field": "__raw",
+                "type": "quantitative",
+                "title": "Value"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "North"
+    },
+    {
+      "width": 300,
+      "height": 300,
+      "layer": [
+        {
+          "data": {
+            "values": [
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 0,
+                "__y2": -1
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 1,
+                "__y2": -6.123233995736766e-17
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 1.2246467991473532e-16,
+                "__y2": 1
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": -1,
+                "__y2": 1.8369701987210297e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "rule",
+            "stroke": "#ddd",
+            "strokeWidth": 0.8
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  -1.18,
+                  1.18
+                ]
+              },
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  -1.18,
+                  1.18
+                ]
+              },
+              "axis": null
+            },
+            "x2": {
+              "field": "__x2"
+            },
+            "y2": {
+              "field": "__y2"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 0,
+                "__y": -0.25,
+                "__x2": 0.25,
+                "__y2": -1.5308084989341915e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 0.25,
+                "__y": -1.5308084989341915e-17,
+                "__x2": 3.061616997868383e-17,
+                "__y2": 0.25
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 3.061616997868383e-17,
+                "__y": 0.25,
+                "__x2": -0.25,
+                "__y2": 4.592425496802574e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": -0.25,
+                "__y": 4.592425496802574e-17,
+                "__x2": 0,
+                "__y2": -0.25
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 0,
+                "__y": -0.5,
+                "__x2": 0.5,
+                "__y2": -3.061616997868383e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 0.5,
+                "__y": -3.061616997868383e-17,
+                "__x2": 6.123233995736766e-17,
+                "__y2": 0.5
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 6.123233995736766e-17,
+                "__y": 0.5,
+                "__x2": -0.5,
+                "__y2": 9.184850993605148e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": -0.5,
+                "__y": 9.184850993605148e-17,
+                "__x2": 0,
+                "__y2": -0.5
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 0,
+                "__y": -0.75,
+                "__x2": 0.75,
+                "__y2": -4.592425496802574e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 0.75,
+                "__y": -4.592425496802574e-17,
+                "__x2": 9.184850993605148e-17,
+                "__y2": 0.75
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 9.184850993605148e-17,
+                "__y": 0.75,
+                "__x2": -0.75,
+                "__y2": 1.3777276490407724e-16
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": -0.75,
+                "__y": 1.3777276490407724e-16,
+                "__x2": 0,
+                "__y2": -0.75
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 0,
+                "__y": -1,
+                "__x2": 1,
+                "__y2": -6.123233995736766e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 1,
+                "__y": -6.123233995736766e-17,
+                "__x2": 1.2246467991473532e-16,
+                "__y2": 1
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 1.2246467991473532e-16,
+                "__y": 1,
+                "__x2": -1,
+                "__y2": 1.8369701987210297e-16
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": -1,
+                "__y": 1.8369701987210297e-16,
+                "__x2": 0,
+                "__y2": -1
+              }
+            ]
+          },
+          "mark": {
+            "type": "rule",
+            "stroke": "#e0e0e0",
+            "strokeWidth": 0.6
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "x2": {
+              "field": "__x2"
+            },
+            "y2": {
+              "field": "__y2"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Sales",
+                  "(100)"
+                ],
+                "__x": 0,
+                "__y": -1.15,
+                "__align": "center",
+                "__baseline": "bottom",
+                "__dx": 0,
+                "__dy": -4
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "center",
+            "baseline": "bottom",
+            "dx": 0,
+            "dy": -4,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Sales",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Profit",
+                  "(100)"
+                ],
+                "__x": 1.15,
+                "__y": -7.04171909509728e-17,
+                "__align": "left",
+                "__baseline": "middle",
+                "__dx": 4,
+                "__dy": 0
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "left",
+            "baseline": "middle",
+            "dx": 4,
+            "dy": 0,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Profit",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Growth",
+                  "(50)"
+                ],
+                "__x": 1.408343819019456e-16,
+                "__y": 1.15,
+                "__align": "center",
+                "__baseline": "top",
+                "__dx": 0,
+                "__dy": 4
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "center",
+            "baseline": "top",
+            "dx": 0,
+            "dy": 4,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Growth",
+                "(50)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Retention",
+                  "(100)"
+                ],
+                "__x": -1.15,
+                "__y": 2.112515728529184e-16,
+                "__align": "right",
+                "__baseline": "middle",
+                "__dx": -4,
+                "__dy": 0
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "right",
+            "baseline": "middle",
+            "dx": -4,
+            "dy": 0,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Retention",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__group": "_all",
+                "__axis": "Sales",
+                "__value": 0.6,
+                "__raw": 60,
+                "__angle": 0,
+                "__x": 0,
+                "__y": -0.6
+              },
+              {
+                "__group": "_all",
+                "__axis": "Profit",
+                "__value": 0.85,
+                "__raw": 85,
+                "__angle": 90,
+                "__x": 0.85,
+                "__y": -5.204748896376251e-17
+              },
+              {
+                "__group": "_all",
+                "__axis": "Growth",
+                "__value": 1,
+                "__raw": 50,
+                "__angle": 180,
+                "__x": 1.2246467991473532e-16,
+                "__y": 1
+              },
+              {
+                "__group": "_all",
+                "__axis": "Retention",
+                "__value": 0.75,
+                "__raw": 75,
+                "__angle": 270,
+                "__x": -0.75,
+                "__y": 1.3777276490407724e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "line",
+            "interpolate": "linear-closed",
+            "strokeWidth": 1.5,
+            "point": false,
+            "fillOpacity": 0.15,
+            "fill": "#4c78a8"
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "order": {
+              "field": "__angle",
+              "type": "quantitative"
+            },
+            "tooltip": [
+              {
+                "field": "__axis",
+                "type": "nominal",
+                "title": "Metric"
+              },
+              {
+                "field": "__raw",
+                "type": "quantitative",
+                "title": "Value"
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__group": "_all",
+                "__axis": "Sales",
+                "__value": 0.6,
+                "__raw": 60,
+                "__angle": 0,
+                "__x": 0,
+                "__y": -0.6
+              },
+              {
+                "__group": "_all",
+                "__axis": "Profit",
+                "__value": 0.85,
+                "__raw": 85,
+                "__angle": 90,
+                "__x": 0.85,
+                "__y": -5.204748896376251e-17
+              },
+              {
+                "__group": "_all",
+                "__axis": "Growth",
+                "__value": 1,
+                "__raw": 50,
+                "__angle": 180,
+                "__x": 1.2246467991473532e-16,
+                "__y": 1
+              },
+              {
+                "__group": "_all",
+                "__axis": "Retention",
+                "__value": 0.75,
+                "__raw": 75,
+                "__angle": 270,
+                "__x": -0.75,
+                "__y": 1.3777276490407724e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "point",
+            "filled": true,
+            "size": 25
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "tooltip": [
+              {
+                "field": "__axis",
+                "type": "nominal",
+                "title": "Metric"
+              },
+              {
+                "field": "__raw",
+                "type": "quantitative",
+                "title": "Value"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "South"
+    },
+    {
+      "width": 300,
+      "height": 300,
+      "layer": [
+        {
+          "data": {
+            "values": [
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 0,
+                "__y2": -1
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 1,
+                "__y2": -6.123233995736766e-17
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": 1.2246467991473532e-16,
+                "__y2": 1
+              },
+              {
+                "__type": "spoke",
+                "__x": 0,
+                "__y": 0,
+                "__x2": -1,
+                "__y2": 1.8369701987210297e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "rule",
+            "stroke": "#ddd",
+            "strokeWidth": 0.8
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  -1.18,
+                  1.18
+                ]
+              },
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "scale": {
+                "domain": [
+                  -1.18,
+                  1.18
+                ]
+              },
+              "axis": null
+            },
+            "x2": {
+              "field": "__x2"
+            },
+            "y2": {
+              "field": "__y2"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 0,
+                "__y": -0.25,
+                "__x2": 0.25,
+                "__y2": -1.5308084989341915e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 0.25,
+                "__y": -1.5308084989341915e-17,
+                "__x2": 3.061616997868383e-17,
+                "__y2": 0.25
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": 3.061616997868383e-17,
+                "__y": 0.25,
+                "__x2": -0.25,
+                "__y2": 4.592425496802574e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.25,
+                "__x": -0.25,
+                "__y": 4.592425496802574e-17,
+                "__x2": 0,
+                "__y2": -0.25
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 0,
+                "__y": -0.5,
+                "__x2": 0.5,
+                "__y2": -3.061616997868383e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 0.5,
+                "__y": -3.061616997868383e-17,
+                "__x2": 6.123233995736766e-17,
+                "__y2": 0.5
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": 6.123233995736766e-17,
+                "__y": 0.5,
+                "__x2": -0.5,
+                "__y2": 9.184850993605148e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.5,
+                "__x": -0.5,
+                "__y": 9.184850993605148e-17,
+                "__x2": 0,
+                "__y2": -0.5
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 0,
+                "__y": -0.75,
+                "__x2": 0.75,
+                "__y2": -4.592425496802574e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 0.75,
+                "__y": -4.592425496802574e-17,
+                "__x2": 9.184850993605148e-17,
+                "__y2": 0.75
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": 9.184850993605148e-17,
+                "__y": 0.75,
+                "__x2": -0.75,
+                "__y2": 1.3777276490407724e-16
+              },
+              {
+                "__type": "ring",
+                "__level": 0.75,
+                "__x": -0.75,
+                "__y": 1.3777276490407724e-16,
+                "__x2": 0,
+                "__y2": -0.75
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 0,
+                "__y": -1,
+                "__x2": 1,
+                "__y2": -6.123233995736766e-17
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 1,
+                "__y": -6.123233995736766e-17,
+                "__x2": 1.2246467991473532e-16,
+                "__y2": 1
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": 1.2246467991473532e-16,
+                "__y": 1,
+                "__x2": -1,
+                "__y2": 1.8369701987210297e-16
+              },
+              {
+                "__type": "ring",
+                "__level": 1,
+                "__x": -1,
+                "__y": 1.8369701987210297e-16,
+                "__x2": 0,
+                "__y2": -1
+              }
+            ]
+          },
+          "mark": {
+            "type": "rule",
+            "stroke": "#e0e0e0",
+            "strokeWidth": 0.6
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "x2": {
+              "field": "__x2"
+            },
+            "y2": {
+              "field": "__y2"
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Sales",
+                  "(100)"
+                ],
+                "__x": 0,
+                "__y": -1.15,
+                "__align": "center",
+                "__baseline": "bottom",
+                "__dx": 0,
+                "__dy": -4
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "center",
+            "baseline": "bottom",
+            "dx": 0,
+            "dy": -4,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Sales",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Profit",
+                  "(100)"
+                ],
+                "__x": 1.15,
+                "__y": -7.04171909509728e-17,
+                "__align": "left",
+                "__baseline": "middle",
+                "__dx": 4,
+                "__dy": 0
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "left",
+            "baseline": "middle",
+            "dx": 4,
+            "dy": 0,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Profit",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Growth",
+                  "(100)"
+                ],
+                "__x": 1.408343819019456e-16,
+                "__y": 1.15,
+                "__align": "center",
+                "__baseline": "top",
+                "__dx": 0,
+                "__dy": 4
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "center",
+            "baseline": "top",
+            "dx": 0,
+            "dy": 4,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Growth",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__label": [
+                  "Retention",
+                  "(100)"
+                ],
+                "__x": -1.15,
+                "__y": 2.112515728529184e-16,
+                "__align": "right",
+                "__baseline": "middle",
+                "__dx": -4,
+                "__dy": 0
+              }
+            ]
+          },
+          "mark": {
+            "type": "text",
+            "fontSize": 10,
+            "fill": "#555",
+            "align": "right",
+            "baseline": "middle",
+            "dx": -4,
+            "dy": 0,
+            "limit": 120,
+            "lineHeight": 13
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "text": {
+              "value": [
+                "Retention",
+                "(100)"
+              ]
+            }
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__group": "_all",
+                "__axis": "Sales",
+                "__value": 0.7,
+                "__raw": 70,
+                "__angle": 0,
+                "__x": 0,
+                "__y": -0.7
+              },
+              {
+                "__group": "_all",
+                "__axis": "Profit",
+                "__value": 0.72,
+                "__raw": 72,
+                "__angle": 90,
+                "__x": 0.72,
+                "__y": -4.4087284769304716e-17
+              },
+              {
+                "__group": "_all",
+                "__axis": "Growth",
+                "__value": 0.68,
+                "__raw": 68,
+                "__angle": 180,
+                "__x": 8.327598234202002e-17,
+                "__y": 0.68
+              },
+              {
+                "__group": "_all",
+                "__axis": "Retention",
+                "__value": 0.88,
+                "__raw": 88,
+                "__angle": 270,
+                "__x": -0.88,
+                "__y": 1.616533774874506e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "line",
+            "interpolate": "linear-closed",
+            "strokeWidth": 1.5,
+            "point": false,
+            "fillOpacity": 0.15,
+            "fill": "#4c78a8"
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "order": {
+              "field": "__angle",
+              "type": "quantitative"
+            },
+            "tooltip": [
+              {
+                "field": "__axis",
+                "type": "nominal",
+                "title": "Metric"
+              },
+              {
+                "field": "__raw",
+                "type": "quantitative",
+                "title": "Value"
+              }
+            ]
+          }
+        },
+        {
+          "data": {
+            "values": [
+              {
+                "__group": "_all",
+                "__axis": "Sales",
+                "__value": 0.7,
+                "__raw": 70,
+                "__angle": 0,
+                "__x": 0,
+                "__y": -0.7
+              },
+              {
+                "__group": "_all",
+                "__axis": "Profit",
+                "__value": 0.72,
+                "__raw": 72,
+                "__angle": 90,
+                "__x": 0.72,
+                "__y": -4.4087284769304716e-17
+              },
+              {
+                "__group": "_all",
+                "__axis": "Growth",
+                "__value": 0.68,
+                "__raw": 68,
+                "__angle": 180,
+                "__x": 8.327598234202002e-17,
+                "__y": 0.68
+              },
+              {
+                "__group": "_all",
+                "__axis": "Retention",
+                "__value": 0.88,
+                "__raw": 88,
+                "__angle": 270,
+                "__x": -0.88,
+                "__y": 1.616533774874506e-16
+              }
+            ]
+          },
+          "mark": {
+            "type": "point",
+            "filled": true,
+            "size": 25
+          },
+          "encoding": {
+            "x": {
+              "field": "__x",
+              "type": "quantitative",
+              "axis": null
+            },
+            "y": {
+              "field": "__y",
+              "type": "quantitative",
+              "axis": null
+            },
+            "tooltip": [
+              {
+                "field": "__axis",
+                "type": "nominal",
+                "title": "Metric"
+              },
+              {
+                "field": "__raw",
+                "type": "quantitative",
+                "title": "Value"
+              }
+            ]
+          }
+        }
+      ],
+      "title": "East"
+    }
+  ],
+  "spacing": 5,
+  "config": {
+    "view": {
+      "continuousWidth": 159,
+      "continuousHeight": 285,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Region": "North",
+        "Metric": "Sales",
+        "Value": 80
+      },
+      {
+        "Region": "North",
+        "Metric": "Profit",
+        "Value": 65
+      },
+      {
+        "Region": "North",
+        "Metric": "Growth",
+        "Value": 90
+      },
+      {
+        "Region": "North",
+        "Metric": "Retention",
+        "Value": 70
+      },
+      {
+        "Region": "South",
+        "Metric": "Sales",
+        "Value": 60
+      },
+      {
+        "Region": "South",
+        "Metric": "Profit",
+        "Value": 85
+      },
+      {
+        "Region": "South",
+        "Metric": "Growth",
+        "Value": 50
+      },
+      {
+        "Region": "South",
+        "Metric": "Retention",
+        "Value": 75
+      },
+      {
+        "Region": "East",
+        "Metric": "Sales",
+        "Value": 70
+      },
+      {
+        "Region": "East",
+        "Metric": "Profit",
+        "Value": 72
+      },
+      {
+        "Region": "East",
+        "Metric": "Growth",
+        "Value": 68
+      },
+      {
+        "Region": "East",
+        "Metric": "Retention",
+        "Value": 88
+      }
+    ]
+  },
+  "_width": 159,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "filled",
+      "label": "Filled",
+      "type": "binary",
+      "defaultValue": true,
+      "applicable": true,
+      "value": true
+    },
+    {
+      "key": "fillOpacity",
+      "label": "Fill Opacity",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.05,
+      "defaultValue": 0.15,
+      "applicable": true,
+      "value": 0.15
+    },
+    {
+      "key": "strokeWidth",
+      "label": "Line Width",
+      "type": "continuous",
+      "min": 0.5,
+      "max": 4,
+      "step": 0.5,
+      "defaultValue": 1.5,
+      "applicable": true,
+      "value": 1.5
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

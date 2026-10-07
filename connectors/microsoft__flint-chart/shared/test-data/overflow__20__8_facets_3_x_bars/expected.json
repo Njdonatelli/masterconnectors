@@ -1,0 +1,239 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Type",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Panel",
+      "type": "nominal",
+      "sort": null,
+      "columns": 8
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 77,
+      "continuousHeight": 279
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": -45,
+      "labelAlign": "right",
+      "labelBaseline": "top",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 97
+    },
+    "facet": {
+      "spacing": 8
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 26
+  },
+  "data": {
+    "values": [
+      {
+        "Panel": "Panel1",
+        "Type": "Type1",
+        "Value": 98
+      },
+      {
+        "Panel": "Panel1",
+        "Type": "Type2",
+        "Value": 281
+      },
+      {
+        "Panel": "Panel1",
+        "Type": "Type3",
+        "Value": 120
+      },
+      {
+        "Panel": "Panel2",
+        "Type": "Type1",
+        "Value": 193
+      },
+      {
+        "Panel": "Panel2",
+        "Type": "Type2",
+        "Value": 88
+      },
+      {
+        "Panel": "Panel2",
+        "Type": "Type3",
+        "Value": 170
+      },
+      {
+        "Panel": "Panel3",
+        "Type": "Type1",
+        "Value": 175
+      },
+      {
+        "Panel": "Panel3",
+        "Type": "Type2",
+        "Value": 192
+      },
+      {
+        "Panel": "Panel3",
+        "Type": "Type3",
+        "Value": 81
+      },
+      {
+        "Panel": "Panel4",
+        "Type": "Type1",
+        "Value": 152
+      },
+      {
+        "Panel": "Panel4",
+        "Type": "Type2",
+        "Value": 109
+      },
+      {
+        "Panel": "Panel4",
+        "Type": "Type3",
+        "Value": 266
+      },
+      {
+        "Panel": "Panel5",
+        "Type": "Type1",
+        "Value": 131
+      },
+      {
+        "Panel": "Panel5",
+        "Type": "Type2",
+        "Value": 270
+      },
+      {
+        "Panel": "Panel5",
+        "Type": "Type3",
+        "Value": 238
+      },
+      {
+        "Panel": "Panel6",
+        "Type": "Type1",
+        "Value": 116
+      },
+      {
+        "Panel": "Panel6",
+        "Type": "Type2",
+        "Value": 175
+      },
+      {
+        "Panel": "Panel6",
+        "Type": "Type3",
+        "Value": 79
+      },
+      {
+        "Panel": "Panel7",
+        "Type": "Type1",
+        "Value": 28
+      },
+      {
+        "Panel": "Panel7",
+        "Type": "Type2",
+        "Value": 212
+      },
+      {
+        "Panel": "Panel7",
+        "Type": "Type3",
+        "Value": 241
+      },
+      {
+        "Panel": "Panel8",
+        "Type": "Type1",
+        "Value": 30
+      },
+      {
+        "Panel": "Panel8",
+        "Type": "Type2",
+        "Value": 299
+      },
+      {
+        "Panel": "Panel8",
+        "Type": "Type3",
+        "Value": 282
+      }
+    ]
+  },
+  "_width": 77,
+  "_height": 279,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

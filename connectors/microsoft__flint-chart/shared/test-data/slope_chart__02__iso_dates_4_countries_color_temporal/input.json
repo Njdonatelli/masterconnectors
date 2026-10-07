@@ -1,0 +1,74 @@
+{
+  "title": "ISO dates × 4 countries + Color (temporal)",
+  "description": "4 countries across two ISO dates — temporal periods with a color legend",
+  "chartType": "Slope Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "2020-01-01",
+          "Country": "USA",
+          "Index": 68
+        },
+        {
+          "Date": "2023-06-01",
+          "Country": "USA",
+          "Index": 52
+        },
+        {
+          "Date": "2020-01-01",
+          "Country": "China",
+          "Index": 50
+        },
+        {
+          "Date": "2023-06-01",
+          "Country": "China",
+          "Index": 72
+        },
+        {
+          "Date": "2020-01-01",
+          "Country": "Japan",
+          "Index": 60
+        },
+        {
+          "Date": "2023-06-01",
+          "Country": "Japan",
+          "Index": 44
+        },
+        {
+          "Date": "2020-01-01",
+          "Country": "Germany",
+          "Index": 44
+        },
+        {
+          "Date": "2023-06-01",
+          "Country": "Germany",
+          "Index": 63
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Index": "Quantity",
+      "Country": "Country"
+    },
+    "chart_spec": {
+      "chartType": "Slope Chart",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Index"
+        },
+        "color": {
+          "field": "Country"
+        }
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      }
+    }
+  }
+}

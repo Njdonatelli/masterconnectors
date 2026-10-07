@@ -1,0 +1,53 @@
+{
+  "title": "N(5)×T (25 pts)",
+  "description": "Categorical x, temporal y",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Laptop",
+          "EndDate": "2023-11-07"
+        },
+        {
+          "Category": "Phone",
+          "EndDate": "2023-01-28"
+        },
+        {
+          "Category": "Tablet",
+          "EndDate": "2023-07-24"
+        },
+        {
+          "Category": "Desktop",
+          "EndDate": "2023-04-27"
+        },
+        {
+          "Category": "Monitor",
+          "EndDate": "2023-07-12"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "EndDate": "Date"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "EndDate"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

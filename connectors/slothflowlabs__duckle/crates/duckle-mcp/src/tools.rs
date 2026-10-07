@@ -1,0 +1,2694 @@
+//! Tool, resource and prompt implementations for the Duckle MCP server.
+//!
+//! Tools return their structured result as a single pretty-printed JSON text
+//! content block (the universally supported MCP content type); a tool failure
+//! is reported with `isError: true` rather than a JSON-RPC error, so the model
+//! can read and react to it.
+
+use crate::catalog;
+use duckle_duckdb_engine::format::strip_bom;
+use duckle_duckdb_engine::trust::{declared_columns, looks_like_pii, structural_risks};
+use duckle_duckdb_engine::{compile_pipeline_sql, DuckdbEngine, PipelineDoc};
+use serde_json::{json, Value};
+use std::collections::{BTreeMap, BTreeSet};
+use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
+
+/// Sent to the client on initialize: a compact operating guide.
+pub const INSTRUCTIONS: &str = "\
+Duckle MCP: generate, validate, run and build Duckle ETL pipelines.
+
+A pipeline is JSON: { \"name\", \"nodes\": [...], \"edges\": [...] }.
+- node: { \"id\": \"n1\", \"type\": \"source|transform|sink\", \"position\": {\"x\":0,\"y\":0}, \
+\"data\": { \"label\": \"...\", \"componentId\": \"src.csv\", \"properties\": { ... } } }
+- edge: { \"id\": \"e1\", \"source\": \"n1\", \"target\": \"n2\", \"sourceHandle\": \"main\", \
+\"targetHandle\": \"main\", \"data\": { \"connectionType\": \"main\" } }
+
+Workflow: call list_components to find component ids, get_component_schema for a \
+component's property keys, then create_pipeline (it validates before writing). Use \
+validate_pipeline to compile-check without running and run_pipeline to execute headlessly. \
+Never hardcode secrets: use ${ENV:KEY} placeholders in properties and supply the value via \
+the environment at run time. run_pipeline and build_pipeline need a DuckDB binary \
+(DUCKLE_DUCKDB_BIN env or a 'duckdb' arg); build_pipeline also needs the duckle-runner binary.";
+
+// ---------------------------------------------------------------------------
+// tools/list
+// ---------------------------------------------------------------------------
+
+pub fn list_tools() -> Value {
+    json!([
+        tool("list_components",
+            "List Duckle components (sources, transforms, sinks, control, quality, custom code). Optionally filter by kind or a search query.",
+            json!({ "type": "object", "properties": {
+                "kind": { "type": "string", "enum": ["source","transform","sink","control","quality","custom"], "description": "Filter to one kind." },
+                "query": { "type": "string", "description": "Case-insensitive substring over id/label/summary." },
+                "workspace": { "type": "string", "description": "Workspace directory. Include it to also list the external components installed there (#307)." }
+            }})),
+        tool("asset_freshness",
+            "Which assets are stale, why, and when each was last successfully materialized. Judged against declared freshness limits rather than guessed from run history, so an asset nobody declared a limit for reports `unknown` instead of a reassuring `fresh`. Use it to answer 'is the data I am about to read current'.",
+            json!({ "type": "object", "properties": {
+                "workspace": { "type": "string", "description": "Workspace directory. Required." },
+                "asset": { "type": "string", "description": "One asset id, for its full verdict." },
+                "staleOnly": { "type": "boolean", "description": "Return only assets past their limit." }
+            }, "required": ["workspace"] })),
+        tool("component_capabilities",
+            "Answer capability questions about components without guessing from their names: which sources support custom SQL, incremental reads, pushdown or chunked extraction; which sinks offer which write modes; which components emit rejects, take a saved connection, or need a DuckDB extension. Derived from the same manifests the editor and the engine use.",
+            json!({ "type": "object", "properties": {
+                "kind": { "type": "string", "enum": ["source","transform","sink","control","quality","custom"], "description": "Filter to one kind." },
+                "component": { "type": "string", "description": "One component id, for its full record." },
+                "supports": { "type": "array", "items": { "type": "string", "enum": ["customSql","incremental","pushdown","chunking","rejectOutput","artifactIo","connectionRef","credentials","cacheable","writeModes","extensions"] }, "description": "Keep only components that have ALL of these." },
+                "workspace": { "type": "string", "description": "Workspace directory, to include the external components installed there." }
+            }})),
+        tool("get_component_schema",
+            "Get the full property schema (form fields + input/output ports) for one component id, so you know which properties to set.",
+            json!({ "type": "object", "properties": {
+                "componentId": { "type": "string", "description": "e.g. src.csv, xf.map, snk.postgres" },
+                "workspace": { "type": "string", "description": "Workspace directory, for an external ext.* component installed there (#307)." }
+            }, "required": ["componentId"] })),
+        tool("create_pipeline",
+            "Validate a pipeline and write it. Prefer 'workspace' (writes pipelines/<id>.json and registers it in repository.json so it shows in the GUI immediately); 'directory' writes a loose <name>.json (not GUI-listed). Fails (without writing) if it does not compile, unless validate=false.",
+            json!({ "type": "object", "properties": {
+                "workspace": { "type": "string", "description": "Workspace root. Recommended: writes pipelines/<id>.json + registers in repository.json so the GUI lists it." },
+                "directory": { "type": "string", "description": "Alternative to 'workspace': write a loose <name>.json here (not registered in the GUI)." },
+                "name": { "type": "string", "description": "Pipeline display name." },
+                "id": { "type": "string", "description": "Pipeline id (file stem under workspace). Optional; generated if absent." },
+                "pipeline": { "type": "object", "description": "The pipeline object with at least a 'nodes' array (and usually 'edges')." },
+                "overwrite": { "type": "boolean", "description": "Replace an existing file. Default false." },
+                "validate": { "type": "boolean", "description": "Compile-check before writing. Default true." }
+            }, "required": ["name","pipeline"] })),
+        tool("update_pipeline",
+            "Merge a PARTIAL change into an existing pipeline (no need to resend the whole thing). Deep-merges 'patch' into the on-disk pipeline (nodes/edges merged by id, so you can patch one node's property), validates, then writes. Locate it via 'workspace'+'id' or a direct 'path'.",
+            json!({ "type": "object", "properties": {
+                "workspace": { "type": "string", "description": "Workspace root (with 'id' -> pipelines/<id>.json)." },
+                "id": { "type": "string", "description": "Pipeline id under the workspace." },
+                "path": { "type": "string", "description": "Direct path to the pipeline .json (use instead of workspace+id)." },
+                "patch": { "type": "object", "description": "Partial pipeline to merge, e.g. {\"nodes\":[{\"id\":\"k1\",\"data\":{\"properties\":{\"path\":\"out2.csv\"}}}]} or {\"name\":\"New\"}." },
+                "validate": { "type": "boolean", "description": "Compile-check the merged result before writing. Default true." }
+            }, "required": ["patch"] })),
+        tool("validate_pipeline",
+            "Compile a pipeline to SQL without running it. Returns the per-stage SQL on success, or a structured error.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." }
+            }})),
+        tool("run_pipeline",
+            "Run a pipeline headlessly through the DuckDB engine. Returns per-node status, row counts, errors and a small result preview. Set 'target' to run only as far as one node and inspect it without executing the rest of the pipeline or any sink past it. Needs a DuckDB binary.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object" },
+                "path": { "type": "string" },
+                "duckdb": { "type": "string", "description": "Path to the DuckDB CLI. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." },
+                "workspace": { "type": "string", "description": "Workspace root for run logs + child-job resolution." },
+                "target": { "type": "string", "description": "Node id to stop at. Only this node and what feeds it run, so nothing downstream executes and no sink past it writes. Its rows come back in 'preview'." }
+            }})),
+        tool("run_tests",
+            "Run the workspace's pipeline tests and return each case's result. A test asserts the rows out of one node against a fixture, so this catches a transform that compiles and computes the wrong thing - which validate_pipeline cannot. Runs every *.test.json under the workspace's tests/ directory, or just the files named. Needs a DuckDB binary.",
+            json!({ "type": "object", "properties": {
+                "workspace": { "type": "string", "description": "Workspace root. Defaults to the current directory." },
+                "paths": { "type": "array", "items": { "type": "string" },
+                           "description": "Specific .test.json files to run. Omit to run every test in the workspace." },
+                "duckdb": { "type": "string", "description": "Path to the DuckDB CLI. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("pipeline_lineage",
+            "Resolve column-level lineage for a pipeline: for each node, map its output columns back to their root source columns. Read-only (writes nothing); needs a DuckDB binary.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "duckdb": { "type": "string", "description": "Path to the DuckDB CLI. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("verify_pipeline",
+            "Check a pipeline without running it: compiles it to SQL, resolves column lineage, and reports structural risks (joins without keys, unconnected nodes, sink with no input, no sink). Returns one pass/fail verdict an agent can act on. Read-only; writes nothing.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "duckdb": { "type": "string", "description": "DuckDB CLI path for lineage resolution. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("check_node_sql",
+            "Bind a pipeline's SQL against its upstream columns WITHOUT running it, and report what DuckDB said: the message, the position in the node's own SQL, and the column it suggests instead of a typo. Also returns each node's inferred output schema. Scope to one node with 'node'. A source's query is sent to a remote system and is reported as not validated rather than checked against DuckDB. Read-only; runs nothing with effects.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "node": { "type": "string", "description": "Only this node. Omit for the whole pipeline." },
+                "duckdb": { "type": "string", "description": "DuckDB CLI path. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("backfill",
+            "Create, inspect, retry or cancel a partitioned backfill (#295). action=create runs it (add dryRun to see the partitions without queueing anything); status with no id lists them; retry re-queues failed and interrupted slices, optionally one named partition; cancel stops everything still open. Each slice is an ordinary durable run with its own run id, and acquires its pipeline's resource pool like any other.",
+            json!({ "type": "object", "properties": {
+                "action": { "type": "string", "enum": ["create","status","retry","cancel"] },
+                "workspace": { "type": "string", "description": "Workspace directory." },
+                "path": { "type": "string", "description": "create: the partitioned pipeline .json." },
+                "from": { "type": "string", "description": "create: first date, YYYY-MM-DD." },
+                "to": { "type": "string", "description": "create: last date, inclusive." },
+                "maxConcurrent": { "type": "integer", "description": "create: the backfill's own ceiling (default 4). Resource pools still apply on top." },
+                "dryRun": { "type": "boolean", "description": "create: list the partitions and queue nothing." },
+                "id": { "type": "string", "description": "status/retry/cancel: the backfill id." },
+                "partition": { "type": "string", "description": "retry: only this partition key." },
+                "occurrence": { "type": "string", "description": "create: the schedule occurrence that caused this, so a re-fire does not repeat the work." },
+                "force": { "type": "boolean", "description": "create: run every slice even if an identical one already succeeded." },
+                "duckdb": { "type": "string", "description": "DuckDB CLI path. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb'." }
+            }, "required": ["action","workspace"] })),
+        tool("complete_node_sql",
+            "What could come next at a cursor position in a node's SQL: upstream columns with their types, the relations it can read, the pipeline's declared parameters, DuckDB functions and keywords - ranked, best first. Never executes the SQL and never touches a source; the only thing read is DuckDB's own function list.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "node": { "type": "string", "description": "The node whose SQL is being edited." },
+                "cursor": { "type": "integer", "description": "Byte offset into that node's SQL. Defaults to the end." },
+                "limit": { "type": "integer", "description": "How many suggestions (default 12)." },
+                "duckdb": { "type": "string", "description": "DuckDB CLI path, for the function list. Without it, columns and keywords are still suggested." }
+            }, "required": ["node"] })),
+        tool("suggest_contracts",
+            "Profile a pipeline's columns and suggest data contracts to add: PII tags (heuristic, name-based) and source requireColumns anchors. Returns per-node suggestedContracts you can merge with update_pipeline, after which verify_pipeline enforces the PII-to-sink guard. Static; uses declared schemas, and column lineage too when a DuckDB binary is available.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "duckdb": { "type": "string", "description": "DuckDB CLI path - lets lineage cover transform/sink columns too. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("pipeline_impact",
+            "Blast-radius / impact analysis: inverts column lineage to show, for each source column, which downstream node columns derive from it - so you can see what breaks before changing or dropping a column. Scope to one column with 'column' (plus optional 'node'). Read-only; needs a DuckDB binary.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "node": { "type": "string", "description": "Optional source node id to scope the query to." },
+                "column": { "type": "string", "description": "Optional source column name; returns only its downstream dependents." },
+                "duckdb": { "type": "string", "description": "Path to the DuckDB CLI. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("workspace_impact",
+            "Cross-pipeline blast radius. Every other lineage tool here answers about ONE pipeline; this one answers about the whole workspace, by joining pipelines through the assets they name. Ask it what breaks if a table, file or topic changes and it returns the pipelines that read it, the assets they write, everything downstream of those, the hop distance to each, and - when the workspace has an owners.json - who to tell. Omit 'asset' to list every asset instead, with how many pipelines write and read each. Read-only; no DuckDB binary needed. Always check 'unresolved': it counts source/sink nodes whose target could not be named, and a non-zero value means the answer may be missing edges.",
+            json!({ "type": "object", "properties": {
+                "workspace": { "type": "string", "description": "Workspace root holding pipelines/. Defaults to DUCKLE_WORKSPACE." },
+                "asset": { "type": "string", "description": "Asset name to trace, e.g. 'postgres://db:5432/sales.public.orders' or '/lake/raw/orders.parquet'. Omit to list all assets." }
+            }})),
+        tool("diff_pipelines",
+            "Diff two pipeline versions for review: reports nodes added/removed/changed (by component, properties, or compiled SQL) and edges added/removed, with a summary. Compile-only and read-only; no DuckDB binary needed. Give each side as a 'before'/'after' object or a 'beforePath'/'afterPath' file.",
+            json!({ "type": "object", "properties": {
+                "before": { "type": "object", "description": "Baseline pipeline object." },
+                "after": { "type": "object", "description": "Changed pipeline object." },
+                "beforePath": { "type": "string", "description": "Path to the baseline pipeline .json (use instead of 'before')." },
+                "afterPath": { "type": "string", "description": "Path to the changed pipeline .json (use instead of 'after')." }
+            }})),
+        tool("trust_report",
+            "Score a pipeline's trustworthiness and explain every deduction: compile status, structural risks (joins without keys, orphan nodes, no sink), and columns that look like PII but are neither contract-tagged nor masked. Returns a 0-100 score, a letter grade, and the findings each lost point came from. Static by default (no DuckDB binary needed); pass checkDrift:true to also read each source's live schema and deduct for sources that drifted from their declared schema.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "checkDrift": { "type": "boolean", "description": "Also check live schema drift on the sources (needs a DuckDB binary). Default false keeps the report fully static." },
+                "workspace": { "type": "string", "description": "Workspace root to resolve ${workspace}/${date} in source paths (used with checkDrift)." },
+                "duckdb": { "type": "string", "description": "DuckDB CLI path for checkDrift. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("schema_drift",
+            "Detect schema drift in a pipeline's sources: for each source node that declares a schema, read the source's LIVE schema from the real data and compare it. Reports missing columns (the source no longer provides a declared column), added columns, and type changes, with a breaking/non-breaking verdict. Read-only; needs a DuckDB binary. Pass 'workspace' to resolve ${workspace}/${date} placeholders in source paths.",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object", "description": "Inline pipeline object." },
+                "path": { "type": "string", "description": "Path to a pipeline .json (use instead of 'pipeline')." },
+                "workspace": { "type": "string", "description": "Workspace root to resolve ${workspace}/${date} placeholders in source paths." },
+                "duckdb": { "type": "string", "description": "Path to the DuckDB CLI. Defaults to DUCKLE_DUCKDB_BIN or 'duckdb' on PATH." }
+            }})),
+        tool("list_pipelines",
+            "List pipeline .json files in a directory with their node/edge counts.",
+            json!({ "type": "object", "properties": {
+                "directory": { "type": "string" }
+            }, "required": ["directory"] })),
+        tool("read_pipeline",
+            "Read and return a pipeline .json file.",
+            json!({ "type": "object", "properties": {
+                "path": { "type": "string" }
+            }, "required": ["path"] })),
+        tool("backfill_list",
+            "List the saved state a pipeline resumes from: incremental watermarks, DuckLake snapshot ids, Kafka resume offsets, spool positions and tumbling-window buffers. Each entry says whether it can be set by hand (`editable`) or only cleared.",
+            json!({ "type": "object",
+                "properties": {
+                    "workspace": { "type": "string", "description": "Workspace folder" },
+                    "pipelineName": { "type": "string", "description": "Pipeline name (the file stem)" }
+                },
+                "required": ["workspace", "pipelineName"] })),
+        tool("backfill_set",
+            "Set an incremental watermark (`value` + optional `valueType`) or a DuckLake snapshot id (`snapshotId`) so the next run resumes from there. REFUSED when the node holds a different kind of state - a Kafka offset, a spool position or a tumbling window cannot be set by hand, because overwriting them destroys what they were holding. Clear those instead.",
+            json!({ "type": "object",
+                "properties": {
+                    "workspace": { "type": "string" },
+                    "pipelineName": { "type": "string" },
+                    "nodeId": { "type": "string" },
+                    "value": { "type": "string", "description": "Watermark value" },
+                    "valueType": { "type": "string", "description": "SQL type, default VARCHAR" },
+                    "snapshotId": { "type": "integer", "description": "DuckLake snapshot id" }
+                },
+                "required": ["workspace", "pipelineName", "nodeId"] })),
+        tool("backfill_clear",
+            "Remove a node's saved state so it starts over. NOTE: this is not always a full reload - a Kafka source with startFrom `latest` skips whatever is already in the topic when it has no saved offset, so clearing it moves PAST that backlog rather than replaying it.",
+            json!({ "type": "object",
+                "properties": {
+                    "workspace": { "type": "string" },
+                    "pipelineName": { "type": "string" },
+                    "nodeId": { "type": "string" }
+                },
+                "required": ["workspace", "pipelineName", "nodeId"] })),
+        tool("baseline_list",
+            "Every qa.baseline node in the workspace: how many profiles it has accepted, what the last run concluded, and whether a measured profile is waiting to be accepted.",
+            json!({ "type": "object",
+                "properties": {
+                    "workspace": { "type": "string", "description": "Workspace folder" }
+                },
+                "required": ["workspace"] })),
+        tool("baseline_inspect",
+            "What one qa.baseline node considers normal, against what the last run measured: the accepted median per metric, the observed value, the percentage change, and any violations that refused the run.",
+            json!({ "type": "object",
+                "properties": {
+                    "workspace": { "type": "string" },
+                    "pipelineName": { "type": "string" },
+                    "nodeId": { "type": "string" }
+                },
+                "required": ["workspace", "pipelineName", "nodeId"] })),
+        tool("baseline_accept",
+            "Make the profile the LAST RUN measured the new accepted normal, for a source that legitimately changed shape. Promotes what a run saw - it cannot invent a number, so a node no run has measured has nothing to accept. Recorded in the audit log with the value it replaced. Refused when the workspace policy withholds state mutation.",
+            json!({ "type": "object",
+                "properties": {
+                    "workspace": { "type": "string" },
+                    "pipelineName": { "type": "string" },
+                    "nodeId": { "type": "string" },
+                    "history": { "type": "integer", "description": "How many profiles to keep, default 10" }
+                },
+                "required": ["workspace", "pipelineName", "nodeId"] })),
+        tool("baseline_clear",
+            "Forget a node's accepted history so the next run starts it over and cannot fail against a baseline that no longer describes the source. Leaves the last observation alone - that is the evidence somebody is looking at. Audited, and refused when the policy withholds state mutation.",
+            json!({ "type": "object",
+                "properties": {
+                    "workspace": { "type": "string" },
+                    "pipelineName": { "type": "string" },
+                    "nodeId": { "type": "string" }
+                },
+                "required": ["workspace", "pipelineName", "nodeId"] })),
+                tool("read_run_logs",
+            "Read the tail of a pipeline's NDJSON run log (component-level events).",
+            json!({ "type": "object", "properties": {
+                "pipelineName": { "type": "string" },
+                "workspace": { "type": "string", "description": "Reads <workspace>/logs/<name>/runtime.log." },
+                "logDir": { "type": "string", "description": "Log dir directly (use instead of 'workspace')." },
+                "tail": { "type": "integer", "description": "Number of trailing lines. Default 100." }
+            }, "required": ["pipelineName"] })),
+        tool("build_pipeline",
+            "Build a pipeline into ONE self-contained executable for server deployment (the Talend Build Job equivalent). Needs the duckle-runner binary (DUCKLE_RUNNER_BIN or on PATH).",
+            json!({ "type": "object", "properties": {
+                "pipeline": { "type": "object" },
+                "path": { "type": "string" },
+                "name": { "type": "string", "description": "Display/file name for the artifact." },
+                "out": { "type": "string", "description": "Output artifact file path." },
+                "secrets": { "type": "string", "enum": ["env","passphrase"], "description": "Secret delivery mode. Default env. Passphrase needs DUCKLE_BUNDLE_PASSPHRASE." },
+                "duckdb": { "type": "string" }
+            }, "required": ["out"] })),
+        tool("list_connections",
+            "List the workspace's saved connections (secret fields masked).",
+            json!({ "type": "object", "properties": {
+                "workspace": { "type": "string" }
+            }, "required": ["workspace"] })),
+        tool("create_connection",
+            "Create a workspace saved connection JSON so pipelines can reference its fields. Writes connections/<id>.json and registers it in repository.json when present.",
+            json!({ "type": "object", "properties": {
+                "workspace": { "type": "string" },
+                "name": { "type": "string" },
+                "connection": { "type": "object", "description": "Fields like { kind, host, port, database, username, password }." }
+            }, "required": ["workspace","name","connection"] }))
+    ])
+}
+
+fn tool(name: &str, description: &str, schema: Value) -> Value {
+    json!({ "name": name, "description": description, "inputSchema": schema })
+}
+
+// ---------------------------------------------------------------------------
+// tools/call
+// ---------------------------------------------------------------------------
+
+pub fn call_tool(params: Value) -> Result<Value, (i64, String)> {
+    let name = params
+        .get("name")
+        .and_then(|v| v.as_str())
+        .ok_or((-32602, "missing tool name".to_string()))?;
+    let args = params.get("arguments").cloned().unwrap_or_else(|| json!({}));
+
+    let result = match name {
+        "list_components" => t_list_components(&args),
+        "asset_freshness" => t_asset_freshness(&args),
+        "component_capabilities" => t_component_capabilities(&args),
+        "get_component_schema" => t_get_component_schema(&args),
+        "create_pipeline" => t_create_pipeline(&args),
+        "update_pipeline" => t_update_pipeline(&args),
+        "validate_pipeline" => t_validate_pipeline(&args),
+        "run_pipeline" => t_run_pipeline(&args),
+        "run_tests" => t_run_tests(&args),
+        "pipeline_lineage" => t_pipeline_lineage(&args),
+        "verify_pipeline" => t_verify_pipeline(&args),
+        "check_node_sql" => t_check_node_sql(&args),
+        "complete_node_sql" => t_complete_node_sql(&args),
+        "backfill" => t_backfill(&args),
+        "suggest_contracts" => t_suggest_contracts(&args),
+        "pipeline_impact" => t_pipeline_impact(&args),
+        "workspace_impact" => t_workspace_impact(&args),
+        "diff_pipelines" => t_diff_pipelines(&args),
+        "trust_report" => t_trust_report(&args),
+        "schema_drift" => t_schema_drift(&args),
+        "list_pipelines" => t_list_pipelines(&args),
+        "read_pipeline" => t_read_pipeline(&args),
+        "backfill_list" => t_backfill_list(&args),
+        "backfill_set" => t_backfill_set(&args),
+        "backfill_clear" => t_backfill_clear(&args),
+        "baseline_list" => t_baseline_list(&args),
+        "baseline_inspect" => t_baseline_inspect(&args),
+        "baseline_accept" => t_baseline_accept(&args),
+        "baseline_clear" => t_baseline_clear(&args),
+        "read_run_logs" => t_read_run_logs(&args),
+        "build_pipeline" => t_build_pipeline(&args),
+        "list_connections" => t_list_connections(&args),
+        "create_connection" => t_create_connection(&args),
+        other => return Err((-32602, format!("unknown tool: {other}"))),
+    };
+
+    Ok(match result {
+        Ok(v) => content_ok(&v),
+        Err(e) => content_err(&e),
+    })
+}
+
+fn content_ok(v: &Value) -> Value {
+    let text = serde_json::to_string_pretty(v).unwrap_or_else(|_| v.to_string());
+    json!({ "content": [ { "type": "text", "text": text } ], "isError": false })
+}
+
+fn content_err(msg: &str) -> Value {
+    json!({ "content": [ { "type": "text", "text": msg } ], "isError": true })
+}
+
+// ---------------------------------------------------------------------------
+// Tool implementations
+// ---------------------------------------------------------------------------
+
+/// #304: freshness, for an operating agent.
+///
+/// The three questions the issue names - which assets are stale, why, and when
+/// each was last materialized - are all one verdict, so this returns the whole
+/// record rather than three tools that could disagree. Read-only: it evaluates
+/// and does not record, because an agent asking a question must not move the
+/// stale/recovered state machine the alerting depends on.
+fn t_asset_freshness(args: &Value) -> Result<Value, String> {
+    let ws = arg_str(args, "workspace").ok_or("missing 'workspace'")?;
+    let assets =
+        duckle_duckdb_engine::sla::evaluate_now(std::path::Path::new(ws));
+    if let Some(id) = arg_str(args, "asset") {
+        return match assets.into_iter().find(|a| a.asset == id) {
+            Some(a) => Ok(serde_json::to_value(a).unwrap_or(Value::Null)),
+            None => Err(format!("no asset {id:?} in this workspace")),
+        };
+    }
+    let stale_only = args.get("staleOnly").and_then(Value::as_bool).unwrap_or(false);
+    let out: Vec<_> = assets
+        .into_iter()
+        .filter(|a| !stale_only || a.state == duckle_duckdb_engine::sla::State::Stale)
+        .collect();
+    Ok(json!({
+        "count": out.len(),
+        "stale": out.iter().filter(|a| a.state == duckle_duckdb_engine::sla::State::Stale).count(),
+        "assets": out,
+    }))
+}
+
+/// #313: the capability registry, for an agent.
+///
+/// The issue's own examples - "find sources that support S3-compatible
+/// storage", "find sinks with upsert", "find components that perform external
+/// network I/O" - are all questions an agent otherwise answers by guessing from
+/// a component name. The registry is derived in the engine, so this returns the
+/// same records `duckle-runner capabilities` prints rather than a second
+/// opinion about what a component supports.
+fn t_component_capabilities(args: &Value) -> Result<Value, String> {
+    use duckle_duckdb_engine::capabilities;
+    let all = match arg_str(args, "workspace") {
+        Some(ws) => capabilities::all_in(std::path::Path::new(ws)),
+        None => capabilities::all(),
+    };
+    if let Some(id) = arg_str(args, "component") {
+        let found = all.into_iter().find(|c| c.component == id);
+        return match found {
+            Some(c) => Ok(serde_json::to_value(c).unwrap_or(Value::Null)),
+            None => Err(format!("no component {id:?}")),
+        };
+    }
+    let kind = arg_str(args, "kind");
+    let wanted: Vec<String> = args
+        .get("supports")
+        .and_then(Value::as_array)
+        .map(|a| a.iter().filter_map(|v| v.as_str().map(str::to_string)).collect())
+        .unwrap_or_default();
+    let has = |c: &capabilities::Capabilities, what: &str| match what {
+        "customSql" => c.custom_sql,
+        "incremental" => c.incremental,
+        "pushdown" => c.pushdown,
+        "chunking" => !c.chunking.is_empty(),
+        "rejectOutput" => c.reject_output,
+        "artifactIo" => c.artifact_io,
+        "connectionRef" => c.connection_ref,
+        "credentials" => c.credentials,
+        "cacheable" => c.cacheable,
+        "writeModes" => !c.write_modes.is_empty(),
+        "extensions" => !c.extensions.is_empty(),
+        // An unknown capability name matches nothing rather than everything: a
+        // typo that quietly returned the whole catalog would read as an answer.
+        _ => false,
+    };
+    let out: Vec<capabilities::Capabilities> = all
+        .into_iter()
+        .filter(|c| kind.is_none_or(|k| c.kind == k))
+        .filter(|c| wanted.iter().all(|w| has(c, w)))
+        .collect();
+    Ok(json!({ "count": out.len(), "components": out }))
+}
+
+fn t_list_components(args: &Value) -> Result<Value, String> {
+    let mut listed = catalog::list(arg_str(args, "kind"), arg_str(args, "query"));
+    // #307: the workspace's external components too, when one is given. An
+    // agent asking what it can build with should see a component the workspace
+    // installed, not only the ones compiled in.
+    if let Some(ws) = arg_str(args, "workspace") {
+        let kind = arg_str(args, "kind");
+        let query = arg_str(args, "query").map(|q| q.to_lowercase());
+        let extra: Vec<Value> = duckle_duckdb_engine::plugin::catalog_entries(std::path::Path::new(ws))
+            .into_iter()
+            .filter(|c| kind.is_none_or(|want| c.get("kind").and_then(Value::as_str) == Some(want)))
+            .filter(|c| match &query {
+                None => true,
+                Some(q) => ["id", "label", "summary"].iter().any(|k| {
+                    c.get(*k)
+                        .and_then(Value::as_str)
+                        .is_some_and(|v| v.to_lowercase().contains(q.as_str()))
+                }),
+            })
+            .collect();
+        if !extra.is_empty() {
+            if let Some(items) = listed.get_mut("components").and_then(|v| v.as_array_mut()) {
+                items.extend(extra);
+            }
+        }
+    }
+    Ok(listed)
+}
+
+fn t_get_component_schema(args: &Value) -> Result<Value, String> {
+    let id = arg_str(args, "componentId").ok_or("missing 'componentId'")?;
+    if let Some(ws) = arg_str(args, "workspace") {
+        if let Some(found) =
+            duckle_duckdb_engine::plugin::find(std::path::Path::new(ws), id)
+        {
+            return Ok(duckle_duckdb_engine::plugin::as_catalog_entry(&found));
+        }
+    }
+    catalog::schema(id).ok_or_else(|| format!("unknown componentId: {id}"))
+}
+
+fn t_validate_pipeline(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    let doc = to_doc(&v)?;
+    match compile_pipeline_sql(&doc) {
+        Ok(stages) => Ok(json!({
+            "ok": true,
+            "stageCount": stages.len(),
+            "stages": serde_json::to_value(&stages).unwrap_or_else(|_| json!([]))
+        })),
+        Err(e) => Ok(json!({ "ok": false, "error": e.to_string() })),
+    }
+}
+
+/// Shape the engine's per-node column lineage into stable JSON:
+/// `{ node_id: [ { "column": name, "roots": [ { node, column }, ... ] } ] }`.
+fn lineage_to_json(
+    lineage: std::collections::HashMap<
+        String,
+        Vec<(String, Vec<duckle_duckdb_engine::lineage::RootColumn>)>,
+    >,
+) -> Value {
+    let mut out = serde_json::Map::new();
+    for (node_id, cols) in lineage {
+        let arr: Vec<Value> = cols
+            .into_iter()
+            .map(|(column, roots)| {
+                json!({
+                    "column": column,
+                    "roots": serde_json::to_value(&roots).unwrap_or_else(|_| json!([])),
+                })
+            })
+            .collect();
+        out.insert(node_id, Value::Array(arr));
+    }
+    Value::Object(out)
+}
+
+fn t_pipeline_lineage(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    let doc = to_doc(&v)?;
+    let duckdb = resolve_duckdb(arg_str(args, "duckdb"))
+        .ok_or("no DuckDB binary found (set DUCKLE_DUCKDB_BIN or pass 'duckdb')")?;
+    let engine = DuckdbEngine::new(duckdb);
+    let lineage = engine
+        .pipeline_column_lineage(&doc)
+        .map_err(|e| e.to_string())?;
+    Ok(json!({ "ok": true, "lineage": lineage_to_json(lineage) }))
+}
+
+/// The engine's per-node column lineage: node id -> [(output column, root source columns)].
+type Lineage =
+    std::collections::HashMap<String, Vec<(String, Vec<duckle_duckdb_engine::lineage::RootColumn>)>>;
+
+/// Invert lineage into a forward blast-radius map: for each root source column
+/// `(node, column)`, the set of downstream `(node, column)` that derive from it.
+/// A column's own identity entry is skipped so dependents are strictly downstream.
+fn impact_from_lineage(
+    lineage: &Lineage,
+) -> std::collections::BTreeMap<(String, String), std::collections::BTreeSet<(String, String)>> {
+    let mut map: std::collections::BTreeMap<
+        (String, String),
+        std::collections::BTreeSet<(String, String)>,
+    > = std::collections::BTreeMap::new();
+    for (node_id, cols) in lineage {
+        for (col, roots) in cols {
+            for r in roots {
+                if &r.node == node_id && &r.column == col {
+                    continue;
+                }
+                map.entry((r.node.clone(), r.column.clone()))
+                    .or_default()
+                    .insert((node_id.clone(), col.clone()));
+            }
+        }
+    }
+    map
+}
+
+fn t_pipeline_impact(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    let doc = to_doc(&v)?;
+    let duckdb = resolve_duckdb(arg_str(args, "duckdb"))
+        .ok_or("no DuckDB binary found (set DUCKLE_DUCKDB_BIN or pass 'duckdb')")?;
+    let engine = DuckdbEngine::new(duckdb);
+    let lineage = engine
+        .pipeline_column_lineage(&doc)
+        .map_err(|e| e.to_string())?;
+    let map = impact_from_lineage(&lineage);
+
+    let want_node = arg_str(args, "node");
+    let want_col = arg_str(args, "column");
+
+    let roots: Vec<Value> = map
+        .iter()
+        .filter(|((rn, rc), _)| {
+            want_node.map(|n| n == rn).unwrap_or(true) && want_col.map(|c| c == rc).unwrap_or(true)
+        })
+        .map(|((rn, rc), deps)| {
+            json!({
+                "rootNode": rn,
+                "rootColumn": rc,
+                "dependents": deps
+                    .iter()
+                    .map(|(n, c)| json!({ "node": n, "column": c }))
+                    .collect::<Vec<_>>(),
+                "dependentCount": deps.len(),
+            })
+        })
+        .collect();
+
+    if want_col.is_some() && roots.is_empty() {
+        return Ok(json!({
+            "ok": true,
+            "query": { "node": want_node, "column": want_col },
+            "roots": [],
+            "note": "no source column matched, or it has no downstream dependents"
+        }));
+    }
+    Ok(json!({ "ok": true, "roots": roots }))
+}
+
+fn t_schema_drift(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    // The same resolution a run gets, rather than a shorter hand-written copy.
+    // This did time builtins and the workspace pass only, so a drift check
+    // against a source behind a saved connection or an ${ENV:...} host read a
+    // placeholder instead of the source - and reported drift, or nothing,
+    // about a thing it never reached.
+    let doc = prepare_run_doc(&v, arg_str(args, "workspace"))?;
+    let duckdb = resolve_duckdb(arg_str(args, "duckdb"))
+        .ok_or("no DuckDB binary found (set DUCKLE_DUCKDB_BIN or pass 'duckdb')")?;
+    std::env::set_var("DUCKLE_DUCKDB_BIN", &duckdb);
+    let engine = DuckdbEngine::new(duckdb);
+    Ok(duckle_duckdb_engine::drift::schema_drift(&engine, &doc))
+}
+
+/// Load one side of a diff from an inline object or a file path.
+fn load_side(args: &Value, inline: &str, path: &str) -> Result<Value, String> {
+    if let Some(p) = args.get(inline).filter(|v| v.is_object()) {
+        Ok(p.clone())
+    } else if let Some(pth) = arg_str(args, path) {
+        let text = std::fs::read_to_string(pth).map_err(|e| format!("read {pth}: {e}"))?;
+        let mut doc: Value =
+            serde_json::from_str(strip_bom(&text)).map_err(|e| format!("parse {pth}: {e}"))?;
+        // A node may hold only `connectionRef`. The engine's plan comparison is
+        // best effort - a side that will not compile yields an empty plan map
+        // and `planChanged` falls back to false - so an unresolved side would
+        // report a changed plan as unchanged. Resolved against the file's own
+        // parent, which is the workspace a run would use. An inline object has
+        // no file and therefore no workspace, so it is left as given.
+        let ws = std::path::Path::new(pth)
+            .parent()
+            .map(std::path::Path::to_path_buf)
+            .unwrap_or_else(|| std::path::PathBuf::from("."));
+        let _ = duckle_secrets::resolve_connection_refs_value(&ws, &mut doc);
+        Ok(doc)
+    } else {
+        Err(format!("provide '{inline}' (object) or '{path}' (string)"))
+    }
+}
+
+fn t_diff_pipelines(args: &Value) -> Result<Value, String> {
+    let before = load_side(args, "before", "beforePath")?;
+    let after = load_side(args, "after", "afterPath")?;
+    // Shared with the duckle-runner `review` CLI so both report the same diff.
+    let mut report = duckle_duckdb_engine::review::diff_pipelines(&before, &after);
+    if let Some(obj) = report.as_object_mut() {
+        obj.insert("ok".to_string(), json!(true));
+    }
+    Ok(report)
+}
+
+/// A trust scorecard where every lost point is itemized as a finding, so the
+/// score is explainable rather than a black-box number. Static by default;
+/// `checkDrift` also folds in live source schema drift (needs a DuckDB binary).
+/// The scorecard itself lives in the engine so the CLI and the desktop/web
+/// editor report the same numbers.
+fn t_trust_report(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    // Validate the pipeline up front so a malformed document is an explicit
+    // tool error, not a low-scoring report (matches verify_pipeline and the
+    // prior contract).
+    let mut doc = to_doc(&v)?;
+    if arg_bool(args, "checkDrift", false) {
+        if let Some(duckdb) = resolve_duckdb(arg_str(args, "duckdb")) {
+            std::env::set_var("DUCKLE_DUCKDB_BIN", &duckdb);
+            // The same resolution a run gets, for the same reason as
+            // schema_drift above: this read a placeholder rather than the
+            // source whenever a host or path came from a saved connection, the
+            // environment or a vault.
+            let doc = prepare_run_doc(&v, arg_str(args, "workspace"))?;
+            let resolved = serde_json::to_value(&doc).map_err(|e| e.to_string())?;
+            let engine = DuckdbEngine::new(duckdb);
+            return Ok(duckle_duckdb_engine::trust::trust_report(&resolved, Some(&engine)));
+        }
+    }
+    Ok(duckle_duckdb_engine::trust::trust_report(&v, None))
+}
+
+/// #314. Calls the same `analyze_pipeline_sql` the CLI and the editor call, so
+/// criterion 4 - identical diagnostics on every surface - holds by
+/// construction rather than by three implementations agreeing.
+fn t_check_node_sql(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    let doc = to_doc(&v)?;
+    let Some(duckdb) = resolve_duckdb(arg_str(args, "duckdb")) else {
+        // Said plainly rather than returning an empty, clean-looking report:
+        // "nothing was checked" and "nothing was wrong" must not look alike.
+        return Ok(json!({
+            "checked": false,
+            "reason": "no DuckDB binary; set DUCKLE_DUCKDB_BIN or pass 'duckdb'"
+        }));
+    };
+    let engine = duckle_duckdb_engine::DuckdbEngine::new(duckdb);
+    let mut nodes = engine.analyze_pipeline_sql(&doc).map_err(|e| e.to_string())?;
+    if let Some(only) = arg_str(args, "node") {
+        nodes.retain(|n| n.node_id == only);
+        if nodes.is_empty() {
+            return Err(format!("no node {only:?} in this pipeline"));
+        }
+    }
+    let problems: usize = nodes.iter().map(|n| n.diagnostics.len()).sum();
+    Ok(json!({
+        "checked": true,
+        "ok": problems == 0,
+        "problems": problems,
+        "nodes": nodes,
+    }))
+}
+
+/// #314. The same engine call the editor makes, so an agent writing SQL sees
+/// the columns an author would.
+fn t_complete_node_sql(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    let doc = to_doc(&v)?;
+    let node = arg_str(args, "node").ok_or("missing 'node'")?;
+    // Without a binary the function list is empty and everything else still
+    // works, which is better than refusing to suggest a column because DuckDB
+    // could not be found.
+    let engine = duckle_duckdb_engine::DuckdbEngine::new(
+        resolve_duckdb(arg_str(args, "duckdb")).unwrap_or_else(|| std::path::PathBuf::from("duckdb")),
+    );
+    // The upstream columns an agent has are whatever the declared schemas say;
+    // it is not editing in a canvas with a resolver behind it.
+    let upstream: Vec<(String, Vec<duckle_duckdb_engine::Column>)> = doc
+        .edges
+        .iter()
+        .filter(|e| e.target == node)
+        .filter_map(|e| {
+            let n = doc.nodes.iter().find(|n| n.id == e.source)?;
+            Some((e.source.clone(), n.data.schema.clone().unwrap_or_default()))
+        })
+        .collect();
+    let sql_len = doc
+        .nodes
+        .iter()
+        .find(|n| n.id == node)
+        .and_then(|n| n.data.properties.as_ref())
+        .and_then(|p| p.get("sql").or_else(|| p.get("query")))
+        .and_then(|v| v.as_str())
+        .map(str::len)
+        .unwrap_or(0);
+    let cursor = args
+        .get("cursor")
+        .and_then(Value::as_u64)
+        .map(|c| c as usize)
+        .unwrap_or(sql_len);
+    let limit = args.get("limit").and_then(Value::as_u64).unwrap_or(12) as usize;
+    let items = engine
+        .complete_node_sql(&doc, node, &upstream, cursor, limit)
+        .map_err(|e| e.to_string())?;
+    Ok(json!({ "node": node, "cursor": cursor, "completions": items }))
+}
+
+/// #295: the persisted backfill plan, addressable without a CLI.
+///
+/// Every action goes through the same engine functions the command does, so an
+/// agent and an operator cannot get different behaviour - which is the whole
+/// reason the executor moved out of the CLI.
+fn t_backfill(args: &Value) -> Result<Value, String> {
+    use duckle_duckdb_engine::backfill;
+    let ws = std::path::PathBuf::from(arg_str(args, "workspace").ok_or("missing 'workspace'")?);
+    let action = arg_str(args, "action").ok_or("missing 'action'")?;
+    match action {
+        "create" => {
+            let path = std::path::PathBuf::from(arg_str(args, "path").ok_or("missing 'path'")?);
+            let plan = duckle_duckdb_engine::backfill_exec::plan_for(
+                &ws,
+                &path,
+                arg_str(args, "from").unwrap_or_default(),
+                arg_str(args, "to").unwrap_or_default(),
+                args.get("maxConcurrent").and_then(Value::as_u64).unwrap_or(4) as usize,
+                arg_str(args, "occurrence"),
+            )?;
+            // A dry run writes nothing: "what would this queue" must not be a
+            // question that queues anything.
+            if args.get("dryRun").and_then(Value::as_bool).unwrap_or(false) {
+                return Ok(json!({
+                    "dryRun": true,
+                    "partitions": plan.partitions.iter().map(|p| &p.key).collect::<Vec<_>>(),
+                    "count": plan.partitions.len(),
+                }));
+            }
+            backfill::save(&ws, &plan)?;
+            let Some(duckdb) = resolve_duckdb(arg_str(args, "duckdb")) else {
+                return Err("no DuckDB binary; set DUCKLE_DUCKDB_BIN or pass 'duckdb'".into());
+            };
+            let force = args.get("force").and_then(Value::as_bool).unwrap_or(false);
+            let done =
+                duckle_duckdb_engine::backfill_exec::execute_ledger(&ws, &duckdb, plan, force, &|doc| duckle_secrets::resolve_connection_refs(&ws, &mut doc.nodes), &|_| {})?;
+            Ok(serde_json::to_value(&done).unwrap_or(Value::Null))
+        }
+        "status" => match arg_str(args, "id") {
+            Some(id) => Ok(serde_json::to_value(backfill::load(&ws, id)?).unwrap_or(Value::Null)),
+            None => Ok(json!({ "backfills": backfill::list(&ws) })),
+        },
+        "retry" => {
+            let id = arg_str(args, "id").ok_or("missing 'id'")?;
+            let mut plan =
+                backfill::load_for_retry(&ws, id, &duckle_duckdb_engine::runlock::process_alive)?;
+            let only = arg_str(args, "partition").map(|k| vec![k.to_string()]);
+            let n = plan.retry_open(only.as_deref());
+            if n == 0 {
+                return Ok(json!({ "retried": 0, "note": "nothing was failed or interrupted" }));
+            }
+            plan.pid = backfill::this_process_owns(&plan.id);
+            backfill::save(&ws, &plan)?;
+            let Some(duckdb) = resolve_duckdb(arg_str(args, "duckdb")) else {
+                return Err("no DuckDB binary; set DUCKLE_DUCKDB_BIN or pass 'duckdb'".into());
+            };
+            // A retry is an explicit act: the operator has looked and decided
+            // this slice should run, so it is not skipped as already-done.
+            let done =
+                duckle_duckdb_engine::backfill_exec::execute_ledger(&ws, &duckdb, plan, true, &|doc| duckle_secrets::resolve_connection_refs(&ws, &mut doc.nodes), &|_| {})?;
+            Ok(json!({ "retried": n, "backfill": done }))
+        }
+        "cancel" => {
+            let id = arg_str(args, "id").ok_or("missing 'id'")?;
+            let mut plan = backfill::load(&ws, id)?;
+            let n = plan.cancel();
+            plan.pid = None;
+            backfill::save(&ws, &plan)?;
+            Ok(json!({ "cancelled": n, "backfill": plan }))
+        }
+        other => Err(format!("unknown action {other:?}")),
+    }
+}
+
+fn t_verify_pipeline(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+    let doc = to_doc(&v)?;
+
+    // 1. Compile to SQL (no execution).
+    let (compiled_ok, compile) = match compile_pipeline_sql(&doc) {
+        Ok(stages) => (true, json!({ "ok": true, "stageCount": stages.len() })),
+        Err(e) => (false, json!({ "ok": false, "error": e.to_string() })),
+    };
+
+    // 2. Resolve column lineage (best-effort; needs a DuckDB binary).
+    let mut lineage_resolved = false;
+    let mut lineage = Value::Null;
+    if compiled_ok {
+        if let Some(duckdb) = resolve_duckdb(arg_str(args, "duckdb")) {
+            if let Ok(l) = DuckdbEngine::new(duckdb).pipeline_column_lineage(&doc) {
+                lineage_resolved = true;
+                lineage = lineage_to_json(l);
+            }
+        }
+    }
+
+    // 3. Structural risks straight off the graph (no execution).
+    let risks = structural_risks(&v);
+    let has_error = !compiled_ok || risks.iter().any(|r| r["severity"] == "error");
+
+    Ok(json!({
+        "ok": !has_error,
+        "mode": "static",
+        "executed": false,
+        "compile": compile,
+        "lineageResolved": lineage_resolved,
+        "lineage": lineage,
+        "risks": risks,
+    }))
+}
+
+fn t_suggest_contracts(args: &Value) -> Result<Value, String> {
+    let (v, _name) = load_pipeline_value(args)?;
+
+    // Collect each node's known columns: declared schema (static) unioned with
+    // column lineage (covers transforms/sinks too) when a DuckDB binary is found.
+    let mut cols_by_node: BTreeMap<String, BTreeSet<String>> = BTreeMap::new();
+    if let Some(nodes) = v.get("nodes").and_then(|n| n.as_array()) {
+        for n in nodes {
+            let id = match n.get("id").and_then(|x| x.as_str()) {
+                Some(s) if !s.is_empty() => s,
+                _ => continue,
+            };
+            let entry = cols_by_node.entry(id.to_string()).or_default();
+            entry.extend(declared_columns(n));
+        }
+    }
+    let mut lineage_used = false;
+    if let Ok(doc) = to_doc(&v) {
+        if let Some(duckdb) = resolve_duckdb(arg_str(args, "duckdb")) {
+            if let Ok(l) = DuckdbEngine::new(duckdb).pipeline_column_lineage(&doc) {
+                lineage_used = true;
+                for (node_id, cols) in l {
+                    let entry = cols_by_node.entry(node_id).or_default();
+                    for (col, _roots) in cols {
+                        entry.insert(col);
+                    }
+                }
+            }
+        }
+    }
+
+    // Build per-node suggestions: PII tags wherever a column name looks personal,
+    // plus requireColumns on sources to anchor "this source must deliver these".
+    let mut suggestions: Vec<Value> = Vec::new();
+    if let Some(nodes) = v.get("nodes").and_then(|n| n.as_array()) {
+        for n in nodes {
+            let id = match n.get("id").and_then(|x| x.as_str()) {
+                Some(s) if !s.is_empty() => s,
+                _ => continue,
+            };
+            let cid = n
+                .get("data")
+                .and_then(|d| d.get("componentId"))
+                .and_then(|c| c.as_str())
+                .unwrap_or("");
+            let label = n
+                .get("data")
+                .and_then(|d| d.get("label"))
+                .and_then(|c| c.as_str())
+                .unwrap_or("");
+            // Sinks now appear in lineage, but tagging PII on the sink itself is
+            // self-defeating (the contract check would flag it reaching itself);
+            // PII is governed upstream (tag the source / mask before the sink).
+            if cid.starts_with("snk.") {
+                continue;
+            }
+            let cols = match cols_by_node.get(id) {
+                Some(c) if !c.is_empty() => c,
+                _ => continue,
+            };
+
+            let pii_matches: Vec<Value> = cols
+                .iter()
+                .filter_map(|c| looks_like_pii(c).map(|cat| json!({ "column": c, "category": cat })))
+                .collect();
+
+            let mut contracts = serde_json::Map::new();
+            if !pii_matches.is_empty() {
+                let pii_cols: Vec<&str> =
+                    pii_matches.iter().filter_map(|m| m["column"].as_str()).collect();
+                contracts.insert("pii".to_string(), json!(pii_cols));
+            }
+            if cid.starts_with("src.") {
+                contracts.insert(
+                    "requireColumns".to_string(),
+                    json!(cols.iter().collect::<Vec<_>>()),
+                );
+            }
+            if contracts.is_empty() {
+                continue;
+            }
+            suggestions.push(json!({
+                "nodeId": id,
+                "label": label,
+                "componentId": cid,
+                "piiMatches": pii_matches,
+                "suggestedContracts": Value::Object(contracts),
+            }));
+        }
+    }
+
+    let columns_known = cols_by_node.values().any(|c| !c.is_empty());
+    Ok(json!({
+        "ok": true,
+        "columnsKnown": columns_known,
+        "lineageUsed": lineage_used,
+        "suggestions": suggestions,
+        "note": "Heuristic name-based PII detection - review before applying. Merge each suggestedContracts into that node's data.properties.contracts (e.g. via update_pipeline), then verify_pipeline blocks a tagged column reaching a sink. To allow one, add a qa.mask upstream or set contracts.allowPii=true on the sink. Pass a DuckDB binary to also cover transform/sink columns via lineage.",
+    }))
+}
+
+fn t_create_pipeline(args: &Value) -> Result<Value, String> {
+    let name = arg_str(args, "name").ok_or("missing 'name'")?;
+    let workspace = arg_str(args, "workspace");
+    let dir = arg_str(args, "directory");
+    if workspace.is_none() && dir.is_none() {
+        return Err(
+            "provide 'workspace' (recommended - registers the pipeline so the GUI lists it) or 'directory'".to_string(),
+        );
+    }
+    let pipeline = args
+        .get("pipeline")
+        .filter(|v| v.is_object())
+        .ok_or("missing 'pipeline' object")?;
+    let do_validate = arg_bool(args, "validate", true);
+    let overwrite = arg_bool(args, "overwrite", false);
+
+    // Normalize into the full saved-pipeline shape the GUI also writes.
+    let mut obj = pipeline.as_object().cloned().unwrap_or_default();
+    if !obj.get("nodes").map(|n| n.is_array()).unwrap_or(false) {
+        return Err("pipeline must have a 'nodes' array".to_string());
+    }
+    obj.entry("edges").or_insert_with(|| json!([]));
+    obj.entry("version").or_insert_with(|| json!(1));
+    obj.entry("name").or_insert_with(|| json!(name));
+    // A caller-pinned id (or one already in the pipeline) lets create+overwrite
+    // target a known file; otherwise generate one. The id is also the file stem
+    // under a workspace, matching the GUI's pipelines/<id>.json layout.
+    let id = arg_str(args, "id")
+        .map(String::from)
+        .or_else(|| obj.get("id").and_then(|v| v.as_str()).map(String::from))
+        .unwrap_or_else(|| gen_id("p"));
+    obj.insert("id".to_string(), json!(id));
+    let full = Value::Object(obj);
+
+    let mut validation = Value::Null;
+    if do_validate {
+        let doc = to_doc(&full)?;
+        match compile_pipeline_sql(&doc) {
+            Ok(stages) => validation = json!({ "ok": true, "stageCount": stages.len() }),
+            Err(e) => return Err(format!("pipeline did not validate (not written): {e}")),
+        }
+    }
+    let pretty = serde_json::to_string_pretty(&full).map_err(|e| e.to_string())?;
+
+    let (path, registered) = if let Some(ws) = workspace {
+        // v2 workspace layout: pipelines/<id>.json + repository.json entry so the
+        // GUI lists it immediately (the reporter's main friction, #92).
+        let pdir = std::path::Path::new(ws).join("pipelines");
+        std::fs::create_dir_all(&pdir).map_err(|e| format!("mkdir: {e}"))?;
+        let path = pdir.join(format!("{id}.json"));
+        if path.exists() && !overwrite {
+            return Err(format!("{} already exists (pass overwrite=true to replace)", path.display()));
+        }
+        std::fs::write(&path, &pretty).map_err(|e| format!("write {}: {e}", path.display()))?;
+        let registered = register_pipeline_in_repo(ws, &id, name);
+        (path, registered)
+    } else {
+        let dir = dir.unwrap();
+        let fname = format!("{}.json", sanitize_filename(name));
+        let path = std::path::Path::new(dir).join(&fname);
+        if path.exists() && !overwrite {
+            return Err(format!("{} already exists (pass overwrite=true to replace)", path.display()));
+        }
+        std::fs::create_dir_all(dir).map_err(|e| format!("mkdir {dir}: {e}"))?;
+        std::fs::write(&path, &pretty).map_err(|e| format!("write {}: {e}", path.display()))?;
+        (path, false)
+    };
+
+    Ok(json!({ "ok": true, "id": id, "path": path.to_string_lossy(), "registeredInRepository": registered, "validation": validation }))
+}
+
+/// Best-effort: upsert a pipeline entry into <ws>/repository.json so the GUI
+/// lists an MCP-created/updated pipeline. Places it under the "pipelines" folder
+/// when one exists (v2 layout), else at the root. Returns true if written.
+fn register_pipeline_in_repo(ws: &str, id: &str, name: &str) -> bool {
+    let repo_path = std::path::Path::new(ws).join("repository.json");
+    let mut repo: Value = std::fs::read_to_string(&repo_path)
+        .ok()
+        .and_then(|t| serde_json::from_str(strip_bom(&t)).ok())
+        .unwrap_or_else(|| json!([]));
+    let arr = match repo.as_array_mut() {
+        Some(a) => a,
+        None => return false,
+    };
+    if let Some(existing) = arr
+        .iter_mut()
+        .find(|e| e.get("id").and_then(|v| v.as_str()) == Some(id))
+    {
+        if let Some(o) = existing.as_object_mut() {
+            o.insert("name".to_string(), json!(name));
+        }
+    } else {
+        let has_folder = arr.iter().any(|e| {
+            e.get("id").and_then(|v| v.as_str()) == Some("pipelines")
+                && e.get("type").and_then(|v| v.as_str()) == Some("folder")
+        });
+        let mut entry = serde_json::Map::new();
+        entry.insert("id".to_string(), json!(id));
+        entry.insert("name".to_string(), json!(name));
+        entry.insert("type".to_string(), json!("pipeline"));
+        if has_folder {
+            entry.insert("parentId".to_string(), json!("pipelines"));
+        }
+        arr.push(Value::Object(entry));
+    }
+    std::fs::write(&repo_path, serde_json::to_string_pretty(&repo).unwrap_or_default()).is_ok()
+}
+
+/// Deep-merge `patch` into `base` for update_pipeline. `nodes`/`edges` arrays are
+/// merged by element `id` (so a caller can patch one node's property without
+/// resending the whole array); other objects deep-merge; scalars/other arrays
+/// replace.
+fn merge_pipeline(base: &mut Value, patch: &Value) {
+    let (b, p) = match (base.as_object_mut(), patch.as_object()) {
+        (Some(b), Some(p)) => (b, p),
+        _ => {
+            *base = patch.clone();
+            return;
+        }
+    };
+    for (k, pv) in p {
+        if (k == "nodes" || k == "edges") && pv.is_array() {
+            merge_by_id(b.entry(k.clone()).or_insert_with(|| json!([])), pv);
+        } else {
+            match b.get_mut(k) {
+                Some(bv) if bv.is_object() && pv.is_object() => deep_merge(bv, pv),
+                _ => {
+                    b.insert(k.clone(), pv.clone());
+                }
+            }
+        }
+    }
+}
+
+fn merge_by_id(base_arr: &mut Value, patch_arr: &Value) {
+    let pitems = match patch_arr.as_array() {
+        Some(a) => a,
+        None => return,
+    };
+    let barr = match base_arr.as_array_mut() {
+        Some(a) => a,
+        None => {
+            *base_arr = patch_arr.clone();
+            return;
+        }
+    };
+    for pi in pitems {
+        let pid = pi.get("id").and_then(|v| v.as_str());
+        if let Some(pid) = pid {
+            if let Some(existing) = barr
+                .iter_mut()
+                .find(|e| e.get("id").and_then(|v| v.as_str()) == Some(pid))
+            {
+                deep_merge(existing, pi);
+                continue;
+            }
+        }
+        barr.push(pi.clone());
+    }
+}
+
+fn deep_merge(base: &mut Value, patch: &Value) {
+    match (base.as_object_mut(), patch.as_object()) {
+        (Some(b), Some(p)) => {
+            for (k, pv) in p {
+                match b.get_mut(k) {
+                    Some(bv) if bv.is_object() && pv.is_object() => deep_merge(bv, pv),
+                    _ => {
+                        b.insert(k.clone(), pv.clone());
+                    }
+                }
+            }
+        }
+        _ => *base = patch.clone(),
+    }
+}
+
+fn t_update_pipeline(args: &Value) -> Result<Value, String> {
+    let patch = args
+        .get("patch")
+        .filter(|v| v.is_object())
+        .ok_or("missing 'patch' object")?;
+    let do_validate = arg_bool(args, "validate", true);
+    let workspace = arg_str(args, "workspace");
+    let id = arg_str(args, "id");
+    let path: std::path::PathBuf = if let Some(p) = arg_str(args, "path") {
+        std::path::PathBuf::from(p)
+    } else if let (Some(ws), Some(id)) = (workspace, id) {
+        std::path::Path::new(ws).join("pipelines").join(format!("{id}.json"))
+    } else {
+        return Err("provide 'path', or 'workspace' + 'id'".to_string());
+    };
+    let text = std::fs::read_to_string(&path).map_err(|e| format!("read {}: {e}", path.display()))?;
+    let mut doc_val: Value = serde_json::from_str(strip_bom(&text))
+        .map_err(|e| format!("parse {}: {e}", path.display()))?;
+    merge_pipeline(&mut doc_val, patch);
+
+    let mut validation = Value::Null;
+    if do_validate {
+        let d = to_doc(&doc_val)?;
+        match compile_pipeline_sql(&d) {
+            Ok(stages) => validation = json!({ "ok": true, "stageCount": stages.len() }),
+            Err(e) => return Err(format!("merged pipeline did not validate (not written): {e}")),
+        }
+    }
+    let pretty = serde_json::to_string_pretty(&doc_val).map_err(|e| e.to_string())?;
+    std::fs::write(&path, pretty).map_err(|e| format!("write {}: {e}", path.display()))?;
+
+    // Keep the repo name in sync if we know the workspace + id.
+    let mut registered = false;
+    if let (Some(ws), Some(id)) = (workspace.as_ref(), id.as_ref()) {
+        if let Some(name) = doc_val.get("name").and_then(|v| v.as_str()) {
+            registered = register_pipeline_in_repo(ws, id, name);
+        }
+    }
+    Ok(json!({ "ok": true, "path": path.to_string_lossy(), "registeredInRepository": registered, "validation": validation }))
+}
+
+/// #250: run the workspace's pipeline tests.
+///
+/// This SHELLS OUT to `duckle-runner test --json` rather than reimplementing
+/// the harness, and that is the point rather than a shortcut. The runner owns
+/// what a case means - how a fixture is resolved, how types are compared, what
+/// counts as unique - and a second implementation here would be a second answer
+/// to the same question. Those drift. The agent still needs no shell: it calls
+/// a tool, and the server runs the binary it ships beside.
+fn t_run_tests(args: &Value) -> Result<Value, String> {
+    let exe = std::env::current_exe().map_err(|e| format!("locating this executable: {e}"))?;
+    let name = if cfg!(windows) { "duckle-runner.exe" } else { "duckle-runner" };
+    let runner = exe
+        .parent()
+        .map(|d| d.join(name))
+        .filter(|p| p.exists())
+        .ok_or_else(|| {
+            format!(
+                "{name} not found next to {}. The MCP server runs the test harness rather than \
+                 carrying its own copy, so the two cannot disagree about what a case means.",
+                exe.display()
+            )
+        })?;
+
+    let mut cmd = std::process::Command::new(&runner);
+    cmd.arg("test").arg("--json");
+    if let Some(paths) = args.get("paths").and_then(Value::as_array) {
+        for p in paths.iter().filter_map(Value::as_str) {
+            cmd.arg(p);
+        }
+    }
+    if let Some(ws) = args.get("workspace").and_then(Value::as_str) {
+        cmd.current_dir(ws);
+    }
+    if let Some(d) = args.get("duckdb").and_then(Value::as_str) {
+        cmd.env("DUCKLE_DUCKDB_BIN", d);
+    }
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x0800_0000); // CREATE_NO_WINDOW
+    }
+    let out = cmd
+        .output()
+        .map_err(|e| format!("running {}: {e}", runner.display()))?;
+    let stdout = String::from_utf8_lossy(&out.stdout);
+    // The harness exits 1 on a failed assertion, which is a RESULT, not an
+    // error - the agent wants the failures, not a tool error that hides them.
+    match serde_json::from_str::<Value>(stdout.trim()) {
+        Ok(v) => Ok(v),
+        Err(_) => Err(format!(
+            "the test harness returned nothing readable (exit {}): {}",
+            out.status.code().unwrap_or(-1),
+            String::from_utf8_lossy(&out.stderr).trim()
+        )),
+    }
+}
+
+/// Turn a loaded pipeline value into the document the engine will run.
+///
+/// The run-time placeholder tiers are resolved here, in the same order every
+/// other execution surface applies them (desktop, scheduler, `serve`, `follow`).
+/// Without this a credential kept in a vault reached the connector as the
+/// literal text `${VAULT:NAME}`, which is the one thing a vault exists to
+/// prevent - and the server's own tool instructions tell an agent to write
+/// `${ENV:KEY}` rather than a literal, so it advertised a mechanism it did not
+/// honour.
+fn prepare_run_doc(v: &Value, workspace: Option<&str>) -> Result<PipelineDoc, String> {
+    let mut doc = to_doc(v)?;
+    // Saved connections expand BEFORE the env pass, so a connection field
+    // stored as ${ENV:...} still resolves below. Same order as the scheduler.
+    if let Some(ws) = workspace.filter(|w| !w.is_empty()) {
+        duckle_secrets::resolve_connection_refs(std::path::Path::new(ws), &mut doc.nodes)?;
+    }
+    duckle_duckdb_engine::context::apply_env(&mut doc);
+    duckle_duckdb_engine::context::apply_vault(&mut doc);
+    // Last, exactly as the CLI orders it (`main.rs:494`): `${workspace}` and the
+    // workspace context variables resolve after env and vault, so a context
+    // value spelled `${ENV:...}` has already become a value by the time it is
+    // read.
+    //
+    // Without this an MCP run sent `${workspace}/...` to DuckDB verbatim and
+    // failed with "No files found that match the pattern", while the same
+    // pipeline ran from the desktop app and from `duckle-runner --workspace`.
+    // A file-loaded pipeline does not go through the by-id resolver, so nothing
+    // else in this path would ever substitute it - the same reason the CLI and
+    // the serve endpoints each call this themselves.
+    if let Some(ws) = workspace.filter(|w| !w.is_empty()) {
+        duckle_duckdb_engine::context::apply_workspace_context(
+            &mut doc,
+            std::path::Path::new(ws),
+        );
+    }
+    // The date builtins after the context, as on every run surface.
+    duckle_duckdb_engine::context::apply_time_builtins(&mut doc);
+    Ok(doc)
+}
+
+fn t_run_pipeline(args: &Value) -> Result<Value, String> {
+    let (v, name) = load_pipeline_value(args)?;
+    let duckdb = resolve_duckdb(arg_str(args, "duckdb"))
+        .ok_or("no DuckDB binary found; set DUCKLE_DUCKDB_BIN or pass 'duckdb'")?;
+    std::env::set_var("DUCKLE_DUCKDB_BIN", &duckdb);
+    // This is a long-lived stdio server; set the workspace env deterministically
+    // every call so one run_pipeline doesn't inherit a previous call's workspace
+    // (which would write logs / resolve child jobs against the wrong folder).
+    if let Some(ws) = arg_str(args, "workspace") {
+        std::env::set_var("DUCKLE_WORKSPACE", ws);
+        std::env::set_var("DUCKLE_LOG_DIR", std::path::Path::new(ws).join("logs"));
+    } else {
+        std::env::remove_var("DUCKLE_WORKSPACE");
+        std::env::remove_var("DUCKLE_LOG_DIR");
+    }
+
+    // Prepared after the workspace is set, so every tier sees the same
+    // environment the run itself will see.
+    let doc = prepare_run_doc(&v, arg_str(args, "workspace"))?;
+
+    // The same per-pipeline lock a scheduled run takes, so an agent cannot start
+    // a run beside one already going in this workspace - both would write the
+    // same sink and advance the same saved state. Only when a workspace is
+    // given: without one there is no shared place for a lock, and nothing else
+    // in this workspace can be running either.
+    let _run_lock = match arg_str(args, "workspace") {
+        Some(ws) => {
+            Some(duckle_duckdb_engine::runlock::claim_for_run(std::path::Path::new(ws), &name)?)
+        }
+        None => None,
+    };
+
+    let engine = DuckdbEngine::new(duckdb);
+    // #259: a run an agent starts is addressable like any other. Without this,
+    // "which run did the agent just do?" had no answer, and MCP is the surface
+    // where that question is asked most.
+    let receipt = arg_str(args, "workspace").map(|ws| {
+        let hash = duckle_duckdb_engine::retry::pipeline_hash(&doc);
+        let run_id = duckle_duckdb_engine::retry::new_run_id(&name, "mcp");
+        duckle_duckdb_engine::retry::begin(
+            std::path::Path::new(ws),
+            &run_id,
+            "mcp",
+            &name,
+            arg_str(args, "path").unwrap_or("(inline)"),
+            &hash,
+            None,
+        )
+    });
+    // Stopping at a node is the point of asking: an agent changing one step should not
+    // have to run everything after it, least of all the sinks, to see what it did.
+    // #259: the engine logs under the id the receipt was written with, so a
+    // run's log lines join to its receipt and its history record.
+    let engine = match &receipt {
+        Some(r) => engine.with_run_id(&r.run_id),
+        None => engine,
+    };
+    let result = match arg_str(args, "target") {
+        Some(t) => engine.execute_pipeline_with_events(&doc, Some(t), Some(&name), |_| {}),
+        None => engine.execute_pipeline_named(&doc, &name),
+    };
+    if let (Some(r), Some(ws)) = (receipt, arg_str(args, "workspace")) {
+        duckle_duckdb_engine::retry::finish(
+            std::path::Path::new(ws),
+            r,
+            &result.status,
+            duckle_duckdb_engine::retry::nodes_of(&result),
+        );
+    }
+
+    let mut out = serde_json::to_value(&result).map_err(|e| e.to_string())?;
+    // Cap preview rows so the response stays small.
+    if let Some(prev) = out.get_mut("preview").and_then(|p| p.as_array_mut()) {
+        for node in prev.iter_mut() {
+            if let Some(rows) = node.get_mut("rows").and_then(|r| r.as_array_mut()) {
+                rows.truncate(20);
+            }
+        }
+    }
+    Ok(out)
+}
+
+/// Cross-pipeline impact, the one question the per-pipeline tools cannot answer.
+fn t_workspace_impact(args: &Value) -> Result<Value, String> {
+    use duckle_duckdb_engine::catalog;
+    let workspace = arg_str(args, "workspace")
+        .map(std::path::PathBuf::from)
+        .or_else(|| std::env::var("DUCKLE_WORKSPACE").ok().map(std::path::PathBuf::from))
+        .ok_or("missing 'workspace' (or set DUCKLE_WORKSPACE)")?;
+
+    let cat = catalog::build(&workspace)?;
+    let owners = catalog::load_owners(&workspace)?;
+    // The count of nodes that could not be named travels with every answer, so
+    // a caller cannot present a blast radius as exhaustive without seeing it.
+    let unresolved = json!(cat
+        .unresolved
+        .iter()
+        .map(|u| json!({ "pipeline": u.pipeline_id, "node": u.node_id, "component": u.component_id }))
+        .collect::<Vec<_>>());
+
+    match arg_str(args, "asset") {
+        Some(asset) => {
+            if !cat.assets.iter().any(|a| a.id == asset) {
+                return Err(format!(
+                    "no pipeline names '{asset}'; call this tool without 'asset' to list the names in use"
+                ));
+            }
+            let hit = cat.impact(asset, Some(&owners));
+            Ok(json!({
+                "asset": hit.asset,
+                "pipelines": hit.pipelines,
+                "assets": hit.assets,
+                "producers": cat.producers(asset).iter().map(|t| &t.pipeline_id).collect::<Vec<_>>(),
+                "consumers": cat.consumers(asset).iter().map(|t| &t.pipeline_id).collect::<Vec<_>>(),
+                "unresolved": unresolved,
+            }))
+        }
+        // The SAME assembly the desktop screen and the web console use, so an
+        // agent and a person are looking at one catalog. This built its own
+        // before, and had drifted: `writtenBy` was a COUNT where the other two
+        // surfaces give a list of pipeline names, and columns, description,
+        // tags and freshness were simply absent - so an agent was working from
+        // a quietly poorer picture than the person it was helping.
+        //
+        // The graph is built fresh rather than loaded, because an agent never
+        // sees the "press Rescan" notice a screen shows and cannot act on it.
+        None => Ok(json!(catalog::view_of(&workspace, &cat))),
+    }
+}
+
+fn t_list_pipelines(args: &Value) -> Result<Value, String> {
+    let dir = arg_str(args, "directory").ok_or("missing 'directory'")?;
+    let rd = std::fs::read_dir(dir).map_err(|e| format!("read_dir {dir}: {e}"))?;
+    let mut out = Vec::new();
+    for entry in rd.flatten() {
+        let path = entry.path();
+        if path.extension().and_then(|e| e.to_str()) != Some("json") {
+            continue;
+        }
+        let text = match std::fs::read_to_string(&path) {
+            Ok(t) => t,
+            Err(_) => continue,
+        };
+        let v: Value = match serde_json::from_str(strip_bom(&text)) {
+            Ok(v) => v,
+            Err(_) => continue,
+        };
+        if let Some(nodes) = v.get("nodes").and_then(|n| n.as_array()) {
+            out.push(json!({
+                "file": path.to_string_lossy(),
+                "name": v.get("name").and_then(|x| x.as_str()).unwrap_or(""),
+                "nodeCount": nodes.len(),
+                "edgeCount": v.get("edges").and_then(|e| e.as_array()).map(|a| a.len()).unwrap_or(0),
+            }));
+        }
+    }
+    Ok(json!({ "count": out.len(), "pipelines": out }))
+}
+
+fn t_read_pipeline(args: &Value) -> Result<Value, String> {
+    let path = arg_str(args, "path").ok_or("missing 'path'")?;
+    let text = std::fs::read_to_string(path).map_err(|e| format!("read {path}: {e}"))?;
+    serde_json::from_str(strip_bom(&text)).map_err(|e| format!("parse {path}: {e}"))
+}
+
+/// Backfill over MCP, so an agent can inspect and replay without a GUI.
+///
+/// All three go through `duckle_duckdb_engine::watermark`, the same functions
+/// the desktop panel, the CLI and the HTTP API use - including the guard that
+/// refuses a write which would replace a different kind of state. One
+/// implementation, so an agent cannot reach a path the other surfaces block.
+fn t_backfill_list(args: &Value) -> Result<Value, String> {
+    let (ws, name) = backfill_target(args)?;
+    let entries = duckle_duckdb_engine::watermark::list(&ws, &name);
+    Ok(json!({
+        "pipeline": name,
+        "entries": serde_json::to_value(&entries).unwrap_or(json!([])),
+    }))
+}
+
+fn t_backfill_set(args: &Value) -> Result<Value, String> {
+    use duckle_duckdb_engine::watermark as wm;
+    let (ws, name) = backfill_target(args)?;
+    let node = arg_str(args, "nodeId").ok_or("missing 'nodeId'")?;
+    let snapshot = args.get("snapshotId").and_then(|v| v.as_u64());
+    let value = arg_str(args, "value");
+    match (value, snapshot) {
+        (Some(_), Some(_)) => Err("give 'value' or 'snapshotId', not both".into()),
+        (Some(v), None) => wm::set_incremental(&ws, &name, node, v, arg_str(args, "valueType"))
+            .map(|()| json!({ "ok": true, "node": node, "value": v }))
+            .map_err(|e| e.to_string()),
+        (None, Some(id)) => wm::set_snapshot(&ws, &name, node, id)
+            .map(|()| json!({ "ok": true, "node": node, "snapshotId": id }))
+            .map_err(|e| e.to_string()),
+        (None, None) => Err("provide 'value' or 'snapshotId'".into()),
+    }
+}
+
+fn t_backfill_clear(args: &Value) -> Result<Value, String> {
+    let (ws, name) = backfill_target(args)?;
+    let node = arg_str(args, "nodeId").ok_or("missing 'nodeId'")?;
+    duckle_duckdb_engine::watermark::clear(&ws, &name, node)
+        .map(|()| json!({ "ok": true, "cleared": node }))
+        .map_err(|e| e.to_string())
+}
+
+/// #281: operating the anomaly gate over MCP, so an agent that is helping an
+/// operator investigate can also see what "normal" currently means - and, when
+/// the source really did change, re-base it through the same guarded path the
+/// CLI and the panel use rather than a private one.
+fn t_baseline_list(args: &Value) -> Result<Value, String> {
+    let ws = arg_str(args, "workspace").ok_or("missing 'workspace'")?;
+    let rows = duckle_duckdb_engine::baseline::list(std::path::Path::new(ws));
+    Ok(json!({ "baselines": serde_json::to_value(&rows).unwrap_or(json!([])) }))
+}
+
+fn t_baseline_inspect(args: &Value) -> Result<Value, String> {
+    let (ws, name) = backfill_target(args)?;
+    let node = arg_str(args, "nodeId").ok_or("missing 'nodeId'")?;
+    let view = duckle_duckdb_engine::baseline::inspect(&ws, &name, node);
+    serde_json::to_value(&view).map_err(|e| e.to_string())
+}
+
+fn t_baseline_accept(args: &Value) -> Result<Value, String> {
+    let (ws, name) = backfill_target(args)?;
+    let node = arg_str(args, "nodeId").ok_or("missing 'nodeId'")?;
+    let history = args.get("history").and_then(|v| v.as_u64()).unwrap_or(10) as usize;
+    let after = duckle_duckdb_engine::baseline::accept(&ws, &name, node, history)
+        .map_err(|e| e.to_string())?;
+    serde_json::to_value(&after).map_err(|e| e.to_string())
+}
+
+fn t_baseline_clear(args: &Value) -> Result<Value, String> {
+    let (ws, name) = backfill_target(args)?;
+    let node = arg_str(args, "nodeId").ok_or("missing 'nodeId'")?;
+    duckle_duckdb_engine::baseline::clear(&ws, &name, node)
+        .map(|dropped| json!({ "ok": true, "dropped": dropped }))
+        .map_err(|e| e.to_string())
+}
+
+fn backfill_target(args: &Value) -> Result<(PathBuf, String), String> {
+    let ws = arg_str(args, "workspace").ok_or("missing 'workspace'")?;
+    let name = arg_str(args, "pipelineName").ok_or("missing 'pipelineName'")?;
+    Ok((PathBuf::from(ws), name.to_string()))
+}
+
+fn t_read_run_logs(args: &Value) -> Result<Value, String> {
+    let pipeline_name = arg_str(args, "pipelineName").ok_or("missing 'pipelineName'")?;
+    let tail = args.get("tail").and_then(|v| v.as_u64()).unwrap_or(100) as usize;
+    let base: PathBuf = if let Some(ld) = arg_str(args, "logDir") {
+        PathBuf::from(ld)
+    } else if let Some(ws) = arg_str(args, "workspace") {
+        PathBuf::from(ws).join("logs")
+    } else {
+        return Err("provide 'logDir' or 'workspace'".to_string());
+    };
+    let file = base.join(sanitize_segment(pipeline_name)).join("runtime.log");
+    let text = std::fs::read_to_string(&file).map_err(|e| format!("read {}: {e}", file.display()))?;
+    let lines: Vec<&str> = text.lines().filter(|l| !l.trim().is_empty()).collect();
+    let start = lines.len().saturating_sub(tail);
+    let entries: Vec<Value> = lines[start..]
+        .iter()
+        .map(|l| serde_json::from_str::<Value>(l).unwrap_or_else(|_| json!({ "raw": l })))
+        .collect();
+    Ok(json!({ "file": file.to_string_lossy(), "lineCount": entries.len(), "entries": entries }))
+}
+
+fn t_build_pipeline(args: &Value) -> Result<Value, String> {
+    let (v, default_name) = load_pipeline_value(args)?;
+    to_doc(&v)?; // reject an invalid pipeline before staging anything
+    let out = arg_str(args, "out").ok_or("missing 'out' (output artifact path)")?;
+    let secrets = arg_str(args, "secrets").unwrap_or("env");
+    if secrets != "env" && secrets != "passphrase" {
+        return Err("secrets must be 'env' or 'passphrase'".to_string());
+    }
+    let name = arg_str(args, "name").unwrap_or(&default_name).to_string();
+
+    let runner = resolve_runner().ok_or(
+        "duckle-runner binary not found; set DUCKLE_RUNNER_BIN or put duckle-runner on PATH / next to duckle-mcp",
+    )?;
+
+    // Synthesize the minimal workspace layout `duckle-runner build` understands.
+    let ws = std::env::temp_dir().join(format!(
+        "duckle-mcp-build-{}-{}",
+        sanitize_filename(&name),
+        std::process::id()
+    ));
+    let _ = std::fs::remove_dir_all(&ws);
+    std::fs::create_dir_all(ws.join("pipelines")).map_err(|e| format!("mkdir: {e}"))?;
+    let pid = "p1";
+    let repo = json!([{ "id": pid, "name": name, "type": "pipeline" }]);
+    std::fs::write(
+        ws.join("repository.json"),
+        serde_json::to_string_pretty(&repo).unwrap_or_default(),
+    )
+    .map_err(|e| format!("write repository.json: {e}"))?;
+    std::fs::write(
+        ws.join("pipelines").join(format!("{pid}.json")),
+        serde_json::to_string_pretty(&v).unwrap_or_default(),
+    )
+    .map_err(|e| format!("write pipeline: {e}"))?;
+
+    let mut cmd = std::process::Command::new(&runner);
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        cmd.creation_flags(0x0800_0000); // CREATE_NO_WINDOW
+    }
+    cmd.arg("build")
+        .arg("--workspace")
+        .arg(&ws)
+        .arg("--pipeline-id")
+        .arg(pid)
+        .arg("--out")
+        .arg(out)
+        .arg("--secrets")
+        .arg(secrets);
+    if let Some(d) = arg_str(args, "duckdb") {
+        cmd.arg("--duckdb").arg(d);
+    }
+    let output = cmd.output().map_err(|e| format!("spawn duckle-runner: {e}"))?;
+    let _ = std::fs::remove_dir_all(&ws);
+
+    let stdout = String::from_utf8_lossy(&output.stdout).to_string();
+    let stderr = String::from_utf8_lossy(&output.stderr).to_string();
+    if output.status.success() {
+        Ok(json!({ "ok": true, "out": out, "secrets": secrets, "log": stderr.trim() }))
+    } else {
+        let detail = if stderr.trim().is_empty() { stdout } else { stderr };
+        Err(format!("duckle-runner build failed: {}", detail.trim()))
+    }
+}
+
+fn t_list_connections(args: &Value) -> Result<Value, String> {
+    let ws = arg_str(args, "workspace").ok_or("missing 'workspace'")?;
+    let dir = std::path::Path::new(ws).join("connections");
+    let mut out = Vec::new();
+    if let Ok(rd) = std::fs::read_dir(&dir) {
+        for entry in rd.flatten() {
+            let path = entry.path();
+            if path.extension().and_then(|e| e.to_str()) != Some("json") {
+                continue;
+            }
+            let text = match std::fs::read_to_string(&path) {
+                Ok(t) => t,
+                Err(_) => continue,
+            };
+            let mut v: Value = match serde_json::from_str(&text) {
+                Ok(v) => v,
+                Err(_) => continue,
+            };
+            mask_secrets(&mut v);
+            out.push(json!({
+                "file": path.file_name().map(|s| s.to_string_lossy().into_owned()),
+                "connection": v
+            }));
+        }
+    }
+    Ok(json!({ "count": out.len(), "connections": out }))
+}
+
+fn t_create_connection(args: &Value) -> Result<Value, String> {
+    let ws = arg_str(args, "workspace").ok_or("missing 'workspace'")?;
+    let name = arg_str(args, "name").ok_or("missing 'name'")?;
+    let conn = args
+        .get("connection")
+        .filter(|v| v.is_object())
+        .ok_or("missing 'connection' object")?;
+    // Do not persist literal secrets: the MCP server cannot encrypt at rest
+    // (that key lives in the desktop app), so secret fields must use a
+    // ${ENV:KEY} placeholder resolved from the environment at run time.
+    if let Some(k) = first_plaintext_secret(conn) {
+        return Err(format!(
+            "connection field '{k}' contains a literal secret; MCP-created connections must use a ${{ENV:KEY}} placeholder for secret fields (the value is supplied from the environment at run time)"
+        ));
+    }
+    let dir = std::path::Path::new(ws).join("connections");
+    std::fs::create_dir_all(&dir).map_err(|e| format!("mkdir: {e}"))?;
+    let id = gen_id("c");
+    let path = dir.join(format!("{id}.json"));
+    std::fs::write(&path, serde_json::to_string_pretty(conn).unwrap_or_default())
+        .map_err(|e| format!("write: {e}"))?;
+
+    // Best-effort: register in repository.json so the GUI lists it.
+    let repo_path = std::path::Path::new(ws).join("repository.json");
+    let mut registered = false;
+    if let Ok(text) = std::fs::read_to_string(&repo_path) {
+        if let Ok(mut repo) = serde_json::from_str::<Value>(strip_bom(&text)) {
+            if let Some(arr) = repo.as_array_mut() {
+                arr.push(json!({ "id": id, "name": name, "type": "connection" }));
+                if std::fs::write(&repo_path, serde_json::to_string_pretty(&repo).unwrap_or_default())
+                    .is_ok()
+                {
+                    registered = true;
+                }
+            }
+        }
+    }
+    Ok(json!({ "ok": true, "id": id, "path": path.to_string_lossy(), "registeredInRepository": registered }))
+}
+
+// ---------------------------------------------------------------------------
+// resources/list + resources/read
+// ---------------------------------------------------------------------------
+
+pub fn list_resources() -> Value {
+    json!([
+        { "uri": "duckle://catalog", "name": "Component catalog", "description": "All Duckle components with property schemas + ports.", "mimeType": "application/json" },
+        { "uri": "duckle://pipeline-format", "name": "Pipeline JSON format", "description": "The shape of a Duckle pipeline file.", "mimeType": "text/markdown" }
+    ])
+}
+
+pub fn read_resource(params: Value) -> Result<Value, (i64, String)> {
+    let uri = params
+        .get("uri")
+        .and_then(|v| v.as_str())
+        .ok_or((-32602, "missing 'uri'".to_string()))?;
+    let (text, mime) = match uri {
+        "duckle://catalog" => (
+            serde_json::to_string_pretty(catalog::full()).unwrap_or_else(|_| "{}".to_string()),
+            "application/json",
+        ),
+        "duckle://pipeline-format" => (PIPELINE_FORMAT_DOC.to_string(), "text/markdown"),
+        other => return Err((-32602, format!("unknown resource: {other}"))),
+    };
+    Ok(json!({ "contents": [ { "uri": uri, "mimeType": mime, "text": text } ] }))
+}
+
+const PIPELINE_FORMAT_DOC: &str = "\
+# Duckle pipeline format
+
+```json
+{
+  \"name\": \"my pipeline\",
+  \"nodes\": [
+    { \"id\": \"src\", \"type\": \"source\", \"position\": {\"x\":0,\"y\":0},
+      \"data\": { \"label\": \"orders\", \"componentId\": \"src.csv\",
+                  \"properties\": { \"path\": \"orders.csv\", \"hasHeader\": true } } },
+    { \"id\": \"snk\", \"type\": \"sink\", \"position\": {\"x\":300,\"y\":0},
+      \"data\": { \"label\": \"out\", \"componentId\": \"snk.csv\",
+                  \"properties\": { \"path\": \"out.csv\" } } }
+  ],
+  \"edges\": [
+    { \"id\": \"e1\", \"source\": \"src\", \"target\": \"snk\",
+      \"sourceHandle\": \"main\", \"targetHandle\": \"main\",
+      \"data\": { \"connectionType\": \"main\" } }
+  ]
+}
+```
+
+- Find component ids + property keys with list_components / get_component_schema.
+- Handles: most nodes use the `main` port; transforms add ports like `reject`,
+  `lookup_1`, `case_1`, `main_1`. Edge `data.connectionType` mirrors the handle.
+- Secrets: put `${ENV:KEY}` in a property and set the env var at run time; never
+  inline real credentials.";
+
+// ---------------------------------------------------------------------------
+// prompts/list + prompts/get
+// ---------------------------------------------------------------------------
+
+pub fn list_prompts() -> Value {
+    json!([
+        { "name": "generate_pipeline", "description": "Generate a Duckle pipeline from a plain-English goal.",
+          "arguments": [ { "name": "goal", "description": "What the pipeline should do.", "required": true } ] }
+    ])
+}
+
+pub fn get_prompt(params: Value) -> Result<Value, (i64, String)> {
+    let name = params
+        .get("name")
+        .and_then(|v| v.as_str())
+        .ok_or((-32602, "missing prompt name".to_string()))?;
+    if name != "generate_pipeline" {
+        return Err((-32602, format!("unknown prompt: {name}")));
+    }
+    let goal = params
+        .get("arguments")
+        .and_then(|a| a.get("goal"))
+        .and_then(|v| v.as_str())
+        .unwrap_or("");
+    let text = format!(
+        "Build a Duckle pipeline that: {goal}\n\nFirst call list_components and \
+get_component_schema to choose components and property keys. Then call create_pipeline \
+to write and validate it. Keep credentials as ${{ENV:KEY}} placeholders. {INSTRUCTIONS}"
+    );
+    Ok(json!({
+        "messages": [ { "role": "user", "content": { "type": "text", "text": text } } ]
+    }))
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+fn arg_str<'a>(args: &'a Value, key: &str) -> Option<&'a str> {
+    args.get(key).and_then(|v| v.as_str()).filter(|s| !s.is_empty())
+}
+
+fn arg_bool(args: &Value, key: &str, default: bool) -> bool {
+    args.get(key).and_then(|v| v.as_bool()).unwrap_or(default)
+}
+
+/// Load a pipeline from inline `pipeline` or a `path`, returning the raw JSON
+/// value and a derived display name.
+fn load_pipeline_value(args: &Value) -> Result<(Value, String), String> {
+    if let Some(p) = args.get("pipeline").filter(|v| v.is_object()) {
+        let name = p
+            .get("name")
+            .and_then(|v| v.as_str())
+            .map(String::from)
+            .unwrap_or_else(|| "pipeline".to_string());
+        Ok((p.clone(), name))
+    } else if let Some(path) = arg_str(args, "path") {
+        let text = std::fs::read_to_string(path).map_err(|e| format!("read {path}: {e}"))?;
+        let v: Value = serde_json::from_str(strip_bom(&text))
+            .map_err(|e| format!("parse {path}: {e}"))?;
+        let name = v
+            .get("name")
+            .and_then(|x| x.as_str())
+            .map(String::from)
+            .unwrap_or_else(|| {
+                std::path::Path::new(path)
+                    .file_stem()
+                    .map(|s| s.to_string_lossy().into_owned())
+                    .unwrap_or_else(|| "pipeline".to_string())
+            });
+        Ok((v, name))
+    } else {
+        Err("provide either 'pipeline' (object) or 'path' (string)".to_string())
+    }
+}
+
+fn to_doc(v: &Value) -> Result<PipelineDoc, String> {
+    serde_json::from_value(v.clone()).map_err(|e| format!("not a valid pipeline: {e}"))
+}
+
+fn resolve_duckdb(explicit: Option<&str>) -> Option<PathBuf> {
+    if let Some(p) = explicit {
+        let pb = PathBuf::from(p);
+        if pb.exists() {
+            return Some(pb);
+        }
+    }
+    if let Ok(env) = std::env::var("DUCKLE_DUCKDB_BIN") {
+        let pb = PathBuf::from(env);
+        if pb.exists() {
+            return Some(pb);
+        }
+    }
+    if let Ok(exe) = std::env::current_exe() {
+        if let Some(dir) = exe.parent() {
+            for c in ["duckdb", "duckdb.exe"] {
+                let pb = dir.join(c);
+                if pb.exists() {
+                    return Some(pb);
+                }
+            }
+        }
+    }
+    Some(PathBuf::from(if cfg!(windows) { "duckdb.exe" } else { "duckdb" }))
+}
+
+fn resolve_runner() -> Option<PathBuf> {
+    if let Ok(p) = std::env::var("DUCKLE_RUNNER_BIN") {
+        let pb = PathBuf::from(p);
+        if pb.exists() {
+            return Some(pb);
+        }
+    }
+    if let Ok(exe) = std::env::current_exe() {
+        if let Some(dir) = exe.parent() {
+            for c in ["duckle-runner", "duckle-runner.exe"] {
+                let pb = dir.join(c);
+                if pb.exists() {
+                    return Some(pb);
+                }
+            }
+        }
+    }
+    Some(PathBuf::from(if cfg!(windows) {
+        "duckle-runner.exe"
+    } else {
+        "duckle-runner"
+    }))
+}
+
+/// Keys whose values are credentials (case-insensitive). Mirrors the desktop
+/// secrets.rs SENSITIVE_KEYS + the engine's is_secret_prop_key set.
+fn is_secret_key(lower_key: &str) -> bool {
+    const KEYS: &[&str] = &[
+        "password", "secretkey", "accesskey", "accountkey", "accountname",
+        "sessiontoken", "pat", "token", "apikey", "passphrase", "secret",
+        // Salesforce saved connection (#166 stage 2).
+        "clientsecret", "accesstoken",
+    ];
+    KEYS.contains(&lower_key)
+}
+
+/// Redact the `user:pass@` userinfo from a connection URL (amqp/mongo/postgres
+/// style) so credentials embedded in a url/uri field aren't surfaced.
+fn redact_url_userinfo(s: &str) -> Option<String> {
+    let scheme_end = s.find("://")?;
+    let after = &s[scheme_end + 3..];
+    let at = after.find('@')?;
+    let slash = after.find('/').unwrap_or(after.len());
+    if at >= slash {
+        return None;
+    }
+    Some(format!("{}://***@{}", &s[..scheme_end], &after[at + 1..]))
+}
+
+/// Recursively mask secret values anywhere in a connection object - secret-keyed
+/// string fields (including nested `extra` maps) become "***", and url/uri-style
+/// fields have any embedded credentials stripped.
+fn mask_secrets(v: &mut Value) {
+    match v {
+        Value::Object(obj) => {
+            for (k, val) in obj.iter_mut() {
+                let lk = k.to_ascii_lowercase();
+                if is_secret_key(&lk) && val.is_string() {
+                    *val = json!("***");
+                    continue;
+                }
+                if matches!(lk.as_str(), "url" | "uri" | "endpoint" | "connectionstring" | "dsn") {
+                    if let Some(s) = val.as_str() {
+                        if let Some(red) = redact_url_userinfo(s) {
+                            *val = json!(red);
+                            continue;
+                        }
+                    }
+                }
+                mask_secrets(val);
+            }
+        }
+        Value::Array(arr) => arr.iter_mut().for_each(mask_secrets),
+        _ => {}
+    }
+}
+
+/// Find the first secret-keyed field holding a literal (non-`${...}`) value, so
+/// create_connection can reject writing plaintext credentials to disk.
+fn first_plaintext_secret(v: &Value) -> Option<String> {
+    match v {
+        Value::Object(obj) => {
+            for (k, val) in obj {
+                if is_secret_key(&k.to_ascii_lowercase()) {
+                    if let Some(s) = val.as_str() {
+                        let t = s.trim();
+                        if !t.is_empty() && !t.starts_with("${") {
+                            return Some(k.clone());
+                        }
+                    }
+                }
+                if let Some(found) = first_plaintext_secret(val) {
+                    return Some(found);
+                }
+            }
+            None
+        }
+        Value::Array(arr) => arr.iter().find_map(first_plaintext_secret),
+        _ => None,
+    }
+}
+
+/// A short, unique-enough id (no Date/random deps needed): prefix + pid + counter.
+fn gen_id(prefix: &str) -> String {
+    static N: AtomicU64 = AtomicU64::new(1);
+    let n = N.fetch_add(1, Ordering::Relaxed);
+    format!("{}_{}_{}", prefix, std::process::id(), n)
+}
+
+fn sanitize_filename(name: &str) -> String {
+    let mut out = String::new();
+    let mut prev_us = false;
+    for ch in name.chars() {
+        if ch.is_ascii_alphanumeric() || matches!(ch, '.' | '_' | '-') {
+            out.push(ch);
+            prev_us = false;
+        } else if !prev_us {
+            out.push('_');
+            prev_us = true;
+        }
+    }
+    let t = out.trim_matches(|c| c == '_' || c == '.');
+    if t.is_empty() {
+        "pipeline".to_string()
+    } else {
+        t.to_string()
+    }
+}
+
+fn sanitize_segment(name: &str) -> String {
+    let cleaned: String = name
+        .trim()
+        .chars()
+        .map(|c| {
+            if c.is_alphanumeric() || matches!(c, ' ' | '-' | '_' | '.') {
+                c
+            } else {
+                '_'
+            }
+        })
+        .collect();
+    let c = cleaned.trim().trim_matches('.').trim();
+    if c.is_empty() {
+        "pipeline".to_string()
+    } else {
+        c.to_string()
+    }
+}
+
+#[cfg(test)]
+mod verify_tests {
+    use super::*;
+
+    /// A vaulted credential must be FETCHED before the document reaches the
+    /// engine.
+    ///
+    /// Every other execution surface - desktop, scheduler, `serve`, `follow` -
+    /// resolves the run-time placeholder tiers first. The MCP server did not,
+    /// so `${VAULT:NAME}` arrived at the connector as that literal text and the
+    /// connection failed with a password that was never fetched. The server's
+    /// own tool instructions tell an agent to write `${ENV:KEY}` rather than a
+    /// literal, so it was advertising a mechanism it did not honour.
+    #[test]
+    fn an_mcp_run_resolves_vault_and_env_placeholders() {
+        #[cfg(windows)]
+        std::env::set_var("DUCKLE_VAULT_COMMAND", "cmd /c echo {name}");
+        #[cfg(not(windows))]
+        std::env::set_var("DUCKLE_VAULT_COMMAND", "echo {name}");
+        std::env::set_var("DUCKLE_MCP_TEST_TOKEN", "from-env");
+
+        let v = json!({
+            "nodes": [{
+                "id": "n",
+                "position": { "x": 0, "y": 0 },
+                "data": {
+                    "label": "n",
+                    "componentId": "src.inline",
+                    "properties": { "columns": [
+                        { "key": "pw",  "value": "${VAULT:ORDERS}" },
+                        { "key": "tok", "value": "${ENV:DUCKLE_MCP_TEST_TOKEN}" }
+                    ]}
+                }
+            }],
+            "edges": []
+        });
+        let doc = prepare_run_doc(&v, None).expect("prepare");
+        let props = doc.nodes[0].data.properties.clone().expect("properties");
+
+        std::env::remove_var("DUCKLE_VAULT_COMMAND");
+        std::env::remove_var("DUCKLE_MCP_TEST_TOKEN");
+
+        assert_eq!(
+            props["columns"][0]["value"], "ORDERS",
+            "a vaulted credential must be fetched, not handed to the connector \
+             as the placeholder text"
+        );
+        assert_eq!(
+            props["columns"][1]["value"], "from-env",
+            "and the ${{ENV:...}} tier the server's own instructions advertise \
+             must resolve too"
+        );
+    }
+
+    /// A saved connection must be expanded before the run, on this surface too.
+    ///
+    /// The scheduler, `serve` and the desktop app all resolve `connectionRef`
+    /// into the fields the engine reads. The MCP server did not, so a pipeline
+    /// an agent wrote against a saved connection reached the engine with no
+    /// host and no credential at all - the reference was simply left sitting
+    /// there as a property nothing consumes.
+    #[test]
+    fn an_mcp_run_expands_a_saved_connection_reference() {
+        let tmp = tempfile::tempdir().unwrap();
+        let ws = tmp.path();
+        std::fs::create_dir_all(ws.join("connections")).unwrap();
+        std::fs::write(
+            ws.join("connections").join("warehouse.json"),
+            r#"{"kind":"postgres","host":"db.internal","port":5432,
+                "database":"sales","username":"reader","password":"pw"}"#,
+        )
+        .unwrap();
+
+        let v = json!({
+            "nodes": [{
+                "id": "n",
+                "position": { "x": 0, "y": 0 },
+                "data": {
+                    "label": "n",
+                    "componentId": "src.postgres",
+                    "properties": { "connectionRef": "warehouse", "tableName": "orders" }
+                }
+            }],
+            "edges": []
+        });
+        let doc = prepare_run_doc(&v, ws.to_str()).expect("prepare");
+        let props = doc.nodes[0].data.properties.clone().expect("properties");
+        assert_eq!(
+            props["host"], "db.internal",
+            "the saved connection has to reach the engine, or the run has no host at all"
+        );
+        assert_eq!(props["database"], "sales");
+    }
+
+    /// A `${workspace}` path has to resolve for an MCP run exactly as it does
+    /// for `duckle-runner --workspace`.
+    ///
+    /// Reported over MCP: `run_pipeline` takes a `workspace` argument, and the
+    /// documented `${workspace}/...` pattern reached DuckDB verbatim -
+    /// `No files found that match the pattern "${workspace}/some/path.parquet"` -
+    /// while the identical pipeline ran from the desktop app and the CLI. The
+    /// CLI resolves it at `main.rs:494`, and `t_schema_drift` / `t_trust_report`
+    /// resolve it in this very file; the tool that actually RUNS a pipeline was
+    /// the one surface that did not.
+    ///
+    /// The cause is the same one the CLI comments on: a file-loaded pipeline
+    /// does not go through the by-id resolver, so nothing else would ever
+    /// substitute it.
+    #[test]
+    fn an_mcp_run_resolves_the_workspace_placeholder() {
+        let tmp = tempfile::tempdir().unwrap();
+        let ws = tmp.path();
+        let v = json!({
+            "nodes": [{
+                "id": "s",
+                "position": { "x": 0, "y": 0 },
+                "data": {
+                    "label": "s",
+                    "componentId": "src.parquet",
+                    "properties": { "path": "${workspace}/data/orders.parquet" }
+                }
+            }],
+            "edges": []
+        });
+        let doc = prepare_run_doc(&v, ws.to_str()).expect("prepare");
+        let props = doc.nodes[0].data.properties.clone().expect("properties");
+        let path = props["path"].as_str().expect("path is a string");
+        assert!(
+            !path.contains("${workspace}"),
+            "the placeholder reached the engine verbatim, which is the reported IO error: {path}"
+        );
+        assert!(
+            path.ends_with("data/orders.parquet") || path.ends_with("data\\orders.parquet"),
+            "got: {path}"
+        );
+    }
+
+    #[test]
+    fn structural_risks_clean_pipeline_has_none() {
+        let p = json!({
+            "nodes": [
+                { "id": "s", "data": { "componentId": "src.csv", "label": "A" } },
+                { "id": "k", "data": { "componentId": "snk.csv", "label": "K" } }
+            ],
+            "edges": [ { "source": "s", "target": "k" } ]
+        });
+        assert!(structural_risks(&p).is_empty(), "{:?}", structural_risks(&p));
+    }
+
+    #[test]
+    fn structural_risks_flags_join_without_keys_and_missing_sink() {
+        let p = json!({
+            "nodes": [
+                { "id": "s", "data": { "componentId": "src.csv", "label": "A" } },
+                { "id": "j", "data": { "componentId": "xf.join.inner", "label": "J", "properties": {} } }
+            ],
+            "edges": [ { "source": "s", "target": "j" } ]
+        });
+        let codes: Vec<String> = structural_risks(&p)
+            .iter()
+            .filter_map(|r| r["code"].as_str().map(|s| s.to_string()))
+            .collect();
+        assert!(codes.iter().any(|c| c == "join_without_keys"), "{codes:?}");
+        assert!(codes.iter().any(|c| c == "no_sink"), "{codes:?}");
+    }
+
+    #[test]
+    fn structural_risks_flags_sink_without_input() {
+        let p = json!({
+            "nodes": [ { "id": "k", "data": { "componentId": "snk.csv", "label": "K" } } ],
+            "edges": []
+        });
+        assert!(structural_risks(&p)
+            .iter()
+            .any(|r| r["code"] == "sink_without_input" && r["severity"] == "error"));
+    }
+
+    #[test]
+    fn looks_like_pii_matches_common_names_and_ignores_plain_ones() {
+        assert_eq!(looks_like_pii("email"), Some("email"));
+        assert_eq!(looks_like_pii("emailAddress"), Some("email"));
+        assert_eq!(looks_like_pii("customer_email"), Some("email"));
+        assert_eq!(looks_like_pii("first_name"), Some("name"));
+        assert_eq!(looks_like_pii("SSN"), Some("national_id"));
+        assert_eq!(looks_like_pii("date_of_birth"), Some("date_of_birth"));
+        assert_eq!(looks_like_pii("phone_number"), Some("phone"));
+        assert_eq!(looks_like_pii("order_id"), None);
+        assert_eq!(looks_like_pii("amount"), None);
+        assert_eq!(looks_like_pii("created_at"), None);
+    }
+
+    #[test]
+    fn impact_inverts_lineage_and_excludes_self() {
+        use duckle_duckdb_engine::lineage::RootColumn;
+        let root = |n: &str, c: &str| RootColumn { node: n.to_string(), column: c.to_string() };
+        let mut lineage: Lineage = std::collections::HashMap::new();
+        // s.email flows through to k.email; s.email also feeds k.email_hash.
+        lineage.insert("s".into(), vec![("email".into(), vec![root("s", "email")])]);
+        lineage.insert(
+            "k".into(),
+            vec![
+                ("email".into(), vec![root("s", "email")]),
+                ("email_hash".into(), vec![root("s", "email")]),
+            ],
+        );
+        let map = impact_from_lineage(&lineage);
+        let deps = map
+            .get(&("s".to_string(), "email".to_string()))
+            .expect("s.email has dependents");
+        // The source's own identity entry is excluded; both sink columns remain.
+        assert_eq!(deps.len(), 2, "{deps:?}");
+        assert!(deps.contains(&("k".to_string(), "email".to_string())));
+        assert!(deps.contains(&("k".to_string(), "email_hash".to_string())));
+        assert!(!deps.contains(&("s".to_string(), "email".to_string())));
+    }
+
+    #[test]
+    fn diff_pipelines_reports_node_and_edge_changes() {
+        let before = json!({
+            "nodes": [
+                { "id": "s", "data": { "componentId": "src.csv", "label": "A", "properties": { "path": "old.csv" } } },
+                { "id": "k", "data": { "componentId": "snk.csv", "label": "K", "properties": {} } }
+            ],
+            "edges": [ { "source": "s", "target": "k" } ]
+        });
+        let after = json!({
+            "nodes": [
+                { "id": "s", "data": { "componentId": "src.csv", "label": "A", "properties": { "path": "new.csv" } } },
+                { "id": "x", "data": { "componentId": "xf.addcol", "label": "X", "properties": {} } },
+                { "id": "k", "data": { "componentId": "snk.csv", "label": "K", "properties": {} } }
+            ],
+            "edges": [ { "source": "s", "target": "x" }, { "source": "x", "target": "k" } ]
+        });
+        let out = t_diff_pipelines(&json!({ "before": before, "after": after })).unwrap();
+        assert_eq!(out["summary"]["nodesAdded"], json!(1));
+        assert_eq!(out["nodes"]["added"][0]["node"], json!("x"));
+        assert_eq!(out["summary"]["nodesRemoved"], json!(0));
+        // s changed only in its properties (path), not its component.
+        let changed = out["nodes"]["changed"].as_array().unwrap();
+        let s = changed.iter().find(|c| c["node"] == "s").expect("s is changed");
+        assert_eq!(s["propertiesChanged"], json!(true));
+        assert_eq!(s["componentChanged"], Value::Null);
+        // The s->k edge is gone; s->x and x->k are new.
+        assert_eq!(out["summary"]["edgesAdded"], json!(2));
+        assert_eq!(out["summary"]["edgesRemoved"], json!(1));
+    }
+
+    #[test]
+    fn trust_report_clean_pipeline_scores_high() {
+        let pipeline = json!({
+            "nodes": [
+                { "id": "s", "position": { "x": 0, "y": 0 }, "data": { "componentId": "src.csv", "label": "In",
+                    "properties": { "path": "in.csv" },
+                    "schema": [ { "name": "order_id", "type": "int64" }, { "name": "amount", "type": "float64" } ] } },
+                { "id": "k", "position": { "x": 1, "y": 0 }, "data": { "componentId": "snk.csv", "label": "Out",
+                    "properties": { "path": "out.csv" } } }
+            ],
+            "edges": [ { "id": "e1", "source": "s", "target": "k" } ]
+        });
+        let out = t_trust_report(&json!({ "pipeline": pipeline })).unwrap();
+        assert_eq!(out["compiles"], json!(true));
+        assert_eq!(out["score"], json!(100));
+        assert_eq!(out["grade"], json!("A"));
+        assert!(out["findings"].as_array().unwrap().is_empty());
+    }
+
+    #[test]
+    fn trust_report_flags_ungoverned_pii() {
+        let pipeline = json!({
+            "nodes": [
+                { "id": "s", "position": { "x": 0, "y": 0 }, "data": { "componentId": "src.csv", "label": "People",
+                    "properties": { "path": "in.csv" },
+                    "schema": [ { "name": "email", "type": "string" }, { "name": "amount", "type": "float64" } ] } },
+                { "id": "k", "position": { "x": 1, "y": 0 }, "data": { "componentId": "snk.csv", "label": "Out",
+                    "properties": { "path": "out.csv" } } }
+            ],
+            "edges": [ { "id": "e1", "source": "s", "target": "k" } ]
+        });
+        let out = t_trust_report(&json!({ "pipeline": pipeline })).unwrap();
+        let findings = out["findings"].as_array().unwrap();
+        assert!(findings.iter().any(|f| f["code"] == "ungoverned_pii"), "{findings:?}");
+        assert_eq!(out["score"], json!(90));
+    }
+
+    #[test]
+    fn schema_drift_marks_relational_source_not_introspectable() {
+        // src.postgres has no inspect SELECT builder, so inspect() returns
+        // Unsupported before spawning DuckDB - a hermetic path through the tool.
+        let pipeline = json!({
+            "nodes": [
+                { "id": "s", "position": { "x": 0, "y": 0 }, "data": { "componentId": "src.postgres", "label": "PG",
+                    "properties": { "host": "localhost", "table": "t" },
+                    "schema": [ { "name": "id", "type": "int64" } ] } }
+            ],
+            "edges": []
+        });
+        let out = t_schema_drift(&json!({ "pipeline": pipeline })).unwrap();
+        assert_eq!(out["ok"], json!(true));
+        assert_eq!(out["hasBreaking"], json!(false));
+        assert_eq!(out["sources"][0]["status"], json!("not_introspectable"));
+        assert_eq!(out["summary"]["notIntrospectable"], json!(1));
+    }
+
+    #[test]
+    fn trust_report_check_drift_includes_drift_report() {
+        // checkDrift on a relational source: inspect() returns Unsupported
+        // before spawning, so the drift report is present, not-introspectable,
+        // and adds no deduction (score stays at the static value).
+        let pipeline = json!({
+            "nodes": [
+                { "id": "s", "position": { "x": 0, "y": 0 }, "data": { "componentId": "src.postgres", "label": "PG",
+                    "properties": { "host": "localhost", "table": "t" },
+                    "schema": [ { "name": "id", "type": "int64" } ] } },
+                { "id": "k", "position": { "x": 1, "y": 0 }, "data": { "componentId": "snk.csv", "label": "Out",
+                    "properties": { "path": "out.csv" } } }
+            ],
+            "edges": [ { "id": "e1", "source": "s", "target": "k" } ]
+        });
+        let out = t_trust_report(&json!({ "pipeline": pipeline, "checkDrift": true })).unwrap();
+        assert_eq!(out["drift"]["summary"]["notIntrospectable"], json!(1));
+        // No breaking drift -> no schema_drift finding.
+        let findings = out["findings"].as_array().unwrap();
+        assert!(!findings.iter().any(|f| f["code"] == "schema_drift"), "{findings:?}");
+    }
+
+    #[test]
+    fn trust_report_static_by_default_has_null_drift() {
+        let pipeline = json!({
+            "nodes": [
+                { "id": "s", "position": { "x": 0, "y": 0 }, "data": { "componentId": "src.csv", "label": "A",
+                    "properties": { "path": "in.csv" } } }
+            ],
+            "edges": []
+        });
+        let out = t_trust_report(&json!({ "pipeline": pipeline })).unwrap();
+        assert_eq!(out["drift"], json!(null), "drift must stay null when checkDrift is off");
+    }
+
+    #[test]
+    fn trust_report_rejects_malformed_pipeline() {
+        // A structurally invalid pipeline is a tool error, not a low-scoring
+        // report, so callers can tell "broken input" from "risky pipeline".
+        let out = t_trust_report(&json!({ "pipeline": { "nodes": "not-an-array" } }));
+        assert!(out.is_err(), "expected Err for malformed pipeline, got {out:?}");
+    }
+
+    #[test]
+    fn schema_drift_skips_source_without_declared_schema() {
+        // No declared schema -> nothing to compare, skipped before any DuckDB call.
+        let pipeline = json!({
+            "nodes": [
+                { "id": "s", "position": { "x": 0, "y": 0 }, "data": { "componentId": "src.csv", "label": "C",
+                    "properties": { "path": "x.csv" } } }
+            ],
+            "edges": []
+        });
+        let out = t_schema_drift(&json!({ "pipeline": pipeline })).unwrap();
+        assert_eq!(out["summary"]["noDeclaredSchema"], json!(1));
+        assert_eq!(out["sources"][0]["status"], json!("no_declared_schema"));
+    }
+
+    #[test]
+    fn diff_pipelines_identical_is_empty() {
+        let p = json!({
+            "nodes": [ { "id": "s", "data": { "componentId": "src.csv", "label": "A", "properties": { "path": "x.csv" } } } ],
+            "edges": []
+        });
+        let out = t_diff_pipelines(&json!({ "before": p.clone(), "after": p })).unwrap();
+        assert_eq!(out["summary"]["nodesChanged"], json!(0));
+        assert_eq!(out["summary"]["nodesAdded"], json!(0));
+        assert_eq!(out["summary"]["planChanged"], json!(false));
+    }
+
+    #[test]
+    fn declared_columns_reads_schema_array() {
+        let n = json!({ "id": "s", "data": { "schema": [ { "name": "email" }, { "name": "qty" } ] } });
+        assert_eq!(declared_columns(&n), vec!["email".to_string(), "qty".to_string()]);
+    }
+
+    #[test]
+    fn suggest_contracts_tags_pii_from_source_schema_without_duckdb() {
+        let pipeline = json!({
+            "nodes": [
+                { "id": "s", "data": { "componentId": "src.csv", "label": "People",
+                    "schema": [ { "name": "email" }, { "name": "order_id" }, { "name": "amount" } ] } },
+                { "id": "k", "data": { "componentId": "snk.csv", "label": "Out" } }
+            ],
+            "edges": [ { "source": "s", "target": "k" } ]
+        });
+        let out = t_suggest_contracts(&json!({ "pipeline": pipeline })).unwrap();
+        let suggestions = out["suggestions"].as_array().unwrap();
+        let src = suggestions
+            .iter()
+            .find(|s| s["nodeId"] == "s")
+            .expect("source has a suggestion");
+        let pii = src["suggestedContracts"]["pii"].as_array().unwrap();
+        assert_eq!(pii.len(), 1);
+        assert_eq!(pii[0], "email");
+        // requireColumns anchors the source's declared columns.
+        let req = src["suggestedContracts"]["requireColumns"].as_array().unwrap();
+        assert_eq!(req.len(), 3);
+        // A sink with no declared/lineage columns yields no suggestion.
+        assert!(suggestions.iter().all(|s| s["nodeId"] != "k"));
+    }
+    /// An agent must get the same catalog the app and the console get.
+    ///
+    /// MCP assembled its own answer, so `writtenBy` here was a COUNT while the
+    /// same key on the other two surfaces is a list of pipeline names, and
+    /// columns, description, tags and freshness were simply absent. An agent
+    /// reading the catalog through MCP was therefore working from a different -
+    /// and quietly poorer - picture than the person looking at the screen.
+    #[test]
+    fn the_catalog_an_agent_sees_is_the_catalog_the_app_sees() {
+        let ws = std::env::temp_dir().join(format!("duckle_mcp_cat_{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&ws);
+        std::fs::create_dir_all(ws.join("pipelines")).unwrap();
+        std::fs::write(
+            ws.join("pipelines").join("load.json"),
+            r#"{"name":"load","nodes":[{"id":"k","data":{"componentId":"snk.parquet",
+               "properties":{"path":"/lake/orders.parquet"},
+               "schema":[{"name":"id"},{"name":"total"}]}}],"edges":[]}"#,
+        )
+        .unwrap();
+        std::fs::write(
+            ws.join("owners.json"),
+            r#"{"assets":[{"match":"/lake/orders.parquet","owner":"Ingest",
+                 "description":"Orders.","tags":["gold"]}]}"#,
+        )
+        .unwrap();
+
+        let out = t_workspace_impact(&json!({ "workspace": ws.to_string_lossy() })).unwrap();
+        let asset = &out["assets"][0];
+
+        // The shared shape, field for field.
+        assert_eq!(asset["id"], "/lake/orders.parquet");
+        assert_eq!(asset["owner"], "Ingest");
+        assert_eq!(asset["description"], "Orders.", "an agent cannot see the description");
+        assert_eq!(asset["tags"][0], "gold", "an agent cannot see the tags");
+        assert_eq!(asset["columns"][0], "id", "an agent cannot see the columns");
+        // writtenBy is a LIST of pipeline names here, exactly as it is on the
+        // other two surfaces - not a count that happens to share the name.
+        assert_eq!(asset["writtenBy"][0], "load", "writtenBy is not the shared shape");
+
+        // And the answer still says what it could not name, which is the one
+        // thing a governance answer must never omit.
+        assert!(out.get("unresolved").is_some());
+        let _ = std::fs::remove_dir_all(&ws);
+    }
+
+}
+
+#[cfg(test)]
+mod capability_tool {
+    use super::*;
+
+    /// #313 criterion 4: CLI *and* MCP can query capabilities. The CLI could;
+    /// an agent could not, and the issue's whole "Agent use" section is about
+    /// not guessing from component names.
+    #[test]
+    fn an_agent_can_ask_which_sources_do_chunked_extraction() {
+        let r = t_component_capabilities(&json!({ "kind": "source", "supports": ["chunking"] }))
+            .expect("the tool answers");
+        let ids: Vec<&str> = r["components"]
+            .as_array()
+            .expect("components")
+            .iter()
+            .filter_map(|c| c["component"].as_str())
+            .collect();
+        assert!(ids.contains(&"src.postgres"), "{ids:?}");
+        assert!(ids.contains(&"src.oracle"), "{ids:?}");
+        // And it is a filter, not the whole catalog: a CSV source cannot be
+        // chunked and must not be in the answer.
+        assert!(!ids.contains(&"src.csv"), "an unchunkable source was returned: {ids:?}");
+        assert!(r["count"].as_u64().unwrap_or(0) > 0);
+    }
+
+    /// Two capabilities means BOTH, not either - an agent asking for a source
+    /// that does incremental *and* pushdown is narrowing, not widening.
+    #[test]
+    fn several_capabilities_are_required_together() {
+        let one = t_component_capabilities(&json!({ "supports": ["incremental"] })).unwrap();
+        let two = t_component_capabilities(&json!({ "supports": ["incremental", "pushdown"] }))
+            .unwrap();
+        assert!(
+            two["count"].as_u64().unwrap() <= one["count"].as_u64().unwrap(),
+            "asking for more capabilities returned more components"
+        );
+    }
+
+    /// A typo must not read as an answer.
+    #[test]
+    fn an_unknown_capability_matches_nothing() {
+        let r = t_component_capabilities(&json!({ "supports": ["nosuchthing"] })).unwrap();
+        assert_eq!(r["count"].as_u64(), Some(0), "a misspelled capability returned components");
+    }
+
+    #[test]
+    fn one_component_returns_its_whole_record() {
+        let r = t_component_capabilities(&json!({ "component": "src.postgres" })).unwrap();
+        assert_eq!(r["component"].as_str(), Some("src.postgres"));
+        assert_eq!(r["dialect"].as_str(), Some("postgres"));
+        assert!(t_component_capabilities(&json!({ "component": "src.nope" })).is_err());
+    }
+}
+
+#[cfg(test)]
+mod backfill_tool {
+    use super::*;
+    use duckle_duckdb_engine::backfill::{self, State};
+
+    /// Only serve's startup reclaimed a killed executor's `running` slices, and
+    /// retry moves only failed and interrupted ones, so a backfill killed under
+    /// MCP could never be retried or finished from it. `u32::MAX` is never a live
+    /// pid; the partition filter matches nothing, so nothing runs.
+    #[test]
+    fn retry_reclaims_a_slice_its_dead_executor_left_running() {
+        let tmp = tempfile::tempdir().unwrap();
+        let ws = tmp.path().canonicalize().unwrap();
+        std::fs::create_dir_all(ws.join("pipelines")).unwrap();
+        std::fs::write(
+            ws.join("pipelines/daily.json"),
+            r#"{"formatVersion":1,"name":"daily",
+                "partition":{"type":"time","cadence":"day","timezone":"UTC"},
+                "nodes":[],"edges":[]}"#,
+        )
+        .unwrap();
+        let mut plan = duckle_duckdb_engine::backfill_exec::plan_for(
+            &ws,
+            &ws.join("pipelines/daily.json"),
+            "2020-01-01",
+            "2020-01-02",
+            4,
+            None,
+        )
+        .unwrap();
+        plan.pid = Some(u32::MAX);
+        plan.partitions[0].state = State::Running;
+        backfill::save(&ws, &plan).unwrap();
+
+        let _ = t_backfill(&json!({
+            "workspace": ws, "action": "retry", "id": plan.id, "partition": "no-such-slice"
+        }));
+        assert_eq!(
+            backfill::load(&ws, &plan.id).unwrap().partitions[0].state,
+            State::Interrupted,
+            "the dead executor's slice is still `running`, so no retry can ever pick it up"
+        );
+    }
+}
+
+#[cfg(test)]
+mod freshness_tool {
+    use super::*;
+
+    fn workspace_with(hours_ago: i64, limit: &str) -> tempfile::TempDir {
+        let tmp = tempfile::tempdir().unwrap();
+        std::fs::create_dir_all(tmp.path().join("runs")).unwrap();
+        let at = format!("2020-01-01T00:00:0{}Z", hours_ago % 10);
+        std::fs::write(
+            tmp.path().join("runs").join("daily.json"),
+            format!(
+                r#"[{{"at":"{at}","status":"ok","duration_ms":1,"rows":1,"node_count":1,
+                      "trigger":"scheduled",
+                      "assets":[{{"id":"/lake/orders","direction":"write","rows":1}}]}}]"#
+            ),
+        )
+        .unwrap();
+        std::fs::write(
+            tmp.path().join("owners.json"),
+            format!(r#"{{"assets":[{{"match":"/lake/orders","owner":"data-eng","maximumAge":"{limit}"}}]}}"#),
+        )
+        .unwrap();
+        tmp
+    }
+
+    /// #304's three questions, which are one verdict: which assets are stale,
+    /// why, and when each was last successfully materialized.
+    #[test]
+    fn an_agent_can_ask_which_assets_are_stale_and_why() {
+        // Written in 2020 against a 36h limit, so it is long past.
+        let ws = workspace_with(1, "36h");
+        let r = t_asset_freshness(&json!({ "workspace": ws.path().to_str().unwrap() }))
+            .expect("the tool answers");
+        assert!(r["stale"].as_u64().unwrap_or(0) >= 1, "{r}");
+
+        let a = r["assets"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|a| a["asset"] == "/lake/orders")
+            .expect("the asset");
+        // Why, and when - not just that it is stale.
+        assert_eq!(a["state"], "stale");
+        assert_eq!(a["maximumAge"], "36h");
+        assert!(a["lastWrittenAt"].is_string(), "no last-materialized time: {a}");
+        assert!(a["ageSeconds"].as_i64().unwrap_or(0) > 0);
+        assert_eq!(a["owner"], "data-eng", "a stale asset needs someone to tell");
+    }
+
+    /// An asset nobody declared a limit for is `unknown`, never a reassuring
+    /// `fresh` - the distinction the whole module exists to keep.
+    #[test]
+    fn an_undeclared_asset_is_unknown_not_fresh() {
+        let tmp = tempfile::tempdir().unwrap();
+        std::fs::create_dir_all(tmp.path().join("runs")).unwrap();
+        std::fs::write(
+            tmp.path().join("runs").join("daily.json"),
+            r#"[{"at":"2020-01-01T00:00:00Z","status":"ok","duration_ms":1,"rows":1,"node_count":1,
+                 "trigger":"manual","assets":[{"id":"/lake/x","direction":"write","rows":1}]}]"#,
+        )
+        .unwrap();
+        let r = t_asset_freshness(&json!({ "workspace": tmp.path().to_str().unwrap() })).unwrap();
+        let a = &r["assets"].as_array().unwrap()[0];
+        assert_eq!(a["state"], "unknown");
+        assert_eq!(r["stale"].as_u64(), Some(0));
+    }
+
+    /// And it does not move the state machine the alerting depends on: asking
+    /// twice must not turn a stale asset into a recovery.
+    #[test]
+    fn asking_does_not_change_anything() {
+        let ws = workspace_with(1, "36h");
+        let first = t_asset_freshness(&json!({ "workspace": ws.path().to_str().unwrap() })).unwrap();
+        let again = t_asset_freshness(&json!({ "workspace": ws.path().to_str().unwrap() })).unwrap();
+        assert_eq!(first["stale"], again["stale"]);
+        assert!(
+            !ws.path().join(".duckle").join("freshness.json").exists(),
+            "reading freshness recorded a verdict, which would make an agent's question \
+             change what the next alert says"
+        );
+    }
+}
+
+#[cfg(test)]
+mod repository_registration {
+    use super::*;
+
+    /// Registering a pipeline must not eat the rest of repository.json.
+    ///
+    /// The read is `.ok().and_then(|t| from_str(&t).ok()).unwrap_or_else(|| json!([]))`,
+    /// so a file that will not parse becomes an EMPTY array, which is then
+    /// written back holding the one new entry. A UTF-8 BOM - what PowerShell,
+    /// Notepad and Excel write by default - is not valid JSON, so one
+    /// successful create_pipeline destroyed every other pipeline and connection
+    /// registration in the workspace.
+    #[test]
+    fn registering_a_pipeline_keeps_what_a_bom_made_unreadable() {
+        let tmp = tempfile::tempdir().unwrap();
+        let ws = tmp.path();
+        let repo = serde_json::to_string_pretty(&json!([
+            { "id": "orders", "name": "Orders", "type": "pipeline" },
+            { "id": "sales", "name": "Sales", "type": "pipeline" }
+        ]))
+        .unwrap();
+        std::fs::write(
+            ws.join("repository.json"),
+            [b"\xef\xbb\xbf".as_slice(), repo.as_bytes()].concat(),
+        )
+        .unwrap();
+
+        assert!(register_pipeline_in_repo(&ws.to_string_lossy(), "new", "New"));
+
+        let text = std::fs::read_to_string(ws.join("repository.json")).unwrap();
+        let after: Value = serde_json::from_str(text.trim_start_matches('\u{feff}'))
+            .expect("what was written back is JSON");
+        let ids: Vec<&str> = after
+            .as_array()
+            .expect("repository.json is an array")
+            .iter()
+            .filter_map(|e| e.get("id").and_then(|v| v.as_str()))
+            .collect();
+        assert!(
+            ids.contains(&"orders") && ids.contains(&"sales"),
+            "registering `new` destroyed the existing registrations: {ids:?}"
+        );
+        assert!(ids.contains(&"new"), "the new pipeline was not registered: {ids:?}");
+    }
+}

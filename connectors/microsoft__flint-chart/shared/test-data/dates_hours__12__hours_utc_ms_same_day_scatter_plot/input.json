@@ -1,0 +1,129 @@
+{
+  "title": "Hours (UTC ms, same day) → Scatter Plot",
+  "description": "Hourly timestamps in ms for one day (24 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Timestamp": 1579075200000,
+          "Value": 251
+        },
+        {
+          "Timestamp": 1579078800000,
+          "Value": 280
+        },
+        {
+          "Timestamp": 1579082400000,
+          "Value": 78
+        },
+        {
+          "Timestamp": 1579086000000,
+          "Value": 424
+        },
+        {
+          "Timestamp": 1579089600000,
+          "Value": 96
+        },
+        {
+          "Timestamp": 1579093200000,
+          "Value": 285
+        },
+        {
+          "Timestamp": 1579096800000,
+          "Value": 64
+        },
+        {
+          "Timestamp": 1579100400000,
+          "Value": 178
+        },
+        {
+          "Timestamp": 1579104000000,
+          "Value": 132
+        },
+        {
+          "Timestamp": 1579107600000,
+          "Value": 472
+        },
+        {
+          "Timestamp": 1579111200000,
+          "Value": 368
+        },
+        {
+          "Timestamp": 1579114800000,
+          "Value": 410
+        },
+        {
+          "Timestamp": 1579118400000,
+          "Value": 390
+        },
+        {
+          "Timestamp": 1579122000000,
+          "Value": 382
+        },
+        {
+          "Timestamp": 1579125600000,
+          "Value": 537
+        },
+        {
+          "Timestamp": 1579129200000,
+          "Value": 331
+        },
+        {
+          "Timestamp": 1579132800000,
+          "Value": 93
+        },
+        {
+          "Timestamp": 1579136400000,
+          "Value": 121
+        },
+        {
+          "Timestamp": 1579140000000,
+          "Value": 362
+        },
+        {
+          "Timestamp": 1579143600000,
+          "Value": 185
+        },
+        {
+          "Timestamp": 1579147200000,
+          "Value": 276
+        },
+        {
+          "Timestamp": 1579150800000,
+          "Value": 162
+        },
+        {
+          "Timestamp": 1579154400000,
+          "Value": 99
+        },
+        {
+          "Timestamp": 1579158000000,
+          "Value": 68
+        }
+      ]
+    },
+    "semantic_types": {
+      "Timestamp": "Timestamp",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Timestamp"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

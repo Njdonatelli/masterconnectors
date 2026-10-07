@@ -1,0 +1,65 @@
+{
+  "title": "Decade (XXXXs) → Scatter Plot",
+  "description": "Decades as strings with \"s\": \"1950s\", \"1960s\", … (8 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": "1950s",
+          "Value": 450
+        },
+        {
+          "Decade": "1960s",
+          "Value": 437
+        },
+        {
+          "Decade": "1970s",
+          "Value": 346
+        },
+        {
+          "Decade": "1980s",
+          "Value": 290
+        },
+        {
+          "Decade": "1990s",
+          "Value": 323
+        },
+        {
+          "Decade": "2000s",
+          "Value": 223
+        },
+        {
+          "Decade": "2010s",
+          "Value": 225
+        },
+        {
+          "Decade": "2020s",
+          "Value": 331
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

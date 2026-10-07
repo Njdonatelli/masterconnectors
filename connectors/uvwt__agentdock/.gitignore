@@ -1,0 +1,35 @@
+.DS_Store
+/workspace/
+/AgentDock/
+
+# 本地构建/运行产物。
+# 仓库根目录可能放着当前 macOS 裸机运行的 agentdock 二进制，
+# 以及带时间戳的回滚副本。它们只保留在本机；发布产物应放到
+# dist/ 或外部发布系统，不进入 git。
+/agentdock
+/agentdock.new
+/agentdock.new.*
+/agentdock.prev
+/agentdock.prev.*
+/agentdock.bak*
+/bin/
+/dist/
+/coverage.out
+/*.test
+/agentdock.killed*
+
+# Windows WPF 控制面板的本地构建产物。
+/desktop/windows/control-panel/bin/
+/desktop/windows/control-panel/obj/
+
+# Python 辅助脚本的本地缓存不得进入 Skill 源码和发布包。
+__pycache__/
+*.py[cod]
+
+# 本地部署密钥文件。
+/.env
+/agentdock.env
+/cloudflared.env
+
+# IDE
+/.idea

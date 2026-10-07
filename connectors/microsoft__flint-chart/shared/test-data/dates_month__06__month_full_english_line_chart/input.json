@@ -1,0 +1,81 @@
+{
+  "title": "Month (full English) → Line Chart",
+  "description": "Full month names: \"January\", \"February\", … (12 values)",
+  "chartType": "Line Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": "January",
+          "Value": 117
+        },
+        {
+          "Month": "February",
+          "Value": 538
+        },
+        {
+          "Month": "March",
+          "Value": 315
+        },
+        {
+          "Month": "April",
+          "Value": 202
+        },
+        {
+          "Month": "May",
+          "Value": 225
+        },
+        {
+          "Month": "June",
+          "Value": 354
+        },
+        {
+          "Month": "July",
+          "Value": 72
+        },
+        {
+          "Month": "August",
+          "Value": 370
+        },
+        {
+          "Month": "September",
+          "Value": 72
+        },
+        {
+          "Month": "October",
+          "Value": 403
+        },
+        {
+          "Month": "November",
+          "Value": 438
+        },
+        {
+          "Month": "December",
+          "Value": 520
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Line Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

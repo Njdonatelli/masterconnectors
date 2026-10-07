@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Privacy Policy — SoloMD"
+  description="SoloMD is a local-first Markdown editor that collects no personal data. Your notes never leave your device."
+  lang="en"
+>
+  <main id="main" class="privacy">
+    <article>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: 2026-04-18</p>
+
+      <h2>Summary</h2>
+      <p>
+        SoloMD is a local-first Markdown editor. <strong>Your notes never leave your device</strong>
+        unless you send them somewhere yourself. The versions downloaded from our website and other
+        stores send anonymous usage statistics, described below, which you can switch off at any time;
+        the App Store versions send none.
+      </p>
+
+      <h2>Data We Collect</h2>
+      <p>
+        <strong>Anonymous usage statistics.</strong> Unless you turn it off — Settings → Advanced →
+        <em>Send anonymous usage data</em> — SoloMD sends a small event to our own server
+        (solomd.app) when it starts and when you use certain features: which export format, view mode
+        or theme you picked, and the Chinese proofreading tool. Each event carries the event name, the
+        app version, the operating system, the interface language and a random identifier generated
+        on your device (it changes if you clear the app's data). It never contains your notes, file
+        names or paths, and the server does not store your IP address or user agent. The app shows a
+        notice about this on first launch.
+      </p>
+      <p>
+        <strong>The App Store versions (iPhone, iPad and the Mac App Store) send no usage data at
+        all</strong> — the code that sends it is switched off in those builds, and they have no such
+        setting.
+      </p>
+      <p>
+        There is no account system and no advertising, and nothing is shared with or sold to third
+        parties.
+      </p>
+
+      <h2>Data You Create</h2>
+      <p>
+        All text, images, and files you create or open in SoloMD are stored locally on your device —
+        inside the app's sandbox on iOS, or in folders you choose on macOS, Windows, and Linux.
+        SoloMD does not upload this content to us.
+      </p>
+      <p>
+        Features you set up yourself send what you choose directly to the service you chose: the AI
+        provider you configure with your own key (or a local Ollama), GitHub / Gitea sync to your own
+        repository, and an image host you configure. We never see that traffic.
+      </p>
+
+      <h2>Permissions We Request</h2>
+      <p>SoloMD only uses system permissions required for its core editing function:</p>
+      <ul>
+        <li><strong>Local file access</strong> — to open, read, and save files you choose.</li>
+        <li>
+          <strong>Photos library</strong> (only if you insert an image via the picker) — to read
+          the single image you select.
+        </li>
+      </ul>
+      <p>
+        We do not request contacts, location, microphone, camera, calendar, Bluetooth, or any
+        other permission.
+      </p>
+
+      <h2>This Website</h2>
+      <p>
+        solomd.app sets no cookies and runs no third-party analytics. One exception, used only when
+        you arrive through a promoter's referral link (a link ending in <code>?ref=&lt;code&gt;</code>,
+        see <a href="/promote">/promote</a>): the site records that a visit — and, within 30 days, a
+        download — came from that code, together with the page path and a random identifier kept in
+        your browser's local storage. No IP address, user agent or other device information is
+        stored. Visits without a referral code send nothing.
+      </p>
+
+      <h2>Third Parties</h2>
+      <p>
+        SoloMD does not embed any third-party analytics, advertising, crash reporting, or social
+        media SDKs. The app's full source code is open at
+        <a href="https://github.com/zhitongblog/solomd">github.com/zhitongblog/solomd</a> (MIT).
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        SoloMD is suitable for all ages and does not knowingly collect data from children.
+      </p>
+
+      <h2>Changes to This Policy</h2>
+      <p>
+        Any material changes will be reflected on this page and noted in the app's release notes.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        Questions? Email <a href="mailto:slushy@139.com">slushy@139.com</a> or file an issue at
+        <a href="https://github.com/zhitongblog/solomd/issues">github.com/zhitongblog/solomd/issues</a>.
+      </p>
+
+      <p class="lang-switch">
+        <a href="/zh/privacy">中文版</a>
+      </p>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  .privacy {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+    color: var(--text, #1a1a1a);
+    line-height: 1.7;
+  }
+  .privacy h1 {
+    font-size: 2.25rem;
+    margin: 0 0 0.25em;
+  }
+  .privacy h2 {
+    font-size: 1.25rem;
+    margin: 2em 0 0.5em;
+  }
+  .privacy .updated {
+    color: var(--text-muted, #777);
+    margin: 0 0 2em;
+  }
+  .privacy a {
+    color: var(--accent, #ff9f40);
+  }
+  .privacy ul {
+    padding-left: 1.6em;
+  }
+  .lang-switch {
+    margin-top: 3em;
+    font-size: 0.9rem;
+  }
+</style>

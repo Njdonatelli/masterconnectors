@@ -1,0 +1,81 @@
+{
+  "title": "Month Canonical Ordering",
+  "description": "Semantic type \"Month\" preserves calendar order (Jan→Dec) regardless of data insertion order. WITHOUT this: months sort alphabetically (Apr, Aug, Dec, Feb...).",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "month": "Mar",
+          "sales": 10139
+        },
+        {
+          "month": "Nov",
+          "sales": 26111
+        },
+        {
+          "month": "Jul",
+          "sales": 29551
+        },
+        {
+          "month": "Jan",
+          "sales": 35626
+        },
+        {
+          "month": "Sep",
+          "sales": 31946
+        },
+        {
+          "month": "May",
+          "sales": 18715
+        },
+        {
+          "month": "Apr",
+          "sales": 45512
+        },
+        {
+          "month": "Dec",
+          "sales": 26637
+        },
+        {
+          "month": "Feb",
+          "sales": 34304
+        },
+        {
+          "month": "Oct",
+          "sales": 10146
+        },
+        {
+          "month": "Jun",
+          "sales": 20997
+        },
+        {
+          "month": "Aug",
+          "sales": 34835
+        }
+      ]
+    },
+    "semantic_types": {
+      "month": "Month",
+      "sales": "Amount"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "month"
+        },
+        "y": {
+          "field": "sales"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

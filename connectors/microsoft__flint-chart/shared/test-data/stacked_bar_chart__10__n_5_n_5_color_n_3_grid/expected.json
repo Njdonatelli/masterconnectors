@@ -1,0 +1,156 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Group",
+      "type": "nominal",
+      "sort": null
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Laptop",
+        "Group": "USA",
+        "Segment": "Sales"
+      },
+      {
+        "Category": "Laptop",
+        "Group": "UK",
+        "Segment": "Sales"
+      },
+      {
+        "Category": "Phone",
+        "Group": "USA",
+        "Segment": "Sales"
+      },
+      {
+        "Category": "Phone",
+        "Group": "Germany",
+        "Segment": "Sales"
+      },
+      {
+        "Category": "Phone",
+        "Group": "UK",
+        "Segment": "Engineering"
+      },
+      {
+        "Category": "Tablet",
+        "Group": "USA",
+        "Segment": "Sales"
+      },
+      {
+        "Category": "Tablet",
+        "Group": "China",
+        "Segment": "Marketing"
+      },
+      {
+        "Category": "Tablet",
+        "Group": "Germany",
+        "Segment": "Engineering"
+      },
+      {
+        "Category": "Desktop",
+        "Group": "China",
+        "Segment": "Engineering"
+      },
+      {
+        "Category": "Desktop",
+        "Group": "Japan",
+        "Segment": "Engineering"
+      },
+      {
+        "Category": "Desktop",
+        "Group": "Germany",
+        "Segment": "Sales"
+      },
+      {
+        "Category": "Desktop",
+        "Group": "UK",
+        "Segment": "Engineering"
+      },
+      {
+        "Category": "Monitor",
+        "Group": "Japan",
+        "Segment": "Engineering"
+      },
+      {
+        "Category": "Monitor",
+        "Group": "Germany",
+        "Segment": "Marketing"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

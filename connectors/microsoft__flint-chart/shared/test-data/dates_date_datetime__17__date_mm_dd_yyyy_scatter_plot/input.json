@@ -1,0 +1,81 @@
+{
+  "title": "Date (MM/DD/YYYY) → Scatter Plot",
+  "description": "US date format: \"01/15/2020\", \"02/15/2020\", … (12 values)",
+  "chartType": "Scatter Plot",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Date": "01/15/2020",
+          "Value": 225
+        },
+        {
+          "Date": "02/15/2020",
+          "Value": 387
+        },
+        {
+          "Date": "03/15/2020",
+          "Value": 248
+        },
+        {
+          "Date": "04/15/2020",
+          "Value": 434
+        },
+        {
+          "Date": "05/15/2020",
+          "Value": 231
+        },
+        {
+          "Date": "06/15/2020",
+          "Value": 238
+        },
+        {
+          "Date": "07/15/2020",
+          "Value": 59
+        },
+        {
+          "Date": "08/15/2020",
+          "Value": 469
+        },
+        {
+          "Date": "09/15/2020",
+          "Value": 526
+        },
+        {
+          "Date": "10/15/2020",
+          "Value": 160
+        },
+        {
+          "Date": "11/15/2020",
+          "Value": 412
+        },
+        {
+          "Date": "12/15/2020",
+          "Value": 292
+        }
+      ]
+    },
+    "semantic_types": {
+      "Date": "Date",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Scatter Plot",
+      "encodings": {
+        "x": {
+          "field": "Date"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

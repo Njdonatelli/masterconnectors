@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Editor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { width: 100%; height: 100%; overflow: hidden; }
+        #editor-container { width: 100%; height: 100%; }
+
+        /* Dark theme fallback when Monaco not loaded */
+        body { background: #1e1e1e; color: #d4d4d4; font-family: 'Cascadia Code', Consolas, monospace; }
+        body.light { background: #ffffff; color: #1e1e1e; }
+    </style>
+</head>
+<body>
+    <div id="editor-container"></div>
+
+    <!-- Load Monaco from CDN — offline bundle can replace this later -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+    <script>
+        let editor = null;
+        let currentTheme = 'vs-dark';
+
+        // Initialize Monaco Editor
+        require.config({
+            paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs' }
+        });
+
+        require(['vs/editor/editor.main'], function () {
+            // Register SQL language completions will be added dynamically
+            editor = monaco.editor.create(document.getElementById('editor-container'), {
+                value: '',
+                language: 'sql',
+                theme: currentTheme,
+                automaticLayout: true,
+                minimap: { enabled: false },
+                fontSize: 13,
+                fontFamily: "'Cascadia Code', Consolas, 'Courier New', monospace",
+                lineNumbers: 'on',
+                scrollBeyondLastLine: false,
+                wordWrap: 'off',
+                tabSize: 4,
+                insertSpaces: true,
+                renderWhitespace: 'none',
+                suggestOnTriggerCharacters: true,
+                quickSuggestions: true,
+                parameterHints: { enabled: true },
+                folding: false,
+                glyphMargin: false,
+                lineDecorationsWidth: 8,
+                lineNumbersMinChars: 3,
+                padding: { top: 8, bottom: 8 },
+                scrollbar: {
+                    verticalScrollbarSize: 10,
+                    horizontalScrollbarSize: 10
+                }
+            });
+
+            // Ctrl+Enter / F5 → execute query
+            editor.addAction({
+                id: 'execute-query',
+                label: 'Execute Query',
+                keybindings: [
+                    monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+                    monaco.KeyCode.F5
+                ],
+                run: function () {
+                    const sql = getSelectedOrAllText();
+                    if (sql.trim()) {
+                        sendMessage('execute', { sql: sql });
+                    }
+                }
+            });
+
+            // Ctrl+Shift+F → format SQL
+            editor.addAction({
+                id: 'format-sql',
+                label: 'Format SQL',
+                keybindings: [
+                    monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyF
+                ],
+                run: function () {
+                    const sql = editor.getValue();
+                    sendMessage('format', { sql: sql });
+                }
+            });
+
+            // Notify host that editor is ready
+            sendMessage('ready', {});
+        });
+
+        // Get selected text or full content
+        function getSelectedOrAllText() {
+            const selection = editor.getSelection();
+            if (selection && !selection.isEmpty()) {
+                return editor.getModel().getValueInRange(selection);
+            }
+            return editor.getValue();
+        }
+
+        // Send message to C++ host via WebView2 bridge
+        function sendMessage(type, data) {
+            if (window.chrome && window.chrome.webview) {
+                window.chrome.webview.postMessage(JSON.stringify({
+                    type: type,
+                    ...data
+                }));
+            }
+        }
+
+        // ── API called from C++ host ──────────────────
+
+        // Set editor content
+        function setValue(text) {
+            if (editor) editor.setValue(text);
+        }
+
+        // Get editor content
+        function getValue() {
+            return editor ? editor.getValue() : '';
+        }
+
+        // Set theme (vs-dark or vs)
+        function setTheme(theme) {
+            currentTheme = theme;
+            if (editor) monaco.editor.setTheme(theme);
+            document.body.classList.toggle('light', theme === 'vs');
+        }
+
+        // Set schema data for autocomplete
+        function setSchemaCompletions(schemaJson) {
+            try {
+                const schema = JSON.parse(schemaJson);
+                monaco.languages.registerCompletionItemProvider('sql', {
+                    provideCompletionItems: function (model, position) {
+                        const suggestions = [];
+
+                        // Table names
+                        if (schema.tables) {
+                            schema.tables.forEach(function (table) {
+                                suggestions.push({
+                                    label: table.name,
+                                    kind: monaco.languages.CompletionItemKind.Class,
+                                    insertText: '"' + table.name + '"',
+                                    detail: 'Table'
+                                });
+
+                                // Column completions for each table
+                                if (table.columns) {
+                                    table.columns.forEach(function (col) {
+                                        suggestions.push({
+                                            label: table.name + '.' + col.name,
+                                            kind: monaco.languages.CompletionItemKind.Field,
+                                            insertText: '"' + col.name + '"',
+                                            detail: col.type + (col.nullable ? ' NULL' : ' NOT NULL')
+                                        });
+                                    });
+                                }
+                            });
+                        }
+
+                        // Function names
+                        if (schema.functions) {
+                            schema.functions.forEach(function (fn) {
+                                suggestions.push({
+                                    label: fn,
+                                    kind: monaco.languages.CompletionItemKind.Function,
+                                    insertText: fn + '()',
+                                    detail: 'Function'
+                                });
+                            });
+                        }
+
+                        return { suggestions: suggestions };
+                    }
+                });
+            } catch (e) {
+                console.error('Failed to parse schema:', e);
+            }
+        }
+
+        // Focus the editor
+        function focusEditor() {
+            if (editor) editor.focus();
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            if (editor) editor.layout();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+{
+  "title": "Month (number) → Stacked Bar Chart",
+  "description": "Months as integers: 1, 2, …, 12 (12 values)",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": 1,
+          "Value": 520,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 1,
+          "Value": 513,
+          "Category": "Beta"
+        },
+        {
+          "Month": 1,
+          "Value": 342,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 2,
+          "Value": 76,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 2,
+          "Value": 473,
+          "Category": "Beta"
+        },
+        {
+          "Month": 2,
+          "Value": 520,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 3,
+          "Value": 133,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 3,
+          "Value": 468,
+          "Category": "Beta"
+        },
+        {
+          "Month": 3,
+          "Value": 322,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 4,
+          "Value": 389,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 4,
+          "Value": 506,
+          "Category": "Beta"
+        },
+        {
+          "Month": 4,
+          "Value": 248,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 5,
+          "Value": 290,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 5,
+          "Value": 156,
+          "Category": "Beta"
+        },
+        {
+          "Month": 5,
+          "Value": 300,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 6,
+          "Value": 522,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 6,
+          "Value": 466,
+          "Category": "Beta"
+        },
+        {
+          "Month": 6,
+          "Value": 147,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 7,
+          "Value": 529,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 7,
+          "Value": 234,
+          "Category": "Beta"
+        },
+        {
+          "Month": 7,
+          "Value": 106,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 8,
+          "Value": 499,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 8,
+          "Value": 88,
+          "Category": "Beta"
+        },
+        {
+          "Month": 8,
+          "Value": 66,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 9,
+          "Value": 550,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 9,
+          "Value": 282,
+          "Category": "Beta"
+        },
+        {
+          "Month": 9,
+          "Value": 157,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 10,
+          "Value": 116,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 10,
+          "Value": 111,
+          "Category": "Beta"
+        },
+        {
+          "Month": 10,
+          "Value": 445,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 11,
+          "Value": 162,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 11,
+          "Value": 63,
+          "Category": "Beta"
+        },
+        {
+          "Month": 11,
+          "Value": 329,
+          "Category": "Gamma"
+        },
+        {
+          "Month": 12,
+          "Value": 108,
+          "Category": "Alpha"
+        },
+        {
+          "Month": 12,
+          "Value": 169,
+          "Category": "Beta"
+        },
+        {
+          "Month": 12,
+          "Value": 418,
+          "Category": "Gamma"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity",
+      "Category": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "color": {
+          "field": "Category"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

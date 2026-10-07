@@ -1,0 +1,244 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "2019-11-07T06:40:00.000Z",
+          "2022-11-05T17:20:00.000Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 297,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01-01",
+        "Value": 300,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 961,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2020-01-01",
+        "Value": 741,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 606,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 194,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2020-04-19",
+        "Value": 823,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 952,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 532,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2020-08-07",
+        "Value": 405,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 989,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 833,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2020-11-24",
+        "Value": 838,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2021-03-14",
+        "Value": 217,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2021-03-14",
+        "Value": 807,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2021-03-14",
+        "Value": 593,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2021-07-01",
+        "Value": 712,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2021-07-01",
+        "Value": 381,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2021-07-01",
+        "Value": 323,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2021-10-19",
+        "Value": 741,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2021-10-19",
+        "Value": 333,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2021-10-19",
+        "Value": 837,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2022-02-05",
+        "Value": 395,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2022-02-05",
+        "Value": 81,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2022-02-05",
+        "Value": 562,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2022-05-26",
+        "Value": 442,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2022-05-26",
+        "Value": 553,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2022-05-26",
+        "Value": 813,
+        "Segment": "Tablet"
+      },
+      {
+        "Date": "2022-09-12",
+        "Value": 194,
+        "Segment": "Laptop"
+      },
+      {
+        "Date": "2022-09-12",
+        "Value": 658,
+        "Segment": "Phone"
+      },
+      {
+        "Date": "2022-09-12",
+        "Value": 78,
+        "Segment": "Tablet"
+      }
+    ]
+  },
+  "_width": 297,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,345 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "monotone",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Rank",
+      "type": "ordinal",
+      "sort": "ascending",
+      "scale": {
+        "reverse": true
+      }
+    },
+    "color": {
+      "field": "Country",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "set2"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 329,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Year": "2015",
+        "Country": "India",
+        "Rank": 1
+      },
+      {
+        "Year": "2015",
+        "Country": "Germany",
+        "Rank": 2
+      },
+      {
+        "Year": "2015",
+        "Country": "Japan",
+        "Rank": 3
+      },
+      {
+        "Year": "2015",
+        "Country": "China",
+        "Rank": 4
+      },
+      {
+        "Year": "2015",
+        "Country": "USA",
+        "Rank": 5
+      },
+      {
+        "Year": "2016",
+        "Country": "India",
+        "Rank": 1
+      },
+      {
+        "Year": "2016",
+        "Country": "Japan",
+        "Rank": 2
+      },
+      {
+        "Year": "2016",
+        "Country": "China",
+        "Rank": 3
+      },
+      {
+        "Year": "2016",
+        "Country": "USA",
+        "Rank": 4
+      },
+      {
+        "Year": "2016",
+        "Country": "Germany",
+        "Rank": 5
+      },
+      {
+        "Year": "2017",
+        "Country": "Germany",
+        "Rank": 1
+      },
+      {
+        "Year": "2017",
+        "Country": "China",
+        "Rank": 2
+      },
+      {
+        "Year": "2017",
+        "Country": "Japan",
+        "Rank": 3
+      },
+      {
+        "Year": "2017",
+        "Country": "India",
+        "Rank": 4
+      },
+      {
+        "Year": "2017",
+        "Country": "USA",
+        "Rank": 5
+      },
+      {
+        "Year": "2018",
+        "Country": "USA",
+        "Rank": 1
+      },
+      {
+        "Year": "2018",
+        "Country": "China",
+        "Rank": 2
+      },
+      {
+        "Year": "2018",
+        "Country": "Germany",
+        "Rank": 3
+      },
+      {
+        "Year": "2018",
+        "Country": "India",
+        "Rank": 4
+      },
+      {
+        "Year": "2018",
+        "Country": "Japan",
+        "Rank": 5
+      },
+      {
+        "Year": "2019",
+        "Country": "Germany",
+        "Rank": 1
+      },
+      {
+        "Year": "2019",
+        "Country": "Japan",
+        "Rank": 2
+      },
+      {
+        "Year": "2019",
+        "Country": "India",
+        "Rank": 3
+      },
+      {
+        "Year": "2019",
+        "Country": "USA",
+        "Rank": 4
+      },
+      {
+        "Year": "2019",
+        "Country": "China",
+        "Rank": 5
+      },
+      {
+        "Year": "2020",
+        "Country": "India",
+        "Rank": 1
+      },
+      {
+        "Year": "2020",
+        "Country": "USA",
+        "Rank": 2
+      },
+      {
+        "Year": "2020",
+        "Country": "China",
+        "Rank": 3
+      },
+      {
+        "Year": "2020",
+        "Country": "Germany",
+        "Rank": 4
+      },
+      {
+        "Year": "2020",
+        "Country": "Japan",
+        "Rank": 5
+      },
+      {
+        "Year": "2021",
+        "Country": "Japan",
+        "Rank": 1
+      },
+      {
+        "Year": "2021",
+        "Country": "USA",
+        "Rank": 2
+      },
+      {
+        "Year": "2021",
+        "Country": "India",
+        "Rank": 3
+      },
+      {
+        "Year": "2021",
+        "Country": "China",
+        "Rank": 4
+      },
+      {
+        "Year": "2021",
+        "Country": "Germany",
+        "Rank": 5
+      },
+      {
+        "Year": "2022",
+        "Country": "USA",
+        "Rank": 1
+      },
+      {
+        "Year": "2022",
+        "Country": "Japan",
+        "Rank": 2
+      },
+      {
+        "Year": "2022",
+        "Country": "China",
+        "Rank": 3
+      },
+      {
+        "Year": "2022",
+        "Country": "India",
+        "Rank": 4
+      },
+      {
+        "Year": "2022",
+        "Country": "Germany",
+        "Rank": 5
+      },
+      {
+        "Year": "2023",
+        "Country": "USA",
+        "Rank": 1
+      },
+      {
+        "Year": "2023",
+        "Country": "Germany",
+        "Rank": 2
+      },
+      {
+        "Year": "2023",
+        "Country": "India",
+        "Rank": 3
+      },
+      {
+        "Year": "2023",
+        "Country": "China",
+        "Rank": 4
+      },
+      {
+        "Year": "2023",
+        "Country": "Japan",
+        "Rank": 5
+      },
+      {
+        "Year": "2024",
+        "Country": "Germany",
+        "Rank": 1
+      },
+      {
+        "Year": "2024",
+        "Country": "China",
+        "Rank": 2
+      },
+      {
+        "Year": "2024",
+        "Country": "India",
+        "Rank": 3
+      },
+      {
+        "Year": "2024",
+        "Country": "Japan",
+        "Rank": 4
+      },
+      {
+        "Year": "2024",
+        "Country": "USA",
+        "Rank": 5
+      }
+    ]
+  },
+  "_width": 329,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    }
+  ]
+}

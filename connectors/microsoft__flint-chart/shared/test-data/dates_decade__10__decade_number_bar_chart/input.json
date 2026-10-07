@@ -1,0 +1,65 @@
+{
+  "title": "Decade (number) → Bar Chart",
+  "description": "Decades as integers: 1950, 1960, … (8 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Decade": 1950,
+          "Value": 328
+        },
+        {
+          "Decade": 1960,
+          "Value": 76
+        },
+        {
+          "Decade": 1970,
+          "Value": 137
+        },
+        {
+          "Decade": 1980,
+          "Value": 208
+        },
+        {
+          "Decade": 1990,
+          "Value": 347
+        },
+        {
+          "Decade": 2000,
+          "Value": 82
+        },
+        {
+          "Decade": 2010,
+          "Value": 203
+        },
+        {
+          "Decade": 2020,
+          "Value": 191
+        }
+      ]
+    },
+    "semantic_types": {
+      "Decade": "Decade",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Decade"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "mark": {
+    "type": "arc",
+    "stroke": "white",
+    "padAngle": 0.02
+  },
+  "encoding": {
+    "theta": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ],
+      "stack": true
+    },
+    "radius": {
+      "field": "Rainfall",
+      "type": "quantitative",
+      "scale": {
+        "type": "sqrt"
+      }
+    },
+    "color": {
+      "field": "Month",
+      "type": "ordinal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+    },
+    "facet": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": [
+        "North",
+        "South",
+        "Central"
+      ],
+      "columns": 3
+    }
+  },
+  "width": 159,
+  "height": 159,
+  "config": {
+    "view": {
+      "continuousWidth": 159,
+      "continuousHeight": 159
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelLimit": 179
+    },
+    "facet": {
+      "spacing": 16
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Month": "Jan",
+        "Rainfall": 123,
+        "Region": "North"
+      },
+      {
+        "Month": "Feb",
+        "Rainfall": 118,
+        "Region": "North"
+      },
+      {
+        "Month": "Mar",
+        "Rainfall": 87,
+        "Region": "North"
+      },
+      {
+        "Month": "Apr",
+        "Rainfall": 124,
+        "Region": "North"
+      },
+      {
+        "Month": "May",
+        "Rainfall": 29,
+        "Region": "North"
+      },
+      {
+        "Month": "Jun",
+        "Rainfall": 142,
+        "Region": "North"
+      },
+      {
+        "Month": "Jul",
+        "Rainfall": 64,
+        "Region": "North"
+      },
+      {
+        "Month": "Aug",
+        "Rainfall": 87,
+        "Region": "North"
+      },
+      {
+        "Month": "Sep",
+        "Rainfall": 71,
+        "Region": "North"
+      },
+      {
+        "Month": "Oct",
+        "Rainfall": 54,
+        "Region": "North"
+      },
+      {
+        "Month": "Nov",
+        "Rainfall": 70,
+        "Region": "North"
+      },
+      {
+        "Month": "Dec",
+        "Rainfall": 76,
+        "Region": "North"
+      },
+      {
+        "Month": "Jan",
+        "Rainfall": 81,
+        "Region": "Central"
+      },
+      {
+        "Month": "Feb",
+        "Rainfall": 12,
+        "Region": "Central"
+      },
+      {
+        "Month": "Mar",
+        "Rainfall": 47,
+        "Region": "Central"
+      },
+      {
+        "Month": "Apr",
+        "Rainfall": 33,
+        "Region": "Central"
+      },
+      {
+        "Month": "May",
+        "Rainfall": 133,
+        "Region": "Central"
+      },
+      {
+        "Month": "Jun",
+        "Rainfall": 70,
+        "Region": "Central"
+      },
+      {
+        "Month": "Jul",
+        "Rainfall": 130,
+        "Region": "Central"
+      },
+      {
+        "Month": "Aug",
+        "Rainfall": 130,
+        "Region": "Central"
+      },
+      {
+        "Month": "Sep",
+        "Rainfall": 66,
+        "Region": "Central"
+      },
+      {
+        "Month": "Oct",
+        "Rainfall": 45,
+        "Region": "Central"
+      },
+      {
+        "Month": "Nov",
+        "Rainfall": 34,
+        "Region": "Central"
+      },
+      {
+        "Month": "Dec",
+        "Rainfall": 133,
+        "Region": "Central"
+      },
+      {
+        "Month": "Jan",
+        "Rainfall": 119,
+        "Region": "South"
+      },
+      {
+        "Month": "Feb",
+        "Rainfall": 70,
+        "Region": "South"
+      },
+      {
+        "Month": "Mar",
+        "Rainfall": 64,
+        "Region": "South"
+      },
+      {
+        "Month": "Apr",
+        "Rainfall": 41,
+        "Region": "South"
+      },
+      {
+        "Month": "May",
+        "Rainfall": 16,
+        "Region": "South"
+      },
+      {
+        "Month": "Jun",
+        "Rainfall": 111,
+        "Region": "South"
+      },
+      {
+        "Month": "Jul",
+        "Rainfall": 37,
+        "Region": "South"
+      },
+      {
+        "Month": "Aug",
+        "Rainfall": 39,
+        "Region": "South"
+      },
+      {
+        "Month": "Sep",
+        "Rainfall": 121,
+        "Region": "South"
+      },
+      {
+        "Month": "Oct",
+        "Rainfall": 36,
+        "Region": "South"
+      },
+      {
+        "Month": "Nov",
+        "Rainfall": 134,
+        "Region": "South"
+      },
+      {
+        "Month": "Dec",
+        "Rainfall": 10,
+        "Region": "South"
+      }
+    ]
+  },
+  "_width": 159,
+  "_height": 232,
+  "_options": [
+    {
+      "key": "innerRadius",
+      "label": "Inner Radius",
+      "type": "continuous",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "padAngle",
+      "label": "Gap",
+      "type": "continuous",
+      "min": 0,
+      "max": 0.1,
+      "step": 0.005,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "alignment",
+      "label": "Alignment",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left (default)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

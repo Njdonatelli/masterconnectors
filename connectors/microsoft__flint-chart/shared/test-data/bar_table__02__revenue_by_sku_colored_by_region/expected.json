@@ -1,0 +1,323 @@
+{
+  "spacing": 8,
+  "resolve": {
+    "scale": {
+      "y": "shared"
+    }
+  },
+  "hconcat": [
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 243,
+      "height": 300,
+      "title": {
+        "text": "SKU",
+        "anchor": "start",
+        "offset": 6,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "bar",
+        "height": {
+          "band": 0.842
+        }
+      },
+      "encoding": {
+        "y": {
+          "field": "SKU",
+          "type": "nominal",
+          "sort": [
+            "Home",
+            "Garden",
+            "Books",
+            "Auto",
+            "Food",
+            "Clothing",
+            "Sports",
+            "Electronics"
+          ],
+          "axis": {
+            "title": null,
+            "domain": false,
+            "ticks": false,
+            "labelFontSize": 13,
+            "labelAlign": "left",
+            "labelPadding": 91,
+            "labelLimit": 91
+          }
+        },
+        "x": {
+          "field": "Revenue",
+          "type": "quantitative",
+          "axis": null,
+          "scale": {
+            "nice": false
+          }
+        },
+        "color": {
+          "field": "Region",
+          "type": "nominal",
+          "sort": [
+            "North",
+            "East",
+            "South",
+            "West"
+          ],
+          "scale": {
+            "scheme": "tableau10"
+          }
+        }
+      }
+    },
+    {
+      "data": {
+        "name": "__bt_displayTable"
+      },
+      "width": 58,
+      "height": 300,
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "Revenue",
+              "as": "__bt_val"
+            },
+            {
+              "op": "min",
+              "field": "__bt_sort",
+              "as": "__bt_sort"
+            },
+            {
+              "op": "max",
+              "field": "__bt_others_num",
+              "as": "__bt_others_num"
+            }
+          ],
+          "groupby": [
+            "SKU"
+          ]
+        }
+      ],
+      "title": {
+        "text": "Revenue",
+        "anchor": "end",
+        "offset": 6,
+        "limit": 54,
+        "fontSize": 12,
+        "fontWeight": "normal",
+        "color": "#999"
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "fontSize": 12
+      },
+      "encoding": {
+        "y": {
+          "field": "SKU",
+          "type": "nominal",
+          "sort": [
+            "Home",
+            "Garden",
+            "Books",
+            "Auto",
+            "Food",
+            "Clothing",
+            "Sports",
+            "Electronics"
+          ],
+          "axis": null
+        },
+        "x": {
+          "datum": 1,
+          "axis": null,
+          "scale": {
+            "type": "linear",
+            "domain": [
+              0,
+              1
+            ]
+          }
+        },
+        "text": {
+          "field": "__bt_val",
+          "type": "quantitative"
+        },
+        "color": {
+          "value": "#666"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "SKU": "Electronics",
+        "Revenue": 1003,
+        "Region": "North",
+        "__bt_sort": 7,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "SKU": "Clothing",
+        "Revenue": 1642,
+        "Region": "South",
+        "__bt_sort": 5,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "SKU": "Food",
+        "Revenue": 1908,
+        "Region": "East",
+        "__bt_sort": 4,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "SKU": "Books",
+        "Revenue": 2580,
+        "Region": "West",
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "SKU": "Sports",
+        "Revenue": 1115,
+        "Region": "North",
+        "__bt_sort": 6,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "SKU": "Home",
+        "Revenue": 5299,
+        "Region": "South",
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "SKU": "Garden",
+        "Revenue": 4112,
+        "Region": "East",
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "SKU": "Auto",
+        "Revenue": 2363,
+        "Region": "West",
+        "__bt_sort": 3,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      }
+    ]
+  },
+  "height": {
+    "step": 32
+  },
+  "data": {
+    "values": [
+      {
+        "SKU": "Electronics",
+        "Revenue": 1003,
+        "Region": "North"
+      },
+      {
+        "SKU": "Clothing",
+        "Revenue": 1642,
+        "Region": "South"
+      },
+      {
+        "SKU": "Food",
+        "Revenue": 1908,
+        "Region": "East"
+      },
+      {
+        "SKU": "Books",
+        "Revenue": 2580,
+        "Region": "West"
+      },
+      {
+        "SKU": "Sports",
+        "Revenue": 1115,
+        "Region": "North"
+      },
+      {
+        "SKU": "Home",
+        "Revenue": 5299,
+        "Region": "South"
+      },
+      {
+        "SKU": "Garden",
+        "Revenue": 4112,
+        "Region": "East"
+      },
+      {
+        "SKU": "Auto",
+        "Revenue": 2363,
+        "Region": "West"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Laptop",
+        "Value": 878,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Laptop",
+        "Value": 190,
+        "Segment": "China"
+      },
+      {
+        "Category": "Laptop",
+        "Value": 495,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Phone",
+        "Value": 221,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Phone",
+        "Value": 853,
+        "Segment": "China"
+      },
+      {
+        "Category": "Phone",
+        "Value": 409,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Tablet",
+        "Value": 118,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Tablet",
+        "Value": 607,
+        "Segment": "China"
+      },
+      {
+        "Category": "Tablet",
+        "Value": 976,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Desktop",
+        "Value": 926,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Desktop",
+        "Value": 928,
+        "Segment": "China"
+      },
+      {
+        "Category": "Desktop",
+        "Value": 675,
+        "Segment": "Japan"
+      },
+      {
+        "Category": "Monitor",
+        "Value": 134,
+        "Segment": "USA"
+      },
+      {
+        "Category": "Monitor",
+        "Value": 172,
+        "Segment": "China"
+      },
+      {
+        "Category": "Monitor",
+        "Value": 314,
+        "Segment": "Japan"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

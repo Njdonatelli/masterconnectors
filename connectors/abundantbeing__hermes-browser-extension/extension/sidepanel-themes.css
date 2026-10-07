@@ -1,0 +1,299 @@
+/* Canonical Hermes palettes for the Browser sidepanel. Loaded after sidepanel.css. */
+html[data-hermes-theme="nous"][data-hermes-mode="light"] {
+  --hermes-user-bg: #0000f2;
+  --hermes-user-fg: #0000f2;
+  --hermes-user-border: rgba(0, 0, 242, 0.55);
+}
+
+html[data-hermes-theme="nous"][data-hermes-mode="light"] ::selection {
+  background: #EDFF45;
+  color: #0000f2;
+}
+
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .model-provider-option {
+  color: var(--hermes-ink);
+}
+
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .model-provider-option.selected {
+  background: #0000f2;
+  border-color: #0000f2;
+  color: #ffffff;
+}
+
+html[data-hermes-theme="midnight"][data-hermes-mode="light"] {
+  --hermes-user-bg: #2a1a69;
+  --hermes-user-fg: #ffffff;
+  --hermes-user-border: #2a1a69;
+  --hermes-card-bg: #ffffff;
+}
+
+html[data-hermes-theme="ember"][data-hermes-mode="light"] {
+  --hermes-user-bg: #651b00;
+  --hermes-user-fg: #ffffff;
+  --hermes-user-border: #651b00;
+  --hermes-card-bg: #fffaf6;
+}
+
+html[data-hermes-theme="mono"][data-hermes-mode="light"] {
+  --hermes-user-bg: #1d1d1d;
+  --hermes-user-fg: #ffffff;
+  --hermes-user-border: #1d1d1d;
+  --hermes-card-bg: #ffffff;
+}
+
+html[data-hermes-theme="cyberpunk"][data-hermes-mode="light"] {
+  --hermes-user-bg: #005e25;
+  --hermes-user-fg: #ffffff;
+  --hermes-user-border: #005e25;
+  --hermes-card-bg: #fbfffc;
+}
+
+html[data-hermes-theme="slate"][data-hermes-mode="light"] {
+  --hermes-user-bg: #1d3848;
+  --hermes-user-fg: #ffffff;
+  --hermes-user-border: #1d3848;
+  --hermes-card-bg: #ffffff;
+  --hermes-app-bg: #ffffff;
+  --hermes-paper: #ffffff;
+  --hermes-fg: #18303f;
+  --hermes-fg-rgb: 24, 48, 63;
+  --hermes-ink: #1d3848;
+  --hermes-ink-rgb: 29, 56, 72;
+}
+
+html[data-hermes-theme="senter-space"][data-hermes-mode="dark"] {
+  --hermes-blue: #071614;
+  --hermes-blue-deep: #040b0a;
+  --hermes-paper: #10221f;
+  --hermes-fg: #d5eee7;
+  --hermes-ink: #e8d3a8;
+  --hermes-accent: #64b7a5;
+  --hermes-bg-rgb: 7, 22, 20;
+  --hermes-panel-rgb: 16, 34, 31;
+  --hermes-paper-rgb: 16, 34, 31;
+  --hermes-fg-rgb: 213, 238, 231;
+  --hermes-ink-rgb: 232, 211, 168;
+  --hermes-accent-rgb: 100, 183, 165;
+  --hermes-menu-bg: #10221f;
+}
+
+html[data-hermes-theme="senter-space"][data-hermes-mode="light"] {
+  --hermes-blue: #174f48;
+  --hermes-blue-deep: #103b35;
+  --hermes-paper: #fbf8ef;
+  --hermes-app-bg: #fbf8ef;
+  --hermes-fg: #174f48;
+  --hermes-ink: #174f48;
+  --hermes-accent: #b77c38;
+  --hermes-bg-rgb: 23, 79, 72;
+  --hermes-panel-rgb: 251, 248, 239;
+  --hermes-paper-rgb: 251, 248, 239;
+  --hermes-fg-rgb: 23, 79, 72;
+  --hermes-ink-rgb: 23, 79, 72;
+  --hermes-accent-rgb: 183, 124, 56;
+  --hermes-menu-bg: #fbf8ef;
+  --hermes-primary-fg: #f3ead9;
+  --hermes-user-fg: #f3ead9;
+}
+
+html[data-hermes-theme="aurora"][data-hermes-mode="dark"] {
+  --hermes-blue: #3b0928;
+  --hermes-blue-deep: #210416;
+  --hermes-paper: #24111d;
+  --hermes-fg: #fff0f7;
+  --hermes-ink: #ffe3ef;
+  --hermes-accent: #ff4fa3;
+  --hermes-bg-rgb: 59, 9, 40;
+  --hermes-panel-rgb: 36, 17, 29;
+  --hermes-paper-rgb: 36, 17, 29;
+  --hermes-fg-rgb: 255, 240, 247;
+  --hermes-ink-rgb: 255, 227, 239;
+  --hermes-accent-rgb: 255, 79, 163;
+  --hermes-menu-bg: #24111d;
+}
+
+html[data-hermes-theme="aurora"][data-hermes-mode="light"] {
+  --hermes-blue: #b51c67;
+  --hermes-blue-deep: #801044;
+  --hermes-paper: #fff7fb;
+  --hermes-app-bg: #fff7fb;
+  --hermes-fg: #42142f;
+  --hermes-ink: #42142f;
+  --hermes-accent: #e8358b;
+  --hermes-bg-rgb: 181, 28, 103;
+  --hermes-panel-rgb: 255, 247, 251;
+  --hermes-paper-rgb: 255, 247, 251;
+  --hermes-fg-rgb: 66, 20, 47;
+  --hermes-ink-rgb: 66, 20, 47;
+  --hermes-accent-rgb: 232, 53, 139;
+  --hermes-menu-bg: #fff7fb;
+  --hermes-primary-fg: #fff5fa;
+  --hermes-user-fg: #fff5fa;
+}
+
+html[data-hermes-theme="solstice"][data-hermes-mode="dark"] {
+  --hermes-blue: #181715;
+  --hermes-blue-deep: #0d0c0b;
+  --hermes-paper: #28231b;
+  --hermes-fg: #f7ebd7;
+  --hermes-ink: #f0dfbb;
+  --hermes-accent: #e2b366;
+  --hermes-bg-rgb: 24, 23, 21;
+  --hermes-panel-rgb: 40, 35, 27;
+  --hermes-paper-rgb: 40, 35, 27;
+  --hermes-fg-rgb: 247, 235, 215;
+  --hermes-ink-rgb: 240, 223, 187;
+  --hermes-accent-rgb: 226, 179, 102;
+  --hermes-menu-bg: #28231b;
+}
+
+html[data-hermes-theme="solstice"][data-hermes-mode="light"] {
+  --hermes-blue: #6b4d22;
+  --hermes-blue-deep: #513a1b;
+  --hermes-paper: #fffbf3;
+  --hermes-app-bg: #fffbf3;
+  --hermes-fg: #58401f;
+  --hermes-ink: #58401f;
+  --hermes-accent: #bd7d2d;
+  --hermes-bg-rgb: 107, 77, 34;
+  --hermes-panel-rgb: 255, 251, 243;
+  --hermes-paper-rgb: 255, 251, 243;
+  --hermes-fg-rgb: 88, 64, 31;
+  --hermes-ink-rgb: 88, 64, 31;
+  --hermes-accent-rgb: 189, 125, 45;
+  --hermes-menu-bg: #fffbf3;
+  --hermes-primary-fg: #f7ebd5;
+  --hermes-user-fg: #f7ebd5;
+}
+
+/* Shared light-mode message treatment (every light theme).
+   User bubbles are a soft tint of the theme colour with a clear outline and
+   dark ink, never a solid dark slab, so "What Hermes saw", code and the
+   outline stay readable. Assistant bubbles stay opaque white cards. System
+   notices get an opaque surface so the background art never runs through
+   the text. */
+html[data-hermes-mode="light"] {
+  --_user-tint: color-mix(in srgb, var(--hermes-user-bg) 10%, #ffffff);
+}
+html[data-hermes-mode="light"] .message.user {
+  background: var(--_user-tint) !important;
+  color: var(--hermes-ink);
+  border: 1px solid color-mix(in srgb, var(--hermes-user-bg) 60%, transparent);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 2px 8px rgba(var(--hermes-ink-rgb), 0.10);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+html[data-hermes-mode="light"] .message.user .message-content,
+html[data-hermes-mode="light"] .message.user .message-role {
+  color: var(--hermes-ink);
+}
+html[data-hermes-mode="light"] .message.user .message-content code,
+html[data-hermes-mode="light"] .message.user .message-content pre {
+  border-color: rgba(var(--hermes-ink-rgb), 0.24);
+  background: rgba(255, 255, 255, 0.7);
+}
+html[data-hermes-mode="light"] .message.user .message-content th { background: rgba(var(--hermes-ink-rgb), 0.08); }
+html[data-hermes-mode="light"] .message.user .md-table-wrap { border-color: rgba(var(--hermes-ink-rgb), 0.24); }
+html[data-hermes-mode="light"] .message.user .context-receipt {
+  border-top-color: rgba(var(--hermes-ink-rgb), 0.22);
+  color: rgba(var(--hermes-ink-rgb), 0.86);
+}
+html[data-hermes-mode="light"] .message.user .context-receipt summary {
+  color: var(--hermes-ink);
+  font-weight: 700;
+}
+html[data-hermes-mode="light"] .message.user .context-receipt dt {
+  color: rgba(var(--hermes-ink-rgb), 0.66);
+}
+html[data-hermes-mode="light"] .message.user .context-receipt dd {
+  color: var(--hermes-ink);
+}
+html[data-hermes-mode="light"] .message.system {
+  background: linear-gradient(var(--hermes-system-bg), var(--hermes-system-bg)), #ffffff;
+  color: var(--hermes-system-fg);
+  border: 1px solid rgba(var(--hermes-ink-rgb), 0.28);
+  box-shadow: 0 1px 6px rgba(var(--hermes-ink-rgb), 0.08);
+}
+html[data-hermes-mode="light"] .message.system .message-role,
+html[data-hermes-mode="light"] .message.system .message-content {
+  color: var(--hermes-system-fg);
+  opacity: 1;
+}
+
+/* Glass tokens: every built-in theme stays opaque in light (the v0.2.0 recipe).
+   Loaded after sidepanel.css so a light theme can never inherit dark glass. */
+html[data-hermes-mode="light"] {
+  --hermes-bubble-user-alpha: 100%;
+  --hermes-bubble-assistant-alpha: 100%;
+  --hermes-bubble-blur: 0px;
+  --hermes-bubble-saturate: 1;
+}
+
+/* Nous light pins the assistant bubble to opaque white with !important, so the
+   room tint rides an inset shadow that survives the forced background. */
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .message-row.room-message > .message.assistant {
+  box-shadow: inset 0 0 0 999px color-mix(in srgb, var(--bot-tint, transparent) 6%, transparent);
+}
+
+/* Nous light loading screen: white field, Nous Blue logo/text/rules, the
+   background art stays as a faint blue watermark. */
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-screen {
+  color: #0000f2;
+  background:
+    radial-gradient(circle at 50% 22%, rgba(0, 0, 242, 0.06), transparent 40%),
+    linear-gradient(180deg, #ffffff 0%, #f4f6ff 100%),
+    #ffffff;
+}
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-screen::before {
+  background: #0000f2;
+  opacity: 0.09;
+  mix-blend-mode: normal;
+}
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-screen::after { display: none; }
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-brand-icon {
+  background: #0000f2;
+  filter: none;
+}
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-brand-lockup,
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-copy,
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-copy h1,
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-copy .eyebrow { color: #0000f2; }
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-copy p:not(.eyebrow) { color: rgba(0, 0, 242, 0.8); }
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-progress {
+  border-color: rgba(0, 0, 242, 0.4);
+  background: rgba(0, 0, 242, 0.08);
+}
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-progress span {
+  background: #0000f2;
+  box-shadow: none;
+}
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-step {
+  border-color: rgba(0, 0, 242, 0.28);
+  background: #ffffff;
+  color: #0000f2;
+}
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-step span { color: rgba(0, 0, 242, 0.72); }
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-screen button,
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .startup-screen .icon-button {
+  background: #ffffff;
+  color: #0000f2;
+  border-color: rgba(0, 0, 242, 0.55);
+}
+
+/* Nous light: the Local Sidecar / Chrome Panel hero keeps its original blue
+   treatment. Its gradient and text read the shell tokens, which are white in
+   the new light shell, so pin the original values here. */
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .hero-card,
+html[data-hermes-theme="nous"][data-hermes-mode="light"] .release-sidecar {
+  color: #f8faff;
+  --hermes-fg: #f8faff;
+  --hermes-fg-rgb: 248, 250, 255;
+  --hermes-ink: #0505e8;
+  --hermes-ink-rgb: 5, 5, 232;
+  --hermes-accent: #dbe6ff;
+  --hermes-accent-rgb: 219, 230, 255;
+  --hermes-panel-rgb: 5, 5, 232;
+  --hermes-bg-rgb: 5, 5, 232;
+  --hermes-app-bg: #0505e8;
+  --hermes-shadow-rgb: 0, 0, 0;
+}

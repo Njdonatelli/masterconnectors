@@ -1,0 +1,286 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Stage",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 232
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 23
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 18
+  },
+  "data": {
+    "values": [
+      {
+        "Stage": "Stage 1",
+        "Value": 134
+      },
+      {
+        "Stage": "Stage 2",
+        "Value": 132
+      },
+      {
+        "Stage": "Stage 3",
+        "Value": 148
+      },
+      {
+        "Stage": "Stage 4",
+        "Value": 161
+      },
+      {
+        "Stage": "Stage 5",
+        "Value": 166
+      },
+      {
+        "Stage": "Stage 6",
+        "Value": 157
+      },
+      {
+        "Stage": "Stage 7",
+        "Value": 146
+      },
+      {
+        "Stage": "Stage 8",
+        "Value": 138
+      },
+      {
+        "Stage": "Stage 9",
+        "Value": 126
+      },
+      {
+        "Stage": "Stage 10",
+        "Value": 131
+      },
+      {
+        "Stage": "Stage 11",
+        "Value": 122
+      },
+      {
+        "Stage": "Stage 12",
+        "Value": 103
+      },
+      {
+        "Stage": "Stage 13",
+        "Value": 112
+      },
+      {
+        "Stage": "Stage 14",
+        "Value": 125
+      },
+      {
+        "Stage": "Stage 15",
+        "Value": 145
+      },
+      {
+        "Stage": "Stage 16",
+        "Value": 169
+      },
+      {
+        "Stage": "Stage 17",
+        "Value": 191
+      },
+      {
+        "Stage": "Stage 18",
+        "Value": 200
+      },
+      {
+        "Stage": "Stage 19",
+        "Value": 223
+      },
+      {
+        "Stage": "Stage 20",
+        "Value": 246
+      },
+      {
+        "Stage": "Stage 21",
+        "Value": 275
+      },
+      {
+        "Stage": "Stage 22",
+        "Value": 303
+      },
+      {
+        "Stage": "Stage 23",
+        "Value": 316
+      },
+      {
+        "Stage": "Stage 24",
+        "Value": 343
+      },
+      {
+        "Stage": "Stage 25",
+        "Value": 354
+      },
+      {
+        "Stage": "Stage 26",
+        "Value": 370
+      },
+      {
+        "Stage": "Stage 27",
+        "Value": 397
+      },
+      {
+        "Stage": "Stage 28",
+        "Value": 426
+      },
+      {
+        "Stage": "Stage 29",
+        "Value": 439
+      },
+      {
+        "Stage": "Stage 30",
+        "Value": 457
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 232,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

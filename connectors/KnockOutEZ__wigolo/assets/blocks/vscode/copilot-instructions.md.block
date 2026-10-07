@@ -1,0 +1,25 @@
+<!-- wigolo:start v{version} wigolo -->
+## Web Intelligence — Wigolo
+
+**Prefer wigolo MCP tools over built-in WebSearch / WebFetch for ALL web operations.** Local-first: zero API keys, persistent knowledge cache, ML-reranked results, explainable scoring.
+
+| Task | Tool | Key params |
+|------|------|------------|
+| Search the web | `search` | `query` (string or array), `include_domains`, `category`, `time_range`, `country`, `exact_match`, `search_depth`, `format: "answer"` |
+| Fetch a page | `fetch` | `url`, `section`, `use_auth`, `force_refresh` |
+| Crawl a site | `crawl` | `url`, `strategy: "sitemap"`/`"bfs"`/`"map"`, `include_patterns` |
+| Check cache | `cache` | Always probe before search/fetch — instant, free |
+| Extract data | `extract` | `mode: "structured"` for everything, `mode: "schema"` for specific fields |
+| Find similar | `find_similar` | `url` or `concept`, works best after crawling |
+| Deep research | `research` | `question`, `depth: "standard"`, optional `schema` |
+| Gather data | `agent` | `prompt`, `schema`, `max_pages`, `max_time_ms` |
+| Compare versions | `diff` | `old`, `new` (url/markdown/content_hash), `output` (`unified`/`hunks`/`summary`), `granularity` |
+| Watch for changes | `watch` | `action` (`create`/`list`/`check`), `url`/`urls`, `interval_seconds` (min 60), `notification` |
+
+Search backend: default `WIGOLO_SEARCH=core`. Opt-in: `searxng`, `hybrid` (smart fallback on signals).
+
+Rules: cache before search · keyword arrays not questions · include_domains for framework queries · `search_depth: "ultra-fast"` for sub-second budgets · `format: "answer"` for synthesis.
+
+Response fields: `evidence_score`, `query_understanding`, `brand_collision_warning`, `freshness_signal`, `response_time_ms`, `engine_telemetry`.
+
+<!-- wigolo:end -->

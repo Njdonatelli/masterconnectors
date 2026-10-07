@@ -1,0 +1,582 @@
+import AppKit
+import SwiftUI
+
+enum AppAppearance: String, CaseIterable, Identifiable {
+    static let storageKey = "appAppearance"
+
+    case system
+    case light
+    case dark
+
+    var id: Self { self }
+
+    var displayName: String {
+        switch self {
+        case .system:
+            "System"
+        case .light:
+            "Light"
+        case .dark:
+            "Dark"
+        }
+    }
+
+    var systemImage: String {
+        switch self {
+        case .system:
+            "circle.lefthalf.filled"
+        case .light:
+            "sun.max.fill"
+        case .dark:
+            "moon.fill"
+        }
+    }
+
+    var appKitAppearance: NSAppearance? {
+        switch self {
+        case .system:
+            nil
+        case .light:
+            NSAppearance(named: .aqua)
+        case .dark:
+            NSAppearance(named: .darkAqua)
+        }
+    }
+}
+
+struct SettingsView: View {
+    var model: NativModel
+    @ObservedObject var chat: ChatViewModel
+    var onOpenChat: (UUID) -> Void
+    @ObservedObject var softwareUpdater: SoftwareUpdater
+    @ObservedObject var launchAtLogin: LaunchAtLoginController
+    @AppStorage(AppAppearance.storageKey) private var appearance = AppAppearance.system
+    @StateObject private var permissions = NativPermissionStore()
+    @State private var showsPersonalization = false
+    @State private var showsWorktreeRecovery = false
+    @ObservedObject private var notifications = NativNotificationService.shared
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                pageHeader
+                generalSettings
+                projectSettings
+                permissionSettings
+                advancedSettings
+            }
+            .frame(maxWidth: 760, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, 28)
+            .controlPanelDetailHeaderTopPadding()
+            .padding(.bottom, 26)
+        }
+        .background(Color.nativMainContentBackground)
+        .sheet(isPresented: $showsPersonalization) {
+            PersonalizationView(model: model)
+        }
+        .sheet(isPresented: $showsWorktreeRecovery) {
+            ChatWorktreeRecoveryView(chat: chat, onOpenChat: onOpenChat)
+        }
+    }
+
+    private var pageHeader: some View {
+        VStack(spacing: 14) {
+            Image(nsImage: NSApplication.shared.applicationIconImage)
+                .resizable()
+                .interpolation(.high)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 80, height: 80)
+                .shadow(color: .black.opacity(0.2), radius: 12, y: 6)
+                .accessibilityLabel("Nativ app icon")
+
+            VStack(spacing: 5) {
+                Text("Nativ")
+                    .font(.largeTitle.weight(.semibold))
+                Text(appVersionLabel)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                Text("Local AI, native to your Mac.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
+            .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
+
+    private var generalSettings: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("General")
+                .font(.headline)
+
+            VStack(spacing: 0) {
+                settingsRow(
+                    title: "Software Updates",
+                    description: "Check for a newer version of Nativ.",
+                    systemImage: "arrow.triangle.2.circlepath"
+                ) {
+                    CheckForUpdatesCommand(updater: softwareUpdater.updater)
+                        .buttonStyle(.bordered)
+                }
+
+                Divider()
+                    .padding(.leading, 52)
+
+                settingsRow(
+                    title: "Appearance",
+                    description: appearanceDescription,
+                    systemImage: appearance.systemImage
+                ) {
+                    Picker("Appearance", selection: $appearance) {
+                        ForEach(AppAppearance.allCases) { option in
+                            Text(option.displayName)
+                                .tag(option)
+                        }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.segmented)
+                    .frame(width: 220, alignment: .trailing)
+                }
+
+                Divider()
+                    .padding(.leading, 52)
+
+                settingsRow(
+                    title: "Chat Text Size",
+                    description: "Resize chat message text. Press ⌘+ or ⌘− to adjust, ⌘0 to reset.",
+                    systemImage: "textformat.size"
+                ) {
+                    chatTextSizeControl
+                }
+
+                Divider()
+                    .padding(.leading, 52)
+
+                settingsRow(
+                    title: "Personalization",
+                    description: "Manage your profile and response preferences.",
+                    systemImage: "person.crop.circle"
+                ) {
+                    Button("Manage…") {
+                        showsPersonalization = true
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibilityLabel("Manage personalization")
+                }
+
+                Divider()
+                    .padding(.leading, 52)
+
+                settingsRow(
+                    title: "Start at Login",
+                    description: launchAtLogin.requiresApproval
+                        ? "Approval is required in System Settings."
+                        : "Open Nativ automatically when you log in.",
+                    systemImage: "person.crop.circle.badge.checkmark"
+                ) {
+                    Toggle(
+                        "",
+                        isOn: Binding(
+                            get: { launchAtLogin.isEnabled },
+                            set: { launchAtLogin.setEnabled($0) }
+                        )
+                    )
+                    .labelsHidden()
+                }
+
+                if launchAtLogin.requiresApproval {
+                    Divider()
+                        .padding(.leading, 52)
+
+                    HStack {
+                        Spacer()
+                        Button("Open Login Items Settings…") {
+                            launchAtLogin.openSystemSettings()
+                        }
+                        .buttonStyle(.bordered)
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 12)
+                }
+            }
+            .background(Color(nsColor: .controlBackgroundColor))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color(nsColor: .separatorColor), lineWidth: 0.5)
+            )
+        }
+    }
+
+    private var permissionSettings: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Permissions")
+                .font(.headline)
+
+            NativPermissionsCard(store: permissions) {
+                Divider()
+                    .padding(.leading, 52)
+
+                settingsRow(
+                    title: "Notifications",
+                    description: notificationDescription,
+                    systemImage: "bell.badge"
+                ) {
+                    notificationSettingsControl
+                }
+            }
+        }
+        .onAppear {
+            permissions.refresh()
+            notifications.refreshAuthorizationStatus()
+        }
+        .onReceive(
+            NotificationCenter.default.publisher(
+                for: NSApplication.didBecomeActiveNotification
+            )
+        ) { _ in
+            permissions.refresh()
+            notifications.refreshAuthorizationStatus()
+        }
+    }
+
+    private var advancedSettings: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Advanced")
+                .font(.headline)
+
+            VStack(spacing: 0) {
+                settingsRow(
+                    title: "Allow Beta Updates",
+                    description: softwareUpdater.channelDescription,
+                    systemImage: "sun.horizon"
+                ) {
+                    Toggle("Allow Beta Updates", isOn: Binding(
+                        get: { softwareUpdater.channel == .releaseCandidates },
+                        set: { softwareUpdater.setChannel($0 ? .releaseCandidates : .stable) }
+                    ))
+                    .toggleStyle(.switch)
+                    .labelsHidden()
+                    .disabled(!softwareUpdater.canChangeChannel)
+                }
+            }
+            .background(Color(nsColor: .controlBackgroundColor))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color(nsColor: .separatorColor), lineWidth: 0.5)
+            )
+        }
+    }
+
+    private var projectSettings: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Projects")
+                .legacyTextStyle(.sectionTitle)
+
+            VStack(spacing: 0) {
+                settingsRow(
+                    title: "Allow Tools",
+                    description:
+                        "Allow projects to read and write files in their project folder and run terminal commands with approval.",
+                    systemImage: "folder.badge.gearshape"
+                ) {
+                    Toggle("", isOn: projectToolsEnabledBinding)
+                        .labelsHidden()
+                }
+                Divider().padding(.leading, 52)
+                settingsRow(
+                    title: "Recently deleted worktrees",
+                    description: "Restore saved work or permanently delete its snapshot.",
+                    systemImage: "archivebox"
+                ) {
+                    Button("Manage…") { showsWorktreeRecovery = true }
+                        .buttonStyle(.bordered)
+                        .accessibilityLabel("Manage recently deleted worktrees")
+                }
+            }
+            .background(Color(nsColor: .controlBackgroundColor))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color(nsColor: .separatorColor), lineWidth: 0.5)
+            )
+        }
+    }
+
+    private var projectToolsEnabledBinding: Binding<Bool> {
+        Binding(
+            get: { model.settings.projectToolsEnabled },
+            set: { isEnabled in
+                var settings = model.settings
+                settings.projectToolsEnabled = isEnabled
+                model.settings = settings.normalized()
+            }
+        )
+    }
+
+    @ViewBuilder
+    private var notificationSettingsControl: some View {
+        switch notifications.authorizationStatus {
+        case .unknown:
+            ProgressView()
+                .controlSize(.small)
+        case .notDetermined:
+            Button(notifications.isRequestingAuthorization ? "Requesting…" : "Allow") {
+                notifications.requestAuthorization()
+            }
+            .buttonStyle(.bordered)
+            .disabled(notifications.isRequestingAuthorization)
+        case .denied, .authorized:
+            Button("Open Settings…") {
+                notifications.openSystemSettings()
+            }
+            .buttonStyle(.bordered)
+        }
+    }
+
+    private var notificationDescription: String {
+        switch notifications.authorizationStatus {
+        case .unknown:
+            "Checking notification access…"
+        case .notDetermined:
+            "Allow Nativ to send notifications."
+        case .denied:
+            "Notifications are blocked in System Settings."
+        case .authorized:
+            "Nativ can send notifications."
+        }
+    }
+
+    private var chatTextSizeControl: some View {
+        HStack(spacing: 10) {
+            Text("A")
+                .font(.system(size: 11))
+                .foregroundStyle(.secondary)
+            Slider(value: chatFontStepBinding, in: chatFontStepRange, step: 1)
+            Text("A")
+                .font(.system(size: 20))
+                .foregroundStyle(.secondary)
+        }
+        .frame(width: 220, alignment: .trailing)
+    }
+
+    private var chatFontStepRange: ClosedRange<Double> {
+        0 ... Double(NativSettings.chatFontScaleSteps.count - 1)
+    }
+
+    private var chatFontStepBinding: Binding<Double> {
+        Binding(
+            get: { chatFontStepIndex },
+            set: { setChatFontStepIndex($0) }
+        )
+    }
+
+    private var chatFontStepIndex: Double {
+        let steps = NativSettings.chatFontScaleSteps
+        let scale = model.settings.chatFontScale
+        var bestIndex = 0
+        var bestDistance = Double.greatestFiniteMagnitude
+        for index in steps.indices {
+            let distance = abs(steps[index] - scale)
+            if distance < bestDistance {
+                bestDistance = distance
+                bestIndex = index
+            }
+        }
+        return Double(bestIndex)
+    }
+
+    private func setChatFontStepIndex(_ value: Double) {
+        let steps = NativSettings.chatFontScaleSteps
+        let index = min(max(Int(value.rounded()), 0), steps.count - 1)
+        var settings = model.settings
+        settings.chatFontScale = steps[index]
+        model.settings = settings.normalized()
+    }
+
+    private func settingsRow<Accessory: View>(
+        title: String,
+        description: String,
+        systemImage: String,
+        @ViewBuilder accessory: () -> Accessory
+    ) -> some View {
+        HStack(spacing: 14) {
+            Image(systemName: systemImage)
+                .font(.system(size: 17, weight: .medium))
+                .foregroundStyle(.secondary)
+                .frame(width: 24)
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title)
+                    .font(.body.weight(.medium))
+                
+                if !description.isEmpty {
+                    Text(description)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            Spacer(minLength: 20)
+            accessory()
+        }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 15)
+    }
+
+    private var appearanceDescription: String {
+        switch appearance {
+        case .system:
+            "Match your Mac’s appearance."
+        case .light:
+            "Use Nativ’s light appearance."
+        case .dark:
+            "Use Nativ’s dark appearance."
+        }
+    }
+
+    private var appVersionLabel: String {
+        let info = Bundle.main.infoDictionary
+        let version = ReleaseVersion.displayString(in: info)
+        let build = info?["CFBundleVersion"] as? String
+        if let build, !build.isEmpty {
+            return "Version \(version) (\(build))"
+        }
+        return "Version \(version)"
+    }
+}
+
+struct PersonalizationView: View {
+    let model: NativModel
+    @Environment(\.dismiss) private var dismiss
+    @State private var profile: NativPersonalization.Profile
+
+    init(model: NativModel) {
+        self.model = model
+        _profile = State(initialValue: model.settings.personalization.profile)
+    }
+
+    var body: some View {
+        VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Personalization")
+                    .font(.title2.weight(.semibold))
+                Text("Make Nativ feel personal. All settings are stored locally.")
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(24)
+
+            Divider()
+
+            Form {
+                Section {
+                    profileField("What should Nativ call you?", placeholder: "Your preferred name", text: $profile.preferredName)
+                    profileField("What do you do?", placeholder: "Your work, studies, or interests", text: $profile.occupation)
+                    profileField("Anything else Nativ should know about you?", placeholder: "Anything you want Nativ to keep in mind", text: $profile.aboutYou)
+                } header: {
+                    Text("Your profile")
+                } footer: {
+                    Text("Only you can change these answers. Profile changes apply to new chats.")
+                }
+
+                Section {
+                    Picker("Style", selection: $profile.conversationStyle) {
+                        ForEach(NativPersonalization.ConversationStyle.allCases) { style in
+                            Text(style.pickerLabel).tag(style)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .accessibilityLabel("Conversation style")
+                } header: {
+                    Text("Conversation style")
+                } footer: {
+                    Text("Choose how Nativ responds. Style changes apply to new chats.")
+                }
+
+                Section {
+                    Picker("Emoji usage", selection: $profile.emojiUsage) {
+                        ForEach(NativPersonalization.EmojiUsage.allCases) { usage in
+                            Text(usage.pickerLabel).tag(usage)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    Picker("Markdown usage", selection: $profile.markdownUsage) {
+                        ForEach(NativPersonalization.MarkdownUsage.allCases) { usage in
+                            Text(usage.pickerLabel).tag(usage)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                } header: {
+                    Text("Response formatting")
+                } footer: {
+                    Text("Choose how much emoji and formatting Nativ uses. Changes apply to new chats.")
+                }
+            }
+            .formStyle(.grouped)
+
+            Divider()
+
+            HStack {
+                Button("Cancel", action: cancel)
+                    .keyboardShortcut(.cancelAction)
+                Spacer()
+                Button("Save", action: save)
+                    .buttonStyle(.borderedProminent)
+                    .keyboardShortcut(.defaultAction)
+            }
+            .padding(20)
+        }
+        .frame(width: 560, height: 660)
+        .interactiveDismissDisabled()
+    }
+
+    private func profileField(_ title: String, placeholder: String, text: Binding<String>) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.headline)
+            TextEditor(text: text)
+                .font(.body)
+                .scrollContentBackground(.hidden)
+                .frame(height: 64)
+                .padding(6)
+                .background(Color(nsColor: .textBackgroundColor), in: RoundedRectangle(cornerRadius: 8))
+                .overlay(alignment: .topLeading) {
+                    if text.wrappedValue.isEmpty {
+                        Text(placeholder)
+                            .foregroundStyle(.tertiary)
+                            .padding(.horizontal, 11)
+                            .padding(.vertical, 6)
+                            .allowsHitTesting(false)
+                            .accessibilityHidden(true)
+                    }
+                }
+                .accessibilityLabel(title)
+                .onChange(of: text.wrappedValue) { _, value in
+                    if value.count > NativPersonalization.Profile.maximumFieldLength {
+                        text.wrappedValue = String(value.prefix(NativPersonalization.Profile.maximumFieldLength))
+                    }
+                }
+            Text("\(text.wrappedValue.count)/\(NativPersonalization.Profile.maximumFieldLength)")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .monospacedDigit()
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .accessibilityLabel("\(text.wrappedValue.count) of \(NativPersonalization.Profile.maximumFieldLength) characters")
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func save() {
+        profile.limitFieldLengths()
+        model.settings.personalization.profile = profile
+        dismiss()
+    }
+
+    private func cancel() {
+        dismiss()
+    }
+}

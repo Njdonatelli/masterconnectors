@@ -1,0 +1,81 @@
+{
+  "title": "Month (number) → Bar Chart",
+  "description": "Months as integers: 1, 2, …, 12 (12 values)",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Month": 1,
+          "Value": 439
+        },
+        {
+          "Month": 2,
+          "Value": 338
+        },
+        {
+          "Month": 3,
+          "Value": 411
+        },
+        {
+          "Month": 4,
+          "Value": 288
+        },
+        {
+          "Month": 5,
+          "Value": 206
+        },
+        {
+          "Month": 6,
+          "Value": 386
+        },
+        {
+          "Month": 7,
+          "Value": 301
+        },
+        {
+          "Month": 8,
+          "Value": 407
+        },
+        {
+          "Month": 9,
+          "Value": 255
+        },
+        {
+          "Month": 10,
+          "Value": 166
+        },
+        {
+          "Month": 11,
+          "Value": 207
+        },
+        {
+          "Month": 12,
+          "Value": 357
+        }
+      ]
+    },
+    "semantic_types": {
+      "Month": "Month",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Month"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

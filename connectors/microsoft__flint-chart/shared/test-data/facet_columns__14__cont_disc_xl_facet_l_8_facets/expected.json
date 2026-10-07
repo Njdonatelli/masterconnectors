@@ -1,0 +1,919 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Facet",
+      "type": "nominal",
+      "sort": null,
+      "columns": 5
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 110,
+      "continuousHeight": 104
+    },
+    "axisX": {
+      "labelLimit": 40,
+      "labelFontSize": 7,
+      "labelAngle": -90,
+      "labelAlign": "right",
+      "labelBaseline": "middle",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 130
+    },
+    "facet": {
+      "spacing": 10
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 7
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "Electronics",
+        "Value": 66,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 191,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Food",
+        "Value": 513,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Books",
+        "Value": 134,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Sports",
+        "Value": 512,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Home",
+        "Value": 525,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Garden",
+        "Value": 77,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Auto",
+        "Value": 335,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Health",
+        "Value": 91,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 113,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Toys",
+        "Value": 542,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Music",
+        "Value": 182,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Movies",
+        "Value": 291,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Software",
+        "Value": 207,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Games",
+        "Value": 523,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Office",
+        "Value": 153,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Pet",
+        "Value": 312,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Baby",
+        "Value": 373,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Tools",
+        "Value": 496,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 142,
+        "Facet": "Electronics"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 417,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 413,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Food",
+        "Value": 546,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Books",
+        "Value": 438,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Sports",
+        "Value": 499,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Home",
+        "Value": 452,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Garden",
+        "Value": 406,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Auto",
+        "Value": 67,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Health",
+        "Value": 98,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 65,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Toys",
+        "Value": 214,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Music",
+        "Value": 523,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Movies",
+        "Value": 148,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Software",
+        "Value": 100,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Games",
+        "Value": 374,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Office",
+        "Value": 379,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Pet",
+        "Value": 234,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Baby",
+        "Value": 394,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Tools",
+        "Value": 129,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 339,
+        "Facet": "Clothing"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 436,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 330,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Food",
+        "Value": 88,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Books",
+        "Value": 195,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Sports",
+        "Value": 435,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Home",
+        "Value": 154,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Garden",
+        "Value": 539,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Auto",
+        "Value": 64,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Health",
+        "Value": 201,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 202,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Toys",
+        "Value": 161,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Music",
+        "Value": 531,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Movies",
+        "Value": 465,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Software",
+        "Value": 373,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Games",
+        "Value": 516,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Office",
+        "Value": 58,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Pet",
+        "Value": 254,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Baby",
+        "Value": 181,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Tools",
+        "Value": 288,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 278,
+        "Facet": "Food"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 361,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 219,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Food",
+        "Value": 429,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Books",
+        "Value": 537,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Sports",
+        "Value": 382,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Home",
+        "Value": 109,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Garden",
+        "Value": 191,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Auto",
+        "Value": 94,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Health",
+        "Value": 331,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 98,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Toys",
+        "Value": 430,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Music",
+        "Value": 116,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Movies",
+        "Value": 481,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Software",
+        "Value": 345,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Games",
+        "Value": 342,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Office",
+        "Value": 422,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Pet",
+        "Value": 354,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Baby",
+        "Value": 349,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Tools",
+        "Value": 352,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 482,
+        "Facet": "Books"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 141,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 126,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Food",
+        "Value": 445,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Books",
+        "Value": 510,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Sports",
+        "Value": 62,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Home",
+        "Value": 167,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Garden",
+        "Value": 330,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Auto",
+        "Value": 320,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Health",
+        "Value": 142,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 104,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Toys",
+        "Value": 285,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Music",
+        "Value": 477,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Movies",
+        "Value": 185,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Software",
+        "Value": 491,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Games",
+        "Value": 443,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Office",
+        "Value": 503,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Pet",
+        "Value": 491,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Baby",
+        "Value": 301,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Tools",
+        "Value": 165,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 425,
+        "Facet": "Sports"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 175,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 428,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Food",
+        "Value": 518,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Books",
+        "Value": 417,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Sports",
+        "Value": 501,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Home",
+        "Value": 51,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Garden",
+        "Value": 518,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Auto",
+        "Value": 147,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Health",
+        "Value": 330,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 50,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Toys",
+        "Value": 310,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Music",
+        "Value": 487,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Movies",
+        "Value": 131,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Software",
+        "Value": 131,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Games",
+        "Value": 283,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Office",
+        "Value": 223,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Pet",
+        "Value": 327,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Baby",
+        "Value": 479,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Tools",
+        "Value": 500,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 200,
+        "Facet": "Home"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 450,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 200,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Food",
+        "Value": 449,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Books",
+        "Value": 198,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Sports",
+        "Value": 252,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Home",
+        "Value": 353,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Garden",
+        "Value": 467,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Auto",
+        "Value": 301,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Health",
+        "Value": 532,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 125,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Toys",
+        "Value": 370,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Music",
+        "Value": 518,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Movies",
+        "Value": 499,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Software",
+        "Value": 230,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Games",
+        "Value": 74,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Office",
+        "Value": 532,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Pet",
+        "Value": 490,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Baby",
+        "Value": 102,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Tools",
+        "Value": 458,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 439,
+        "Facet": "Garden"
+      },
+      {
+        "Category": "Electronics",
+        "Value": 213,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Clothing",
+        "Value": 352,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Food",
+        "Value": 161,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Books",
+        "Value": 449,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Sports",
+        "Value": 489,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Home",
+        "Value": 367,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Garden",
+        "Value": 512,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Auto",
+        "Value": 299,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Health",
+        "Value": 170,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Beauty",
+        "Value": 334,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Toys",
+        "Value": 304,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Music",
+        "Value": 370,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Movies",
+        "Value": 533,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Software",
+        "Value": 364,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Games",
+        "Value": 533,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Office",
+        "Value": 212,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Pet",
+        "Value": 347,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Baby",
+        "Value": 267,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Tools",
+        "Value": 490,
+        "Facet": "Auto"
+      },
+      {
+        "Category": "Crafts",
+        "Value": 207,
+        "Facet": "Auto"
+      }
+    ]
+  },
+  "_width": 110,
+  "_height": 104,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

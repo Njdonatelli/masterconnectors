@@ -1,0 +1,277 @@
+{
+  "title": "Cont × Disc-S — facet XL (12 facets)",
+  "description": "Bar chart: 4 categories × 12 facets",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Category": "Electronics",
+          "Value": 138,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 250,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Food",
+          "Value": 310,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Books",
+          "Value": 158,
+          "Facet": "Electronics"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 537,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 550,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Food",
+          "Value": 148,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Books",
+          "Value": 214,
+          "Facet": "Clothing"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 364,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 63,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Food",
+          "Value": 450,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Books",
+          "Value": 490,
+          "Facet": "Food"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 243,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 456,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Food",
+          "Value": 280,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Books",
+          "Value": 248,
+          "Facet": "Books"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 297,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 130,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Food",
+          "Value": 210,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Books",
+          "Value": 360,
+          "Facet": "Sports"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 530,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 58,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Food",
+          "Value": 60,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Books",
+          "Value": 66,
+          "Facet": "Home"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 510,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 127,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Food",
+          "Value": 311,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Books",
+          "Value": 456,
+          "Facet": "Garden"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 366,
+          "Facet": "Auto"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 166,
+          "Facet": "Auto"
+        },
+        {
+          "Category": "Food",
+          "Value": 547,
+          "Facet": "Auto"
+        },
+        {
+          "Category": "Books",
+          "Value": 473,
+          "Facet": "Auto"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 242,
+          "Facet": "Health"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 345,
+          "Facet": "Health"
+        },
+        {
+          "Category": "Food",
+          "Value": 253,
+          "Facet": "Health"
+        },
+        {
+          "Category": "Books",
+          "Value": 349,
+          "Facet": "Health"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 242,
+          "Facet": "Beauty"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 215,
+          "Facet": "Beauty"
+        },
+        {
+          "Category": "Food",
+          "Value": 389,
+          "Facet": "Beauty"
+        },
+        {
+          "Category": "Books",
+          "Value": 465,
+          "Facet": "Beauty"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 198,
+          "Facet": "Toys"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 91,
+          "Facet": "Toys"
+        },
+        {
+          "Category": "Food",
+          "Value": 514,
+          "Facet": "Toys"
+        },
+        {
+          "Category": "Books",
+          "Value": 348,
+          "Facet": "Toys"
+        },
+        {
+          "Category": "Electronics",
+          "Value": 543,
+          "Facet": "Music"
+        },
+        {
+          "Category": "Clothing",
+          "Value": 315,
+          "Facet": "Music"
+        },
+        {
+          "Category": "Food",
+          "Value": 497,
+          "Facet": "Music"
+        },
+        {
+          "Category": "Books",
+          "Value": 214,
+          "Facet": "Music"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Category": "Category",
+      "Value": "Amount",
+      "Facet": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "Category"
+        },
+        "y": {
+          "field": "Value"
+        },
+        "column": {
+          "field": "Facet"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

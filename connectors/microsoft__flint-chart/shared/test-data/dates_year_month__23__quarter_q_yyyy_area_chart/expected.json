@@ -1,0 +1,262 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Quarter",
+      "type": "ordinal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 25
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Quarter": "Q1 2018",
+        "Value": 225
+      },
+      {
+        "Quarter": "Q2 2018",
+        "Value": 63
+      },
+      {
+        "Quarter": "Q3 2018",
+        "Value": 171
+      },
+      {
+        "Quarter": "Q4 2018",
+        "Value": 133
+      },
+      {
+        "Quarter": "Q1 2019",
+        "Value": 386
+      },
+      {
+        "Quarter": "Q2 2019",
+        "Value": 352
+      },
+      {
+        "Quarter": "Q3 2019",
+        "Value": 56
+      },
+      {
+        "Quarter": "Q4 2019",
+        "Value": 327
+      },
+      {
+        "Quarter": "Q1 2020",
+        "Value": 392
+      },
+      {
+        "Quarter": "Q2 2020",
+        "Value": 139
+      },
+      {
+        "Quarter": "Q3 2020",
+        "Value": 108
+      },
+      {
+        "Quarter": "Q4 2020",
+        "Value": 125
+      },
+      {
+        "Quarter": "Q1 2021",
+        "Value": 449
+      },
+      {
+        "Quarter": "Q2 2021",
+        "Value": 331
+      },
+      {
+        "Quarter": "Q3 2021",
+        "Value": 302
+      },
+      {
+        "Quarter": "Q4 2021",
+        "Value": 218
+      },
+      {
+        "Quarter": "Q1 2022",
+        "Value": 415
+      },
+      {
+        "Quarter": "Q2 2022",
+        "Value": 63
+      },
+      {
+        "Quarter": "Q3 2022",
+        "Value": 138
+      },
+      {
+        "Quarter": "Q4 2022",
+        "Value": 221
+      },
+      {
+        "Quarter": "Q1 2023",
+        "Value": 519
+      },
+      {
+        "Quarter": "Q2 2023",
+        "Value": 412
+      },
+      {
+        "Quarter": "Q3 2023",
+        "Value": 306
+      },
+      {
+        "Quarter": "Q4 2023",
+        "Value": 237
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "title": "KPI: Single tile (pre-formatted string)",
+  "description": "Agent formatted upstream. Template renders verbatim.",
+  "chartType": "KPI Card",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Metric": "Revenue",
+          "Display": "$1.18M"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Metric": "Category",
+      "Display": "Category"
+    },
+    "chart_spec": {
+      "chartType": "KPI Card",
+      "encodings": {
+        "metric": {
+          "field": "Metric"
+        },
+        "value": {
+          "field": "Display"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "layout": "horizontal"
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

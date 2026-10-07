@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml" />
+    <Page Include="HomePage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="WorkspacePage.xaml">
+      <Filter>Pages</Filter>
+    </Page>
+    <Page Include="ConnectionCard.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="DataGridView.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="DetailsPanel.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="FilterBar.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="QueryEditorView.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="SidebarPanel.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="StatusBarControl.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="StructureView.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="TabBarControl.xaml">
+      <Filter>Controls</Filter>
+    </Page>
+    <Page Include="ConnectionFormDialog.xaml">
+      <Filter>Dialogs</Filter>
+    </Page>
+    <Page Include="DatabaseTypePickerDialog.xaml">
+      <Filter>Dialogs</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="MainWindow.idl" />
+    <Midl Include="HomePage.idl">
+      <Filter>Pages</Filter>
+    </Midl>
+    <Midl Include="WorkspacePage.idl">
+      <Filter>Pages</Filter>
+    </Midl>
+    <Midl Include="ConnectionCard.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="DataGridView.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="DetailsPanel.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="FilterBar.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="QueryEditorView.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="SidebarPanel.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="StatusBarControl.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="StructureView.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="TabBarControl.idl">
+      <Filter>Controls</Filter>
+    </Midl>
+    <Midl Include="ConnectionFormDialog.idl">
+      <Filter>Dialogs</Filter>
+    </Midl>
+    <Midl Include="DatabaseTypePickerDialog.idl">
+      <Filter>Dialogs</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="HomePage.cpp">
+      <Filter>Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="WorkspacePage.cpp">
+      <Filter>Pages</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectionCard.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="DataGridView.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="DetailsPanel.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="FilterBar.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="QueryEditorView.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="SidebarPanel.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusBarControl.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="StructureView.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="TabBarControl.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="ConnectionFormDialog.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="DatabaseTypePickerDialog.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="App.xaml.cpp" />
+    <ClCompile Include="MainWindow.xaml.cpp" />
+    <ClCompile Include="ConnectionManager.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="PostgreSQLAdapter.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="MongoDBAdapter.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="MongoDBAdapterQuery.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="MSSQLAdapter.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="SSHTunnelService.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Models\ConnectionConfig.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\DatabaseType.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\ColorTag.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\SidebarItem.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\ContentTab.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\ColumnInfo.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\TableRow.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\QueryResult.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\WorkspaceState.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\RowValue.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\TableInfo.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\QueryParameter.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\DatabaseAdapter.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\ConnectionManager.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\MongoDBAdapter.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\MSSQLAdapter.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\SSHTunnelService.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\PostgreSQLAdapter.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="HomePage.h">
+      <Filter>Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkspacePage.h">
+      <Filter>Pages</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionCard.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="DataGridView.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="DetailsPanel.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="FilterBar.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="QueryEditorView.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="SidebarPanel.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusBarControl.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="StructureView.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="TabBarControl.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="ConnectionFormDialog.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseTypePickerDialog.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="App.xaml.h" />
+    <ClInclude Include="MainWindow.xaml.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{89a0fae9-44a2-4889-9bd1-50998c237d7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{826afbb0-1e27-42dc-b2ee-0a92dc58db58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pages">
+      <UniqueIdentifier>{815cae65-a511-4db2-83a5-d04323bab1b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Controls">
+      <UniqueIdentifier>{005f8f76-83ce-4fad-8e7f-ea6d237fb8e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{46cc5852-54d0-49ab-924c-2455b85d851f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{f3a1b2c4-9d8e-4f7a-b3c2-1e5d6a7b8c9d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

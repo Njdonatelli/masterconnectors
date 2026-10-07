@@ -1,0 +1,103 @@
+{
+  "title": "Snap: Stacked Pct sum≈150% → no snap (exceeds)",
+  "description": "Stacked bar with 3 overlapping percentage sources per region. Individual values range 42–60%, but stacked totals are 140–160% — exceeding the intrinsic upper bound of 100%. Domain constraint is skipped so VL auto-extends the axis.",
+  "chartType": "Stacked Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "region": "East",
+          "source": "Source X",
+          "overlap_pct": 55
+        },
+        {
+          "region": "East",
+          "source": "Source Y",
+          "overlap_pct": 48
+        },
+        {
+          "region": "East",
+          "source": "Source Z",
+          "overlap_pct": 42
+        },
+        {
+          "region": "West",
+          "source": "Source X",
+          "overlap_pct": 60
+        },
+        {
+          "region": "West",
+          "source": "Source Y",
+          "overlap_pct": 50
+        },
+        {
+          "region": "West",
+          "source": "Source Z",
+          "overlap_pct": 45
+        },
+        {
+          "region": "North",
+          "source": "Source X",
+          "overlap_pct": 45
+        },
+        {
+          "region": "North",
+          "source": "Source Y",
+          "overlap_pct": 52
+        },
+        {
+          "region": "North",
+          "source": "Source Z",
+          "overlap_pct": 43
+        },
+        {
+          "region": "South",
+          "source": "Source X",
+          "overlap_pct": 58
+        },
+        {
+          "region": "South",
+          "source": "Source Y",
+          "overlap_pct": 55
+        },
+        {
+          "region": "South",
+          "source": "Source Z",
+          "overlap_pct": 47
+        }
+      ]
+    },
+    "semantic_types": {
+      "region": "Category",
+      "source": "Category",
+      "overlap_pct": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Stacked Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "region"
+        },
+        "y": {
+          "field": "overlap_pct"
+        },
+        "color": {
+          "field": "source"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

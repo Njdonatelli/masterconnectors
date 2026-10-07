@@ -1,0 +1,49 @@
+{
+  "title": "All zeros (% auto-hidden)",
+  "description": "total=0 → divide-by-zero guard suppresses % column; bar panel collapses to 0-width but spec stays valid",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Quarter": "Q1",
+          "Profit": 0
+        },
+        {
+          "Quarter": "Q2",
+          "Profit": 0
+        },
+        {
+          "Quarter": "Q3",
+          "Profit": 0
+        },
+        {
+          "Quarter": "Q4",
+          "Profit": 0
+        }
+      ]
+    },
+    "semantic_types": {
+      "Quarter": "Quarter",
+      "Profit": "Profit"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Quarter"
+        },
+        "x": {
+          "field": "Profit"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

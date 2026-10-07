@@ -1,0 +1,52 @@
+{
+  "name": "flint-chart-monorepo",
+  "private": true,
+  "description": "Flint — semantic chart compiler for AI agents (JS + Python)",
+  "workspaces": [
+    "packages/flint-js",
+    "packages/flint-mcp",
+    "site"
+  ],
+  "scripts": {
+    "build": "npm run build -w packages/flint-js && npm run build -w packages/flint-mcp",
+    "build:js": "npm run build -w packages/flint-js",
+    "build:mcp": "npm run build -w packages/flint-mcp",
+    "typecheck": "npm run build:js && npm run typecheck:js && npm run typecheck:mcp",
+    "typecheck:js": "npm run typecheck -w packages/flint-js",
+    "typecheck:mcp": "npm run typecheck -w packages/flint-mcp",
+    "test": "npm run test -w packages/flint-js && npm run test -w packages/flint-mcp",
+    "test:js": "npm run test -w packages/flint-js",
+    "test:mcp": "npm run test -w packages/flint-mcp",
+    "test:py": "cd packages/flint-py && uv run pytest",
+    "test:all": "npm run test:js && npm run test:mcp && npm run test:py",
+    "lint": "npm run lint -w packages/flint-js",
+    "lint:py": "cd packages/flint-py && uv run ruff check .",
+    "lint:all": "npm run lint && npm run lint:py",
+    "clean": "npm run clean -w packages/flint-js && npm run clean -w packages/flint-mcp",
+    "site": "npm run dev -w site",
+    "site:build": "npm run build -w site",
+    "gen:reference": "esbuild scripts/gen-chart-reference.ts --bundle --platform=node --format=esm --outfile=scripts/.gen-chart-reference.mjs && node scripts/.gen-chart-reference.mjs && rm -f scripts/.gen-chart-reference.mjs",
+    "presite": "npm run gen:reference",
+    "presite:build": "npm run gen:reference",
+    "postinstall": "node scripts/link-site-react.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "puppeteer-core": "^25.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.0.0",
+    "@swc/core-linux-x64-gnu": "1.15.33"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1",
+    "js-yaml": "^4.2.0",
+    "@hono/node-server": "^2.0.5"
+  }
+}

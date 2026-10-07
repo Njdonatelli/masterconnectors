@@ -1,0 +1,180 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "quarter",
+      "type": "ordinal",
+      "sort": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4"
+      ]
+    },
+    "y": {
+      "field": "sales",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "region",
+      "type": "nominal",
+      "sort": [
+        "North",
+        "East",
+        "South"
+      ],
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "quarter": "Q3",
+        "region": "North",
+        "sales": 54071
+      },
+      {
+        "quarter": "Q1",
+        "region": "North",
+        "sales": 75957
+      },
+      {
+        "quarter": "Q4",
+        "region": "North",
+        "sales": 115889
+      },
+      {
+        "quarter": "Q2",
+        "region": "North",
+        "sales": 239799
+      },
+      {
+        "quarter": "Q3",
+        "region": "South",
+        "sales": 195517
+      },
+      {
+        "quarter": "Q1",
+        "region": "South",
+        "sales": 152569
+      },
+      {
+        "quarter": "Q4",
+        "region": "South",
+        "sales": 122609
+      },
+      {
+        "quarter": "Q2",
+        "region": "South",
+        "sales": 195426
+      },
+      {
+        "quarter": "Q3",
+        "region": "East",
+        "sales": 219990
+      },
+      {
+        "quarter": "Q1",
+        "region": "East",
+        "sales": 77244
+      },
+      {
+        "quarter": "Q4",
+        "region": "East",
+        "sales": 147781
+      },
+      {
+        "quarter": "Q2",
+        "region": "East",
+        "sales": 50397
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "mark": {
+    "type": "line",
+    "point": true,
+    "interpolate": "monotone",
+    "strokeWidth": 2
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Score",
+      "type": "quantitative",
+      "scale": {
+        "reverse": true,
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Brand",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 372,
+      "continuousHeight": 322
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 32
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2024-01-01",
+        "Brand": "Brand A",
+        "Score": 57
+      },
+      {
+        "Date": "2024-01-01",
+        "Brand": "Brand B",
+        "Score": 77
+      },
+      {
+        "Date": "2024-01-01",
+        "Brand": "Brand C",
+        "Score": 61
+      },
+      {
+        "Date": "2024-05-16",
+        "Brand": "Brand A",
+        "Score": 72
+      },
+      {
+        "Date": "2024-05-16",
+        "Brand": "Brand B",
+        "Score": 70
+      },
+      {
+        "Date": "2024-05-16",
+        "Brand": "Brand C",
+        "Score": 65
+      },
+      {
+        "Date": "2024-09-30",
+        "Brand": "Brand A",
+        "Score": 77
+      },
+      {
+        "Date": "2024-09-30",
+        "Brand": "Brand B",
+        "Score": 93
+      },
+      {
+        "Date": "2024-09-30",
+        "Brand": "Brand C",
+        "Score": 80
+      },
+      {
+        "Date": "2025-02-14",
+        "Brand": "Brand A",
+        "Score": 85
+      },
+      {
+        "Date": "2025-02-14",
+        "Brand": "Brand B",
+        "Score": 79
+      },
+      {
+        "Date": "2025-02-14",
+        "Brand": "Brand C",
+        "Score": 94
+      },
+      {
+        "Date": "2025-07-01",
+        "Brand": "Brand A",
+        "Score": 63
+      },
+      {
+        "Date": "2025-07-01",
+        "Brand": "Brand B",
+        "Score": 59
+      },
+      {
+        "Date": "2025-07-01",
+        "Brand": "Brand C",
+        "Score": 78
+      },
+      {
+        "Date": "2025-11-15",
+        "Brand": "Brand A",
+        "Score": 67
+      },
+      {
+        "Date": "2025-11-15",
+        "Brand": "Brand B",
+        "Score": 88
+      },
+      {
+        "Date": "2025-11-15",
+        "Brand": "Brand C",
+        "Score": 60
+      },
+      {
+        "Date": "2026-04-01",
+        "Brand": "Brand A",
+        "Score": 86
+      },
+      {
+        "Date": "2026-04-01",
+        "Brand": "Brand B",
+        "Score": 67
+      },
+      {
+        "Date": "2026-04-01",
+        "Brand": "Brand C",
+        "Score": 77
+      },
+      {
+        "Date": "2026-08-16",
+        "Brand": "Brand A",
+        "Score": 67
+      },
+      {
+        "Date": "2026-08-16",
+        "Brand": "Brand B",
+        "Score": 87
+      },
+      {
+        "Date": "2026-08-16",
+        "Brand": "Brand C",
+        "Score": 62
+      }
+    ]
+  },
+  "_width": 372,
+  "_height": 322,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": true
+    }
+  ]
+}

@@ -1,0 +1,269 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "facet": {
+      "field": "Col",
+      "type": "nominal",
+      "sort": null,
+      "columns": 10
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 65,
+      "continuousHeight": 251
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top",
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerFacet": {
+      "labelFontSize": 9,
+      "labelLimit": 85
+    },
+    "facet": {
+      "spacing": 7
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 21
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "A",
+        "Value": 55,
+        "Col": "Electronics"
+      },
+      {
+        "Category": "B",
+        "Value": 262,
+        "Col": "Electronics"
+      },
+      {
+        "Category": "C",
+        "Value": 447,
+        "Col": "Electronics"
+      },
+      {
+        "Category": "A",
+        "Value": 492,
+        "Col": "Clothing"
+      },
+      {
+        "Category": "B",
+        "Value": 407,
+        "Col": "Clothing"
+      },
+      {
+        "Category": "C",
+        "Value": 239,
+        "Col": "Clothing"
+      },
+      {
+        "Category": "A",
+        "Value": 59,
+        "Col": "Food"
+      },
+      {
+        "Category": "B",
+        "Value": 442,
+        "Col": "Food"
+      },
+      {
+        "Category": "C",
+        "Value": 204,
+        "Col": "Food"
+      },
+      {
+        "Category": "A",
+        "Value": 474,
+        "Col": "Books"
+      },
+      {
+        "Category": "B",
+        "Value": 452,
+        "Col": "Books"
+      },
+      {
+        "Category": "C",
+        "Value": 316,
+        "Col": "Books"
+      },
+      {
+        "Category": "A",
+        "Value": 115,
+        "Col": "Sports"
+      },
+      {
+        "Category": "B",
+        "Value": 501,
+        "Col": "Sports"
+      },
+      {
+        "Category": "C",
+        "Value": 448,
+        "Col": "Sports"
+      },
+      {
+        "Category": "A",
+        "Value": 548,
+        "Col": "Home"
+      },
+      {
+        "Category": "B",
+        "Value": 267,
+        "Col": "Home"
+      },
+      {
+        "Category": "C",
+        "Value": 215,
+        "Col": "Home"
+      },
+      {
+        "Category": "A",
+        "Value": 400,
+        "Col": "Garden"
+      },
+      {
+        "Category": "B",
+        "Value": 56,
+        "Col": "Garden"
+      },
+      {
+        "Category": "C",
+        "Value": 547,
+        "Col": "Garden"
+      },
+      {
+        "Category": "A",
+        "Value": 234,
+        "Col": "Auto"
+      },
+      {
+        "Category": "B",
+        "Value": 470,
+        "Col": "Auto"
+      },
+      {
+        "Category": "C",
+        "Value": 395,
+        "Col": "Auto"
+      },
+      {
+        "Category": "A",
+        "Value": 327,
+        "Col": "Health"
+      },
+      {
+        "Category": "B",
+        "Value": 369,
+        "Col": "Health"
+      },
+      {
+        "Category": "C",
+        "Value": 281,
+        "Col": "Health"
+      },
+      {
+        "Category": "A",
+        "Value": 325,
+        "Col": "Beauty"
+      },
+      {
+        "Category": "B",
+        "Value": 146,
+        "Col": "Beauty"
+      },
+      {
+        "Category": "C",
+        "Value": 472,
+        "Col": "Beauty"
+      }
+    ]
+  },
+  "_width": 65,
+  "_height": 251,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

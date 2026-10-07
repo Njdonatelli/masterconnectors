@@ -1,0 +1,214 @@
+{
+  "encoding": {},
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "field": "GDP",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        },
+        "x2": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 80
+      },
+      "encoding": {
+        "y": {
+          "field": "Country",
+          "type": "nominal",
+          "sort": null
+        },
+        "x": {
+          "field": "GDP",
+          "type": "quantitative",
+          "scale": {
+            "zero": false
+          },
+          "axis": {
+            "format": ",.12~g"
+          }
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "height": {
+    "step": 20
+  },
+  "data": {
+    "values": [
+      {
+        "Country": "Country01",
+        "GDP": 1277
+      },
+      {
+        "Country": "Country02",
+        "GDP": 3730
+      },
+      {
+        "Country": "Country03",
+        "GDP": 1490
+      },
+      {
+        "Country": "Country04",
+        "GDP": 1597
+      },
+      {
+        "Country": "Country05",
+        "GDP": 1652
+      },
+      {
+        "Country": "Country06",
+        "GDP": 4266
+      },
+      {
+        "Country": "Country07",
+        "GDP": 1940
+      },
+      {
+        "Country": "Country08",
+        "GDP": 3742
+      },
+      {
+        "Country": "Country09",
+        "GDP": 1078
+      },
+      {
+        "Country": "Country10",
+        "GDP": 4184
+      },
+      {
+        "Country": "Country11",
+        "GDP": 1200
+      },
+      {
+        "Country": "Country12",
+        "GDP": 2739
+      },
+      {
+        "Country": "Country13",
+        "GDP": 3614
+      },
+      {
+        "Country": "Country14",
+        "GDP": 1203
+      },
+      {
+        "Country": "Country15",
+        "GDP": 1361
+      },
+      {
+        "Country": "Country16",
+        "GDP": 3843
+      },
+      {
+        "Country": "Country17",
+        "GDP": 4250
+      },
+      {
+        "Country": "Country18",
+        "GDP": 2488
+      },
+      {
+        "Country": "Country19",
+        "GDP": 3658
+      },
+      {
+        "Country": "Country20",
+        "GDP": 3712
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "dotSize",
+      "label": "Dot Size",
+      "type": "continuous",
+      "min": 20,
+      "max": 300,
+      "step": 10,
+      "defaultValue": 80,
+      "applicable": true,
+      "value": 80
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

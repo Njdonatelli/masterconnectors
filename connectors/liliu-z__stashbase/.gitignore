@@ -1,0 +1,51 @@
+node_modules
+.pnpm-store/
+.env
+.env.local
+data/
+dist/
+release/
+release.nosync/
+graphify-out/
+test/
+# The renderer test toolkit is source, not a scratch directory.
+!renderer/src/test/
+web/dist-app/
+models/
+python/runtime/
+python/sidecar.nosync/
+python/sidecar/
+*.log
+.DS_Store
+dev-docs/
+package-lock.json
+test-results/
+playwright-report/
+
+# Chinese mirrors / drafts. The committed docs are English-only
+# (see CLAUDE.md); Chinese Markdown variants stay local.
+*.zh.md
+
+# Per-space sidecars StashBase itself writes when the repo is opened
+# as a space. Never meant to travel with the repo.
+.stashbase/
+.claude/
+.codex/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+python/.venv.nosync/
+python/.venv/
+python/pyinstaller-cache.nosync/

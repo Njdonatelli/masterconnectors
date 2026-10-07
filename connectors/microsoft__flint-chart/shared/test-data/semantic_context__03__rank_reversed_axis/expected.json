@@ -1,0 +1,301 @@
+{
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "ordinal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun"
+      ]
+    },
+    "y": {
+      "field": "rank",
+      "type": "ordinal",
+      "sort": "ascending"
+    },
+    "color": {
+      "field": "team",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "height": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "month": "Jan",
+        "team": "Alpha",
+        "rank": 1
+      },
+      {
+        "month": "Feb",
+        "team": "Alpha",
+        "rank": 1
+      },
+      {
+        "month": "Mar",
+        "team": "Alpha",
+        "rank": 3
+      },
+      {
+        "month": "Apr",
+        "team": "Alpha",
+        "rank": 1
+      },
+      {
+        "month": "May",
+        "team": "Alpha",
+        "rank": 2
+      },
+      {
+        "month": "Jun",
+        "team": "Alpha",
+        "rank": 1
+      },
+      {
+        "month": "Jan",
+        "team": "Beta",
+        "rank": 3
+      },
+      {
+        "month": "Feb",
+        "team": "Beta",
+        "rank": 2
+      },
+      {
+        "month": "Mar",
+        "team": "Beta",
+        "rank": 2
+      },
+      {
+        "month": "Apr",
+        "team": "Beta",
+        "rank": 2
+      },
+      {
+        "month": "May",
+        "team": "Beta",
+        "rank": 1
+      },
+      {
+        "month": "Jun",
+        "team": "Beta",
+        "rank": 3
+      },
+      {
+        "month": "Jan",
+        "team": "Gamma",
+        "rank": 3
+      },
+      {
+        "month": "Feb",
+        "team": "Gamma",
+        "rank": 4
+      },
+      {
+        "month": "Mar",
+        "team": "Gamma",
+        "rank": 4
+      },
+      {
+        "month": "Apr",
+        "team": "Gamma",
+        "rank": 1
+      },
+      {
+        "month": "May",
+        "team": "Gamma",
+        "rank": 4
+      },
+      {
+        "month": "Jun",
+        "team": "Gamma",
+        "rank": 2
+      },
+      {
+        "month": "Jan",
+        "team": "Delta",
+        "rank": 1
+      },
+      {
+        "month": "Feb",
+        "team": "Delta",
+        "rank": 3
+      },
+      {
+        "month": "Mar",
+        "team": "Delta",
+        "rank": 4
+      },
+      {
+        "month": "Apr",
+        "team": "Delta",
+        "rank": 4
+      },
+      {
+        "month": "May",
+        "team": "Delta",
+        "rank": 2
+      },
+      {
+        "month": "Jun",
+        "team": "Delta",
+        "rank": 1
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "showPoints",
+      "label": "Show points",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,329 @@
+"use client";
+
+import { RemixIcon } from "@/components/remix-icon";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitch } from "./language-switch";
+import { MobileDrawerMenu } from "./mobile-drawer-menu";
+
+interface NavLink {
+  name: string;
+  href?: string;
+  ref?: string;
+  onClick?: () => void;
+  download?: boolean;
+  target?: string;
+}
+
+interface NavbarProps {
+  links?: NavLink[];
+  showAuthButtons?: boolean;
+  onSignInClick?: () => void;
+  onGetStartedClick?: () => void;
+  topOffset?: string;
+  backgroundVariant?: "background" | "surfaceBlue" | "backgroundCard";
+  transparent?: boolean;
+}
+
+export function Navbar({
+  links = [
+    { name: "Home", href: "/" },
+    { name: "Docs", href: "/docs" },
+    { name: "Blogs", href: "/blogs" },
+  ],
+  showAuthButtons = false,
+  onSignInClick,
+  onGetStartedClick,
+  topOffset = "0",
+  backgroundVariant = "background",
+  transparent = false,
+}: NavbarProps = {}) {
+  const { t } = useTranslation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href?: string) => {
+    if (!href) return false;
+    return pathname === href || (href !== "/" && pathname.startsWith(href));
+  };
+
+  const handleLinkClick = (link: NavLink) => {
+    if (link.onClick) {
+      link.onClick();
+    }
+    setIsMenuOpen(false);
+  };
+
+  const handleSignInClick = () => {
+    if (onSignInClick) {
+      onSignInClick();
+    } else {
+      window.open("https://github.com/melandlabs/openloomi", "_blank");
+    }
+  };
+
+  const handleGetStartedClick = () => {
+    if (onGetStartedClick) {
+      onGetStartedClick();
+    } else {
+      window.open("https://github.com/melandlabs/openloomi", "_blank");
+    }
+  };
+
+  const getBgStyle = () => {
+    if (transparent)
+      return { backgroundColor: "transparent", borderBottom: "none" };
+    if (backgroundVariant === "surfaceBlue")
+      return { backgroundColor: "var(--color-surfaceBlue)" };
+    if (backgroundVariant === "backgroundCard")
+      return { backgroundColor: "var(--color-background-card)" };
+    return { backgroundColor: "var(--color-background)" };
+  };
+
+  const githubUrl = "https://github.com/melandlabs/openloomi";
+
+  // Nav padding tuned to match the design preview.
+  // Move: <md shows Logo.svg only; Desktop: shows logo-text.
+  return (
+    <nav
+      style={{
+        position: "fixed",
+        top: topOffset,
+        left: 0,
+        right: 0,
+        zIndex: 30,
+        padding: "24px 40px",
+        transition: "all 0.3s",
+        backdropFilter: transparent ? "none" : "blur(8px)",
+        ...getBgStyle(),
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1440px",
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* Logo */}
+        <Link
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "4px",
+          }}
+        >
+          <Image
+            // Desktop shows full logo; mobile uses monochrome logo for visibility.
+            src="/img/logo-full-light.png"
+            alt="OpenLoomi"
+            className="hidden md:block object-contain"
+            width={127}
+            height={28}
+            priority
+          />
+          <Image
+            src="/img/logo-full-light.png"
+            alt="OpenLoomi"
+            className="block md:hidden object-contain"
+            width={109}
+            height={24}
+            priority
+          />
+        </Link>
+
+        {/* Desktop Navigation */}
+        <div
+          className="hidden md:flex"
+          style={{ alignItems: "center", gap: "16px" }}
+        >
+          {links.map((link, index) => {
+            const active = isActive(link.href);
+            const linkStyle = {
+              fontSize: "14px",
+              fontWeight: active ? 500 : 400,
+              transition: "color 0.15s",
+              color: active
+                ? "var(--color-foreground)"
+                : "var(--color-foreground-muted)",
+              textDecoration: "none",
+            };
+
+            if (link.href) {
+              if (link.download || link.target) {
+                return (
+                  <a
+                    key={index}
+                    href={link.href}
+                    download={link.download}
+                    target={link.target || "_blank"}
+                    rel={link.target ? "noopener noreferrer" : undefined}
+                    style={linkStyle}
+                  >
+                    {link.name}
+                  </a>
+                );
+              }
+              return (
+                <Link key={index} href={link.href} style={linkStyle}>
+                  {link.name}
+                </Link>
+              );
+            }
+            if (link.onClick) {
+              return (
+                <button
+                  key={index}
+                  onClick={() => handleLinkClick(link)}
+                  style={{
+                    ...linkStyle,
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
+                >
+                  {link.name}
+                </button>
+              );
+            }
+            return null;
+          })}
+        </div>
+
+        {/* Desktop Auth Buttons */}
+        {showAuthButtons && (
+          <div
+            className="hidden md:flex"
+            style={{ alignItems: "center", gap: "12px" }}
+          >
+            <button
+              type="button"
+              onClick={handleSignInClick}
+              style={{
+                padding: "8px 16px",
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "var(--color-foreground-muted)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                transition: "color 0.15s",
+              }}
+            >
+              {t("nav.signIn")}
+            </button>
+            <button
+              type="button"
+              onClick={handleGetStartedClick}
+              style={{
+                padding: "8px 16px",
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "var(--color-foreground-primary)",
+                background:
+                  "linear-gradient(180deg, var(--color-primary-start) 0%, var(--color-primary-end) 100%)",
+                border: "none",
+                borderRadius: "9999px",
+                cursor: "pointer",
+                transition: "transform 0.15s",
+              }}
+            >
+              {t("nav.getStarted")}
+            </button>
+          </div>
+        )}
+
+        {/* Desktop Language Switcher */}
+        {!showAuthButtons && (
+          <div
+            className="hidden md:flex"
+            style={{ alignItems: "center", gap: "12px" }}
+          >
+            <LanguageSwitch />
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="OpenLoomi GitHub repository"
+              style={{
+                width: "40px",
+                height: "40px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "var(--color-foreground-muted)",
+                textDecoration: "none",
+                transition: "color 0.15s",
+              }}
+            >
+              <RemixIcon name="github" variant="fill" size="size-5" />
+            </a>
+          </div>
+        )}
+
+        {/* Mobile Menu Button */}
+        <div
+          className="flex md:hidden"
+          style={{ alignItems: "center", gap: "8px" }}
+        >
+          <LanguageSwitch />
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="OpenLoomi GitHub repository"
+            style={{
+              width: "48px",
+              height: "48px",
+              backgroundColor: "var(--color-background-card)",
+              border: "1px solid var(--color-border-primary)",
+              borderRadius: "12px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "var(--color-foreground)",
+              textDecoration: "none",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            }}
+          >
+            <RemixIcon name="github" variant="fill" size="size-5" />
+          </a>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            style={{
+              width: "48px",
+              height: "48px",
+              backgroundColor: "var(--color-background-card)",
+              border: "1px solid var(--color-border-primary)",
+              borderRadius: "12px",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            }}
+            aria-label="Toggle menu"
+          >
+            <RemixIcon name={isMenuOpen ? "close" : "menu"} size="size-5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Menu */}
+      <MobileDrawerMenu
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        links={links}
+        showAuthButtons={showAuthButtons}
+        onSignInClick={onSignInClick}
+        onGetStartedClick={onGetStartedClick}
+        isActive={isActive}
+      />
+    </nav>
+  );
+}

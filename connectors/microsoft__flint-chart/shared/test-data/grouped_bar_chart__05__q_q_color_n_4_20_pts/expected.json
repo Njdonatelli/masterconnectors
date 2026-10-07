@@ -1,0 +1,173 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "X",
+      "type": "ordinal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    },
+    "xOffset": {
+      "field": "Segment",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 300
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 80,
+    "for": "position"
+  },
+  "data": {
+    "values": [
+      {
+        "X": 1,
+        "Value": 39,
+        "Segment": "Laptop"
+      },
+      {
+        "X": 1,
+        "Value": 154,
+        "Segment": "Phone"
+      },
+      {
+        "X": 1,
+        "Value": 518,
+        "Segment": "Tablet"
+      },
+      {
+        "X": 1,
+        "Value": 844,
+        "Segment": "Desktop"
+      },
+      {
+        "X": 2,
+        "Value": 774,
+        "Segment": "Laptop"
+      },
+      {
+        "X": 2,
+        "Value": 490,
+        "Segment": "Phone"
+      },
+      {
+        "X": 2,
+        "Value": 270,
+        "Segment": "Tablet"
+      },
+      {
+        "X": 2,
+        "Value": 895,
+        "Segment": "Desktop"
+      },
+      {
+        "X": 3,
+        "Value": 843,
+        "Segment": "Laptop"
+      },
+      {
+        "X": 3,
+        "Value": 361,
+        "Segment": "Phone"
+      },
+      {
+        "X": 3,
+        "Value": 984,
+        "Segment": "Tablet"
+      },
+      {
+        "X": 3,
+        "Value": 36,
+        "Segment": "Desktop"
+      },
+      {
+        "X": 4,
+        "Value": 30,
+        "Segment": "Laptop"
+      },
+      {
+        "X": 4,
+        "Value": 201,
+        "Segment": "Phone"
+      },
+      {
+        "X": 4,
+        "Value": 215,
+        "Segment": "Tablet"
+      },
+      {
+        "X": 4,
+        "Value": 728,
+        "Segment": "Desktop"
+      },
+      {
+        "X": 5,
+        "Value": 139,
+        "Segment": "Laptop"
+      },
+      {
+        "X": 5,
+        "Value": 629,
+        "Segment": "Phone"
+      },
+      {
+        "X": 5,
+        "Value": 232,
+        "Segment": "Tablet"
+      },
+      {
+        "X": 5,
+        "Value": 94,
+        "Segment": "Desktop"
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,2049 @@
+{
+  "mark": {
+    "type": "circle",
+    "opacity": 0.8,
+    "size": 100
+  },
+  "encoding": {
+    "x": {
+      "field": "Species",
+      "type": "nominal",
+      "sort": null,
+      "axis": {
+        "labelColor": {
+          "condition": {
+            "test": "datum.label == '...74 items omitted'",
+            "value": "#999999"
+          },
+          "value": "#000000"
+        }
+      },
+      "scale": {
+        "domain": [
+          "Species018",
+          "Species025",
+          "Species030",
+          "Species087",
+          "Species105",
+          "Species015",
+          "Species017",
+          "Species019",
+          "Species020",
+          "Species036",
+          "Species037",
+          "Species042",
+          "Species044",
+          "Species054",
+          "Species058",
+          "Species065",
+          "Species080",
+          "Species096",
+          "Species099",
+          "Species100",
+          "Species108",
+          "Species022",
+          "Species027",
+          "Species031",
+          "Species040",
+          "Species045",
+          "Species061",
+          "Species078",
+          "Species081",
+          "Species090",
+          "Species095",
+          "Species115",
+          "Species120",
+          "Species005",
+          "Species008",
+          "Species026",
+          "Species029",
+          "Species041",
+          "Species056",
+          "Species066",
+          "Species098",
+          "Species101",
+          "Species104",
+          "Species009",
+          "Species016",
+          "Species035",
+          "...74 items omitted"
+        ]
+      }
+    },
+    "y": {
+      "field": "Length",
+      "type": "quantitative",
+      "scale": {
+        "zero": false
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "xOffset": {
+      "field": "__jitter",
+      "type": "quantitative",
+      "axis": null,
+      "scale": {
+        "domain": [
+          -10,
+          10
+        ]
+      }
+    }
+  },
+  "width": {
+    "step": 16
+  },
+  "transform": [
+    {
+      "calculate": "-6 + random() * 12",
+      "as": "__jitter"
+    }
+  ],
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 219
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 22
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Species": "Species005",
+        "Length": 56
+      },
+      {
+        "Species": "Species005",
+        "Length": 27
+      },
+      {
+        "Species": "Species005",
+        "Length": 63
+      },
+      {
+        "Species": "Species005",
+        "Length": 77
+      },
+      {
+        "Species": "Species005",
+        "Length": 49
+      },
+      {
+        "Species": "Species005",
+        "Length": 13
+      },
+      {
+        "Species": "Species005",
+        "Length": 51
+      },
+      {
+        "Species": "Species005",
+        "Length": 10
+      },
+      {
+        "Species": "Species005",
+        "Length": 43
+      },
+      {
+        "Species": "Species005",
+        "Length": 75
+      },
+      {
+        "Species": "Species008",
+        "Length": 31
+      },
+      {
+        "Species": "Species008",
+        "Length": 32
+      },
+      {
+        "Species": "Species008",
+        "Length": 61
+      },
+      {
+        "Species": "Species008",
+        "Length": 57
+      },
+      {
+        "Species": "Species008",
+        "Length": 41
+      },
+      {
+        "Species": "Species008",
+        "Length": 21
+      },
+      {
+        "Species": "Species008",
+        "Length": 57
+      },
+      {
+        "Species": "Species008",
+        "Length": 70
+      },
+      {
+        "Species": "Species008",
+        "Length": 76
+      },
+      {
+        "Species": "Species008",
+        "Length": 77
+      },
+      {
+        "Species": "Species009",
+        "Length": 70
+      },
+      {
+        "Species": "Species009",
+        "Length": 28
+      },
+      {
+        "Species": "Species009",
+        "Length": 67
+      },
+      {
+        "Species": "Species009",
+        "Length": 27
+      },
+      {
+        "Species": "Species009",
+        "Length": 30
+      },
+      {
+        "Species": "Species009",
+        "Length": 19
+      },
+      {
+        "Species": "Species009",
+        "Length": 66
+      },
+      {
+        "Species": "Species009",
+        "Length": 20
+      },
+      {
+        "Species": "Species009",
+        "Length": 76
+      },
+      {
+        "Species": "Species009",
+        "Length": 21
+      },
+      {
+        "Species": "Species015",
+        "Length": 79
+      },
+      {
+        "Species": "Species015",
+        "Length": 75
+      },
+      {
+        "Species": "Species015",
+        "Length": 59
+      },
+      {
+        "Species": "Species015",
+        "Length": 71
+      },
+      {
+        "Species": "Species015",
+        "Length": 50
+      },
+      {
+        "Species": "Species015",
+        "Length": 38
+      },
+      {
+        "Species": "Species015",
+        "Length": 62
+      },
+      {
+        "Species": "Species015",
+        "Length": 56
+      },
+      {
+        "Species": "Species015",
+        "Length": 64
+      },
+      {
+        "Species": "Species015",
+        "Length": 21
+      },
+      {
+        "Species": "Species016",
+        "Length": 38
+      },
+      {
+        "Species": "Species016",
+        "Length": 76
+      },
+      {
+        "Species": "Species016",
+        "Length": 65
+      },
+      {
+        "Species": "Species016",
+        "Length": 43
+      },
+      {
+        "Species": "Species016",
+        "Length": 14
+      },
+      {
+        "Species": "Species016",
+        "Length": 68
+      },
+      {
+        "Species": "Species016",
+        "Length": 24
+      },
+      {
+        "Species": "Species016",
+        "Length": 62
+      },
+      {
+        "Species": "Species016",
+        "Length": 11
+      },
+      {
+        "Species": "Species016",
+        "Length": 12
+      },
+      {
+        "Species": "Species017",
+        "Length": 41
+      },
+      {
+        "Species": "Species017",
+        "Length": 15
+      },
+      {
+        "Species": "Species017",
+        "Length": 66
+      },
+      {
+        "Species": "Species017",
+        "Length": 79
+      },
+      {
+        "Species": "Species017",
+        "Length": 59
+      },
+      {
+        "Species": "Species017",
+        "Length": 59
+      },
+      {
+        "Species": "Species017",
+        "Length": 25
+      },
+      {
+        "Species": "Species017",
+        "Length": 61
+      },
+      {
+        "Species": "Species017",
+        "Length": 35
+      },
+      {
+        "Species": "Species017",
+        "Length": 66
+      },
+      {
+        "Species": "Species018",
+        "Length": 13
+      },
+      {
+        "Species": "Species018",
+        "Length": 40
+      },
+      {
+        "Species": "Species018",
+        "Length": 76
+      },
+      {
+        "Species": "Species018",
+        "Length": 80
+      },
+      {
+        "Species": "Species018",
+        "Length": 38
+      },
+      {
+        "Species": "Species018",
+        "Length": 56
+      },
+      {
+        "Species": "Species018",
+        "Length": 28
+      },
+      {
+        "Species": "Species018",
+        "Length": 14
+      },
+      {
+        "Species": "Species018",
+        "Length": 52
+      },
+      {
+        "Species": "Species018",
+        "Length": 63
+      },
+      {
+        "Species": "Species019",
+        "Length": 64
+      },
+      {
+        "Species": "Species019",
+        "Length": 54
+      },
+      {
+        "Species": "Species019",
+        "Length": 74
+      },
+      {
+        "Species": "Species019",
+        "Length": 66
+      },
+      {
+        "Species": "Species019",
+        "Length": 79
+      },
+      {
+        "Species": "Species019",
+        "Length": 32
+      },
+      {
+        "Species": "Species019",
+        "Length": 55
+      },
+      {
+        "Species": "Species019",
+        "Length": 27
+      },
+      {
+        "Species": "Species019",
+        "Length": 74
+      },
+      {
+        "Species": "Species019",
+        "Length": 12
+      },
+      {
+        "Species": "Species020",
+        "Length": 13
+      },
+      {
+        "Species": "Species020",
+        "Length": 15
+      },
+      {
+        "Species": "Species020",
+        "Length": 69
+      },
+      {
+        "Species": "Species020",
+        "Length": 31
+      },
+      {
+        "Species": "Species020",
+        "Length": 13
+      },
+      {
+        "Species": "Species020",
+        "Length": 54
+      },
+      {
+        "Species": "Species020",
+        "Length": 28
+      },
+      {
+        "Species": "Species020",
+        "Length": 43
+      },
+      {
+        "Species": "Species020",
+        "Length": 79
+      },
+      {
+        "Species": "Species020",
+        "Length": 58
+      },
+      {
+        "Species": "Species022",
+        "Length": 70
+      },
+      {
+        "Species": "Species022",
+        "Length": 23
+      },
+      {
+        "Species": "Species022",
+        "Length": 78
+      },
+      {
+        "Species": "Species022",
+        "Length": 14
+      },
+      {
+        "Species": "Species022",
+        "Length": 65
+      },
+      {
+        "Species": "Species022",
+        "Length": 56
+      },
+      {
+        "Species": "Species022",
+        "Length": 38
+      },
+      {
+        "Species": "Species022",
+        "Length": 74
+      },
+      {
+        "Species": "Species022",
+        "Length": 17
+      },
+      {
+        "Species": "Species022",
+        "Length": 75
+      },
+      {
+        "Species": "Species025",
+        "Length": 25
+      },
+      {
+        "Species": "Species025",
+        "Length": 39
+      },
+      {
+        "Species": "Species025",
+        "Length": 80
+      },
+      {
+        "Species": "Species025",
+        "Length": 59
+      },
+      {
+        "Species": "Species025",
+        "Length": 70
+      },
+      {
+        "Species": "Species025",
+        "Length": 28
+      },
+      {
+        "Species": "Species025",
+        "Length": 75
+      },
+      {
+        "Species": "Species025",
+        "Length": 18
+      },
+      {
+        "Species": "Species025",
+        "Length": 48
+      },
+      {
+        "Species": "Species025",
+        "Length": 67
+      },
+      {
+        "Species": "Species026",
+        "Length": 35
+      },
+      {
+        "Species": "Species026",
+        "Length": 77
+      },
+      {
+        "Species": "Species026",
+        "Length": 49
+      },
+      {
+        "Species": "Species026",
+        "Length": 23
+      },
+      {
+        "Species": "Species026",
+        "Length": 65
+      },
+      {
+        "Species": "Species026",
+        "Length": 59
+      },
+      {
+        "Species": "Species026",
+        "Length": 52
+      },
+      {
+        "Species": "Species026",
+        "Length": 52
+      },
+      {
+        "Species": "Species026",
+        "Length": 10
+      },
+      {
+        "Species": "Species026",
+        "Length": 40
+      },
+      {
+        "Species": "Species027",
+        "Length": 44
+      },
+      {
+        "Species": "Species027",
+        "Length": 56
+      },
+      {
+        "Species": "Species027",
+        "Length": 26
+      },
+      {
+        "Species": "Species027",
+        "Length": 11
+      },
+      {
+        "Species": "Species027",
+        "Length": 78
+      },
+      {
+        "Species": "Species027",
+        "Length": 17
+      },
+      {
+        "Species": "Species027",
+        "Length": 31
+      },
+      {
+        "Species": "Species027",
+        "Length": 42
+      },
+      {
+        "Species": "Species027",
+        "Length": 52
+      },
+      {
+        "Species": "Species027",
+        "Length": 60
+      },
+      {
+        "Species": "Species029",
+        "Length": 41
+      },
+      {
+        "Species": "Species029",
+        "Length": 77
+      },
+      {
+        "Species": "Species029",
+        "Length": 47
+      },
+      {
+        "Species": "Species029",
+        "Length": 17
+      },
+      {
+        "Species": "Species029",
+        "Length": 59
+      },
+      {
+        "Species": "Species029",
+        "Length": 35
+      },
+      {
+        "Species": "Species029",
+        "Length": 46
+      },
+      {
+        "Species": "Species029",
+        "Length": 40
+      },
+      {
+        "Species": "Species029",
+        "Length": 17
+      },
+      {
+        "Species": "Species029",
+        "Length": 24
+      },
+      {
+        "Species": "Species030",
+        "Length": 42
+      },
+      {
+        "Species": "Species030",
+        "Length": 22
+      },
+      {
+        "Species": "Species030",
+        "Length": 17
+      },
+      {
+        "Species": "Species030",
+        "Length": 68
+      },
+      {
+        "Species": "Species030",
+        "Length": 33
+      },
+      {
+        "Species": "Species030",
+        "Length": 68
+      },
+      {
+        "Species": "Species030",
+        "Length": 42
+      },
+      {
+        "Species": "Species030",
+        "Length": 62
+      },
+      {
+        "Species": "Species030",
+        "Length": 68
+      },
+      {
+        "Species": "Species030",
+        "Length": 80
+      },
+      {
+        "Species": "Species031",
+        "Length": 69
+      },
+      {
+        "Species": "Species031",
+        "Length": 65
+      },
+      {
+        "Species": "Species031",
+        "Length": 78
+      },
+      {
+        "Species": "Species031",
+        "Length": 60
+      },
+      {
+        "Species": "Species031",
+        "Length": 55
+      },
+      {
+        "Species": "Species031",
+        "Length": 77
+      },
+      {
+        "Species": "Species031",
+        "Length": 62
+      },
+      {
+        "Species": "Species031",
+        "Length": 52
+      },
+      {
+        "Species": "Species031",
+        "Length": 54
+      },
+      {
+        "Species": "Species031",
+        "Length": 25
+      },
+      {
+        "Species": "Species035",
+        "Length": 70
+      },
+      {
+        "Species": "Species035",
+        "Length": 76
+      },
+      {
+        "Species": "Species035",
+        "Length": 60
+      },
+      {
+        "Species": "Species035",
+        "Length": 29
+      },
+      {
+        "Species": "Species035",
+        "Length": 52
+      },
+      {
+        "Species": "Species035",
+        "Length": 33
+      },
+      {
+        "Species": "Species035",
+        "Length": 44
+      },
+      {
+        "Species": "Species035",
+        "Length": 42
+      },
+      {
+        "Species": "Species035",
+        "Length": 34
+      },
+      {
+        "Species": "Species035",
+        "Length": 66
+      },
+      {
+        "Species": "Species036",
+        "Length": 60
+      },
+      {
+        "Species": "Species036",
+        "Length": 49
+      },
+      {
+        "Species": "Species036",
+        "Length": 31
+      },
+      {
+        "Species": "Species036",
+        "Length": 33
+      },
+      {
+        "Species": "Species036",
+        "Length": 72
+      },
+      {
+        "Species": "Species036",
+        "Length": 36
+      },
+      {
+        "Species": "Species036",
+        "Length": 67
+      },
+      {
+        "Species": "Species036",
+        "Length": 79
+      },
+      {
+        "Species": "Species036",
+        "Length": 41
+      },
+      {
+        "Species": "Species036",
+        "Length": 75
+      },
+      {
+        "Species": "Species037",
+        "Length": 78
+      },
+      {
+        "Species": "Species037",
+        "Length": 30
+      },
+      {
+        "Species": "Species037",
+        "Length": 79
+      },
+      {
+        "Species": "Species037",
+        "Length": 33
+      },
+      {
+        "Species": "Species037",
+        "Length": 69
+      },
+      {
+        "Species": "Species037",
+        "Length": 62
+      },
+      {
+        "Species": "Species037",
+        "Length": 49
+      },
+      {
+        "Species": "Species037",
+        "Length": 31
+      },
+      {
+        "Species": "Species037",
+        "Length": 11
+      },
+      {
+        "Species": "Species037",
+        "Length": 72
+      },
+      {
+        "Species": "Species040",
+        "Length": 37
+      },
+      {
+        "Species": "Species040",
+        "Length": 18
+      },
+      {
+        "Species": "Species040",
+        "Length": 55
+      },
+      {
+        "Species": "Species040",
+        "Length": 14
+      },
+      {
+        "Species": "Species040",
+        "Length": 28
+      },
+      {
+        "Species": "Species040",
+        "Length": 47
+      },
+      {
+        "Species": "Species040",
+        "Length": 31
+      },
+      {
+        "Species": "Species040",
+        "Length": 53
+      },
+      {
+        "Species": "Species040",
+        "Length": 12
+      },
+      {
+        "Species": "Species040",
+        "Length": 78
+      },
+      {
+        "Species": "Species041",
+        "Length": 77
+      },
+      {
+        "Species": "Species041",
+        "Length": 26
+      },
+      {
+        "Species": "Species041",
+        "Length": 34
+      },
+      {
+        "Species": "Species041",
+        "Length": 52
+      },
+      {
+        "Species": "Species041",
+        "Length": 25
+      },
+      {
+        "Species": "Species041",
+        "Length": 71
+      },
+      {
+        "Species": "Species041",
+        "Length": 40
+      },
+      {
+        "Species": "Species041",
+        "Length": 28
+      },
+      {
+        "Species": "Species041",
+        "Length": 30
+      },
+      {
+        "Species": "Species041",
+        "Length": 68
+      },
+      {
+        "Species": "Species042",
+        "Length": 51
+      },
+      {
+        "Species": "Species042",
+        "Length": 40
+      },
+      {
+        "Species": "Species042",
+        "Length": 11
+      },
+      {
+        "Species": "Species042",
+        "Length": 42
+      },
+      {
+        "Species": "Species042",
+        "Length": 39
+      },
+      {
+        "Species": "Species042",
+        "Length": 79
+      },
+      {
+        "Species": "Species042",
+        "Length": 57
+      },
+      {
+        "Species": "Species042",
+        "Length": 69
+      },
+      {
+        "Species": "Species042",
+        "Length": 19
+      },
+      {
+        "Species": "Species042",
+        "Length": 66
+      },
+      {
+        "Species": "Species044",
+        "Length": 22
+      },
+      {
+        "Species": "Species044",
+        "Length": 68
+      },
+      {
+        "Species": "Species044",
+        "Length": 44
+      },
+      {
+        "Species": "Species044",
+        "Length": 64
+      },
+      {
+        "Species": "Species044",
+        "Length": 79
+      },
+      {
+        "Species": "Species044",
+        "Length": 23
+      },
+      {
+        "Species": "Species044",
+        "Length": 45
+      },
+      {
+        "Species": "Species044",
+        "Length": 54
+      },
+      {
+        "Species": "Species044",
+        "Length": 42
+      },
+      {
+        "Species": "Species044",
+        "Length": 23
+      },
+      {
+        "Species": "Species045",
+        "Length": 65
+      },
+      {
+        "Species": "Species045",
+        "Length": 77
+      },
+      {
+        "Species": "Species045",
+        "Length": 77
+      },
+      {
+        "Species": "Species045",
+        "Length": 50
+      },
+      {
+        "Species": "Species045",
+        "Length": 78
+      },
+      {
+        "Species": "Species045",
+        "Length": 20
+      },
+      {
+        "Species": "Species045",
+        "Length": 25
+      },
+      {
+        "Species": "Species045",
+        "Length": 47
+      },
+      {
+        "Species": "Species045",
+        "Length": 30
+      },
+      {
+        "Species": "Species045",
+        "Length": 57
+      },
+      {
+        "Species": "Species054",
+        "Length": 23
+      },
+      {
+        "Species": "Species054",
+        "Length": 68
+      },
+      {
+        "Species": "Species054",
+        "Length": 14
+      },
+      {
+        "Species": "Species054",
+        "Length": 79
+      },
+      {
+        "Species": "Species054",
+        "Length": 13
+      },
+      {
+        "Species": "Species054",
+        "Length": 53
+      },
+      {
+        "Species": "Species054",
+        "Length": 54
+      },
+      {
+        "Species": "Species054",
+        "Length": 30
+      },
+      {
+        "Species": "Species054",
+        "Length": 54
+      },
+      {
+        "Species": "Species054",
+        "Length": 14
+      },
+      {
+        "Species": "Species056",
+        "Length": 77
+      },
+      {
+        "Species": "Species056",
+        "Length": 25
+      },
+      {
+        "Species": "Species056",
+        "Length": 57
+      },
+      {
+        "Species": "Species056",
+        "Length": 77
+      },
+      {
+        "Species": "Species056",
+        "Length": 57
+      },
+      {
+        "Species": "Species056",
+        "Length": 66
+      },
+      {
+        "Species": "Species056",
+        "Length": 63
+      },
+      {
+        "Species": "Species056",
+        "Length": 71
+      },
+      {
+        "Species": "Species056",
+        "Length": 68
+      },
+      {
+        "Species": "Species056",
+        "Length": 15
+      },
+      {
+        "Species": "Species058",
+        "Length": 62
+      },
+      {
+        "Species": "Species058",
+        "Length": 79
+      },
+      {
+        "Species": "Species058",
+        "Length": 21
+      },
+      {
+        "Species": "Species058",
+        "Length": 71
+      },
+      {
+        "Species": "Species058",
+        "Length": 31
+      },
+      {
+        "Species": "Species058",
+        "Length": 70
+      },
+      {
+        "Species": "Species058",
+        "Length": 55
+      },
+      {
+        "Species": "Species058",
+        "Length": 63
+      },
+      {
+        "Species": "Species058",
+        "Length": 39
+      },
+      {
+        "Species": "Species058",
+        "Length": 38
+      },
+      {
+        "Species": "Species061",
+        "Length": 69
+      },
+      {
+        "Species": "Species061",
+        "Length": 57
+      },
+      {
+        "Species": "Species061",
+        "Length": 15
+      },
+      {
+        "Species": "Species061",
+        "Length": 44
+      },
+      {
+        "Species": "Species061",
+        "Length": 58
+      },
+      {
+        "Species": "Species061",
+        "Length": 30
+      },
+      {
+        "Species": "Species061",
+        "Length": 49
+      },
+      {
+        "Species": "Species061",
+        "Length": 69
+      },
+      {
+        "Species": "Species061",
+        "Length": 78
+      },
+      {
+        "Species": "Species061",
+        "Length": 64
+      },
+      {
+        "Species": "Species065",
+        "Length": 16
+      },
+      {
+        "Species": "Species065",
+        "Length": 11
+      },
+      {
+        "Species": "Species065",
+        "Length": 16
+      },
+      {
+        "Species": "Species065",
+        "Length": 47
+      },
+      {
+        "Species": "Species065",
+        "Length": 79
+      },
+      {
+        "Species": "Species065",
+        "Length": 73
+      },
+      {
+        "Species": "Species065",
+        "Length": 20
+      },
+      {
+        "Species": "Species065",
+        "Length": 23
+      },
+      {
+        "Species": "Species065",
+        "Length": 32
+      },
+      {
+        "Species": "Species065",
+        "Length": 10
+      },
+      {
+        "Species": "Species066",
+        "Length": 35
+      },
+      {
+        "Species": "Species066",
+        "Length": 71
+      },
+      {
+        "Species": "Species066",
+        "Length": 67
+      },
+      {
+        "Species": "Species066",
+        "Length": 26
+      },
+      {
+        "Species": "Species066",
+        "Length": 74
+      },
+      {
+        "Species": "Species066",
+        "Length": 36
+      },
+      {
+        "Species": "Species066",
+        "Length": 77
+      },
+      {
+        "Species": "Species066",
+        "Length": 30
+      },
+      {
+        "Species": "Species066",
+        "Length": 11
+      },
+      {
+        "Species": "Species066",
+        "Length": 26
+      },
+      {
+        "Species": "Species078",
+        "Length": 50
+      },
+      {
+        "Species": "Species078",
+        "Length": 21
+      },
+      {
+        "Species": "Species078",
+        "Length": 11
+      },
+      {
+        "Species": "Species078",
+        "Length": 31
+      },
+      {
+        "Species": "Species078",
+        "Length": 78
+      },
+      {
+        "Species": "Species078",
+        "Length": 12
+      },
+      {
+        "Species": "Species078",
+        "Length": 21
+      },
+      {
+        "Species": "Species078",
+        "Length": 31
+      },
+      {
+        "Species": "Species078",
+        "Length": 74
+      },
+      {
+        "Species": "Species078",
+        "Length": 42
+      },
+      {
+        "Species": "Species080",
+        "Length": 34
+      },
+      {
+        "Species": "Species080",
+        "Length": 42
+      },
+      {
+        "Species": "Species080",
+        "Length": 63
+      },
+      {
+        "Species": "Species080",
+        "Length": 42
+      },
+      {
+        "Species": "Species080",
+        "Length": 64
+      },
+      {
+        "Species": "Species080",
+        "Length": 54
+      },
+      {
+        "Species": "Species080",
+        "Length": 31
+      },
+      {
+        "Species": "Species080",
+        "Length": 64
+      },
+      {
+        "Species": "Species080",
+        "Length": 49
+      },
+      {
+        "Species": "Species080",
+        "Length": 79
+      },
+      {
+        "Species": "Species081",
+        "Length": 17
+      },
+      {
+        "Species": "Species081",
+        "Length": 43
+      },
+      {
+        "Species": "Species081",
+        "Length": 31
+      },
+      {
+        "Species": "Species081",
+        "Length": 22
+      },
+      {
+        "Species": "Species081",
+        "Length": 26
+      },
+      {
+        "Species": "Species081",
+        "Length": 28
+      },
+      {
+        "Species": "Species081",
+        "Length": 66
+      },
+      {
+        "Species": "Species081",
+        "Length": 78
+      },
+      {
+        "Species": "Species081",
+        "Length": 55
+      },
+      {
+        "Species": "Species081",
+        "Length": 18
+      },
+      {
+        "Species": "Species087",
+        "Length": 58
+      },
+      {
+        "Species": "Species087",
+        "Length": 75
+      },
+      {
+        "Species": "Species087",
+        "Length": 16
+      },
+      {
+        "Species": "Species087",
+        "Length": 51
+      },
+      {
+        "Species": "Species087",
+        "Length": 33
+      },
+      {
+        "Species": "Species087",
+        "Length": 60
+      },
+      {
+        "Species": "Species087",
+        "Length": 76
+      },
+      {
+        "Species": "Species087",
+        "Length": 65
+      },
+      {
+        "Species": "Species087",
+        "Length": 79
+      },
+      {
+        "Species": "Species087",
+        "Length": 80
+      },
+      {
+        "Species": "Species090",
+        "Length": 12
+      },
+      {
+        "Species": "Species090",
+        "Length": 26
+      },
+      {
+        "Species": "Species090",
+        "Length": 78
+      },
+      {
+        "Species": "Species090",
+        "Length": 75
+      },
+      {
+        "Species": "Species090",
+        "Length": 38
+      },
+      {
+        "Species": "Species090",
+        "Length": 23
+      },
+      {
+        "Species": "Species090",
+        "Length": 18
+      },
+      {
+        "Species": "Species090",
+        "Length": 65
+      },
+      {
+        "Species": "Species090",
+        "Length": 10
+      },
+      {
+        "Species": "Species090",
+        "Length": 62
+      },
+      {
+        "Species": "Species095",
+        "Length": 64
+      },
+      {
+        "Species": "Species095",
+        "Length": 68
+      },
+      {
+        "Species": "Species095",
+        "Length": 58
+      },
+      {
+        "Species": "Species095",
+        "Length": 64
+      },
+      {
+        "Species": "Species095",
+        "Length": 39
+      },
+      {
+        "Species": "Species095",
+        "Length": 61
+      },
+      {
+        "Species": "Species095",
+        "Length": 65
+      },
+      {
+        "Species": "Species095",
+        "Length": 17
+      },
+      {
+        "Species": "Species095",
+        "Length": 78
+      },
+      {
+        "Species": "Species095",
+        "Length": 22
+      },
+      {
+        "Species": "Species096",
+        "Length": 16
+      },
+      {
+        "Species": "Species096",
+        "Length": 29
+      },
+      {
+        "Species": "Species096",
+        "Length": 34
+      },
+      {
+        "Species": "Species096",
+        "Length": 60
+      },
+      {
+        "Species": "Species096",
+        "Length": 71
+      },
+      {
+        "Species": "Species096",
+        "Length": 53
+      },
+      {
+        "Species": "Species096",
+        "Length": 79
+      },
+      {
+        "Species": "Species096",
+        "Length": 23
+      },
+      {
+        "Species": "Species096",
+        "Length": 35
+      },
+      {
+        "Species": "Species096",
+        "Length": 28
+      },
+      {
+        "Species": "Species098",
+        "Length": 67
+      },
+      {
+        "Species": "Species098",
+        "Length": 58
+      },
+      {
+        "Species": "Species098",
+        "Length": 41
+      },
+      {
+        "Species": "Species098",
+        "Length": 77
+      },
+      {
+        "Species": "Species098",
+        "Length": 50
+      },
+      {
+        "Species": "Species098",
+        "Length": 74
+      },
+      {
+        "Species": "Species098",
+        "Length": 61
+      },
+      {
+        "Species": "Species098",
+        "Length": 44
+      },
+      {
+        "Species": "Species098",
+        "Length": 55
+      },
+      {
+        "Species": "Species098",
+        "Length": 36
+      },
+      {
+        "Species": "Species099",
+        "Length": 64
+      },
+      {
+        "Species": "Species099",
+        "Length": 40
+      },
+      {
+        "Species": "Species099",
+        "Length": 74
+      },
+      {
+        "Species": "Species099",
+        "Length": 29
+      },
+      {
+        "Species": "Species099",
+        "Length": 79
+      },
+      {
+        "Species": "Species099",
+        "Length": 59
+      },
+      {
+        "Species": "Species099",
+        "Length": 59
+      },
+      {
+        "Species": "Species099",
+        "Length": 25
+      },
+      {
+        "Species": "Species099",
+        "Length": 40
+      },
+      {
+        "Species": "Species099",
+        "Length": 26
+      },
+      {
+        "Species": "Species100",
+        "Length": 60
+      },
+      {
+        "Species": "Species100",
+        "Length": 75
+      },
+      {
+        "Species": "Species100",
+        "Length": 39
+      },
+      {
+        "Species": "Species100",
+        "Length": 69
+      },
+      {
+        "Species": "Species100",
+        "Length": 79
+      },
+      {
+        "Species": "Species100",
+        "Length": 12
+      },
+      {
+        "Species": "Species100",
+        "Length": 26
+      },
+      {
+        "Species": "Species100",
+        "Length": 61
+      },
+      {
+        "Species": "Species100",
+        "Length": 33
+      },
+      {
+        "Species": "Species100",
+        "Length": 47
+      },
+      {
+        "Species": "Species101",
+        "Length": 12
+      },
+      {
+        "Species": "Species101",
+        "Length": 20
+      },
+      {
+        "Species": "Species101",
+        "Length": 19
+      },
+      {
+        "Species": "Species101",
+        "Length": 72
+      },
+      {
+        "Species": "Species101",
+        "Length": 14
+      },
+      {
+        "Species": "Species101",
+        "Length": 67
+      },
+      {
+        "Species": "Species101",
+        "Length": 77
+      },
+      {
+        "Species": "Species101",
+        "Length": 55
+      },
+      {
+        "Species": "Species101",
+        "Length": 76
+      },
+      {
+        "Species": "Species101",
+        "Length": 18
+      },
+      {
+        "Species": "Species104",
+        "Length": 41
+      },
+      {
+        "Species": "Species104",
+        "Length": 53
+      },
+      {
+        "Species": "Species104",
+        "Length": 77
+      },
+      {
+        "Species": "Species104",
+        "Length": 59
+      },
+      {
+        "Species": "Species104",
+        "Length": 59
+      },
+      {
+        "Species": "Species104",
+        "Length": 32
+      },
+      {
+        "Species": "Species104",
+        "Length": 63
+      },
+      {
+        "Species": "Species104",
+        "Length": 66
+      },
+      {
+        "Species": "Species104",
+        "Length": 18
+      },
+      {
+        "Species": "Species104",
+        "Length": 66
+      },
+      {
+        "Species": "Species105",
+        "Length": 80
+      },
+      {
+        "Species": "Species105",
+        "Length": 20
+      },
+      {
+        "Species": "Species105",
+        "Length": 29
+      },
+      {
+        "Species": "Species105",
+        "Length": 53
+      },
+      {
+        "Species": "Species105",
+        "Length": 59
+      },
+      {
+        "Species": "Species105",
+        "Length": 43
+      },
+      {
+        "Species": "Species105",
+        "Length": 58
+      },
+      {
+        "Species": "Species105",
+        "Length": 54
+      },
+      {
+        "Species": "Species105",
+        "Length": 50
+      },
+      {
+        "Species": "Species105",
+        "Length": 49
+      },
+      {
+        "Species": "Species108",
+        "Length": 32
+      },
+      {
+        "Species": "Species108",
+        "Length": 71
+      },
+      {
+        "Species": "Species108",
+        "Length": 61
+      },
+      {
+        "Species": "Species108",
+        "Length": 54
+      },
+      {
+        "Species": "Species108",
+        "Length": 65
+      },
+      {
+        "Species": "Species108",
+        "Length": 41
+      },
+      {
+        "Species": "Species108",
+        "Length": 49
+      },
+      {
+        "Species": "Species108",
+        "Length": 72
+      },
+      {
+        "Species": "Species108",
+        "Length": 73
+      },
+      {
+        "Species": "Species108",
+        "Length": 79
+      },
+      {
+        "Species": "Species115",
+        "Length": 33
+      },
+      {
+        "Species": "Species115",
+        "Length": 27
+      },
+      {
+        "Species": "Species115",
+        "Length": 78
+      },
+      {
+        "Species": "Species115",
+        "Length": 18
+      },
+      {
+        "Species": "Species115",
+        "Length": 54
+      },
+      {
+        "Species": "Species115",
+        "Length": 21
+      },
+      {
+        "Species": "Species115",
+        "Length": 36
+      },
+      {
+        "Species": "Species115",
+        "Length": 41
+      },
+      {
+        "Species": "Species115",
+        "Length": 14
+      },
+      {
+        "Species": "Species115",
+        "Length": 65
+      },
+      {
+        "Species": "Species120",
+        "Length": 18
+      },
+      {
+        "Species": "Species120",
+        "Length": 24
+      },
+      {
+        "Species": "Species120",
+        "Length": 72
+      },
+      {
+        "Species": "Species120",
+        "Length": 44
+      },
+      {
+        "Species": "Species120",
+        "Length": 36
+      },
+      {
+        "Species": "Species120",
+        "Length": 60
+      },
+      {
+        "Species": "Species120",
+        "Length": 33
+      },
+      {
+        "Species": "Species120",
+        "Length": 78
+      },
+      {
+        "Species": "Species120",
+        "Length": 72
+      },
+      {
+        "Species": "Species120",
+        "Length": 56
+      }
+    ]
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "74 of 120 values in 'Species' were omitted (showing top 46).",
+      "channel": "x",
+      "field": "Species"
+    }
+  ],
+  "_width": 400,
+  "_height": 219,
+  "_options": [
+    {
+      "key": "stepWidth",
+      "label": "Jitter",
+      "type": "continuous",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "pointSize",
+      "label": "Size",
+      "type": "continuous",
+      "min": 0,
+      "max": 150,
+      "step": 5,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_x",
+      "label": "Log X",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "logScale_y",
+      "label": "Log Y",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "includeZero_x",
+      "label": "Zero X",
+      "type": "binary",
+      "applicable": false
+    },
+    {
+      "key": "includeZero_y",
+      "label": "Zero Y",
+      "type": "binary",
+      "applicable": true,
+      "value": false
+    }
+  ]
+}

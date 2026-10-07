@@ -1,0 +1,113 @@
+{
+  "title": "Lollipop ▸ Y ×20",
+  "description": "Horizontal lollipop with 20 categories on Y",
+  "chartType": "Lollipop Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Country": "Country01",
+          "GDP": 1277
+        },
+        {
+          "Country": "Country02",
+          "GDP": 3730
+        },
+        {
+          "Country": "Country03",
+          "GDP": 1490
+        },
+        {
+          "Country": "Country04",
+          "GDP": 1597
+        },
+        {
+          "Country": "Country05",
+          "GDP": 1652
+        },
+        {
+          "Country": "Country06",
+          "GDP": 4266
+        },
+        {
+          "Country": "Country07",
+          "GDP": 1940
+        },
+        {
+          "Country": "Country08",
+          "GDP": 3742
+        },
+        {
+          "Country": "Country09",
+          "GDP": 1078
+        },
+        {
+          "Country": "Country10",
+          "GDP": 4184
+        },
+        {
+          "Country": "Country11",
+          "GDP": 1200
+        },
+        {
+          "Country": "Country12",
+          "GDP": 2739
+        },
+        {
+          "Country": "Country13",
+          "GDP": 3614
+        },
+        {
+          "Country": "Country14",
+          "GDP": 1203
+        },
+        {
+          "Country": "Country15",
+          "GDP": 1361
+        },
+        {
+          "Country": "Country16",
+          "GDP": 3843
+        },
+        {
+          "Country": "Country17",
+          "GDP": 4250
+        },
+        {
+          "Country": "Country18",
+          "GDP": 2488
+        },
+        {
+          "Country": "Country19",
+          "GDP": 3658
+        },
+        {
+          "Country": "Country20",
+          "GDP": 3712
+        }
+      ]
+    },
+    "semantic_types": {
+      "Country": "Category",
+      "GDP": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Lollipop Chart",
+      "encodings": {
+        "y": {
+          "field": "Country"
+        },
+        "x": {
+          "field": "GDP"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

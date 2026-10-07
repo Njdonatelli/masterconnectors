@@ -1,0 +1,129 @@
+{
+  "title": "Hours (UTC ms, same day) → Area Chart",
+  "description": "Hourly timestamps in ms for one day (24 values)",
+  "chartType": "Area Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Timestamp": 1579075200000,
+          "Value": 455
+        },
+        {
+          "Timestamp": 1579078800000,
+          "Value": 224
+        },
+        {
+          "Timestamp": 1579082400000,
+          "Value": 207
+        },
+        {
+          "Timestamp": 1579086000000,
+          "Value": 69
+        },
+        {
+          "Timestamp": 1579089600000,
+          "Value": 337
+        },
+        {
+          "Timestamp": 1579093200000,
+          "Value": 251
+        },
+        {
+          "Timestamp": 1579096800000,
+          "Value": 227
+        },
+        {
+          "Timestamp": 1579100400000,
+          "Value": 443
+        },
+        {
+          "Timestamp": 1579104000000,
+          "Value": 55
+        },
+        {
+          "Timestamp": 1579107600000,
+          "Value": 236
+        },
+        {
+          "Timestamp": 1579111200000,
+          "Value": 282
+        },
+        {
+          "Timestamp": 1579114800000,
+          "Value": 338
+        },
+        {
+          "Timestamp": 1579118400000,
+          "Value": 353
+        },
+        {
+          "Timestamp": 1579122000000,
+          "Value": 322
+        },
+        {
+          "Timestamp": 1579125600000,
+          "Value": 434
+        },
+        {
+          "Timestamp": 1579129200000,
+          "Value": 59
+        },
+        {
+          "Timestamp": 1579132800000,
+          "Value": 444
+        },
+        {
+          "Timestamp": 1579136400000,
+          "Value": 372
+        },
+        {
+          "Timestamp": 1579140000000,
+          "Value": 54
+        },
+        {
+          "Timestamp": 1579143600000,
+          "Value": 252
+        },
+        {
+          "Timestamp": 1579147200000,
+          "Value": 441
+        },
+        {
+          "Timestamp": 1579150800000,
+          "Value": 498
+        },
+        {
+          "Timestamp": 1579154400000,
+          "Value": 217
+        },
+        {
+          "Timestamp": 1579158000000,
+          "Value": 213
+        }
+      ]
+    },
+    "semantic_types": {
+      "Timestamp": "Timestamp",
+      "Value": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Area Chart",
+      "encodings": {
+        "x": {
+          "field": "Timestamp"
+        },
+        "y": {
+          "field": "Value"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

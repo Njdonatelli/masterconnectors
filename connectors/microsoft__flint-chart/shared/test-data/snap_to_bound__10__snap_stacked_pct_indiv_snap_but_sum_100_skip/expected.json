@@ -1,0 +1,156 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "month",
+      "type": "nominal",
+      "sort": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr"
+      ]
+    },
+    "y": {
+      "field": "score",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    },
+    "color": {
+      "field": "metric",
+      "type": "nominal",
+      "sort": null,
+      "scale": {
+        "scheme": "tableau10"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "labelAngle": 0,
+      "labelAlign": "center",
+      "labelBaseline": "top"
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 27
+  },
+  "data": {
+    "values": [
+      {
+        "month": "Jan",
+        "metric": "Metric 1",
+        "score": 92
+      },
+      {
+        "month": "Jan",
+        "metric": "Metric 2",
+        "score": 88
+      },
+      {
+        "month": "Jan",
+        "metric": "Metric 3",
+        "score": 85
+      },
+      {
+        "month": "Feb",
+        "metric": "Metric 1",
+        "score": 95
+      },
+      {
+        "month": "Feb",
+        "metric": "Metric 2",
+        "score": 90
+      },
+      {
+        "month": "Feb",
+        "metric": "Metric 3",
+        "score": 87
+      },
+      {
+        "month": "Mar",
+        "metric": "Metric 1",
+        "score": 91
+      },
+      {
+        "month": "Mar",
+        "metric": "Metric 2",
+        "score": 93
+      },
+      {
+        "month": "Mar",
+        "metric": "Metric 3",
+        "score": 84
+      },
+      {
+        "month": "Apr",
+        "metric": "Metric 1",
+        "score": 94
+      },
+      {
+        "month": "Apr",
+        "metric": "Metric 2",
+        "score": 89
+      },
+      {
+        "month": "Apr",
+        "metric": "Metric 3",
+        "score": 91
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

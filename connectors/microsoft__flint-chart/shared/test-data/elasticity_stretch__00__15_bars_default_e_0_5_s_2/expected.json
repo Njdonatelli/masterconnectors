@@ -1,0 +1,160 @@
+{
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Category",
+      "type": "nominal",
+      "sort": null
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 400,
+      "continuousHeight": 279
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 28
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "width": {
+    "step": 26
+  },
+  "data": {
+    "values": [
+      {
+        "Category": "USA",
+        "Value": 14
+      },
+      {
+        "Category": "China",
+        "Value": 213
+      },
+      {
+        "Category": "Japan",
+        "Value": 435
+      },
+      {
+        "Category": "Germany",
+        "Value": 106
+      },
+      {
+        "Category": "UK",
+        "Value": 127
+      },
+      {
+        "Category": "France",
+        "Value": 380
+      },
+      {
+        "Category": "India",
+        "Value": 509
+      },
+      {
+        "Category": "Brazil",
+        "Value": 103
+      },
+      {
+        "Category": "Canada",
+        "Value": 319
+      },
+      {
+        "Category": "Australia",
+        "Value": 389
+      },
+      {
+        "Category": "South Korea",
+        "Value": 69
+      },
+      {
+        "Category": "Mexico",
+        "Value": 458
+      },
+      {
+        "Category": "Italy",
+        "Value": 77
+      },
+      {
+        "Category": "Spain",
+        "Value": 279
+      },
+      {
+        "Category": "Russia",
+        "Value": 214
+      }
+    ]
+  },
+  "_width": 400,
+  "_height": 279,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "mark": "area",
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal"
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 407,
+      "continuousHeight": 295
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 30
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2020-01-15",
+        "Value": 283
+      },
+      {
+        "Date": "2020-02-15",
+        "Value": 364
+      },
+      {
+        "Date": "2020-03-15",
+        "Value": 151
+      },
+      {
+        "Date": "2020-04-15",
+        "Value": 84
+      },
+      {
+        "Date": "2020-05-15",
+        "Value": 445
+      },
+      {
+        "Date": "2020-06-15",
+        "Value": 182
+      },
+      {
+        "Date": "2020-07-15",
+        "Value": 202
+      },
+      {
+        "Date": "2020-08-15",
+        "Value": 280
+      },
+      {
+        "Date": "2020-09-15",
+        "Value": 288
+      },
+      {
+        "Date": "2020-10-15",
+        "Value": 515
+      },
+      {
+        "Date": "2020-11-15",
+        "Value": 458
+      },
+      {
+        "Date": "2020-12-15",
+        "Value": 362
+      },
+      {
+        "Date": "2021-01-15",
+        "Value": 265
+      },
+      {
+        "Date": "2021-02-15",
+        "Value": 265
+      },
+      {
+        "Date": "2021-03-15",
+        "Value": 67
+      },
+      {
+        "Date": "2021-04-15",
+        "Value": 349
+      },
+      {
+        "Date": "2021-05-15",
+        "Value": 418
+      },
+      {
+        "Date": "2021-06-15",
+        "Value": 310
+      },
+      {
+        "Date": "2021-07-15",
+        "Value": 545
+      },
+      {
+        "Date": "2021-08-15",
+        "Value": 131
+      },
+      {
+        "Date": "2021-09-15",
+        "Value": 320
+      },
+      {
+        "Date": "2021-10-15",
+        "Value": 264
+      },
+      {
+        "Date": "2021-11-15",
+        "Value": 484
+      },
+      {
+        "Date": "2021-12-15",
+        "Value": 165
+      },
+      {
+        "Date": "2022-01-15",
+        "Value": 221
+      },
+      {
+        "Date": "2022-02-15",
+        "Value": 72
+      },
+      {
+        "Date": "2022-03-15",
+        "Value": 454
+      },
+      {
+        "Date": "2022-04-15",
+        "Value": 104
+      },
+      {
+        "Date": "2022-05-15",
+        "Value": 302
+      },
+      {
+        "Date": "2022-06-15",
+        "Value": 307
+      },
+      {
+        "Date": "2022-07-15",
+        "Value": 328
+      },
+      {
+        "Date": "2022-08-15",
+        "Value": 66
+      },
+      {
+        "Date": "2022-09-15",
+        "Value": 392
+      },
+      {
+        "Date": "2022-10-15",
+        "Value": 122
+      },
+      {
+        "Date": "2022-11-15",
+        "Value": 507
+      },
+      {
+        "Date": "2022-12-15",
+        "Value": 271
+      }
+    ]
+  },
+  "_width": 407,
+  "_height": 295,
+  "_options": [
+    {
+      "key": "interpolate",
+      "label": "Curve",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Default (linear)"
+        },
+        {
+          "value": "linear",
+          "label": "Linear"
+        },
+        {
+          "value": "monotone",
+          "label": "Monotone (smooth)"
+        },
+        {
+          "value": "step",
+          "label": "Step"
+        },
+        {
+          "value": "step-before",
+          "label": "Step Before"
+        },
+        {
+          "value": "step-after",
+          "label": "Step After"
+        },
+        {
+          "value": "basis",
+          "label": "Basis (smooth)"
+        },
+        {
+          "value": "cardinal",
+          "label": "Cardinal"
+        },
+        {
+          "value": "catmull-rom",
+          "label": "Catmull-Rom"
+        }
+      ],
+      "applicable": true
+    },
+    {
+      "key": "opacity",
+      "label": "Opacity",
+      "type": "continuous",
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05,
+      "defaultValue": 0.7,
+      "applicable": true,
+      "value": 0.7
+    },
+    {
+      "key": "stackMode",
+      "label": "Stack",
+      "type": "discrete",
+      "options": [
+        {
+          "label": "Stacked (default)"
+        },
+        {
+          "value": "normalize",
+          "label": "Normalize (100%)"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "layered",
+          "label": "Layered (overlap)"
+        }
+      ],
+      "applicable": false
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

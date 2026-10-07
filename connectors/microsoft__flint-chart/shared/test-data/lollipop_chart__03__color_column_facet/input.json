@@ -1,0 +1,113 @@
+{
+  "title": "Color + Column Facet",
+  "description": "6 items × 2 regions faceted, color by tier",
+  "chartType": "Lollipop Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Item": "Electronics",
+          "Revenue": 645,
+          "Region": "North",
+          "Tier": "Standard"
+        },
+        {
+          "Item": "Clothing",
+          "Revenue": 483,
+          "Region": "North",
+          "Tier": "Standard"
+        },
+        {
+          "Item": "Food",
+          "Revenue": 732,
+          "Region": "North",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Books",
+          "Revenue": 797,
+          "Region": "North",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Sports",
+          "Revenue": 259,
+          "Region": "North",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Home",
+          "Revenue": 930,
+          "Region": "North",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Electronics",
+          "Revenue": 536,
+          "Region": "South",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Clothing",
+          "Revenue": 696,
+          "Region": "South",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Food",
+          "Revenue": 872,
+          "Region": "South",
+          "Tier": "Standard"
+        },
+        {
+          "Item": "Books",
+          "Revenue": 304,
+          "Region": "South",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Sports",
+          "Revenue": 293,
+          "Region": "South",
+          "Tier": "Premium"
+        },
+        {
+          "Item": "Home",
+          "Revenue": 569,
+          "Region": "South",
+          "Tier": "Premium"
+        }
+      ]
+    },
+    "semantic_types": {
+      "Item": "Category",
+      "Revenue": "Quantity",
+      "Region": "Category",
+      "Tier": "Category"
+    },
+    "chart_spec": {
+      "chartType": "Lollipop Chart",
+      "encodings": {
+        "x": {
+          "field": "Item"
+        },
+        "y": {
+          "field": "Revenue"
+        },
+        "color": {
+          "field": "Tier"
+        },
+        "column": {
+          "field": "Region"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

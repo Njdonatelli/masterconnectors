@@ -1,0 +1,180 @@
+{
+  "title": "Wrapped market facets (7 panels)",
+  "description": "Seven column facets with four rows each — mini-table height and font size should adapt after wrapping",
+  "chartType": "Bar Table",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "Market": "Americas",
+          "Agency": "Atlas Americas",
+          "Launches": 32
+        },
+        {
+          "Market": "Americas",
+          "Agency": "Beacon Americas",
+          "Launches": 40
+        },
+        {
+          "Market": "Americas",
+          "Agency": "Cosmos Americas",
+          "Launches": 129
+        },
+        {
+          "Market": "Americas",
+          "Agency": "Delta Americas",
+          "Launches": 59
+        },
+        {
+          "Market": "Europe",
+          "Agency": "Atlas Europe",
+          "Launches": 122
+        },
+        {
+          "Market": "Europe",
+          "Agency": "Beacon Europe",
+          "Launches": 75
+        },
+        {
+          "Market": "Europe",
+          "Agency": "Cosmos Europe",
+          "Launches": 177
+        },
+        {
+          "Market": "Europe",
+          "Agency": "Delta Europe",
+          "Launches": 163
+        },
+        {
+          "Market": "Middle East",
+          "Agency": "Atlas Middle East",
+          "Launches": 78
+        },
+        {
+          "Market": "Middle East",
+          "Agency": "Beacon Middle East",
+          "Launches": 150
+        },
+        {
+          "Market": "Middle East",
+          "Agency": "Cosmos Middle East",
+          "Launches": 97
+        },
+        {
+          "Market": "Middle East",
+          "Agency": "Delta Middle East",
+          "Launches": 82
+        },
+        {
+          "Market": "Africa",
+          "Agency": "Atlas Africa",
+          "Launches": 43
+        },
+        {
+          "Market": "Africa",
+          "Agency": "Beacon Africa",
+          "Launches": 170
+        },
+        {
+          "Market": "Africa",
+          "Agency": "Cosmos Africa",
+          "Launches": 87
+        },
+        {
+          "Market": "Africa",
+          "Agency": "Delta Africa",
+          "Launches": 106
+        },
+        {
+          "Market": "East Asia",
+          "Agency": "Atlas East Asia",
+          "Launches": 141
+        },
+        {
+          "Market": "East Asia",
+          "Agency": "Beacon East Asia",
+          "Launches": 196
+        },
+        {
+          "Market": "East Asia",
+          "Agency": "Cosmos East Asia",
+          "Launches": 150
+        },
+        {
+          "Market": "East Asia",
+          "Agency": "Delta East Asia",
+          "Launches": 171
+        },
+        {
+          "Market": "Oceania",
+          "Agency": "Atlas Oceania",
+          "Launches": 101
+        },
+        {
+          "Market": "Oceania",
+          "Agency": "Beacon Oceania",
+          "Launches": 108
+        },
+        {
+          "Market": "Oceania",
+          "Agency": "Cosmos Oceania",
+          "Launches": 95
+        },
+        {
+          "Market": "Oceania",
+          "Agency": "Delta Oceania",
+          "Launches": 182
+        },
+        {
+          "Market": "South Asia",
+          "Agency": "Atlas South Asia",
+          "Launches": 108
+        },
+        {
+          "Market": "South Asia",
+          "Agency": "Beacon South Asia",
+          "Launches": 165
+        },
+        {
+          "Market": "South Asia",
+          "Agency": "Cosmos South Asia",
+          "Launches": 86
+        },
+        {
+          "Market": "South Asia",
+          "Agency": "Delta South Asia",
+          "Launches": 148
+        }
+      ]
+    },
+    "semantic_types": {
+      "Market": "Category",
+      "Agency": "Category",
+      "Launches": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Bar Table",
+      "encodings": {
+        "y": {
+          "field": "Agency"
+        },
+        "x": {
+          "field": "Launches"
+        },
+        "column": {
+          "field": "Market"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      },
+      "chartProperties": {
+        "showPercent": true
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

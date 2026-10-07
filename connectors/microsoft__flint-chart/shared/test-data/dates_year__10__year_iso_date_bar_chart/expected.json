@@ -1,0 +1,155 @@
+{
+  "mark": {
+    "type": "bar",
+    "size": 24
+  },
+  "encoding": {
+    "x": {
+      "field": "Date",
+      "type": "temporal",
+      "scale": {
+        "nice": false,
+        "domain": [
+          "1999-07-02T08:43:38.181Z",
+          "2011-07-02T15:16:21.818Z"
+        ]
+      }
+    },
+    "y": {
+      "field": "Value",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "format": ",.12~g"
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "continuousWidth": 351,
+      "continuousHeight": 285
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10
+    },
+    "axisY": {
+      "labelFontSize": 10
+    },
+    "facet": {
+      "spacing": 29
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "data": {
+    "values": [
+      {
+        "Date": "2000-01-01",
+        "Value": 466
+      },
+      {
+        "Date": "2001-01-01",
+        "Value": 133
+      },
+      {
+        "Date": "2002-01-01",
+        "Value": 345
+      },
+      {
+        "Date": "2003-01-01",
+        "Value": 346
+      },
+      {
+        "Date": "2004-01-01",
+        "Value": 160
+      },
+      {
+        "Date": "2005-01-01",
+        "Value": 305
+      },
+      {
+        "Date": "2006-01-01",
+        "Value": 265
+      },
+      {
+        "Date": "2007-01-01",
+        "Value": 224
+      },
+      {
+        "Date": "2008-01-01",
+        "Value": 129
+      },
+      {
+        "Date": "2009-01-01",
+        "Value": 99
+      },
+      {
+        "Date": "2010-01-01",
+        "Value": 316
+      },
+      {
+        "Date": "2011-01-01",
+        "Value": 130
+      }
+    ]
+  },
+  "_width": 351,
+  "_height": 285,
+  "_options": [
+    {
+      "key": "cornerRadius",
+      "label": "Corners",
+      "type": "continuous",
+      "min": 0,
+      "max": 15,
+      "step": 1,
+      "defaultValue": 0,
+      "applicable": true,
+      "value": 0
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    },
+    {
+      "key": "xAxisType",
+      "label": "X as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": true,
+      "value": "temporal"
+    },
+    {
+      "key": "yAxisType",
+      "label": "Y as",
+      "type": "discrete",
+      "options": [
+        {
+          "value": "temporal",
+          "label": "Temporal"
+        },
+        {
+          "value": "nominal",
+          "label": "Discrete"
+        }
+      ],
+      "applicable": false
+    }
+  ]
+}

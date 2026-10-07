@@ -1,0 +1,63 @@
+{
+  "title": "Percentage Whole-Number (0-100)",
+  "description": "Percentage field with whole-number data (45, 72, 85). Format resolver detects 0-100 representation and uses \"d\" + \"%\" suffix instead of d3's .% format (which would multiply by 100, showing \"7200%\"). WITHOUT this: bare numbers without %. Different from 0-1 test (#2).",
+  "chartType": "Bar Chart",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "subject": "Math",
+          "pass_rate": 46
+        },
+        {
+          "subject": "Science",
+          "pass_rate": 55
+        },
+        {
+          "subject": "English",
+          "pass_rate": 58
+        },
+        {
+          "subject": "History",
+          "pass_rate": 45
+        },
+        {
+          "subject": "Art",
+          "pass_rate": 78
+        },
+        {
+          "subject": "PE",
+          "pass_rate": 84
+        }
+      ]
+    },
+    "semantic_types": {
+      "subject": "Category",
+      "pass_rate": {
+        "semanticType": "Percentage",
+        "intrinsicDomain": [
+          0,
+          100
+        ]
+      }
+    },
+    "chart_spec": {
+      "chartType": "Bar Chart",
+      "encodings": {
+        "x": {
+          "field": "subject"
+        },
+        "y": {
+          "field": "pass_rate"
+        }
+      },
+      "baseSize": {
+        "width": 400,
+        "height": 300
+      }
+    },
+    "options": {
+      "addTooltips": true
+    }
+  }
+}

@@ -1,0 +1,460 @@
+{
+  "config": {
+    "view": {
+      "continuousWidth": 211,
+      "continuousHeight": 300,
+      "stroke": null
+    },
+    "axisX": {
+      "labelLimit": 100,
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "axisY": {
+      "labelFontSize": 10,
+      "titleFontWeight": "normal",
+      "titleFontSize": 11,
+      "titleColor": "#666"
+    },
+    "headerColumn": {
+      "labelLimit": 231
+    },
+    "headerRow": {
+      "labelLimit": 300
+    },
+    "facet": {
+      "spacing": 21
+    },
+    "mark": {
+      "tooltip": true
+    }
+  },
+  "datasets": {
+    "__bt_displayTable": [
+      {
+        "Era": "Historic",
+        "Region": "US",
+        "Agency": "US National",
+        "Missions": 160,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Historic",
+        "Region": "US",
+        "Agency": "US Commercial",
+        "Missions": 195,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Historic",
+        "Region": "US",
+        "Agency": "US Defense",
+        "Missions": 230,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Historic",
+        "Region": "EU",
+        "Agency": "EU National",
+        "Missions": 120,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Historic",
+        "Region": "EU",
+        "Agency": "EU Commercial",
+        "Missions": 155,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Historic",
+        "Region": "EU",
+        "Agency": "EU Defense",
+        "Missions": 190,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Recent",
+        "Region": "US",
+        "Agency": "US National",
+        "Missions": 110,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Recent",
+        "Region": "US",
+        "Agency": "US Commercial",
+        "Missions": 145,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Recent",
+        "Region": "US",
+        "Agency": "US Defense",
+        "Missions": 180,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Recent",
+        "Region": "EU",
+        "Agency": "EU National",
+        "Missions": 70,
+        "__bt_sort": 2,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Recent",
+        "Region": "EU",
+        "Agency": "EU Commercial",
+        "Missions": 105,
+        "__bt_sort": 1,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      },
+      {
+        "Era": "Recent",
+        "Region": "EU",
+        "Agency": "EU Defense",
+        "Missions": 140,
+        "__bt_sort": 0,
+        "__bt_others": false,
+        "__bt_others_num": 0
+      }
+    ]
+  },
+  "data": {
+    "name": "__bt_displayTable"
+  },
+  "facet": {
+    "column": {
+      "field": "Region",
+      "type": "nominal",
+      "sort": null
+    },
+    "row": {
+      "field": "Era",
+      "type": "nominal",
+      "sort": null
+    }
+  },
+  "spec": {
+    "hconcat": [
+      {
+        "width": 95,
+        "height": 155,
+        "title": {
+          "text": "Agency",
+          "anchor": "start",
+          "offset": 6,
+          "fontSize": 11,
+          "fontWeight": "normal",
+          "color": "#999"
+        },
+        "mark": {
+          "type": "bar",
+          "height": {
+            "band": 0.842
+          }
+        },
+        "encoding": {
+          "y": {
+            "field": "Agency",
+            "type": "nominal",
+            "sort": {
+              "field": "__bt_sort",
+              "op": "min",
+              "order": "ascending"
+            },
+            "axis": {
+              "title": null,
+              "domain": false,
+              "ticks": false,
+              "labelFontSize": 12,
+              "labelAlign": "left",
+              "labelPadding": 98,
+              "labelLimit": 98
+            }
+          },
+          "x": {
+            "field": "Missions",
+            "type": "quantitative",
+            "axis": null,
+            "scale": {
+              "nice": false
+            }
+          },
+          "color": {
+            "field": "Missions",
+            "type": "quantitative",
+            "legend": null,
+            "scale": {
+              "range": [
+                "#cdebd3",
+                "#41a25f"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "width": 45,
+        "height": 155,
+        "transform": [
+          {
+            "aggregate": [
+              {
+                "op": "sum",
+                "field": "Missions",
+                "as": "__bt_val"
+              },
+              {
+                "op": "min",
+                "field": "__bt_sort",
+                "as": "__bt_sort"
+              },
+              {
+                "op": "max",
+                "field": "__bt_others_num",
+                "as": "__bt_others_num"
+              }
+            ],
+            "groupby": [
+              "Region",
+              "Era",
+              "Agency"
+            ]
+          },
+          {
+            "joinaggregate": [
+              {
+                "op": "sum",
+                "field": "__bt_val",
+                "as": "__bt_total"
+              }
+            ],
+            "groupby": [
+              "Region",
+              "Era"
+            ]
+          },
+          {
+            "calculate": "datum.__bt_total === 0 ? null : datum.__bt_val / datum.__bt_total",
+            "as": "__bt_pct"
+          }
+        ],
+        "title": {
+          "text": "%",
+          "anchor": "end",
+          "offset": 6,
+          "limit": 41,
+          "fontSize": 11,
+          "fontWeight": "normal",
+          "color": "#999"
+        },
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "middle",
+          "fontSize": 11
+        },
+        "encoding": {
+          "y": {
+            "field": "Agency",
+            "type": "nominal",
+            "sort": {
+              "field": "__bt_sort",
+              "op": "min",
+              "order": "ascending"
+            },
+            "axis": null
+          },
+          "x": {
+            "datum": 1,
+            "axis": null,
+            "scale": {
+              "type": "linear",
+              "domain": [
+                0,
+                1
+              ]
+            }
+          },
+          "text": {
+            "field": "__bt_pct",
+            "type": "quantitative",
+            "format": ".1%"
+          },
+          "color": {
+            "value": "#41a25f"
+          }
+        }
+      },
+      {
+        "width": 61,
+        "height": 155,
+        "transform": [
+          {
+            "aggregate": [
+              {
+                "op": "sum",
+                "field": "Missions",
+                "as": "__bt_val"
+              },
+              {
+                "op": "min",
+                "field": "__bt_sort",
+                "as": "__bt_sort"
+              },
+              {
+                "op": "max",
+                "field": "__bt_others_num",
+                "as": "__bt_others_num"
+              }
+            ],
+            "groupby": [
+              "Region",
+              "Era",
+              "Agency"
+            ]
+          },
+          {
+            "joinaggregate": [
+              {
+                "op": "sum",
+                "field": "__bt_val",
+                "as": "__bt_total"
+              }
+            ],
+            "groupby": [
+              "Region",
+              "Era"
+            ]
+          },
+          {
+            "calculate": "datum.__bt_total === 0 ? null : datum.__bt_val / datum.__bt_total",
+            "as": "__bt_pct"
+          }
+        ],
+        "title": {
+          "text": "Missions",
+          "anchor": "end",
+          "offset": 6,
+          "limit": 57,
+          "fontSize": 11,
+          "fontWeight": "normal",
+          "color": "#999"
+        },
+        "mark": {
+          "type": "text",
+          "align": "right",
+          "baseline": "middle",
+          "fontSize": 11
+        },
+        "encoding": {
+          "y": {
+            "field": "Agency",
+            "type": "nominal",
+            "sort": {
+              "field": "__bt_sort",
+              "op": "min",
+              "order": "ascending"
+            },
+            "axis": null
+          },
+          "x": {
+            "datum": 1,
+            "axis": null,
+            "scale": {
+              "type": "linear",
+              "domain": [
+                0,
+                1
+              ]
+            }
+          },
+          "text": {
+            "field": "__bt_val",
+            "type": "quantitative"
+          },
+          "color": {
+            "value": "#666"
+          }
+        }
+      }
+    ],
+    "resolve": {
+      "scale": {
+        "y": "shared"
+      }
+    },
+    "spacing": 8
+  },
+  "resolve": {
+    "scale": {
+      "y": "independent"
+    }
+  },
+  "height": {
+    "step": 32
+  },
+  "_warnings": [
+    {
+      "severity": "warning",
+      "code": "overflow",
+      "message": "1 of 2 values in 'Era' were omitted (showing top 1).",
+      "channel": "row",
+      "field": "Era"
+    }
+  ],
+  "_width": 211,
+  "_height": 300,
+  "_options": [
+    {
+      "key": "maxRows",
+      "label": "Max Rows",
+      "type": "continuous",
+      "min": 5,
+      "max": 100,
+      "step": 1,
+      "defaultValue": 20,
+      "applicable": true,
+      "value": 20
+    },
+    {
+      "key": "showPercent",
+      "label": "Show % of Total",
+      "type": "binary",
+      "defaultValue": false,
+      "applicable": true,
+      "value": true
+    },
+    {
+      "key": "independentYAxis",
+      "label": "Independent Y",
+      "type": "binary",
+      "applicable": false,
+      "value": false
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "title": "World metro areas",
+  "description": "One circle per metropolitan area, placed by longitude/latitude and sized + coloured by population (millions). The region property is set to World, so the map uses an Equal-Earth frame.",
+  "chartType": "Map",
+  "input": {
+    "data": {
+      "values": [
+        {
+          "city": "Tokyo",
+          "lon": 139.69,
+          "lat": 35.68,
+          "pop": 37.4
+        },
+        {
+          "city": "Delhi",
+          "lon": 77.1,
+          "lat": 28.7,
+          "pop": 32.9
+        },
+        {
+          "city": "Shanghai",
+          "lon": 121.47,
+          "lat": 31.23,
+          "pop": 29.2
+        },
+        {
+          "city": "Dhaka",
+          "lon": 90.41,
+          "lat": 23.81,
+          "pop": 23.2
+        },
+        {
+          "city": "São Paulo",
+          "lon": -46.63,
+          "lat": -23.55,
+          "pop": 22.6
+        },
+        {
+          "city": "Mexico City",
+          "lon": -99.13,
+          "lat": 19.43,
+          "pop": 22.3
+        },
+        {
+          "city": "Cairo",
+          "lon": 31.24,
+          "lat": 30.04,
+          "pop": 22.2
+        },
+        {
+          "city": "Beijing",
+          "lon": 116.41,
+          "lat": 39.9,
+          "pop": 21.7
+        },
+        {
+          "city": "Mumbai",
+          "lon": 72.88,
+          "lat": 19.08,
+          "pop": 21.3
+        },
+        {
+          "city": "Osaka",
+          "lon": 135.5,
+          "lat": 34.69,
+          "pop": 19
+        },
+        {
+          "city": "New York",
+          "lon": -74.01,
+          "lat": 40.71,
+          "pop": 18.9
+        },
+        {
+          "city": "Karachi",
+          "lon": 67.01,
+          "lat": 24.86,
+          "pop": 17.2
+        },
+        {
+          "city": "Istanbul",
+          "lon": 28.98,
+          "lat": 41.01,
+          "pop": 16
+        },
+        {
+          "city": "Lagos",
+          "lon": 3.38,
+          "lat": 6.52,
+          "pop": 15.9
+        },
+        {
+          "city": "Buenos Aires",
+          "lon": -58.38,
+          "lat": -34.6,
+          "pop": 15.4
+        },
+        {
+          "city": "Moscow",
+          "lon": 37.62,
+          "lat": 55.75,
+          "pop": 12.6
+        },
+        {
+          "city": "Los Angeles",
+          "lon": -118.24,
+          "lat": 34.05,
+          "pop": 12.4
+        },
+        {
+          "city": "Paris",
+          "lon": 2.35,
+          "lat": 48.86,
+          "pop": 11.1
+        },
+        {
+          "city": "Jakarta",
+          "lon": 106.85,
+          "lat": -6.21,
+          "pop": 11.1
+        },
+        {
+          "city": "Lima",
+          "lon": -77.04,
+          "lat": -12.05,
+          "pop": 11
+        },
+        {
+          "city": "Bangkok",
+          "lon": 100.5,
+          "lat": 13.76,
+          "pop": 10.9
+        },
+        {
+          "city": "Seoul",
+          "lon": 126.98,
+          "lat": 37.57,
+          "pop": 9.9
+        },
+        {
+          "city": "Johannesburg",
+          "lon": 28.05,
+          "lat": -26.2,
+          "pop": 9.6
+        },
+        {
+          "city": "London",
+          "lon": -0.13,
+          "lat": 51.51,
+          "pop": 9.5
+        },
+        {
+          "city": "Sydney",
+          "lon": 151.21,
+          "lat": -33.87,
+          "pop": 5.3
+        }
+      ]
+    },
+    "semantic_types": {
+      "city": "City",
+      "lon": "Longitude",
+      "lat": "Latitude",
+      "pop": "Quantity"
+    },
+    "chart_spec": {
+      "chartType": "Map",
+      "encodings": {
+        "longitude": "lon",
+        "latitude": "lat",
+        "size": "pop",
+        "color": "pop"
+      },
+      "baseSize": {
+        "width": 560,
+        "height": 360
+      },
+      "chartProperties": {
+        "region": "world"
+      }
+    }
+  }
+}
